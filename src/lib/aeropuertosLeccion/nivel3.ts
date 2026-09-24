@@ -338,9 +338,9 @@ export const NIVEL_3: DocScreen[] = [
             titulo: "El indicador de dirección del viento",
             imagen: {
               src: "/modulos/aeropuertos/ap-11-03-medidas-manga.webp",
-              alt: "Esquema de referencia EASA de una manga de al menos 3,6 m de largo y 0,9 m de diámetro mayor, junto al círculo blanco de 15 m de diámetro y 1,2 m de ancho",
+              alt: "Esquema de las medidas de referencia de una manga de al menos 3,6 m de largo y 0,9 m de diámetro mayor, junto al círculo blanco de 15 m de diámetro y 1,2 m de ancho",
             },
-            puntos: ["Como referencia técnica EASA, el cono de tela mide al menos 3,6 m de largo y 0,9 m en la boca ancha. La banda circular que ubica al menos una manga mide 15 m de diámetro y 1,2 m de ancho. Estas cotas explican su visibilidad; no sirven para calcular nudos a ojo."],
+            puntos: ["El cono de tela mide al menos 3,6 m de largo y 0,9 m en la boca ancha. La banda circular que ubica al menos una manga mide 15 m de diámetro y 1,2 m de ancho. Estas cotas explican su visibilidad; no sirven para calcular nudos a ojo."],
           },
           {
             titulo: "Las balizas",
@@ -364,7 +364,7 @@ export const NIVEL_3: DocScreen[] = [
               src: "/modulos/aeropuertos/ap-11-06-area-senales.webp",
               alt: "Área de señales vista desde arriba con borde blanco, un panel rojo de dos diagonales, otro de una diagonal y una haltera blanca",
             },
-            puntos: ["Si se instala, el área de señales es una superficie horizontal de al menos 9 m de lado con borde blanco de al menos 0,3 m, según la referencia EASA. Dos diagonales amarillas en rojo prohíben aterrizar; una pide precauciones especiales. La haltera blanca limita aterrizajes, despegues y rodaje a pistas y calles. Consulta la información publicada antes de actuar por un panel aislado."],
+            puntos: ["Si se instala, el área de señales es una superficie horizontal de al menos 9 m de lado con borde blanco de al menos 0,3 m. Dos diagonales amarillas en rojo prohíben aterrizar; una pide precauciones especiales. La haltera blanca limita aterrizajes, despegues y rodaje a pistas y calles. Consulta la información publicada antes de actuar por un panel aislado."],
           },
         ],
       },

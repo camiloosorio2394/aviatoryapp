@@ -1,0 +1,966 @@
+{
+  "banco": "performance_evaluacion",
+  "descripcion": "Evaluación de Performance: 60 preguntas de opción múltiple sobre los 40 temas de los siete niveles. Cada intento toma 25 al azar y el servidor baraja las opciones. Certificación según 14 CFR 25 y CS-25; operación según 14 CFR 121 y el Reglamento (UE) 965/2012, y se dice cuál cuando difieren. Ninguna pregunta repite un ejercicio resuelto ni un escenario del módulo.",
+  "preguntas": [
+    {
+      "id": "ev-01",
+      "enunciado": "Un avión sale con más peso del previsto. ¿Qué le pasa a la velocidad de despegue y a la capacidad de ascenso?",
+      "opciones": [
+        "La velocidad sube y el gradiente empeora",
+        "La velocidad sube y el gradiente mejora",
+        "La velocidad baja y el gradiente empeora",
+        "La velocidad baja y el gradiente mejora"
+      ],
+      "correcta": 0,
+      "explicacion": "Más peso exige más sustentación, y eso significa más velocidad. Y el mismo exceso de empuje tiene que levantar más masa, así que el gradiente cae. El peso empeora las dos cosas a la vez, y es la única variable del cálculo que el despacho puede mover.",
+      "metadatos": {
+        "nivel": 1,
+        "tema": 2
+      }
+    },
+    {
+      "id": "ev-02",
+      "enunciado": "El QNH del aeródromo está bastante por debajo de 1013. ¿Qué ocurre con la altitud de presión?",
+      "opciones": [
+        "Queda igual que la elevación publicada",
+        "Es menor que la elevación del aeródromo",
+        "Es mayor que la elevación del aeródromo",
+        "Depende solo de la temperatura del momento"
+      ],
+      "correcta": 2,
+      "explicacion": "Con presión baja, el avión se comporta como si el aeródromo estuviera más alto de lo que está: la altitud de presión sube por encima de la elevación. Cerca del nivel del mar, cada hectopascal equivale a unos 27 ft. La temperatura no entra aquí: esa corrige la altitud de densidad.",
+      "metadatos": {
+        "nivel": 1,
+        "tema": 2
+      }
+    },
+    {
+      "id": "ev-03",
+      "enunciado": "¿Qué describe la altitud de densidad?",
+      "opciones": [
+        "La altitud de presión corregida por temperatura",
+        "La elevación corregida por el QNH del momento",
+        "La altitud que marca el altímetro con 1013 puesto",
+        "La altitud máxima que el avión puede sostener hoy"
+      ],
+      "correcta": 0,
+      "explicacion": "Es la altitud a la que, en atmósfera estándar, encontrarías la densidad que hay hoy aquí. No se introduce en ningún cálculo: el sistema trabaja con presión y temperatura por separado. Sirve para entender la penalización. Lo que marca el altímetro con 1013 es la altitud de presión.",
+      "metadatos": {
+        "nivel": 1,
+        "tema": 2
+      }
+    },
+    {
+      "id": "ev-04",
+      "enunciado": "¿A cuál de las cuatro distancias declaradas suma una zona libre de obstáculos?",
+      "opciones": [
+        "A la ASDA, porque ayuda a detener el avión",
+        "A la TODA, porque es aire despejado para subir",
+        "A la TORA, porque alarga la carrera disponible",
+        "A la LDA, porque protege la aproximación"
+      ],
+      "correcta": 1,
+      "explicacion": "La zona libre no es pavimento: es un volumen de aire vigilado más allá del extremo, y sirve para que el avión termine de ganar los últimos pies hasta los 35 ft. Solo suma a la TODA. La que suma a la ASDA es la zona de parada, que sí es pavimento.",
+      "metadatos": {
+        "nivel": 1,
+        "tema": 3
+      }
+    },
+    {
+      "id": "ev-05",
+      "enunciado": "¿Qué puedes hacer sobre una zona de parada?",
+      "opciones": [
+        "Rodar hasta ella para ganar carrera de despegue",
+        "Aterrizar si el umbral está desplazado",
+        "Detener el avión tras un despegue rechazado",
+        "Iniciar el despegue desde su comienzo"
+      ],
+      "correcta": 2,
+      "explicacion": "Es pavimento del ancho de la pista preparado para aguantar un avión que se detiene tras rechazar el despegue, y por eso suma a la ASDA. No sirve para rodar, ni para despegar, ni para aterrizar: no es pista de uso normal.",
+      "metadatos": {
+        "nivel": 1,
+        "tema": 3
+      }
+    },
+    {
+      "id": "ev-06",
+      "enunciado": "En una cabecera se desplaza el umbral 300 m. ¿Qué distancias declaradas cambian en esa dirección?",
+      "opciones": [
+        "Solo la LDA",
+        "La LDA y la TORA",
+        "Las cuatro, en 300 m",
+        "La LDA y la ASDA"
+      ],
+      "correcta": 0,
+      "explicacion": "El tramo anterior al umbral desplazado sigue sirviendo para rodar y para iniciar el despegue, así que TORA, TODA y ASDA no se tocan. Lo único que se recorta es la distancia disponible para aterrizar, y solo en esa dirección: la recíproca queda igual.",
+      "metadatos": {
+        "nivel": 1,
+        "tema": 3
+      }
+    },
+    {
+      "id": "ev-07",
+      "enunciado": "En la demostración de VMCG, ¿con qué se mantiene el avión sobre el eje?",
+      "opciones": [
+        "Con timón y frenos diferenciales",
+        "Con timón y dirección de rueda de nariz",
+        "Con timón, alerones y empuje asimétrico",
+        "Solo con el timón de dirección"
+      ],
+      "correcta": 3,
+      "explicacion": "Se demuestra sin usar la dirección de rueda de nariz, porque en una pista resbaladiza esa ayuda puede no existir. Por debajo de esa velocidad el timón no tiene flujo suficiente y el avión se sale, aunque el piloto haga todo bien. De ahí sale que V1 nunca pueda ser menor que VMCG.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 5
+      }
+    },
+    {
+      "id": "ev-08",
+      "enunciado": "¿Qué hay entre VEF y V1 en el cálculo de despegue?",
+      "opciones": [
+        "El tiempo de reconocimiento de la falla",
+        "El tramo de rotación hasta el despegue",
+        "El margen de dos segundos que añade la norma",
+        "Nada: las dos son la misma velocidad"
+      ],
+      "correcta": 0,
+      "explicacion": "El motor se supone que falla en VEF; V1 llega después, y entre las dos el avión sigue acelerando mientras el piloto reconoce la falla. Por eso V1 no puede ser menor que VEF más la velocidad ganada en ese tiempo. El margen de dos segundos es otra cosa y se añade al final de la distancia de parada.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 5
+      }
+    },
+    {
+      "id": "ev-09",
+      "enunciado": "¿Cuál de estas es una limitación real de V1?",
+      "opciones": [
+        "Nunca puede superar la velocidad de rotación",
+        "Nunca puede ser menor que V2",
+        "Siempre queda por encima de VLOF",
+        "Se fija en el 80 % de la velocidad de rotación"
+      ],
+      "correcta": 0,
+      "explicacion": "V1 tiene que quedar entre VMCG por abajo y VR por arriba: decidir continuar después de rotar no tendría sentido. Tampoco puede superar VMBE, la máxima que los frenos pueden absorber. V2 y VLOF son posteriores y no acotan V1 por abajo.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 5
+      }
+    },
+    {
+      "id": "ev-10",
+      "enunciado": "¿Qué garantiza la velocidad de rotación elegida en el cálculo?",
+      "opciones": [
+        "Que el tren se pueda retraer sin sobrecarga",
+        "Que el avión alcance V2 antes de los 35 ft",
+        "Que la carrera no supere el 115 % de la disponible",
+        "Que el avión despegue por encima de VMBE"
+      ],
+      "correcta": 1,
+      "explicacion": "VR está elegida para que la trayectoria certificada se cumpla: con un motor menos, el avión tiene que llegar a 35 ft con V2. Además no puede ser menor que V1 ni que el 105 % de VMC. Por eso rotar antes o más lento que lo previsto consume pista que el cálculo no tenía.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 5
+      }
+    },
+    {
+      "id": "ev-11",
+      "enunciado": "V2 no puede ser menor que unos múltiplos mínimos. ¿De qué velocidades salen esos múltiplos?",
+      "opciones": [
+        "De VMCG y de la velocidad de rotación",
+        "De VLOF y de la velocidad máxima del neumático",
+        "De la velocidad de referencia de pérdida y de VMC",
+        "De V1 y de la velocidad de maniobra"
+      ],
+      "correcta": 2,
+      "explicacion": "El mínimo se fija en múltiplos de la velocidad de referencia de pérdida —1,13 o 1,08 según el tipo de avión— y en no menos de 1,10 veces la mínima de control. Es la velocidad a la que el avión rinde el mejor gradiente disponible con un motor menos en esa configuración.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 5
+      }
+    },
+    {
+      "id": "ev-12",
+      "enunciado": "Un piloto rota bastante antes de VR. ¿Qué efecto tiene sobre el despegue?",
+      "opciones": [
+        "Adelanta el despegue y acorta la carrera disponible",
+        "No cambia nada mientras el avión alcance V2 ya en el aire",
+        "Sube la resistencia y puede no llegar a la velocidad exigida",
+        "Mejora el gradiente porque el ala empieza a trabajar antes"
+      ],
+      "correcta": 2,
+      "explicacion": "Levantar la nariz antes de tiempo aumenta la resistencia y el avión puede no tener la velocidad exigida al pasar los 35 ft, además del riesgo de golpear la cola. Los números suponen una rotación a la velocidad y al ritmo usados en la certificación.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 5
+      }
+    },
+    {
+      "id": "ev-13",
+      "enunciado": "La distancia de aceleración y parada incluye un tramo equivalente a dos segundos rodando a V1. ¿Qué representa?",
+      "opciones": [
+        "El tiempo que tarda el piloto en reconocer la falla",
+        "Un margen que añade la norma sobre la maniobra demostrada",
+        "El retardo en desplegar los spoilers automáticos",
+        "El tiempo de respuesta del sistema de frenos"
+      ],
+      "correcta": 1,
+      "explicacion": "El tiempo de reconocimiento ya está contado entre VEF y V1. Esos dos segundos son un margen añadido por la norma para cubrir las demoras y la dispersión de una operación real frente a la maniobra de ensayo, y se suman a la distancia de parada.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 6
+      }
+    },
+    {
+      "id": "ev-14",
+      "enunciado": "En pista seca, ¿qué papel tiene la reversa en la distancia de aceleración y parada certificada?",
+      "opciones": [
+        "Ninguno: no se acredita como medio de desaceleración",
+        "Se acredita al 50 % de su efecto demostrado",
+        "Se acredita solo si hay dos reversas operativas",
+        "Se acredita igual que en pista mojada"
+      ],
+      "correcta": 0,
+      "explicacion": "En seco la distancia se demuestra solo con frenos y spoilers. La reversa es margen que tienes pero que el número no te vendió. En mojado cambia: ahí sí puede acreditarse con los procedimientos recomendados, y entonces una reversa inoperativa sí afecta el cálculo.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 6
+      }
+    },
+    {
+      "id": "ev-15",
+      "enunciado": "Vas a despegar de una pista mojada con una reversa desactivada por lista de desviaciones. ¿Por qué importa más que en seco?",
+      "opciones": [
+        "Porque en mojado el frenado automático no funciona",
+        "Porque en mojado la reversa puede estar dentro del cálculo",
+        "Porque en mojado la reversa sustituye a los spoilers",
+        "Porque en mojado V1 se calcula sin margen de parada"
+      ],
+      "correcta": 1,
+      "explicacion": "En seco la reversa nunca estuvo contabilizada, así que perderla no cambia el número. En mojado puede estar acreditada como medio adicional de desaceleración, y entonces perder una sí alarga la distancia de parada calculada.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 6
+      }
+    },
+    {
+      "id": "ev-16",
+      "enunciado": "¿Dónde termina la distancia de despegue con un motor inoperativo?",
+      "opciones": [
+        "Cuando el tren queda completamente retraído",
+        "Al alcanzar la altura de aceleración publicada",
+        "A 35 ft sobre la superficie, con V2 alcanzada",
+        "Al pasar los 400 ft sobre la superficie"
+      ],
+      "correcta": 2,
+      "explicacion": "Los 35 ft son el punto donde la norma da por terminada la distancia de despegue y donde empieza la trayectoria que se analiza para obstáculos. Los 400 ft marcan otra cosa: hasta ahí no se cambia el empuje ni se baja de V2.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 7
+      }
+    },
+    {
+      "id": "ev-17",
+      "enunciado": "Un campo equilibrado significa que...",
+      "opciones": [
+        "la pista alcanza con margen para cualquier peso",
+        "la distancia para parar y la de continuar son iguales",
+        "la pista tiene zona de parada y zona libre del mismo largo",
+        "V1 quedó justo a la mitad entre VMCG y VR"
+      ],
+      "correcta": 1,
+      "explicacion": "Es el punto donde la distancia de aceleración y parada iguala a la de aceleración y continuación, y da la menor pista con la que el despegue es posible. No dice nada sobre si sobra o no: un campo equilibrado puede estar justo.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 8
+      }
+    },
+    {
+      "id": "ev-18",
+      "enunciado": "Si el cálculo sube V1, ¿qué le pasa a las dos distancias?",
+      "opciones": [
+        "Las dos crecen, porque se acelera más tiempo",
+        "Crece la de parar y baja la de continuar",
+        "Las dos bajan, porque se decide antes",
+        "Baja la de parar y crece la de continuar"
+      ],
+      "correcta": 1,
+      "explicacion": "Con una V1 más alta llegas más rápido al punto de decisión: hace falta más pista para detenerte y menos para continuar. Bajarla hace lo contrario. Dibujadas contra V1, las dos curvas se cruzan, y ese cruce es el campo equilibrado.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 8
+      }
+    },
+    {
+      "id": "ev-19",
+      "enunciado": "¿Por qué un despegue rechazado a alta velocidad es tan crítico?",
+      "opciones": [
+        "Porque los spoilers pierden efecto por encima de cierta velocidad",
+        "Porque la energía a disipar crece con el cuadrado de la velocidad",
+        "Porque la reversa deja de acreditarse a alta velocidad",
+        "Porque el timón pierde autoridad al frenar fuerte"
+      ],
+      "correcta": 1,
+      "explicacion": "Rechazar a 150 kt no es un poco peor que a 100: es algo más del doble de energía, y casi toda termina en los frenos convertida en calor. Por eso existe una velocidad máxima de energía de frenos y por eso tras un rechazo fuerte hay tiempos de enfriamiento.",
+      "metadatos": {
+        "nivel": 2,
+        "tema": 9
+      }
+    },
+    {
+      "id": "ev-20",
+      "enunciado": "¿Con cuál de las trayectorias de despegue se comprueba que el avión libra un obstáculo?",
+      "opciones": [
+        "Con la trayectoria real de ese día",
+        "Con la demostrada en certificación",
+        "Con la neta, que viene degradada",
+        "Con el promedio de la real y la demostrada"
+      ],
+      "correcta": 2,
+      "explicacion": "La neta es la demostrada menos un gradiente fijo que la norma resta a propósito, para cubrir la variabilidad entre aviones, pilotos y días. Como el obstáculo se libra con ella, el margen real que tienes en vuelo es mayor que el que aparece en el papel.",
+      "metadatos": {
+        "nivel": 3,
+        "tema": 10
+      }
+    },
+    {
+      "id": "ev-21",
+      "enunciado": "En un bimotor, ¿cuánto se le resta al gradiente demostrado para obtener la trayectoria neta?",
+      "opciones": [
+        "0,8 %",
+        "1,0 %",
+        "2,4 %",
+        "0,3 %"
+      ],
+      "correcta": 0,
+      "explicacion": "La reducción depende del número de motores: 0,8 % en bimotores, 0,9 % en trimotores y 1,0 % en cuatrimotores. El 2,4 % es otra cosa: el gradiente mínimo del segundo segmento de un bimotor. El 0,3 % es el del primer segmento de un trimotor.",
+      "metadatos": {
+        "nivel": 3,
+        "tema": 10
+      }
+    },
+    {
+      "id": "ev-22",
+      "enunciado": "¿En qué configuración está el avión durante el segundo segmento?",
+      "opciones": [
+        "Tren abajo, flaps de despegue, empuje de despegue",
+        "Tren arriba, flaps de despegue, empuje de despegue",
+        "Tren arriba, limpio, empuje máximo continuo",
+        "Tren arriba, flaps de despegue, empuje de ascenso"
+      ],
+      "correcta": 1,
+      "explicacion": "El segundo segmento empieza justo cuando el tren queda arriba y termina en la altura de aceleración, con los flaps de despegue todavía puestos, empuje de despegue y velocidad V2. Limpio y con empuje máximo continuo es el segmento final.",
+      "metadatos": {
+        "nivel": 3,
+        "tema": 11
+      }
+    },
+    {
+      "id": "ev-23",
+      "enunciado": "¿Qué gradiente mínimo exige el segundo segmento a un bimotor con el motor crítico inoperativo?",
+      "opciones": [
+        "1,2 %",
+        "2,1 %",
+        "2,4 %",
+        "3,2 %"
+      ],
+      "correcta": 2,
+      "explicacion": "Son 2,4 % en bimotores, 2,7 % en trimotores y 3,0 % en cuatrimotores. El 1,2 % es el del segmento final de un bimotor, el 2,1 % es el de aproximación y el 3,2 % es el de aterrizaje con todos los motores.",
+      "metadatos": {
+        "nivel": 3,
+        "tema": 11
+      }
+    },
+    {
+      "id": "ev-24",
+      "enunciado": "Hasta 400 ft sobre la superficie, ¿qué exige la norma durante el despegue?",
+      "opciones": [
+        "Mantener la velocidad lo más cerca posible de V2 sin bajar de ella",
+        "Retraer los flaps en cuanto el tren esté arriba",
+        "Acelerar hasta la velocidad de configuración limpia",
+        "Reducir a empuje de ascenso en cuanto se libra el obstáculo"
+      ],
+      "correcta": 0,
+      "explicacion": "Hasta 400 ft no se hace ningún cambio de empuje que requiera acción del piloto y la velocidad se mantiene lo más cerca posible de V2, nunca por debajo. La aceleración y la retracción de flaps vienen después, en el segmento de aceleración.",
+      "metadatos": {
+        "nivel": 3,
+        "tema": 11
+      }
+    },
+    {
+      "id": "ev-25",
+      "enunciado": "Dos aviones suben a 1 500 ft/min, uno a 160 kt y otro a 280 kt. ¿Qué puedes afirmar?",
+      "opciones": [
+        "Los dos tienen el mismo gradiente de ascenso",
+        "El más rápido tiene mejor gradiente",
+        "El más lento tiene mejor gradiente",
+        "No se puede comparar sin saber el peso"
+      ],
+      "correcta": 2,
+      "explicacion": "Con el mismo régimen, el que va más rápido recorre mucho más suelo mientras gana los mismos pies, así que su pendiente es menor. Al obstáculo le importa la pendiente, no los pies por minuto: esa es la diferencia entre gradiente y régimen de ascenso.",
+      "metadatos": {
+        "nivel": 3,
+        "tema": 12
+      }
+    },
+    {
+      "id": "ev-26",
+      "enunciado": "¿Por qué el segundo segmento suele ser el tramo más exigente del despegue?",
+      "opciones": [
+        "Porque el tren todavía está abajo y arrastra durante todo el tramo",
+        "Porque se vuela con la velocidad más alta de toda la fase de despegue",
+        "Porque coincide con la retracción de flaps y el cambio de empuje",
+        "Porque junta peso máximo, flaps puestos, V2 baja y un motor menos"
+      ],
+      "correcta": 3,
+      "explicacion": "Es la peor combinación posible: el avión todavía no quemó nada, lleva flaps de despegue que generan resistencia, vuela lento y le falta el motor crítico. Lo único a favor es que el tren ya está arriba. Por eso tantas veces es lo que limita el peso.",
+      "metadatos": {
+        "nivel": 3,
+        "tema": 13
+      }
+    },
+    {
+      "id": "ev-27",
+      "enunciado": "Según la regla de operación estadounidense, ¿por cuánto debe librar un obstáculo la trayectoria neta en vertical?",
+      "opciones": [
+        "Al menos 35 ft",
+        "Al menos 50 ft",
+        "Al menos 200 ft",
+        "Al menos 1 000 ft"
+      ],
+      "correcta": 0,
+      "explicacion": "Son 35 ft en vertical, o alternativamente 200 ft en horizontal dentro del límite del aeródromo y 300 ft fuera de él. Ese margen se aplica sobre la trayectoria neta, que ya viene degradada, así que la separación real es mayor.",
+      "metadatos": {
+        "nivel": 3,
+        "tema": 14
+      }
+    },
+    {
+      "id": "ev-28",
+      "enunciado": "¿Qué diferencia a un procedimiento con motor inoperativo de la salida normalizada publicada?",
+      "opciones": [
+        "Que lo diseñó el control de tránsito para separar tráfico",
+        "Que se vuela con todos los motores a empuje reducido",
+        "Que está pensado para librar terreno con un motor menos",
+        "Que solo aplica de noche o en baja visibilidad"
+      ],
+      "correcta": 2,
+      "explicacion": "La salida publicada se diseñó para ordenar el tránsito con todos los motores, y supone gradientes que un avión con uno menos puede no sostener. El procedimiento con motor inoperativo lo diseña el operador para librar el terreno y puede llevarte por otro lado.",
+      "metadatos": {
+        "nivel": 3,
+        "tema": 15
+      }
+    },
+    {
+      "id": "ev-29",
+      "enunciado": "El cálculo devuelve un peso máximo por cada limitación. ¿Cuál manda?",
+      "opciones": [
+        "El menor de todos",
+        "El promedio de todos",
+        "El estructural, siempre",
+        "El de pista, salvo que haya obstáculos"
+      ],
+      "correcta": 0,
+      "explicacion": "Gana el más restrictivo, y la limitación que lo produjo es el factor limitante. Por eso resolver una limitación puede destapar otra: bajas peso para cumplir el ascenso y aparece la pista como nueva limitación en otra cabecera.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 16
+      }
+    },
+    {
+      "id": "ev-30",
+      "enunciado": "Para que un despegue sea legal por longitud de pista, ¿qué debe cumplirse?",
+      "opciones": [
+        "Que la carrera hasta la rotación quepa en la TORA",
+        "Que parar quepa en la ASDA y continuar quepa en la TODA",
+        "Que la distancia de parada quepa en la TORA",
+        "Que la TODA sea mayor que la ASDA"
+      ],
+      "correcta": 1,
+      "explicacion": "Son dos condiciones a la vez, y ninguna sustituye a la otra: la distancia de aceleración y parada tiene que caber en la ASDA, y la de aceleración y continuación en la TODA. Además hay que comparar con el caso de todos los motores afectado por el 115 %.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 17
+      }
+    },
+    {
+      "id": "ev-31",
+      "enunciado": "¿Qué tope tiene la zona libre de obstáculos que puede contabilizarse en el cálculo?",
+      "opciones": [
+        "La mitad de la longitud de la pista",
+        "La mitad de la longitud de la zona de parada",
+        "Un tercio de la longitud de la pista",
+        "No tiene tope si está publicada"
+      ],
+      "correcta": 0,
+      "explicacion": "La regla de operación limita la zona libre contabilizada a la mitad de la longitud de la pista, por larga que esté publicada. Es un tope que a veces sorprende en pistas cortas con mucha zona libre delante.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 17
+      }
+    },
+    {
+      "id": "ev-32",
+      "enunciado": "En un aeropuerto alto y caliente con pista de sobra, el resultado dice que limita el ascenso. ¿Qué lo explica?",
+      "opciones": [
+        "El aire poco denso reduce el empuje y cae el gradiente",
+        "La pista larga obliga a usar más flaps de lo normal",
+        "La altitud sube la velocidad de rotación por encima del límite del neumático",
+        "El viento en altura degrada la trayectoria neta"
+      ],
+      "correcta": 0,
+      "explicacion": "Menos densidad significa menos empuje, menos exceso sobre la resistencia y menos gradiente disponible. Como el exigido es fijo, la única salida es bajar el peso, o reducir la configuración de flaps si el caso lo permite. Añadir pista no sirve de nada.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 18
+      }
+    },
+    {
+      "id": "ev-33",
+      "enunciado": "El cálculo indica que limita un obstáculo, aunque la pista mide 4 000 m. ¿Cómo es posible?",
+      "opciones": [
+        "Porque la pista larga obliga a rotar más tarde",
+        "Porque lo que limita está después de la pista",
+        "Porque una pista larga reduce el gradiente disponible",
+        "Porque con pista larga no se puede usar zona libre"
+      ],
+      "correcta": 1,
+      "explicacion": "El obstáculo se libra con la trayectoria neta y un motor menos, y esa trayectoria arranca a 35 ft al final de la distancia de despegue. Cuanto más pesa el avión, más despacio sube y más lejos está cuando gana la altura que necesita.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 19
+      }
+    },
+    {
+      "id": "ev-34",
+      "enunciado": "¿Cuál es la razón principal para despegar con empuje reducido cuando sobra performance?",
+      "opciones": [
+        "Cumplir los límites de ruido de la mayoría de aeródromos",
+        "Bajar las velocidades de despegue y acortar la carrera",
+        "Alargar la vida del motor y reducir el mantenimiento",
+        "Poder usar una configuración de flaps menor"
+      ],
+      "correcta": 2,
+      "explicacion": "La temperatura de los gases es lo que más desgasta una turbina, y reducir el empuje de despegue alarga de forma importante el tiempo entre remociones. Menos ruido y menos consumo son efectos secundarios, no el motivo. La carrera se alarga, no se acorta.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 20
+      }
+    },
+    {
+      "id": "ev-35",
+      "enunciado": "Según la guía de la autoridad estadounidense, ¿hasta cuánto puede reducirse el empuje con el método de la temperatura asumida?",
+      "opciones": [
+        "Hasta un 10 %",
+        "Hasta un 25 %",
+        "Hasta un 40 %",
+        "No hay tope mientras quede margen"
+      ],
+      "correcta": 1,
+      "explicacion": "El tope es del 25 % respecto al empuje de despegue con clasificación plena. Y hay otra condición que se olvida: las velocidades se comprueban contra las mínimas de control a la temperatura real, no a la asumida, porque si llevas las palancas al tope produces empuje pleno.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 20
+      }
+    },
+    {
+      "id": "ev-36",
+      "enunciado": "La pista tiene nieve fundente y el cálculo deja mucho margen. ¿Puedes usar temperatura asumida?",
+      "opciones": [
+        "Sí, porque el margen es lo único que condiciona su uso",
+        "Sí, siempre que la reducción no pase del 25 %",
+        "No: con pista contaminada no se usa empuje reducido",
+        "Solo si las dos reversas están operativas"
+      ],
+      "correcta": 2,
+      "explicacion": "Con agua estancada, nieve, nieve fundente o hielo, la guía desaconseja el empuje reducido y fabricantes y operadores lo prohíben. Lo que sí puede aplicar ahí es un derate, que baja las mínimas de control y ayuda al control direccional: es la herramienta contraria.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 20
+      }
+    },
+    {
+      "id": "ev-37",
+      "enunciado": "Despegas con un derate fijo. ¿Puedes subir el empuje durante la carrera?",
+      "opciones": [
+        "No, salvo emergencia: las velocidades se calcularon para ese empuje",
+        "Sí, en cualquier momento, igual que con temperatura asumida",
+        "Sí, siempre que no pases del 25 % adicional",
+        "Sí, pero solo después de la rotación"
+      ],
+      "correcta": 0,
+      "explicacion": "Con derate el motor pasa a tener otra clasificación certificada y las mínimas de control se recalcularon más bajas para ese empuje. Subirlo invalida esa base. Con temperatura asumida es al revés: el límite del motor no cambió y puedes ir a empuje pleno cuando quieras.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 21
+      }
+    },
+    {
+      "id": "ev-38",
+      "enunciado": "Eliges una configuración con más flaps para el despegue. ¿Qué mejora y qué empeora?",
+      "opciones": [
+        "Mejoran carrera y gradiente a la vez",
+        "Se acorta la carrera y empeora el gradiente",
+        "Se alarga la carrera y mejora el gradiente",
+        "Empeoran carrera y gradiente a la vez"
+      ],
+      "correcta": 1,
+      "explicacion": "Más flaps dan más sustentación a baja velocidad, así que las velocidades bajan y la carrera se acorta, pero añaden resistencia y el gradiente empeora. La regla sale sola: si el problema es la pista, más flaps; si el problema es subir, menos.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 22
+      }
+    },
+    {
+      "id": "ev-39",
+      "enunciado": "¿Cuándo se considera contaminada una pista?",
+      "opciones": [
+        "Cuando hay humedad visible sobre cualquier parte del pavimento",
+        "Cuando el contaminante cubre más del 25 % del área evaluada",
+        "Cuando hay más de 1 mm de agua en cualquier punto de la superficie",
+        "Cuando el frenado reportado baja de bueno a medio en algún tercio"
+      ],
+      "correcta": 1,
+      "explicacion": "Hace falta que el contaminante cubra más del 25 % del área evaluada, con más de 3 mm de agua o nieve fundente, o con nieve o hielo. Con humedad o agua hasta 3 mm y sin llegar a esa cobertura, la pista es mojada, que es otra categoría.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 23
+      }
+    },
+    {
+      "id": "ev-40",
+      "enunciado": "¿Por qué la nieve fundente castiga el despegue más que una pista simplemente mojada?",
+      "opciones": [
+        "Porque degrada el frenado y además frena la aceleración",
+        "Porque impide acreditar la reversa en el cálculo",
+        "Porque obliga a usar la configuración de flaps máxima",
+        "Porque eleva la velocidad mínima de control en tierra"
+      ],
+      "correcta": 0,
+      "explicacion": "El contaminante suelto añade resistencia mientras aceleras, así que llegas más tarde a V1 y a VR, y encima el frenado está degradado. Toca los dos lados del cálculo. Una pista mojada afecta sobre todo al frenado.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 23
+      }
+    },
+    {
+      "id": "ev-41",
+      "enunciado": "Te reportan la pista en 5/3/2 y vas a aterrizar por la cabecera contraria a la del designador más bajo. ¿Cómo lo lees?",
+      "opciones": [
+        "Igual, porque el código no depende del sentido",
+        "Al revés: tu primer tercio es el 2",
+        "Tomando el promedio de los tres, que es 3",
+        "Usando solo el peor de los tres, que es el 2"
+      ],
+      "correcta": 1,
+      "explicacion": "Los tercios se publican siempre desde el designador más bajo, así que operando en sentido contrario hay que invertir la secuencia. Tocarías sobre el tercio peor, y eso condiciona la distancia de aterrizaje desde el primer metro.",
+      "metadatos": {
+        "nivel": 4,
+        "tema": 24
+      }
+    },
+    {
+      "id": "ev-42",
+      "enunciado": "¿Qué diferencia hay entre altitud óptima y altitud máxima en crucero?",
+      "opciones": [
+        "La óptima es donde el avión rinde mejor; la máxima, donde todavía cabe",
+        "La óptima la fija el plan de vuelo y la máxima la autoriza el control",
+        "La óptima queda siempre 2 000 ft por debajo de la máxima del momento",
+        "La óptima baja conforme el avión va quemando su combustible"
+      ],
+      "correcta": 0,
+      "explicacion": "La óptima da el mejor rendimiento para el peso actual y sube a medida que el avión quema combustible: de ahí los ascensos escalonados. La máxima es el techo de hoy, y volar pegado a ella deja sin margen de maniobra.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 25
+      }
+    },
+    {
+      "id": "ev-43",
+      "enunciado": "Falla un motor en crucero y el avión no puede sostener el nivel. ¿Qué ocurre?",
+      "opciones": [
+        "Desciende hasta una altitud que el empuje restante sí sostiene",
+        "Cae con régimen constante hasta el nivel mínimo de sector",
+        "Mantiene el nivel reduciendo velocidad hasta la de mejor planeo",
+        "Debe descender de inmediato a la altitud de transición"
+      ],
+      "correcta": 0,
+      "explicacion": "Desciende lentamente, a una velocidad que optimiza el descenso, hasta la altitud donde el empuje que queda vuelve a igualar a la resistencia. Cuanto más pesa el avión, más baja queda esa altitud, y ahí está el problema de las rutas con terreno alto.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 26
+      }
+    },
+    {
+      "id": "ev-44",
+      "enunciado": "Según la regla estadounidense en ruta con un motor inoperativo, una de las opciones es librar el terreno por...",
+      "opciones": [
+        "1 000 ft en vertical",
+        "1 500 ft en vertical",
+        "2 000 ft en vertical",
+        "35 ft en vertical"
+      ],
+      "correcta": 2,
+      "explicacion": "Son 2 000 ft dentro de cinco millas terrestres a cada lado de la ruta prevista. La otra opción es que la trayectoria neta tenga pendiente positiva a 1 000 ft sobre todo el terreno. Los 35 ft son del despegue, no de la ruta.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 26
+      }
+    },
+    {
+      "id": "ev-45",
+      "enunciado": "¿Cómo contribuyen los spoilers a detener el avión en el aterrizaje?",
+      "opciones": [
+        "Sobre todo por la resistencia aerodinámica que generan",
+        "Matando la sustentación y cargando el peso sobre las ruedas",
+        "Desviando el flujo hacia los frenos para enfriarlos",
+        "Aumentando el ángulo de ataque para frenar por sustentación"
+      ],
+      "correcta": 1,
+      "explicacion": "El efecto principal no es aerodinámico: al destruir la sustentación ponen el peso del avión sobre los neumáticos, que es lo que permite a los frenos morder de verdad. Sin ellos, los frenos trabajan con mucha menos carga vertical.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 27
+      }
+    },
+    {
+      "id": "ev-46",
+      "enunciado": "¿Desde dónde se mide la distancia de aterrizaje certificada?",
+      "opciones": [
+        "Desde el punto de toma de contacto",
+        "Desde 50 ft sobre el umbral",
+        "Desde el umbral, a nivel del pavimento",
+        "Desde 35 ft sobre el umbral"
+      ],
+      "correcta": 1,
+      "explicacion": "Se demuestra desde 50 ft sobre el umbral hasta la detención completa, en pista seca, lisa y dura, y sin acreditar reversas. No es la distancia que vas a recorrer un día cualquiera: es una referencia reproducible. Los 35 ft son del despegue.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 28
+      }
+    },
+    {
+      "id": "ev-47",
+      "enunciado": "Bajo la regla estadounidense de despacho, ¿dentro de qué parte de la longitud efectiva debes poder detenerte en el destino?",
+      "opciones": [
+        "Del 50 %",
+        "Del 60 %",
+        "Del 70 %",
+        "Del 80 %"
+      ],
+      "correcta": 1,
+      "explicacion": "Es el 60 % de la longitud efectiva para aviones de turbina en el destino. Si se prevé la pista mojada, la longitud efectiva debe ser además el 115 % de la requerida en seco. El 70 % aparece en otro caso: turbohélices en el alterno.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 28
+      }
+    },
+    {
+      "id": "ev-48",
+      "enunciado": "¿Qué diferencia hay entre la evaluación de aterrizaje del despacho y la que se hace en vuelo?",
+      "opciones": [
+        "La del despacho usa pronóstico; la de vuelo usa lo que hay de verdad",
+        "La del despacho la hace el operador; la de vuelo, el control",
+        "La del despacho es más exigente porque aplica más margen",
+        "La de vuelo solo se hace si el destino tiene pista contaminada"
+      ],
+      "correcta": 0,
+      "explicacion": "El despacho trabaja con pronóstico y peso estimado, a veces con horas de antelación. La evaluación en vuelo usa la condición de pista reportada, el viento real y el peso real, acercándose al destino, y puede dar un resultado distinto.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 29
+      }
+    },
+    {
+      "id": "ev-49",
+      "enunciado": "Sobre la evaluación de aterrizaje al momento de llegada, ¿qué diferencia hay entre las reglas europeas y las estadounidenses?",
+      "opciones": [
+        "Europa pide 15 % y Estados Unidos pide el doble",
+        "En Europa no se exige y en Estados Unidos sí",
+        "Las dos la exigen con carácter obligatorio",
+        "En Europa obliga y en Estados Unidos orienta"
+      ],
+      "correcta": 3,
+      "explicacion": "La cifra es la misma —un 15 % de margen— pero el peso legal no: en Europa no se continúa la aproximación salvo que la pista disponible sea al menos el 115 % de la distancia al momento de llegada, mientras que en Estados Unidos es orientación y política del operador.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 29
+      }
+    },
+    {
+      "id": "ev-50",
+      "enunciado": "Cruzas el umbral algo rápido, algo alto y con viento de cola. ¿Qué pasa con la distancia de aterrizaje?",
+      "opciones": [
+        "No cambia si la toma sigue dentro de la zona de contacto",
+        "Cambia poco, porque cada desviación es pequeña",
+        "Crece: las desviaciones se acumulan",
+        "Solo crece si además el frenado es automático"
+      ],
+      "correcta": 2,
+      "explicacion": "Cada una parece pequeña y juntas pueden consumir buena parte del margen: más velocidad es más energía, más altura es más suelo recorrido antes de tocar y el viento de cola aumenta la velocidad respecto al suelo todo el tiempo. Si no está estabilizada, los números dejaron de valer.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 30
+      }
+    },
+    {
+      "id": "ev-51",
+      "enunciado": "¿En qué se diferencian la comprobación de ascenso en aproximación y la de aterrizaje?",
+      "opciones": [
+        "La primera supone un motor inoperativo y tren arriba",
+        "La primera supone todos los motores y tren abajo",
+        "La primera se hace al peso de despegue y la segunda al de aterrizaje",
+        "La primera aplica solo en aeropuertos con obstáculos"
+      ],
+      "correcta": 0,
+      "explicacion": "La de aproximación supone el motor crítico inoperativo, configuración de aproximación y tren retraído. La de aterrizaje supone todos los motores, configuración de aterrizaje y el empuje disponible ocho segundos después de mover las palancas desde ralentí de vuelo.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 31
+      }
+    },
+    {
+      "id": "ev-52",
+      "enunciado": "¿Qué gradiente exige la comprobación de ascenso en aterrizaje, con todos los motores?",
+      "opciones": [
+        "2,1 %",
+        "2,4 %",
+        "3,2 %",
+        "1,2 %"
+      ],
+      "correcta": 2,
+      "explicacion": "Son 3,2 %, igual para cualquier número de motores. El 2,1 % es el de aproximación para un bimotor, con el motor crítico inoperativo; el 2,4 % y el 1,2 % pertenecen a los segmentos del despegue.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 31
+      }
+    },
+    {
+      "id": "ev-53",
+      "enunciado": "¿Qué relación hay entre la velocidad máxima de energía de frenos y V1?",
+      "opciones": [
+        "V1 no puede superarla",
+        "V1 debe quedar justo por encima de ella",
+        "No se relacionan: una es de frenos y otra de despegue",
+        "Solo se comparan en pista contaminada"
+      ],
+      "correcta": 0,
+      "explicacion": "Es la mayor velocidad a la que se puede iniciar un rechazo sin superar la capacidad certificada de los frenos, así que acota V1 por arriba. En aeropuertos altos, calientes y con pesos altos puede bajar hasta convertirse en la limitación que fija el peso.",
+      "metadatos": {
+        "nivel": 5,
+        "tema": 33
+      }
+    },
+    {
+      "id": "ev-54",
+      "enunciado": "¿Cuál es la entrada del cálculo de performance donde más se equivoca la tripulación?",
+      "opciones": [
+        "La temperatura exterior",
+        "El QNH del aeródromo",
+        "La intersección de la pista",
+        "La posición de los packs"
+      ],
+      "correcta": 2,
+      "explicacion": "Es la que más peso regala o roba, porque cambia las tres distancias disponibles a la vez. Por eso el primer crosscheck es comprobar que la magnitud del resultado tenga sentido: un peso máximo muy por encima de lo habitual suele delatar una intersección equivocada.",
+      "metadatos": {
+        "nivel": 6,
+        "tema": 35
+      }
+    },
+    {
+      "id": "ev-55",
+      "enunciado": "El sistema devuelve V1 148, VR 142 y V2 150 kt. ¿Qué concluyes?",
+      "opciones": [
+        "Son coherentes para un despegue desde una pista corta y con peso bajo",
+        "Hay un error: la rotación no puede quedar por debajo de V1",
+        "Son coherentes si se usó empuje reducido por temperatura asumida",
+        "Falta comprobar el peso de despegue antes de poder decir nada"
+      ],
+      "correcta": 1,
+      "explicacion": "El orden siempre es V1 menor o igual que VR, y VR menor o igual que V2. Decidir continuar después de haber rotado no tendría sentido. Es la comprobación más rápida que existe y detecta buena parte de los errores de tecleo.",
+      "metadatos": {
+        "nivel": 6,
+        "tema": 36
+      }
+    },
+    {
+      "id": "ev-56",
+      "enunciado": "El resultado dice que limita el ascenso y te ofrecen una pista 600 m más larga. ¿Qué ganas?",
+      "opciones": [
+        "Nada: la limitación no es de pista",
+        "Algo de peso, porque la carrera se acorta",
+        "Peso solo si además cambias la configuración de flaps",
+        "Una V1 más alta y más margen de parada"
+      ],
+      "correcta": 0,
+      "explicacion": "Lo que falta es capacidad de ascenso con un motor inoperativo, y la pista no interviene. Lo que sí movería el resultado es menos peso, menos flaps o menos temperatura. Si en cambio la limitación fuera de pista, esa pista más larga sería exactamente la solución.",
+      "metadatos": {
+        "nivel": 6,
+        "tema": 37
+      }
+    },
+    {
+      "id": "ev-57",
+      "enunciado": "Un análisis de obstáculos exige un gradiente de unos 250 ft por milla náutica. ¿A qué porcentaje equivale?",
+      "opciones": [
+        "Un 1,5 %",
+        "Un 2,5 %",
+        "Un 6,0 %",
+        "Un 4,1 %"
+      ],
+      "correcta": 3,
+      "explicacion": "Un 1 % equivale a 60,76 ft por milla náutica, porque una milla náutica son 6 076 ft. Dividiendo 250 entre 60,76 salen 4,1. Con la regla rápida de 60 ft por cada 1 % se llega al mismo sitio y basta para trabajar de cabeza.",
+      "metadatos": {
+        "nivel": 7,
+        "tema": 39
+      }
+    },
+    {
+      "id": "ev-58",
+      "enunciado": "En atmósfera estándar, ¿qué temperatura corresponde a 10 000 ft?",
+      "opciones": [
+        "5 °C",
+        "0 °C",
+        "−5 °C",
+        "−15 °C"
+      ],
+      "correcta": 2,
+      "explicacion": "La estándar baja unos 2 °C por cada 1 000 ft desde los 15 °C del nivel del mar: 15 menos 20 son −5 °C. Sirve para estimar la desviación del día, que es lo que mueve la altitud de densidad a razón de unos 120 ft por grado.",
+      "metadatos": {
+        "nivel": 7,
+        "tema": 39
+      }
+    },
+    {
+      "id": "ev-59",
+      "enunciado": "La torre reporta 12 kt de viento de frente. ¿Cuánto puede acreditar como máximo el cálculo de despegue?",
+      "opciones": [
+        "Los 12 kt completos",
+        "9 kt",
+        "6 kt",
+        "18 kt"
+      ],
+      "correcta": 2,
+      "explicacion": "Del viento de frente se acredita como mucho la mitad, así que 6 kt. Y del de cola se cuenta al menos el 150 %: 12 kt de cola se calcularían como 18. El viento no es simétrico en el cálculo, y por eso un poco de cola castiga tanto el peso.",
+      "metadatos": {
+        "nivel": 7,
+        "tema": 39
+      }
+    },
+    {
+      "id": "ev-60",
+      "enunciado": "Subes con un gradiente del 3 % y una velocidad respecto al suelo de 150 kt. ¿Qué régimen de ascenso tienes, aproximadamente?",
+      "opciones": [
+        "Unos 300 ft/min",
+        "Unos 450 ft/min",
+        "Unos 900 ft/min",
+        "Unos 1 800 ft/min"
+      ],
+      "correcta": 1,
+      "explicacion": "El régimen en pies por minuto es aproximadamente el gradiente en por ciento multiplicado por la velocidad respecto al suelo en nudos: 3 por 150 son unos 450. Sale de que un 1 % equivale a unos 60 ft por milla náutica y de las millas que recorres en un minuto.",
+      "metadatos": {
+        "nivel": 7,
+        "tema": 39
+      }
+    }
+  ]
+}

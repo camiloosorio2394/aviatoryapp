@@ -55,7 +55,7 @@ export const NIVEL_4: DocScreen[] = [
               alt: "Fotografía nocturna de luces blancas de borde de pista que cambian a amarillo hacia el extremo lejano",
             },
             puntos: [
-              "Las dos filas delimitan la pista utilizable. Según la referencia EASA (European Union Aviation Safety Agency), las luces se separan como máximo 60 m en pista por instrumentos y 100 m en visual; pueden estar hasta 3 m fuera del borde. Vistas en dirección de despegue, las del último tramo pueden ser amarillas: un aviso visual de que se acerca el extremo, no una nueva calle de rodaje.",
+              "Las dos filas delimitan la pista utilizable. Se separan como máximo 60 m en pista por instrumentos y 100 m en pista visual, y pueden quedar hasta 3 m por fuera del borde. Vistas en dirección de despegue, las del último tramo pueden ser amarillas: un aviso visual de que se acerca el extremo, no una nueva calle de rodaje.",
             ],
           },
           {
@@ -285,7 +285,7 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Verde guía el eje y azul ayuda a reconocer el borde; ninguno autoriza a avanzar. Amarillo puede advertir la proximidad de una pista o señalar una espera intermedia: el patrón y la ubicación importan. Una barra roja encendida detiene el rodaje. La especificación europea usa 350 m de RVR (Runway Visual Range, alcance visual en pista) para ciertos requisitos de luces de eje y espera intermedia; no conviertas ese umbral de diseño en una regla universal para todas las pistas. Consulta el equipamiento publicado y los procedimientos del aeropuerto.",
+        text: "Verde guía el eje y azul ayuda a reconocer el borde; ninguno autoriza a avanzar. Amarillo puede advertir la proximidad de una pista o señalar una espera intermedia: el patrón y la ubicación importan. Una barra roja encendida detiene el rodaje. Las luces de eje de calle de rodaje se exigen cuando la calle está prevista para operar con una RVR (Runway Visual Range, alcance visual en pista) menor de 300 m; por encima de esa cifra son recomendadas, y algunos Estados fijan umbrales propios. Consulta el equipamiento publicado y los procedimientos del aeropuerto.",
       },
       {
         kind: "piensaComoPiloto",

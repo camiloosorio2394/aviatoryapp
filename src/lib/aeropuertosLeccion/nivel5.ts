@@ -45,11 +45,12 @@ export const NIVEL_5: DocScreen[] = [
         text: "Una incursión suele empezar antes de llegar a la pista: una ruta distinta de la preparada, un letrero que no se verbaliza o una autorización que la tripulación cree haber entendido. Con poca visibilidad hay menos tiempo para detectar el error, pero la defensa es la misma: briefing de rodaje, carta abierta, verificación cruzada y detención inmediata cuando la posición real no coincide con la autorización.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-18-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Vista aérea oblicua con sol alto: dos calles de rodaje que convergen sobre una misma entrada a pista, con ángulos cerrados y una isla de pavimento en medio. Cada calle con su punto de espera patrón A2 y su letrero rojo. Al fondo, la pista con su eje de trazos blancos y su designador. Ojo: las continuas de cada A2 van del lado de espera, y no aparece ningún rótulo de aeropuerto reconocible.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-18-02-convergencia.webp",
+        alt: "Vista aérea oblicua de dos calles de rodaje que convergen en una sola entrada a pista, señaladas con líneas menta",
+        ancho: 1600,
+        alto: 900,
+        pie: "Las dos calles convergen antes de una entrada compartida a la pista. Se reconocen por sus ejes amarillos que se unen; esta foto no permite ubicar un punto de espera ni leer un letrero. Antes de rodar, confirma en la carta oficial vigente qué ramal y qué punto de espera corresponden a tu autorización. Si tomas el ramal equivocado, detente en un lugar seguro y consulta al control; no supongas que ambos llevan a la misma autorización.",
       },
       {
         kind: "fichas",
@@ -57,28 +58,24 @@ export const NIVEL_5: DocScreen[] = [
         items: [
           {
             titulo: "Punto crítico",
-            hueco: {
-              id: "AP-18-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Planta esquemática propia de un aeródromo: pista con designadores «09» y «27», calle paralela y tres de conexión con sus letras. Dos círculos de trazo negro grueso rodean dos ubicaciones, rotuladas «HS 1» y «HS 2», y un recuadro al costado, «PUNTOS CRÍTICOS», explica cada una en una línea. Ojo: no puede parecerse a una carta comercial ni copiar figuras de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-18-03-puntos-criticos.webp",
+              alt: "Plano didáctico ficticio con una pista, calles de rodaje y dos puntos críticos HS señalados; no es una carta AIP",
             },
             puntos: [
-              "Sitio con riesgo de colisión o incursión.",
-              "En la carta va rodeado, rotulado «HS».",
+              "HS (Hot Spot) señala un punto publicado donde hay mayor riesgo de incursión o colisión. En este esquema ficticio se reconocen por los círculos; para una operación real localízalos en la carta oficial vigente, porque su posición y representación dependen del aeródromo.",
+              "Antes de rodar, identifica la secuencia de calles y el punto crítico que cruzarás. Si la posición no coincide con la ruta autorizada, detente y pide aclaración.",
             ],
           },
           {
             titulo: "Briefing de rodaje",
-            hueco: {
-              id: "AP-18-04",
-              medida: "Fotografía de escena · 3:2 · 1200×800",
-              descripcion:
-                "Desde atrás y arriba, entre los dos asientos: el avión detenido en plataforma, motores apagados, y los dos pilotos señalando a la vez la misma carta de aeródromo sobre la consola o en una tableta. La carta es un dibujo propio en planta, legible pero no identificable. Ojo: el briefing se hace con el avión detenido, nunca rodando, y sin cartas comerciales a la vista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-18-04-briefing.webp",
+              alt: "Dos pilotos en cabina consultan juntos una tableta antes del rodaje; la pantalla es ilustrativa y no representa una carta oficial",
             },
             puntos: [
-              "Antes de arrancar y en el descenso, con la carta.",
-              "Sigue lo autorizado.",
+              "La foto muestra la verificación compartida antes de rodar, con el avión detenido; no reproduce una carta AIP. El briefing real se hace con la carta oficial vigente: ruta prevista, cruces de pista y puntos críticos.",
+              "Al recibir la autorización, ambos pilotos comparan la ruta con la carta y verbalizan cada cruce. Si cambia la ruta, se detienen en un lugar seguro para volver a revisarla.",
             ],
           },
         ],
@@ -96,14 +93,12 @@ export const NIVEL_5: DocScreen[] = [
         consecuencia:
           "Murieron 583 personas, 248 en un avión y 335 en el otro, y hubo 61 supervivientes. El informe concluye que la causa fundamental fue iniciar el despegue sin autorización.",
         leccion:
-          "Dos Boeing 747 en niebla. Uno despegó sin autorización con el otro en pista. La incursión se decide antes, en el cruce anterior, cuando ya no ves y crees que vas bien.",
+          "El esquema muestra dos aviones en la misma pista y poca visibilidad; las posiciones y distancias son ilustrativas. El hecho decisivo fue iniciar el despegue sin autorización mientras el otro avión todavía ocupaba la pista. Si no hay una autorización inequívoca o existe duda sobre la pista libre, no se inicia la carrera y se aclara con control.",
         fuente:
           "Informe oficial de la Subsecretaría de Aviación Civil de España sobre el accidente del 27 de marzo de 1977.",
-        hueco: {
-          id: "AP-18-05",
-          medida: "Ilustración técnica · 3:2 · 1200×800",
-          descripcion:
-            "Planta esquemática: una pista única, su calle paralela y cuatro conexiones rotuladas «C-1» a «C-4». Una silueta gris de cuadrimotor al inicio, alineada para despegar, «Inicia el despegue sin autorización»; otra igual sobre la pista, entre la tercera y la cuarta conexión, «Todavía en la pista», y una banda de niebla entre las dos. Ojo: sin libreas, sin matrículas y sin una sola cifra de distancia o de velocidad, que el informe no las da.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-18-05-los-rodeos.webp",
+          alt: "Esquema didáctico no a escala de Los Rodeos con dos aviones sobre la pista y salidas C-1 a C-4",
         },
       },
       /* La nota de verificación de este hueco no es decorativa: la versión
@@ -126,53 +121,51 @@ export const NIVEL_5: DocScreen[] = [
         consecuencia:
           "Murieron 118 personas: 110 y 4 a bordo de las dos aeronaves y 4 en tierra. El aeródromo no tenía luces de protección de pista ni radar de movimiento en superficie.",
         leccion:
-          "Un bimotor ejecutivo tomó la calle equivocada y entró a la pista activa. Cuando la ruta que estás recorriendo no coincide con la autorizada, se para antes de la pista y se pregunta.",
+          "El esquema distingue la ruta R5 autorizada de la R6 recorrida. La fila roja del caso no era una barra de parada estándar de la OACI: su presencia por sí sola no aclara la autorización. Cuando la ruta real no coincide con la autorizada, hay que detenerse antes de la pista y pedir aclaración al control.",
         fuente:
           "Informe final de la ANSV sobre el accidente del 8 de octubre de 2001, aprobado el 20 de enero de 2004.",
-        hueco: {
-          id: "AP-18-06",
-          medida: "Ilustración técnica · 3:2 · 1200×800",
-          descripcion:
-            "Planta esquemática con niebla: la línea de guía se parte en dos, la ruta autorizada hacia el norte en trazos tenues y la recorrida hacia el sureste en trazo grueso, con la silueta de un bimotor ejecutivo. Al final, la pista activa con un avión en carrera y, antes, una fila de luces rojas encendidas. Ojo: esa fila no es una barra de parada de la OACI y no se rotula como tal; no se dibuja ninguna señal de punto de espera, ninguna luz de protección de pista ni ninguna cota de separación, porque nada de eso está en el informe.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-18-06-linate.webp",
+          alt: "Esquema didáctico no a escala de Linate: bifurcación entre R5 autorizada y R6 recorrida, luces rojas no estándar y pista activa",
         },
       },
       {
         kind: "reconoce",
         titulo: "La última línea antes de la pista",
-        hueco: {
-          id: "AP-18-07",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde el pavimento, a unos 25 m del punto de espera y mirando a la pista, con día claro. Patrón A2 completo de lado a lado, el eje con señal mejorada hasta 47 m, letrero rojo, un par de luces amarillas del lado de espera y la pista con su designador legible. Cuatro chinchetas numeradas, sin texto. Ojo: las dos continuas van del lado de espera; nada de patrón A1.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-18-07-reconoce.webp",
+          alt: "Fotografía didáctica de entrada a pista con patrón A2, eje mejorado y letrero rojo 09-27 superpuestos con precisión; las marcas son ilustrativas",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 55,
+            y: 57,
             que: "Doble línea continua de tu lado",
             significa: "Patrón A2: el punto de espera de la pista.",
-            piloto: "Paras.",
+            piloto: "Detén todo el avión antes de las líneas continuas hasta recibir autorización expresa para entrar a la pista.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 77,
             que: "Eje con trazos al lado",
             significa: "Señal mejorada de eje: viene el punto de espera.",
-            piloto: "Frena.",
+            piloto: "Reduce la velocidad y verifica el punto de espera, el letrero y la autorización antes de seguir.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Luces amarillas destellantes",
-            significa: "Luces de protección de pista: hay un cruce con la pista.",
-            piloto: "También de día.",
+            x: 60,
+            y: 51,
+            que: "Doble línea discontinua hacia la pista",
+            significa: "Es el lado del patrón A2 que mira a la pista; la pareja continua queda de tu lado.",
+            piloto: "Mantén todo el avión antes de las continuas si no hay autorización de ingreso.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 8,
+            y: 45,
             que: "Letrero rojo con la pista",
             significa: "La pista que nombra está detrás del letrero.",
-            piloto: "No entras sin permiso.",
+            piloto: "Confirma que esa es la pista autorizada y no ingreses sin autorización expresa.",
           },
         ],
       },
@@ -205,14 +198,15 @@ export const NIVEL_5: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Con baja visibilidad no solo se ve menos: cambia la forma de usar el aeropuerto. Se activan procedimientos LVP, se protegen áreas del ILS, pueden aumentar las separaciones y se restringen rutas o cruces. El piloto debe saber qué punto de espera está activo y seguir la autorización y las luces; una RVR concreta no permite escoger por cuenta propia la ruta ni el punto de detención.",
+        text: "Con baja visibilidad no solo se ve menos: cambia la forma de usar el aeropuerto. Se activan procedimientos de baja visibilidad (Low Visibility Procedures, LVP), se protegen áreas del sistema de aterrizaje por instrumentos (Instrument Landing System, ILS) para operaciones de categoría II/III (Category II/III, CAT II/III), pueden aumentar las separaciones y se restringen rutas o cruces. El piloto debe saber qué punto de espera está activo y seguir la autorización y las luces; un alcance visual en pista (Runway Visual Range, RVR) concreto no permite escoger por cuenta propia la ruta ni el punto de detención.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-19-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde el pavimento, al amanecer con niebla, a unos 40 m de un punto de espera de categoría: la pista se pierde y solo se ve lo cercano. La escalera del patrón B2 completa, dos continuas de 0,30 m separadas 1,5 m con travesaños de 0,9 m cada 3,0 m, el letrero rojo y la barra de parada encendida en el punto de espera. Ojo: el patrón B no lleva líneas de trazos, y el B1 no se dibuja.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-19-02-visibilidad-reducida.webp",
+        alt: "Punto de espera de categoría con escalera amarilla B2, letrero rojo y barra de parada encendida entre la niebla",
+        ancho: 1600,
+        alto: 900,
+        pie: "La niebla oculta la pista, pero cerca se reconocen la escalera amarilla B2, el letrero rojo de instrucción obligatoria y la fila roja de la barra de parada. El eje verde termina antes de ella. Identifica en la publicación vigente qué punto de espera corresponde a tu ruta; si la barra está encendida, detente aunque tengas autorización verbal y notifícalo al control.",
       },
       {
         kind: "fichas",
@@ -220,101 +214,95 @@ export const NIVEL_5: DocScreen[] = [
         items: [
           {
             titulo: "Barra de parada",
-            hueco: {
-              id: "AP-19-03",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "De noche, desde el pavimento, a unos 15 m y sin niebla, para que las luces se cuenten. La fila completa de luces rojas empotradas de borde a borde, separadas 3 m como máximo, un par de rojas elevadas en los extremos y el eje verde apagado más allá. Delante, el punto de espera patrón A2. Ojo: las dos continuas del A2 van del lado de espera.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-19-03-barra-parada.webp",
+              alt: "Barra roja de parada completa con luces elevadas rojas a ambos lados y eje verde que termina antes de la barra",
             },
             puntos: [
-              "Luces rojas cruzando la calle.",
-              "Se exige en puntos de espera que sirven pistas previstas para operar con RVR inferior a 550 m; el aeropuerto puede activarla también en otras condiciones.",
+              "Se reconoce por la fila de luces rojas que cruza toda la calle y las luces rojas elevadas en sus extremos; el eje verde no continúa encendido detrás. Si está roja, no cruces, incluso con autorización verbal.",
+              "En los puntos que sirven pistas previstas para operar con RVR inferior a 550 m se exige esta protección; el aeropuerto puede usarla también en otras condiciones. Confirma su estado con control.",
             ],
           },
           {
             titulo: "La regla dura",
             puntos: [
               "Una barra roja encendida no se cruza, aunque te autoricen.",
-              "Si se apaga sola, avisa.",
+              "Que se apague no equivale a autorización. Si el estado de la barra no coincide con la instrucción recibida, detente en un lugar seguro y avisa al control.",
             ],
           },
           {
             titulo: "Áreas del ILS",
-            hueco: {
-              id: "AP-19-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Planta esquemática propia: pista, antena de localizador más allá del extremo y antena de senda de planeo al costado. Un área interior sombreada, «Área crítica», dentro de otra más suave, «Área sensible». El punto de espera patrón A2 cerca de la pista y el B2 más atrás, justo fuera del área exterior, con una silueta esperando detrás. Ojo: sin cotas ni metros, que el tamaño de las áreas lo publica cada aeródromo.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-19-05-areas-ils.webp",
+              alt: "Esquema didáctico no a escala de pista, antenas del ILS, áreas crítica y sensible, y puntos de espera A2 y B2",
             },
             puntos: [
-              "La crítica se despeja siempre; la sensible se controla.",
-              "Un avión dentro deforma la señal.",
+              "El esquema distingue el entorno cercano a las antenas (área crítica) del área sensible exterior. Sus límites reales no se deducen del dibujo: consulta los procedimientos vigentes del aeródromo.",
+              "Una aeronave o vehículo puede perturbar la señal. Durante LVP, mantén el punto de espera asignado y no avances por interpretar visualmente el límite del área.",
             ],
           },
           {
             titulo: "Punto de espera CAT II/III",
-            hueco: {
-              id: "AP-19-04",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde el pavimento, a unos 20 m y en tres cuartos, con luz pareja: la escalera del patrón B2 completa, el letrero rojo que dice «25 CAT II/III» y la inscripción «CAT III» pintada en un extremo, con letras de 1,8 m de alto como mínimo. Al fondo y borroso, un segundo punto de espera patrón A2. Ojo: nada de B1 ni de líneas de trazos dentro de la escalera.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-19-04-espera-categoria.webp",
+              alt: "Fotografía diurna de punto de espera de categoría: escalera amarilla B2 y letrero rojo 25 CAT II/III",
             },
-            puntos: ["El de más atrás: escalera B2 y letrero rojo con la categoría."],
+            puntos: ["Reconócelo por la escalera amarilla de dos líneas continuas unidas por travesaños y el letrero rojo con la pista y categoría. Espera antes de la marca que corresponda a la autorización y al procedimiento activo; su ubicación se confirma en la publicación vigente."],
           },
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-19-06 · Ilustración técnica · 3:2 · 1200×800",
-        ratio: "3 / 2",
-        descripcion:
-          "Planta esquemática de una calle de salida que arranca del eje de la pista y se aleja en curva, con sus luces de eje dibujadas una por una: el tramo inicial alterna verde y amarillo, el final va todo verde. Una línea de trazos marca el perímetro del área crítica o sensible, donde cambia el patrón. La primera luz es verde y la más cercana al perímetro, amarilla. Ojo: ninguna luz amarilla después del perímetro.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-19-06-eje-salida.webp",
+        alt: "Esquema de salida de pista con luces de eje verde y amarillo alternadas hasta el perímetro protegido, y solo verdes después",
+        ancho: 1200,
+        alto: 800,
+        pie: "En una calle de salida, las luces de eje alternan verde y amarillo desde la pista hasta el límite protegido aplicable; después quedan solo verdes. El esquema muestra la secuencia, no el perímetro real de un aeródromo. Sigue la ruta autorizada y comunica pista libre únicamente cuando toda la aeronave haya rebasado el punto de espera correspondiente, no por el color de una luz aislada.",
       },
       {
         kind: "reconoce",
         titulo: "El punto de espera de categoría, completo",
-        hueco: {
-          id: "AP-19-07",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde el pavimento, al anochecer, a unos 30 m y mirando a la pista, con las luces ya encendidas. Se ven la escalera del patrón B2, el letrero rojo, la barra de parada encendida, tres luces amarillas de un punto de espera intermedio a un costado y el eje verde con un tramo de verde y amarillo. Cinco chinchetas numeradas, sin texto. Ojo: ninguna luz de eje encendida más allá de la barra.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-19-07-reconoce.webp",
+          alt: "Comparación fotográfica: punto de espera CAT II/III con escalera, letrero y barra roja; dos recuadros separados muestran espera intermedia y luces de eje de salida",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 42,
+            y: 33,
             que: "Escalera amarilla",
             significa: "Patrón B2: el punto de espera de categoría.",
-            piloto: "Esperas en operación de categoría.",
+            piloto: "Detén todo el avión antes de este punto cuando sea el asignado para la operación.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 10,
+            y: 14,
             que: "Letrero rojo con «CAT II/III»",
-            significa: "Dice qué pista y qué categoría protege.",
-            piloto: "Es un letrero obligatorio.",
+            significa: "Es una instrucción obligatoria: identifica la pista y la categoría protegida.",
+            piloto: "Confirma que coincide con el punto de espera asignado y no avances sin autorización.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 70,
+            y: 25,
             que: "Fila de luces rojas",
             significa: "Barra de parada encendida.",
-            piloto: "Pare.",
+            piloto: "Detente y avisa al control si la autorización parece contradecirla.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 25,
+            y: 88,
             que: "Tres luces amarillas",
-            significa: "Punto de espera intermedio.",
-            piloto: "No es de pista.",
+            significa: "En el recuadro B se reconoce un punto de espera intermedio, distinto del punto de espera de pista.",
+            piloto: "Respeta la instrucción de detención que corresponda a ese punto; no lo confundas con la barra roja del recuadro A.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 71,
+            y: 87,
             que: "Eje verde y amarillo",
-            significa: "Sigues dentro del área del ILS.",
-            piloto: "Todo verde, saliste.",
+            significa: "En el recuadro C, la alternancia identifica el tramo de salida próximo a la pista; luego aparecen solo luces verdes.",
+            piloto: "Sigue la ruta autorizada. Confirma que todo el avión esté fuera de la pista antes de reportarla libre.",
           },
         ],
       },
@@ -345,18 +333,19 @@ export const NIVEL_5: DocScreen[] = [
         alt: "Pista mojada vista desde corta final con agua, huellas de ruedas y sus tres tercios longitudinales señalados",
         ancho: 1600,
         alto: 900,
-        pie: "El brillo y el agua visible permiten reconocer una superficie mojada, pero una huella más limpia no demuestra que ese tramo esté seco ni permite asignar un código desde la cabina. El informe divide la pista en tres tercios longitudinales y publica un RWYCC para cada uno. Como el orden se informa desde el designador menor, al operar en el sentido contrario debes invertir mentalmente la secuencia antes de llevarla al cálculo de performance.",
+        pie: "El brillo y el agua visible permiten reconocer una superficie mojada, pero una huella más limpia no demuestra que ese tramo esté seco ni permite asignar un código desde la cabina. El informe divide la pista en tres tercios longitudinales y publica un código de condición de pista (Runway Condition Code, RWYCC) para cada uno. Como el orden se informa desde el designador menor, al operar en el sentido contrario debes invertir la secuencia antes de llevarla al cálculo de performance.",
       },
       {
         kind: "p",
-        text: "El formato global de OACI describe la superficie por tercios y asigna un código que la tripulación lleva al cálculo de performance. No basta con escuchar una cifra suelta: el informe se lee en el sentido de la pista de designador menor, y al operar en el sentido contrario se invierte el orden. Así, un 5/3/2 puede comenzar para ti por el 2 y condicionar desde el toque la distancia de aterrizaje disponible.",
+        text: "El formato mundial de notificación (Global Reporting Format, GRF) de la OACI describe la superficie por tercios y asigna un código que la tripulación lleva al cálculo de performance. No basta con escuchar una cifra suelta: el informe se lee en el sentido del designador menor, y al operar en el sentido contrario se invierte el orden. Así, un 5/3/2 puede comenzar para ti por el 2 y condicionar desde el toque la distancia de aterrizaje necesaria.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-20-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde el pavimento, cámara casi a ras y mirando a lo largo de la pista, en día gris. En primer plano, la textura de la superficie con un contaminante identificable, agua estancada o nieve fundente, y la diferencia de cobertura entre el centro y los costados, con el eje blanco parcialmente tapado. El agua estancada se notifica desde 4 mm; mojada es humedad o agua hasta 3 mm inclusive. Ojo: sin vehículos con logotipos ni personas identificables.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-20-02-agua-superficie.webp",
+        alt: "Vista rasante de pista mojada con acumulaciones reflectantes a un lado y zona central con menor cobertura visible",
+        ancho: 1600,
+        alto: 900,
+        pie: "A un lado se ve agua con reflejos y, cerca del eje blanco, una cobertura distinta. La foto permite reconocer que la condición no es uniforme, pero no medir la profundidad ni concluir que el centro está seco. Agua estancada significa más de 3 mm medidos; para performance usa el informe de condición de pista vigente, no una estimación visual.",
       },
       {
         kind: "p",
@@ -388,12 +377,12 @@ export const NIVEL_5: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-20-03 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "La tabla de arriba dibujada a todo el ancho, con tipografía grande para un teléfono: siete filas de 6 a 0, la clave en número grande a la izquierda, los criterios de superficie en el centro y la eficacia de frenado a la derecha, con un degradado suave de verde a rojo. El contenido va literal. Ojo: no se copia ninguna figura de la OACI y la columna de frenado no dice «NIL».",
-        alto: 340,
-        pie: "Si el 25 % o menos del tercio está mojado o cubierto, se notifica 6.",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-20-03-escala-rwycc.webp",
+        alt: "Guía visual de códigos de condición de pista del 6 al 0, con ejemplos típicos de superficie y frenado",
+        ancho: 1600,
+        alto: 900,
+        pie: "La escala baja de 6 (seca) a 0 (frenado peor que pobre). El dibujo resume ejemplos; la tabla anterior contiene los criterios completos. Si el 25 % o menos de un tercio está mojado o cubierto, ese tercio puede notificarse con código 6 según la evaluación del aeródromo. No deduzcas el RWYCC a partir del color de una foto: verifica el informe vigente antes de calcular la performance.",
       },
       {
         kind: "fichas",
@@ -401,28 +390,24 @@ export const NIVEL_5: DocScreen[] = [
         items: [
           {
             titulo: "Tres tercios, tres cifras",
-            hueco: {
-              id: "AP-20-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Planta esquemática de una pista completa dividida en tres partes iguales por dos líneas de trazos, con «09» y «27» en los extremos y «5», «3» y «2» en los tercios. Una flecha inferior, «Así se publica: desde el designador más bajo»; otra superior en sentido contrario, «Así lo usas: en tu sentido de aterrizaje», con una silueta aterrizando. Al costado, «5/3/2» en grande. Ojo: ninguna carta real ni figura copiada de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-20-04-tercios.webp",
+              alt: "Esquema ficticio de pista 09/27 dividida en tercios 5, 3 y 2: publicación desde 09 y lectura inversa para aterrizar por 27",
             },
             puntos: [
-              "La clave se da por tercio, desde el designador más bajo.",
-              "En vuelo, en tu sentido.",
+              "En este ejemplo ficticio, el informe se publica 5/3/2 desde el designador menor, 09. Se reconoce por los tres segmentos longitudinales separados en el dibujo.",
+              "Para aterrizar por 27, tu secuencia es 2/3/5. Introduce los códigos en el sentido de aterrizaje al calcular performance; no confundas orden publicado con orden de recorrido.",
             ],
           },
           {
             titulo: "El informe y el SNOWTAM",
-            hueco: {
-              id: "AP-20-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Una columna tipo documento sobre fondo claro. Arriba, en monoespaciada, «EADD 02170135 09R 5/4/3 100/50/75 NR/06/06 WET/SLUSH/SLUSH», y debajo «RWY 09R ADJ SNOWBANKS. TWY B POOR. APRON NORTH POOR.». Una llave separa las dos partes, rotuladas «Para calcular tu performance» y «Para tu conciencia situacional». Al pie, «Se difunde como SNOWTAM». Ojo: ningún indicador de lugar de un aeropuerto real.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-20-05-informe-rcr.webp",
+              alt: "Esquema conceptual, sin datos ni código de aeródromo, de las secciones de performance y conciencia situacional de un informe de condición de pista",
             },
             puntos: [
-              "Trae una parte para calcular performance y otra de conciencia situacional.",
-              "Se difunde en el SNOWTAM.",
+              "El informe de condición de pista (Runway Condition Report, RCR) separa los datos para calcular performance de la información que sostiene la conciencia situacional. Reconoce el código por tercio junto a cobertura, profundidad y contaminante.",
+              "La información llega por servicios de tránsito aéreo y, cuando corresponde, por SNOWTAM (Snow Notice to Airmen). Una pista solo mojada puede comunicarse sin emitir SNOWTAM; consulta siempre la información vigente para tu operación.",
             ],
           },
         ],
@@ -430,39 +415,40 @@ export const NIVEL_5: DocScreen[] = [
       {
         kind: "reconoce",
         titulo: "Leer la pista con los ojos",
-        hueco: {
-          id: "AP-20-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde el pavimento, en diagonal hacia el centro de la pista, con luz plana y sin brillos falsos. En unos 60 m se reparten agua encharcada que hace espejo, una franja lateral sucia con el centro limpio, huellas de neumático sobre el contaminante y una zona que parece seca pero con brillo mate. Cuatro chinchetas numeradas, sin texto. Ojo: sin equipos de medición de rozamiento, que solo se usan sobre nieve compactada o hielo.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-20-06-reconoce.webp",
+          alt: "Fotografía de pista tras lluvia con cuatro zonas señaladas: reflejo de agua, cobertura lateral desigual, huellas de neumáticos y brillo distante",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
-            que: "Agua y espejo",
-            significa: "Más de 3 mm es agua estancada.",
-            piloto: "La clave cae.",
+            x: 18,
+            y: 68,
+            que: "Agua con reflejo",
+            significa: "Se ve agua sobre la superficie; su profundidad no se puede medir en la fotografía.",
+            piloto: "Busca el contaminante y el RWYCC comunicados antes de calcular la performance.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Franja lateral sucia y centro limpio",
-            significa: "Cada tercio se evalúa solo.",
+            x: 22,
+            y: 33,
+            que: "Cobertura lateral desigual",
+            significa: "La zona cercana al borde tiene una apariencia distinta de la franja central; no es una prueba de que una de ellas esté seca.",
+            piloto: "No extrapoles la condición de una franja al ancho entero: usa la cobertura evaluada en el informe.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Marcas de neumático sin dibujo",
-            significa: "Frenado degradado.",
-            piloto: "Tu reporte baja la clave.",
+            x: 59,
+            y: 47,
+            que: "Huellas de neumáticos",
+            significa: "Las marcas muestran el paso de aeronaves, no la eficacia de frenado ni el espesor del agua.",
+            piloto: "Si el frenado real resulta peor que el reportado, notifícalo al control; el operador del aeródromo reevalúa el código.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Se ve seca pero brilla",
-            significa: "Escarcha o hielo mojado.",
-            piloto: "Desconfía.",
+            x: 81,
+            y: 19,
+            que: "Brillo distante",
+            significa: "El reflejo no distingue por sí solo entre una película de agua y otros estados de superficie.",
+            piloto: "No infieras hielo ni ausencia de contaminación solo por el aspecto; confirma el informe y las condiciones observadas.",
           },
         ],
       },
@@ -490,26 +476,27 @@ export const NIVEL_5: DocScreen[] = [
         alt: "Tren principal de un avión sobre pavimento aeroportuario y un vehículo de salvamento al fondo, con ACR, PCR y categoría RFF señalados",
         ancho: 1600,
         alto: 900,
-        pie: "El ACR expresa la exigencia que la aeronave impone al pavimento y se compara con el PCR publicado para ese pavimento y las condiciones aplicables; la fotografía no reemplaza esa comprobación documental. La categoría RFF describe el nivel de salvamento y extinción disponible para el tamaño de aeronave previsto. Una pista suficientemente larga todavía puede no ser compatible si falla cualquiera de estas dos verificaciones.",
+        pie: "El índice de clasificación de aeronaves (Aircraft Classification Rating, ACR) expresa la exigencia que el avión impone al pavimento; se compara con el índice de clasificación de pavimentos (Pavement Classification Rating, PCR) publicado para la superficie y las condiciones aplicables. La categoría de salvamento y extinción de incendios (Rescue and Fire Fighting, RFF) describe la protección disponible para el tamaño de aeronave previsto. La foto no reemplaza estas comprobaciones documentales: una pista larga puede seguir siendo incompatible.",
       },
       {
         kind: "p",
         text: "La compatibilidad del pavimento y la categoría de salvamento son dos comprobaciones que pueden limitar una operación aun cuando la pista sea suficientemente larga. El ACR del avión se compara con el PCR publicado para las condiciones previstas, y la categoría de bomberos se contrasta con el tamaño del avión y la disponibilidad informada. Ninguna de las dos reemplaza el resto del despacho: obstáculos, dimensiones, performance, meteorología y avisos vigentes siguen formando parte de la decisión.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-21-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Vista cenital de una plataforma a media mañana, con al menos tres aviones de tamaños claramente distintos en sus puestos. Se ven las señales amarillas de puesto de estacionamiento y las líneas de seguridad de plataforma, continuas, de 10 cm de ancho como mínimo y en un color que contrasta con el amarillo. Ojo: sin logos de aerolínea, matrículas ni nombres de terminal.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-21-02-plataforma.webp",
+        alt: "Tres aeronaves de distinto tamaño estacionadas en puestos separados de plataforma, con líneas amarillas de guía y límites de seguridad rojos",
+        ancho: 1600,
+        alto: 900,
+        pie: "Reconoce las líneas amarillas que guían cada avión a su puesto y los límites de seguridad de color contrastante. Los tamaños distintos recuerdan que la compatibilidad se comprueba para la aeronave y las superficies que realmente usará, no mirando el avión vecino. Antes de planificar o aceptar un puesto, verifica dimensiones, resistencia publicada y servicios disponibles; la fotografía no demuestra el PCR de la plataforma.",
       },
       {
         kind: "p",
-        text: "Desde el 28 de noviembre de 2024 el pavimento se publica en **ACR-PCR**: cinco elementos, siempre en el mismo orden.",
+        text: "Desde el 28 de noviembre de 2024, el método de la OACI usa **ACR-PCR**. El código PCR tiene cinco elementos, siempre en el mismo orden.",
       },
       {
         kind: "breakdown",
-        caption: "Un PCR publicado, elemento por elemento: PCR 980 / F / C / X / T.",
+        caption: "Ejemplo didáctico ficticio, no publicado para ningún aeródromo: PCR 980 / F / C / X / T.",
         parts: [
           { token: "980", label: "Valor del índice", detail: "Un número." },
           { token: "F", label: "Tipo de pavimento", detail: "R, rígido. F, flexible." },
@@ -531,12 +518,12 @@ export const NIVEL_5: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-21-03 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "A todo el ancho: arriba «PCR 980 / F / C / X / T» en monoespaciada grande, con cada elemento separado, y debajo cinco columnas unidas al código por una línea guía, una por elemento, con todos sus códigos posibles listados. Abajo, un recuadro: «Tu ACR debe ser igual o menor que el PCR», y la sobrecarga admisible. Ojo: ninguna referencia al ACN-PCN como si siguiera vigente.",
-        alto: 340,
-        pie: "Vigente desde el 28 de noviembre de 2024.",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-21-03-codigo-pcr.webp",
+        alt: "Esquema didáctico ficticio de cinco elementos del código PCR: valor, pavimento, subrasante, presión de neumáticos y método de evaluación",
+        ancho: 1600,
+        alto: 900,
+        pie: "Lee el ejemplo ficticio de izquierda a derecha: 980 es el valor, F el pavimento flexible, C la subrasante baja, X el límite de presión de neumáticos de 1,75 MPa y T una evaluación técnica. No es una ficha de un aeropuerto ni sustituye el dato vigente. Para operación normal compara el ACR calculado para tu avión con el PCR aplicable, incluida la presión; una sobrecarga ocasional exige evaluación y autorización del operador, no una decisión unilateral de la tripulación.",
       },
       {
         kind: "fichas",
@@ -545,21 +532,19 @@ export const NIVEL_5: DocScreen[] = [
           {
             titulo: "La regla",
             puntos: [
-              "Tu ACR debe ser igual o menor que el PCR.",
-              "Por encima, hasta 10 % si no pasan del 5 % anual.",
+              "Para operación normal, tu ACR debe ser igual o menor que el PCR aplicable; comprueba también presión de neumáticos y estado del pavimento.",
+              "Una sobrecarga ocasional de hasta 10 % y aproximadamente 5 % de movimientos anuales, excluidos los aviones ligeros, es un criterio orientativo de evaluación, no un permiso automático. Consulta al operador del aeródromo.",
             ],
           },
           {
             titulo: "Categoría de bomberos",
-            hueco: {
-              id: "AP-21-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "La tabla de abajo, vertical y con tipografía grande: diez filas, de la categoría 1 a la 10, con la longitud total del avión y la anchura máxima de fuselaje. Al pie, la corrección por anchura y la regla de remisión por poco tráfico. El contenido va literal, sin redondear ni resumir. Ojo: nada del sistema de índices por letra de la FAA ni figuras copiadas de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-21-04-categorias-rff.webp",
+              alt: "Tabla visual de categorías de salvamento y extinción 1 a 10 según longitud total y anchura máxima del fuselaje",
             },
             puntos: [
-              "Se elige por la longitud total del avión y se comprueba el fuselaje.",
-              "Si se pasa, sube un nivel.",
+              "Reconoce primero la fila que corresponde a la longitud total del avión y comprueba el límite de anchura del fuselaje. Si lo supera, se eleva una categoría.",
+              "Contrasta la categoría resultante con el servicio RFF efectivamente disponible y publicado para la operación; no asumas el nivel por ver un vehículo de bomberos.",
             ],
           },
         ],
@@ -583,7 +568,7 @@ export const NIVEL_5: DocScreen[] = [
       {
         kind: "callout",
         tone: "info",
-        text: "Si el fuselaje excede la anchura de su fila, la categoría sube un nivel. Con menos de 700 movimientos en los tres meses consecutivos de mayor actividad, el nivel puede bajar una sola categoría.",
+        text: "Si el fuselaje excede la anchura de su fila, la categoría sube un nivel. Si las aeronaves de la categoría más alta que normalmente usan el aeródromo realizan menos de 700 movimientos en los tres meses consecutivos de mayor actividad, el nivel de protección puede ser una categoría menor. No es una rebaja que la tripulación decida: verifica el servicio publicado y disponible.",
       },
       {
         kind: "fichas",
@@ -591,48 +576,45 @@ export const NIVEL_5: DocScreen[] = [
         items: [
           {
             titulo: "Fauna",
-            hueco: {
-              id: "AP-21-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde el borde de la pista, con teleobjetivo y luz de amanecer: un grupo de aves posadas sobre la franja de hierba, al lado del pavimento, con el borde del pavimento en primer plano y la pista al fondo, reconocible por sus señales o por sus luces de borde blancas. Ojo: nada morboso, ni animales heridos, ni restos de impacto, ni personas identificables.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-21-05-fauna.webp",
+              alt: "Grupo de aves en la franja de hierba junto a la pista al amanecer, con el pavimento visible",
             },
             puntos: [
-              "El peligro se evalúa siempre, se notifica cada choque y se eliminan los focos que atraen animales.",
+              "Las aves posadas en la franja junto a la pista son un peligro de fauna aunque no estén sobre el pavimento. Reconoce su cercanía a la trayectoria y comunica el avistamiento según los procedimientos locales antes de operar.",
+              "El aeródromo evalúa y mitiga los focos que atraen animales; cada choque se notifica. No supongas que una pista despejada está libre de riesgo de fauna.",
             ],
           },
           {
             titulo: "Objetos y chorro",
-            hueco: {
-              id: "AP-21-06",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Cámara a ras del pavimento y muy cerca, con poca profundidad de campo: un objeto metálico pequeño, nítido y claramente ajeno al pavimento, la textura de la superficie y una junta a su lado; al fondo, desenfocada, una señal blanca de pista. Ojo: el objeto no puede llevar marca de fabricante ni número de parte legible.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-21-06-objeto-extrano.webp",
+              alt: "Tornillo suelto señalado sobre el pavimento aeroportuario, con señal blanca desenfocada al fondo",
             },
             puntos: [
-              "La pista se inspecciona para retirar objetos extraños.",
-              "El chorro levanta todo lo que encuentra.",
+              "El tornillo resaltado es un objeto extraño (Foreign Object Debris, FOD), no parte de la superficie. Puede dañar neumáticos o ser ingerido por un motor: notifica su posición para que personal autorizado lo retire.",
+              "La inspección debe identificar y retirar estos objetos antes de seguir usando el área afectada. El chorro de reacción también puede desplazarlos y aumentar el riesgo.",
             ],
           },
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-21-07 · Fotografía real · 3:2 · 1200×800",
-        ratio: "3 / 2",
-        descripcion:
-          "Desde atrás y a un costado, a unos 60 m y con teleobjetivo comprimido: un bimotor de fuselaje estrecho arrancando el rodaje, con el aire distorsionado por el calor detrás de los motores, polvo y hierba levantándose en la estela y la superficie no pavimentada justo detrás de la pavimentada. Ojo: nadie dentro de la estela, ni personas ni vehículos.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-21-07-chorro.webp",
+        alt: "Avión bimotor iniciando el rodaje, con polvo tenue detrás de un motor y sin personas en la zona posterior",
+        ancho: 1200,
+        alto: 800,
+        pie: "La aeronave está iniciando el rodaje y detrás del motor cercano se distingue algo de polvo junto al pavimento: esa zona posterior puede quedar expuesta al chorro de reacción, incluso si la estela no se ve claramente. La foto no permite calcular una distancia segura. Antes de iniciar potencia o pasar por detrás de otro avión, respeta las separaciones y procedimientos locales; mantén personas, equipos y objetos fuera de la estela.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "Planificando el vuelo",
         situacion: "Vas a un aeropuerto cuyo PCR es menor que tu ACR de hoy.",
         pregunta: "¿Puedes ir igual?",
-        respuesta: "Solo si el aeródromo lo autoriza.",
+        respuesta: "No como operación normal. Solo si el operador del aeródromo evalúa y autoriza la sobrecarga aplicable.",
         claves: [
-          "Hasta un 10 % por encima es excepcional, nunca rutina.",
-          "Más, hace falta análisis.",
+          "Hasta un 10 % por encima es un criterio para sobrecargas ocasionales, no una autorización automática.",
+          "Un exceso mayor o pavimento debilitado exige análisis específico; confirma siempre con el operador.",
         ],
       },
     ],
@@ -658,22 +640,24 @@ export const NIVEL_5: DocScreen[] = [
         text: "Después del toque todavía queda una fase de alta carga de trabajo: desacelerar, identificar la salida autorizada, confirmar que todo el avión libró la pista y entrar al puesto sin perder separación. Una salida rápida ayuda a abandonar antes, pero no obliga a forzar el frenado ni sustituye la autorización. Si se pierde la guía de atraque o la imagen no coincide con el puesto asignado, se detiene el avión antes de improvisar.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-22-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Vista aérea oblicua desde unos 200 m, a mediodía, con la pista en diagonal y una salida rápida completa dentro del encuadre, desde la pista hasta la calle paralela: la curva entera, la recta que viene después y el punto donde se une a la paralela. Eje de salida amarillo continuo, eje de pista blanco de trazos. Ojo: sin nombres de aeropuerto, logos ni matrículas legibles.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-22-02-salida-aerea.webp",
+        alt: "Vista aérea de salida rápida de ángulo agudo que se separa de la pista y conecta con una calle paralela",
+        ancho: 1600,
+        alto: 900,
+        pie: "El eje blanco discontinuo identifica la pista; la línea amarilla continua se desprende de él, describe una curva amplia y lleva a la calle paralela. Reconoce la geometría de salida de ángulo agudo, pero no deduzcas de una fotografía la velocidad que tu avión puede mantener. Elige la salida autorizada solo si puedes alcanzarla y girar con seguridad; si no, continúa a la siguiente.",
       },
       {
         kind: "p",
-        text: "La salida rápida te saca de la pista antes: curva ancha, ángulo agudo, recta.",
+        text: "La salida rápida facilita abandonar la pista mediante una curva amplia y un ángulo agudo. Las luces indicadoras de salida rápida, cuando están instaladas, te anuncian la distancia al punto de salida; no sustituyen la velocidad de giro segura ni la autorización de rodaje.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-22-03 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Planta esquemática a todo el ancho: la pista abajo y la salida rápida arriba a la derecha, con su punto de tangencia marcado. Tres juegos de luces amarillas sobre la pista, del mismo lado que la salida, de tres, dos y una luz, acotados «100 m» entre juegos y «100 m» del de una luz al punto de tangencia. El eje de la salida, con sus luces verdes y su tramo de verde y amarillo. Ojo: ninguna luz amarilla después del perímetro del área crítica o sensible.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-22-03-retills.webp",
+        alt: "Esquema conceptual de luces indicadoras de salida rápida amarillas en secuencia tres, dos y una antes del punto de tangencia, con luces de eje verde y amarillo en la salida",
+        ancho: 1600,
+        alto: 900,
+        pie: "En este dibujo, no a escala, los tres grupos de luces amarillas de la pista se reducen 3–2–1 a intervalos de 100 m antes del punto de tangencia, siempre del lado de la salida. Son luces indicadoras de salida rápida (Rapid Exit Taxiway Indicator Lights, RETIL): informan distancia, no ordenan tomar la salida. En la calle, el primer foco del eje próximo a pista es verde, se alterna con amarillo hasta el límite protegido aplicable y después queda verde; sigue únicamente la ruta autorizada y no informes pista libre hasta que todo el avión esté fuera.",
       },
       {
         kind: "fichas",
@@ -682,88 +666,90 @@ export const NIVEL_5: DocScreen[] = [
           {
             titulo: "Luces indicadoras de salida",
             puntos: [
-              "Amarillas, en la pista, del lado de la salida.",
-              "Cuentan la distancia.",
+              "Cuando existen, son grupos amarillos de tres, dos y una luz sobre la pista, del lado de la salida, separados 100 m. Reconócelos como anticipación del punto de tangencia.",
+              "Sirven para preparar la desaceleración. Si la salida no es segura para tu velocidad o no está autorizada, continúa por la pista.",
             ],
           },
           {
             titulo: "Guía visual de atraque",
-            hueco: {
-              id: "AP-22-04",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde la posición del piloto izquierdo, con el sistema de atraque justo delante y la pasarela entrando por el borde derecho. Se ven la unidad de azimut sobre la prolongación del eje del puesto, el indicador de parada junto a ella y en el mismo campo visual, y la barra de alineación amarilla, de 15 cm de ancho como mínimo. Ojo: sin marca del fabricante, sin número de puesto real y sin logos.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-22-04-guia-atraque.webp",
+              alt: "Vista desde cabina de unidad genérica de guía visual de atraque al frente del puesto y pasarela a la derecha",
             },
-            puntos: ["Rumbo y punto de parada.", "Verde es siga; rojo, desviación y alto."],
+            puntos: [
+              "Reconoce el eje amarillo del puesto y la unidad de guía al frente, dentro del campo visual del piloto. La fotografía por sí sola no confirma que el sistema esté activo ni calibrado para tu avión.",
+              "Contrasta la guía lateral y la indicación de parada con el puesto y tipo asignados. Si la señal falta, es contradictoria o no coincide, detente y solicita una guía alternativa válida.",
+            ],
           },
           {
             titulo: "Versión avanzada",
-            hueco: {
-              id: "AP-22-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Frontal desde la cabina, al anochecer, con la pantalla del sistema avanzado llenando el centro del encuadre: una sola pantalla sin obstrucciones que muestra «A320», «12.5 m» y una flecha con la palabra «AZIMUTH», nada más. Rojo es peligro, amarillo precaución, verde correcto. Ojo: ni marca del fabricante, ni nombre de aeropuerto, ni número de puesto real.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-22-05-atraque-avanzado.webp",
+              alt: "Fotografía de unidad genérica con pantalla didáctica superpuesta que indica A320, corrección lateral y 12,5 m restantes",
             },
             puntos: [
-              "Una pantalla confirma tipo de avión, desvío y distancia, y avisa si te pasaste.",
+              "La pantalla superpuesta es un ejemplo didáctico, no una interfaz operacional: ilustra tipo de avión, guía lateral y distancia restante. Reconoce esos datos juntos; no uses el dibujo como referencia de un fabricante.",
+              "Un sistema avanzado también debe indicar parada, sobrepaso y parada de emergencia. Si se apaga, muestra un tipo equivocado o deja de guiar, detén la aeronave y coordina asistencia.",
             ],
           },
           {
             titulo: "El señalero",
-            hueco: {
-              id: "AP-22-06",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde la posición del piloto, al anochecer: el señalero de frente al avión y a la izquierda del eje, en plano entero, con chaleco reflectante, protección auditiva y los dos bastones iluminados. Los brazos hacen la parada normal, extendidos a 90° y subiendo despacio hasta cruzar los bastones sobre la cabeza. Ojo: nadie cerca del avión con las anticolisión encendidas y los motores en marcha.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-22-06-senalero.webp",
+              alt: "Señalero con chaleco y protección auditiva frente al puesto, con dos bastones iluminados cruzados sobre la cabeza en señal de parada normal",
             },
-            puntos: ["Manda en el puesto.", "La parada normal es lenta; la de emergencia, brusca."],
+            puntos: [
+              "Reconoce los dos bastones cruzados sobre la cabeza: es la posición final de una señal de parada normal. La fotografía fija no muestra la velocidad del movimiento de los brazos.",
+              "Detente siguiendo la señal válida y mantén la posición hasta coordinar el aseguramiento del avión. La parada de emergencia se indica con movimiento brusco y exige detenerse de inmediato.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "Las señales del puesto",
-        hueco: {
-          id: "AP-22-08",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Vista aérea oblicua de un puesto vacío desde unos 25 m, con señales recién pintadas: la línea de entrada continua con sus flechas y la identificación «2A», la barra de viraje con su punta de flecha, la línea de viraje curva, la barra de alineación larga, la línea de parada y una línea de seguridad contrastante. Cinco chinchetas numeradas, sin texto. Ojo: ningún número de puesto real ni marcas repintadas a medias.",
+        intro: "La foto muestra un puesto sin aeronave. Toca las cinco zonas señaladas y distingue la guía amarilla de los límites rojos; algunas barras cortas sirven a posiciones de parada distintas, no a un avión genérico.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-22-08-reconoce-puesto.webp",
+          alt: "Puesto vacío visto en oblicuo con línea amarilla de entrada y giro, eje de alineación, barras transversales y límites de seguridad rojos señalados",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
-            que: "Línea amarilla con flecha",
-            significa: "Entrada al puesto.",
-            piloto: "Síguela.",
+            x: 39,
+            y: 87,
+            que: "Línea amarilla de entrada",
+            significa: "Es la guía que llega desde la calle a la zona del puesto; aquí no se ve una flecha ni un número de puesto legible.",
+            piloto: "Sigue solo la línea correspondiente al puesto asignado y confirma que el área delante está libre.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Barra perpendicular",
-            significa: "Barra de viraje.",
-            piloto: "Aquí giras.",
+            x: 47,
+            y: 68,
+            que: "Curva de entrada",
+            significa: "La línea de guía cambia de dirección y lleva al eje recto del puesto; no se distingue una barra de viraje independiente en esta foto.",
+            piloto: "Haz el giro siguiendo el trazado y la guía autorizada, sin improvisar un punto de viraje a partir de otra marca.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Barra larga en tu eje",
-            significa: "Barra de alineación.",
-            piloto: "Tu referencia.",
+            x: 50,
+            y: 44,
+            que: "Eje amarillo recto",
+            significa: "Es la prolongación de la guía que centra el avión en el puesto; la foto no demuestra por sí sola la compatibilidad del puesto.",
+            piloto: "Mantén la alineación mientras contrastas la guía visual de atraque o las señales del señalero.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Barra corta al final",
-            significa: "Línea de parada.",
-            piloto: "A la altura del piloto.",
+            x: 50,
+            y: 18,
+            que: "Barras transversales",
+            significa: "Se aprecian varias marcas amarillas que cruzan el eje, incluida una barra más larga al fondo; pueden corresponder a posiciones de parada distintas.",
+            piloto: "Detente solo en la referencia válida para tu tipo de aeronave y la guía del puesto, no en la primera barra que veas.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Línea de otro color",
-            significa: "Línea de seguridad.",
-            piloto: "Afuera, el equipo.",
+            x: 22,
+            y: 43,
+            que: "Límite rojo del puesto",
+            significa: "La línea de color contrastante delimita el área de seguridad alrededor de la posición de estacionamiento.",
+            piloto: "Comprueba el espacio libre y respeta las restricciones de movimiento del equipo de tierra durante la llegada.",
           },
         ],
       },
@@ -772,14 +758,13 @@ export const NIVEL_5: DocScreen[] = [
         momento: "Entrando al puesto",
         situacion: "Entrando al puesto, la pantalla de atraque se apaga de golpe.",
         pregunta: "¿Qué haces?",
-        respuesta: "Frenas y esperas.",
-        claves: ["Sin guía válida no entras.", "El sistema debe avisar cuando falla."],
-        hueco: {
-          id: "AP-22-07",
-          medida: "Fotografía real · 3:2 · 1200×800",
-          descripcion:
-            "Desde arriba y a un costado, a unos 15 m de altura, con el puesto completo en el encuadre: el avión ya detenido y calzado, las líneas de seguridad de plataforma en color contrastante, continuas y de 10 cm de ancho como mínimo, la línea de límite de vía de servicio, y el equipo de tierra todavía por fuera de esas líneas. Ojo: nadie dentro del área del avión con las anticolisión encendidas.",
+        respuesta: "Detén el avión y pide una guía alternativa válida antes de continuar.",
+        claves: ["Una pantalla apagada no confirma eje ni punto de parada.", "Coordina con el personal de tierra; no avances por intuición."],
+        imagen: {
+          src: "/modulos/aeropuertos/ap-22-07-avion-calzado.webp",
+          alt: "Avión estacionado con calzos en el tren delantero y personal y equipos de apoyo alrededor del puesto",
         },
+        ves: ["La foto representa una fase posterior: el avión está detenido y calzado. Reconoce los calzos frente a las ruedas y el límite rojo del puesto.", "Antes de que entren los equipos, confirma la parada y el aseguramiento según el procedimiento local; los calzos visibles no prueban por sí solos que los motores estén apagados."],
       },
     ],
   },

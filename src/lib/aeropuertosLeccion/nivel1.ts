@@ -405,6 +405,8 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "reconoce",
         titulo: "El letrero de distancia de pista restante",
+        intro:
+          "La fotografía es de un aeródromo estadounidense, donde el numeral son miles de pies: el 6 son 6 000 ft. Bajo la norma OACI el letrero se lee distinto, y ese es el que vas a encontrar en la región.",
         imagen: {
           src: "/modulos/aeropuertos/ap-03-07-distancia-restante.webp",
           alt: "Vista desde cabina de letreros negros con numerales blancos 6 y 5 instalados fuera del borde de la pista",
@@ -416,14 +418,14 @@ export const NIVEL_1: DocScreen[] = [
             x: 92,
             y: 47,
             que: "Numeral blanco sobre negro",
-            significa: "El 6 indica 6 000 ft de pista restantes, aproximadamente 1 829 m.",
+            significa: "Cuenta los tramos que quedan: el 6 son seis tramos, unos 1 800 m. En la foto, estadounidense, el mismo 6 son 6 000 ft.",
             piloto: "Es una referencia visual; no sustituye la distancia declarada usada en performance.",
           },
           {
             x: 62,
             y: 36,
             que: "Separación",
-            significa: "Los numerales disminuyen en intervalos de 1 000 ft, cerca de 305 m.",
+            significa: "Los letreros van cada 300 m, con una tolerancia de 30 m, a lo largo de toda la pista.",
             piloto: "La secuencia te ayuda a mantener conciencia de cuánta pista queda durante la carrera.",
           },
           {
@@ -451,7 +453,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "El letrero muestra miles de pies, aunque las distancias declaradas de la publicación puedan aparecer en metros. Por eso un numeral 6 no significa seis kilómetros: representa 6 000 ft restantes, aproximadamente 1 829 m. Úsalo para mantener conciencia situacional durante la carrera, pero toma la decisión con la performance calculada y las distancias publicadas.",
+        text: "El numeral no son metros ni kilómetros: cuenta tramos. Los letreros se reparten a lo largo de toda la pista cada 300 m, así que un 6 son seis tramos, unos 1 800 m restantes. Es un letrero nuevo en la norma OACI desde el 27 de noviembre de 2025, y todavía no está en todas partes. Donde manda la reglamentación estadounidense el mismo letrero cuenta miles de pies, y un 6 son 6 000 ft: si vuelas a ese espacio aéreo, comprueba cuál de las dos lecturas aplica. En cualquiera de los dos casos, úsalo para mantener conciencia situacional durante la carrera y toma la decisión con la performance calculada y las distancias publicadas.",
       },
       {
         kind: "piensaComoPiloto",

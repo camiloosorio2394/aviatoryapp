@@ -77,8 +77,6 @@ import { fetchMercanciasProgress, readMercanciasLocal } from "@/lib/mercanciasPr
 import { fetchAeropuertosProgress } from "@/lib/aeropuertosProgress"
 import { fetchComunicacionesProgress } from "@/lib/comunicacionesProgress"
 import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
-import notamPhoto from "@/assets/photos/tema-notam-pista-luces.webp"
-import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.webp"
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.webp"
@@ -296,7 +294,7 @@ export function AirlinePrep() {
           meta: `${NOTAM_TOTALES.lessonScreens} secciones · ${NOTAM_TOTALES.lessonMinutes} min`,
           descripcion:
             "Lee la línea Q y decodifica avisos reales de la Aerocivil.",
-          foto: notamPhoto,
+          foto: "/modulos/notam/tema-notam-operacion.webp",
           cta: ctaDeTema(notam.overall),
           avance: notam.overall,
           completo: notam.overall >= 100,
@@ -320,7 +318,7 @@ export function AirlinePrep() {
           // Lo que se aprende, en el orden en que se lee.
           descripcion:
             "Del cielo al informe: nubes, frentes, METAR y TAF.",
-          foto: meteorologiaPhoto,
+          foto: "/modulos/meteorologia/tema-meteorologia-conveccion.webp",
           cta: ctaDeTema(metar.overall),
           avance: metar.overall,
           completo: metar.overall >= 100,
@@ -342,11 +340,7 @@ export function AirlinePrep() {
           titulo: "Mercancías peligrosas",
           meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_LECTURA_MINUTOS} min`,
           descripcion: "Clases, NOTOC, baterías de litio y qué hacer en vuelo.",
-          // Sin portada: el módulo todavía no tiene la suya. Lo que había aquí
-          // era el hero de la PRÁCTICA de Mercancías, una lámina de etiquetas
-          // con texto diminuto que no casaba con las fotos de las otras tres.
-          // En cuanto exista la foto, se pone en `foto` y el hueco desaparece.
-          fotoHueco: "MP-TEM-01 · 2:1 · 1200×600 · Un bulto etiquetado en rampa",
+          foto: "/modulos/mercancias/tema-mercancias-carga.webp",
           cta: ctaDeTema(mercancias.overall),
           avance: mercancias.overall,
           completo: mercancias.overall >= 100,
@@ -368,8 +362,7 @@ export function AirlinePrep() {
           titulo: "Aerodinámica",
           meta: `${AERO_LECTURA_TOTAL} secciones · ${AERO_LECTURA_MINUTOS} min`,
           descripcion: "Sustentación, pérdida, factor de carga, Mach y altitud de densidad.",
-          // Sin portada, como Mercancías: el hueco dice qué falta.
-          fotoHueco: "AE-TEM-01 · 2:1 · 1200×600 · Ala en flecha desde la ventanilla",
+          foto: "/modulos/aerodinamica/tema-aerodinamica-ala.webp",
           cta: ctaDeTema(aero.overall),
           avance: aero.overall,
           completo: aero.overall >= 100,
@@ -393,6 +386,7 @@ export function AirlinePrep() {
           titulo: "Aeropuertos",
           meta: `${AP_LECTURA_TOTAL} lecciones · 5 niveles`,
           descripcion: "Señales, letreros y luces: leer un aeropuerto de un vistazo.",
+          foto: "/modulos/aeropuertos/tema-aeropuertos-rodaje.webp",
           cta: ctaDeTema(aeropuertos.overall),
           avance: aeropuertos.overall,
           completo: aeropuertos.overall >= 100,
