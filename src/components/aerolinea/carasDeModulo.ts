@@ -3,8 +3,6 @@ import { AlertTriangle, CloudSun, TowerControl, Wind } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
 import { AP_ACENTO } from "@/lib/aeropuertos"
 import type { ClaveModulo } from "@/lib/modulosAerolinea"
-import notamFoto from "@/assets/photos/tema-notam-pista-luces.webp"
-import meteorologiaFoto from "@/assets/photos/tema-meteorologia-nubes-altura.webp"
 
 /**
  * Cómo se ve cada módulo de Ingreso a aerolínea: icono, acento, portada y la
@@ -53,30 +51,31 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     // informa, no decora.
     icon: AerodromeIcon,
     color: "var(--av-blue-500)",
-    foto: notamFoto,
+    foto: "/modulos/notam/tema-notam-operacion.webp",
     descripcion: "Lee la línea Q y decodifica avisos reales de la Aerocivil.",
   },
   metar: {
     icon: CloudSun,
     color: "var(--av-mt-700)",
-    foto: meteorologiaFoto,
+    foto: "/modulos/meteorologia/tema-meteorologia-conveccion.webp",
     descripcion: "Del cielo al informe: nubes, frentes, METAR y TAF.",
   },
   mercancias: {
     icon: AlertTriangle,
     color: "var(--av-dg-700)",
-    fotoHueco: "MP-TEM-01 · 2:1 · 1200×600 · Un bulto etiquetado en rampa",
+    foto: "/modulos/mercancias/tema-mercancias-carga.webp",
     descripcion: "Clases, NOTOC, baterías de litio y qué hacer en vuelo.",
   },
   aerodinamica: {
     icon: Wind,
     color: "var(--av-ae-700)",
-    fotoHueco: "AE-TEM-01 · 2:1 · 1200×600 · Ala en flecha desde la ventanilla",
+    foto: "/modulos/aerodinamica/tema-aerodinamica-ala.webp",
     descripcion: "Sustentación, pérdida, factor de carga, Mach y altitud de densidad.",
   },
   aeropuertos: {
     icon: TowerControl,
     color: AP_ACENTO,
+    foto: "/modulos/aeropuertos/tema-aeropuertos-rodaje.webp",
     descripcion: "Señales, letreros y luces: leer un aeropuerto de un vistazo.",
   },
 }
