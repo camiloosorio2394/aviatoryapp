@@ -16,10 +16,10 @@
 |---|---|
 | Ruta en la app | Ingreso a aerolínea → Performance |
 | Clave de módulo | `performance` |
-| Lecciones (teoría) | 38 temas agrupados en 6 niveles (ver más abajo) |
-| Práctica | Escenarios operacionales (10 casos, `esc-01` a `esc-10`) · Errores de entrevista (14 fichas) |
+| Lecciones (teoría) | 40 temas agrupados en 7 niveles (ver más abajo) |
+| Práctica | Ejercicios resueltos (18, `ej-01` a `ej-18`) · Escenarios operacionales (10 casos, `esc-01` a `esc-10`) · Errores de entrevista (15 fichas) |
 | Imágenes | 20 figuras (`PERF-01` a `PERF-20`), ver Anexo A |
-| Tiempo estimado | 38 temas × 3–5 min + práctica ≈ 3 a 4 h |
+| Tiempo estimado | 40 temas × 3–5 min + práctica ≈ 4 h |
 
 ### Agrupación en niveles
 
@@ -31,6 +31,7 @@
 | 4 | El peso que de verdad puedes llevar | 16 a 24 |
 | 5 | Ruta y aterrizaje | 25 a 34 |
 | 6 | El cálculo en la vida real | 35 a 38 |
+| 7 | Las cuentas que te van a pedir | 39 y 40 |
 
 ### Convenciones de bloques (para la implementación)
 
@@ -1454,6 +1455,155 @@ El peso. Vienes muy por encima del máximo estructural de aterrizaje, porque no 
 
 ---
 
+
+# NIVEL 7 · LAS CUENTAS QUE TE VAN A PEDIR
+
+## TEMA 39 · LAS SEIS CUENTAS QUE DEBES PODER HACER DE CABEZA
+
+**¿QUÉ ES?**
+En una prueba de aerolínea, buena parte de las preguntas de performance no son de concepto: son de número. Y casi todas salen de seis relaciones. Ninguna necesita calculadora.
+
+**LO QUE DEBE SABER UN PILOTO**
+
+### 1 · Gradiente desde altura y distancia
+
+> **Gradiente (%) = (altura ganada ÷ distancia horizontal) × 100**
+
+Las dos en las mismas unidades. Es la definición, no una aproximación.
+
+### 2 · Gradiente a pies por milla náutica
+
+> **1 % = 60,76 ft/NM ≈ 60 ft/NM**
+
+Sale de que una milla náutica son 6 076 ft, y el 1 % de 6 076 es 60,76. Es aritmética exacta. Con 60 basta para trabajar de cabeza: un gradiente del 3,3 % son unos 200 ft/NM.
+
+### 3 · Gradiente a régimen de ascenso
+
+> **Régimen (ft/min) ≈ gradiente (%) × velocidad respecto al suelo (kt)**
+
+Es la relación que más se pregunta, porque une los dos conceptos que la gente confunde. Sale de la anterior: 60,76 ft/NM por cada 1 %, multiplicado por las millas que recorres en un minuto, que son GS ÷ 60. El error de redondear 60,76 a 60 es de poco más del 1 %.
+
+**Y la lectura al revés es la importante:** el mismo régimen de ascenso da **menos gradiente** cuanto más rápido vas. Por eso un avión pesado que acelera puede subir a buen ritmo y aun así no librar un obstáculo.
+
+### 4 · Altitud de presión desde el QNH
+
+> **PA ≈ elevación + (1013 − QNH) × 27 ft**
+
+Cerca del nivel del mar, 1 hPa equivale a unos 27 ft de altura. Algunos manuales usan 30 ft para simplificar; los dos valen para estimar, y el cálculo de verdad lo hace el sistema. Lo que importa es el **signo**: QNH bajo, altitud de presión **mayor** que la elevación, y el avión rinde como si el aeropuerto estuviera más alto.
+
+### 5 · Altitud de densidad
+
+> **ISA a esa altitud (°C) ≈ 15 − 2 × (altitud ÷ 1 000)**
+> **DA ≈ PA + 120 × (OAT − ISA)**
+
+Unos 120 ft por cada grado por encima de la estándar. Es una regla de estimación, no un valor certificado: sirve para entender de dónde viene la penalización, no para calcular un peso.
+
+### 6 · Componentes de viento
+
+> **De frente = velocidad × coseno del ángulo · Cruzado = velocidad × seno del ángulo**
+
+Y la regla del reloj para hacerlo sin calculadora, con el ángulo entre el viento y la pista:
+
+| Ángulo | Componente cruzada |
+|---|---|
+| 15° | ≈ 1/4 |
+| 30° | ≈ 1/2 |
+| 45° | ≈ 3/4 |
+| 60° | ≈ 7/8 |
+| 90° | todo |
+
+La componente de frente es lo que queda. Y no olvides el tema 2: el cálculo **no usa el viento reportado tal cual**, sino como mucho el 50 % del de frente y al menos el 150 % del de cola (14 CFR 25.105 (d)).
+
+**EN POCAS PALABRAS**
+- 1 % son unos 60 ft/NM.
+- Régimen ≈ gradiente × velocidad respecto al suelo.
+- QNH bajo, altitud de presión mayor.
+- Unos 120 ft de altitud de densidad por grado sobre la estándar.
+- Regla del reloj para el viento cruzado.
+- El cálculo penaliza el viento: 50 % del de frente, 150 % del de cola.
+
+---
+
+## TEMA 40 · EJERCICIOS RESUELTOS
+
+Dieciocho ejercicios del tipo que aparece en pruebas de ingreso y entrevistas técnicas. Enunciado, respuesta y por qué.
+
+### Gradientes y ascenso
+
+**`ej-01`** Un avión gana 450 ft mientras recorre 15 000 ft de distancia horizontal. ¿Cuál es su gradiente?
+**Respuesta: 3 %.** 450 ÷ 15 000 × 100 = 3. Las dos distancias en las mismas unidades; nada más.
+
+**`ej-02`** El segundo segmento de un bimotor exige 2,4 %. ¿Cuántos pies por milla náutica son?
+**Respuesta: unos 146 ft/NM.** 2,4 × 60,76 = 145,8. Con la regla de 60: 2,4 × 60 = 144, suficiente para trabajar.
+
+**`ej-03`** Subes con un gradiente del 3,3 % y tu velocidad respecto al suelo es de 160 kt. ¿Qué régimen de ascenso tienes?
+**Respuesta: unos 530 ft/min.** 3,3 × 160 = 528. Fíjate en lo que dice el número: 530 ft/min suena poco, y sin embargo cumple de sobra el gradiente del segundo segmento. **El obstáculo entiende de pendiente, no de ft/min.**
+
+**`ej-04`** La SID exige un gradiente del 7 % hasta 5 000 ft. Vas a cruzar ese tramo con 180 kt de velocidad respecto al suelo. ¿Qué régimen necesitas?
+**Respuesta: unos 1 260 ft/min.** 7 × 180 = 1 260. Y el punto que se pregunta después: ese gradiente se diseñó **con todos los motores**. Con uno menos puede ser inalcanzable, y por eso existe el procedimiento con motor inoperativo del tema 15.
+
+**`ej-05`** Hay un obstáculo de 800 ft de altura a 5 NM del final de la distancia de despegue. La trayectoria neta arranca a 35 ft y tienes que librarlo por 35 ft. ¿Qué gradiente neto necesitas?
+**Respuesta: unos 2,6 %.** La altura que hay que ganar es 800 + 35 − 35 = 800 ft. La distancia son 5 × 6 076 = 30 380 ft. 800 ÷ 30 380 × 100 = 2,63 %.
+**Y la conclusión que importa:** 2,63 % es **más** que el 2,4 % mínimo del segundo segmento de un bimotor. Cumplir la certificación no basta aquí: hay que quitar peso hasta que el gradiente neto disponible llegue a 2,63 %, o virar antes del obstáculo. Este es el mecanismo exacto de un despegue `OBSTACLE`.
+
+**`ej-06`** Tu gradiente neto disponible en el segundo segmento es del 2,1 %, con un bimotor.
+**Respuesta: no cumples.** El mínimo certificado es 2,4 %. No hay técnica que lo arregle: se quita peso, se reduce la configuración de flaps si el caso lo admite, o se espera a que baje la temperatura.
+
+### Distancias declaradas
+
+**`ej-07`** Pista de 3 200 m, con 200 m de stopway y 400 m de clearway. El umbral está en el extremo. Da las cuatro distancias.
+**Respuesta:** TORA 3 200 · TODA 3 600 · ASDA 3 400 · LDA 3 200.
+La clearway suma solo a TODA; la stopway, solo a ASDA. Comprobación extra: la clearway contabilizada no puede pasar de la mitad de la pista (14 CFR 121.189 (c)), y 400 es mucho menos que 1 600.
+
+**`ej-08`** La misma pista, pero ahora con el umbral desplazado 300 m.
+**Respuesta:** TORA 3 200 · TODA 3 600 · ASDA 3 400 · **LDA 2 900**.
+Solo cambia la LDA, y solo en esa dirección. El tramo anterior al umbral desplazado sigue sirviendo para rodar y despegar.
+
+**`ej-09`** Desde cabecera tienes 3 800 m de TORA. Te ofrecen la intersección C, donde quedan 2 579 m. ¿Con qué cifra corres el cálculo?
+**Respuesta: con 2 579 m.** Los 1 221 m que quedaron atrás no se recuperan. Y no basta con la TORA: TODA y ASDA de esa intersección también cambian, y las tres condiciones tienen que seguir cumpliéndose.
+
+### Atmósfera
+
+**`ej-10`** Aeródromo a 5 000 ft de elevación, QNH 995 hPa. ¿Cuál es la altitud de presión?
+**Respuesta: unos 5 500 ft.** 1 013 − 995 = 18 hPa. 18 × 27 ≈ 486 ft. 5 000 + 486 = 5 486.
+El QNH bajo **sube** la altitud de presión: el avión rinde como si el aeropuerto estuviera 500 ft más alto.
+
+**`ej-11`** Con esa altitud de presión de 5 500 ft y 30 °C de temperatura exterior, ¿cuál es la altitud de densidad aproximada?
+**Respuesta: unos 8 600 ft.** La ISA a 5 500 ft son 15 − 2 × 5,5 = 4 °C. La desviación es 30 − 4 = +26 °C. 5 500 + 120 × 26 = 5 500 + 3 120 = 8 620 ft.
+Un aeropuerto de 5 000 ft comportándose como uno de 8 600: ahí está la penalización de peso, explicada sin abrir ninguna tabla.
+
+### Viento
+
+**`ej-12`** Pista 09. El viento es 130° con 20 kt. ¿Componentes?
+**Respuesta: unos 15 kt de frente y unos 13 kt cruzados.** El ángulo es 130 − 090 = 40°. Con la regla del reloj, 40° está entre 1/2 y 3/4: la cruzada ronda los 13 kt y la de frente, los 15.
+
+**`ej-13`** La torre reporta 6 kt de viento de cola. ¿Con cuánto calcula el sistema?
+**Respuesta: con al menos 9 kt.** La norma exige contar como mínimo el 150 % de la componente de cola (14 CFR 25.105 (d)). Si en cambio fueran 6 kt de frente, solo podría acreditarse como mucho la mitad: 3 kt. **El viento no es simétrico en el cálculo, y por eso un poco de cola castiga tanto.**
+
+### Aterrizaje
+
+**`ej-14`** La distancia real de aterrizaje del avión, con las condiciones previstas, es de 1 450 m. Pista seca. ¿Qué longitud efectiva necesitas para despachar bajo la regla de la FAA?
+**Respuesta: unos 2 417 m.** Hay que poder detenerse dentro del 60 % de la longitud efectiva (14 CFR 121.195 (b)): 1 450 ÷ 0,60 = 2 417.
+
+**`ej-15`** Mismo caso, pero se prevé la pista mojada.
+**Respuesta: unos 2 780 m.** Sobre la cifra anterior se aplica el 115 % del párrafo (d): 2 417 × 1,15 = 2 779.
+
+**`ej-16`** En descenso, la distancia de aterrizaje al momento de llegada (LDTA) sale en 1 700 m y la pista tiene 1 900 m de LDA. Operas bajo reglas europeas.
+**Respuesta: no continúas.** El CAT.OP.MPA.303 exige que la LDA sea al menos el 115 % de la LDTA: 1 700 × 1,15 = 1 955 m. Con 1 900 m no alcanza. Bajo la orientación de la FAA (SAFO 19001) el margen buscado es el mismo 15 %, pero como recomendación y política de operador, no como prohibición.
+
+### Coherencia y criterio
+
+**`ej-17`** El EFB devuelve V₁ 148, VR 142 y V₂ 150 kt.
+**Respuesta: los números están mal.** VR no puede ser menor que V₁ (14 CFR 25.107). El orden siempre es **V₁ ≤ VR ≤ V₂**. Es la comprobación más rápida que existe y detecta buena parte de los errores de tecleo.
+
+**`ej-18`** El resultado dice `LIMIT: CLIMB`. El controlador te ofrece una pista 600 m más larga.
+**Respuesta: no te sirve de nada.** La limitación es de gradiente, no de pista: falta capacidad de ascenso con un motor inoperativo. Lo que sí movería el resultado es menos peso, menos flaps, o menos temperatura. Si en cambio dijera `RUNWAY`, la pista más larga sería exactamente la solución.
+
+---
+
+**Cómo estudiarlos.** Haz primero la cuenta y después mira la respuesta. Si fallas, el error casi nunca está en la aritmética: está en haber confundido qué se pregunta. Las cinco confusiones que producen más errores en estos dieciocho son gradiente contra régimen de ascenso, TODA contra ASDA, clearway contra stopway, distancia disponible contra distancia requerida, y viento reportado contra viento acreditado en el cálculo.
+
+---
 # CIERRE · LO QUE UN PILOTO DE AEROLÍNEA DEBE RECORDAR
 
 1. La performance es de **cada operación**, no del avión: cambia con el día, la pista y el peso.
