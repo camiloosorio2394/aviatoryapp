@@ -62,9 +62,17 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-08-lineas-seguridad-plataforma.webp",
     explicacion: "Las marcas amarillas guían al avión; la línea roja separa la zona de seguridad del puesto. Mantén vehículos y equipos en el lado permitido y confirma que el área esté libre antes de mover el avión.",
   },
+  "AP-CAT-10": {
+    src: "/modulos/aeropuertos/ap-cat-10-instrucciones-pintadas.webp",
+    explicacion: "La inscripción blanca «09-27» sobre rojo repite una instrucción obligatoria antes de la señal amarilla de espera de pista. Detente del lado de espera y cruza solo con autorización.",
+  },
   "AP-CAT-12": {
     src: "/modulos/aeropuertos/ap-cat-12-emplazamiento-pintado.webp",
     explicacion: "La B amarilla sobre fondo negro indica la calle en la que estás, sin flecha de dirección. Confirma que coincide con tu ruta autorizada antes de continuar el rodaje.",
+  },
+  "AP-CAT-13": {
+    src: "/modulos/aeropuertos/ap-cat-13-direccion-pintada.webp",
+    explicacion: "La letra C y la flecha negras sobre amarillo indican la rama izquierda de la bifurcación. Sigue esa dirección solo si coincide con la ruta de rodaje autorizada.",
   },
   "AP-CAT-14": {
     src: "/modulos/aeropuertos/ap-cat-14-borde-plataforma.webp",
