@@ -179,18 +179,20 @@ alternativas. Como el módulo entero funciona con opción múltiple cronometrada
 partir de los errores típicos (repetir el salto anterior, adelantarse un
 término, invertir el signo). La respuesta y el desglose son los del documento.
 
-En el contenido de los ejercicios no se tocaron enunciados, valores ni
-alternativas. Lo único restituido son los superíndices de unidades al cuadrado
-de los ejercicios 23 y 34 de N1, que `pdftotext` pierde al extraer.
+En las series numéricas no se tocaron valores ni alternativas. Se restituyeron
+los superíndices de unidades al cuadrado de los ejercicios 23 y 34 de N1, que
+`pdftotext` pierde al extraer. En E1-08 se aclaró la consigna: se compara una
+silueta en negativo, no se inserta una pieza. En E1-09 se corrigió la
+explicación: la diferencia es la separación vertical, no un reflejo.
 
 ## Estado de los redibujos visuales
 
-**ES-E1-01 a ES-E1-07** tienen fuente SVG editable en
+**ES-E1-01 a ES-E1-09** tienen fuente SVG editable en
 `scripts/psicotecnicas/redibujos/`, contrastada con las páginas 1 y 2 del PDF
 E1. Los WebP publicados conservan sus URL; las alternativas y claves no cambian.
 `node scripts/psicotecnicas/redibujar-e1.mjs` regenera solo los redibujos
-aprobados. E1-08 a E1-14 y las láminas de E2 siguen pendientes; no se dan por
-corregidas por el trabajo en las primeras siete.
+aprobados. E1-10 a E1-14 y las láminas de E2 siguen pendientes; no se dan por
+corregidas por el trabajo en las primeras nueve.
 
 ## Derechos
 

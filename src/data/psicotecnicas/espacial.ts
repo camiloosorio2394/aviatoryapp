@@ -19,8 +19,8 @@ import type { EjercicioPsico } from "@/lib/psicotecnicas"
  *
  * Las figuras son el ejercicio: sin ellas el enunciado no se puede responder.
  * Los recortes salen del PDF original por scripts/psicotecnicas/extraer-figuras.mjs.
- * E1-01 a E1-07 son excepciones visuales: se redibujaron desde las páginas 1
- * y 2 para separar y ampliar las alternativas sin cambiar su geometría.
+ * E1-01 a E1-09 son excepciones visuales: se redibujaron desde las páginas 1
+ * a 3 para separar y ampliar las alternativas sin cambiar su respuesta.
  */
 export const ESPACIAL: EjercicioPsico[] = [
   {
@@ -150,15 +150,15 @@ export const ESPACIAL: EjercicioPsico[] = [
     categoria: "espacial",
     subcategoria: "Relaciones espaciales",
     nivel: "basico",
-    enunciado: "Completa la figura con una de las opciones:",
+    enunciado: "¿Qué opción reproduce la silueta blanca del modelo?",
     imagen: "/psicotecnicas/espacial/ES-E1-08.webp",
     imagenAlt:
-      "Una mancha blanca sobre fondo negro a la que le falta un trozo, y cuatro parches A a D.",
+      "Una silueta blanca sobre fondo oscuro y cuatro siluetas negras A a D para comparar.",
     opciones: ["A", "B", "C", "D"],
     opcionesEnImagen: true,
     respuesta: 0,
     explicacion:
-      "El truco es mirar el borde por donde se corta, no el interior del parche: la línea de la mancha tiene que continuar sin salto al colocar la pieza. Solo la A empalma el contorno; las demás dejan un escalón visible.",
+      "Hay que comparar la silueta completa, incluidos los salientes pequeños y los dos puntos separados de abajo. A conserva esas posiciones y tamaños; en las demás cambia al menos uno de esos detalles.",
     tiempo: 45,
     fuente: "Test razonamiento espacial (670006116), ej. 8",
   },
@@ -175,7 +175,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     opcionesEnImagen: true,
     respuesta: 3,
     explicacion:
-      "Tres de las cuatro son el mismo fragmento del modelo girado; la cuarta está espejada, y una figura espejada no se obtiene girando en el plano. Ese es el criterio que la delata: la D.",
+      "A, B y C reproducen franjas del modelo. En D, la separación blanca entre la punta de la figura superior y la figura inferior es mayor que en la franja correspondiente; esa distancia la delata.",
     tiempo: 45,
     fuente: "Test razonamiento espacial (670006116), ej. 9",
   },

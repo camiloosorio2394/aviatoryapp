@@ -49,7 +49,7 @@ const escapar = (s) =>
 
 /** En qué estado está cada ejercicio, y por qué. */
 function estadoDe(e) {
-  if (/^ES-E1-0[1-7]$/.test(e.id)) {
+  if (/^ES-E1-0[1-9]$/.test(e.id)) {
     return { clase: "dibujada", texto: "Redibujada · contrastada con el cuadernillo" }
   }
   if (e.figura) {
@@ -198,7 +198,7 @@ fs.writeFileSync(
     es suficiente para llegar al archivo, a la ficha y a la página del cuadernillo. Hay un
     botón «copiar id» en cada tarjeta.</p>
     <p><b>Lo que ya sé que está mal:</b> los ocho ejemplos del E2 tienen el dibujo mordido
-    en origen. Las E1-01 a E1-07 ya están redibujadas; las otras siete del E1 todavía llevan la
+    en origen. Las E1-01 a E1-09 ya están redibujadas; las otras cinco del E1 todavía llevan la
     marca de agua de DaVinci encima de las opciones.</p>
   </div>
   ${secciones}

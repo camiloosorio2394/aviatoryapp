@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url"
 import sharp from "sharp"
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
-const ids = ["ES-E1-01", "ES-E1-02", "ES-E1-03", "ES-E1-04", "ES-E1-05", "ES-E1-06", "ES-E1-07"]
+const ids = ["ES-E1-01", "ES-E1-02", "ES-E1-03", "ES-E1-04", "ES-E1-05", "ES-E1-06", "ES-E1-07", "ES-E1-08", "ES-E1-09"]
 
 for (const id of ids) {
   const fuente = path.join(raiz, "scripts/psicotecnicas/redibujos", `${id}.svg`)
