@@ -82,6 +82,22 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-15-umbral-pista-no-pavimentada.webp",
     explicacion: "En esta pista de grama el umbral se reconoce por dos tableros laterales «07», no por fajas pintadas. Los tableros rojos lejanos señalan el extremo: verifica la pista autorizada antes de alinearte.",
   },
+  "AP-CAT-18": {
+    src: "/modulos/aeropuertos/ap-cat-18-senal-fuera-servicio.webp",
+    explicacion: "La inscripción negra sobre naranja advierte que la calle tiene un tramo fuera de servicio por obras. Reconoce el color temporal antes de llegar a la barrera y no sigas el eje amarillo hacia el área cerrada.",
+  },
+  "AP-CAT-19": {
+    src: "/modulos/aeropuertos/ap-cat-19-letrero-fuera-servicio.webp",
+    explicacion: "El letrero naranja con letras negras y dos balizas rojas anuncia una reducción temporal de la TORA (Take-Off Run Available), la distancia de despegue disponible. Verifica la distancia declarada vigente antes de calcular o iniciar el despegue.",
+  },
+  "AP-CAT-20": {
+    src: "/modulos/aeropuertos/ap-cat-20-balizas-fuera-servicio.webp",
+    explicacion: "Conos, bandera cuadrada y tablero de fajas verticales naranja y blanco delimitan la obra detrás de ellos. Reconoce el borde del área inutilizable y mantén aeronaves y vehículos fuera de esa zona.",
+  },
+  "AP-CAT-21": {
+    src: "/modulos/aeropuertos/ap-cat-21-luces-fuera-servicio.webp",
+    explicacion: "Una fila de luces rojas fijas cruza la entrada de la calle cerrada; el eje verde termina antes de ella. De noche, no cruces esa delimitación y confirma una ruta de rodaje utilizable.",
+  },
   "AP-CAT-34": {
     src: "/modulos/aeropuertos/ap-cat-34-indicador-direccion-aterrizaje.webp",
     explicacion: "La T blanca indica la dirección de aterrizaje: el brazo largo se alinea con la pista y el travesaño señala hacia dónde se aterriza. Confirma también el viento y las instrucciones vigentes.",
