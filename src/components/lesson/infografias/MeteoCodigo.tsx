@@ -86,7 +86,7 @@ function Clave({
 // ═══════════════════════════════════════════════════════════════════════════
 
 const PIEZAS = [
-  { clave: "+", columna: "CALIFICADOR", significa: "FUERTE" },
+  { clave: "+", columna: "INTENSIDAD", significa: "LLUVIA FUERTE" },
   { clave: "TS", columna: "DESCRIPTOR", significa: "TORMENTA" },
   { clave: "RA", columna: "FENÓMENO", significa: "LLUVIA" },
 ] as const
@@ -104,9 +104,9 @@ export function MeteoTiempoPresente() {
   }))
 
   return (
-    <Lienzo etiqueta="El código de tiempo presente, montado por piezas. El ejemplo +TSRA se parte en tres: el signo más es el calificador y significa fuerte, TS es el descriptor y significa tormenta, y RA es el fenómeno y significa lluvia. Siempre van en ese orden.">
+    <Lienzo etiqueta="El código de tiempo presente del ejemplo +TSRA se parte en tres piezas presentes: el signo más indica intensidad fuerte de la lluvia, TS es el descriptor de tormenta y RA es el fenómeno de lluvia. Otros códigos pueden omitir alguna pieza.">
       <Rotulo x={W / 2} y={104} ancla="middle" color={SECUNDARIO} tam={17}>
-        SIEMPRE EN ESTE ORDEN
+        EJEMPLO · ORDEN DE LAS PIEZAS PRESENTES
       </Rotulo>
 
       {/* El código entero, partido en sus tres piezas. */}
