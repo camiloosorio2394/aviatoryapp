@@ -333,18 +333,19 @@ export const NIVEL_5: DocScreen[] = [
         alt: "Pista mojada vista desde corta final con agua, huellas de ruedas y sus tres tercios longitudinales señalados",
         ancho: 1600,
         alto: 900,
-        pie: "El brillo y el agua visible permiten reconocer una superficie mojada, pero una huella más limpia no demuestra que ese tramo esté seco ni permite asignar un código desde la cabina. El informe divide la pista en tres tercios longitudinales y publica un RWYCC para cada uno. Como el orden se informa desde el designador menor, al operar en el sentido contrario debes invertir mentalmente la secuencia antes de llevarla al cálculo de performance.",
+        pie: "El brillo y el agua visible permiten reconocer una superficie mojada, pero una huella más limpia no demuestra que ese tramo esté seco ni permite asignar un código desde la cabina. El informe divide la pista en tres tercios longitudinales y publica un código de condición de pista (Runway Condition Code, RWYCC) para cada uno. Como el orden se informa desde el designador menor, al operar en el sentido contrario debes invertir la secuencia antes de llevarla al cálculo de performance.",
       },
       {
         kind: "p",
-        text: "El formato global de OACI describe la superficie por tercios y asigna un código que la tripulación lleva al cálculo de performance. No basta con escuchar una cifra suelta: el informe se lee en el sentido de la pista de designador menor, y al operar en el sentido contrario se invierte el orden. Así, un 5/3/2 puede comenzar para ti por el 2 y condicionar desde el toque la distancia de aterrizaje disponible.",
+        text: "El formato mundial de notificación (Global Reporting Format, GRF) de la OACI describe la superficie por tercios y asigna un código que la tripulación lleva al cálculo de performance. No basta con escuchar una cifra suelta: el informe se lee en el sentido del designador menor, y al operar en el sentido contrario se invierte el orden. Así, un 5/3/2 puede comenzar para ti por el 2 y condicionar desde el toque la distancia de aterrizaje necesaria.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-20-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde el pavimento, cámara casi a ras y mirando a lo largo de la pista, en día gris. En primer plano, la textura de la superficie con un contaminante identificable, agua estancada o nieve fundente, y la diferencia de cobertura entre el centro y los costados, con el eje blanco parcialmente tapado. El agua estancada se notifica desde 4 mm; mojada es humedad o agua hasta 3 mm inclusive. Ojo: sin vehículos con logotipos ni personas identificables.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-20-02-agua-superficie.webp",
+        alt: "Vista rasante de pista mojada con acumulaciones reflectantes a un lado y zona central con menor cobertura visible",
+        ancho: 1600,
+        alto: 900,
+        pie: "A un lado se ve agua con reflejos y, cerca del eje blanco, una cobertura distinta. La foto permite reconocer que la condición no es uniforme, pero no medir la profundidad ni concluir que el centro está seco. Agua estancada significa más de 3 mm medidos; para performance usa el informe de condición de pista vigente, no una estimación visual.",
       },
       {
         kind: "p",
@@ -376,12 +377,12 @@ export const NIVEL_5: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-20-03 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "La tabla de arriba dibujada a todo el ancho, con tipografía grande para un teléfono: siete filas de 6 a 0, la clave en número grande a la izquierda, los criterios de superficie en el centro y la eficacia de frenado a la derecha, con un degradado suave de verde a rojo. El contenido va literal. Ojo: no se copia ninguna figura de la OACI y la columna de frenado no dice «NIL».",
-        alto: 340,
-        pie: "Si el 25 % o menos del tercio está mojado o cubierto, se notifica 6.",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-20-03-escala-rwycc.webp",
+        alt: "Guía visual de códigos de condición de pista del 6 al 0, con ejemplos típicos de superficie y frenado",
+        ancho: 1600,
+        alto: 900,
+        pie: "La escala baja de 6 (seca) a 0 (frenado peor que pobre). El dibujo resume ejemplos; la tabla anterior contiene los criterios completos. Si el 25 % o menos de un tercio está mojado o cubierto, ese tercio puede notificarse con código 6 según la evaluación del aeródromo. No deduzcas el RWYCC a partir del color de una foto: verifica el informe vigente antes de calcular la performance.",
       },
       {
         kind: "fichas",
@@ -389,28 +390,24 @@ export const NIVEL_5: DocScreen[] = [
         items: [
           {
             titulo: "Tres tercios, tres cifras",
-            hueco: {
-              id: "AP-20-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Planta esquemática de una pista completa dividida en tres partes iguales por dos líneas de trazos, con «09» y «27» en los extremos y «5», «3» y «2» en los tercios. Una flecha inferior, «Así se publica: desde el designador más bajo»; otra superior en sentido contrario, «Así lo usas: en tu sentido de aterrizaje», con una silueta aterrizando. Al costado, «5/3/2» en grande. Ojo: ninguna carta real ni figura copiada de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-20-04-tercios.webp",
+              alt: "Esquema ficticio de pista 09/27 dividida en tercios 5, 3 y 2: publicación desde 09 y lectura inversa para aterrizar por 27",
             },
             puntos: [
-              "La clave se da por tercio, desde el designador más bajo.",
-              "En vuelo, en tu sentido.",
+              "En este ejemplo ficticio, el informe se publica 5/3/2 desde el designador menor, 09. Se reconoce por los tres segmentos longitudinales separados en el dibujo.",
+              "Para aterrizar por 27, tu secuencia es 2/3/5. Introduce los códigos en el sentido de aterrizaje al calcular performance; no confundas orden publicado con orden de recorrido.",
             ],
           },
           {
             titulo: "El informe y el SNOWTAM",
-            hueco: {
-              id: "AP-20-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Una columna tipo documento sobre fondo claro. Arriba, en monoespaciada, «EADD 02170135 09R 5/4/3 100/50/75 NR/06/06 WET/SLUSH/SLUSH», y debajo «RWY 09R ADJ SNOWBANKS. TWY B POOR. APRON NORTH POOR.». Una llave separa las dos partes, rotuladas «Para calcular tu performance» y «Para tu conciencia situacional». Al pie, «Se difunde como SNOWTAM». Ojo: ningún indicador de lugar de un aeropuerto real.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-20-05-informe-rcr.webp",
+              alt: "Esquema conceptual, sin datos ni código de aeródromo, de las secciones de performance y conciencia situacional de un informe de condición de pista",
             },
             puntos: [
-              "Trae una parte para calcular performance y otra de conciencia situacional.",
-              "Se difunde en el SNOWTAM.",
+              "El informe de condición de pista (Runway Condition Report, RCR) separa los datos para calcular performance de la información que sostiene la conciencia situacional. Reconoce el código por tercio junto a cobertura, profundidad y contaminante.",
+              "La información llega por servicios de tránsito aéreo y, cuando corresponde, por SNOWTAM (Snow Notice to Airmen). Una pista solo mojada puede comunicarse sin emitir SNOWTAM; consulta siempre la información vigente para tu operación.",
             ],
           },
         ],
@@ -418,39 +415,40 @@ export const NIVEL_5: DocScreen[] = [
       {
         kind: "reconoce",
         titulo: "Leer la pista con los ojos",
-        hueco: {
-          id: "AP-20-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde el pavimento, en diagonal hacia el centro de la pista, con luz plana y sin brillos falsos. En unos 60 m se reparten agua encharcada que hace espejo, una franja lateral sucia con el centro limpio, huellas de neumático sobre el contaminante y una zona que parece seca pero con brillo mate. Cuatro chinchetas numeradas, sin texto. Ojo: sin equipos de medición de rozamiento, que solo se usan sobre nieve compactada o hielo.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-20-06-reconoce.webp",
+          alt: "Fotografía de pista tras lluvia con cuatro zonas señaladas: reflejo de agua, cobertura lateral desigual, huellas de neumáticos y brillo distante",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
-            que: "Agua y espejo",
-            significa: "Más de 3 mm es agua estancada.",
-            piloto: "La clave cae.",
+            x: 18,
+            y: 68,
+            que: "Agua con reflejo",
+            significa: "Se ve agua sobre la superficie; su profundidad no se puede medir en la fotografía.",
+            piloto: "Busca el contaminante y el RWYCC comunicados antes de calcular la performance.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Franja lateral sucia y centro limpio",
-            significa: "Cada tercio se evalúa solo.",
+            x: 22,
+            y: 33,
+            que: "Cobertura lateral desigual",
+            significa: "La zona cercana al borde tiene una apariencia distinta de la franja central; no es una prueba de que una de ellas esté seca.",
+            piloto: "No extrapoles la condición de una franja al ancho entero: usa la cobertura evaluada en el informe.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Marcas de neumático sin dibujo",
-            significa: "Frenado degradado.",
-            piloto: "Tu reporte baja la clave.",
+            x: 59,
+            y: 47,
+            que: "Huellas de neumáticos",
+            significa: "Las marcas muestran el paso de aeronaves, no la eficacia de frenado ni el espesor del agua.",
+            piloto: "Si el frenado real resulta peor que el reportado, notifícalo al control; el operador del aeródromo reevalúa el código.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Se ve seca pero brilla",
-            significa: "Escarcha o hielo mojado.",
-            piloto: "Desconfía.",
+            x: 81,
+            y: 19,
+            que: "Brillo distante",
+            significa: "El reflejo no distingue por sí solo entre una película de agua y otros estados de superficie.",
+            piloto: "No infieras hielo ni ausencia de contaminación solo por el aspecto; confirma el informe y las condiciones observadas.",
           },
         ],
       },
