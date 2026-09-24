@@ -76,6 +76,7 @@ import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgres
 import { fetchMercanciasProgress, readMercanciasLocal } from "@/lib/mercanciasProgress"
 import { fetchAeropuertosProgress } from "@/lib/aeropuertosProgress"
 import { fetchComunicacionesProgress } from "@/lib/comunicacionesProgress"
+import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
 import notamPhoto from "@/assets/photos/tema-notam-pista-luces.webp"
 import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.webp"
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
@@ -402,9 +403,8 @@ export function AirlinePrep() {
               : `${aeropuertos.lessonRead}/${AP_LECTURA_TOTAL} lecciones · ${aeropuertos.practiceDone}/${AP_PRACTICA_CONTEO} ejercicios`,
         },
       },
-      // Comunicaciones ATC: por ahora solo la lección, así que el avance del
-      // tema es el de la lección. Cuando lleguen práctica y evaluación, el
-      // estado suma los ejercicios como Aeropuertos.
+      // Comunicaciones ATC: lección, práctica con audio y evaluación, como
+      // Aeropuertos.
       {
         nombre: CM_TITULO_CORTO,
         to: CM_HUB,
@@ -424,7 +424,7 @@ export function AirlinePrep() {
             ? "Sin empezar"
             : comunicaciones.overall >= 100
               ? "Tema completo"
-              : `${comunicaciones.lessonRead}/${CM_LECTURA_TOTAL} lecciones`,
+              : `${comunicaciones.lessonRead}/${CM_LECTURA_TOTAL} lecciones · ${comunicaciones.practiceDone}/${CM_PRACTICA_CONTEO} ejercicios`,
         },
       },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace

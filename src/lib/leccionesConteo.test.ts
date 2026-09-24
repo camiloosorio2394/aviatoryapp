@@ -14,6 +14,8 @@ import { AP_PRACTICA_CONTEO } from "@/lib/aeropuertosConteo"
 import { AP_PRACTICA_TOTAL } from "@/lib/aeropuertosPractica"
 import { CM_LECTURA_TOTAL, CM_NIVELES } from "@/lib/comunicaciones"
 import { CM_LECCIONES, CM_LECCION_TOTAL } from "@/lib/comunicacionesLeccion"
+import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
+import { CM_PRACTICA_TOTAL } from "@/lib/comunicacionesPracticaGrupos"
 import migracionComunicaciones from "../../supabase/migrations/20260925000000_progreso_de_comunicaciones.sql?raw"
 
 /**
@@ -74,10 +76,15 @@ describe("conteos fijos de las lecciones", () => {
     // 51-61 y 62-69 (el repaso de las 50 frases es la 69).
     expect(CM_NIVELES.map((n) => n.desde)).toEqual([1, 8, 12, 19, 31, 41, 51, 62])
     for (const n of CM_NIVELES.map((x) => x.desde)) expect(CM_LECCIONES[n - 1]?.n).toBe(n)
-    // Mientras el módulo no esté en contenido/catalogo/modulos.json, su fila de
-    // modulos_contenido la escribe la migración: si cambia el número de
-    // lecciones, hace falta otra migración (o pasar el módulo al catálogo).
+    // La migración de progreso nace con el número de lecciones; desde ahí la
+    // fila la mantiene contenido/catalogo/modulos.json (scripts/catalogo).
     expect(migracionComunicaciones).toContain(`values ('comunicaciones', ${CM_LECCION_TOTAL}, '{}'::text[])`)
+  })
+
+  it("Comunicaciones ATC: el conteo liviano de la práctica", () => {
+    // El panel y el hub no pueden importar el guion entero, así que llevan el
+    // número aparte. Si entra o sale un ejercicio, aquí se ve.
+    expect(CM_PRACTICA_CONTEO).toBe(CM_PRACTICA_TOTAL)
   })
 
   it("Mercancías: cada nivel empieza en una lección que existe, en orden", () => {

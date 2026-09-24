@@ -15,12 +15,14 @@
  * explotador se dice como tal, y lo que no tenga fuente cargada va con un
  * callout `verificar`.
  *
- * Estado (25-sep-2026): solo la infraestructura. Las 69 lecciones existen con
- * su título y un marcador de «en redacción»; práctica, evaluación y video
- * todavía no. Ver docs/COMUNICACIONES_ESTADO.md.
+ * Estado (25-sep-2026): las 69 lecciones existen con su título (y se van
+ * llenando nivel por nivel), la práctica con audio está conectada y la
+ * evaluación va en el servidor. Falta el video. Ver
+ * docs/COMUNICACIONES_ESTADO.md.
  */
 
 import type { LectorNivel } from "@/components/lesson/LectorLeccion"
+import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
 
 /** Nombre completo del módulo, para el hub. */
 export const CM_TITULO = "Comunicaciones aeronáuticas y gestión ATC"
@@ -35,6 +37,15 @@ export const CM_FUENTES = "Anexo 10 Vol. II, Doc 4444 y Doc 9432 de la OACI"
 export const CM_HUB = "/app/aerolinea/comunicaciones"
 /** La lección, con el lector genérico. */
 export const CM_APRENDE = `${CM_HUB}/aprende`
+/** La práctica con audio, los diez tipos de ejercicio. */
+export const CM_PRACTICA = `${CM_HUB}/practica`
+/** La evaluación, con el banco en el servidor. */
+export const CM_EVALUACION = `${CM_HUB}/evaluacion`
+
+/** Preguntas por intento de la evaluación. La regla que manda es la de la tabla `evaluaciones`. */
+export const CM_EXAM_PER_ATTEMPT = 25
+/** Nota para aprobar, igual que `comunicaciones_pass` en module_thresholds. */
+export const CM_PASS_SCORE = 80
 
 /**
  * La ciruela de radio del módulo, para las pantallas que no son el lector.
@@ -68,21 +79,47 @@ export const CM_LECTURA_TOTAL = 69
 
 export interface ComunicacionesResumen {
   lessonRead: number
+  practiceDone: number
+  best: number | null
+  passed: boolean
   lessonPct: number
-  /**
-   * Avance del módulo entero, 0 a 100. Mientras no haya práctica ni
-   * evaluación es el de la lección; cuando lleguen, pesan igual que ella, como
-   * en los demás módulos.
-   */
+  practicePct: number
+  examPct: number
+  /** Avance del módulo entero, 0 a 100: lección, práctica y evaluación pesan igual. */
   overall: number
   empty: boolean
 }
 
-export function resumirComunicaciones(p: { lessonScreens: number[] }): ComunicacionesResumen {
+/**
+ * Resume el avance del módulo, como `resumirAeropuertos`: las tres partes
+ * pesan igual, porque leer sin practicar ni evaluarse no es tener el tema.
+ */
+export function resumirComunicaciones(p: {
+  lessonScreens: number[]
+  practiceDone: string[]
+  bestScore: number | null
+}): ComunicacionesResumen {
   const leidas = new Set(p.lessonScreens.filter((n) => n >= 1 && n <= CM_LECTURA_TOTAL))
   const lessonRead = Math.min(leidas.size, CM_LECTURA_TOTAL)
+  const practiceDone = Math.min(new Set(p.practiceDone).size, CM_PRACTICA_CONTEO)
+  const best = p.bestScore
+  const passed = best !== null && best >= CM_PASS_SCORE
+
   const lessonPct = Math.round((lessonRead / CM_LECTURA_TOTAL) * 100)
-  return { lessonRead, lessonPct, overall: lessonPct, empty: lessonRead === 0 }
+  const practicePct = Math.round((practiceDone / CM_PRACTICA_CONTEO) * 100)
+  const examPct = passed ? 100 : (best ?? 0)
+
+  return {
+    lessonRead,
+    practiceDone,
+    best,
+    passed,
+    lessonPct,
+    practicePct,
+    examPct,
+    overall: Math.round((lessonPct + practicePct + examPct) / 3),
+    empty: lessonRead === 0 && practiceDone === 0 && best === null,
+  }
 }
 
 // ─── Respaldo local del avance ───────────────────────────────────────────────
@@ -100,15 +137,13 @@ const LS_KEY = "aviatory.comunicaciones.progress"
 export interface ComunicacionesProgreso {
   /** Números de lección leída, 1 a CM_LECTURA_TOTAL. */
   lessonScreens: number[]
-  /**
-   * Claves de práctica resueltas. Vacío hasta que el módulo tenga práctica;
-   * está desde ya para que el respaldo local tenga la forma del progreso
-   * común y no haya que migrar lo guardado el día que llegue.
-   */
+  /** Claves de práctica resueltas, las de `claveEjercicioCm`. */
   practiceDone: string[]
+  /** Mejor puntaje de la evaluación en este navegador, o null. */
+  bestScore: number | null
 }
 
-const VACIO: ComunicacionesProgreso = { lessonScreens: [], practiceDone: [] }
+const VACIO: ComunicacionesProgreso = { lessonScreens: [], practiceDone: [], bestScore: null }
 
 export function readComunicacionesLocal(): ComunicacionesProgreso {
   try {
@@ -118,6 +153,7 @@ export function readComunicacionesLocal(): ComunicacionesProgreso {
     return {
       lessonScreens: Array.isArray(p.lessonScreens) ? p.lessonScreens : [],
       practiceDone: Array.isArray(p.practiceDone) ? p.practiceDone : [],
+      bestScore: typeof p.bestScore === "number" ? p.bestScore : null,
     }
   } catch {
     return { ...VACIO }
@@ -132,6 +168,12 @@ export function writeComunicacionesLocal(lessonScreens: number[]): void {
 /** Y al revés: guarda lo practicado sin pisar lo leído. */
 export function writeComunicacionesPracticas(practiceDone: string[]): void {
   escribir({ ...readComunicacionesLocal(), practiceDone })
+}
+
+/** Y el mejor puntaje de la evaluación, sin pisar lo demás. */
+export function writeComunicacionesMejor(bestScore: number): void {
+  const antes = readComunicacionesLocal().bestScore
+  escribir({ ...readComunicacionesLocal(), bestScore: antes === null ? bestScore : Math.max(antes, bestScore) })
 }
 
 function escribir(p: ComunicacionesProgreso): void {

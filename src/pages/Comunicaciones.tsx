@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, BookOpen } from "lucide-react"
+import { ArrowLeft, BookOpen, GraduationCap, Headphones } from "lucide-react"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { EspacioVideo } from "@/components/modulo/EspacioVideo"
@@ -8,13 +8,16 @@ import { useSession } from "@/hooks/useSession"
 import {
   CM_ACENTO,
   CM_APRENDE,
+  CM_EVALUACION,
   CM_FUENTES,
   CM_LECTURA_TOTAL,
   CM_NIVELES,
+  CM_PRACTICA,
   CM_TITULO,
   readComunicacionesLocal,
   resumirComunicaciones,
 } from "@/lib/comunicaciones"
+import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
 import { fetchComunicacionesProgress, pushPendingComunicaciones } from "@/lib/comunicacionesProgress"
 
 /**
@@ -22,11 +25,8 @@ import { fetchComunicacionesProgress, pushPendingComunicaciones } from "@/lib/co
  * Ruta: /app/aerolinea/comunicaciones
  *
  * La misma casa que el hub de Aeropuertos: hero con velo del acento (aquí
- * ciruela), el espacio del video de apertura y las puertas numeradas. Por ahora
- * hay una sola puerta, la lección: práctica y evaluación no existen todavía y
- * no se anuncian (Aeropuertos no tiene patrón de «próximamente», y una puerta
- * que no lleva a ningún lado es peor que ninguna). Cuando lleguen, entran
- * aquí como «2. Práctica» y «3. Evaluación», igual que en Aeropuertos.
+ * ciruela), el espacio del video de apertura y las puertas numeradas: la
+ * lección, la práctica con audio y la evaluación del servidor.
  *
  * El video todavía no está grabado: su hueco queda rotulado con lo que hace
  * falta producir.
@@ -56,7 +56,14 @@ export function Comunicaciones() {
     }
   }, [user, sesionCargando])
 
-  const { lessonRead: leidas, lessonPct: pct } = useMemo(() => resumirComunicaciones(progreso), [progreso])
+  const {
+    lessonRead: leidas,
+    lessonPct: pct,
+    practiceDone: practicados,
+    practicePct,
+    best: mejor,
+    passed,
+  } = useMemo(() => resumirComunicaciones(progreso), [progreso])
 
   const partes: CourseCardProps[] = [
     {
@@ -75,6 +82,40 @@ export function Comunicaciones() {
       progress: pct,
       done: leidas >= CM_LECTURA_TOTAL,
       cta: "Iniciar formación",
+    },
+    {
+      to: CM_PRACTICA,
+      densidad: "compacta",
+      photoAspect: "5/2",
+      icon: Headphones,
+      color: CM_ACENTO,
+      meta: `${CM_PRACTICA_CONTEO} ejercicios con audio de radio`,
+      title: "2. Practica",
+      blurb: "Escuchar, copiar, colacionar y responder con ruido de radio, hasta un vuelo completo.",
+      photoHueco: "CM-POR-02 · 5:2 · 1200×480 · Auriculares de cabina sobre el pedestal, con el panel de audio encendido",
+      status:
+        practicados === 0
+          ? "Sin empezar"
+          : practicados >= CM_PRACTICA_CONTEO
+            ? "Práctica completa"
+            : `${practicados} de ${CM_PRACTICA_CONTEO} ejercicios`,
+      progress: practicePct,
+      done: practicados >= CM_PRACTICA_CONTEO,
+      cta: practicados === 0 ? "Iniciar práctica" : "Seguir practicando",
+    },
+    {
+      to: CM_EVALUACION,
+      densidad: "compacta",
+      photoAspect: "5/2",
+      icon: GraduationCap,
+      color: CM_ACENTO,
+      meta: "Opción múltiple, con explicación al final",
+      title: "3. Evaluación",
+      blurb: "Lo que preguntan de radio y ATC en una entrevista técnica, con corrección al terminar.",
+      photoHueco: "CM-POR-03 · 5:2 · 1200×480 · Consola de un controlador con la pantalla radar",
+      status: mejor === null ? "Sin intentos" : `Mejor puntaje: ${mejor}`,
+      done: passed,
+      cta: mejor === null ? "Iniciar evaluación" : "Volver a presentarla",
     },
   ]
 

@@ -1,5 +1,5 @@
 import type { ComponentType } from "react"
-import { AlertTriangle, CloudSun, TowerControl, Wind } from "lucide-react"
+import { AlertTriangle, CloudSun, Headset, TowerControl, Wind } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
 import { AP_ACENTO } from "@/lib/aeropuertos"
 import type { ClaveModulo } from "@/lib/modulosAerolinea"
@@ -78,5 +78,12 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     icon: TowerControl,
     color: AP_ACENTO,
     descripcion: "Señales, letreros y luces: leer un aeropuerto de un vistazo.",
+  },
+  comunicaciones: {
+    // El mismo icono que su tarjeta en Ingreso a aerolínea.
+    icon: Headset,
+    color: "var(--av-cm-700)",
+    fotoHueco: "CM-TEM-01 · 2:1 · 1200×600 · Piloto con auriculares y la mano en el selector de frecuencia",
+    descripcion: "Escuchar, interpretar, confirmar y responder al ATC, de la rampa al océano.",
   },
 }

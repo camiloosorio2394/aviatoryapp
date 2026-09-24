@@ -58,10 +58,12 @@ grant select on table public.user_comunicaciones_progress to authenticated;
 -- ninguna clave de práctica, porque la práctica no existe todavía: la RPC
 -- rechaza cualquier practice_id hasta que la haya. Es contra esto que valida.
 --
--- Mientras el módulo no esté en contenido/catalogo/modulos.json, esta fila la
--- mantiene esta migración y no scripts/catalogo/sembrar.mjs (que hace upsert
--- sin borrar, así que tampoco la pisa). El número lo vigila
--- src/lib/leccionesConteo.test.ts contra el contenido.
+-- La fila nace aquí sin práctica. Desde que el módulo entró a
+-- contenido/catalogo/modulos.json (con la práctica, 24-sep-2026), la mantiene
+-- al día `node scripts/catalogo/sembrar.mjs comunicaciones`, que es upsert: el
+-- `on conflict` de abajo solo importa si esto se vuelve a correr después (y
+-- entonces hay que volver a sembrar el catálogo). El número de lecciones lo
+-- vigila src/lib/leccionesConteo.test.ts contra el contenido.
 
 insert into public.modulos_contenido (modulo, lecciones, practicas)
 values ('comunicaciones', 69, '{}'::text[])

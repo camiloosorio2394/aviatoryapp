@@ -1,8 +1,10 @@
 # Comunicaciones: motor de práctica con audio
 
 Motor de los diez ejercicios con radio del módulo «Comunicaciones aeronáuticas y gestión ATC
-(OACI)». Está hecho y probado, pero **todavía no está enchufado a ninguna pantalla**: la página de
-práctica la crea quien integre (ver «Cómo se enchufa» al final).
+(OACI)». Está hecho, probado y **enchufado** (24-sep-2026) en `src/pages/ComunicacionesPractice.tsx`
+a través de `src/lib/comunicacionesPracticaGrupos.ts`; lo que se hizo está en
+`docs/COMUNICACIONES_ESTADO.md`, «Qué se hizo (pasos 4 y 5)». «Cómo se enchufa», al final, queda
+como registro.
 
 ## Arquitectura
 

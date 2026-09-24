@@ -161,16 +161,23 @@ describe("9. ¿Estándar o plain?", () => {
 })
 
 describe("10. Vuelo completo", () => {
-  const vuelo = CM_VUELO_COMPLETO[0]
-  it("tiene de 15 a 20 transmisiones", () => {
+  it.each(CM_VUELO_COMPLETO.map((v) => [v.id, v] as const))("%s tiene de 15 a 20 transmisiones", (_id, vuelo) => {
     const n = vuelo.pasos.reduce((s, p) => s + transmisionesDe(p.ejercicio).length, 0)
     expect(n).toBeGreaterThanOrEqual(15)
     expect(n).toBeLessThanOrEqual(20)
   })
-  it("la radio nunca mejora a lo largo del vuelo", () => {
+  it.each(CM_VUELO_COMPLETO.map((v) => [v.id, v] as const))("%s: la radio nunca mejora a lo largo del vuelo", (_id, vuelo) => {
     const orden = { limpia: 0, normal: 1, sucia: 2 }
     const niveles = vuelo.pasos.map((p) => orden[p.perfil])
     expect(niveles).toEqual([...niveles].sort((a, b) => a - b))
+  })
+  it("hay un vuelo todo en radio limpia y otro que termina en sucia con distintivos parecidos", () => {
+    expect(CM_VUELO_COMPLETO.some((v) => v.pasos.every((p) => p.perfil === "limpia"))).toBe(true)
+    expect(
+      CM_VUELO_COMPLETO.some(
+        (v) => v.pasos.at(-1)?.perfil === "sucia" && v.pasos.some((p) => p.perfil === "sucia" && p.ejercicio.tipo === "esParaMi"),
+      ),
+    ).toBe(true)
   })
   it("el puntaje suma todos los pasos", () => {
     expect(puntajeVuelo([{ aciertos: 3, total: 4 }, undefined, { aciertos: 1, total: 1 }])).toEqual({
@@ -215,6 +222,127 @@ describe("datos de ejemplo", () => {
     for (const ej of CM_COPIA) {
       const r = calificarCopia(ej, Object.fromEntries(ej.campos.map((c) => [c.id, c.esperado])))
       expect(r.every((c) => c.ok)).toBe(true)
+    }
+  })
+})
+
+describe("guion completo", () => {
+  const simples = [
+    ...CM_COPIA,
+    ...CM_READBACK,
+    ...CM_ES_PARA_MI,
+    ...CM_HEARBACK,
+    ...CM_QUE_RESPONDES,
+    ...CM_DESARMALA,
+    ...CM_PANEL,
+    ...CM_RAFAGA,
+    ...CM_ESTANDAR_O_PLAIN,
+  ]
+  const enVuelos = CM_VUELO_COMPLETO.flatMap((v) => v.pasos.map((p) => p.ejercicio))
+
+  it("trae las cantidades del guion", () => {
+    expect({
+      copia: CM_COPIA.length,
+      readback: CM_READBACK.length,
+      esParaMi: CM_ES_PARA_MI.length,
+      hearback: CM_HEARBACK.length,
+      queRespondes: CM_QUE_RESPONDES.length,
+      desarmala: CM_DESARMALA.length,
+      panel: CM_PANEL.length,
+      rafaga: CM_RAFAGA.length,
+      estandarOPlain: CM_ESTANDAR_O_PLAIN.length,
+      vueloCompleto: CM_VUELO_COMPLETO.length,
+    }).toEqual({
+      copia: 10,
+      readback: 20,
+      esParaMi: 8,
+      hearback: 15,
+      queRespondes: 25,
+      desarmala: 15,
+      panel: 15,
+      rafaga: 5,
+      estandarOPlain: 10,
+      vueloCompleto: 3,
+    })
+  })
+
+  it("toda transmisión que suena está en la lista del manifiesto", () => {
+    const ids = new Set(CM_TRANSMISIONES_EJEMPLO.map((t) => t.id))
+    for (const ej of [...simples, ...enVuelos]) {
+      for (const t of transmisionesDe(ej)) expect(ids.has(t.id), `${ej.id}: ${t.id}`).toBe(true)
+    }
+  })
+
+  it("los pasos de los vuelos traen fuente y ninguna clave choca dentro del vuelo", () => {
+    for (const v of CM_VUELO_COMPLETO) {
+      for (const p of v.pasos) expect(p.ejercicio.fuente.length).toBeGreaterThan(5)
+      const claves = v.pasos.map((p) => claveEjercicioCm(p.ejercicio))
+      expect(new Set(claves).size).toBe(claves.length)
+    }
+  })
+
+  it("cada ítem está bien armado para su tipo", () => {
+    for (const ej of [...simples, ...enVuelos]) {
+      switch (ej.tipo) {
+        case "queRespondes":
+          expect(ej.opciones).toHaveLength(4)
+          expect(ej.correcta).toBeGreaterThanOrEqual(0)
+          expect(ej.correcta).toBeLessThan(4)
+          expect(new Set(ej.opciones).size).toBe(4)
+          break
+        case "hearback":
+          expect(ej.colacion.voz).toBe("piloto_pm")
+          if (ej.error !== null) expect(ej.elementos.map((e) => e.id)).toContain(ej.error)
+          break
+        case "esParaMi":
+          expect(ej.transmisiones.some((t) => t.paraMi)).toBe(true)
+          expect(ej.transmisiones.some((t) => !t.paraMi)).toBe(true)
+          for (const t of ej.transmisiones) expect(t.transmision.texto.startsWith("Aviatory four five two,")).toBe(t.paraMi)
+          break
+        case "panel":
+          expect(Object.keys(ej.objetivo).length).toBeGreaterThan(0)
+          // Sin fraseología de velocidad cargada: ningún panel revisa SPD ni V/S.
+          expect(Object.keys(ej.objetivo).every((k) => k === "hdg" || k === "alt")).toBe(true)
+          expect(calificarPanel(ej, { ...ej.inicial, ...ej.objetivo }).every((c) => c.ok)).toBe(true)
+          break
+        case "desarmala":
+          expect(ej.fichas.some((f) => f.categoria === "distintivo")).toBe(true)
+          expect(calificarDesarmala(ej, Object.fromEntries(ej.fichas.map((f) => [f.id, f.categoria]))).every((f) => f.ok)).toBe(true)
+          break
+        case "rafaga":
+          for (const d of ej.dictados) expect(calificarDictado(d, d.esperado, 0, ej.segundos).ok).toBe(true)
+          break
+        case "estandarOPlain":
+          if (ej.clasificacion === "fraseologia") expect(ej.frase).toBeTruthy()
+          else {
+            const bloques = Object.values(ej.bloques ?? {})
+            expect(bloques.length).toBeGreaterThan(0)
+            for (const b of bloques) expect(b.correcta).toBeLessThan(b.opciones.length)
+          }
+          break
+        case "readback":
+          expect(calificarReadback(ej, ej.modelo).faltan).toEqual([])
+          break
+        case "copia":
+          expect(calificarCopia(ej, Object.fromEntries(ej.campos.map((c) => [c.id, c.esperado]))).every((c) => c.ok)).toBe(true)
+          break
+      }
+    }
+  })
+
+  it("no copia enunciados ni opciones del banco de la evaluación", () => {
+    const bancos = import.meta.glob<{ preguntas: { enunciado: string; opciones: string[] }[] }>(
+      "/contenido/bancos/comunicaciones_evaluacion.json",
+      { import: "default", eager: true },
+    )
+    const banco = Object.values(bancos)[0]
+    expect(banco?.preguntas.length).toBeGreaterThan(0)
+    const plano = (s: string) => s.toLowerCase().replace(/[^a-z0-9áéíóúñ]+/g, " ").trim()
+    const practica = plano(JSON.stringify(CM_VUELO_COMPLETO) + JSON.stringify(simples))
+    for (const p of banco?.preguntas ?? []) {
+      expect(practica.includes(plano(p.enunciado)), p.enunciado).toBe(false)
+      // Las opciones cortas («ROGER», «Flight level one three zero») son fraseología suelta: solo cuentan las frases.
+      for (const o of p.opciones.filter((o) => o.split(" ").length >= 6)) expect(practica.includes(plano(o)), o).toBe(false)
     }
   })
 })

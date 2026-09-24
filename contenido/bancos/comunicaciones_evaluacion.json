@@ -144,16 +144,16 @@
     },
     {
       "id": "cm-ev-011",
-      "enunciado": "Estás en el punto de espera y la torre pregunta: «AVIATORY 452, are you ready for immediate departure?». Estás listo. ¿Qué respondes?",
+      "enunciado": "El controlador te hace una pregunta que exige un sí o un no directo. Según el Doc 9432, ¿cuál de estas palabras nunca debe usarse como contestación?",
       "opciones": [
-        "«ROGER, AVIATORY 452»",
-        "«WILCO, AVIATORY 452»",
-        "«AFFIRM, AVIATORY 452»",
-        "«APPROVED, AVIATORY 452»"
+        "«AFFIRM»",
+        "«NEGATIVE»",
+        "«ROGER»",
+        "«UNABLE»"
       ],
       "correcta": 2,
-      "explicacion": "La pregunta pide un sí: AFFIRM (Doc 9432, 2.6; así responde el piloto en el ejemplo de 4.5.5). ROGER solo dice que recibiste la transmisión, y su nota prohíbe usarlo cuando se espera AFFIRM o NEGATIVE. WILCO es «entendido, cumpliré», y APPROVED lo dice quien concede una medida.",
-      "referencia": "Doc 9432 (4.ª ed.) 2.6 y 4.5.5",
+      "explicacion": "La nota de ROGER en el Doc 9432 (2.6) dice que en ningún caso debe usarse para contestar una pregunta que exija una respuesta directa afirmativa o negativa. ROGER solo dice «he recibido toda su transmisión anterior»: no responde nada. Para el sí va AFFIRM y para el no, NEGATIVE; UNABLE comunica que no puedes cumplir.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6, nota de ROGER",
       "metadatos": { "nivel": 2, "leccion": 11 }
     },
     {
@@ -662,16 +662,16 @@
     },
     {
       "id": "cm-ev-048",
-      "enunciado": "Departure: «AVIATORY 452, climb to FL 260, expedite until passing FL 200». Con tu peso no puedes subir más rápido de lo normal. ¿Qué respondes?",
+      "enunciado": "En pleno ascenso te das cuenta de que no puedes mantener la velocidad vertical que el ATC te asignó. Según el Doc 4444, ¿qué debes hacer?",
       "opciones": [
-        "«Unable to expedite, AVIATORY 452»",
-        "«Negative, AVIATORY 452»",
-        "«Roger, normal rate, AVIATORY 452»",
-        "«Standby on expedite, AVIATORY 452»"
+        "Informarlo al ATC, que aplicará otro método de separación",
+        "Mantener el nivel y esperar a que el ATC lo note en el radar",
+        "Seguir con el régimen normal sin avisar, no es una emergencia",
+        "Pedir cambio de frecuencia para no ocupar la de salida"
       ],
       "correcta": 0,
-      "explicacion": "Doc 9432 (3.3.3.3): a «CLIMB TO ... EXPEDITE UNTIL PASSING ...» se responde colacionando o, si no se puede, con «UNABLE TO EXPEDITE». El Doc 4444 (4.7.1.3) exige informar si no puedes cumplir un régimen de ascenso o descenso, para que el controlador aplique sin demora otro método de separación. ROGER le haría creer que cumplirás.",
-      "referencia": "Doc 9432 (4.ª ed.) 3.3.3.3; Doc 4444 (15.ª ed.) 4.7.1.3",
+      "explicacion": "El Doc 4444 (4.7.1.3) exige que la tripulación informe a la dependencia ATC si en cualquier momento no puede cumplir una velocidad vertical de ascenso o de descenso. Con ese aviso el controlador aplica sin demora un método alternativo para mantener la separación. Callar lo deja separando con un dato falso.",
+      "referencia": "Doc 4444 (15.ª ed.) 4.7.1.3",
       "metadatos": { "nivel": 4, "leccion": 20 }
     },
     {

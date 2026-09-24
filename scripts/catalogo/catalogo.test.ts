@@ -23,6 +23,8 @@ import { AERO_LECCIONES, AERO_LECCION_TOTAL } from "@/lib/aerodinamicaLeccion"
 import { AERO_PRACTICA_CLAVES } from "@/lib/aerodinamicaPractica"
 import { AP_LECCION_TOTAL } from "@/lib/aeropuertosLeccion"
 import { AP_PRACTICA_CLAVES } from "@/lib/aeropuertosPractica"
+import { CM_LECCION_TOTAL } from "@/lib/comunicacionesLeccion"
+import { CM_PRACTICA_CLAVES } from "@/lib/comunicacionesPracticaGrupos"
 import { MODULOS_AEROLINEA } from "@/lib/modulosAerolinea"
 
 /**
@@ -64,6 +66,12 @@ function catalogoDesdeContenido() {
     aeropuertos: {
       lecciones: AP_LECCION_TOTAL,
       practicas: AP_PRACTICA_CLAVES,
+    },
+    // Las claves salen de claveEjercicioCm sobre el guion de la práctica
+    // (comunicacionesPracticaGrupos.ts): cambia el guion, cambia esto.
+    comunicaciones: {
+      lecciones: CM_LECCION_TOTAL,
+      practicas: CM_PRACTICA_CLAVES,
     },
   }
 }

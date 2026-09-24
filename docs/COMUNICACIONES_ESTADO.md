@@ -37,18 +37,12 @@ con un callout `verificar`.
       nivel por sesión.
 - [ ] **3. Portadas** de lección (`public/modulos/comunicaciones/leccion-NN.webp`,
       16:9) y las imágenes de cada lección (huecos `CM-NN-MM`).
-- [ ] **4. Práctica.** Con sus claves generadas por función (como
-      `claveReconoce` en Aeropuertos), su archivo de conteo liviano, el módulo
-      en `contenido/catalogo/modulos.json`, en `MODULOS_AEROLINEA`
-      (`src/lib/modulosAerolinea.ts`, con el token `var(--av-cm-500)`) y en
-      `CARA_DE_MODULO`. Ahí entra también la rama de `'comunicaciones'` en
-      `panel_tarjetas`, `secciones_leidas`, `practicas_hechas` y los logros,
-      por migración y partiendo de la versión que esté corriendo en la base.
-- [ ] **5. Evaluación** con el banco en el servidor:
-      `contenido/bancos/comunicaciones_evaluacion.json`, reglas en
-      `evaluaciones` y `evaluacion_fuentes` por migración, pantalla sobre
-      `ExamenModulo`, tabla de intentos solo con `select`. Mismo recorrido que
-      `20260915230000_evaluacion_de_aeropuertos.sql`.
+- [x] **4. Práctica** (24-sep-2026), conectada. Ver «Qué se hizo (pasos 4 y
+      5)». El motor está en `docs/COMUNICACIONES_PRACTICA.md`; el guion
+      completo se sigue escribiendo en `comunicacionesPracticaEjemplos.ts`.
+- [x] **5. Evaluación** (24-sep-2026), con el banco de 80 en el servidor.
+      **SQL escrito y no aplicado**: ver «Lo que le queda por correr a
+      Camilo».
 - [ ] **6. Video de apertura** (`CM-VID-01`), con la serie de HyperFrames. Antes
       de generar voz: `"lang": "es"` en `audio_request.json` (ver CLAUDE.md,
       «Trampa del idioma de la voz»).
@@ -86,6 +80,86 @@ con un callout `verificar`.
 - `eslint.config.js`: `@/lib/comunicacionesLeccion` solo lo importa su lector.
 - `src/lib/leccionesConteo.test.ts`: el total fijo contra el contenido, los
   cortes de nivel de la especificación y el número de lecciones de la migración.
+
+## Qué se hizo (pasos 4 y 5)
+
+### Práctica
+
+- `src/pages/ComunicacionesPractice.tsx`, ruta
+  `/app/aerolinea/comunicaciones/practica` (hija de `AppLayout`, junto a las de
+  Aeropuertos). Misma casa que `AeropuertosPractice`: cabecera (hueco
+  `CM-PRA-01`), pestañas, barra de avance, tira de saltos y el ejercicio. Los
+  diez tipos van en los cuatro verbos del módulo más el vuelo completo:
+  **Escuchar** (¿es para mí?, ráfaga, copia), **Interpretar** (desármala,
+  panel), **Confirmar** (readback, hearback), **Responder** (¿qué respondes?,
+  ¿estándar o plain?) y **Vuelo completo**.
+- La raíz de la página re-ancla `--av-blue-500` a `CM_ACENTO`: los
+  componentes del motor toman la ciruela sin tocarlos. Verde, ámbar y rojo
+  siguen siendo solo semánticos.
+- **Selector de radio**: «la del ejercicio», limpia, normal o con
+  interferencia (el `perfil` que exponen los componentes). En el vuelo
+  completo no se ofrece: ahí la radio la pone cada tramo.
+- **Aviso de voz sintética**: antes de escuchar, la página pide la cabecera
+  (HEAD) de los mp3 del ejercicio (`src/lib/comunicacionesAudio.ts`, misma
+  regla de `Content-Type` que el reproductor). Si falta alguno, dice cuántos y
+  que suenan con la voz del navegador, en inglés y sin el filtro de banda.
+  Sin red no avisa (no se sabe, y el mp3 puede estar en caché). El control de
+  radio de cada ejercicio además lo repite al sonar.
+- `src/lib/comunicacionesPracticaGrupos.ts`: el orden de la pantalla y
+  `CM_PRACTICA_CLAVES` (todas con `claveEjercicioCm`, nunca a mano). Es el
+  único que importa el guion; la página importa este. Los dos están en
+  `CONTENIDO` de `eslint.config.js`.
+- `src/lib/comunicacionesConteo.ts` (`CM_PRACTICA_CONTEO`), el conteo liviano
+  para el hub, el panel e Ingreso a aerolínea; `leccionesConteo.test.ts` lo
+  compara con el guion.
+- Progreso: `markComunicacionesProgress({ practiceId })`, respaldo local y
+  base, como Aeropuertos. Un ejercicio queda resuelto al terminarlo, acertado o
+  no.
+- Catálogo: el módulo entró a `contenido/catalogo/modulos.json` (69 lecciones
+  y las claves de la práctica), a `MODULOS_AEROLINEA` (token
+  `var(--av-cm-500)`) y a `CARA_DE_MODULO`. `scripts/catalogo/sembrar.mjs`
+  acepta ahora nombres de módulo (`… sembrar.mjs comunicaciones`) para cargar
+  uno solo sin pisar los demás.
+- `vite.config.ts`: regla `comunicaciones-audio-v1` (StaleWhileRevalidate,
+  solo `audio/mpeg`) para `/modulos/comunicaciones/audio/*.mp3`. Fuera del
+  precache (`modulos/**` ya estaba en `globIgnores`).
+
+### Evaluación
+
+- Banco `contenido/bancos/comunicaciones_evaluacion.json` (80 preguntas, ya
+  existía) y su siembra `supabase/seeds/comunicaciones_evaluacion.sql`.
+- `src/lib/comunicacionesEvaluacion.ts` (total 80, 25 por intento, 80 para
+  aprobar), `src/pages/ComunicacionesExam.tsx` sobre `ExamenModulo`, ruta
+  `/app/aerolinea/comunicaciones/evaluacion`, historial en
+  `services/intentosExamen.ts` y el tipo de la tabla en
+  `integrations/supabase/types.ts`, escrito a mano con la forma de la
+  migración.
+- La mejor nota entra al avance (`comunicacionesProgress.ts` y el respaldo
+  local): lección, práctica y evaluación pesan igual, como en Aeropuertos.
+- El hub tiene ahora «1. Aprende», «2. Practica» (hueco `CM-POR-02`) y
+  «3. Evaluación» (hueco `CM-POR-03`).
+- **La evaluación queda cerrada mientras las lecciones sigan en redacción**:
+  el servidor pide las 69 en la base y una lección que es solo el marcador
+  no se marca. Es a propósito.
+
+### Tres migraciones y no dos
+
+Aeropuertos hizo la evaluación (230000) y después el progreso con todo lo
+compartido (0916). Aquí el progreso ya estaba (000000, mínimo a propósito),
+así que:
+
+- `20260925010000_evaluacion_de_comunicaciones.sql`: tabla de intentos, CHECK
+  de destino, reglas (25, 80, al final, 3 h), fuente, umbral
+  `comunicaciones_pass`, `evaluacion_terminar` (copiada de 20260915230000) y
+  `secciones_leidas` (copiada de 20260916000000) con su rama, y
+  `modulo_leccion = 'comunicaciones'`.
+- `20260925020000_panel_y_logros_de_comunicaciones.sql`: `practicas_hechas`,
+  los cuatro logros (orden 30 a 33), `desbloquear_logros`, los dos
+  disparadores, `check_and_unlock_achievements` y `panel_tarjetas` (la de
+  20260916000000, con plan, postulaciones y los cinco módulos, más
+  Comunicaciones). **No escribe las claves de práctica**: el guion todavía
+  cambia, así que van por `scripts/catalogo` (paso 11 de abajo). El logro de
+  práctica no se puede ganar con el catálogo vacío.
 
 ## El color: ciruela de radio
 
@@ -135,55 +209,89 @@ esencial:
 ## Lo que le queda por correr a Camilo
 
 Nada de esto está aplicado. Va **después de los siete pasos de Aeropuertos**
-(ver `docs/AEROPUERTOS_ESTADO.md`, «Lo que le queda por correr a Camilo»), cada
-paso en su propia ejecución del SQL Editor:
+(ver `docs/AEROPUERTOS_ESTADO.md`, «Lo que le queda por correr a Camilo»):
+las funciones compartidas se copiaron de sus versiones. Cada paso en **su
+propia ejecución** del SQL Editor:
 
 | # | Qué se pega en el SQL Editor | Resultado esperado |
 |---|---|---|
 | 8 | `supabase/migrations/20260925000000_progreso_de_comunicaciones.sql` | Sin error (un aviso de «does not exist, skipping» por la política, normal) |
-| 9 | `supabase/tests/comunicaciones.sql` | Termina en el error `PRUEBA_DESHECHA catalogo_69_y_0 umbral permisos leccion_fuera leccion_cero practica_inventada clave_ajena rpc_idempotente rls_progreso sin_update_directo sin_insert_directo sin_sesion modulos_viejos` (eso es pasar) |
-| 10 | `supabase/tests/permisos.sql` otra vez | `PRUEBA_DESHECHA …` como antes: la tabla nueva no le agrega nada que falle |
+| 9 | `supabase/migrations/20260925010000_evaluacion_de_comunicaciones.sql` | Sin error (mismo tipo de aviso) |
+| 10 | `supabase/migrations/20260925020000_panel_y_logros_de_comunicaciones.sql` | Sin error (avisos de «does not exist, skipping» por los disparadores) |
+| 11 | La salida de `node scripts/catalogo/sembrar.mjs comunicaciones` (solo este módulo: el catálogo de Mercancías y Aerodinámica en producción está en otra versión a propósito, ver el doc de Aeropuertos) | `INSERT 0 1` |
+| 12 | `supabase/seeds/comunicaciones_evaluacion.sql` (el banco, 80 preguntas) | `UPDATE 0` |
+| 13 | Las pruebas, una por ejecución: `supabase/tests/comunicaciones_evaluacion.sql`, `comunicaciones.sql`, `logros.sql`, `permisos.sql`, `panel.sql` | Cada una termina en el error `PRUEBA_DESHECHA …` (eso es pasar) |
 
-La migración **no depende** de las de Aeropuertos (solo usa `modulos_contenido`,
-`module_thresholds` y `private.validar_marca_progreso`, que existen desde
-septiembre) y **no reescribe ninguna función compartida**: ni `panel_tarjetas`,
-ni `secciones_leidas`, ni `practicas_hechas`, ni los logros. Se puede correr
-dos veces sin error. El orden es para que el historial quede en el orden de los
-archivos.
+Lo que tiene que decir cada prueba del paso 13:
+
+- `comunicaciones_evaluacion.sql`: `PRUEBA_DESHECHA reglas_25_de_80_y_80 destino_y_leccion_gobernada un_solo_banco_sin_cupo banco_80_bien_formado reparto_por_nivel intentos_cerrados sin_intento_a_mano terminar_enruta_los_siete secciones_leidas_los_seis`
+- `comunicaciones.sql`: `PRUEBA_DESHECHA catalogo_69_y_practica umbrales permisos leccion_fuera leccion_cero practica_inventada clave_ajena rpc_idempotente rls_progreso sin_update_directo sin_insert_directo sin_intento_a_mano puerta_cerrada_con_68 puerta_abierta_con_69 terminar_escribe_en_comunicaciones sin_sesion conteos_y_modulos_viejos panel_con_plan_y_postulaciones grupos_y_disparadores logros_leccion_y_practica logros_los_cuatro`
+- `logros.sql`: la lista de antes con `comunicaciones_con_catalogo` después de `aeropuertos_con_catalogo`.
+- `permisos.sql` y `panel.sql`: como antes. La tabla nueva solo da `select`.
+
+Qué pasa si se cambia el orden:
+
+- 9 antes que 8: falla en el insert de `evaluaciones` (`modulo_leccion` es
+  clave foránea a la fila `comunicaciones` de `modulos_contenido`, que nace
+  en 8) y no queda nada aplicado.
+- 10 antes que 9: falla en el disparador sobre
+  `user_comunicaciones_exam_attempts`, que nace en 9.
+- 8, 9 o 10 antes de los pasos de Aeropuertos: `secciones_leidas`,
+  `evaluacion_terminar` y `panel_tarjetas` nombran tablas de Aeropuertos y de
+  postulaciones. Las funciones se crean igual (PL/pgSQL no las revisa), pero
+  se caen al usarlas: el panel de todos se quedaría sin tarjetas. **El orden
+  no es opcional.** Y si después de 10 se vuelve a correr 6 (la de
+  Aeropuertos), el panel pierde la tarjeta de Comunicaciones.
+- 11 antes que 10 funciona (es solo el catálogo), pero 8 corrida después
+  vuelve a dejar la práctica vacía: entonces se repite 11.
+- Sin 11: la práctica funciona en el navegador pero la base rechaza cada
+  clave (el progreso queda local) y `comunicaciones.sql` falla en el catálogo.
+
+**Cuando el guion de la práctica cambie** (lo está escribiendo otro):
+`ACTUALIZAR_CATALOGO=1 npx vitest run scripts/catalogo`, ajustar
+`CM_PRACTICA_CONTEO` en `src/lib/comunicacionesConteo.ts` (la prueba dice el
+número) y volver a pegar la salida de `node scripts/catalogo/sembrar.mjs
+comunicaciones`. Lo que el piloto ya resolvió no se pierde: una clave que
+sale del catálogo deja de contar, pero no se borra.
 
 Después de aplicar, si se aplicó con `apply_migration` o la CLI:
 
 ```sql
 select version, name from supabase_migrations.schema_migrations
-where name = 'progreso_de_comunicaciones';
+where name in ('progreso_de_comunicaciones', 'evaluacion_de_comunicaciones',
+               'panel_y_logros_de_comunicaciones');
 ```
 
-y el archivo se renombra con esa versión (y la ruta en
-`src/lib/leccionesConteo.test.ts`, que lo lee).
+y los archivos se renombran con esa versión (y la ruta de la primera en
+`src/lib/leccionesConteo.test.ts`, que la lee).
 
 ### Lo que no se pudo probar
 
-La migración y su prueba **no se corrieron** contra ninguna base: esta sesión no
-tenía escritura y no se debía. Están escritas sobre el patrón ya probado de
-Aeropuertos (la RPC es copia fiel de `aeropuertos_mark_progress`).
+Las migraciones y sus pruebas **no se corrieron** contra ninguna base: esta
+sesión no tenía escritura y no se debía. Están escritas sobre el patrón ya
+probado de Aeropuertos: las funciones compartidas son copia de las de
+20260915230000 y 20260916000000 con una rama más (la única diferencia de
+fondo es la guarda del logro de práctica con el catálogo vacío), y las
+pruebas siguen línea por línea `aeropuertos_evaluacion.sql` y
+`aeropuertos.sql`. Si una prueba falla por un nombre o un tipo y no por una
+regla, lo que hay que corregir es la prueba.
 
 ### Mientras no las corra
 
-Nada se rompe. La consulta a la tabla que aún no existe falla, `leer` devuelve
-null y el módulo se queda con el respaldo local del navegador. Como las 69
-lecciones están en redacción, de todos modos no hay avance que guardar todavía.
+Nada se rompe. Las consultas a las tablas que aún no existen fallan y el
+módulo se queda con el respaldo local: el hub, la práctica y el lector leen y
+escriben en `localStorage`, y el panel lee el módulo como «sin empezar». La
+evaluación no abre (no hay reglas en el servidor) y el historial deja una
+fila en `errores_cliente` por pestaña, que es el aviso de que falta el SQL.
 
 ## Decisiones que tiene que confirmar Camilo
 
 1. **El color** (ciruela `#5E3567` en vez del índigo `#4A3B7A` propuesto), por
    el choque con psicotécnicas. Si se confirma, falta su fila en la tabla de
    acentos de `CLAUDE.md`.
-2. **El módulo no está en el panel ni en `contenido/catalogo/modulos.json`.** La
-   prueba del catálogo exige que el panel tenga los mismos módulos que el
-   catálogo y que cada uno tenga práctica; sin práctica, entrar ahí obligaba a
-   cambiar esas reglas y a reescribir `panel_tarjetas`. Hasta que haya
-   práctica, la fila de `modulos_contenido` la escribe la migración. La tarjeta
-   sí está en Ingreso a aerolínea.
+2. **El módulo ya está en el panel y en el catálogo** (24-sep-2026), con la
+   práctica. Su tarjeta del panel usa `var(--av-cm-500)` e icono de
+   auriculares; el tema de Ingreso a aerolínea sumó práctica y evaluación.
 3. **La tarjeta ya se ve** en Ingreso a aerolínea, con 69 lecciones en
    redacción. Si se prefiere esconderla hasta que haya contenido, es quitar
    un bloque de `temas` en `AirlinePrep.tsx`.
