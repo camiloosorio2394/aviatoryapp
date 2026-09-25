@@ -156,9 +156,9 @@ archivo, insertada después para que `db push` no las vea pendientes.
 
 ### La regla del orden, que es la que muerde
 
-<!-- ULTIMA_APLICADA: 20260928000000 -->
+<!-- ULTIMA_APLICADA: 20260929000000 -->
 
-**Toda migración nueva lleva una versión posterior a `20260928000000`.**
+**Toda migración nueva lleva una versión posterior a `20260929000000`.**
 
 No es burocracia. Seis funciones se republican enteras en cada migración de
 módulo —`private.secciones_leidas`, `private.practicas_hechas`,
@@ -204,19 +204,60 @@ la carpeta y se niega a seguir. Se aplica por el editor de SQL o por el
 conector.
 
 Los bancos `rac_evaluacion` (50 preguntas) y `combustible_evaluacion` (40)
-ya están sembrados: comprobado contra la base el 24-sep, todas activas.
+quedaron sembrados el mismo día, en tramos de catorce preguntas porque el
+conector no traga el archivo entero. Se comprobaron con una huella md5 sobre
+`id|enunciado|correcta`, calculada igual en Postgres y en node: las dos
+coincidieron exactas.
 
 Quedaron dos diferencias con el repo, que arregla
-`20260929000000_evaluacion_entrega_el_tema_del_banco` (pendiente de correr):
+`20260930000000_evaluacion_entrega_el_tema_del_banco` (pendiente de correr):
 las dos evaluaciones sin `modulo_leccion` y el catálogo de Combustible con 66
 prácticas en vez de 76 (sin los diez escenarios). Ver
 `docs/RAC_COMBUSTIBLE_ESTADO.md`, «La base».
 
-**En la base hay además un módulo RVSM** (`rvsm_evaluacion`, umbral
-`rvsm_lesson` de 32 y el destino `rvsm`) que no está en ninguna rama del repo.
-Quien lo haya aplicado tiene que subir sus migraciones: sin ellas, la próxima
-migración de módulo republica las funciones compartidas sin la rama de RVSM y
-su progreso deja de contar. Y la rama `claude/modulo-mel` trae tres migraciones
-que empiezan en `20260928000000`, la misma versión que la de RAC y
-Combustible: hay que renumerarlas por encima de la marca y copiar las funciones
-compartidas de la última publicada, con las ramas de RAC y Combustible.
+Y la rama `claude/modulo-mel` trae tres migraciones que empiezan en
+`20260928000000`, la misma versión que la de RAC y Combustible: hay que
+renumerarlas por encima de la marca y copiar las funciones compartidas de la
+última publicada, con las ramas de RAC, Combustible y RVSM.
+
+## 25 de septiembre: RVSM
+
+`20260929000000_modulo_rvsm.sql` es el décimo módulo. Se aplicó por el conector
+en cinco tramos, y después se insertó la fila de la versión de archivo:
+
+| Tramo | Qué trae |
+| --- | --- |
+| `modulo_rvsm_1_tablas_catalogo_y_evaluacion` | las dos tablas de piloto, sus políticas, la fila del catálogo, la evaluación y su fuente |
+| `modulo_rvsm_2_conteos` | `private.secciones_leidas` y `private.practicas_hechas`, enteras |
+| `modulo_rvsm_3_evaluacion_terminar` | `public.evaluacion_terminar`, entera |
+| `modulo_rvsm_4_desbloquear_logros` | los cuatro logros y `private.desbloquear_logros` |
+| `modulo_rvsm_5_panel_y_repaso` | `public.check_and_unlock_achievements` y `public.panel_tarjetas` |
+
+`private.desbloquear_logros` pasa de las trescientas líneas y transcribirla a
+mano era el camino con más riesgo, así que el tramo 4 la lee con
+`pg_get_functiondef`, inserta sus dos bloques nuevos con una aserción por
+bloque y la vuelve a publicar. Si el texto que espera no está, el bloque falla y
+no escribe nada.
+
+Comprobado contra la base ya migrada: las seis funciones compartidas nombran los
+diez módulos, `panel_tarjetas` conserva `plan`, `postulaciones`, `licencias` y
+`preparacion`, y `desbloquear_logros` desbloquea los cuatro logros de RVSM
+leyendo `user_rvsm_exam_attempts` con el umbral `rvsm_pass`.
+
+El banco `rvsm_evaluacion` (40 preguntas) se sembró en tres tramos más su
+cierre, con la misma huella md5 de los otros dos: `19c940ed…` en la base y en el
+archivo.
+
+La evaluación había quedado con `modulo_leccion` en null, o sea que abría sin la
+lección completa. Todas las que dan nota la exigen, así que se corrigió en el
+archivo y en la base (`puerta_de_leccion_de_rvsm`).
+
+`supabase/tests/rvsm.sql` se corrió contra la base ya migrada y pasó:
+`PRUEBA_DESHECHA` con los veintiún puntos, y nada quedó escrito.
+
+**El PR #277 se mergeó con una migración en la misma versión que esta**
+(`20260929000000_evaluacion_entrega_el_tema_del_banco`), escrita sin saber que
+RVSM ya estaba aplicado. La versión `20260929000000` la tiene registrada la base
+para `modulo_rvsm`, así que la otra, que está pendiente de correr, se renumeró a
+`20260930000000` y la marca de arriba pasó a `20260929000000`. Cuando se corra,
+hay que mover la marca otra vez.

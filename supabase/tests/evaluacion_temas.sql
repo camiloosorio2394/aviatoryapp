@@ -1,7 +1,7 @@
 -- ============================================================================
 -- La evaluación entrega el tema de cada pregunta: el de la fuente si lo tiene
 -- (el simulacro) y si no, el de los metadatos de la pregunta. Y RAC y
--- Combustible quedan como dice el repo. Migración 20260929000000_evaluacion_entrega_el_tema_del_banco.
+-- Combustible quedan como dice el repo. Migración 20260930000000_evaluacion_entrega_el_tema_del_banco.
 --
 -- Comprueba que:
 --   · Aerodinámica, Performance, RAC y Combustible entregan tema en cada

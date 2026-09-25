@@ -51,7 +51,7 @@ main en el panel de Vercel.
     título largo de escenario quedaba debajo de la píldora.
 - **Base**: la migración y los bancos ya están aplicados (comprobado contra la
   base el 24-sep). **Falta correr una migración más**, que va aparte de este
-  encargo: `supabase/migrations/20260929000000_evaluacion_entrega_el_tema_del_banco.sql`.
+  encargo: `supabase/migrations/20260930000000_evaluacion_entrega_el_tema_del_banco.sql`.
   Hace tres cosas:
   1. El resultado de la evaluación dice qué unidades repasar, con su enlace.
      Arregla RAC, Combustible, Aerodinámica y Performance, y también RVSM. Hasta
@@ -63,9 +63,9 @@ main en el panel de Vercel.
   Se corre en el SQL Editor y luego `supabase/tests/evaluacion_temas.sql`.
   Todo está en `docs/RAC_COMBUSTIBLE_ESTADO.md`, «La base».
 - **Dos alertas** (detalle en `supabase/HISTORIAL_DE_MIGRACIONES.md`):
-  - En la base hay un módulo **RVSM** que no está en ninguna rama del repo. Hay
-    que subir sus migraciones: si no, la próxima migración de módulo lo borra
-    del panel y los logros.
+  - El módulo **RVSM** ya está en el repo con su migración (rama `modulo-rvsm`),
+    que es la que tiene registrada la versión `20260929000000`. Por eso la
+    migración de arriba pasó a `20260930000000`.
   - La rama `claude/modulo-mel` usa la versión `20260928000000`, la misma de
     RAC y Combustible. Hay que renumerarla.
 

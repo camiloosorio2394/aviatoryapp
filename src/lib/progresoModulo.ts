@@ -44,6 +44,7 @@ export interface ConfigProgreso {
     | "user_rac_progress"
     | "user_combustible_progress"
     | "user_comunicaciones_progress"
+    | "user_rvsm_progress"
   rpc:
     | "notam_mark_progress"
     | "metar_mark_progress"
@@ -54,6 +55,7 @@ export interface ConfigProgreso {
     | "rac_mark_progress"
     | "combustible_mark_progress"
     | "comunicaciones_mark_progress"
+    | "rvsm_mark_progress"
   /** Lo que el respaldo local tiene leído y resuelto. */
   leerLocal: () => ProgresoRemoto
   /** Anota una marca en el respaldo local. */

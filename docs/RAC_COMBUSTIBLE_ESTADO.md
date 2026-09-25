@@ -86,14 +86,14 @@ lo mismo a la vez). Quedaron dos diferencias, que arregla la migración de abajo
   escenarios (`esc-01` a `esc-10`), así que la base rechazaba esas marcas y
   ese avance quedaba solo en el navegador.
 
-**Falta correr** `supabase/migrations/20260929000000_evaluacion_entrega_el_tema_del_banco.sql`,
+**Falta correr** `supabase/migrations/20260930000000_evaluacion_entrega_el_tema_del_banco.sql`,
 que además hace que la evaluación entregue el tema de cada pregunta (ver
 «Los temas a repasar», abajo). No depende de nada más. Cada paso en su propia
 ejecución del SQL Editor:
 
 | # | Qué se pega en el SQL Editor | Resultado esperado |
 |---|---|---|
-| 1 | `supabase/migrations/20260929000000_evaluacion_entrega_el_tema_del_banco.sql` | Sin error. Si dice «evaluacion_iniciar en la base no es la de 20260911194440», alguien la cambió: no se aplica nada y hay que comparar |
+| 1 | `supabase/migrations/20260930000000_evaluacion_entrega_el_tema_del_banco.sql` | Sin error. Si dice «evaluacion_iniciar en la base no es la de 20260911194440», alguien la cambió: no se aplica nada y hay que comparar |
 | 2 | `supabase/tests/evaluacion_temas.sql` | `PRUEBA_DESHECHA funcion_y_permisos rac_y_combustible_como_el_repo rac_cerrada_con_18 rac_con_tema combustible_con_tema aerodinamica_con_tema performance_con_tema notam_sin_tema simulacro_con_etiqueta` |
 | 3 | `supabase/tests/rac_y_combustible.sql`, `logros.sql`, `permisos.sql`, `panel.sql`, una por ejecución | Cada una en `PRUEBA_DESHECHA …` |
 

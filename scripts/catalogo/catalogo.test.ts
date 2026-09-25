@@ -28,6 +28,7 @@ import { CM_LECCION_TOTAL } from "@/lib/comunicacionesLeccion"
 import { CM_PRACTICA_CLAVES } from "@/lib/comunicacionesPracticaGrupos"
 import { RAC_LECCION_TOTAL } from "@/lib/racLeccion"
 import { RAC_PRACTICA_CLAVES } from "@/lib/racPractica"
+import { RV_LECCION_TOTAL, RV_PRACTICA_CLAVES } from "@/lib/rvsmLeccion"
 import { CB_LECCION_TOTAL } from "@/lib/combustibleLeccion"
 import { CB_PRACTICA_CLAVES } from "@/lib/combustiblePractica"
 import { MODULOS_AEROLINEA } from "@/lib/modulosAerolinea"
@@ -93,6 +94,13 @@ function catalogoDesdeContenido() {
     combustible: {
       lecciones: CB_LECCION_TOTAL,
       practicas: CB_PRACTICA_CLAVES,
+    },
+    // Las del quiz de cada capítulo (r01-q1…), de scripts/rvsm/convertir.mjs.
+    // Los diez escenarios del capítulo 32 se leen, no se responden, así que no
+    // son claves de práctica.
+    rvsm: {
+      lecciones: RV_LECCION_TOTAL,
+      practicas: RV_PRACTICA_CLAVES,
     },
   }
 }
