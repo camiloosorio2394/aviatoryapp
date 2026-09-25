@@ -728,52 +728,84 @@ const CODIGO: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "**`20/12`**: temperatura del aire 20 °C, **punto de rocío** 12 °C. El punto de rocío es la temperatura a la que el aire se satura (humedad relativa del 100 por ciento). Los negativos llevan M: `M02/M04` es temperatura de menos 2 y rocío de menos 4.",
+        text: "**En la operación:** la portada muestra humedad y neblina localizada al amanecer. No demuestra que el aeródromo tenga niebla generalizada ni un valor concreto de presión. Para decidir, interpreta el METAR vigente y observa cómo cambian visibilidad, viento y nubosidad.",
+      },
+      {
+        kind: "p",
+        text: "**`20/12`**: temperatura del aire 20 °C y **punto de rocío** 12 °C. El punto de rocío es la temperatura a la que ese aire se saturaría si se enfría sin cambiar apreciablemente su contenido de vapor de agua. La separación temperatura–rocío es 8 °C. Los valores negativos llevan `M`: `M02/M04` indica −2 °C y −4 °C, respectivamente.",
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "Cuando se juntan, algo se forma",
-        text: "Cuanto más cerca esté el rocío de la temperatura, más probable es la niebla, las nubes bajas y la precipitación. Un 09/09 al amanecer en Bogotá es niebla casi segura. Y la diferencia también te habla del rendimiento: aire húmedo y caliente es menos denso.",
+        title: "Saturación no significa niebla segura",
+        text: "Una separación pequeña aumenta la posibilidad de niebla o nubes bajas si la capa cercana al suelo se enfría y permanece estable. `09/09` indica aire próximo a saturación en el punto de observación; no permite afirmar que haya niebla, precipitación ni visibilidad reducida. Confirma esos fenómenos en sus propios grupos y en las observaciones recientes. Para performance usa temperatura, presión y condiciones del aire según el manual, no solo esta diferencia.",
       },
       {
         kind: "p",
-        text: "**`Q1012`**: el **QNH** en hectopascales, el valor al que calibras el altímetro para que marque la altitud real del aeródromo sobre el nivel del mar. Estados Unidos lo reporta en pulgadas de mercurio: `A2980` son 29.80 inHg.",
+        text: "**`Q1012`**: ajuste altimétrico **QNH** de 1012 hectopascales (hPa). Al colocarlo en un altímetro barométrico, este debe indicar aproximadamente la elevación del aeródromo en tierra; no garantiza por sí solo la altitud verdadera en aire muy frío. En informes con formato estadounidense, `A2980` indica 29,80 pulgadas de mercurio (inches of mercury, inHg). No confundas el valor `Q` con uno `A` ni cambies unidades sin verificar.",
       },
       {
-        kind: "list",
-        items: [
-          "QNH bajo y sin actualizar: el altímetro miente alto. De ahí el clásico: de alta a baja, cuidado abajo.",
-          "El cambio de Q a A al volar hacia EE. UU. es un error de lectura clásico en entrevistas.",
+        kind: "table",
+        head: ["Grupo", "Lectura", "Decisión"],
+        rows: [
+          ["`M02/M04`", "Temperatura −2 °C; rocío −4 °C", "Comprueba precipitación, hielo y limitaciones; la temperatura negativa sola no prueba lluvia engelante"],
+          ["`Q1012`", "QNH 1012 hPa", "Ajusta y verifica el altímetro según fase, procedimiento y fuente vigente"],
+          ["`A2980`", "Ajuste 29,80 inHg", "Reconoce el formato en pulgadas; no lo leas como hPa"],
         ],
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "De presión alta a baja, atención a la altitud real",
+        text: "Si mantienes un ajuste altimétrico demasiado alto al entrar en una zona de menor presión, el altímetro indicará más altitud de la que realmente tienes. Obtén y ajusta el valor vigente según el procedimiento y la fase de vuelo. Incluso con QNH correcto, el frío puede hacer que la altitud verdadera sea menor que la indicada; aplica las correcciones exigidas por las cartas y normas pertinentes.",
+      },
+      {
+        kind: "reconoce",
+        titulo: "Verificación altimétrica en cabina",
+        intro: "La fotografía representa una comprobación en cabina; el mando y las pantallas no tienen lecturas legibles ni identifican un QNH real.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-t19-01-comprobacion-cabina.webp",
+          alt: "Piloto realiza una comprobación en el panel de vuelo con pantallas desenfocadas y nubosidad visible fuera de cabina",
+          ancho: 1600,
+          alto: 800,
+        },
+        puntos: [
+          { x: 59, y: 37, que: "Comprobación en el panel", significa: "La mano representa una acción de verificación; la foto no permite identificar qué mando se manipula ni el ajuste seleccionado.", piloto: "Lee el QNH comunicado, introdúcelo en el equipo correcto y haz la comprobación cruzada que exija el operador." },
+          { x: 31, y: 72, que: "Pantallas de vuelo", significa: "Las pantallas no tienen cifras legibles, así que no representan una altitud ni un QNH utilizable.", piloto: "Confirma unidades, valor y referencia altimétrica en ambos puestos de acuerdo con el procedimiento." },
+          { x: 23, y: 16, que: "Nubes fuera de cabina", significa: "La nubosidad exterior da contexto meteorológico, pero no permite deducir la presión local.", piloto: "No estimes el QNH por la apariencia del cielo; usa una fuente vigente y verifica la transición de ajustes." },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** una comprobación de panel y nubosidad exterior. **Cómo lo reconoces:** la mano está sobre el panel, pero no hay cifras legibles ni un mando QNH identificable. **Qué decides:** obtener el ajuste vigente, confirmar unidades y comprobar las indicaciones de ambos altímetros conforme a la fase y al procedimiento; la imagen no aporta valores para volar.",
       },
       {
         kind: "check",
         question:
-          "Amanece en Bogotá con `06/06` y viento en calma. ¿Qué esperas encontrar en la aproximación?",
+          "Amanece con `06/06` y viento en calma. ¿Qué puedes concluir del grupo temperatura–rocío?",
         options: [
-          "Nada especial: seis grados es una temperatura normal",
-          "Niebla, casi seguro: temperatura y rocío iguales significan aire saturado",
-          "Turbulencia térmica, porque el aire está frío y estable",
+          "La temperatura y el rocío no sirven para evaluar cambios de visibilidad",
+          "Hay aire próximo a saturación; debo comprobar visibilidad, nubes y tendencia antes de inferir niebla",
+          "La niebla y el cierre de la pista son inevitables en la próxima hora",
         ],
         answer: 1,
         explain:
-          "Cuando la temperatura alcanza al punto de rocío el aire está saturado y el vapor condensa. Sin viento que mezcle la capa baja, eso es niebla de radiación. Es el aviso más barato que da un METAR y el que más se pasa por alto.",
+          "`06/06` indica temperatura y punto de rocío iguales a la precisión reportada: aire cercano a saturación. Puede favorecer niebla bajo condiciones adecuadas, pero no garantiza su formación, ubicación ni momento. Revisa visibilidad, cobertura, TAF y reportes recientes.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "Aeródromo de salida, primera hora de la mañana",
         situacion:
-          "El METAR trae **`04/04`** y **`Q1024`**, viento en calma y visibilidad 8000. El cielo está despejado y el sol acaba de salir.",
-        pregunta: "¿Qué te dice ese 04/04 sobre la próxima hora?",
+          "El METAR trae **`04/04`** y **`Q1024`**, viento en calma y visibilidad de 8000 m. El sol acaba de salir.",
+        pregunta: "¿Qué te dicen esos grupos y qué comprobarías antes de salir?",
         claves: [
-          "**Spread cero:** temperatura y punto de rocío iguales significa aire saturado. Eso es niebla formándose o a punto de formarse.",
-          "Con **viento en calma** no hay mezcla que la disipe, y la niebla de radiación se asienta y se queda.",
-          "La visibilidad de 8000 es la de **ahora**. Con spread cero puede irse a 200 m en veinte minutos.",
-          "Lo que hago: mirar el TAF, mirar el alterno, y no dar por buena la visibilidad actual para una salida dentro de una hora.",
+          "**`04/04`** muestra separación cero a la precisión reportada y posibilidad de condensación; no diagnostica por sí solo niebla futura.",
+          "**`Q1024`** es el ajuste altimétrico en hPa. Verifica que se haya seleccionado y cruzado según procedimiento; no es una medida de visibilidad.",
+          "**8000 m** es la visibilidad reportada para la observación, no una garantía para la hora prevista de salida. El viento en calma puede favorecer persistencia de humedad cerca del suelo, pero la evolución depende de más factores.",
+          "Consultaría METAR/SPECI recientes, pronóstico de aeródromo (TAF), tendencia local, mínimos de salida y alterno antes de decidir.",
         ],
         cierre:
-          "El spread es el número que más futuro contiene de todo el METAR, y es el que más se pasa por alto porque no parece un fenómeno: son dos cifras separadas por una barra.",
+          "La separación temperatura–rocío es una señal de vigilancia, no un pronóstico cronometrado. El QNH es un ajuste instrumental distinto; ambos grupos se interpretan con el resto del informe.",
       },
       {
         kind: "entrevista",
@@ -782,22 +814,22 @@ const CODIGO: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué es el punto de rocío y por qué aparece en el METAR?",
             respuesta:
-              "Es la temperatura a la que el aire tendría que enfriarse para saturarse y condensar. Aparece porque la diferencia con la temperatura, el spread, es el mejor indicador de si se va a formar niebla o nubes bajas: cuanto más pequeño el spread, más cerca está el aire de la saturación.",
-            claves: ["Temperatura de saturación", "El spread indica proximidad a la niebla", "Se lee junto a la temperatura"],
+              "Es la temperatura a la que el aire se saturaría al enfriarse sin variar apreciablemente su contenido de vapor. La diferencia entre temperatura y rocío ayuda a reconocer proximidad a la saturación y posibilidad de niebla o nubes bajas bajo condiciones apropiadas; no predice por sí sola que se formen.",
+            claves: ["Temperatura de saturación", "Diferencia pequeña = mayor vigilancia", "Confirmar visibilidad y tendencia"],
           },
           {
             nivel: "interpretacion",
             q: "¿Qué es el QNH y qué pasa si vuelas con uno desactualizado?",
             respuesta:
-              "Es la presión al nivel del mar que, puesta en el altímetro, hace que este marque la elevación del aeródromo al tocar tierra. Si vuelo con un QNH más alto que el real, el altímetro me indica más altura de la que tengo: estoy más bajo de lo que creo. Volar de alta a baja presión sin actualizar es la situación clásica de terreno más cerca de lo que marca el instrumento.",
-            claves: ["Presión reducida al nivel del mar", "De alta a baja, más bajo de lo que marca", "Se actualiza en descenso"],
+              "Es el ajuste de presión que hace que el altímetro indique aproximadamente la elevación del aeródromo en tierra. Si mantengo un QNH más alto que el vigente, el instrumento puede indicar más altitud de la que realmente tengo; de alta a baja presión sin actualizar, el terreno queda más cerca de lo que indica. Verifico la fuente, unidades y ajuste en la fase de vuelo aplicable, y considero correcciones por frío cuando correspondan.",
+            claves: ["Ajuste para elevación aproximada en tierra", "De alta a baja, altitud real menor", "Fuente y ajuste vigentes"],
           },
           {
             nivel: "situacion",
             q: "Ves `M02/M03` en el METAR y llueve. ¿Qué te preocupa?",
             respuesta:
-              "La M es de menos: temperatura de dos bajo cero y rocío de tres bajo cero. Lluvia con temperaturas negativas en superficie es engelamiento: lluvia engelante en el avión y posible hielo en pista. Me preocupan las condiciones de deshielo antes de salir, el estado de la pista y el frenado, y la posibilidad de acumulación en ascenso.",
-            claves: ["M = temperatura negativa", "Lluvia bajo cero = engelamiento", "Deshielo, estado de pista, ascenso"],
+              "La `M` significa menos: −2 °C de temperatura y −3 °C de rocío. La lluvia cerca o por debajo de cero exige investigar si hay gotas sobreenfriadas o lluvia engelante (`FZRA`), además del estado y temperatura de la pista. No puedo declarar `FZRA` solo con ese par de temperaturas. Revisaría el tiempo presente, avisos, protección y limitaciones contra hielo, y los procedimientos de deshielo y frenado aplicables.",
+            claves: ["M = valor negativo", "No inferir FZRA solo por temperatura", "Verificar hielo, pista y limitaciones"],
           },
         ],
       },
