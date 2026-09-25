@@ -9,6 +9,7 @@ import { MP_LECCIONES } from "@/lib/mercanciasLeccion"
 import { METAR_LESSON } from "@/lib/metarLesson"
 import { LESSON_SCREENS } from "@/lib/notamLesson"
 import { PB_LECCIONES } from "@/lib/pbnLeccion"
+import { RV_LECCIONES } from "@/lib/rvsmLeccion"
 
 /**
  * Cada foto de una lección declara la medida de su archivo, y tiene que ser la
@@ -19,8 +20,8 @@ import { PB_LECCIONES } from "@/lib/pbnLeccion"
  * roto.
  *
  * Se lee solo la cabecera del WebP, que trae el tamaño: son ciento y pico
- * archivos y no hace falta decodificar ninguno. Las figuras dibujadas (las de
- * PBN) son SVG, y su medida es la de la etiqueta raíz.
+ * archivos y no hace falta decodificar ninguno. Las figuras dibujadas (PBN,
+ * RVSM) son SVG, y su medida es la de la etiqueta raíz.
  */
 
 const PUBLICO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../public")
@@ -62,6 +63,7 @@ const MODULOS: [string, { blocks: unknown[] }[]][] = [
   ["Aeropuertos", AP_LECCIONES],
   ["Aerodinámica", AERO_LECCIONES],
   ["PBN", PB_LECCIONES],
+  ["RVSM", RV_LECCIONES],
 ]
 
 const fotos: Foto[] = []

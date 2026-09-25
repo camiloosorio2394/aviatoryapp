@@ -1,7 +1,7 @@
 /**
  * PB-11 a PB-15: la trayectoria vertical y la lateral de los procedimientos.
  */
-import { C, avion, caja, cerro, cota, curvaAbierta, flyBy, flyOver, linea, lienzo, parrafo, pildora, pista, t, tl } from "./lib.mjs"
+import { C, avion, caja, cerro, cota, curvaAbierta, flyBy, flyOver, linea, lienzo, parrafo, pildora, pista, t, tl } from "../../figuras/lib.mjs"
 
 const M = (pts) => pts.map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join("")
 

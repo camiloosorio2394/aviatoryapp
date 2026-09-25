@@ -41,6 +41,7 @@
 import fs from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import { bloquesDeFigura, figuraDibujada } from "../figuras/enLeccion.mjs"
 import { FIGURAS } from "./figuras/index.mjs"
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
@@ -180,7 +181,7 @@ function leerHueco(cuerpo, i, ctx) {
   }
 
   const codigo = `PB-${String(ctx.huecos.length + ctx.figuras.length + 1).padStart(2, "0")}`
-  const figura = figuraDibujada(codigo)
+  const figura = figuraDibujada({ porCodigo: FIGURA_POR_CODIGO, codigo, dirPublico: DIR_FIGURAS, modulo: "pbn", fallos })
   if (!figura) {
     ctx.huecos.push(codigo)
     return {
@@ -199,49 +200,7 @@ function leerHueco(cuerpo, i, ctx) {
   }
 
   ctx.figuras.push(codigo)
-  const bloques = [
-    {
-      kind: "figura",
-      src: `/modulos/pbn/${codigo}.svg`,
-      alt: figura.alt,
-      ancho: 1600,
-      alto: figura.alto,
-      ...(figura.pie ? { pie: figura.pie } : {}),
-    },
-  ]
-  if (anotada) {
-    // «→ FLECHA 1: al recuadro PBN. EXPLICACIÓN: aquí está…»: lo que se lee
-    // es la explicación, en el mismo orden que los números de la figura.
-    const items = anotaciones
-      .split(/→ FLECHA \d+:/)
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .map((s) => s.replace(/^.*?EXPLICACIÓN:\s*/, "").trim())
-      .map((s) => s.charAt(0).toLocaleUpperCase("es") + s.slice(1))
-    comprobar(items.length === figura.anotaciones, `${codigo}: el documento trae ${items.length} anotaciones y la figura numera ${figura.anotaciones}`)
-    bloques.push({ kind: "list", ordered: true, items })
-  } else {
-    comprobar(!figura.anotaciones, `${codigo}: la figura está numerada pero el hueco no es anotado`)
-  }
-  return { bloques, siguiente: j }
-}
-
-/**
- * La figura de un código, si está dibujada: tiene que estar en
- * scripts/pbn/figuras y tener su SVG, con la medida que declara.
- */
-function figuraDibujada(codigo) {
-  const figura = FIGURA_POR_CODIGO.get(codigo)
-  const archivo = path.join(DIR_FIGURAS, `${codigo}.svg`)
-  if (!figura) return null
-  if (!fs.existsSync(archivo)) {
-    fallos.push(`${codigo}: está en scripts/pbn/figuras pero falta el SVG; corre node scripts/pbn/dibujar-figuras.mjs`)
-    return null
-  }
-  const cabecera = fs.readFileSync(archivo, "utf8").slice(0, 300)
-  const medida = /width="(\d+)" height="(\d+)"/.exec(cabecera)
-  comprobar(medida && Number(medida[1]) === 1600 && Number(medida[2]) === figura.alto, `${codigo}: el SVG no mide 1600 × ${figura.alto}; vuelve a dibujarlo`)
-  return figura
+  return { bloques: bloquesDeFigura({ figura, codigo, src: `/modulos/pbn/${codigo}.svg`, anotaciones, fallos }), siguiente: j }
 }
 
 // ─── Preguntas ──────────────────────────────────────────────────────────────
@@ -629,7 +588,7 @@ fs.writeFileSync(
  *
  * El contenido es el del documento, sin tocar: este archivo lo traduce a
  * bloques. ${ctx.figuras.length} de las ${ctx.figuras.length + ctx.huecos.length} imágenes son figuras SVG de public/modulos/pbn/,
- * dibujadas con scripts/pbn/dibujar-figuras.mjs; ${ctx.huecos.length ? `las otras ${ctx.huecos.length} entran como huecos rotulados.` : "no queda ningún hueco."}
+ * dibujadas con scripts/figuras/dibujar.mjs pbn; ${ctx.huecos.length ? `las otras ${ctx.huecos.length} entran como huecos rotulados.` : "no queda ningún hueco."}
  *
  * Las preguntas de cada capítulo NO están aquí: viven en pbnPractica.ts,
  * porque en la lectura no se pregunta nada.

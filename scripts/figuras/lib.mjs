@@ -1,11 +1,15 @@
 /**
- * Piezas de dibujo de las figuras de PBN.
+ * Piezas de dibujo de las figuras de las lecciones.
  *
  * Las figuras son SVG escritos a mano desde aquí, no exportados de un editor:
  * así se corrigen en el texto, se revisan en un diff y salen todas con la misma
- * paleta. La paleta es la del lector de PBN (`.lector-pbn` en index.css), más
- * el magenta que usa la pantalla de navegación para la ruta activa: es el color
+ * paleta. El acento es el del lector de cada módulo (`.lector-pbn`,
+ * `.lector-rv`… en index.css) y lo fija `tema()`; el resto es común, más el
+ * magenta que usa la pantalla de navegación para la ruta activa: es el color
  * que el piloto ya asocia a «la trayectoria que el sistema está volando».
+ *
+ * Cada módulo tiene sus figuras en scripts/<modulo>/figuras y se dibujan con
+ * `node scripts/figuras/dibujar.mjs <modulo>`.
  *
  * Todo va en unidades del lienzo: 1600 de ancho, que el lector reduce a 720 en
  * la columna y abre en grande al tocar. Por eso ningún texto baja de 22.
@@ -43,6 +47,21 @@ export const C = {
   pantallaVerde: "#5BD68F",
   pantallaCian: "#63C7E0",
   pantallaMagenta: "#E05ACB",
+}
+
+/**
+ * El acento de cada módulo, sacado de su lector: `acento` es `--ln-primary`,
+ * `acento2` es `--ln-bright` y `tinte` es `--ln-tint`. `claro` y `tinte2`
+ * son dos escalones intermedios para rellenos y bordes suaves.
+ */
+export const TEMAS = {
+  pbn: { acento: "#5C4520", acento2: "#8F7343", claro: "#D2BC93", tinte: "#F3EDE1", tinte2: "#E9DDC7" },
+  rvsm: { acento: "#1C5750", acento2: "#4B9089", claro: "#9CC9C3", tinte: "#E5F3F1", tinte2: "#CDE5E1" },
+}
+
+/** Pone el acento de un módulo. Lo llama el índice de figuras de cada módulo al cargarse. */
+export function tema(t) {
+  Object.assign(C, t)
 }
 
 const FUENTE = "Arial, Helvetica, 'Liberation Sans', sans-serif"
@@ -136,22 +155,23 @@ export function linea(d, o = {}) {
   return `<path ${a.join(" ")}/>`
 }
 
-/** Flechas disponibles como marcador, por nombre de color. */
-const FLECHAS = { tinta: C.tinta, acento: C.acento, acento2: C.acento2, magenta: C.magenta, suave: C.suave, ambar: C.ambar, gris: C.gris, verde: C.verde, rojo: C.rojo }
+/**
+ * Flechas disponibles como marcador, por nombre de color. El color se lee de
+ * `C` al dibujar, no al cargar, para que tome el acento que puso `tema()`.
+ */
+const FLECHAS = ["tinta", "acento", "acento2", "magenta", "suave", "ambar", "gris", "verde", "rojo"]
 
 function defsFlechas() {
-  return Object.entries(FLECHAS)
-    .map(
-      ([k, color]) =>
-        `<marker id="f-${k}" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="${color}"/></marker>`,
-    )
-    .join("")
+  return FLECHAS.map(
+    (k) =>
+      `<marker id="f-${k}" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="${C[k]}"/></marker>`,
+  ).join("")
 }
 
 /** Cota con flechas en los dos extremos. */
 export function cota(x1, y1, x2, y2, o = {}) {
   const color = o.color ?? "suave"
-  return linea(`M${n(x1)} ${n(y1)}L${n(x2)} ${n(y2)}`, { color: FLECHAS[color], sw: o.sw ?? 3, flecha: color, inicio: color })
+  return linea(`M${n(x1)} ${n(y1)}L${n(x2)} ${n(y2)}`, { color: C[color], sw: o.sw ?? 3, flecha: color, inicio: color })
 }
 
 /** El círculo numerado de una figura anotada. */
@@ -219,6 +239,34 @@ export function avion(x, y, rumbo = 0, escala = 1, o = {}) {
   const relleno = o.hueco ? "none" : (o.fill ?? C.tinta)
   const trazo = o.hueco ? ` stroke="${o.color ?? C.tinta}" stroke-width="${n(2.2 / escala)}" stroke-dasharray="${n(5 / escala)} ${n(4 / escala)}"` : ""
   return `<path d="${d}" fill="${relleno}"${trazo} transform="translate(${n(x)} ${n(y)}) rotate(${n(rumbo)}) scale(${escala})"/>`
+}
+
+/**
+ * Silueta de avión de perfil, con el morro a la derecha (o a la izquierda con
+ * `o.izquierda`). Mide unas 124 unidades de largo a escala 1; `y` es la
+ * línea del fuselaje, que es la que marca el nivel.
+ */
+export function avionLado(x, y, escala = 1, o = {}) {
+  const cuerpo =
+    "M-58 -2L-50 -30L-40 -30L-27 -6L40 -6C52 -6 60 -3 63 1C60 6 52 8 40 8L-52 8C-58 8 -61 4 -58 -2Z"
+  const cola = "M-60 1L-40 1L-44 5L-60 5Z"
+  const ala = "M-10 3L18 3L8 13L-4 13Z"
+  const color = o.color ?? C.tinta
+  const giro = (o.rot ? ` rotate(${n(o.rot)})` : "") + (o.izquierda ? " scale(-1 1)" : "")
+  const abrir = `<g transform="translate(${n(x)} ${n(y)}) scale(${escala})${giro}"`
+  if (o.hueco) {
+    const trazo = `fill="none" stroke="${color}" stroke-width="${n(2.2 / escala)}" stroke-dasharray="${n(5 / escala)} ${n(4 / escala)}"`
+    return `${abrir}><path d="${cuerpo}" ${trazo}/><path d="${ala}" ${trazo}/></g>`
+  }
+  return (
+    `${abrir}>` +
+    `<path d="${cuerpo}" fill="${color}"/>` +
+    `<path d="${cola}" fill="${color}"/>` +
+    `<path d="${ala}" fill="${color}" opacity="0.75"/>` +
+    `<ellipse cx="4" cy="15" rx="10" ry="4" fill="${color}"/>` +
+    `<path d="M45 -3L53 -3L56 0L47 0Z" fill="${C.papel}"/>` +
+    "</g>"
+  )
 }
 
 /** Pista en planta: rectángulo girado, con el eje en trazos. */
@@ -303,6 +351,29 @@ export function tp(x, y, texto, o = {}) {
   const a = [`x="${n(x)}" y="${n(y)}" font-family="'Courier New', Courier, monospace" font-size="${o.size ?? 28}" font-weight="${o.peso ?? 700}" fill="${o.color ?? C.pantallaTexto}"`]
   if (o.anchor) a.push(`text-anchor="${o.anchor}"`)
   return `<text ${a.join(" ")}>${esc(texto)}</text>`
+}
+
+// ─── Figuras anotadas ───────────────────────────────────────────────────────
+
+export const RECREACION = "Recreación educativa · no es una carta real"
+
+/** La columna de la derecha: qué señala cada número, en pocas palabras. */
+export function leyenda(x, y, items, ancho = 384) {
+  const g = [t(x, y, "QUÉ SEÑALA CADA NÚMERO", { size: 20, peso: 700, color: C.suave, espaciado: 1.5 })]
+  let yy = y + 44
+  for (const [k, titulo, texto] of items) {
+    g.push(num(x + 20, yy + 2, k, { r: 20 }))
+    const lt = partir(titulo, ancho - 56, 24, 700)
+    g.push(tl(x + 56, yy + 10, lt, { size: 24, peso: 700, lh: 29 }))
+    let h = lt.length * 29
+    if (texto) {
+      const lx = partir(texto, ancho - 56, 22)
+      g.push(tl(x + 56, yy + 10 + h, lx, { size: 22, color: C.suave, lh: 27 }))
+      h += lx.length * 27
+    }
+    yy += Math.max(h, 44) + 20
+  }
+  return g.join("")
 }
 
 // ─── Lienzo ─────────────────────────────────────────────────────────────────

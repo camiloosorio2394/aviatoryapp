@@ -2,8 +2,7 @@
  * PB-24 a PB-29: la operación. El ATC, el plan de vuelo, la MEL, el reparto en
  * cabina, la pérdida de capacidad y la carta completa.
  */
-import { RECREACION, leyenda } from "./cartas.mjs"
-import { C, caja, flyBy, flyOver, linea, lienzo, num, parrafo, partir, pista, senal, t, tl } from "./lib.mjs"
+import { C, RECREACION, caja, flyBy, flyOver, leyenda, linea, lienzo, num, parrafo, partir, pista, senal, t, tl } from "../../figuras/lib.mjs"
 
 // ─── PB-24 ──────────────────────────────────────────────────────────────────
 
