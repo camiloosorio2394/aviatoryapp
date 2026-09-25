@@ -19,7 +19,7 @@ import {
  * Performance: son situaciones para pensar, no preguntas con opciones.
  *
  * `portadaAuto` queda en false mientras no existan las portadas: el módulo ya
- * trae sus quince huecos de figura a propósito.
+ * trae sus quince figuras SVG.
  *
  * Ruta: /app/aerolinea/combustible/aprende?l=1
  */

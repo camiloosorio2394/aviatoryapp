@@ -14,7 +14,7 @@ banco en el servidor.
 | | RAC | Gestión del combustible |
 |---|---|---|
 | Ruta | `/app/aerolinea/rac` | `/app/aerolinea/combustible` |
-| Lección | 19 unidades en 5 bloques, 120 min | 23 capítulos en 3 partes, 151 min |
+| Lección | 19 unidades en 5 bloques, 116 min | 23 capítulos en 3 partes, 151 min |
 | Práctica | 54 preguntas (`u05-q2`) | 66 preguntas (`c06-q1`) y 10 escenarios (`esc-03`) |
 | Evaluación | 20 al azar de 50, aprueba con 80 | 20 al azar de 40, aprueba con 80 |
 | Acento | grafito pizarra `#3D4958` (`--av-rac-*`, `.lector-rac`) | azul queroseno `#005071` (`--av-cb-*`, `.lector-cb`) |
@@ -165,8 +165,9 @@ lo que el piloto tiene que saber y se abre a demanda. No se borró nada.
   reparto de horas por fase, los formatos de chequeo, las tablas por sector del
   Apéndice 18, los documentos a bordo, lo de alumno y piloto privado, la
   convalidación. **No se plegó nada que pregunten la práctica o la
-  evaluación**: el numeral que cita cada una de las 104 preguntas de RAC está
-  en el texto visible de su unidad (se comprobó con un cruce automático).
+  evaluación**: en las 45 preguntas (de práctica y de evaluación) de las
+  unidades que tienen pliegues, el numeral que cita cada una está en el texto
+  visible de su unidad (se comprobó con un cruce automático).
   Por eso siguen a la vista, por ejemplo, la recencia del PTL, el
   emparejamiento de tripulaciones nuevas, el descanso controlado y las
   categorías de aproximación del RAC 1.
@@ -174,8 +175,8 @@ lo que el piloto tiene que saber y se abre a demanda. No se borró nada.
   palabras por minuto, el ritmo con el que se habían estimado las fichas) y
   **falla** si la ficha dice otra cosa o si una unidad sale de 3 a 8. La única
   excepción es el RAC 210, una ficha de ~2 min: rellenarla sería meter lo que
-  al piloto no le toca.
-- El módulo pasa de 140 a 120 minutos.
+  al piloto no le toca. Las otras fichas (RAC 203, 119 y 4) ya dan 3 minutos.
+- El módulo pasa de 134 a 116 minutos.
 
 Lo demás que se había anotado como simplificación del convertidor ya estaba
 resuelto: la cursiva del documento pasa a negrita (no se pierde), las sublistas

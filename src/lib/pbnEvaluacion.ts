@@ -1,5 +1,5 @@
 /**
- * Evaluación de PBN: 50 preguntas de opción múltiple, cuatro opciones, una
+ * Evaluación de PBN: 66 preguntas de opción múltiple, cuatro opciones, una
  * correcta. Cada intento toma 20 al azar y el servidor baraja las opciones.
  *
  * El banco se genera en `contenido/bancos/pbn_evaluacion.json` desde el
@@ -10,7 +10,7 @@
  */
 
 export const PBN_EVALUACION_META = {
-  total: 50,
+  total: 66,
   porIntento: 20,
   puntajePorPregunta: 5,
   aprobacion: 80,

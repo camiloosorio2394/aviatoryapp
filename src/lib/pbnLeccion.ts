@@ -2,11 +2,11 @@
 // No se edita a mano: se edita el documento y se vuelve a correr el script.
 
 /**
- * Los 52 capítulos de PBN, en el formato del lector de lecciones.
+ * Los 48 capítulos de PBN, en el formato del lector de lecciones.
  *
  * El contenido es el del documento, sin tocar: este archivo lo traduce a
- * bloques. Las 28 imágenes entran como huecos rotulados, cada uno con lo que
- * hay que dibujar y para qué, así que el módulo se lee completo desde hoy.
+ * bloques. 29 de las 29 imágenes son figuras SVG de public/modulos/pbn/,
+ * dibujadas con scripts/figuras/dibujar.mjs pbn; no queda ningún hueco.
  *
  * Las preguntas de cada capítulo NO están aquí: viven en pbnPractica.ts,
  * porque en la lectura no se pregunta nada.
@@ -31,27 +31,27 @@ export const PB_NIVELES: LectorNivel[] = [
   },
   {
     "titulo": "Las aproximaciones PBN",
-    "desde": 17
+    "desde": 16
   },
   {
     "titulo": "La trayectoria",
-    "desde": 24
+    "desde": 23
   },
   {
     "titulo": "El FMS y los datos",
-    "desde": 30
+    "desde": 29
   },
   {
     "titulo": "Los sensores",
-    "desde": 37
+    "desde": 35
   },
   {
     "titulo": "La operación de aerolínea",
-    "desde": 42
+    "desde": 39
   },
   {
     "titulo": "Perder la capacidad, Colombia y la carta",
-    "desde": 49
+    "desde": 45
   }
 ]
 
@@ -154,12 +154,12 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "«PBN es lo nuevo que reemplazó al VOR.» Ni lo uno ni lo otro. PBN es un concepto de navegación, no una tecnología, y la navegación convencional sigue existiendo y sigue publicándose. Lo que cambió es que ahora hay procedimientos cuyo requisito de acceso es una performance, no un equipo concreto."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-01 · Figura · 16:9 · 1600×900",
-        "descripcion": "Dos mapas en planta, uno al lado del otro, con el mismo terreno de fondo (una cordillera esquemática y un aeropuerto). Izquierda, rotulado «NAVEGACIÓN CONVENCIONAL»: la trayectoria va en tramos rectos de un VOR al siguiente, con los tres VOR dibujados como símbolos de radioayuda y la derrota quebrándose sobre cada uno; una de las patas pasa muy cerca del relieve. Derecha, rotulado «PBN»: la misma llegada definida por seis waypoints con nombre de cinco letras, la trayectoria libre del relieve y una anotación al margen que diga «la trayectoria se define donde hace falta, no donde hay antena».",
-        "pie": "Que el piloto vea de un golpe que PBN permite definir la trayectoria por donde conviene operacionalmente, sin depender de volar directamente hacia o desde una antena en tierra.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-01.svg",
+        "alt": "Dos mapas del mismo terreno y el mismo aeropuerto. A la izquierda, navegación convencional: la ruta va en tramos rectos de un VOR al siguiente, y uno de los tramos pasa sobre el cerro donde está la antena. A la derecha, PBN: la misma llegada definida por seis waypoints de nombre ficticio, con la trayectoria lejos del relieve y alineada con la pista.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Esquema didáctico, con nombres de punto ficticios."
       },
       {
         "kind": "titulo",
@@ -255,12 +255,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Confundir la evolución con una sustitución. «Ya no se usan radioayudas» es falso: varias especificaciones RNAV admiten posicionamiento por DME/DME o por VOR/DME, el ILS sigue siendo el patrón de la aproximación de precisión, y la reversión a navegación convencional es la contingencia más común."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-02 · Figura · 16:9 · 1600×900",
-        "descripcion": "Tres mapas pequeños en fila, con la misma pareja de aeropuertos y el mismo relieve de fondo. (1) «CONVENCIONAL»: derrota quebrada sobre tres VOR. (2) «NAVEGACIÓN DE ÁREA»: derrota por cinco waypoints, más recta, con los VOR dibujados en gris para indicar que ya no son el destino. (3) «PBN»: la misma derrota que en 2, pero con un rótulo sobre cada segmento que indique la especificación requerida, del tipo «RNAV 1», «RNP 2», «RNP APCH», y una franja lateral estrecha alrededor de la derrota que insinúe la precisión exigida.",
-        "pie": "Mostrar la evolución conceptual y, sobre todo, que lo que añade PBN al mapa de la navegación de área es el requisito de performance escrito sobre cada segmento.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-02.svg",
+        "alt": "Tres mapas con los mismos dos aeropuertos y el mismo cerro. En el primero, navegación convencional: la derrota se quiebra sobre tres VOR. En el segundo, navegación de área: la derrota pasa por waypoints y los VOR quedan en gris. En el tercero, PBN: la misma derrota con una franja alrededor y la especificación rotulada en cada tramo, RNAV 1 en la salida, RNP 2 en ruta y RNP APCH en la aproximación.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -372,12 +371,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Creer que la especificación es una etiqueta del procedimiento. No lo es: es un contrato de dos partes. Dice lo que debe cumplir la aeronave **y** lo que debe saber hacer la tripulación. El RAC 91 lo dice en la propia definición: requisitos relativos a la aeronave y a la tripulación de vuelo."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-03 · Figura · 16:9 · 1600×900",
-        "descripcion": "Tres engranajes encajados, cada uno rotulado y con un pie de dos líneas: «APLICACIÓN DE NAVEGACIÓN · la SID, la STAR, la ruta, la aproximación», «ESPECIFICACIÓN PARA LA NAVEGACIÓN · qué debe cumplir el avión y la tripulación», «INFRAESTRUCTURA · GNSS, DME, VOR, IRS». Debajo, una banda con la frase «si falta una, el procedimiento no se vuela como está publicado».",
-        "pie": "Fijar que las tres piezas son condiciones simultáneas, y que la tercera es la que se olvida porque no está en la carta.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-03.svg",
+        "alt": "Tres engranajes encajados. El primero es la aplicación de navegación: la SID, la STAR, la ruta o la aproximación. El segundo, la especificación para la navegación: lo que deben cumplir el avión y la tripulación. El tercero, la infraestructura: GNSS, DME y VOR, que se revisa en los NOTAM. Debajo, la regla: si falta una, el procedimiento no se vuela como está publicado.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -465,12 +463,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "«Si el procedimiento aparece en el FMS, estoy autorizado.» No. Que un procedimiento esté en la base de datos dice que el proveedor lo codificó, no que el avión, el operador y la tripulación estén autorizados a volarlo. En el caso de la FAA hay incluso una salvaguarda en sentido contrario que conviene conocer: se exige que la base de datos de la aeronave contenga solo los procedimientos para los que la aeronave mantiene elegibilidad, así que si un procedimiento no aparece, lo más probable es que contenga elementos PBN para los que el avión no es elegible. Esa salvaguarda es un criterio de la FAA; no se puede dar por universal."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-04 · Figura · 16:9 · 1600×900",
-        "descripcion": "Diagrama radial. En el centro, un círculo grande rotulado «PBN · concepto de navegación basada en performance». Alrededor, cuatro círculos menores conectados con líneas, rotulados «GNSS», «DME/DME», «DME/DME/IRU», «VOR/DME», cada uno con el pie «fuente de posición». Fuera del radio, separado por una línea de puntos y claramente aparte, un recuadro rotulado «TAWS · alerta de terreno» con el pie «sistema distinto, propósito distinto».",
-        "pie": "Romper de un vistazo la asociación «PBN = GPS» y dejar el TAWS fuera del diagrama, para que se vea que no forma parte del concepto.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-04.svg",
+        "alt": "Diagrama radial. En el centro, PBN, concepto de navegación basada en performance. A su alrededor, cuatro fuentes de posición unidas al centro: GNSS, DME/DME, DME/DME/IRU y VOR/DME. Aparte, al otro lado de una línea de puntos, el TAWS, alerta de terreno: un sistema distinto, con otro propósito.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -810,12 +807,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "«RNP es más preciso que RNAV.» No es la diferencia. La diferencia es el control y la alerta. Puede haber una especificación RNAV con un número menor que una RNP y seguir sin ser RNP, porque le falta el requisito que define la familia."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-05 · Figura · 16:9 · 1600×900",
-        "descripcion": "Dos columnas de la misma altura, con la misma trayectoria dibujada arriba en las dos. Columna izquierda, cabecera «RNAV», con una sola caja debajo: «Navigation capability». Columna derecha, cabecera «RNP», con tres cajas apiladas: «Navigation capability», «On-board performance monitoring» y «Alerting», la tercera resaltada en el color del módulo y con un icono de aviso. Al pie, centrado entre las dos, el texto «la diferencia no es el número: es el aviso».",
-        "pie": "Que el estudiante recuerde inmediatamente que lo que añade RNP es el control de la performance a bordo y la alerta a la tripulación, no una precisión mayor.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-05.svg",
+        "alt": "Dos columnas con la misma trayectoria arriba. RNAV tiene una sola pieza: la capacidad de navegación. RNP tiene tres: la capacidad de navegación, el control de la performance a bordo y la alerta a la tripulación, esta última resaltada con un símbolo de aviso. Al pie: la diferencia no es el número, es el aviso.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -1042,12 +1038,11 @@ export const PB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-06 · Figura · 16:9 · 1600×900",
-        "descripcion": "Vista en planta de un tramo de ruta. En el centro, la derrota publicada como línea magenta continua rotulada «CENTERLINE». A cada lado, una franja simétrica delimitada con línea de puntos y acotada con una flecha doble rotulada «1 NM» sobre el lado derecho y «1 NM» sobre el izquierdo, con el rótulo general «RNP 1» arriba. Una silueta de avión ligeramente descentrada dentro de la franja, con una flecha corta que la une a la derrota rotulada «posición real». Al pie, en un recuadro, la frase «el valor es un requisito de performance del sistema, conseguido al menos el 95 % del tiempo; la expectativa operacional sigue siendo mantener el eje».",
-        "pie": "Visualizar qué representa el número dentro de una especificación, y dejar por escrito en la misma figura que no es una autorización para desviarse.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-06.svg",
+        "alt": "Vista en planta de un tramo de ruta. La trayectoria publicada va en magenta por el centro, rotulada CENTERLINE. A cada lado, a 1 NM, una línea de puntos. Un avión algo desplazado del eje, dentro de la franja, rotulado posición real. Al pie: el valor es un requisito de performance del sistema, conseguido al menos el 95 % del tiempo, y la expectativa operacional sigue siendo mantener el eje.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -1201,12 +1196,12 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "«RNP solo se usa en aproximaciones.» La tabla lo desmiente: hay RNP en ruta doméstica, en oceánico, en llegada y en salida. Y la inversa también se oye: «en aproximación todo es RNP APCH», ignorando que una aproximación convencional puede llevar segmentos PBN, como una frustrada RNAV, y que en ese caso la capacidad exigida aparece en el recuadro PBN de la carta."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-07 · Figura · 16:9 · 1600×900",
-        "descripcion": "Tabla gráfica de doble entrada. Filas: RNAV 10, RNAV 5, RNAV 2, RNAV 1, RNP 4, RNP 2, RNP 1, A-RNP, RNP APCH. Columnas: Oceánico y remoto · En ruta doméstico · Llegada · Inicial · Intermedia · Final · Frustrada · Salida. Las celdas aplicables llevan el valor (10, 5, 4, 2, 1, «1 a 0.3», 0.3) sobre fondo en el color del módulo; las no aplicables van en gris claro con un guion. Debajo, una franja con el perfil de una aproximación en la que se vea cómo la anchura de la franja protegida se estrecha de la inicial a la final y se vuelve a abrir en la frustrada.",
-        "pie": "Que el piloto vea el catálogo completo y, sobre todo, que entienda que el valor no es del procedimiento sino del segmento.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-07.svg",
+        "alt": "Tabla de especificaciones por fase de vuelo. RNAV 10 y RNP 4 en oceánico y remoto; RNAV 5 y RNAV 2 en ruta; RNAV 1 en ruta, llegada y salida; RNP 2 en oceánico y en ruta; RNP 1 con valor 1 en llegada, aproximación inicial, intermedia, frustrada y salida; A-RNP con 2 en oceánico, 2 o 1 en ruta, de 1 a 0.3 en llegada, inicial, intermedia, frustrada y salida, y 0.3 en la final; RNP APCH con 1 en inicial e intermedia, 0.3 en la final y 1 en la frustrada; RNP AR APCH de 1 a 0.1, y de 0.3 a 0.1 en la final. Debajo, una franja de aproximación que se estrecha hasta la final y se vuelve a abrir en la frustrada.",
+        "ancho": 1600,
+        "alto": 1040,
+        "pie": "Las filas RNAV muestran el uso principal de cada especificación; las RNP, los valores de la tabla 5-1 de la FAA AC 90-105A. El valor que manda en vuelo es el de la carta."
       },
       {
         "kind": "titulo",
@@ -1513,7 +1508,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Lo que cambia respecto de una SID convencional es que aquí la trayectoria la construye el FMS a partir de datos codificados, y eso obliga a la verificación que se ve en el capítulo 35."
+        "text": "Lo que cambia respecto de una SID convencional es que aquí la trayectoria la construye el FMS a partir de datos codificados, y eso obliga a la verificación que se ve en el capítulo 34."
       },
       {
         "kind": "titulo",
@@ -1541,7 +1536,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Si la capacidad se pierde en vuelo: notificar la pérdida junto con el curso de acción propuesto, con el formato del capítulo 6."
+        "text": "Si la capacidad se pierde en vuelo: notificar la pérdida junto con el curso de acción propuesto, con el formato del capítulo 46."
       },
       {
         "kind": "titulo",
@@ -1552,12 +1547,22 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Creer que «RNAV 1» en la carta describe el avión. Describe **el procedimiento**: es lo que el procedimiento exige. Lo que el avión tiene está en otro documento."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-08 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Recreación educativa de una carta de SID PBN, en planta, con una pista, cuatro waypoints con nombre de cinco letras, la derrota con sus rumbos, dos restricciones de altitud y una de velocidad, y en la esquina superior derecha dos recuadros apilados: el primero rotulado «PBN» y el segundo «EQUIPO REQUERIDO». ANOTACIONES: → FLECHA 1: al recuadro PBN. EXPLICACIÓN: aquí está la especificación que exige el procedimiento, y las funciones o sensores que hagan falta. Lo que está en este recuadro es obligatorio para volar los elementos PBN. → FLECHA 2: al segundo recuadro. EXPLICACIÓN: los requisitos de equipo en tierra o específicos del aeropuerto van aparte. Cuando hay los dos, el recuadro PBN va primero. → FLECHA 3: a un waypoint con el símbolo de fly-by. EXPLICACIÓN: el símbolo dice si el punto se sobrevuela o si el giro se anticipa. Cambia la trayectoria real del avión. → FLECHA 4: a la restricción de altitud. EXPLICACIÓN: la restricción es parte del procedimiento y hay que verificarla cargada en el FMS, no solo leída en la carta. → FLECHA 5: a la derrota entre dos waypoints. EXPLICACIÓN: la derrota publicada es la referencia contra la que se compara lo que muestra el FMS.",
-        "pie": "Que el piloto sepa exactamente dónde mirar en una carta de SID PBN para encontrar la especificación exigida, y que no la confunda con los requisitos de equipo en tierra.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-08.svg",
+        "alt": "Recreación de una carta de salida RNAV. Arriba a la derecha, dos recuadros apilados: el recuadro PBN, con RNAV 1 y los sensores admitidos, y debajo el de equipo requerido. En planta, la pista 09 y cuatro waypoints de nombre ficticio unidos por la derrota, con sus rumbos, dos restricciones de altitud y una de velocidad. Cinco números señalan el recuadro PBN, el de equipo, un punto fly-by, una restricción de altitud y la derrota entre dos puntos.",
+        "ancho": 1600,
+        "alto": 900
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "Aquí está la especificación que exige el procedimiento, y las funciones o sensores que hagan falta. Lo que está en este recuadro es obligatorio para volar los elementos PBN.",
+          "Los requisitos de equipo en tierra o específicos del aeropuerto van aparte. Cuando hay los dos, el recuadro PBN va primero.",
+          "El símbolo dice si el punto se sobrevuela o si el giro se anticipa. Cambia la trayectoria real del avión.",
+          "La restricción es parte del procedimiento y hay que verificarla cargada en el FMS, no solo leída en la carta.",
+          "La derrota publicada es la referencia contra la que se compara lo que muestra el FMS."
+        ]
       },
       {
         "kind": "titulo",
@@ -1669,9 +1674,9 @@ export const PB_LECCIONES: DocScreen[] = [
   },
   {
     "n": 15,
-    "title": "RNP 2 y RNP 4",
+    "title": "RNP 2, RNP 4, RNAV 10 y A-RNP",
     "kicker": "P15",
-    "minutes": 6,
+    "minutes": 9,
     "blocks": [
       {
         "kind": "titulo",
@@ -1679,13 +1684,15 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Las dos especificaciones RNP de ruta."
+        "text": "Las especificaciones de ruta que quedan, y las dos que más confunden: una por su nombre y la otra por su alcance."
       },
       {
         "kind": "list",
         "items": [
-          "**RNP 2**: se aplica a operaciones **domésticas y oceánicas o remotas**, con valor de precisión lateral 2.",
-          "**RNP 4**: se aplica **solo** a operaciones oceánicas y remotas, con valor 4."
+          "**RNP 2**: operaciones **domésticas y oceánicas o remotas**, con valor de precisión lateral 2.",
+          "**RNP 4**: **solo** oceánicas y remotas, con valor 4.",
+          "**RNAV 10**: ciertas operaciones oceánicas y remotas, con valor 10. Se sigue llamando RNP 10 en el plan de vuelo.",
+          "**A-RNP**: *Advanced RNP*, una especificación con funciones obligatorias habilitadas en la aviónica."
         ]
       },
       {
@@ -1693,8 +1700,52 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Lo que debe saber el piloto"
       },
       {
+        "kind": "sub",
+        "text": "La única herencia que existe"
+      },
+      {
         "kind": "p",
-        "text": "Un detalle de elegibilidad que se pregunta y que ahorra confusión: **la elegibilidad RNP 4 confiere automáticamente la elegibilidad RNP 10.** Es una de las pocas herencias que existen, y precisamente por ser excepción hay que saberla, para no generalizarla: entre RNP 1, RNP 2, RNAV 1 y RNAV 2 no hay herencia alguna."
+        "text": "**La elegibilidad RNP 4 confiere automáticamente la elegibilidad RNP 10.** Es una de las pocas herencias que hay, y precisamente por ser excepción hay que saberla, para no generalizarla: entre RNP 1, RNP 2, RNAV 1 y RNAV 2 no hay herencia alguna."
+      },
+      {
+        "kind": "sub",
+        "text": "RNAV 10, que se sigue llamando RNP 10"
+      },
+      {
+        "kind": "p",
+        "text": "En ese espacio aéreo la especificación que se aplica es RNAV 10, así que toda aeronave elegible para RNP 10 se considera elegible para operaciones RNAV 10. El nombre antiguo sobrevive en el plan de vuelo: el código de la casilla 18 es `A1`, y su texto literal es «RNAV 10 (RNP 10)»."
+      },
+      {
+        "kind": "p",
+        "text": "El motivo de fondo es el del capítulo 8: RNP quedó reservado a especificaciones con control y alerta de la performance, y esta no lo tiene. Por eso se renombró a RNAV 10 sin que el nombre viejo desapareciera de la documentación."
+      },
+      {
+        "kind": "sub",
+        "text": "A-RNP, y el límite de lo que agrupa"
+      },
+      {
+        "kind": "p",
+        "text": "En el marco de la FAA, las funciones mínimas **obligatorias** de A-RNP incluyen:"
+      },
+      {
+        "kind": "list",
+        "items": [
+          "Calcular y volar tramos RF.",
+          "RNP escalable.",
+          "Generación de trayectoria paralela desplazada (*parallel offset*)."
+        ]
+      },
+      {
+        "kind": "p",
+        "text": "Lo interesante de A-RNP para un piloto de aerolínea es que agrupa: normalmente, una aeronave elegible para A-RNP también será elegible para RNP APCH, RNP y RNAV 1, RNP y RNAV 2, RNP 4, y RNP y RNAV 10."
+      },
+      {
+        "kind": "p",
+        "text": "Y lo que hay que tener muy claro es el límite de ese agrupamiento: **una aeronave elegible para A-RNP no es automáticamente elegible para RNP AR APCH ni para RNP AR DP**, porque la elegibilidad RNP AR exige un proceso de determinación separado y una autorización especial."
+      },
+      {
+        "kind": "p",
+        "text": "Sobre los valores: A-RNP permite valores laterales escalables en terminal, 1.0 o 0.3, y el uso de esas precisiones reducidas normalmente exige el piloto automático, el director de vuelo, o ambos. Puede exigirse mayor continuidad, por ejemplo sistemas duales, para cierto espacio oceánico y remoto."
       },
       {
         "kind": "sub",
@@ -1706,7 +1757,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Este módulo no es un módulo oceánico. Lo que el piloto necesita llevarse es esto: el valor es 2 o 4, la aplicación es de ruta, y la exigencia práctica se concentra en continuidad y en procedimientos de contingencia."
+        "text": "Este módulo no es un módulo oceánico. Lo que el piloto necesita llevarse es esto: el valor es 2, 4 o 10, la aplicación es de ruta, y la exigencia práctica se concentra en continuidad y en procedimientos de contingencia."
       },
       {
         "kind": "titulo",
@@ -1714,7 +1765,11 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "En la planificación, la especificación de la ruta determina qué se declara en el plan de vuelo: `L1` para RNP 4. En vuelo, se vigila la trayectoria y se atiende cualquier aviso de performance."
+        "text": "En la planificación, la especificación de la ruta determina qué se declara en el plan de vuelo: `L1` para RNP 4, `A1` para RNAV 10. En vuelo, se vigila la trayectoria y se atiende cualquier aviso de performance."
+      },
+      {
+        "kind": "p",
+        "text": "A-RNP es una especificación de flota moderna y su ventaja es administrativa y operacional a la vez: una elegibilidad que cubre varias especificaciones simplifica el papeleo y amplía lo que se puede volar. Lo que no simplifica es RNP AR, que sigue siendo una puerta aparte."
       },
       {
         "kind": "titulo",
@@ -1725,6 +1780,9 @@ export const PB_LECCIONES: DocScreen[] = [
         "items": [
           "Qué especificación exige la ruta, según el AIP o la documentación de ruta del operador.",
           "Que la capacidad declarada corresponde al equipo de hoy.",
+          "Si la elegibilidad de la flota es A-RNP y qué especificaciones cubre en la práctica.",
+          "Si el procedimiento requiere una precisión reducida y, con ella, el uso del piloto automático o del director de vuelo.",
+          "Que no se asume RNP AR por tener A-RNP.",
           "Los procedimientos de contingencia del operador para esa área."
         ]
       },
@@ -1742,116 +1800,13 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Tratar RNP 2 como «solo oceánico». Se aplica también a ruta doméstica. Y tratar RNP 4 como «RNP 2 con más margen»: son especificaciones distintas, con aplicaciones distintas."
-      },
-      {
-        "kind": "titulo",
-        "text": "En pocas palabras"
+        "text": "Cuatro, y los cuatro aparecen en entrevista:"
       },
       {
         "kind": "list",
         "items": [
-          "RNP 2: ruta doméstica y oceánica o remota, valor 2.",
-          "RNP 4: solo oceánica y remota, valor 4.",
-          "La elegibilidad RNP 4 confiere automáticamente RNP 10. Es la excepción, no la regla.",
-          "Hay que avisar al ATC de cualquier deterioro o falla del equipo de navegación."
-        ]
-      }
-    ]
-  },
-  {
-    "n": 16,
-    "title": "RNAV 10 y A-RNP",
-    "kicker": "P16",
-    "minutes": 7,
-    "blocks": [
-      {
-        "kind": "titulo",
-        "text": "Concepto"
-      },
-      {
-        "kind": "p",
-        "text": "Las dos especificaciones que más confunden, cada una por su motivo: una por su nombre y la otra por su alcance."
-      },
-      {
-        "kind": "sub",
-        "text": "RNAV 10, que se sigue llamando RNP 10"
-      },
-      {
-        "kind": "p",
-        "text": "Se aplica a ciertas operaciones oceánicas y remotas, con precisión lateral de 10. En ese espacio aéreo la especificación que se aplica es RNAV 10, así que toda aeronave elegible para RNP 10 se considera elegible para operaciones RNAV 10. El nombre antiguo sobrevive en el plan de vuelo: el código de la casilla 18 es `A1`, y su texto literal es «RNAV 10 (RNP 10)»."
-      },
-      {
-        "kind": "p",
-        "text": "El motivo de fondo es el del capítulo 8: RNP quedó reservado a especificaciones con control y alerta de la performance, y esta no lo tiene. Por eso se renombró a RNAV 10 sin que el nombre viejo desapareciera de la documentación."
-      },
-      {
-        "kind": "sub",
-        "text": "A-RNP, Advanced RNP"
-      },
-      {
-        "kind": "p",
-        "text": "Es una especificación con un conjunto mínimo de funciones **obligatorias** habilitadas en la aviónica. En el marco de la FAA, esas funciones mínimas incluyen:"
-      },
-      {
-        "kind": "list",
-        "items": [
-          "Calcular y volar tramos RF.",
-          "RNP escalable.",
-          "Generación de trayectoria paralela desplazada (*parallel offset*)."
-        ]
-      },
-      {
-        "kind": "p",
-        "text": "Puede exigirse mayor continuidad, por ejemplo sistemas duales, para cierto espacio oceánico y remoto."
-      },
-      {
-        "kind": "titulo",
-        "text": "Lo que debe saber el piloto"
-      },
-      {
-        "kind": "p",
-        "text": "Lo interesante de A-RNP para un piloto de aerolínea es que agrupa: normalmente, una aeronave elegible para A-RNP también será elegible para RNP APCH, RNP y RNAV 1, RNP y RNAV 2, RNP 4, y RNP y RNAV 10."
-      },
-      {
-        "kind": "p",
-        "text": "Y lo que hay que tener muy claro es el límite de ese agrupamiento: **una aeronave elegible para A-RNP no es automáticamente elegible para RNP AR APCH ni para RNP AR DP**, porque la elegibilidad RNP AR exige un proceso de determinación separado y una autorización especial."
-      },
-      {
-        "kind": "p",
-        "text": "Sobre los valores: A-RNP permite valores laterales escalables en terminal, 1.0 o 0.3, y el uso de esas precisiones reducidas normalmente exige el piloto automático, el director de vuelo, o ambos."
-      },
-      {
-        "kind": "titulo",
-        "text": "En operación de aerolínea"
-      },
-      {
-        "kind": "p",
-        "text": "A-RNP es una especificación de flota moderna y su ventaja es administrativa y operacional a la vez: una elegibilidad que cubre varias especificaciones simplifica el papeleo y amplía lo que se puede volar. Lo que no simplifica es RNP AR, que sigue siendo una puerta aparte."
-      },
-      {
-        "kind": "titulo",
-        "text": "¿Qué debe verificar?"
-      },
-      {
-        "kind": "list",
-        "items": [
-          "Si la elegibilidad de la flota es A-RNP y qué especificaciones cubre en la práctica.",
-          "Si el procedimiento requiere una precisión reducida y, con ella, el uso del piloto automático o del director de vuelo.",
-          "Que no se asume RNP AR por tener A-RNP."
-        ]
-      },
-      {
-        "kind": "titulo",
-        "text": "Error frecuente"
-      },
-      {
-        "kind": "p",
-        "text": "Dos:"
-      },
-      {
-        "kind": "list",
-        "items": [
+          "Tratar RNP 2 como «solo oceánico». Se aplica también a ruta doméstica.",
+          "Tratar RNP 4 como «RNP 2 con más margen»: son especificaciones distintas, con aplicaciones distintas.",
           "«RNP 10 es una especificación RNP.» El nombre lo sugiere y la norma dice lo contrario: no tiene control y alerta, y por eso hoy es RNAV 10.",
           "«Con A-RNP puedo volar RNP AR.» No: exige determinación separada y autorización especial."
         ]
@@ -1863,18 +1818,20 @@ export const PB_LECCIONES: DocScreen[] = [
       {
         "kind": "list",
         "items": [
+          "RNP 2: ruta doméstica y oceánica o remota, valor 2. RNP 4: solo oceánica y remota, valor 4.",
+          "La elegibilidad RNP 4 confiere automáticamente RNP 10. Es la excepción, no la regla.",
           "RNAV 10 conserva el nombre RNP 10 en el plan de vuelo, con el código `A1`.",
-          "Toda aeronave elegible para RNP 10 se considera elegible para RNAV 10.",
           "A-RNP exige funciones obligatorias: tramos RF, RNP escalable y trayectoria paralela desplazada.",
-          "A-RNP no confiere elegibilidad RNP AR: eso va por determinación separada y autorización especial."
+          "A-RNP no confiere elegibilidad RNP AR: eso va por determinación separada y autorización especial.",
+          "Hay que avisar al ATC de cualquier deterioro o falla del equipo de navegación."
         ]
       }
     ]
   },
   {
-    "n": 17,
+    "n": 16,
     "title": "RNP APCH",
-    "kicker": "P17",
+    "kicker": "P16",
     "minutes": 9,
     "blocks": [
       {
@@ -2031,12 +1988,23 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "«RNAV approach y RNP approach son siempre exactamente lo mismo.» No. El título de la carta responde a la convención de cada autoridad, y lo que el procedimiento exige está en las notas. Hay procedimientos titulados RNAV que exigen RNP APCH, y en el marco de la FAA es lo normal."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-09 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Recreación educativa de una carta de aproximación PBN, con vista en planta arriba, perfil vertical en el medio y caja de mínimos abajo. En planta: IAF, dos puntos intermedios, FAF, pista y la trayectoria de frustrada con un tramo de espera. En el perfil: la senda descendente con la altitud del FAF y la DA. En la caja de mínimos: tres líneas. Arriba a la derecha, el recuadro PBN. ANOTACIONES: → FLECHA 1: al título del procedimiento. EXPLICACIÓN: el título sigue la convención de la autoridad que publica. No dice por sí solo qué exige el procedimiento. → FLECHA 2: al recuadro PBN. EXPLICACIÓN: aquí está la especificación exigida, los sensores o funciones necesarios y el valor RNP mínimo cuando aplique. Es obligatorio. → FLECHA 3: al FAF. EXPLICACIÓN: 2 NM antes de este punto hay que haber confirmado que el sistema pasó a modo aproximación. → FLECHA 4: a la trayectoria de frustrada. EXPLICACIÓN: la frustrada también tiene requisito de navegación, y puede exigir una capacidad que el avión no tenga aunque tenga la de la aproximación. → FLECHA 5: a la caja de mínimos. EXPLICACIÓN: hay varias líneas y no todas son utilizables por todos los aviones. La que se usa depende de la capacidad del avión, el equipo operativo y la autorización del operador. → FLECHA 6: a las notas del procedimiento. EXPLICACIÓN: aquí aparecen las limitaciones, incluida la de temperatura cuando la línea de mínimos es de guía vertical barométrica.",
-        "pie": "Enseñar al piloto dónde está la información PBN crítica de una carta de aproximación y en qué orden mirarla.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-09.svg",
+        "alt": "Recreación de una carta de aproximación RNP a la pista 09: título arriba, recuadro PBN a la derecha, vista en planta con IAF, dos puntos intermedios, FAF, pista y frustrada hacia un circuito de espera, perfil vertical con la altitud del FAF y la DA, y abajo la caja de mínimos con tres líneas y el bloque de notas. Seis números señalan el título, el recuadro PBN, el FAF, la frustrada, la caja de mínimos y las notas.",
+        "ancho": 1600,
+        "alto": 1000
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "El título sigue la convención de la autoridad que publica. No dice por sí solo qué exige el procedimiento.",
+          "Aquí está la especificación exigida, los sensores o funciones necesarios y el valor RNP mínimo cuando aplique. Es obligatorio.",
+          "2 NM antes de este punto hay que haber confirmado que el sistema pasó a modo aproximación.",
+          "La frustrada también tiene requisito de navegación, y puede exigir una capacidad que el avión no tenga aunque tenga la de la aproximación.",
+          "Hay varias líneas y no todas son utilizables por todos los aviones. La que se usa depende de la capacidad del avión, el equipo operativo y la autorización del operador.",
+          "Aquí aparecen las limitaciones, incluida la de temperatura cuando la línea de mínimos es de guía vertical barométrica."
+        ]
       },
       {
         "kind": "titulo",
@@ -2055,9 +2023,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 18,
+    "n": 17,
     "title": "Las líneas de mínimos",
-    "kicker": "P18",
+    "kicker": "P17",
     "minutes": 8,
     "blocks": [
       {
@@ -2178,12 +2146,22 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "«Si la carta publica LPV, puedo volar LPV.» No: la línea existe en la carta, la capacidad está en el avión. Y el gemelo: suponer que LNAV/VNAV, LPV y Baro-VNAV son lo mismo. LNAV/VNAV es una línea de mínimos; Baro-VNAV es una forma de generar la guía vertical; LPV es otra línea, que exige aumentación satelital."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-10 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Recreación de una caja de mínimos de carta de aproximación PBN, con cuatro renglones (LPV, LNAV/VNAV, LNAV, CIRCLING), cada uno con su altitud y visibilidad, y a la derecha las columnas por categoría de aeronave. ANOTACIONES: → FLECHA 1: al renglón LPV. EXPLICACIÓN: exige aumentación satelital. Se vuela a DA. Si el avión no la tiene aprobada, esta línea no es utilizable aunque esté publicada. → FLECHA 2: al renglón LNAV/VNAV. EXPLICACIÓN: guía vertical, normalmente Baro-VNAV aprobado para aproximación. Se vuela a DA y está sujeta a la limitación de temperatura publicada. → FLECHA 3: al renglón LNAV. EXPLICACIÓN: solo lateral. Se vuela a MDA. Es la línea a la que se degrada la operación cuando la guía vertical no está disponible o la temperatura está fuera de límites. → FLECHA 4: al renglón CIRCLING. EXPLICACIÓN: puede ser más bajo que LNAV/VNAV, pero nunca más bajo que la LNAV recta.",
-        "pie": "Enseñar que la caja de mínimos no es una lista de opciones libres, y que a cada línea se llega por una capacidad concreta del avión y del operador.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-10.svg",
+        "alt": "Recreación de una caja de mínimos de una aproximación RNP con cuatro líneas y columnas por categoría de aeronave A, B, C y D. LPV con DA 1450 (250) y 750 m; LNAV/VNAV con DA 1560 (360) y 1200 m; LNAV con MDA 1620 (420); y circuito, con MDA de 1620 a 1900 según la categoría. Cuatro números señalan cada línea. Las cifras son ilustrativas.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Cifras ilustrativas, para un aeródromo de 1200 ft de elevación. Las alturas y visibilidades mínimas de circuito por categoría siguen el patrón de los PANS-OPS; las de una carta real se leen en la carta."
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "Exige aumentación satelital. Se vuela a DA. Si el avión no la tiene aprobada, esta línea no es utilizable aunque esté publicada.",
+          "Guía vertical, normalmente Baro-VNAV aprobado para aproximación. Se vuela a DA y está sujeta a la limitación de temperatura publicada.",
+          "Solo lateral. Se vuela a MDA. Es la línea a la que se degrada la operación cuando la guía vertical no está disponible o la temperatura está fuera de límites.",
+          "Puede ser más bajo que LNAV/VNAV, pero nunca más bajo que la LNAV recta."
+        ]
       },
       {
         "kind": "titulo",
@@ -2201,10 +2179,10 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 19,
-    "title": "BARO-VNAV",
-    "kicker": "P19",
-    "minutes": 7,
+    "n": 18,
+    "title": "BARO-VNAV y el ajuste altimétrico",
+    "kicker": "P18",
+    "minutes": 9,
     "blocks": [
       {
         "kind": "titulo",
@@ -2212,11 +2190,11 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Barometric Vertical Navigation. Es la forma de generar guía vertical a partir de información barométrica de altitud, y es la que normalmente sostiene la línea de mínimos LNAV/VNAV."
+        "text": "*Barometric Vertical Navigation*. Es la forma de generar guía vertical a partir de información barométrica de altitud, y es la que normalmente sostiene la línea de mínimos LNAV/VNAV."
       },
       {
         "kind": "p",
-        "text": "Lo importante para el piloto no es cómo se calcula la senda, sino de qué depende: de la **presión**. Y todo lo que afecte a la presión medida afecta a la trayectoria vertical."
+        "text": "Lo importante para el piloto no es cómo se calcula la senda, sino de qué depende: de la **presión**. Y de ahí sale todo lo demás, porque el ajuste altimétrico deja de ser un dato de altimetría y pasa a ser **la referencia de la que cuelga la trayectoria vertical**. Un QNH equivocado desplaza la senda entera."
       },
       {
         "kind": "titulo",
@@ -2236,7 +2214,11 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Y una consecuencia del mismo principio: cuando el ajuste altimétrico en que se basa la aproximación no está disponible, la aproximación no está autorizada."
+        "text": "Y una consecuencia del mismo principio: cuando el ajuste altimétrico en que se basa la aproximación **no está disponible, la aproximación no está autorizada**."
+      },
+      {
+        "kind": "p",
+        "text": "Hay una cuarta regla que ordena la práctica: los mínimos de una aproximación se basan en el ajuste altimétrico local de ese aeropuerto salvo que la carta anote otra cosa. Cuando se autoriza más de una fuente y los mínimos difieren, la carta lo indica con renglones separados en la caja de mínimos o con una nota, y los mínimos pueden ser más altos con una fuente no local."
       },
       {
         "kind": "sub",
@@ -2244,7 +2226,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Los pilotos deben verificar que el altímetro local actual del aeropuerto de aterrizaje previsto está puesto **no más tarde del punto de aproximación final**."
+        "text": "Los pilotos deben verificar que el altímetro local actual del aeropuerto de aterrizaje previsto está puesto **no más tarde del punto de aproximación final**. Después del FAF ya se está descendiendo sobre una senda que depende de ese ajuste."
       },
       {
         "kind": "sub",
@@ -2264,6 +2246,10 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
+        "text": "El QNH llega por ATIS o por el ATC, y el riesgo real es de gestión: ponerlo tarde, poner el del aeropuerto equivocado en una zona con varios aeródromos cercanos, o quedarse con un valor viejo en una situación de presión cambiando rápido. El contraste entre ambos pilotos es la defensa, y el momento es antes del FAF."
+      },
+      {
+        "kind": "p",
         "text": "Y la acción en el mínimo es la de siempre: volar la trayectoria vertical publicada y ejecutar la frustrada al llegar a la DA, salvo que estén presentes las referencias visuales exigidas para continuar."
       },
       {
@@ -2273,8 +2259,10 @@ export const PB_LECCIONES: DocScreen[] = [
       {
         "kind": "list",
         "items": [
-          "Que el ajuste altimétrico es local y actual, puesto no más tarde del FAF.",
-          "Que la temperatura está dentro de los límites publicados (capítulo 20).",
+          "Que el ajuste altimétrico es local, del aeropuerto de aterrizaje, y actual.",
+          "Que está puesto en los dos altímetros no más tarde del FAF.",
+          "Qué dice la carta si se está usando una fuente de ajuste no local.",
+          "Que la temperatura está dentro de los límites publicados (capítulo 19).",
           "Que el modo vertical seleccionado es el que sigue la trayectoria publicada."
         ]
       },
@@ -2284,7 +2272,15 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Con ajuste remoto no se puede ir a la DA de LNAV/VNAV: se vuela a la MDA de LNAV. Sin el ajuste en que se basa la aproximación, la aproximación no está autorizada."
+        "text": "Con ajuste remoto no se puede ir a la DA de LNAV/VNAV: se vuela a la MDA de LNAV. Sin el ajuste en que se basa la aproximación, la aproximación no está autorizada. Y con un ajuste equivocado la senda barométrica queda desplazada respecto de la publicada, en el sentido y la magnitud que corresponda al error."
+      },
+      {
+        "kind": "titulo",
+        "text": "Comunicación ATC"
+      },
+      {
+        "kind": "p",
+        "text": "Si hay duda sobre el valor del ajuste, se pide confirmación. Es una petición de rutina que no cuesta nada y que resuelve el problema antes de que sea una desviación."
       },
       {
         "kind": "titulo",
@@ -2292,7 +2288,14 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Usar velocidad vertical para «seguir» la senda. No es un modo aplicable a una aproximación Baro-VNAV, y lo que se consigue es volar una trayectoria parecida a la publicada, que no es lo mismo que volar la publicada."
+        "text": "Dos:"
+      },
+      {
+        "kind": "list",
+        "items": [
+          "Usar velocidad vertical para «seguir» la senda. No es un modo aplicable a una aproximación Baro-VNAV, y lo que se consigue es volar una trayectoria parecida a la publicada, que no es lo mismo que volar la publicada.",
+          "Tratar el QNH como un dato de altímetro nada más. En una LNAV/VNAV es también un dato de trayectoria: es lo que hace que la senda del FMS coincida con la del procedimiento."
+        ]
       },
       {
         "kind": "titulo",
@@ -2301,8 +2304,9 @@ export const PB_LECCIONES: DocScreen[] = [
       {
         "kind": "list",
         "items": [
-          "Baro-VNAV genera guía vertical a partir de información barométrica: depende de la presión.",
+          "Baro-VNAV genera guía vertical a partir de información barométrica: depende de la presión, y el ajuste altimétrico es la referencia de la trayectoria vertical.",
           "Hasta una DA exige ajuste altimétrico local y actual; con ajuste remoto solo se puede usar hasta la MDA de LNAV.",
+          "Si el ajuste en que se basa la aproximación no está disponible, la aproximación no está autorizada.",
           "El altímetro local se verifica puesto no más tarde del FAF.",
           "El modo vertical tiene que ser el que sigue la trayectoria publicada, no velocidad vertical."
         ]
@@ -2310,9 +2314,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 20,
+    "n": 19,
     "title": "Temperatura y la trayectoria barométrica",
-    "kicker": "P20",
+    "kicker": "P19",
     "minutes": 7,
     "blocks": [
       {
@@ -2396,12 +2400,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Creer que la limitación es una advertencia de confort del equipo. No lo es: es una limitación del procedimiento, y la alternativa (la MDA de LNAV) es la respuesta correcta y está publicada en la misma carta."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-11 · Figura · 16:9 · 1600×900",
-        "descripcion": "Perfil vertical de una aproximación final, con la pista a la derecha y el FAF a la izquierda. Dos sendas dibujadas desde el mismo FAF: una continua rotulada «TRAYECTORIA EN CONDICIÓN ESTÁNDAR», y otra de puntos, ligeramente por debajo de la primera, rotulada «EFECTO CONCEPTUAL DE AIRE MÁS FRÍO QUE EL ESTÁNDAR». Entre las dos, una acotación vertical sin cifra, con el rótulo «la magnitud depende de la temperatura y del procedimiento: está en la nota de la carta, no en una regla general». A la izquierda, un recuadro con «LIMITACIÓN DE TEMPERATURA: ver nota del procedimiento».",
-        "pie": "Visualizar por qué una limitación de temperatura es operacional y no una formalidad, sin publicar ninguna cifra que no venga de la carta de un procedimiento concreto.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-11.svg",
+        "alt": "Perfil de una aproximación final. Desde el FAF a la pista, una senda continua rotulada trayectoria en condición estándar y, por debajo, una senda de puntos rotulada efecto conceptual de aire más frío que el estándar. Las dos coinciden en el umbral y se separan con la altura; entre ellas, a la altura del FAF, una cota sin cifra: la magnitud está en la nota de la carta. Bajo la senda fría hay un obstáculo con menos margen del diseñado.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -2419,10 +2422,10 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 21,
-    "title": "El QNH en una aproximación PBN",
-    "kicker": "P21",
-    "minutes": 6,
+    "n": 20,
+    "title": "Volar a una MDA: el descenso continuo",
+    "kicker": "P20",
+    "minutes": 8,
     "blocks": [
       {
         "kind": "titulo",
@@ -2430,27 +2433,116 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "En una aproximación con guía vertical barométrica, el ajuste altimétrico no es un detalle de altimetría: es **la referencia de la que cuelga la trayectoria vertical**. Un QNH equivocado desplaza la senda entera."
+        "text": "Los tres capítulos anteriores terminan en la misma respuesta: cuando la guía vertical no está disponible, cuando el ajuste es remoto o cuando la temperatura queda fuera del límite publicado, **se vuela a la MDA de LNAV**. Este capítulo es el que falta: cómo se vuela eso."
+      },
+      {
+        "kind": "p",
+        "text": "Porque una MDA no es una DA. El RAC la define como la altitud «por debajo de la cual no debe efectuarse el descenso sin la referencia visual requerida». En una DA se decide *al llegar*; en una MDA no se puede bajar de ahí sin ver. Son dos operaciones distintas con dos técnicas distintas."
+      },
+      {
+        "kind": "p",
+        "text": "La técnica que las aerolíneas usan para el tramo final de un procedimiento que no es de precisión tiene nombre en la norma colombiana:"
+      },
+      {
+        "kind": "quote",
+        "text": "**Aproximación final en descenso continuo (CDFA).** Técnica de vuelo congruente con los procedimientos de aproximación estabilizada, para el tramo de aproximación final (FAS) siguiendo los procedimientos de aproximación por instrumentos que no es de precisión (NPA) en descenso continuo, **sin nivelaciones de altura**, desde una altitud/altura igual o superior a la altitud/altura del punto de referencia de aproximación final hasta un punto a aproximadamente 15 m (50 ft) por encima del umbral de la pista de aterrizaje o hasta el punto en el que comienza la maniobra de nivelada para el aterrizaje."
+      },
+      {
+        "kind": "p",
+        "text": "Es decir: lo contrario de la escalera. En vez de descender a cada altitud mínima y nivelar hasta el siguiente punto, se calcula una senda y se baja una sola vez."
       },
       {
         "kind": "titulo",
         "text": "Lo que debe saber el piloto"
       },
       {
-        "kind": "p",
-        "text": "Tres consecuencias concretas, todas ya vistas y que aquí se juntan porque en cabina se juntan:"
+        "kind": "sub",
+        "text": "Por qué esto es un tema de PBN"
       },
       {
-        "kind": "list",
-        "items": [
-          "El ajuste tiene que ser **local y actual** del aeropuerto de aterrizaje para ir a la DA de LNAV/VNAV.",
-          "Tiene que estar **puesto no más tarde del FAF**.",
-          "Si el ajuste en que se basa la aproximación **no está disponible**, la aproximación no está autorizada."
+        "kind": "p",
+        "text": "Una RNP APCH volada a mínimos LNAV **es un procedimiento que no es de precisión**. El RAC clasifica los NPA como procedimientos diseñados para operaciones de aproximación por instrumentos **2D de tipo A**, y reserva las 3D para las APV y las de precisión. Así que la línea de mínimos que se elija en el capítulo 17 decide también qué técnica de vuelo aplica en el final."
+      },
+      {
+        "kind": "sub",
+        "text": "La clasificación que se pregunta"
+      },
+      {
+        "kind": "p",
+        "text": "Aquí está el dato que separa a quien estudió, y está en una nota literal del RAC 91 y del RAC 121:"
+      },
+      {
+        "kind": "table",
+        "head": [
+          "Cómo se vuela la CDFA",
+          "Qué operación es"
+        ],
+        "rows": [
+          [
+            "Con **guía VNAV de asesoramiento** calculada por el equipo de a bordo",
+            "Operación de aproximación por instrumentos **3D**"
+          ],
+          [
+            "Con **cálculo manual** de la velocidad vertical de descenso requerida",
+            "Operación de aproximación por instrumentos **2D**"
+          ]
         ]
       },
       {
         "kind": "p",
-        "text": "Y una cuarta que ordena la práctica: los mínimos de una aproximación se basan en el ajuste altimétrico local de ese aeropuerto salvo que la carta anote otra cosa. Cuando se autoriza más de una fuente y los mínimos difieren, la carta lo indica con renglones separados en la caja de mínimos o con una nota, y los mínimos pueden ser más altos con una fuente no local."
+        "text": "Ojo con la trampa: que la operación sea 3D **no convierte el procedimiento en una APV ni cambia el mínimo**. El procedimiento sigue siendo un NPA y se sigue volando a la MDA. Lo que cambia es cómo se clasifica la operación."
+      },
+      {
+        "kind": "p",
+        "text": "El propio RAC remite a los PANS-OPS (Documento OACI 8168), Volumen I, Parte II, Sección 5, para más información sobre las CDFA. Ese documento no es de acceso público, así que aquí se cita lo que el RAC reproduce."
+      },
+      {
+        "kind": "sub",
+        "text": "La guía vertical de asesoramiento es de asesoramiento"
+      },
+      {
+        "kind": "p",
+        "text": "En el marco de la FAA, muchos NPA publican un ángulo de descenso vertical (VDA). Tres cosas que dice la circular del AIM y que hay que tener claras:"
+      },
+      {
+        "kind": "list",
+        "items": [
+          "El VDA es **información de asesoramiento solamente** y no debe considerarse guía vertical derivada del procedimiento. Su única función es ayudar a establecer un descenso continuo y estabilizado en la final.",
+          "El VDA **no garantiza el franqueamiento de obstáculos por debajo de la MDA** en el segmento visual. Y su presencia **no cambia ninguno de los requisitos** del procedimiento que no es de precisión.",
+          "Cuando hay una penetración de obstáculo que obligaría a desviarse del VDA entre la MDA y la toma, el VDA se sustituye en la carta por la nota **«Visual Segment – Obstacles»**. Quien siga bajando por el ángulo que le dibuja el sistema, por debajo de la MDA y en un procedimiento con esa nota, puede encontrarse el obstáculo."
+        ]
+      },
+      {
+        "kind": "p",
+        "text": "Dicho de otro modo: la senda de asesoramiento sirve para llegar ordenado a la MDA. Por debajo de la MDA, el franqueamiento lo pone el piloto con la vista."
+      },
+      {
+        "kind": "sub",
+        "text": "Dónde empieza el descenso visual"
+      },
+      {
+        "kind": "p",
+        "text": "El **punto de descenso visual (VDP)**, marcado con la letra (V), es el punto de la final desde el cual puede iniciarse un descenso visual estabilizado desde la MDA hasta la zona de toma. No se desciende por debajo de la MDA antes de alcanzar el VDP. No todas las cartas lo publican, y cuando falta, la razón puede ser justamente que el descenso entre la MDA y la pista no sería estabilizado."
+      },
+      {
+        "kind": "sub",
+        "text": "La cifra que no está en la norma"
+      },
+      {
+        "kind": "p",
+        "text": "Para no bajar de la MDA, el descenso continuo tiene que empezar a nivelarse **antes**. Muchos operadores definen para eso una altitud de decisión derivada, con un incremento sobre la MDA publicada, y una acción de frustrada al alcanzarla."
+      },
+      {
+        "kind": "p",
+        "text": "Eso es una **cifra del operador**: está en el SOP, el FCOM y el manual de operaciones, cambia de flota en flota y de operador en operador, y este módulo no la inventa. Lo que sí es común a todos: la MDA publicada no se cruza hacia abajo sin la referencia visual requerida."
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-12.svg",
+        "alt": "Dos perfiles del FAF al umbral. Arriba, la escalera: la trayectoria baja a cada altitud mínima, nivela y llega a la MDA en vuelo nivelado y largo, con las nivelaciones marcadas en rojo. Abajo, el descenso continuo (CDFA): un solo trazo desde el FAF que pasa por encima de cada altitud mínima y llega a la MDA en el punto de descenso visual, marcado (V); la MDA no se cruza sin referencia visual, y la senda de asesoramiento no da franqueamiento por debajo de ella.",
+        "ancho": 1600,
+        "alto": 1060,
+        "pie": "Para no cruzar la MDA, el operador suele fijar una altitud de decisión derivada con un margen sobre ella. Esa cifra está en el SOP de cada flota."
       },
       {
         "kind": "titulo",
@@ -2458,11 +2550,11 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "El QNH llega por ATIS o por el ATC, y el riesgo real es de gestión: ponerlo tarde, poner el del aeropuerto equivocado en una zona con varios aeródromos cercanos, o quedarse con un valor viejo en una situación de presión cambiando rápido."
+        "text": "En una RNP APCH, el caso normal de una aerolínea es volar a mínimos LNAV/VNAV o LPV, con guía vertical y DA. La CDFA aparece cuando esas líneas no están disponibles: temperatura fuera de límites, ajuste remoto, equipo con MEL, o una carta que solo publica LNAV."
       },
       {
         "kind": "p",
-        "text": "El contraste entre ambos pilotos es la defensa, y el momento es antes del FAF."
+        "text": "Esa es la razón por la que el briefing de una aproximación PBN no termina en «vamos a LNAV/VNAV». Termina en «y si no, vamos a LNAV, a la MDA, con esta técnica y esta altitud de frustrada», que es una decisión que se toma antes y no en el FAF."
       },
       {
         "kind": "titulo",
@@ -2471,9 +2563,11 @@ export const PB_LECCIONES: DocScreen[] = [
       {
         "kind": "list",
         "items": [
-          "Que el QNH es del aeropuerto de aterrizaje y es actual.",
-          "Que está puesto en los dos altímetros antes del FAF.",
-          "Qué dice la carta si se está usando una fuente de ajuste no local."
+          "Qué línea de mínimos se va a usar y, con ella, si la operación termina en DA o en MDA.",
+          "Si el procedimiento publica senda de asesoramiento o VDA, y que se entiende como asesoramiento.",
+          "Si la carta lleva la nota «Visual Segment – Obstacles».",
+          "Si hay VDP publicado.",
+          "Qué dice el SOP del operador sobre la técnica y sobre la altitud a la que se inicia la frustrada."
         ]
       },
       {
@@ -2482,15 +2576,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "La senda barométrica queda desplazada respecto de la publicada, en el sentido y la magnitud que corresponda al error de ajuste. Y si el ajuste base no está disponible, la aproximación no está autorizada."
-      },
-      {
-        "kind": "titulo",
-        "text": "Comunicación ATC"
-      },
-      {
-        "kind": "p",
-        "text": "Si hay duda sobre el valor, se pide confirmación. Es una petición de rutina que no cuesta nada y que resuelve el problema antes de que sea una desviación."
+        "text": "Volar a una MDA como si fuera una DA hace que el avión descienda por debajo del mínimo publicado durante la maniobra de frustrada. Y seguir una senda de asesoramiento por debajo de la MDA, en un procedimiento con obstáculos en el segmento visual, es exactamente el escenario que la nota de la carta advierte."
       },
       {
         "kind": "titulo",
@@ -2498,7 +2584,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Tratar el QNH como un dato de altímetro nada más. En una LNAV/VNAV es también un dato de trayectoria: es lo que hace que la senda del FMS coincida con la del procedimiento."
+        "text": "«Si el FMS me dibuja senda, es una aproximación con guía vertical.» No. Una senda de asesoramiento sobre un NPA no convierte el procedimiento en APV, no cambia el mínimo y no evalúa obstáculos por debajo de la MDA. La línea de mínimos manda, y la línea de mínimos dice MDA."
       },
       {
         "kind": "titulo",
@@ -2507,18 +2593,20 @@ export const PB_LECCIONES: DocScreen[] = [
       {
         "kind": "list",
         "items": [
-          "En Baro-VNAV, el ajuste altimétrico es la referencia de la trayectoria vertical.",
-          "Local, actual y puesto no más tarde del FAF.",
-          "Si el ajuste en que se basa la aproximación no está disponible, la aproximación no está autorizada.",
-          "Los mínimos pueden ser más altos con una fuente de ajuste no local, y la carta lo dice."
+          "Una MDA no es una DA: no se desciende por debajo sin la referencia visual requerida.",
+          "La CDFA es un descenso continuo, sin nivelaciones, desde el FAF hasta unos 50 ft sobre el umbral o el inicio de la nivelada.",
+          "CDFA con guía VNAV de asesoramiento es operación 3D; con cálculo manual de la velocidad vertical, 2D. El procedimiento sigue siendo un NPA y el mínimo sigue siendo la MDA.",
+          "El VDA es asesoramiento: no cambia los requisitos del NPA y no garantiza franqueamiento por debajo de la MDA.",
+          "La nota «Visual Segment – Obstacles» sustituye al VDA cuando hay obstáculo en el segmento visual.",
+          "El incremento sobre la MDA, si lo hay, es cifra del operador: está en el SOP."
         ]
       }
     ]
   },
   {
-    "n": 22,
+    "n": 21,
     "title": "RNP AR APCH",
-    "kicker": "P22",
+    "kicker": "P21",
     "minutes": 9,
     "blocks": [
       {
@@ -2631,12 +2719,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "«RNP AR y RNP APCH son lo mismo con otro nombre.» No. Y el error de pilotaje asociado: suponer que se puede volar al valor más bajo publicado en la carta. El valor lo fija la autorización del operador, no la carta."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-12 · Figura · 16:9 · 1600×900",
-        "descripcion": "Dos vistas en planta lado a lado, con el mismo relieve de fondo: un valle estrecho entre dos cerros y una pista al fondo. Izquierda, rotulada «RNP APCH»: tramo final recto y largo, alineado con la pista, con la franja protegida dibujada ancha y con una zona secundaria más clara a cada lado. Derecha, rotulada «RNP AR APCH»: trayectoria curva que rodea uno de los cerros con un arco de radio constante y entra al valle, con la franja protegida notablemente más estrecha, sin zona secundaria, y una acotación que diga «área lateral de evaluación de obstáculos = 2 × valor RNP, sin zona secundaria». Un rótulo en la esquina de la derecha: «AUTHORIZATION REQUIRED».",
-        "pie": "Mostrar por qué RNP AR permite trayectorias que RNP APCH no permite, y que el precio de esa precisión es que desaparece el colchón lateral.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-13.svg",
+        "alt": "Dos vistas en planta del mismo valle entre dos cerros, con la pista al fondo. A la izquierda, RNP APCH: una final recta y larga alineada con la pista, con una franja ancha, área primaria y zona secundaria a cada lado. A la derecha, RNP AR APCH, con el rótulo authorization required: la trayectoria rodea el cerro con un tramo RF de radio constante y entra al valle con una franja mucho más estrecha y sin zona secundaria, porque el área lateral de evaluación de obstáculos es 2 veces el valor RNP.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -2655,9 +2742,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 23,
+    "n": 22,
     "title": "RNP APCH frente a RNP AR APCH",
-    "kicker": "P23",
+    "kicker": "P22",
     "minutes": 7,
     "blocks": [
       {
@@ -2741,7 +2828,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "La performance de navegación vertical de RNP AR APCH se basa en guía vertical barométrica o en aumentación satelital. No es un detalle menor: si la guía vertical es barométrica, todo el capítulo 20 se aplica con más razón, porque el margen lateral tampoco perdona."
+        "text": "La performance de navegación vertical de RNP AR APCH se basa en guía vertical barométrica o en aumentación satelital. No es un detalle menor: si la guía vertical es barométrica, todo el capítulo 19 se aplica con más razón, porque el margen lateral tampoco perdona."
       },
       {
         "kind": "titulo",
@@ -2784,9 +2871,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 24,
+    "n": 23,
     "title": "El tramo RF",
-    "kicker": "P24",
+    "kicker": "P23",
     "minutes": 7,
     "blocks": [
       {
@@ -2893,12 +2980,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "«RF significa simplemente un giro cerrado.» No: significa un arco de radio constante, definido, que es la trayectoria publicada. Un giro cerrado es lo que hace el avión; un RF es lo que está dibujado en la carta."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-13 · Figura · 16:9 · 1600×900",
-        "descripcion": "Vista en planta. A la izquierda, el waypoint A con la derrota de entrada. A la derecha, el waypoint B con la derrota de salida. Entre los dos, un arco de radio constante dibujado en magenta gruesa, con el centro del arco marcado con una cruz y una línea de puntos que va del centro a cada extremo del arco, ambas acotadas con el mismo rótulo «R». Sobre el arco, la silueta de un avión inclinada, siguiendo la curva. Al pie, un recuadro: «la trayectoria publicada es el arco. La velocidad máxima del tramo está en la carta». Para contraste, en gris claro y con línea de puntos, el giro que haría el avión si simplemente anticipara el paso por un waypoint, claramente fuera del arco.",
-        "pie": "Mostrar qué diferencia un tramo RF de un giro convencional entre waypoints, y dejar visible que la velocidad es lo que permite quedarse dentro del arco.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-14.svg",
+        "alt": "Vista en planta. Del waypoint A sale un arco de radio constante en magenta hasta el waypoint B, con el centro marcado por una cruz y el mismo radio R hasta cada extremo. Un avión sigue la curva. En gris y con línea de puntos, el giro que haría el avión si anticipara el paso por un waypoint en la esquina: queda claramente fuera del arco. Al pie: la trayectoria publicada es el arco y la velocidad máxima del tramo está en la carta.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -2916,9 +3002,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 25,
+    "n": 24,
     "title": "Fly-by y fly-over",
-    "kicker": "P25",
+    "kicker": "P24",
     "minutes": 6,
     "blocks": [
       {
@@ -3000,12 +3086,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Suponer que el avión «siempre» hace lo correcto porque el punto está en la base de datos. En la mayoría de los casos sí, pero la norma contempla expresamente el caso en que no, y entonces es trabajo del piloto."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-14 · Figura · 16:9 · 1600×900",
-        "descripcion": "Dos paneles iguales, uno al lado del otro, cada uno con dos derrotas que se cruzan en un waypoint dibujado como triángulo. Panel izquierdo, rotulado «FLY-BY»: el waypoint sin círculo alrededor, y la trayectoria del avión dibujada en magenta empezando a curvar **antes** del punto, pasando por dentro de la esquina, con una llave que acote la distancia de anticipación y el rótulo «depende de velocidad y altitud». Panel derecho, rotulado «FLY-OVER»: el waypoint con el círculo que lo marca como tal, y la trayectoria pasando exactamente por encima del punto y curvando después, con un pequeño lazo de recuperación hacia la derrota siguiente.",
-        "pie": "Que el estudiante identifique de inmediato la diferencia de trayectoria y entienda que la anticipación no es un valor fijo.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-15.svg",
+        "alt": "Dos paneles con las mismas dos derrotas que se cruzan en un waypoint. En el fly-by, el punto es la estrella sin círculo y la trayectoria empieza a curvar antes del punto, por dentro de la esquina; una cota marca la anticipación, que depende de la velocidad y la altitud. En el fly-over, la estrella va dentro de un círculo y la trayectoria pasa exactamente por encima del punto, curva después y hace una recuperación hasta la derrota siguiente.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -3023,9 +3108,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 26,
+    "n": 25,
     "title": "Los terminadores de tramo",
-    "kicker": "P26",
+    "kicker": "P25",
     "minutes": 6,
     "blocks": [
       {
@@ -3073,7 +3158,7 @@ export const PB_LECCIONES: DocScreen[] = [
           ],
           [
             "RF · *Radius to Fix*",
-            "El arco de radio constante del capítulo 24"
+            "El arco de radio constante del capítulo 23"
           ]
         ]
       },
@@ -3137,9 +3222,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 27,
+    "n": 26,
     "title": "La desviación lateral",
-    "kicker": "P27",
+    "kicker": "P26",
     "minutes": 6,
     "blocks": [
       {
@@ -3223,12 +3308,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Confundir «estoy en la línea magenta» con «el sistema sabe dónde estoy». La línea magenta se dibuja respecto de la posición que el sistema **estima**. Si esa estimación está corrida, el avión puede estar perfectamente centrado en la pantalla y desplazado en el mundo real."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-15 · Figura · 16:9 · 1600×900",
-        "descripcion": "Vista en planta de un tramo. La trayectoria deseada en magenta continua, con el rótulo «DESIRED PATH». La silueta del avión desplazada a la derecha de la línea. Una flecha corta y perpendicular que une el avión con la línea, acotada y rotulada «XTK». Al lado, una miniatura de la presentación de desviación lateral en cabina con la aguja desplazada la misma proporción, unida a la vista en planta por una línea de puntos, para que se vea que una cosa es la otra.",
-        "pie": "Visualizar qué es la desviación lateral y unir la vista en planta con lo que el piloto ve en la pantalla.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-16.svg",
+        "alt": "A la izquierda, vista en planta: la trayectoria deseada en magenta y el avión desplazado a su derecha, unidos por una cota perpendicular rotulada XTK. A la derecha, la presentación de desviación lateral en cabina, unida a la planta por una línea de puntos: la aguja está desplazada la misma proporción, hacia el lado donde queda la trayectoria.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -3246,9 +3330,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 28,
+    "n": 27,
     "title": "PDE, NSE y TSE",
-    "kicker": "P28",
+    "kicker": "P27",
     "minutes": 7,
     "blocks": [
       {
@@ -3338,12 +3422,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "«Si el avión no alerta, la performance está bien.» Incompleto: el avión alerta sobre su propia estimación de posición. El error de pilotaje no lo vigila él."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-16 · Figura · 16:9 · 1600×900",
-        "descripcion": "Diagrama de convergencia. Tres flechas entrando por la izquierda, cada una con su caja rotulada: «PDE · trayectoria definida frente a deseada · se considera despreciable», «NSE · posición verdadera frente a estimada · lo vigila el sistema», «FTE · control del avión frente a lo mandado · lo vigila la tripulación». Las tres convergen en una caja mayor a la derecha rotulada «TSE · posición verdadera frente a deseada», con el pie «suma vectorial de los tres». Debajo, una banda con el reparto de tareas en dos columnas: «el sistema alerta del NSE» y «la tripulación vigila el FTE en la desviación lateral».",
-        "pie": "Dar una comprensión conceptual de las tres fuentes de error sin entrar en ingeniería, y dejar visible el reparto de vigilancia entre el sistema y la tripulación.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-17.svg",
+        "alt": "Diagrama de convergencia. Tres cajas a la izquierda: PDE, trayectoria definida frente a deseada, que se considera despreciable; NSE, posición verdadera frente a estimada, que vigila el sistema; y FTE, el control del avión frente a lo mandado, que vigila la tripulación. Las tres flechas convergen en TSE, posición verdadera frente a deseada, la suma vectorial de las tres. Debajo, el reparto: el sistema alerta del NSE y la tripulación vigila el FTE en la desviación lateral.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -3361,9 +3444,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 29,
+    "n": 28,
     "title": "La frustrada en PBN",
-    "kicker": "P29",
+    "kicker": "P28",
     "minutes": 6,
     "blocks": [
       {
@@ -3464,9 +3547,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 30,
+    "n": 29,
     "title": "El FMS en PBN",
-    "kicker": "P30",
+    "kicker": "P29",
     "minutes": 7,
     "blocks": [
       {
@@ -3561,7 +3644,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "«El FMS reemplaza la carta.» No la reemplaza: la ejecuta. La carta es la referencia contra la que se verifica lo que el FMS va a hacer, y eso es el tema del capítulo 36."
+        "text": "«El FMS reemplaza la carta.» No la reemplaza: la ejecuta. La carta es la referencia contra la que se verifica lo que el FMS va a hacer, y eso es el tema del capítulo 34."
       },
       {
         "kind": "titulo",
@@ -3579,9 +3662,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 31,
+    "n": 30,
     "title": "RNP frente a ANP y EPU",
-    "kicker": "P31",
+    "kicker": "P30",
     "minutes": 8,
     "blocks": [
       {
@@ -3672,12 +3755,20 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "«ANP y RNP son lo mismo.» Son lo contrario de lo mismo: uno es el requisito y el otro es la estimación de lo que se está consiguiendo. Y el error fino: leer el valor estimado como si fuera el error real."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-17 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Recreación educativa y genérica de una página de FMS, sin imitar la interfaz de ningún fabricante, con dos renglones de datos claramente separados: uno rotulado «RNP» con el valor 1.0 y otro rotulado «ANP» con el valor 0.08, más una zona inferior reservada para mensajes, vacía. ANOTACIONES: → FLECHA 1: al renglón RNP. EXPLICACIÓN: la performance requerida por el procedimiento o el espacio aéreo. Puede fijarse de forma automática o manual, según el sistema. → FLECHA 2: al renglón ANP. EXPLICACIÓN: la indicación estadística de incertidumbre de posición del sistema. No es el error real. En otros aviones se llama EPU o EPE, y en algunos no se presenta. → FLECHA 3: a la zona de mensajes vacía. EXPLICACIÓN: aquí aparecería la alerta si la performance requerida no pudiera cumplirse. La norma exige la alerta; no exige el número.",
-        "pie": "Mostrar la comparación que hace el sistema y, al mismo tiempo, dejar claro que el número es opcional y la alerta no, y que el nombre depende del fabricante.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-18.svg",
+        "alt": "Recreación de una página genérica de FMS con dos renglones separados: RNP con el valor 1.0 y ANP con el valor 0.08, y debajo una zona de mensajes vacía. Tres números señalan el renglón RNP, el renglón ANP y la zona de mensajes.",
+        "ancho": 1600,
+        "alto": 900
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "La performance requerida por el procedimiento o el espacio aéreo. Puede fijarse de forma automática o manual, según el sistema.",
+          "La indicación estadística de incertidumbre de posición del sistema. No es el error real. En otros aviones se llama EPU o EPE, y en algunos no se presenta.",
+          "Aquí aparecería la alerta si la performance requerida no pudiera cumplirse. La norma exige la alerta; no exige el número."
+        ]
       },
       {
         "kind": "titulo",
@@ -3695,9 +3786,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 32,
+    "n": 31,
     "title": "Cuando la performance estimada ya no alcanza",
-    "kicker": "P32",
+    "kicker": "P31",
     "minutes": 7,
     "blocks": [
       {
@@ -3772,7 +3863,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Se informa al ATC la pérdida de capacidad junto con el curso de acción propuesto, tan pronto como la situación lo permita. La fraseología se ve en el capítulo 50."
+        "text": "Se informa al ATC la pérdida de capacidad junto con el curso de acción propuesto, tan pronto como la situación lo permita. La fraseología se ve en el capítulo 46."
       },
       {
         "kind": "titulo",
@@ -3783,12 +3874,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Actuar sobre el mensaje antes de volar el avión, y el opuesto: seguir volando el procedimiento sin contestar la pregunta de si todavía se puede cumplir. La alerta es información, y la decisión sigue siendo de la tripulación."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-18 · Figura · 16:9 · 1600×900",
-        "descripcion": "Dos escenarios en un mismo gráfico, uno encima del otro, compartiendo la trayectoria central. Escenario A, arriba, rotulado «PERFORMANCE ESTIMADA DENTRO DEL LÍMITE REQUERIDO»: la trayectoria en magenta, una franja de contención dibujada con línea continua, el avión dentro y un indicador en verde con el rótulo «NORMAL». Escenario B, abajo, rotulado «LA PERFORMANCE ESTIMADA YA NO SATISFACE LA REQUERIDA»: la misma trayectoria, la franja de contención ahora dibujada en línea de puntos y más ancha, el avión dentro de la trayectoria pero con un indicador de aviso, y el rótulo «ALERTA». Al pie, la secuencia en una tira horizontal de siete cajas pequeñas: reconocer · volar · contrastar · QRH y SOP · qué capacidad queda · ¿se cumple lo exigido? · informar al ATC.",
-        "pie": "Visualizar qué significa control y alerta, y dejar la secuencia de actuación a la vista en la misma figura.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-19.svg",
+        "alt": "Dos escenarios con la misma trayectoria y el mismo límite requerido. Arriba, la incertidumbre de posición estimada cabe dentro del límite y el indicador dice normal. Abajo, la incertidumbre es más ancha que el límite: el avión se ve sobre la trayectoria, pero el indicador dice alerta. Al pie, la secuencia de actuación en siete pasos: reconocer, volar el avión, contrastar la posición, QRH y SOP, qué capacidad queda, si se cumple lo exigido e informar al ATC.",
+        "ancho": 1600,
+        "alto": 960
       },
       {
         "kind": "titulo",
@@ -3806,9 +3896,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 33,
+    "n": 32,
     "title": "La base de datos de navegación",
-    "kicker": "P33",
+    "kicker": "P32",
     "minutes": 8,
     "blocks": [
       {
@@ -3923,9 +4013,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 34,
+    "n": 33,
     "title": "El ciclo AIRAC",
-    "kicker": "P34",
+    "kicker": "P33",
     "minutes": 6,
     "blocks": [
       {
@@ -3997,12 +4087,21 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Ante una base fuera de ciclo, responder «no go» de forma automática. La respuesta correcta es analizar: hay que consultar la MEL, el SOP, la autorización del operador, el tipo de operación y la regulación aplicable. La norma no da una respuesta universal, y precisamente por eso la pregunta aparece en entrevistas: lo que se evalúa es si el candidato razona o recita."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-19 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Recreación educativa y genérica de una página de estado de base de datos de navegación, sin imitar ninguna interfaz concreta, con tres renglones: «NAV DATA BASE», «ACTIVE» con un identificador de ciclo, «EFFECTIVE FROM» con una fecha y «EFFECTIVE TO» con otra. ANOTACIONES: → FLECHA 1: al renglón ACTIVE. EXPLICACIÓN: qué base está en uso. Es el dato que se confirma en la inicialización del sistema. → FLECHA 2: a la fecha EFFECTIVE FROM. EXPLICACIÓN: desde cuándo es válida. Una base que todavía no entró en vigor no es la base actual. → FLECHA 3: a la fecha EFFECTIVE TO. EXPLICACIÓN: hasta cuándo. Si el vuelo pasa de esta fecha, hay que aplicar el procedimiento del operador para el cambio de ciclo en vuelo.",
-        "pie": "Mostrar exactamente qué tres datos verifica la tripulación en la base de datos y por qué el tercero puede obligar a un procedimiento adicional.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-20.svg",
+        "alt": "Recreación de una página genérica de estado de la base de datos de navegación: NAV DATA BASE, ACTIVE con el ciclo 2610, EFFECTIVE FROM 01OCT26 y EFFECTIVE TO 28OCT26. Tres números señalan el ciclo activo, la fecha de entrada en vigor y la fecha de fin.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "El ciclo 2610 es real: rige del 1 al 28 de octubre de 2026, y el 2611 entra el 29. La página es genérica."
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "Qué base está en uso. Es el dato que se confirma en la inicialización del sistema.",
+          "Desde cuándo es válida. Una base que todavía no entró en vigor no es la base actual.",
+          "Hasta cuándo. Si el vuelo pasa de esta fecha, hay que aplicar el procedimiento del operador para el cambio de ciclo en vuelo."
+        ]
       },
       {
         "kind": "titulo",
@@ -4020,10 +4119,10 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 35,
-    "title": "Validar el procedimiento en cabina",
-    "kicker": "P35",
-    "minutes": 8,
+    "n": 34,
+    "title": "Validar: autorización, carta y FMS",
+    "kicker": "P34",
+    "minutes": 9,
     "blocks": [
       {
         "kind": "titulo",
@@ -4031,7 +4130,23 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Cargar no es validar. Este capítulo es la lista de lo que se compara entre la carta y el FMS después de cargar una SID, una STAR o una aproximación."
+        "text": "Cargar no es validar. Y validar no es mirar una cosa: es comprobar que **tres fuentes dicen lo mismo**."
+      },
+      {
+        "kind": "p",
+        "text": "AUTORIZACIÓN DEL ATC                ▲                │     CARTA ◄────┼────► FMS                │           CONTRASTE"
+      },
+      {
+        "kind": "list",
+        "items": [
+          "**La autorización del ATC** dice qué se ha autorizado a volar.",
+          "**La carta** dice cómo es ese procedimiento y qué exige.",
+          "**El FMS** dice qué va a volar el avión."
+        ]
+      },
+      {
+        "kind": "p",
+        "text": "Si las tres no coinciden, alguna está mal, y hay que resolverlo **antes de ejecutar**."
       },
       {
         "kind": "p",
@@ -4042,8 +4157,12 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Lo que debe saber el piloto"
       },
       {
+        "kind": "sub",
+        "text": "La lista de lo que se compara"
+      },
+      {
         "kind": "p",
-        "text": "La lista, en el orden en que conviene recorrerla:"
+        "text": "En el orden en que conviene recorrerla:"
       },
       {
         "kind": "table",
@@ -4096,115 +4215,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "sub",
-        "text": "Lo que este módulo no puede hacer"
-      },
-      {
-        "kind": "p",
-        "text": "**No inventar un SOP universal.** Quién carga, quién verifica, quién ejecuta y con qué palabras se hace es del operador. Lo que es común es **qué** se verifica, y esa es la lista de arriba."
-      },
-      {
-        "kind": "titulo",
-        "text": "En operación de aerolínea"
-      },
-      {
-        "kind": "p",
-        "text": "La validación tiene dos momentos, y confundirlos es el origen de la mayoría de los errores:"
-      },
-      {
-        "kind": "list",
-        "items": [
-          "**Antes de ejecutar.** Se compara y se corrige. Aquí no hay prisa que valga.",
-          "**Después de ejecutar.** Se vigila que lo que el avión hace sea lo que se verificó. Aquí ya se está volando."
-        ]
-      },
-      {
-        "kind": "titulo",
-        "text": "¿Qué debe verificar?"
-      },
-      {
-        "kind": "p",
-        "text": "La lista completa, y con la carta a la vista. Verificar de memoria no es verificar."
-      },
-      {
-        "kind": "titulo",
-        "text": "¿Qué ocurre si no se cumple?"
-      },
-      {
-        "kind": "p",
-        "text": "Se ejecuta una trayectoria que nadie comparó con nada. Y como el FMS la vuela con precisión, no hay ninguna señal de que algo esté mal."
-      },
-      {
-        "kind": "titulo",
-        "text": "Error frecuente"
-      },
-      {
-        "kind": "p",
-        "text": "Verificar el nombre del procedimiento y dar por bueno el resto. El nombre correcto con la transición equivocada es una trayectoria equivocada, y el nombre se lee en un segundo mientras la secuencia de puntos exige mirar."
-      },
-      {
-        "kind": "hueco",
-        "rotulo": "RV-20 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Recreación educativa y genérica de una página de plan de vuelo de FMS con una SID cargada, sin imitar ninguna interfaz concreta: un encabezado con el nombre del procedimiento y la pista, y debajo cinco renglones de puntos con su derrota, su distancia y, en dos de ellos, una restricción de altitud y una de velocidad. ANOTACIONES: → FLECHA 1: al encabezado, donde va la pista. EXPLICACIÓN: la pista cargada tiene que ser la autorizada. Con otra pista, es otro procedimiento. → FLECHA 2: al nombre del procedimiento. EXPLICACIÓN: se compara con la autorización del ATC, no con lo que se esperaba recibir. → FLECHA 3: al renglón de la transición. EXPLICACIÓN: la transición equivocada con el procedimiento correcto produce una trayectoria distinta. Es el error que más se escapa. → FLECHA 4: a la columna de puntos y derrotas. EXPLICACIÓN: se compara la secuencia y las derrotas con la carta. Un número distinto delata un tramo que no es el que se cree. → FLECHA 5: a una restricción de altitud. EXPLICACIÓN: leída en la carta no basta: hay que verla cargada aquí.",
-        "pie": "Enseñar el contraste carta-FMS como una lista concreta y ordenada, y señalar la transición como el punto que más se escapa.",
-        "alto": 260,
-        "ratio": "16 / 9"
-      },
-      {
-        "kind": "titulo",
-        "text": "En pocas palabras"
-      },
-      {
-        "kind": "list",
-        "items": [
-          "Cargar no es validar: se compara con la carta a la vista.",
-          "Nombre, pista, transición, secuencia, derrotas, altitudes, velocidades, discontinuidades, final y frustrada.",
-          "La validación se hace antes de ejecutar; después solo queda vigilar.",
-          "Quién hace qué lo dice el SOP del operador; qué se verifica es común."
-        ]
-      }
-    ]
-  },
-  {
-    "n": 36,
-    "title": "Carta, FMS y autorización",
-    "kicker": "P36",
-    "minutes": 7,
-    "blocks": [
-      {
-        "kind": "titulo",
-        "text": "Concepto"
-      },
-      {
-        "kind": "p",
-        "text": "Tres fuentes que tienen que decir lo mismo:"
-      },
-      {
-        "kind": "p",
-        "text": "AUTORIZACIÓN DEL ATC                ▲                │     CARTA ◄────┼────► FMS                │           CONTRASTE"
-      },
-      {
-        "kind": "list",
-        "items": [
-          "**La autorización del ATC** dice qué se ha autorizado a volar.",
-          "**La carta** dice cómo es ese procedimiento y qué exige.",
-          "**El FMS** dice qué va a volar el avión."
-        ]
-      },
-      {
-        "kind": "p",
-        "text": "Si las tres no coinciden, alguna está mal, y hay que resolverlo **antes de ejecutar**."
-      },
-      {
-        "kind": "titulo",
-        "text": "Lo que debe saber el piloto"
-      },
-      {
-        "kind": "p",
-        "text": "El hábito mental que este capítulo instala es una pregunta: **¿estas tres cosas dicen lo mismo?**"
-      },
-      {
-        "kind": "p",
-        "text": "Y los tres pares de comparación tienen cada uno su error típico:"
+        "text": "Los tres pares, y el error típico de cada uno"
       },
       {
         "kind": "table",
@@ -4236,12 +4247,31 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "El FMS no valida nada. Muestra lo que tiene. Que una ruta aparezca dibujada en la pantalla no dice que sea correcta, ni que esté autorizada, ni que el avión pueda volarla. Lo único que dice es que el sistema pudo construirla con los datos que tenía."
       },
       {
+        "kind": "sub",
+        "text": "Lo que este módulo no puede hacer"
+      },
+      {
+        "kind": "p",
+        "text": "**No inventar un SOP universal.** Quién carga, quién verifica, quién ejecuta y con qué palabras se hace es del operador. Lo que es común es **qué** se verifica, y esa es la lista de arriba."
+      },
+      {
         "kind": "titulo",
         "text": "En operación de aerolínea"
       },
       {
         "kind": "p",
-        "text": "El contraste se hace en tres momentos naturales: al recibir la autorización, al cargar el procedimiento y antes de ejecutar. Y se repite cada vez que el ATC cambia algo, que es el asunto del capítulo 44."
+        "text": "El contraste se hace en tres momentos naturales: al recibir la autorización, al cargar el procedimiento y antes de ejecutar. Y se repite cada vez que el ATC cambia algo, que es el asunto del capítulo 41."
+      },
+      {
+        "kind": "p",
+        "text": "La validación tiene además dos lados que conviene no confundir, porque ahí nace la mayoría de los errores:"
+      },
+      {
+        "kind": "list",
+        "items": [
+          "**Antes de ejecutar.** Se compara y se corrige. Aquí no hay prisa que valga.",
+          "**Después de ejecutar.** Se vigila que lo que el avión hace sea lo que se verificó. Aquí ya se está volando."
+        ]
       },
       {
         "kind": "titulo",
@@ -4249,7 +4279,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Los tres pares, en los tres momentos. Y en particular: al recibir una autorización, colacionar lo que se oyó, y comparar lo colacionado con lo que se va a programar."
+        "text": "La lista completa, los tres pares, y con la carta a la vista. Verificar de memoria no es verificar. En particular: al recibir una autorización, colacionar lo que se oyó, y comparar lo colacionado con lo que se va a programar."
       },
       {
         "kind": "titulo",
@@ -4257,7 +4287,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Se vuela con precisión una trayectoria que no está autorizada, o que no es la publicada. Con el agravante de que todo parece normal."
+        "text": "Se ejecuta una trayectoria que nadie comparó con nada, o que no está autorizada. Y como el FMS la vuela con precisión, no hay ninguna señal de que algo esté mal: todo parece normal."
       },
       {
         "kind": "titulo",
@@ -4273,15 +4303,40 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Tomar el FMS como árbitro. Si la carta y el FMS discrepan, el FMS no gana por estar en una pantalla; se resuelve como dice el capítulo siguiente."
+        "text": "Dos:"
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-21 · Figura · 16:9 · 1600×900",
-        "descripcion": "Un triángulo equilátero con un vértice arriba. En el vértice superior, un recuadro rotulado «AUTORIZACIÓN DEL ATC». En el inferior izquierdo, «CARTA». En el inferior derecho, «FMS». En el centro del triángulo, un círculo rotulado «CONTRASTE». Sobre cada lado del triángulo, en letra pequeña, el error típico de ese par: entre autorización y carta, «se vuela lo que se esperaba, no lo autorizado»; entre carta y FMS, «lo cargado no es lo publicado»; entre autorización y FMS, «se ejecuta antes de comparar».",
-        "pie": "Crear el hábito mental de verificar las tres fuentes, con el error típico de cada par a la vista.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "list",
+        "items": [
+          "Verificar el nombre del procedimiento y dar por bueno el resto. El nombre correcto con la transición equivocada es una trayectoria equivocada, y el nombre se lee en un segundo mientras la secuencia de puntos exige mirar.",
+          "Tomar el FMS como árbitro. Si la carta y el FMS discrepan, el FMS no gana por estar en una pantalla: se trata como una discrepancia de datos de navegación, con la regla del capítulo 32."
+        ]
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-21.svg",
+        "alt": "Un triángulo con la autorización del ATC arriba, la carta abajo a la izquierda y el FMS abajo a la derecha, y en el centro un círculo rotulado contraste. Junto a cada lado, el error típico de ese par: entre autorización y carta, se vuela lo que se esperaba y no lo autorizado; entre carta y FMS, lo cargado no es lo publicado; entre autorización y FMS, se ejecuta antes de comparar.",
+        "ancho": 1600,
+        "alto": 900
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-22.svg",
+        "alt": "Recreación de una página genérica de plan de vuelo del FMS con la SID KILAB 1A de la pista 09 cargada: un encabezado con la pista y el procedimiento, un renglón con la transición MORUS y cinco renglones de puntos con su derrota y su distancia; uno lleva la restricción de velocidad de 230 nudos y otros dos, las de altitud. Cinco números señalan la pista, el nombre del procedimiento, la transición, la columna de puntos y derrotas, y una restricción de altitud.",
+        "ancho": 1600,
+        "alto": 940,
+        "pie": "Es la misma salida de la figura de la SID de este módulo, para que se pueda comparar punto por punto. Nombres y distancias ficticios."
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "La pista cargada tiene que ser la autorizada. Con otra pista, es otro procedimiento.",
+          "Se compara con la autorización del ATC, no con lo que se esperaba recibir.",
+          "La transición equivocada con el procedimiento correcto produce una trayectoria distinta. Es el error que más se escapa.",
+          "Se compara la secuencia y las derrotas con la carta. Un número distinto delata un tramo que no es el que se cree.",
+          "Leída en la carta no basta: hay que verla cargada aquí."
+        ]
       },
       {
         "kind": "titulo",
@@ -4291,17 +4346,19 @@ export const PB_LECCIONES: DocScreen[] = [
         "kind": "list",
         "items": [
           "Autorización, carta y FMS tienen que decir lo mismo.",
-          "El contraste se hace al recibir la autorización, al cargar y antes de ejecutar.",
+          "Cargar no es validar: se compara con la carta a la vista.",
+          "Nombre, pista, transición, secuencia, derrotas, altitudes, velocidades, discontinuidades, final y frustrada.",
+          "El contraste se hace al recibir la autorización, al cargar y antes de ejecutar; después solo queda vigilar.",
           "El FMS no valida: muestra lo que tiene.",
-          "Si algo no encaja, se resuelve antes de ejecutar, y si hace falta se pregunta al ATC."
+          "Quién hace qué lo dice el SOP del operador; qué se verifica es común."
         ]
       }
     ]
   },
   {
-    "n": 37,
+    "n": 35,
     "title": "Los sensores de navegación",
-    "kicker": "P37",
+    "kicker": "P35",
     "minutes": 7,
     "blocks": [
       {
@@ -4428,9 +4485,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 38,
+    "n": 36,
     "title": "GNSS en PBN",
-    "kicker": "P38",
+    "kicker": "P36",
     "minutes": 7,
     "blocks": [
       {
@@ -4467,7 +4524,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "La precisión dice cuánto se parece la posición a la verdad; la integridad, si se puede confiar en ella y si el sistema avisa cuando no. En GNSS la integridad se consigue con algoritmos a bordo o con aumentación, y es el tema del capítulo 39."
+        "text": "La precisión dice cuánto se parece la posición a la verdad; la integridad, si se puede confiar en ella y si el sistema avisa cuando no. En GNSS la integridad se consigue con algoritmos a bordo o con aumentación, y es el tema del capítulo 37."
       },
       {
         "kind": "sub",
@@ -4491,7 +4548,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Una degradación de GNSS no afecta solo a la navegación lateral. La lista oficial de efectos posibles, que se ve entera en el capítulo 41, incluye el disparo poco fiable del TAWS, salidas de ADS-B erróneas o perdidas, efectos del FMS dependientes de la posición como una indicación errónea de combustible insuficiente, relojes del avión erróneos e indicaciones erróneas de viento y velocidad respecto al suelo."
+        "text": "Una degradación de GNSS no afecta solo a la navegación lateral. La lista oficial de efectos posibles, que se ve entera en el capítulo 38, incluye el disparo poco fiable del TAWS, salidas de ADS-B erróneas o perdidas, efectos del FMS dependientes de la posición como una indicación errónea de combustible insuficiente, relojes del avión erróneos e indicaciones erróneas de viento y velocidad respecto al suelo."
       },
       {
         "kind": "p",
@@ -4541,9 +4598,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 39,
+    "n": 37,
     "title": "RAIM y la predicción de disponibilidad",
-    "kicker": "P39",
+    "kicker": "P37",
     "minutes": 7,
     "blocks": [
       {
@@ -4646,10 +4703,10 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 40,
-    "title": "Interrupción e interferencia de GNSS",
-    "kicker": "P40",
-    "minutes": 8,
+    "n": 38,
+    "title": "GNSS degradado: interrupción, interferencia y suplantación",
+    "kicker": "P38",
+    "minutes": 10,
     "blocks": [
       {
         "kind": "titulo",
@@ -4657,14 +4714,23 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Dos cosas distintas que conviene no mezclar:"
+        "text": "Tres cosas distintas que conviene no mezclar, porque cada una se maneja de otra manera:"
       },
       {
         "kind": "list",
         "items": [
           "**Interrupción** (*outage*): el servicio no está disponible. Puede ser planificada y publicada por NOTAM, o no planificada.",
-          "**Interferencia**: hay señales que impiden usar el GNSS, o lo degradan. Puede ser accidental o intencional."
+          "**Interferencia**: hay señales que impiden usar el GNSS, o lo degradan. Puede ser accidental o intencional.",
+          "**Suplantación** (*spoofing*): una señal falsa induce información de posición incorrecta, y el avión puede no decir nada."
         ]
+      },
+      {
+        "kind": "p",
+        "text": "La primera se planifica. La segunda se detecta. La tercera es el caso más incómodo de todo el módulo."
+      },
+      {
+        "kind": "p",
+        "text": "Este capítulo enseña a desconfiar de datos inconsistentes. No enseña, ni va a enseñar, nada sobre cómo se generan o se interfieren señales GNSS."
       },
       {
         "kind": "titulo",
@@ -4691,122 +4757,12 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "La propia FAA lo describe: los problemas de GNSS se caracterizan a menudo por indicaciones de degradación de la navegación o de pérdida de servicio. En zonas con interferencia GNSS, la aeronave puede quedar sin poder usar el GPS para navegar y el ADS-B puede quedar no disponible para vigilancia. La interferencia por radiofrecuencia puede afectar a la vez a la navegación del piloto y a la vigilancia del controlador. Según el equipo y su integración, al piloto le puede llegar una luz de aviso o un mensaje."
       },
       {
-        "kind": "p",
-        "text": "Y desde el lado del controlador: quien vigila reportes ADS-B puede dejar de recibir mensajes de posición y las trazas asociadas."
-      },
-      {
         "kind": "sub",
-        "text": "Qué hacer"
-      },
-      {
-        "kind": "p",
-        "text": "La recomendación oficial, en orden:"
-      },
-      {
-        "kind": "list",
-        "items": [
-          "Estar atento a cualquier indicación de que el GPS del avión está perturbado, revisando la guía del fabricante para ese tipo y equipamiento.",
-          "**Verificar la posición del avión por medio de radioayudas convencionales, cuando estén disponibles.**",
-          "Evaluar los riesgos y limitaciones operacionales de la pérdida de capacidad GPS, incluidos los sistemas de a bordo que requieren entradas de GPS.",
-          "Asegurar que las radioayudas críticas para la ruta o la aproximación previstas están disponibles.",
-          "Estar preparado para revertir a procedimientos de vuelo por instrumentos convencionales.",
-          "Notificar al ATC con prontitud si se experimentan anomalías de GPS."
-        ],
-        "ordered": true
-      },
-      {
-        "kind": "p",
-        "text": "Y una excepción de sentido común: **no hay que informar al ATC de interferencia o suplantación cuando se vuela por zonas de pruebas conocidas y publicadas por NOTAM, salvo que se necesite asistencia del ATC.** Es para no saturar la frecuencia con lo que ya se sabe."
-      },
-      {
-        "kind": "sub",
-        "text": "Antes de salir"
-      },
-      {
-        "kind": "p",
-        "text": "Cinco recomendaciones: conocer las zonas de riesgo potencial, revisar los NOTAM pertinentes, **planificar contingencias de combustible**, planificar el uso de radioayudas convencionales y de los procedimientos de llegada y aproximación apropiados en el destino, y seguir la guía detallada del fabricante."
-      },
-      {
-        "kind": "p",
-        "text": "La de combustible es la que más se olvida y la que más cuesta: revertir a un procedimiento convencional puede significar más millas, más tiempo y otro alterno."
-      },
-      {
-        "kind": "titulo",
-        "text": "En operación de aerolínea"
-      },
-      {
-        "kind": "p",
-        "text": "Una degradación de GNSS en ruta no es una emergencia, es una reorganización: qué capacidad queda, qué se puede volar en el destino, cuánto combustible cuesta y qué hay que decirle al ATC."
-      },
-      {
-        "kind": "titulo",
-        "text": "¿Qué debe verificar?"
-      },
-      {
-        "kind": "list",
-        "items": [
-          "NOTAM de GNSS y zonas de riesgo conocidas.",
-          "Qué radioayudas críticas hacen falta y si están disponibles.",
-          "Que hay contingencia de combustible.",
-          "Qué sistemas del avión dependen del GNSS."
-        ]
-      },
-      {
-        "kind": "titulo",
-        "text": "Comunicación ATC"
-      },
-      {
-        "kind": "p",
-        "text": "Se notifica con prontitud, salvo en zonas de pruebas publicadas donde no se necesite asistencia. Y después del vuelo: documentar el suceso en el libro de mantenimiento para que se cierren las fallas, y presentar el reporte detallado en el sitio de la autoridad."
-      },
-      {
-        "kind": "titulo",
-        "text": "Error frecuente"
-      },
-      {
-        "kind": "p",
-        "text": "Tratar interrupción e interferencia como lo mismo. La primera se planifica; la segunda se detecta y se contrasta. Y el error grave: no notificar, con lo que el sistema pierde información que sirve a los que vienen detrás."
-      },
-      {
-        "kind": "titulo",
-        "text": "En pocas palabras"
-      },
-      {
-        "kind": "list",
-        "items": [
-          "Interrupción es que el servicio no esté; interferencia es que haya señales que lo impidan o degraden.",
-          "Una interrupción publicada se planifica: se vuela con radioayudas convencionales según lo autorice el ATC.",
-          "Ante interferencia: verificar la posición con radioayudas, evaluar qué depende del GPS, asegurar las radioayudas críticas, estar listo para revertir y notificar al ATC.",
-          "Antes de salir: zonas de riesgo, NOTAM, contingencia de combustible, plan con radioayudas convencionales y guía del fabricante."
-        ]
-      }
-    ]
-  },
-  {
-    "n": 41,
-    "title": "Suplantación, corrimiento del mapa y la pregunta que salva",
-    "kicker": "P41",
-    "minutes": 8,
-    "blocks": [
-      {
-        "kind": "titulo",
-        "text": "Concepto"
-      },
-      {
-        "kind": "p",
-        "text": "La suplantación (*spoofing*) es el caso más incómodo de todo el módulo: una señal falsa puede inducir información de posición incorrecta, y el avión puede no decir nada."
+        "text": "Por qué la suplantación es distinta"
       },
       {
         "kind": "p",
         "text": "La FAA lo advierte para un caso concreto y la advertencia vale como principio: ciertos sistemas mal instalados o defectuosos han producido disrupciones que se comportan efectivamente como una suplantación de señal, con salida de información de posición errónea y **sin bandera**, hacia las presentaciones primarias de vuelo y hacia otros sistemas del avión y del control de tránsito aéreo. Y añade lo que hay que llevarse: **como el RAIM es solo parcialmente efectivo frente a este tipo de disrupción, el piloto puede no advertir ninguna indicación de navegación errónea, y el ATC puede ser el único medio disponible para identificarlas.**"
-      },
-      {
-        "kind": "p",
-        "text": "Este capítulo enseña a desconfiar de datos inconsistentes. No enseña, ni va a enseñar, nada sobre cómo se generan o se interfieren señales GNSS."
-      },
-      {
-        "kind": "titulo",
-        "text": "Lo que debe saber el piloto"
       },
       {
         "kind": "sub",
@@ -4874,16 +4830,28 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "El indicio de la sintonización automática es especialmente bueno para una entrevista, porque muestra comprensión: si el avión cree estar en otro sitio, las radioayudas que sintoniza solo no son las que debería."
       },
       {
-        "kind": "sub",
-        "text": "El corrimiento del mapa"
-      },
-      {
-        "kind": "p",
-        "text": "Un corrimiento del mapa es que los waypoints, la pista o la traza aparezcan desplazados respecto de donde deberían estar. Puede notarse porque la pista no coincide con su representación, porque los datos crudos no cuadran, o porque el ATC reporta otra posición."
-      },
-      {
         "kind": "p",
         "text": "**No hay que atribuir automáticamente todo corrimiento del mapa al GNSS.** Puede venir de otras causas, y la actuación correcta no depende de identificar la causa: depende de contrastar y de no confiar en una sola fuente."
+      },
+      {
+        "kind": "sub",
+        "text": "Qué hacer"
+      },
+      {
+        "kind": "p",
+        "text": "La recomendación oficial, en orden:"
+      },
+      {
+        "kind": "list",
+        "items": [
+          "Estar atento a cualquier indicación de que el GPS del avión está perturbado, revisando la guía del fabricante para ese tipo y equipamiento.",
+          "**Verificar la posición del avión por medio de radioayudas convencionales, cuando estén disponibles.**",
+          "Evaluar los riesgos y limitaciones operacionales de la pérdida de capacidad GPS, incluidos los sistemas de a bordo que requieren entradas de GPS.",
+          "Asegurar que las radioayudas críticas para la ruta o la aproximación previstas están disponibles.",
+          "Estar preparado para revertir a procedimientos de vuelo por instrumentos convencionales.",
+          "Notificar al ATC con prontitud si se experimentan anomalías de GPS."
+        ],
+        "ordered": true
       },
       {
         "kind": "sub",
@@ -4902,12 +4870,28 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "La recomendación de la FAA lo dice como práctica y no como opción: volando IFR, conviene tener equipo de navegación adicional para la ruta prevista con el que contrastar la posición, y **comprobaciones rutinarias de la posición contra información de VOR o DME podrían ayudar a detectar una señal GPS comprometida**."
       },
       {
+        "kind": "sub",
+        "text": "Antes de salir"
+      },
+      {
+        "kind": "p",
+        "text": "Cinco recomendaciones: conocer las zonas de riesgo potencial, revisar los NOTAM pertinentes, **planificar contingencias de combustible**, planificar el uso de radioayudas convencionales y de los procedimientos de llegada y aproximación apropiados en el destino, y seguir la guía detallada del fabricante."
+      },
+      {
+        "kind": "p",
+        "text": "La de combustible es la que más se olvida y la que más cuesta: revertir a un procedimiento convencional puede significar más millas, más tiempo y otro alterno."
+      },
+      {
         "kind": "titulo",
         "text": "En operación de aerolínea"
       },
       {
         "kind": "p",
-        "text": "El contraste rutinario es lo que convierte esto de un tema de conferencia en un hábito. No es una maniobra: es mirar de vez en cuando si lo que dice el mapa cuadra con lo que dice el resto del avión."
+        "text": "Una degradación de GNSS en ruta no es una emergencia, es una reorganización: qué capacidad queda, qué se puede volar en el destino, cuánto combustible cuesta y qué hay que decirle al ATC."
+      },
+      {
+        "kind": "p",
+        "text": "Y el contraste rutinario es lo que convierte esto de un tema de conferencia en un hábito. No es una maniobra: es mirar de vez en cuando si lo que dice el mapa cuadra con lo que dice el resto del avión."
       },
       {
         "kind": "titulo",
@@ -4916,6 +4900,10 @@ export const PB_LECCIONES: DocScreen[] = [
       {
         "kind": "list",
         "items": [
+          "NOTAM de GNSS y zonas de riesgo conocidas.",
+          "Qué radioayudas críticas hacen falta y si están disponibles.",
+          "Que hay contingencia de combustible.",
+          "Qué sistemas del avión dependen del GNSS.",
           "La posición contra al menos otra fuente, de forma rutinaria.",
           "La coherencia entre mapa, datos crudos, terreno, pista y lo que dice el ATC.",
           "El reloj y las indicaciones de viento y velocidad respecto al suelo, cuando algo huele raro."
@@ -4927,7 +4915,11 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Notificar con prontitud, salvo en zonas de pruebas publicadas donde no se requiera asistencia. Y después del vuelo, documentarlo en el libro de mantenimiento para que las fallas se cierren, y presentar el reporte detallado."
+        "text": "Se notifica con prontitud, con una excepción de sentido común: **no hay que informar al ATC de interferencia o suplantación cuando se vuela por zonas de pruebas conocidas y publicadas por NOTAM, salvo que se necesite asistencia del ATC.** Es para no saturar la frecuencia con lo que ya se sabe."
+      },
+      {
+        "kind": "p",
+        "text": "Y después del vuelo: documentar el suceso en el libro de mantenimiento para que se cierren las fallas, y presentar el reporte detallado en el sitio de la autoridad."
       },
       {
         "kind": "titulo",
@@ -4935,22 +4927,22 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Dos:"
+        "text": "Tres:"
       },
       {
         "kind": "list",
         "items": [
+          "Tratar interrupción e interferencia como lo mismo. La primera se planifica; la segunda se detecta y se contrasta.",
           "Confiar en la fuente que está comprometida para verificar la fuente comprometida. Si el mapa se construye con la posición GNSS, el mapa no puede validar la posición GNSS.",
-          "Suponer que el avión avisará. En este escenario concreto, la propia autoridad advierte que puede no avisar."
+          "Suponer que el avión avisará. En el escenario de suplantación, la propia autoridad advierte que puede no avisar. Y no notificar es el error grave: el sistema pierde información que sirve a los que vienen detrás."
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-22 · Figura · 16:9 · 1600×900",
-        "descripcion": "Recreación de una presentación de navegación en modo mapa. La derrota publicada en magenta con tres waypoints. La silueta del avión dibujada sobre la derrota, centrada, con el rótulo «POSICIÓN PRESENTADA». Desplazada claramente a un lado, una segunda silueta en línea de puntos con el rótulo «POSICIÓN SEGÚN DATOS CRUDOS Y REPORTE DEL ATC», unida a la primera con una flecha doble rotulada «discrepancia». Al margen, una lista corta de tres indicios en recuadros pequeños: «reloj del avión», «viento y velocidad respecto al suelo», «la sintonización automática no selecciona la radioayuda cercana». Al pie, en grande, la pregunta: «¿tiene sentido la posición que me está mostrando el sistema?».",
-        "pie": "Enseñar al piloto a desconfiar de datos inconsistentes y a usar contrastes independientes, mostrando que la presentación puede verse perfectamente normal.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-23.svg",
+        "alt": "Recreación de una pantalla de navegación en modo mapa: la derrota en magenta con tres waypoints y el avión centrado sobre ella, rotulado posición presentada. Desplazada a un lado, una segunda silueta de puntos rotulada posición según datos crudos y reporte del ATC, unida a la primera por una flecha doble: discrepancia. Al margen, tres indicios: el reloj del avión, el viento y la velocidad respecto al suelo, y que la sintonización automática no seleccione la radioayuda cercana. Al pie, la pregunta: ¿tiene sentido la posición que me está mostrando el sistema?",
+        "ancho": 1600,
+        "alto": 960
       },
       {
         "kind": "titulo",
@@ -4959,18 +4951,20 @@ export const PB_LECCIONES: DocScreen[] = [
       {
         "kind": "list",
         "items": [
-          "Una señal falsa puede inducir posición incorrecta, y el RAIM es solo parcialmente efectivo frente a ella: el piloto puede no advertirlo.",
-          "Los indicios incluyen reloj, posición del FMS, corrimiento del mapa, TAWS, ADS-B, viento y velocidad respecto al suelo, y lo que reportan otros aviones.",
+          "Interrupción es que el servicio no esté; interferencia es que haya señales que lo impidan o degraden; suplantación es una señal falsa que induce posición incorrecta.",
+          "Una interrupción publicada se planifica: se vuela con radioayudas convencionales según lo autorice el ATC.",
+          "Ante interferencia: verificar la posición con radioayudas, evaluar qué depende del GPS, asegurar las radioayudas críticas, estar listo para revertir y notificar al ATC.",
+          "El RAIM es solo parcialmente efectivo frente a una suplantación: el piloto puede no advertirlo y el ATC puede ser el único medio de identificarla.",
           "No todo corrimiento del mapa es GNSS: lo que corresponde es contrastar, no diagnosticar.",
-          "Comprobaciones rutinarias de posición contra VOR o DME pueden detectar una señal comprometida."
+          "Antes de salir: zonas de riesgo, NOTAM, contingencia de combustible, plan con radioayudas convencionales y guía del fabricante."
         ]
       }
     ]
   },
   {
-    "n": 42,
+    "n": 39,
     "title": "La SID PBN",
-    "kicker": "P42",
+    "kicker": "P39",
     "minutes": 7,
     "blocks": [
       {
@@ -5064,7 +5058,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "La lista del capítulo 35, con la carta a la vista, antes de ejecutar."
+        "text": "La lista del capítulo 34, con la carta a la vista, antes de ejecutar."
       },
       {
         "kind": "titulo",
@@ -5106,9 +5100,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 43,
+    "n": 40,
     "title": "La STAR PBN",
-    "kicker": "P43",
+    "kicker": "P40",
     "minutes": 7,
     "blocks": [
       {
@@ -5219,9 +5213,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 44,
+    "n": 41,
     "title": "Vectores y directos",
-    "kicker": "P44",
+    "kicker": "P41",
     "minutes": 7,
     "blocks": [
       {
@@ -5319,7 +5313,7 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Cada cambio del ATC reinicia el triángulo del capítulo 36: autorización nueva, comparar con la carta, programar, verificar, ejecutar. La tentación bajo carga de trabajo es programar y ejecutar sin el paso del medio."
+        "text": "Cada cambio del ATC reinicia el triángulo del capítulo 34: autorización nueva, comparar con la carta, programar, verificar, ejecutar. La tentación bajo carga de trabajo es programar y ejecutar sin el paso del medio."
       },
       {
         "kind": "titulo",
@@ -5351,12 +5345,11 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Ejecutar un directo y descubrir después que se saltó un punto con restricción, o que la aproximación quedó desenganchada. El paso que falta es verificar antes de ejecutar."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-23 · Figura · 16:9 · 1600×900",
-        "descripcion": "Diagrama de flujo vertical con siete cajas conectadas por flechas, en el color del módulo: «AUTORIZACIÓN DEL ATC», «ENTENDER», «COLACIONAR», «SELECCIONAR O MODIFICAR EL FMS», «CONTRASTAR», «EJECUTAR», «VIGILAR». A la derecha de la caja «CONTRASTAR», una llamada con tres viñetas: «¿a qué punto exactamente?», «¿qué restricciones sobreviven?», «¿sigue enganchada la aproximación?». Al pie, una nota: «cada cambio del ATC reinicia el flujo».",
-        "pie": "Mostrar que una autorización que modifica un procedimiento PBN no se programa y se ejecuta: pasa por un flujo con un contraste en el medio.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-24.svg",
+        "alt": "Diagrama de flujo vertical con siete cajas: autorización del ATC, entender, colacionar, seleccionar o modificar el FMS, contrastar, ejecutar y vigilar. Junto a contrastar, tres preguntas: a qué punto exactamente, qué restricciones sobreviven y si sigue enganchada la aproximación. Una flecha vuelve de vigilar al principio: cada cambio del ATC reinicia el flujo.",
+        "ancho": 1600,
+        "alto": 940
       },
       {
         "kind": "titulo",
@@ -5374,9 +5367,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 45,
+    "n": 42,
     "title": "La capacidad en el plan de vuelo",
-    "kicker": "P45",
+    "kicker": "P42",
     "minutes": 7,
     "blocks": [
       {
@@ -5537,7 +5530,7 @@ export const PB_LECCIONES: DocScreen[] = [
         "items": [
           "**El sensor se declara.** No basta decir «RNAV 1»: se declara con qué. Y eso importa cuando se pierde una fuente.",
           "**`S2` existe porque Baro-VNAV es una capacidad aparte.** RNP APCH con guía vertical barométrica no es lo mismo que RNP APCH.",
-          "**`T1` y `T2` llevan escrita la autorización especial** en su propio texto, y se distinguen por la capacidad de tramo RF. Es la confirmación, en el plan de vuelo, de todo lo dicho en el capítulo 22."
+          "**`T1` y `T2` llevan escrita la autorización especial** en su propio texto, y se distinguen por la capacidad de tramo RF. Es la confirmación, en el plan de vuelo, de todo lo dicho en el capítulo 21."
         ]
       },
       {
@@ -5585,12 +5578,21 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "Declarar de más «por si acaso». Si se declara, se espera que se use. Y el error contrario: no declarar una capacidad que se tiene, con lo que se pierden procedimientos y eficiencia."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-24 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Recreación educativa de un fragmento de plan de vuelo OACI con dos zonas visibles: la casilla 10, con una cadena de letras de equipo entre las que se distingue una R, y la casilla 18, con el texto `PBN/A1D2O2S2` y algún otro indicador. ANOTACIONES: → FLECHA 1: a la letra R de la casilla 10. EXPLICACIÓN: significa PBN aprobado. Es la declaración general; los detalles van en la casilla 18. → FLECHA 2: al indicador `PBN/` de la casilla 18. EXPLICACIÓN: aquí van los descriptores concretos, hasta 8 entradas y no más de 16 caracteres en total. → FLECHA 3: al descriptor `S2` dentro de la cadena. EXPLICACIÓN: RNP APCH con Baro-VNAV. La guía vertical barométrica es una capacidad declarable aparte, distinta de `S1`.",
-        "pie": "Que el piloto identifique dónde se declara la capacidad PBN y entienda que el nivel de detalle llega hasta el sensor y la guía vertical.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-25.svg",
+        "alt": "Recreación de un fragmento de plan de vuelo OACI. En la casilla 10, la cadena de equipo SDFGHIRWY/S, con la R resaltada. En la casilla 18, PBN/A1D2O2S2 y otro indicador. Debajo, qué significa cada descriptor: A1, RNAV 10; D2, RNAV 1 con GNSS; O2, RNP 1 básica con GNSS; S2, RNP APCH con Baro-VNAV. Tres números señalan la R, el indicador PBN/ y el descriptor S2.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Casilla 10 y descriptores según el Doc 4444 de la OACI, Apéndice 2. El resto de la cadena es de ejemplo."
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "Significa PBN aprobado. Es la declaración general; los detalles van en la casilla 18.",
+          "Aquí van los descriptores concretos, hasta 8 entradas y no más de 16 caracteres en total.",
+          "RNP APCH con Baro-VNAV. La guía vertical barométrica es una capacidad declarable aparte, distinta de `S1`."
+        ]
       },
       {
         "kind": "titulo",
@@ -5608,9 +5610,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 46,
+    "n": 43,
     "title": "La MEL y la capacidad PBN",
-    "kicker": "P46",
+    "kicker": "P43",
     "minutes": 8,
     "blocks": [
       {
@@ -5744,12 +5746,23 @@ export const PB_LECCIONES: DocScreen[] = [
         "text": "«Si el avión es despachable por MEL mantiene automáticamente todas sus capacidades PBN.» Es exactamente lo contrario de lo que la norma previene al exigir que la MEL lleve esa información."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-25 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Recreación educativa de una entrada de MEL genérica relacionada con un sistema de navegación, con cinco columnas visibles: sistema y número de ítem, número instalado, número requerido para el despacho, la letra de la categoría de reparación con un paréntesis del tipo «(O)», y una columna de observaciones con dos renglones de texto. ANOTACIONES: → FLECHA 1: a la columna de sistema. EXPLICACIÓN: qué sistema es y su número de ítem. Es lo que se busca, pero no es lo que decide. → FLECHA 2: a la columna de número requerido. EXPLICACIÓN: cuántos hacen falta para despachar. Despachar no es conservar todas las capacidades. → FLECHA 3: al paréntesis «(O)». EXPLICACIÓN: indica que hay un procedimiento operacional asociado. Hay que buscarlo y leerlo: ahí suele estar la restricción real. → FLECHA 4: a la columna de observaciones. EXPLICACIÓN: aquí aparece qué queda limitado. Es la parte que se salta quien solo mira si el avión es despachable. → FLECHA 5: al renglón de observaciones que menciona una restricción de navegación. EXPLICACIÓN: esta es la línea que puede quitar una capacidad PBN concreta con el avión perfectamente despachable.",
-        "pie": "Mostrar que la decisión no está en la columna de despacho sino en las observaciones y el procedimiento operacional asociado, y que ahí es donde se pierde o se conserva una capacidad PBN.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-26.svg",
+        "alt": "Recreación de una entrada de MEL ficticia para un receptor GNSS, con cinco columnas: ítem y sistema, categoría de reparación C, dos instalados, uno requerido para el despacho, y las observaciones, que empiezan con el símbolo (O) de procedimiento operacional y dicen que no se permiten las operaciones que exijan dos receptores. Cinco números señalan la columna del sistema, el número requerido, el (O), la columna de observaciones y el renglón que quita una capacidad de navegación.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Entrada inventada para enseñar dónde mirar. El formato de columnas cambia entre la MMEL del fabricante y la MEL de cada operador."
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "Qué sistema es y su número de ítem. Es lo que se busca, pero no es lo que decide.",
+          "Cuántos hacen falta para despachar. Despachar no es conservar todas las capacidades.",
+          "Indica que hay un procedimiento operacional asociado. Hay que buscarlo y leerlo: ahí suele estar la restricción real.",
+          "Aquí aparece qué queda limitado. Es la parte que se salta quien solo mira si el avión es despachable.",
+          "Esta es la línea que puede quitar una capacidad PBN concreta con el avión perfectamente despachable."
+        ]
       },
       {
         "kind": "titulo",
@@ -5767,10 +5780,10 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 47,
-    "title": "Automatización, PF y PM",
-    "kicker": "P47",
-    "minutes": 7,
+    "n": 44,
+    "title": "El reparto en cabina: seleccionar, verificar, ejecutar, vigilar",
+    "kicker": "P44",
+    "minutes": 10,
     "blocks": [
       {
         "kind": "titulo",
@@ -5779,6 +5792,18 @@ export const PB_LECCIONES: DocScreen[] = [
       {
         "kind": "p",
         "text": "La mayoría de los errores de una operación PBN no son de pilotaje: son de gestión de la automatización y de reparto de tareas."
+      },
+      {
+        "kind": "p",
+        "text": "De ahí sale el principio que Aviatory propone para gestionar el FMS, en cuatro pasos y en ese orden:"
+      },
+      {
+        "kind": "p",
+        "text": "SELECCIONAR   →   VERIFICAR   →   EJECUTAR   →   VIGILAR"
+      },
+      {
+        "kind": "p",
+        "text": "No es una norma: es una regla mental construida sobre lo que las normas exigen en cada paso."
       },
       {
         "kind": "titulo",
@@ -5835,6 +5860,26 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "sub",
+        "text": "Los cuatro pasos"
+      },
+      {
+        "kind": "p",
+        "text": "**Seleccionar.** Cargar el procedimiento **desde la base de datos**, con el nombre, la pista y la transición de la autorización recibida. Nunca escribir un procedimiento a mano."
+      },
+      {
+        "kind": "p",
+        "text": "**Verificar.** Comparar con la carta: nombre, pista, transición, secuencia, derrotas, altitudes, velocidades, discontinuidades, final y frustrada. Lo hace alguien distinto de quien cargó. Aquí es donde la norma pide usar las capacidades de la aviónica para verificar los datos de puntos y de derrota después de cargar."
+      },
+      {
+        "kind": "p",
+        "text": "**Ejecutar.** Solo después de verificar. Este es el punto sin retorno: a partir de aquí, el avión va a volar lo que está cargado, verificado o no."
+      },
+      {
+        "kind": "p",
+        "text": "**Vigilar.** Durante todo el procedimiento: la desviación lateral, el progreso, el valor RNP aplicable, las restricciones que van llegando y cualquier aviso. La norma pide procedimientos de vigilancia para cada fase de vuelo."
+      },
+      {
+        "kind": "sub",
         "text": "El reparto de tareas"
       },
       {
@@ -5867,107 +5912,6 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "La carga de trabajo es el enemigo. Cuando sube, lo primero que desaparece es la verificación, porque es lo único que no produce un efecto visible cuando se hace bien. Por eso el SOP la vuelve obligatoria y con palabras concretas."
-      },
-      {
-        "kind": "titulo",
-        "text": "¿Qué debe verificar?"
-      },
-      {
-        "kind": "list",
-        "items": [
-          "Que la verificación la hace alguien distinto de quien programó.",
-          "El valor RNP aplicado y si se fija solo o a mano.",
-          "La transición de una trayectoria PBN a un ILS, con atención a capturas falsas."
-        ]
-      },
-      {
-        "kind": "titulo",
-        "text": "Error frecuente"
-      },
-      {
-        "kind": "p",
-        "text": "Programar y ejecutar en un mismo movimiento. Y bajo carga de trabajo, verificar en voz alta lo que se espera ver en vez de lo que está en la pantalla."
-      },
-      {
-        "kind": "titulo",
-        "text": "En pocas palabras"
-      },
-      {
-        "kind": "list",
-        "items": [
-          "Los errores típicos son de programación y gestión, no de pilotaje.",
-          "El que programa no verifica: si lo hace la misma persona, no hay verificación.",
-          "El reparto concreto de tareas es del SOP del operador, y la norma se lo exige.",
-          "Hay que conocer la vigilancia por fase, el ajuste del valor RNP y el riesgo de capturas falsas al pasar de PBN a un ILS."
-        ]
-      }
-    ]
-  },
-  {
-    "n": 48,
-    "title": "Seleccionar, verificar, ejecutar, vigilar",
-    "kicker": "P48",
-    "minutes": 6,
-    "blocks": [
-      {
-        "kind": "titulo",
-        "text": "Concepto"
-      },
-      {
-        "kind": "p",
-        "text": "El principio que Aviatory propone para gestionar el FMS en una operación PBN, en cuatro pasos y en ese orden:"
-      },
-      {
-        "kind": "p",
-        "text": "SELECCIONAR   →   VERIFICAR   →   EJECUTAR   →   VIGILAR"
-      },
-      {
-        "kind": "p",
-        "text": "No es una norma: es una regla mental construida sobre lo que las normas exigen en cada paso."
-      },
-      {
-        "kind": "titulo",
-        "text": "Lo que debe saber el piloto"
-      },
-      {
-        "kind": "sub",
-        "text": "Seleccionar"
-      },
-      {
-        "kind": "p",
-        "text": "Cargar el procedimiento **desde la base de datos**, con el nombre, la pista y la transición de la autorización recibida. Nunca escribir un procedimiento a mano."
-      },
-      {
-        "kind": "sub",
-        "text": "Verificar"
-      },
-      {
-        "kind": "p",
-        "text": "Comparar con la carta: nombre, pista, transición, secuencia, derrotas, altitudes, velocidades, discontinuidades, final y frustrada. Lo hace alguien distinto de quien cargó. Aquí es donde la norma pide usar las capacidades de la aviónica para verificar los datos de puntos y de derrota después de cargar."
-      },
-      {
-        "kind": "sub",
-        "text": "Ejecutar"
-      },
-      {
-        "kind": "p",
-        "text": "Solo después de verificar. Este es el punto sin retorno: a partir de aquí, el avión va a volar lo que está cargado."
-      },
-      {
-        "kind": "sub",
-        "text": "Vigilar"
-      },
-      {
-        "kind": "p",
-        "text": "Durante todo el procedimiento: la desviación lateral, el progreso, el valor RNP aplicable, las restricciones que van llegando y cualquier aviso. La norma pide procedimientos de vigilancia para cada fase de vuelo."
-      },
-      {
-        "kind": "titulo",
-        "text": "En operación de aerolínea"
-      },
-      {
-        "kind": "p",
         "text": "El orden es lo que hace el trabajo. Invertir dos pasos cualesquiera rompe la defensa:"
       },
       {
@@ -5979,12 +5923,21 @@ export const PB_LECCIONES: DocScreen[] = [
         ]
       },
       {
+        "kind": "p",
+        "text": "Y la carga de trabajo es el enemigo. Cuando sube, lo primero que desaparece es la verificación, porque es lo único que no produce un efecto visible cuando se hace bien. Por eso el SOP la vuelve obligatoria y con palabras concretas."
+      },
+      {
         "kind": "titulo",
         "text": "¿Qué debe verificar?"
       },
       {
-        "kind": "p",
-        "text": "Que los cuatro pasos se dieron, en orden, cada vez que la trayectoria cambia. Y cambia más veces de las que uno espera: en el briefing, con la autorización inicial, con cada vector, con cada directo, con cada cambio de pista."
+        "kind": "list",
+        "items": [
+          "Que los cuatro pasos se dieron, en orden, cada vez que la trayectoria cambia. Y cambia más veces de las que uno espera: en el briefing, con la autorización inicial, con cada vector, con cada directo, con cada cambio de pista.",
+          "Que la verificación la hace alguien distinto de quien programó.",
+          "El valor RNP aplicado y si se fija solo o a mano.",
+          "La transición de una trayectoria PBN a un ILS, con atención a capturas falsas."
+        ]
       },
       {
         "kind": "titulo",
@@ -5992,15 +5945,22 @@ export const PB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Saltarse la verificación cuando el cambio parece pequeño. Un directo a un punto es un cambio pequeño de teclado y grande de trayectoria."
+        "text": "Tres:"
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-26 · Figura · 16:9 · 1600×900",
-        "descripcion": "Cuatro bloques grandes en fila horizontal, unidos por flechas gruesas, cada uno en un tono progresivamente más saturado del color del módulo: «SELECCIONAR», «VERIFICAR», «EJECUTAR», «VIGILAR». Debajo de cada bloque, una línea de texto pequeño: «desde la base de datos, nunca a mano», «contra la carta, y lo hace otro», «el punto sin retorno», «desviación lateral, progreso, valor RNP, avisos». Entre «VERIFICAR» y «EJECUTAR», una barra vertical marcada para enfatizar que ahí está el límite.",
-        "pie": "Crear una regla mental de cuatro pasos para la gestión segura del FMS, con la frontera entre verificar y ejecutar marcada visualmente.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "list",
+        "items": [
+          "Programar y ejecutar en un mismo movimiento.",
+          "Saltarse la verificación cuando el cambio parece pequeño. Un directo a un punto es un cambio pequeño de teclado y grande de trayectoria.",
+          "Bajo carga de trabajo, verificar en voz alta lo que se espera ver en vez de lo que está en la pantalla."
+        ]
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-27.svg",
+        "alt": "Cuatro bloques en fila, cada uno más oscuro que el anterior: seleccionar, desde la base de datos y nunca a mano; verificar, contra la carta y lo hace otro; ejecutar, el punto sin retorno; y vigilar, la desviación lateral, el progreso, el valor RNP y los avisos. Entre verificar y ejecutar, una barra vertical marca el límite.",
+        "ancho": 1600,
+        "alto": 700
       },
       {
         "kind": "titulo",
@@ -6009,18 +5969,20 @@ export const PB_LECCIONES: DocScreen[] = [
       {
         "kind": "list",
         "items": [
-          "Seleccionar desde la base de datos, nunca a mano.",
-          "Verificar contra la carta, y que lo haga alguien distinto de quien cargó.",
-          "Ejecutar solo después de verificar: es el punto sin retorno.",
-          "Vigilar durante todo el procedimiento, y repetir los cuatro pasos cada vez que la trayectoria cambia."
+          "Los errores típicos son de programación y gestión, no de pilotaje.",
+          "Seleccionar desde la base de datos, nunca a mano. Verificar contra la carta, y que lo haga alguien distinto de quien cargó.",
+          "Ejecutar solo después de verificar: es el punto sin retorno. Vigilar durante todo el procedimiento.",
+          "Los cuatro pasos se repiten cada vez que la trayectoria cambia.",
+          "El reparto concreto de tareas es del SOP del operador, y la norma se lo exige.",
+          "Hay que conocer la vigilancia por fase, el ajuste del valor RNP y el riesgo de capturas falsas al pasar de PBN a un ILS."
         ]
       }
     ]
   },
   {
-    "n": 49,
+    "n": 45,
     "title": "Perder la capacidad PBN",
-    "kicker": "P49",
+    "kicker": "P45",
     "minutes": 8,
     "blocks": [
       {
@@ -6125,12 +6087,11 @@ export const PB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-27 · Figura · 16:9 · 1600×900",
-        "descripcion": "Diagrama de flujo vertical, grande, ocupando el ancho de la pantalla, con las cajas del flujo del concepto en el color del módulo y una bifurcación clara en la caja de decisión «¿SE PUEDE SEGUIR CUMPLIENDO LA ESPECIFICACIÓN EXIGIDA?». La rama «SÍ» sale a la derecha hacia una caja verde sobria rotulada «continuar y seguir vigilando». La rama «NO» sigue hacia abajo hacia tres cajas apiladas: «informar al ATC», «solicitar autorización alternativa», «usar la capacidad de navegación disponible». A la izquierda, una columna estrecha con tres notas ancladas a las cajas correspondientes: junto a «identificar el mensaje o la falla», la nota «el mensaje concreto está en el FCOM y el QRH»; junto a «determinar qué capacidad queda», la nota «depende de la especificación: las fuentes admitidas no son las mismas»; junto a la caja de decisión, la nota «esto se contestó en el briefing».",
-        "pie": "Dar al piloto una estructura mental aplicable ante cualquier pérdida de capacidad PBN, con la pregunta decisiva destacada y las tres notas que evitan los errores más comunes.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-28.svg",
+        "alt": "Diagrama de flujo vertical: la capacidad PBN se degrada; controlar el avión; identificar el mensaje o la falla; contrastar la posición; aplicar QRH y SOP; determinar qué capacidad de navegación queda; y la pregunta decisiva, se puede seguir cumpliendo la especificación exigida. Si la respuesta es sí, continuar y seguir vigilando. Si es no, informar al ATC, solicitar autorización alternativa y usar la capacidad de navegación disponible. A la izquierda, tres notas: el mensaje concreto está en el FCOM y el QRH; qué capacidad queda depende de la especificación; y la pregunta decisiva se contestó en el briefing.",
+        "ancho": 1600,
+        "alto": 1140
       },
       {
         "kind": "titulo",
@@ -6148,9 +6109,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 50,
+    "n": 46,
     "title": "«Unable RNAV», «unable RNP» y las contingencias",
-    "kicker": "P50",
+    "kicker": "P46",
     "minutes": 8,
     "blocks": [
       {
@@ -6274,9 +6235,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 51,
+    "n": 47,
     "title": "PBN en Colombia",
-    "kicker": "P51",
+    "kicker": "P47",
     "minutes": 7,
     "blocks": [
       {
@@ -6446,9 +6407,9 @@ export const PB_LECCIONES: DocScreen[] = [
     ]
   },
   {
-    "n": 52,
+    "n": 48,
     "title": "Cómo se lee una carta PBN y un vuelo completo",
-    "kicker": "P52",
+    "kicker": "P48",
     "minutes": 9,
     "blocks": [
       {
@@ -6567,12 +6528,29 @@ export const PB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-28 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Recreación educativa grande de una carta PBN completa, ocupando el ancho de la pantalla: vista en planta con pista, IAF, puntos intermedios, FAF, tramo RF marcado y trayectoria de frustrada con espera; perfil vertical debajo; caja de mínimos con tres líneas; recuadro PBN y recuadro de requisitos de equipo arriba a la derecha; bloque de notas abajo a la izquierda. ANOTACIONES: → FLECHA 1: al título del procedimiento. EXPLICACIÓN: la clase de procedimiento, según la convención de quien publica. No dice por sí solo qué exige. → FLECHA 2: al recuadro PBN. EXPLICACIÓN: la especificación exigida, los sensores o funciones y el valor RNP mínimo. Obligatorio. → FLECHA 3: al recuadro de requisitos de equipo. EXPLICACIÓN: equipo en tierra o específico del aeropuerto. Va aparte del recuadro PBN. → FLECHA 4: a la pista y la designación de la aproximación. EXPLICACIÓN: lo que se carga tiene que ser exactamente esto. → FLECHA 5: a un waypoint con simbología de fly-by. EXPLICACIÓN: dice si el punto se sobrevuela o si el giro se anticipa. → FLECHA 6: al tramo RF. EXPLICACIÓN: arco de radio constante. Exige capacidad listada y respetar la velocidad máxima publicada. → FLECHA 7: a una restricción de altitud. EXPLICACIÓN: se verifica cargada en el FMS, no solo leída. → FLECHA 8: a una restricción de velocidad. EXPLICACIÓN: en un tramo RF es parte del diseño, no una sugerencia. → FLECHA 9: a la derrota entre dos puntos. EXPLICACIÓN: la referencia contra la que se compara lo que muestra el FMS. → FLECHA 10: al valor RNP publicado, cuando aparezca. EXPLICACIÓN: un valor con dos decimales indica 0.30 o menos y remite a una operación con autorización requerida. → FLECHA 11: al bloque de notas. EXPLICACIÓN: limitaciones de temperatura, fuentes de ajuste altimétrico y cualquier condición del procedimiento. → FLECHA 12: a la trayectoria de frustrada. EXPLICACIÓN: tiene su propio requisito de navegación, que puede no ser el de la aproximación.",
-        "pie": "Que el piloto pueda mirar una carta PBN y encontrar inmediatamente la información necesaria, en un orden que no dependa de la suerte.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/pbn/PB-29.svg",
+        "alt": "Recreación de una carta de aproximación RNP AR a la pista 09 que ocupa todo el ancho: título arriba a la izquierda; recuadro de equipo requerido y recuadro PBN arriba a la derecha; en planta, IAF, un tramo RF con su velocidad máxima, el FAF con su altitud, la pista y la frustrada hacia un circuito de espera; debajo, el perfil vertical; y abajo, el bloque de notas a la izquierda y la caja de mínimos con tres valores RNP a la derecha. Doce números señalan título, recuadro PBN, equipo requerido, pista, un punto fly-by, el tramo RF, una restricción de altitud, una de velocidad, la derrota, el valor RNP, las notas y la frustrada; debajo de la carta, qué significa cada uno.",
+        "ancho": 1600,
+        "alto": 1580
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "La clase de procedimiento, según la convención de quien publica. No dice por sí solo qué exige.",
+          "La especificación exigida, los sensores o funciones y el valor RNP mínimo. Obligatorio.",
+          "Equipo en tierra o específico del aeropuerto. Va aparte del recuadro PBN.",
+          "Lo que se carga tiene que ser exactamente esto.",
+          "Dice si el punto se sobrevuela o si el giro se anticipa.",
+          "Arco de radio constante. Exige capacidad listada y respetar la velocidad máxima publicada.",
+          "Se verifica cargada en el FMS, no solo leída.",
+          "En un tramo RF es parte del diseño, no una sugerencia.",
+          "La referencia contra la que se compara lo que muestra el FMS.",
+          "Un valor con dos decimales indica 0.30 o menos y remite a una operación con autorización requerida.",
+          "Limitaciones de temperatura, fuentes de ajuste altimétrico y cualquier condición del procedimiento.",
+          "Tiene su propio requisito de navegación, que puede no ser el de la aproximación."
+        ]
       },
       {
         "kind": "piensaComoPiloto",
@@ -6969,7 +6947,7 @@ export const PB_LECCIONES: DocScreen[] = [
 ]
 
 /** Cuántos capítulos hay. Lo lee el catálogo de contenido, que valida la base. */
-export const PB_LECCION_TOTAL = 52
+export const PB_LECCION_TOTAL = 48
 
 /** Las claves de práctica: los identificadores de las preguntas de capítulo. */
 export const PB_PRACTICA_CLAVES = [
@@ -7116,49 +7094,8 @@ export const PB_PRACTICA_CLAVES = [
   "p47-q3",
   "p48-q1",
   "p48-q2",
-  "p48-q3",
-  "p49-q1",
-  "p49-q2",
-  "p49-q3",
-  "p50-q1",
-  "p50-q2",
-  "p50-q3",
-  "p51-q1",
-  "p51-q2",
-  "p51-q3",
-  "p52-q1",
-  "p52-q2",
-  "p52-q3"
+  "p48-q3"
 ]
 
 /** Los huecos de figura que quedan por llenar, para el inventario de imágenes. */
-export const PB_FIGURAS_PENDIENTES = [
-  "RV-01",
-  "RV-02",
-  "RV-03",
-  "RV-04",
-  "RV-05",
-  "RV-06",
-  "RV-07",
-  "RV-08",
-  "RV-09",
-  "RV-10",
-  "RV-11",
-  "RV-12",
-  "RV-13",
-  "RV-14",
-  "RV-15",
-  "RV-16",
-  "RV-17",
-  "RV-18",
-  "RV-19",
-  "RV-20",
-  "RV-21",
-  "RV-22",
-  "RV-23",
-  "RV-24",
-  "RV-25",
-  "RV-26",
-  "RV-27",
-  "RV-28"
-]
+export const PB_FIGURAS_PENDIENTES: string[] = []

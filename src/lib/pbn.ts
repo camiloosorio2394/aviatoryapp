@@ -34,13 +34,13 @@ export const PBN_EVALUACION = `${PBN_HUB}/evaluacion`
 export const PBN_ACENTO = "var(--av-pbn-700)"
 
 /** Cuántos capítulos tiene el módulo (PB_LECCION_TOTAL). Denominador de la lectura. */
-export const PBN_LECTURA_TOTAL = 52
+export const PBN_LECTURA_TOTAL = 48
 
-/** Lectura estimada de los cincuenta y dos capítulos, en minutos. */
-export const PBN_LECTURA_MINUTOS = 367
+/** Lectura estimada de los cuarenta y ocho capítulos, en minutos. */
+export const PBN_LECTURA_MINUTOS = 352
 
-/** Las tres preguntas del quiz de cada capítulo: 52 × 3. */
-export const PBN_PRACTICA_TOTAL = 156
+/** Las tres preguntas del quiz de cada capítulo: 48 × 3. */
+export const PBN_PRACTICA_TOTAL = 144
 
 /** Mínimo de la evaluación final, sobre 100. */
 export const PBN_PASS_SCORE = 80

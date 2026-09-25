@@ -534,7 +534,7 @@ export const RV_PRACTICA: GrupoPractica[] = [
           "Nada: la capacidad RVSM la verifica el despacho antes de entregar el plan."
         ],
         "correcta": 1,
-        "explicacion": "La comprobación es más amplia que el estado del avión: incluye lo diferido, la ruta que cruza espacio RVSM, la coherencia del plan de vuelo, la meteorología en ruta —turbulencia y onda de montaña— y los NOTAM.",
+        "explicacion": "La comprobación es más amplia que el estado del avión: incluye lo diferido, la ruta que cruza espacio RVSM, la coherencia del plan de vuelo, la meteorología en ruta (turbulencia y onda de montaña) y los NOTAM.",
         "referencia": "FAA AC 91-85B, Apéndice B, numeral B.3.2"
       },
       {

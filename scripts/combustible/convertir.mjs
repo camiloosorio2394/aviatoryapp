@@ -34,12 +34,18 @@
 import fs from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import { bloquesDeFigura, figuraDibujada } from "../figuras/enLeccion.mjs"
+import { FIGURAS } from "./figuras/index.mjs"
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const FUENTE = path.join(RAIZ, "docs/contenido/gestion-combustible.md")
 const DESTINO_LECCION = path.join(RAIZ, "src/lib/combustibleLeccion.ts")
 const DESTINO_PRACTICA = path.join(RAIZ, "src/lib/combustiblePractica.ts")
 const DESTINO_BANCO = path.join(RAIZ, "contenido/bancos/combustible_evaluacion.json")
+const DIR_FIGURAS = path.join(RAIZ, "public/modulos/combustible")
+const FIGURA_POR_CODIGO = new Map(FIGURAS.map((f) => [f.codigo, f]))
+/** Lo que falle al buscar una figura dibujada; se suma a `fallos` al final. */
+const fallosFiguras = []
 
 /** Lo que el documento promete en su ficha. Si no cuadra, el script para. */
 const ESPERADO = { capitulos: 23, huecos: 15, escenarios: 10, porCapitulo: 3, practica: 66, banco: 40 }
@@ -241,8 +247,19 @@ function leerHueco(cuerpo, i, ctx) {
 
   const codigo = `IMG-C${pad(ctx.n)}`
   ctx.huecos.push({ codigo, rotulo: `${codigo} · Figura · ${a}:${b} · ${ancho}×${alto}`, formato: `${ancho} × ${alto}` })
+
+  // Si la figura ya está dibujada (scripts/combustible/figuras), sale ella,
+  // con la medida que pide el documento.
+  const figura = figuraDibujada({ porCodigo: FIGURA_POR_CODIGO, codigo, dirPublico: DIR_FIGURAS, modulo: "combustible", fallos: fallosFiguras })
+  if (figura) {
+    if ((figura.ancho ?? 1600) !== ancho || figura.alto !== alto) {
+      fallosFiguras.push(`${codigo}: el documento pide ${ancho}×${alto} y la figura mide ${figura.ancho ?? 1600}×${figura.alto}`)
+    }
+    ctx.dibujadas.push(codigo)
+    return { bloques: bloquesDeFigura({ figura, codigo, src: `/modulos/combustible/${codigo}.svg`, anotaciones: null, fallos: fallosFiguras }), siguiente: objetivo.siguiente }
+  }
   return {
-    bloque: {
+    bloques: [{
       kind: "hueco",
       rotulo: `${codigo} · Figura · ${a}:${b} · ${ancho}×${alto}`,
       descripcion: limpiar(sugerida.texto.slice(0, medida.index)),
@@ -253,7 +270,7 @@ function leerHueco(cuerpo, i, ctx) {
       alto: vertical ? 560 : 260,
       ...(vertical ? { anchoMax: 400 } : {}),
       ratio: `${a} / ${b}`,
-    },
+    }],
     siguiente: objetivo.siguiente,
   }
 }
@@ -275,7 +292,7 @@ function bloquesDe(cuerpo, ctx) {
 
     if (l.trim() === "[ESPACIO PARA IMAGEN]") {
       const h = leerHueco(cuerpo, i, ctx)
-      bloques.push(h.bloque)
+      bloques.push(...h.bloques)
       i = h.siguiente
       continue
     }
@@ -467,7 +484,7 @@ if (!documento || !quizFinal || !anexoFiguras) throw new Error("falta el cuerpo,
 
 const nivel2 = partir(documento.cuerpo, /^## (.+)$/)
 
-const ctx = { n: 0, huecos: [], escenarios: [] }
+const ctx = { n: 0, huecos: [], dibujadas: [], escenarios: [] }
 const lecciones = []
 const practica = []
 let ficha = null
@@ -627,6 +644,9 @@ lecciones.forEach((l, k) => {
 })
 
 comprobar(ctx.huecos.length === ESPERADO.huecos, `huecos de imagen: ${ctx.huecos.length}, esperaba ${ESPERADO.huecos}`)
+fallos.push(...fallosFiguras)
+const sinHueco = FIGURAS.filter((f) => !ctx.dibujadas.includes(f.codigo)).map((f) => f.codigo)
+comprobar(sinHueco.length === 0, `figuras dibujadas sin hueco en el documento: ${sinHueco.join(", ")}`)
 comprobar(new Set(ctx.huecos.map((h) => h.codigo)).size === ctx.huecos.length, "hay dos huecos en un mismo capítulo")
 comprobar(
   JSON.stringify(ctx.huecos.map((h) => [h.codigo, h.formato])) === JSON.stringify(figurasAnexo.map((f) => [f.codigo, f.formato])),
@@ -679,6 +699,18 @@ for (const s of textos([lecciones, practica, banco])) {
   comprobar(!s.includes("—"), `raya larga en «${s.slice(0, 60)}»: van paréntesis o comillas angulares`)
   const sinNegrita = s.replace(/\*\*[^*]+\*\*/g, "")
   comprobar(!sinNegrita.includes("*"), `asterisco suelto (marca sin cerrar) en «${s.slice(0, 60)}»`)
+}
+
+// CLAUDE.md: la raya larga no va en el contenido; van paréntesis o comillas
+// angulares. Se revisa el documento entero para que no llegue a la app.
+{
+  const conRaya = bruto.split("\n")
+    .map((l, i) => [i + 1, l])
+    .filter(([, l]) => l.includes("\u2014"))
+  for (const [n, l] of conRaya.slice(0, 5)) {
+    fallos.push(`raya larga en la línea ${n}: «${l.trim().slice(0, 60)}…»`)
+  }
+  if (conRaya.length > 5) fallos.push(`… y ${conRaya.length - 5} líneas más con raya larga`)
 }
 
 if (fallos.length) {
@@ -734,8 +766,12 @@ CB_LECCIONES.forEach((s, i) => {
 export const CB_LECCION_TOTAL = CB_LECCIONES.length
 export const CB_MINUTOS = CB_LECCIONES.reduce((t, s) => t + s.minutes, 0)
 
-/** Los huecos de figura que quedan por llenar, para el inventario de imágenes. */
-export const CB_FIGURAS_PENDIENTES: string[] = ${j(ctx.huecos.map((h) => h.rotulo))}
+/**
+ * Los huecos de figura que quedan por llenar, para el inventario de imágenes.
+ * Las dibujadas son SVG de public/modulos/combustible/ (node
+ * scripts/figuras/dibujar.mjs combustible).
+ */
+export const CB_FIGURAS_PENDIENTES: string[] = ${j(ctx.huecos.filter((h) => !ctx.dibujadas.includes(h.codigo)).map((h) => h.rotulo))}
 
 /** Las claves de los diez escenarios del capítulo 23, que cuentan como práctica. */
 export const CB_ESCENARIO_CLAVES: string[] = ${j(ctx.escenarios)}
@@ -804,7 +840,7 @@ fs.writeFileSync(
 const minutos = lecciones.reduce((t, l) => t + l.minutes, 0)
 console.log(`capítulos: ${lecciones.length} · ${minutos} min`)
 console.log(`partes: ${PARTES.map((p) => `${p.titulo} (desde ${p.desde})`).join(" · ")}`)
-console.log(`huecos de imagen: ${ctx.huecos.length} · escenarios: ${ctx.escenarios.length}`)
+console.log(`figuras: ${ctx.dibujadas.length} · huecos de imagen: ${ctx.huecos.length - ctx.dibujadas.length} · escenarios: ${ctx.escenarios.length}`)
 console.log(`práctica: ${practica.length} grupos, ${preguntasPractica.length} preguntas · claves: ${preguntasPractica.length + ctx.escenarios.length}`)
 console.log(`banco: ${banco.length}`)
 for (const a of avisos) console.log(`aviso: ${a}`)

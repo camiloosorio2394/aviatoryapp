@@ -39,7 +39,7 @@ export const RAC_LECTURA_TOTAL = 19
  * Lectura estimada de las diecinueve unidades, en minutos (RAC_MINUTOS): lo que
  * se lee sin abrir nada, porque el detalle de la norma va plegado.
  */
-export const RAC_LECTURA_MINUTOS = 120
+export const RAC_LECTURA_MINUTOS = 116
 
 /** Preguntas de práctica: el quiz de cada unidad (RAC_PRACTICA_CLAVES). */
 export const RAC_PRACTICA_TOTAL = 54

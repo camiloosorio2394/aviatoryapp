@@ -151,6 +151,31 @@ import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
 /** Temas que todavía no tienen contenido: la lista vive en `carasDeModulo`. */
 const PROXIMOS = TEMAS_EN_CAMINO
 
+/**
+ * El orden de estudio, de lo más sencillo a lo más exigente, y en qué nivel
+ * cae cada tema.
+ *
+ * Antes la rejilla se ordenaba por avance: primero lo empezado, luego lo nuevo
+ * y al final lo terminado. Eso sirve para retomar, pero no dice por dónde
+ * empezar, y con once módulos abiertos esa es la pregunta que hace un piloto
+ * que llega por primera vez. El orden de aquí es el pedagógico y no se mueve:
+ * quién va por dónde ya lo dice la barra de cada tarjeta y el chip «En curso».
+ *
+ * Básico es lo que se lee y se reconoce (decodificar, identificar, hablar);
+ * avanzado es lo que decide números y autorizaciones de la operación.
+ */
+const ORDEN_BASICO: readonly string[] = [
+  "/app/aerolinea/notam",
+  "/app/aerolinea/meteorologia",
+  AP_HUB,
+  CM_HUB,
+  MP_HUB,
+  RAC_HUB,
+  AERO_HUB,
+]
+
+const ORDEN_AVANZADO: readonly string[] = [PERF_HUB, CB_HUB, RVSM_HUB, PBN_HUB]
+
 /** Rótulo de grupo: el de las portadas de módulo, en Archivo y con aire. */
 const ROTULO =
   "nh-display m-0 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground"
@@ -569,7 +594,7 @@ export function AirlinePrep() {
               : `${rvsm.lessonRead}/${RVSM_LECTURA_TOTAL} capítulos · ${rvsm.practiceDone}/${RVSM_PRACTICA_TOTAL} preguntas`,
         },
       },
-      // PBN: cincuenta y dos capítulos. El módulo más largo del bloque
+      // PBN: cuarenta y ocho capítulos. El módulo más largo del bloque
       // avanzado, y el que más se pregunta en entrevista técnica.
       {
         nombre: PBN_TITULO,
@@ -664,15 +689,21 @@ export function AirlinePrep() {
       },
     ]
 
-    // Primero lo que está a medias, después lo no empezado y de último lo
-    // terminado: la pantalla ordena por lo que te falta hacer, no por el orden
-    // en que se publicaron los temas. Las herramientas van al final: no se
-    // estudian ni se completan.
-    const grupo = (t: TemaEstado) =>
-      t.herramienta ? 3 : t.pct >= 100 ? 2 : t.pct > 0 ? 0 : 1
+    // Los temas de estudio salen en el orden pedagógico de ORDEN_BASICO y
+    // ORDEN_AVANZADO, que es fijo. Las herramientas van al final: no se
+    // estudian ni se completan, así que las ordena lo empezado primero.
+    const orden = [...ORDEN_BASICO, ...ORDEN_AVANZADO]
+    const puesto = (t: TemaEstado) => {
+      const i = orden.indexOf(t.to)
+      return i < 0 ? orden.length : i
+    }
     return lista
       .map((t, i) => ({ t, i }))
-      .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
+      .sort((a, b) => {
+        if (a.t.herramienta !== b.t.herramienta) return a.t.herramienta ? 1 : -1
+        if (a.t.herramienta) return b.t.pct - a.t.pct || a.i - b.i
+        return puesto(a.t) - puesto(b.t) || a.i - b.i
+      })
       .map(({ t }) => t)
   }, [
     notam,
@@ -692,6 +723,11 @@ export function AirlinePrep() {
 
   const cursables = temas.filter((t) => !t.herramienta)
   const herramientas = temas.filter((t) => t.herramienta)
+  const basicos = cursables.filter((t) => ORDEN_BASICO.includes(t.to))
+  // Lo que no esté declarado en ninguna de las dos listas cae en avanzado, que
+  // es donde entran los módulos nuevos mientras no se les asigne nivel: mejor
+  // que desaparezcan de la pantalla.
+  const avanzados = cursables.filter((t) => !ORDEN_BASICO.includes(t.to))
 
   // El único botón primario de la pantalla: retomar donde ibas, o entrar al
   // primero si todavía no empezaste nada. Las herramientas no se retoman.
@@ -857,25 +893,37 @@ export function AirlinePrep() {
           </div>
         </section>
 
-        <section className="mt-8" aria-labelledby="aerolinea-temas">
-          <h2 id="aerolinea-temas" className={ROTULO}>
-            Temas de estudio
+        {/* Dos niveles, en el orden en que conviene estudiarlos. La tarjeta
+            va en compacto —portada, nombre y avance—: con once módulos, cuatro
+            renglones de texto por tarjeta convertían la pantalla en una lectura
+            en vez de un índice. Lo que cada módulo enseña se lee en su portada. */}
+        <section className="mt-8" aria-labelledby="aerolinea-basico">
+          <h2 id="aerolinea-basico" className={ROTULO}>
+            Conocimiento básico
           </h2>
-
-          {/* Cuatro columnas. Cinco se probaron y quedaban demasiado estrechas
-              —unos 213 px por tarjeta, con la descripción cortada a nada—, así
-              que se paró en cuatro, que es donde la tarjeta todavía se lee.
-
-              Los temas son cinco, o sea que el quinto cae solo en la segunda
-              fila. En vez de dejar tres huecos, «En camino» entra en la misma
-              rejilla y ocupa las tres celdas que sobran: la fila queda completa
-              y con contenido de verdad, que además es su continuación natural
-              —los temas que hay, y los que vienen. */}
           <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @4xl:grid-cols-4">
-            {cursables.map((t) => (
+            {basicos.map((t) => (
               <TarjetaModulo
                 key={t.to}
                 {...t.card}
+                compacta
+                chip={enCurso && t.to === enCurso.to ? "En curso" : undefined}
+                cargando={loading}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-10" aria-labelledby="aerolinea-avanzado">
+          <h2 id="aerolinea-avanzado" className={ROTULO}>
+            Conocimiento avanzado
+          </h2>
+          <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @4xl:grid-cols-4">
+            {avanzados.map((t) => (
+              <TarjetaModulo
+                key={t.to}
+                {...t.card}
+                compacta
                 chip={enCurso && t.to === enCurso.to ? "En curso" : undefined}
                 cargando={loading}
               />
@@ -883,9 +931,10 @@ export function AirlinePrep() {
 
             {/* Borde sólido, no punteado: en esta app el punteado significa
                 «hueco por llenar» (los espacios de imagen reservados), y esto
-                no es un hueco, es la ruta que viene. */}
+                no es un hueco, es la ruta que viene. Va en avanzado porque lo
+                que falta por abrir es de ese nivel. */}
             {PROXIMOS.length > 0 && (
-              <div className="flex flex-col justify-center gap-3 rounded-2xl border border-border bg-muted/25 p-4 @xl:col-span-2 @4xl:col-span-3">
+              <div className="flex flex-col justify-center gap-3 rounded-2xl border border-border bg-muted/25 p-4 @xl:col-span-2 @4xl:col-span-4">
                 <p className="m-0 text-[12.5px] leading-relaxed text-muted-foreground">
                   <span className="font-semibold text-foreground">En camino.</span> Se abren en este
                   orden, cada uno cuando está completo:
@@ -906,7 +955,6 @@ export function AirlinePrep() {
               </div>
             )}
           </div>
-
         </section>
 
         <section className="mt-10" aria-labelledby="aerolinea-herramientas">
