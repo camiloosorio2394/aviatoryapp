@@ -39,6 +39,7 @@ import {
   RVSM_PRACTICA_TOTAL,
   RVSM_TITULO,
 } from "@/lib/rvsm"
+import { PBN_HUB, PBN_LECTURA_TOTAL, PBN_PASS_SCORE, PBN_PRACTICA_TOTAL, PBN_TITULO } from "@/lib/pbn"
 
 /** Las claves son las de `contenido/catalogo/modulos.json`, y la prueba lo exige. */
 export type ClaveModulo =
@@ -52,6 +53,7 @@ export type ClaveModulo =
   | "rac"
   | "combustible"
   | "rvsm"
+  | "pbn"
 
 export interface ModuloAerolinea {
   clave: ClaveModulo
@@ -184,6 +186,18 @@ export const MODULOS_AEROLINEA: ModuloAerolinea[] = [
       aprobacion: RVSM_PASS_SCORE,
     },
     promesa: "Mil pies de separación: qué exige, qué verificas y qué dices si falla.",
+  },
+  {
+    clave: "pbn",
+    titulo: PBN_TITULO,
+    hub: PBN_HUB,
+    acento: "var(--av-pbn-500)",
+    totales: {
+      secciones: PBN_LECTURA_TOTAL,
+      practicas: PBN_PRACTICA_TOTAL,
+      aprobacion: PBN_PASS_SCORE,
+    },
+    promesa: "RNAV, RNP y el número: qué exige cada especificación y cómo se verifica.",
   },
 ]
 

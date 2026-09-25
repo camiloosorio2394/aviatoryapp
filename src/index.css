@@ -1904,6 +1904,54 @@
   outline-color: #9CD2CB;
 }
 
+/* === PBN · bronce de instrumento =============================================
+   Módulo once, y la rueda de tonos ya estaba llena. Se midió la distancia de
+   cada hueco libre al vecino más cercano: el 300 queda a 13 grados del violeta
+   de Aeropuertos (287), el 190 a 15 del turquesa de Meteorología (205) y a 18
+   del verde azulado de RVSM (172), y el 140 a 15 del verde de «correcto» (155).
+   El 55 es el que más aire tiene: 23 grados al ámbar de alerta (78) y 31 al
+   mostaza de Mercancías (86).
+
+   La distancia de tono no bastaba, porque el ámbar es semántica y no se puede
+   rozar. Lo que separa de verdad este bronce del ámbar es el valor: 0,50 contra
+   0,82, y la mitad de croma. Sale un latón envejecido, el color del bisel de un
+   instrumento viejo, que no se puede confundir con una alerta.
+
+   Contraste, medido sobre el papel del lector (#FBFAF8): el 700 da 8,0:1 y el
+   blanco encima 7,3:1; el 500 sobre papel, 4,7:1. Los hex del lector salen de
+   estos mismos oklch. */
+:root {
+  --av-pbn-500: oklch(0.500 0.075 55);
+  --av-pbn-600: oklch(0.430 0.070 54);
+  --av-pbn-700: oklch(0.375 0.062 53);
+  --av-pbn-fg: oklch(0.345 0.056 53);
+}
+.dark {
+  --av-pbn-500: oklch(0.680 0.080 58);
+  --av-pbn-600: oklch(0.585 0.078 56);
+  --av-pbn-700: oklch(0.490 0.070 55);
+  --av-pbn-fg: oklch(0.795 0.058 60);
+}
+
+.lector-notam.lector-pbn {
+  --ln-primary: #5C4520;
+  --ln-primary-hover: #48350F;
+  --ln-bright: #8F7343;
+  --ln-tint: #F3EDE1;
+  /* Sobre el navy del índice: 2:1 contra el fondo y 8,2:1 con el texto blanco. */
+  --ln-pill: #654D27;
+  --ln-focus: #85693B;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-pbn .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+/* En el índice navy el acento oscuro no se vería: ahí va el escalón claro. */
+.lector-notam.lector-pbn .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #D2BC93;
+}
+
 /* ============================================================
  * Táctil: el hover no existe, pero el navegador lo simula
  *
