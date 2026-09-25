@@ -568,140 +568,116 @@ export const NIVEL_5: DocScreen[] = [
   {
     n: 35,
     title: "Urgencia: PAN PAN",
-    kicker: "Cuándo una situación es urgente sin ser socorro",
-    minutes: 10,
+    kicker: "Seguridad afectada sin ayuda inmediata",
+    minutes: 18,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "**Urgencia** es una condición que afecta la seguridad de la aeronave o de alguien a bordo o a la vista, pero que **no requiere ayuda inmediata** (VERIFICAR la redacción exacta, Anexo 10 Vol. II cap. 5). La señal es **PAN PAN**, dicha preferiblemente tres veces. Tiene prioridad sobre todo el tráfico, excepto el de socorro.",
+        text: "Urgencia describe una condición que afecta la seguridad de una aeronave, otro vehículo o una persona a bordo o a la vista, pero que no exige ayuda inmediata. Su señal radiotelefónica es PAN PAN, preferiblemente repetida tres veces al comienzo del primer mensaje. Tiene prioridad sobre el tráfico normal, aunque no sobre las comunicaciones de socorro MAYDAY. La elección no depende únicamente del nombre de la falla o del diagnóstico de un pasajero: depende de su efecto actual, el margen operativo y la ayuda necesaria.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
       {
-        kind: "secuencia",
-        titulo: "Contenido del mensaje de urgencia (VERIFICAR): igual al de socorro, cambiando la señal y la naturaleza",
-        numerada: true,
-        items: [
-          "PAN PAN, PAN PAN, PAN PAN.",
-          "Estación a la que se dirige.",
-          "Identificación de la aeronave.",
-          "Naturaleza de la condición de urgencia.",
-          "Intenciones del piloto al mando.",
-          "Posición actual, nivel y rumbo.",
-          "Cualquier otra información útil.",
-        ],
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-35-01.svg",
+        alt: "Comparación entre PAN PAN para urgencia sin ayuda inmediata y MAYDAY para peligro grave o inminente que requiere asistencia inmediata.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Comparación conceptual basada en EASA SERA.14095: PAN PAN identifica seguridad afectada sin necesidad de ayuda inmediata; MAYDAY, peligro grave o inminente que sí la requiere. La situación puede evolucionar y la tripulación debe actualizar su declaración. No clasifica automáticamente una falla concreta.",
       },
-      { kind: "p", text: "**Cuándo suele encajar PAN PAN (escenarios de práctica, no lista oficial):**" },
+      { kind: "sub", text: "Cómo decide una tripulación de aerolínea" },
       {
         kind: "list",
         items: [
-          "Pasajero con una emergencia médica que obliga a desviar, sin amenaza para el vuelo.",
-          "Falla técnica que degrada el avión y pide prioridad, pero el avión sigue controlable y con margen (por ejemplo, una falla hidráulica con sistemas de respaldo funcionando).",
-          "Tripulante incapacitado, cuando el vuelo sigue controlado.",
-          "Una situación que puede empeorar y en la que usted quiere que el ATC esté prevenido.",
+          "**Qué ha cambiado:** el piloto que vuela (PF, pilot flying) y el piloto que monitorea (PM, pilot monitoring) determinan si la aeronave permanece controlable, qué sistemas o capacidades se redujeron y qué tareas impone la lista de verificación aplicable.",
+          "**Qué asistencia se necesita:** prioridad para desviarse, tiempo para completar una lista, coordinación de servicios médicos o una pista adecuada pueden hacer necesario informar una urgencia. Una condición grave que requiere ayuda inmediata se declara como socorro; una condición sin efecto de seguridad ni necesidad de prioridad puede comunicarse en lenguaje claro sin señal.",
+          "**Qué se sabe y qué falta:** no se declara un diagnóstico médico no confirmado ni se afirma que un sistema de respaldo funciona sin comprobarlo. Se comunica el efecto observable y la intención actual; luego se amplía.",
+          "**Cómo evoluciona:** PAN PAN no encierra al vuelo en una categoría permanente. Si aparece peligro grave o inminente, se usa MAYDAY. Si la urgencia termina, se informa a ATS de que ya no se requiere prioridad.",
         ],
-      },
-      { kind: "p", text: "**Cuándo NO hace falta ninguna de las dos señales:**" },
-      {
-        kind: "p",
-        text: "Muchas fallas no requieren declarar nada: una falla de un sistema redundante, un generador perdido con los demás funcionando, una indicación que la lista resuelve. Se informa en lenguaje claro si afecta la operación (Doc 4444 5.2.2 pide notificar sin demora cuando una falla degrada la performance por debajo de lo requerido en ese espacio aéreo) y se pide lo que haga falta. **No se convierte automáticamente cada falla en PAN PAN o MAYDAY.**",
       },
       {
-        kind: "p",
-        text: "**PAN PAN MEDICAL no es «pasajero enfermo».** Esa variante se reserva para transportes sanitarios protegidos por los Convenios de Ginebra (VERIFICAR). Para un pasajero enfermo se usa PAN PAN, o ni siquiera eso si no necesita prioridad.",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-35-02.webp",
+        alt: "Historieta de tres paneles: cabina de pasajeros informa necesidad médica, pilotos comunican la urgencia y controladores coordinan asistencia.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no caso real: 1) la tripulación de cabina comunica una necesidad médica; 2) PF mantiene el vuelo y PM informa a ATS la condición y la intención; 3) ATS coordina la prioridad y asistencia solicitadas. Las pantallas no muestran una carta, ruta ni aeropuerto.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología que no está en las fuentes cargadas. La definición de urgencia, la señal PAN PAN dicha tres veces, su prioridad y el orden del mensaje: **Anexo 10 Vol. II cap. 5** y **Doc 9432 9.3**. «ROGER PAN PAN» y la forma de cancelar la urgencia: **Doc 9432 9.3**. «PAN PAN MEDICAL» reservado a transportes sanitarios: **Anexo 10 Vol. II cap. 5**. «HOLD AT (fix) AS PUBLISHED»: **Doc 4444 cap. 12** (espera; ver Nivel 4, cap. 28).",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · Urgencia médica (VERIFICAR «ROGER PAN PAN»)",
-        [
-          `PILOT: "PAN PAN, PAN PAN, PAN PAN, BOGOTA CONTROL, AVIATORY 452, MEDICAL EMERGENCY ON BOARD, PASSENGER WITH SUSPECTED HEART ATTACK, REQUEST DIVERSION TO BOGOTA, POSITION TOLMA, FLIGHT LEVEL 350, HEADING 020."`,
-          `ATC:   "AVIATORY 452, ROGER PAN PAN. CLEARED DIRECT BOGOTA, DESCEND TO FLIGHT LEVEL 200."`,
-          `PILOT: "DIRECT BOGOTA, DESCENDING FLIGHT LEVEL 200, AVIATORY 452."`,
+      { kind: "sub", text: "Mensaje útil, no relato clínico o técnico" },
+      {
+        kind: "p",
+        text: "EASA SERA.14095 establece el canal aire–tierra en uso y, en lo posible, el orden: dependencia del servicio de tránsito aéreo (ATS, Air Traffic Services), identificación, naturaleza de la urgencia, intención del piloto al mando, posición/nivel/rumbo y otra información útil. PAN PAN inicia la primera comunicación; se pronuncia preferiblemente tres veces, cada grupo como la palabra francesa panne. La información adicional puede incluir autonomía, personas a bordo, materiales peligrosos y recursos necesarios, cuando sea pertinente y confiable.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Plantilla oficial sin datos ficticios",
+        text: "PAN PAN × 3 — [ATS] — [identificación real] — [naturaleza y efecto] — [intención y solicitud] — [posición, nivel, rumbo] — [otros datos útiles]. Es una plantilla de aprendizaje, no una transcripción. Los campos variables se completan únicamente con la situación real; no hay ruta, frecuencia, pista, código ni autorización de ejemplo.",
+      },
+      { kind: "sub", text: "Una urgencia médica exige juicio, no una etiqueta automática" },
+      {
+        kind: "p",
+        text: "La enfermedad de un pasajero puede justificar prioridad y coordinación médica mientras el vuelo se mantiene controlado. En ese caso PAN PAN puede ser apropiado. Si la condición implica peligro grave o inminente y requiere ayuda inmediata, la evaluación puede llevar a MAYDAY; no es correcto enseñar que un pasajero enfermo nunca lo justifica. La tripulación comunica qué necesita: desvío, atención al llegar, tiempo estimado o cualquier limitación del vuelo, sin inventar diagnóstico ni prometer una pista que aún no está autorizada.",
+      },
+      {
+        kind: "callout",
+        tone: "warn",
+        title: "PAN PAN MEDICAL tiene otro significado",
+        text: "La señal específica PAN PAN seguida de MAY-DEE-CAL está prevista en EASA SERA.14095(c)(4) para identificar un transporte sanitario protegido por los Convenios de Ginebra. No se usa por el solo hecho de llevar a un pasajero que necesita asistencia médica.",
+      },
+      { kind: "sub", text: "Respuesta de ATS y actualización" },
+      {
+        kind: "p",
+        text: "ATS acusa la urgencia y comunica lo necesario a las dependencias y al explotador; puede controlar la frecuencia para evitar interferencias. La tripulación sigue escuchando autorizaciones y colaciona lo crítico. Si necesita tiempo para la lista o una opción de desvío, lo solicita con claridad; no supone que PAN PAN ya concedió una ruta o prioridad de aterrizaje específica. Una mejora o deterioro se comunica. El procedimiento normalizado de operación (SOP, Standard Operating Procedures) determina el reparto de tareas, no la definición reglamentaria de urgencia.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Necesidad médica con decisión de desvío pendiente",
+        situacion: "Caso didáctico sin pasajero identificable, aeródromo, ruta, distintivo o frecuencia inventados. La tripulación de cabina comunica una condición médica seria. La aeronave continúa controlable y sin limitaciones técnicas; PF mantiene el vuelo mientras PM recopila información útil. Aún no se ha decidido si el aeródromo previsto o un alterno permitirá recibir asistencia a tiempo.",
+        preguntas: [
+          {
+            q: "¿Qué se informa primero y qué no se inventa?",
+            a: "PM puede declarar PAN PAN si la condición requiere prioridad o coordinación, e informar que hay una urgencia médica a bordo, la intención provisional y la asistencia requerida. No da un diagnóstico como hecho si no está confirmado ni anuncia un destino que aún no se decidió."
+          },
+          {
+            q: "¿Qué más necesita la tripulación para decidir?",
+            a: "Evalúa el estado comunicado por cabina, tiempo a aeródromos adecuados, combustible, meteorología, capacidad de recibir asistencia y autorizaciones disponibles. Comunica a ATS su opción cuando la elige y colaciona cualquier cambio de ruta o nivel."
+          },
+          {
+            q: "Si el peligro se vuelve grave e inmediato, ¿se mantiene PAN PAN?",
+            a: "No por inercia. La tripulación actualiza a MAYDAY si ahora se necesita ayuda inmediata, dice qué cambió y qué requiere. La prioridad debe reflejar la condición actual, no la primera clasificación."
+          },
         ],
-        "Significado: urgencia médica. El avión no está en peligro; un pasajero sí, y necesita prioridad. VERIFICAR «ROGER PAN PAN».",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Falla hidráulica con avión controlable (PLAIN LANGUAGE en la parte del ATC; VERIFICAR «HOLD AT … AS PUBLISHED»)",
-        [
-          `PILOT: "PAN PAN, PAN PAN, PAN PAN, BOGOTA APPROACH, AVIATORY 452, HYDRAULIC SYSTEM FAILURE, REQUEST HOLDING TO COMPLETE CHECKLIST, THEN ILS RUNWAY 13, POSITION 25 MILES EAST, 12000 FEET, HEADING 270."`,
-          `ATC:   "AVIATORY 452, ROGER. HOLD AT GIKOS AS PUBLISHED, MAINTAIN 12000 FEET, ADVISE WHEN READY FOR APPROACH."`,
-        ],
-        "Significado: falla técnica con avión controlable: se pide espacio y tiempo, no una aproximación inmediata. La parte del ATC tiene elementos **PLAIN LANGUAGE** («advise when ready»).",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · Falla sin urgencia (PLAIN LANGUAGE)",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, WE HAVE LOST ONE GENERATOR, NO IMPACT ON OUR OPERATION, FOR YOUR INFORMATION."`,
-          `ATC:   "AVIATORY 452, ROGER."`,
-        ],
-        "Significado: **PLAIN LANGUAGE**. Falla sin urgencia: se informa porque puede ser útil, sin declarar nada.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · El ATC pregunta si necesita ayuda (PLAIN LANGUAGE)",
-        [`ATC:   "AVIATORY 452, DO YOU REQUIRE ANY ASSISTANCE?"`, `PILOT: "NEGATIVE, AVIATORY 452. WE WILL ADVISE."`],
-        "Significado: **PLAIN LANGUAGE**. El ATC pregunta si necesita ayuda; usted contesta con verdad y deja abierta la puerta.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · La urgencia empeora y se eleva a socorro",
-        [
-          `PILOT: "BOGOTA APPROACH, AVIATORY 452, SITUATION DETERIORATING, MAYDAY, MAYDAY, MAYDAY, AVIATORY 452, SMOKE IN THE CABIN NOT CONTROLLED, REQUEST IMMEDIATE LANDING RUNWAY 13."`,
-        ],
-        "Significado: una urgencia que empeora se eleva a socorro con la señal completa. No hace falta «cancelar» la urgencia antes.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · La situación se resuelve (PLAIN LANGUAGE; VERIFICAR)",
-        [`PILOT: "BOGOTA APPROACH, AVIATORY 452, PASSENGER CONDITION STABLE, NO LONGER REQUIRE PRIORITY."`],
-        "Significado: **PLAIN LANGUAGE**. Si la situación se resuelve, se informa para que el ATC libere la prioridad. VERIFICAR si existe forma estándar de cancelar la urgencia.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
+        concepto: "La señal ayuda a ATS a priorizar, pero la decisión operativa se actualiza con información real y la evolución del riesgo.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Emergencia médica o falla con limitaciones",
-        texto: "PAN PAN es la llamada más común en línea aérea para emergencias médicas que llevan a desviar. También se usa cuando una falla técnica da un avión controlable pero con limitaciones que el ATC debe conocer (distancia de aterrizaje mayor, menos maniobrabilidad, pista específica). En ambos casos lo que el ATC necesita es: qué pasa, qué quiere hacer y qué necesita de él. Si la situación no pide prioridad, se informa en lenguaje claro. Cada explotador fija en su manual cuándo se declara y quién lo hace.",
+        momento: "Coordinar la prioridad sin ceder el control",
+        texto: "PF conserva control y navegación; PM comunica la urgencia, registra lo que ATS autoriza y coordina con cabina. El primer mensaje puede ser breve, seguido de autonomía, asistencia requerida y destino elegido cuando estén confirmados. Si se necesita tiempo para una lista técnica, PM solicita margen sin aceptar una aproximación precipitada. Si la condición se estabiliza y deja de requerir prioridad, se informa; si empeora, se eleva la señal. Todo desvío, rumbo o nivel nuevo se verifica y colaciona conforme a la carga de trabajo.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "MAYDAY por un pasajero enfermo",
-        "Declarar MAYDAY por un pasajero enfermo con el avión sin problemas: moviliza recursos que no hacen falta y no mejora su atención.",
-      ),
-      error(
-        "No declarar cuando sí hacía falta",
-        "No declarar nada cuando sí necesitaba prioridad, y quedar en secuencia normal con un pasajero grave.",
-      ),
-      error("«PAN PAN MEDICAL» mal usado", "Usar «PAN PAN MEDICAL» para un pasajero enfermo."),
-      error(
-        "Un solo «pan pan» a media frase",
-        "Anunciar «pan pan» una sola vez y en medio de la frase: el controlador puede no escucharlo.",
-      ),
-      error(
-        "El relato en lugar del problema",
-        "Mezclar el problema con la historia: el controlador necesita naturaleza, intención y necesidad, no el relato completo.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Clasificar solo por el nombre de la falla", text: "Una etiqueta técnica no define por sí sola PAN PAN o MAYDAY. Se evalúa amenaza, control del avión, margen y necesidad de ayuda." },
+      { kind: "callout", tone: "warn", title: "Declarar PAN PAN MEDICAL para un pasajero", text: "Esa señal especial identifica transporte sanitario protegido; no es la forma estándar de anunciar a un pasajero enfermo." },
+      { kind: "callout", tone: "warn", title: "No actualizar la declaración", text: "Si el riesgo o la ayuda necesaria cambian, ATS debe saberlo. Una clasificación inicial no debe ocultar un deterioro posterior." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "PAN PAN = urgencia: la seguridad está afectada, pero no se necesita ayuda inmediata.",
-          "Mismo orden de mensaje que el socorro.",
-          "Emergencia médica que obliga a desviar: el caso más común.",
-          "No toda falla es PAN PAN; muchas se informan en lenguaje claro.",
-          "Si empeora, se eleva a MAYDAY.",
+          "PAN PAN indica seguridad afectada sin necesidad de ayuda inmediata.",
+          "MAYDAY prevalece cuando hay peligro grave o inminente que exige ayuda inmediata.",
+          "Se comunica condición, intención, posición y apoyo requerido con datos ciertos.",
+          "Una urgencia médica puede requerir PAN PAN o incluso MAYDAY según su gravedad.",
+          "PAN PAN MEDICAL no es la señal para un pasajero enfermo común.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9835 · Anexo 10",
-        "Doc 4444 (15.ª ed., Enm. 4) 5.2.2 (deterioro de la performance: la tripulación notifica sin demora). Doc 9835 (2.ª ed.) 3.3.13 (problema técnico, pasajero indispuesto como casos de lenguaje común), 4.3.4.",
-        [
-          "VERIFICAR: definición de urgencia, señal PAN PAN dicha tres veces, prioridad y orden del mensaje contra Anexo 10 Vol. II cap. 5 y Doc 9432 9.3 (no cargados).",
-          "VERIFICAR: «ROGER PAN PAN» y forma de cancelar la urgencia contra Doc 9432 9.3 (no cargado).",
-          "VERIFICAR: uso de «PAN PAN MEDICAL» reservado a transportes sanitarios, contra Anexo 10 Vol. II cap. 5 (no cargado).",
-          "VERIFICAR: «HOLD AT (fix) AS PUBLISHED» contra Doc 4444 cap. 12 (espera) (no cargado; ver Nivel 4, cap. 28).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA SERA.14095 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.14095: definiciones, señal PAN PAN, mensaje, prioridad, respuesta ATS y transporte sanitario protegido: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9854" },
+          { kind: "p", text: "Aerocivil, portal oficial de la AIP Colombia y acceso a la eAIP vigente para datos locales: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "La historieta y el escenario son didácticos; no representan una transmisión real ni establecen que una condición médica o técnica específica pertenezca siempre a una categoría. No se inventan rutas, frecuencias, pistas o autorizaciones." },
         ],
-      ),
+      },
     ],
   },
   // ── 36 ──────────────────────────────────────────────────────────────────
