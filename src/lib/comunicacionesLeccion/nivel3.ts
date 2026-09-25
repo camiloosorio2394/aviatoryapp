@@ -234,213 +234,138 @@ export const NIVEL_3: DocScreen[] = [
     n: 13,
     title: "Qué es una autorización ATC",
     kicker: "Autorización, instrucción, información y solicitud",
-    minutes: 10,
+    minutes: 16,
     blocks: [
+      {
+        kind: "p",
+        text: "Una tripulación de aerolínea no decide por la palabra aislada que oyó en frecuencia. Antes de mover el avión o cambiar su trayectoria identifica el destinatario, la acción, el límite y las condiciones que siguen vigentes. Esta lección separa autorización, instrucción, información y solicitud, y muestra qué hacer cuando una autorización cambia o no puede cumplirse. Las situaciones descritas son didácticas, no transcripciones de vuelos reales.",
+      },
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "Una **autorización del control de tránsito aéreo** (clearance) es la «autorización para que una aeronave proceda en condiciones especificadas por una dependencia de control de tránsito aéreo» (Doc 4444, cap. 1; Doc 9432, 1.1). Puede ir seguida de «de rodaje», «de despegue», «de salida», «en ruta», «de aproximación» o «de aterrizaje» según la fase del vuelo (misma definición, Nota 2).",
+        text: "Una **autorización del control de tránsito aéreo** (ATC, air traffic control; en inglés, ATC clearance) permite que una aeronave proceda en las condiciones especificadas por una dependencia de control. El término puede calificarse según la fase: autorización de rodaje, despegue, salida, ruta, aproximación o aterrizaje. No es una licencia genérica para hacer cualquier cosa durante esa fase (Doc 4444, capítulo 1, y Doc 9432, 1.1, ediciones consultadas).",
       },
       {
         kind: "p",
-        text: "Por la frecuencia pasan cuatro tipos de mensaje que el piloto debe distinguir al oírlos:",
+        text: "En una misma frecuencia se mezclan mensajes con efectos distintos. La pregunta útil no es solo «¿qué palabra usó el controlador?», sino «¿qué acción concreta quedó autorizada, ordenada o todavía pendiente?». Las respuestas de la tabla no reemplazan los requisitos de colación de la lección 12.",
       },
       {
         kind: "table",
-        head: ["Tipo", "Qué es", "Cómo suena", "Qué responde el piloto"],
+        head: ["Mensaje", "Efecto operacional", "Respuesta de la tripulación"],
         rows: [
-          [
-            "**Clearance** (autorización)",
-            "Permiso para proceder en condiciones especificadas",
-            "CLEARED…, APPROVED…",
-            "Colación",
-          ],
-          [
-            "**Instruction** (instrucción)",
-            "«Directrices impartidas por el control de tránsito aéreo con la finalidad de exigir que un piloto tome determinada medida» (Doc 4444, cap. 1)",
-            "HOLD SHORT, CLIMB, TURN, SQUAWK, CONTACT, GIVE WAY",
-            "Colación, o acuse que muestre que cumplirá",
-          ],
-          [
-            "**Information** (información)",
-            "Datos para su conciencia situacional: tránsito, viento, trabajos en la pista",
-            "CAUTION…, TRAFFIC…, WIND…",
-            "ROGER, o la acción que corresponda",
-          ],
-          [
-            "**Request** (solicitud)",
-            "Lo que el piloto pide",
-            "REQUEST…",
-            "Espera APPROVED, una autorización, STANDBY o UNABLE",
-          ],
+          ["**Autorización** (clearance)", "Permite proceder dentro de condiciones y límites expresos; puede contener restricciones.", "Escucha completa, colación de los elementos exigidos y comprobación de que se puede cumplir antes de actuar."],
+          ["**Instrucción** (instruction)", "Ordena una medida específica: mantener posición, virar, cambiar nivel o contactar otra dependencia, por ejemplo.", "Colación cuando el dato o la acción lo exigen; en otros casos, acuse inequívoco conforme a la regla aplicable. Una instrucción también puede ser crítica."],
+          ["**Información** (information)", "Aporta datos para decidir, como tránsito, meteorología o una condición de superficie; por sí sola no concede un movimiento nuevo.", "Acusa recibo o responde según corresponda y adapta la operación. No interpreta el dato como un permiso implícito."],
+          ["**Solicitud** (request)", "Propone una acción o pide una autorización; la transmisión de la solicitud no la concede.", "Espera una respuesta inequívoca antes de la acción solicitada y confirma sus condiciones."],
         ],
       },
-      { kind: "p", text: "Palabras clave (Doc 9432, 2.6):" },
+      {
+        kind: "p",
+        text: "La diferencia entre autorización e instrucción no permite reducir una orden de seguridad a un simple ROGER. Una instrucción para mantenerse fuera de una pista, un nivel o un rumbo exige la colación que corresponda a su contenido. A la inversa, el aviso de tránsito puede exigir un cambio de plan de la tripulación, pero no autoriza por sí mismo a invadir una pista ni a abandonar una restricción.",
+      },
+      { kind: "sub", text: "Las palabras no sustituyen las condiciones" },
       {
         kind: "kv",
         items: [
-          { k: "CLEARED", v: "«autorización para seguir en las condiciones determinadas»." },
-          {
-            k: "APPROVED",
-            v: "«autorización concedida para la medida propuesta» (usted propuso algo y se lo aprueban: «push-back approved»).",
-          },
-          {
-            k: "RECLEARED",
-            v: "«se efectúa una modificación en su última autorización y esta nueva autorización invalida la anterior o parte de ella».",
-          },
-          { k: "STANDBY", v: "«espere y le llamaré». **No es ni una aprobación ni una denegación.**" },
-          {
-            k: "UNABLE",
-            v: "«no puedo cumplir su solicitud, instrucciones o autorización», normalmente seguido del motivo.",
-          },
+          { k: "CLEARED", v: "Autorizado a proceder en las condiciones indicadas; el límite y las restricciones importan tanto como la acción." },
+          { k: "APPROVED", v: "Aprobación de la medida propuesta, no de otras medidas que la tripulación no solicitó." },
+          { k: "RECLEARED", v: "La nueva autorización invalida la anterior o la parte que modifica. Hay que identificar exactamente qué cambió." },
+          { k: "STANDBY", v: "Espere y le llamaré. **No es aprobación ni denegación** de lo solicitado." },
+          { k: "UNABLE", v: "No puedo cumplir la solicitud, instrucción o autorización; comunique el motivo útil para que control pueda considerar una alternativa." },
         ],
       },
-
-      { kind: "sub", text: "Lo que debe saber un piloto" },
       {
         kind: "p",
-        text: "**Qué autoriza y qué no.** Una autorización significa que puede continuar «solamente en lo que respecta al tránsito aéreo conocido». No da derecho a violar ninguna regla ni exime al piloto al mando de su responsabilidad (Doc 4444, 4.5.1.3). Si la autorización lo lleva hacia terreno, meteorología o una limitación del avión, la responsabilidad de decir UNABLE es suya.",
+        text: "Estas acepciones proceden del Manual de radiotelefonía de la Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization), Doc 9432, 2.6, en la edición consultada. Por ejemplo, una tripulación que solicita retroceso y recibe STANDBY permanece detenida: ni la solicitud ni la espera son una autorización de movimiento. Si control después aprueba solo el retroceso, esa respuesta no concede por sí sola rodaje ni entrada a una pista.",
+      },
+      { kind: "sub", text: "Qué cubre una autorización y qué no" },
+      {
+        kind: "p",
+        text: "El Doc 4444, 4.5.1.3, de la edición consultada limita el alcance de una autorización a las consideraciones de tránsito conocido para el control. No exime al piloto al mando de respetar las reglas aplicables ni de operar con seguridad. Antes de aceptarla, la tripulación contrasta la trayectoria o el movimiento con las limitaciones del avión, el desempeño, el terreno, la meteorología y las instrucciones que ya tiene. Si no puede cumplir, lo comunica; no intenta «alcanzar» después una restricción imposible.",
       },
       {
         kind: "p",
-        text: "**Si no le conviene, puede pedir otra.** La tripulación puede solicitar una autorización enmendada si la recibida no es conveniente (Doc 4444, 4.5.1.2). Si ATC no puede, usará la palabra UNABLE y, cuando las circunstancias lo justifiquen, ofrecerá una alternativa (Doc 4444, 4.5.7.4.2).",
+        text: "Una autorización de ruta tampoco autoriza a poner el avión en movimiento, entrar a una pista, despegar o aterrizar por inferencia. Cada permiso tiene su alcance. Una modificación posterior puede sustituir solo una parte: si cambia el límite de rodaje, no se conservan de memoria el límite anterior y el nuevo a la vez. El piloto que monitorea identifica el segmento reemplazado, conserva las condiciones no modificadas y confronta esa lectura con el piloto que opera.",
       },
-      { kind: "p", text: "**Entender antes de ejecutar.** La regla práctica tiene cuatro salidas:" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-13-01.svg",
+        alt: "Árbol de decisión: identificar destinatario; pedir repetición si el mensaje está incompleto, confirmar si hay duda, decir unable si no puede cumplirse, o colacionar, verificar y actuar solo dentro de lo autorizado.",
+        ancho: 1200,
+        alto: 1500,
+        pie: "Primero entiende y verifica; luego actúa dentro de lo autorizado. SAY AGAIN pide repetir, CONFIRM aclara un dato y UNABLE comunica que no puede cumplir. STANDBY no concede permiso. Amplía el diagrama para seguir cada salida.",
+      },
+      { kind: "sub", text: "De la transmisión a la acción: secuencia de cabina" },
       {
         kind: "list",
         ordered: true,
         items: [
-          "**Entendí y puedo** → colaciono y ejecuto.",
-          "**No escuché todo** → SAY AGAIN (o SAY AGAIN ALL AFTER…, ALL BEFORE…, ALL BETWEEN…) (Doc 9432, 2.8.1.4).",
-          "**Escuché pero dudo de un dato** → CONFIRM (item) («solicito verificación de…», Doc 9432, 2.6).",
-          "**Entendí pero no puedo** → UNABLE y el motivo (Doc 9432, 2.8.3.10).",
+          "**Escuchar sin completar huecos.** Verifique que el distintivo es el propio. Anote acción, valor, límite y condición; no rellene con lo que esperaba del plan o de la pantalla.",
+          "**Resolver la incertidumbre antes de actuar.** Si perdió parte del mensaje, pida SAY AGAIN de ese tramo. Si oyó las palabras pero duda de un valor, use CONFIRM para pedir verificación. No colacione como cierto un dato que aún cuestiona.",
+          "**Evaluar cumplimiento.** Compare la instrucción con desempeño, situación de la aeronave, terreno, meteorología y procedimiento del operador. Si no puede cumplir, diga UNABLE y un motivo breve y relevante; solicite o espere una alternativa clara.",
+          "**Colacionar y contrastar.** Repita los elementos que la regla aplicable exige con su distintivo. La tripulación compara la colación con lo anotado y atiende cualquier corrección del controlador; una corrección exige nueva colación del dato corregido.",
+          "**Configurar, verificar y ejecutar.** Solo después de entender el alcance, coordinar en cabina y resolver discrepancias se seleccionan valores y se actúa. La colación no amplía la autorización ni convierte una solicitud en permiso.",
         ],
       },
       {
         kind: "p",
-        text: "Nunca: asumir, completar con lo que «debía» decir, ni ejecutar a medias mientras aclara.",
+        text: "Pedir una autorización enmendada no es discutir con control. El Doc 4444, 4.5.1.2, de la edición consultada permite solicitar un cambio cuando la autorización recibida no es conveniente; el controlador puede no conceder lo pedido y, cuando corresponda, ofrecer otra opción. La tripulación debe saber cuál es la autorización vigente mientras espera: una solicitud pendiente no borra automáticamente lo ya autorizado, pero tampoco justifica continuar una acción que no es segura.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-13-01 · Diagrama · 4:5 · 1200×1500 px",
-        descripcion:
-          "Imagen sugerida: diagrama de flujo vertical. Arriba: «Mensaje ATC con su distintivo». Primer rombo: «¿Lo escuché completo?». No → caja «SAY AGAIN (item)» que vuelve arriba. Sí → segundo rombo: «¿Estoy seguro de cada dato?». No → caja «CONFIRM (item)». Sí → tercer rombo: «¿Puedo cumplirlo con seguridad?». No → caja ámbar «UNABLE + motivo». Sí → caja «Colacionar → seleccionar → verificar → ejecutar». Nota al pie: «STANDBY de ATC no es aprobación». Objetivo: que el piloto tenga una ruta de decisión automática y nunca ejecute lo que no entendió.",
-        alto: 440,
-        ratio: "4 / 5",
-        anchoMax: 400,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-13-02.webp",
+        alt: "Historieta de cuatro viñetas: el controlador transmite desde la torre, la tripulación anota, detecta que no puede cumplir y verifica en cabina una alternativa antes de actuar.",
+        ancho: 1536,
+        alto: 1024,
+        pie: "Situación didáctica, no una transcripción: 1) el controlador transmite; 2) la tripulación anota y coteja; 3) detecta una limitación y comunica UNABLE, sin mover el avión; 4) verifica la alternativa recibida antes de configurar. Amplía la historieta para distinguir el papel de cada persona.",
       },
-
-      { kind: "sub", text: "Fraseología OACI" },
+      { kind: "sub", text: "Caso de entrenamiento: cambio inesperado antes de salir" },
       {
-        kind: "callout",
-        tone: "verificar",
-        title: "Verificar",
-        text: "La respuesta «AVIATORY 452» sola, como acuse de un STANDBY con demora (Ejemplo 2), es práctica común pero no está comprobada: consultar Doc 4444 cap. 12 (no cargado).",
+        kind: "p",
+        text: "La tripulación ha preparado una salida conforme a su documentación. Antes de abandonar el puesto recibe una autorización distinta de la esperada. El piloto que monitorea no limita su colación a «autorizado»: registra el nuevo límite y las restricciones; el otro compara lo anotado con la preparación y con el desempeño disponible. Si un nivel o una condición no puede cumplirse, lo dice antes de aceptar el cambio. Mientras llega otra autorización, ambos mantienen el avión detenido y la autorización anterior identificada; no comienzan un retroceso ni cambian un selector por anticipación.",
       },
-      ...entrada(
-        "Ejemplo 1. Información: se acusa recibo (Doc 9432, 4.10)",
-        [
-          `ATC:   "AVIATORY 452, caution construction work adjacent to gate 37."`,
-          `PILOT: "Roger, AVIATORY 452."`,
-        ],
-        "Significado: es información, no una instrucción: ROGER basta. Pero la información cambia lo que usted hace (rodar con más cuidado cerca del puesto 37).",
-      ),
-      ...entrada(
-        "Ejemplo 2. Solicitud y STANDBY (Doc 9432, 4.3.1)",
-        [
-          `PILOT: "Apron, AVIATORY 452, stand 27, request push-back."`,
-          `ATC:   "AVIATORY 452, stand by. Expect one minute delay due B747 taxiing behind."`,
-          `PILOT: "AVIATORY 452."`,
-        ],
-        "Significado: STANDBY no aprueba el retroceso. El avión no se mueve hasta oír «push-back approved».",
-      ),
-      ...entrada(
-        "Ejemplo 3. Instrucción con tránsito (Doc 9432, 4.4.3)",
-        [
-          `ATC:   "AVIATORY 452, taxi to holding point runway 27, give way to B747 passing left to right, QNH 1019."`,
-          `PILOT: "Holding point runway 27, QNH 1019, giving way to B747, AVIATORY 452."`,
-        ],
-        "Significado: instrucción con condición de tránsito: la colación incluye el límite, el QNH y la cesión de paso.",
-      ),
-      ...entrada(
-        "Ejemplo 4. UNABLE con motivo (Doc 9432, 2.8.3.10)",
-        [
-          `ATC:   "AVIATORY 452, Bogota Departure, cleared to Cali FL 240, cross GIKOS FL 150 or above, if unable, maintain FL 130."`,
-          `PILOT: "Bogota Departure, unable to cross GIKOS FL 150 due weight, maintaining FL 130, AVIATORY 452."`,
-        ],
-        "Significado: el controlador anticipó la posibilidad («if unable») y el piloto la usa dando el motivo. UNABLE no es una falta: es información que el controlador necesita para separar.",
-      ),
-      ...entrada(
-        "Ejemplo 5. Repetición parcial (Doc 9432, 2.8.1.4)",
-        [
-          `ATC:   "AVIATORY 452, taxi to holding point runway 13 via B, [ruido] runway 18."`,
-          `PILOT: "AVIATORY 452, say again all after via B."`,
-        ],
-        "Significado: el piloto no sabe si oyó «cross» o «hold short». No elige una: pide la parte que le falta.",
-      ),
-      ...entrada(
-        "Ejemplo 6. CONFIRM ante una duda (construido con la palabra CONFIRM de Doc 9432, 2.6)",
-        [
-          `PILOT: "Bogota Ground, AVIATORY 452, confirm hold short of runway 18."`,
-          `ATC:   "AVIATORY 452, affirm, hold short of runway 18."`,
-          `PILOT: "Hold short of runway 18, AVIATORY 452."`,
-        ],
-        "Significado: ante la duda sobre una pista, se pregunta antes de acercarse a ella.",
-      ),
-      ...entrada(
-        "Ejemplo 7. Nueva autorización que reemplaza la anterior (Doc 9432, 4.4, ejemplo tras 4.4.2)",
-        [
-          `ATC:   "AVIATORY 452, recleared holding point runway 14, taxi behind Seneca coming from your left."`,
-          `PILOT: "Holding point runway 14, traffic in sight, AVIATORY 452."`,
-        ],
-        "Significado: RECLEARED anula el límite anterior. Si usted sigue rodando hacia el punto viejo, ya no tiene autorización para ir ahí.",
-      ),
-      ...entrada(
-        "Ejemplo 8. ATC no puede aprobar (Doc 9432, 4.7.5)",
-        [
-          `PILOT: "AVIATORY 452, request touch and go."`,
-          `ATC:   "AVIATORY 452, unable to approve due traffic congestion, make full stop, runway 09 cleared to land."`,
-          `PILOT: "Runway 09 cleared to land for full stop, AVIATORY 452."`,
-        ],
-        "Significado: UNABLE también lo usa el controlador. Lo que cuenta es la autorización que sí le dieron.",
-      ),
-
-      { kind: "sub", text: "Aplicación en aerolínea" },
+      {
+        kind: "p",
+        text: "Cuando control aclara o enmienda la autorización, los pilotos indican qué parte quedó sustituida y vuelven a cotejar el plan, el sistema de gestión de vuelo y las listas del operador. Si el mensaje incluyera una instrucción de superficie, distinguen la autorización de rodaje de cualquier permiso futuro para entrar o cruzar una pista. El ejemplo no atribuye un vuelo, una ruta, una pista o una frecuencia a un aeropuerto real: esos datos solo deben enseñarse a partir de una publicación vigente o una transmisión auténtica comprobada.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Una autorización que no es la esperada",
-        texto:
-          "En cabina, antes de colacionar una autorización que no es la esperada, la tripulación la mira junta: ¿es lo que pedimos? ¿cambia lo que teníamos programado? Si la frecuencia está congestionada, se colaciona lo que se entendió y se pide confirmación de lo dudoso en la misma transmisión, en vez de colacionar todo «a ver si pasa». El SOP del operador define quién decide un UNABLE; la regla OACI solo dice que se informe con el motivo.",
+        momento: "Una autorización que no era la esperada",
+        texto: "En una cabina de dos pilotos, el que recibe la autorización registra su límite y restricciones; el otro compara con la preparación. Si hay duda, se pide repetición o confirmación **antes** de colacionar el dato como cierto. Si hay una imposibilidad, se comunica UNABLE y el motivo útil. La tripulación coordina la alternativa conforme a sus procedimientos normales antes de seleccionar o mover el avión; una frecuencia ocupada no convierte una suposición en autorización.",
       },
-
-      { kind: "sub", text: "Error frecuente" },
-      error("Tomar STANDBY como «sí» y empezar a moverse."),
-      error("Tomar una información (tránsito, viento) como autorización."),
-      error("Colacionar algo que no se entendió para no «quedar mal» en frecuencia."),
-      error("Aceptar lo que el avión no puede cumplir y descubrirlo después."),
-      error("Seguir con la autorización vieja después de un RECLEARED."),
-
+      { kind: "sub", text: "Errores que cambian el resultado" },
+      error("Empezar un movimiento tras STANDBY o tras transmitir una solicitud todavía no aprobada."),
+      error("Tratar información de tránsito o meteorología como si concediera un nuevo permiso."),
+      error("Colacionar un valor dudoso para «salir del paso» y pedir confirmación solo después de seleccionarlo."),
+      error("Aceptar una restricción que el avión no puede cumplir y avisar cuando ya no hay margen."),
+      error("Seguir hacia el límite anterior después de una modificación de la autorización."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Clearance autoriza; instruction ordena; information informa; request pide.",
-          "APPROVED responde a lo que usted propuso; STANDBY no aprueba ni niega.",
-          "Una autorización cubre solo el tránsito conocido; no lo exime de las reglas.",
-          "No entendió: SAY AGAIN. Duda de un dato: CONFIRM. No puede: UNABLE y el motivo.",
-          "Nunca asumir.",
+          "Autorización: permiso con límites. Instrucción: medida exigida. Información: dato para decidir. Solicitud: aún no es permiso.",
+          "STANDBY no aprueba; RECLEARED obliga a identificar qué parte fue reemplazada.",
+          "Si falta mensaje: SAY AGAIN. Si un dato es dudoso: CONFIRM. Si no puede cumplir: UNABLE y motivo relevante.",
+          "La tripulación colaciona lo exigido, coteja el cambio y solo actúa dentro de lo autorizado y de lo que puede cumplir.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1 (Autorización del control de tránsito aéreo, Instrucción del control de tránsito aéreo), 4.5.1.2, 4.5.1.3, 4.5.7.4.2; Doc 9432 (4.ª ed.) 1.1, 2.6, 2.8.1.4, 2.8.3.10, 4.3.1, 4.4, 4.4.3, 4.7.5, 4.10.",
-        [
-          "VERIFICAR: la respuesta «AVIATORY 452» sola como acuse de un STANDBY con demora; práctica común, contra Doc 4444 cap. 12 (no cargado).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "OACI Doc 4444 · Doc 9432 · FAA AIM 4-4",
+        bloques: [
+          { kind: "sub", text: "Base consultada" },
+          { kind: "p", text: "Doc 4444, 15.ª edición con Enmienda 4, capítulo 1 y apartados 4.5.1.2–4.5.1.3, 4.5.7.4.2 y 4.5.7.5 (edición histórica consultada); Doc 9432, 4.ª edición, apartados 1.1, 2.6 y 2.8.3. Como contraste, la guía estadounidense vigente FAA Aeronautical Information Manual, sección 4-4, explica alcance de autorizaciones y responsabilidad del piloto; no sustituye reglas colombianas." },
+          { kind: "sub", text: "Antes del uso operacional" },
+          { kind: "list", items: [
+            "Confirmar fraseología y obligaciones de colación en las ediciones vigentes de OACI, el Estado y el operador.",
+            "Para un ejemplo localizado en Colombia, verificar previamente la publicación de información aeronáutica (AIP, Aeronautical Information Publication) vigente de Aerocivil y, si se presenta como diálogo real, la transmisión auténtica.",
+            "La historieta y el caso son didácticos: no representan una autorización, aeropuerto, ruta ni vuelo real.",
+          ] },
         ],
-      ),
+      },
     ],
   },
-
   // ── 14 ──────────────────────────────────────────────────────────────────
   {
     n: 14,
