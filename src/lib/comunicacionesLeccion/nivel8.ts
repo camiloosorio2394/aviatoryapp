@@ -1,31 +1,10 @@
 /**
- * Nivel 8 · Práctica y repaso (lecciones 62 a 69, capítulos 62 a 68 y el repaso de las 50 frases de la especificación).
+ * Nivel 8 · Práctica y repaso, lecciones 62 a 69.
  *
- * El cierre: la fraseología que se debe dominar, práctica de Aviation English
- * y de plain English, escenarios de entrevista, errores frecuentes de
- * hispanohablantes, qué escuchar primero, el resumen final y el repaso de
- * las 50 frases.
- *
- * Fuente: docs/comunicaciones/nivel-8.md, entero. Estas lecciones no usan el
- * formato estándar de capítulo: cada una lleva el suyo (SITUACIÓN / ATC /
- * PILOT / SIGNIFICADO / ERROR COMÚN, etc.), y así se conserva:
- *
- * - 62: cada situación es un intercambio en `code` con su significado y el
- *   error común en un callout de alerta.
- * - 63: cada situación es un `piensaComoPiloto` (la respuesta correcta queda
- *   tras el botón, como pide el Markdown: «tápate la respuesta»).
- * - 64: cada caso con su ejemplo PLAIN LANGUAGE en `code`.
- * - 65: cada escenario de entrevista es un `escenario` (respuesta esperada y
- *   razonamiento, plegados).
- * - 66: lo que se oye (alerta), lo correcto (`code`) y por qué importa.
- * - 67: la transmisión descompuesta en los cinco pasos (`pasos`).
- * - 68: los 28 principios.
- * - 69: las 50 frases en fichas; las [P] van con su VERIFICAR.
- *
- * Lo que el Markdown marca VERIFICAR sale en un callout «Verificar» visible
- * junto al ejemplo y, completo, en el detalle técnico de FUENTES. Los rótulos
- * PLAIN LANGUAGE se conservan. El formato de los bloques y de los huecos está
- * documentado al inicio de index.ts.
+ * Los ejercicios distinguen plantillas didácticas de transcripciones reales.
+ * No se asignan indicativos, rutas, frecuencias ni datos de cartas inventados.
+ * Las fichas de la lección 69 usan campos entre corchetes y exigen contrastar
+ * fraseología y datos operacionales con las fuentes vigentes del Estado.
  */
 
 import type { DocBlockData, DocScreen } from "@/lib/docBlocks"
@@ -114,8 +93,8 @@ function escenario65(c: {
   return out
 }
 
-/** Una frase del repaso: número, [V] o [P], significado y ejemplo. */
-type Frase = { n: number; frase: string; significado: string; ejemplo: string; pendiente?: string }
+/** Una ficha de estudio con función y plantilla sin datos operacionales inventados. */
+type Frase = { n: number; frase: string; significado: string; ejemplo: string }
 
 function fichasFrases(titulo: string, frases: Frase[]): DocBlockData {
   return {
@@ -124,43 +103,11 @@ function fichasFrases(titulo: string, frases: Frase[]): DocBlockData {
     columnas: 2,
     items: frases.map((f) => ({
       titulo: `${f.n}. ${f.frase}`,
-      ref: f.pendiente ? "[P] Pendiente de verificar" : "[V] Verificada",
-      puntosRotulo: "Significado y ejemplo",
-      puntos: [`**SIGNIFICADO:** ${f.significado}`, `**EJEMPLO:** ${f.ejemplo}`],
-      ...(f.pendiente ? { nota: `VERIFICAR: ${f.pendiente}` } : {}),
+      ref: "Plantilla didáctica · consultar fuente vigente",
+      puntosRotulo: "Función y uso",
+      puntos: [`**FUNCIÓN:** ${f.significado}`, `**USO DIDÁCTICO:** ${f.ejemplo}`],
     })),
   }
-}
-
-/** Las convenciones de todo el nivel (nivel-8.md). */
-const CONVENCIONES: DocBlockData = {
-  kind: "list",
-  items: [
-    "`AVIATORY 452` es un distintivo ficticio. `AVIATORY 425` y `AVIATORY 542` se usan como distintivos parecidos.",
-    "Las estaciones («Bogota Ground», «Bogota Tower», «Approach», «Control») son ejemplos educativos. Pistas, frecuencias, códigos, niveles y altitudes son didácticos: no corresponden a la publicación de ningún aeródromo. Cuando se usa una dependencia sin ciudad («Approach», «Tower») es a propósito, para que las altitudes no se lean como datos reales de un aeropuerto.",
-    "Los puntos GIKOS, TOLEX, RAPUD, MUVAN y ORSEK son **ficticios**.",
-    "Los números van escritos como se dicen por radio: cada dígito por separado, salvo millares y centenas enteras (Doc 9432, 2.4.2 y 2.4.3). «Decimal» en las frecuencias (Doc 9432, 2.4.1).",
-    "Lo que está en las fuentes cargadas se cita. La fraseología que no está en ellas (emergencias, MINIMUM FUEL, MAYDAY FUEL, TCAS RA, CPDLC, CLIMB VIA SID, espera, falla de comunicaciones, control de velocidad, desvíos por meteorología) aparece marcada al final con **(VERIFICAR: …)** y en el bloque FUENTES de cada capítulo. No la tomes como verificada hasta confirmarla.",
-    "Los ejemplos rotulados **PLAIN LANGUAGE** no son fraseología normalizada: son lenguaje claro, que el Doc 9432 (3.2.3 y 3.2.4) y el Doc 9835 (4.3.3 y 4.3.4) exigen claro, conciso y sin ambigüedad.",
-    "La fraseología puede variar según el Estado. En Colombia, consultar AIP GEN 3.4 y los RAC. Ninguna respuesta de este nivel reemplaza el SOP de tu aerolínea.",
-    "Las fuentes cargadas son el Doc 9432 (4.ª ed., 2007) y el Doc 4444 (15.ª ed., Enm. 4, 2012). La 15.ª edición del Doc 4444 **no es la vigente** (existe la 16.ª, de 2016, con enmiendas): toda cita del Doc 4444 debe confirmarse contra la edición en vigor.",
-  ],
-}
-
-/** El detalle técnico de FUENTES de cada lección. */
-function fuentes(cita: string, verificado: string, porVerificar: string[], notas: string[] = []): DocBlockData {
-  const bloques: DocBlockData[] = [
-    { kind: "sub", text: "Verificado" },
-    { kind: "p", text: verificado },
-  ]
-  if (porVerificar.length > 0) {
-    bloques.push({ kind: "sub", text: "Por verificar" }, { kind: "list", items: porVerificar })
-  }
-  if (notas.length > 0) {
-    bloques.push({ kind: "sub", text: "Notas" }, { kind: "list", items: notas })
-  }
-  bloques.push({ kind: "sub", text: "Convenciones de los ejemplos" }, CONVENCIONES)
-  return { kind: "detalleTecnico", etiqueta: "Fuentes", cita, bloques }
 }
 
 export const NIVEL_8: DocScreen[] = [
@@ -1112,142 +1059,106 @@ export const NIVEL_8: DocScreen[] = [
   {
     n: 69,
     title: "Repaso rápido: 50 frases",
-    kicker: "Frase, significado y ejemplo",
-    minutes: 12,
+    kicker: "Significado, respuesta y decisión en cada fase",
+    minutes: 25,
     blocks: [
       {
-        kind: "glosario",
-        titulo: "Leyenda",
-        items: [
-          { k: "[V]", v: "Verificada en una fuente cargada (Doc 9432 4.ª ed. o Doc 4444 15.ª ed.), con el párrafo al lado." },
-          { k: "[P]", v: "Pendiente: fraseología OACI que no está en lo cargado. Úsala sabiendo que debe confirmarse contra el documento indicado." },
-        ],
+        kind: "p",
+        text: "Estas cincuenta fichas son un repaso de funciones, no cincuenta autorizaciones listas para copiar. Los campos entre corchetes se llenan solo con datos recibidos, publicados o confirmados en la operación real. No se incluyen rutas, indicativos, frecuencias ni pistas inventadas. La Administración Federal de Aviación de Estados Unidos (FAA; Federal Aviation Administration) ofrece en su Aeronautical Information Manual (AIM) un ejemplo documentado de colación de nivel con «United Twelve»; aquí se cita como ejemplo de la guía, **no como transcripción de un vuelo**. Cada ficha debe contrastarse con la fraseología del Estado y el manual del explotador.",
       },
-      { kind: "p", text: "Los valores (niveles, rumbos, pistas, puntos) son de ejemplo. GIKOS y TOLEX son ficticios." },
-      fichasFrases("Palabras normalizadas", [
-        { n: 1, frase: "«UNABLE»", significado: "No puedo cumplir su solicitud, instrucción o autorización. Normalmente va con el motivo (Doc 9432, 2.6).", ejemplo: `"Unable flight level three five zero due performance, Aviatory 452."` },
-        { n: 2, frase: "«WILCO»", significado: "He comprendido su mensaje y procederé de acuerdo (Doc 9432, 2.6).", ejemplo: `ATC: "Report passing flight level seven zero." PILOT: "Wilco, Aviatory 452."` },
-        { n: 3, frase: "«ROGER»", significado: "He recibido toda su transmisión. No sirve para contestar una pregunta de sí o no (Doc 9432, 2.6, nota).", ejemplo: `ATC: "Caution construction work adjacent to gate three seven." PILOT: "Roger, Aviatory 452."` },
-        { n: 4, frase: "«AFFIRM»", significado: "Sí (Doc 9432, 2.6; ejemplo en 4.5.5).", ejemplo: `ATC: "Are you ready for immediate departure?" PILOT: "Affirm, Aviatory 452."` },
-        { n: 5, frase: "«NEGATIVE»", significado: "No; permiso no concedido; es incorrecto; no se puede (Doc 9432, 2.6).", ejemplo: `"Negative, transponder unserviceable, Aviatory 452." (Doc 9432, 6.5.2)` },
-        { n: 6, frase: "«SAY AGAIN»", significado: "Repítame todo o la parte que indico de su última transmisión (Doc 9432, 2.6 y 2.8.1.4).", ejemplo: `"Aviatory 452, say again all after flight level."` },
-        { n: 7, frase: "«CONFIRM»", significado: "Solicito verificación de una autorización, instrucción, medida o información (Doc 9432, 2.6).", ejemplo: `"Aviatory 452, confirm cleared to cross runway two four."` },
-        { n: 8, frase: "«STANDBY»", significado: "Espere y le llamaré. No es aprobación ni denegación (Doc 9432, 2.6, nota).", ejemplo: `ATC: "Aviatory 452, stand by." (No inicias nada hasta que te llamen.)` },
-        { n: 9, frase: "«CORRECTION»", significado: "Hubo un error en esta transmisión; la versión correcta es… (Doc 9432, 2.6 y 2.8.1.6).", ejemplo: `"Aviatory 452, GIKOS four seven, flight level three three zero, TOLEX zero seven, correction, TOLEX five seven."` },
-        { n: 10, frase: "«I SAY AGAIN»", significado: "Repito para aclarar o recalcar (Doc 9432, 2.6 y 2.8.1.8).", ejemplo: `"Aviatory 452, two thousand five hundred feet, I say again, two thousand five hundred feet."` },
-        { n: 11, frase: "«SPEAK SLOWER»", significado: "Disminuya la velocidad al hablar (Doc 9432, 2.6).", ejemplo: `"Aviatory 452, speak slower."` },
-        { n: 12, frase: "«DISREGARD»", significado: "Haga caso omiso de esto (Doc 9432, 2.6).", ejemplo: `"Aviatory 452, request flight level three seven zero… disregard."` },
-        { n: 13, frase: "«REQUEST»", significado: "Desearía saber o deseo obtener (Doc 9432, 2.6).", ejemplo: `"Aviatory 452, request descent." (Doc 9432, 3.3.3.1)` },
-        { n: 14, frase: "«MONITOR»", significado: "Escuchar en una frecuencia. No es llamar (Doc 9432, 2.6 y 2.8.2.2).", ejemplo: `ATC: "Aviatory 452, monitor ATIS one two three decimal two five." PILOT: "Monitoring one two three decimal two five, Aviatory 452."` },
-        { n: 15, frase: "«CONTACT»", significado: "Establezca comunicaciones con… (Doc 9432, 2.6 y 2.8.2.1).", ejemplo: `ATC: "Aviatory 452, contact Tower one one eight decimal seven." PILOT: "One one eight decimal seven, Aviatory 452."` },
-        { n: 16, frase: "«RECLEARED»", significado: "La nueva autorización invalida la anterior o parte de ella (Doc 9432, 2.6).", ejemplo: `"Recleared flight level three three zero, Aviatory 452." (Doc 9432, 3.3.3.2)` },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-69-01.svg",
+        alt: "Cuatro preguntas para estudiar cada frase: qué significa, qué requiere colación, qué acción permite y qué queda por confirmar.",
+        ancho: 1600,
+        alto: 900,
+        pie: "La frase por sí sola no basta. Comprueba el destinatario, la acción autorizada, los valores y las condiciones; después coteja la ejecución.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Cómo usar estas fichas",
+        text: "Lee la frase, explica su función sin mirar y di qué colacionarías o aclararías en una situación real. Los ejemplos con [campos] son plantillas didácticas, no transmisiones reales ni procedimientos locales publicados.",
+      },
+      fichasFrases("Acuses, aclaración y límites", [
+        { n: 1, frase: "UNABLE", significado: "No puedo cumplir la solicitud, instrucción o autorización; comunico el límite y, si es útil, el motivo.", ejemplo: "UNABLE [restricción] DUE [motivo breve], [indicativo]." },
+        { n: 2, frase: "WILCO", significado: "Recibí y cumpliré una instrucción; no sustituye una colación obligatoria.", ejemplo: "WILCO, [indicativo], solo si el mensaje no exige repetir un dato crítico." },
+        { n: 3, frase: "ROGER", significado: "Recibí la transmisión; no significa sí ni demuestra qué cifra se oyó.", ejemplo: "ROGER, [indicativo], para información sin acción ni pregunta sí/no." },
+        { n: 4, frase: "AFFIRM", significado: "Respuesta afirmativa en fraseología OACI; verificar variante aplicable en cada Estado.", ejemplo: "AFFIRM, [indicativo], ante una pregunta clara de sí/no." },
+        { n: 5, frase: "NEGATIVE", significado: "Respuesta negativa o corrección; no equivale a una explicación de incapacidad.", ejemplo: "NEGATIVE, [indicativo]; ampliar si ATC necesita conocer el motivo." },
+        { n: 6, frase: "SAY AGAIN", significado: "Solicito repetición de la última transmisión o de una parte identificada.", ejemplo: "SAY AGAIN ALL AFTER [palabra o elemento], [indicativo]." },
+        { n: 7, frase: "CONFIRM", significado: "Pido verificar una autorización, instrucción o dato que creo haber oído.", ejemplo: "CONFIRM [valor o permiso dudoso], [indicativo]." },
+        { n: 8, frase: "STANDBY", significado: "Espere; no concede una autorización.", ejemplo: "Si ATC dice STANDBY, conservo la autorización previa." },
+        { n: 9, frase: "CORRECTION", significado: "La parte previa de esta transmisión fue errónea; sigue la versión correcta.", ejemplo: "[dato equivocado], CORRECTION, [dato correcto]." },
+        { n: 10, frase: "I SAY AGAIN", significado: "Repito el mensaje para aclarar o enfatizar, no para cambiarlo.", ejemplo: "[dato crítico], I SAY AGAIN, [dato crítico]." },
+        { n: 11, frase: "SPEAK SLOWER", significado: "Solicito que reduzcan la velocidad del habla.", ejemplo: "SPEAK SLOWER, [indicativo], si la velocidad impide comprender." },
+        { n: 12, frase: "DISREGARD", significado: "Ignore la transmisión o parte indicada.", ejemplo: "DISREGARD [mensaje previo], [indicativo], cuando corresponda." },
+        { n: 13, frase: "REQUEST", significado: "Introduzco una petición; no anuncia una autorización recibida.", ejemplo: "[dependencia], [indicativo], REQUEST [acción]." },
+        { n: 14, frase: "MONITOR", significado: "Escuche la frecuencia indicada; no es la misma instrucción que CONTACT.", ejemplo: "MONITOR [frecuencia recibida], [indicativo]; no inventar un llamado inicial." },
+        { n: 15, frase: "CONTACT", significado: "Establezca comunicación con la dependencia indicada.", ejemplo: "CONTACT [dependencia y frecuencia recibidas]; el primer llamado lleva el indicativo." },
+        { n: 16, frase: "RECLEARED", significado: "Nueva autorización que modifica la previa en lo expresamente indicado.", ejemplo: "RECLEARED [nuevo límite o nivel]; comparar con la autorización anterior." },
       ]),
-      fichasFrases("Tierra y pista", [
-        { n: 17, frase: "«CLEARED TO (límite) VIA (ruta), (nivel), SQUAWK (código)»", significado: "Autorización de ruta. Se colaciona completa (Doc 9432, 2.8.3.5 y 2.8.3.6).", ejemplo: `"Cleared to Cali via GIKOS One Alpha departure, flight level two eight zero, squawk five five zero one, Aviatory 452."` },
-        { n: 18, frase: "«REQUEST START UP, INFORMATION (letra)»", significado: "Pides puesta en marcha e informas que tienes el ATIS (Doc 9432, 4.2.2).", ejemplo: `"Bogota Ground, Aviatory 452, stand two four, request start up, information Bravo."` },
-        { n: 19, frase: "«REQUEST PUSH-BACK» / «PUSH-BACK APPROVED»", significado: "Solicitud y aprobación de retroceso (Doc 9432, 4.3.1).", ejemplo: `"Apron, Aviatory 452, stand two seven, request push-back."` },
-        { n: 20, frase: "«TAXI TO HOLDING POINT RUNWAY (número)»", significado: "Rueda hasta el punto de espera de esa pista; ahí te detienes (Doc 9432, 4.4.1 y 4.4.3).", ejemplo: `"Holding point runway two seven, QNH one zero one nine, Aviatory 452."` },
-        { n: 21, frase: "«HOLD SHORT OF RUNWAY (número)» / «HOLDING SHORT»", significado: "Detente antes de esa pista. Se colaciona siempre (Doc 9432, 4.4.2; Doc 4444, 4.5.7.5.1 b).", ejemplo: `"Holding short runway two four, Aviatory 452."` },
-        { n: 22, frase: "«CROSS RUNWAY (número), REPORT VACATED»", significado: "Cruza y avisa cuando todo el avión haya pasado el punto de espera del otro lado (Doc 9432, 4.4.2 y nota).", ejemplo: `"Crossing, wilco, Aviatory 452." Luego: "Aviatory 452, runway vacated."` },
-        { n: 23, frase: "«LINE UP AND WAIT»", significado: "Entra a la pista y espera. No es autorización de despegue (Doc 9432, 4.5.3).", ejemplo: `"Runway two four, line up and wait, Aviatory 452."` },
-        { n: 24, frase: "«CLEARED FOR TAKE-OFF»", significado: "Autorizado a despegar. Única situación, junto con la cancelación, en que se usa la palabra TAKE-OFF (Doc 9432, 2.8.3.3 y 4.5.4).", ejemplo: `"Runway two four, cleared for take-off, Aviatory 452."` },
-        { n: 25, frase: "«HOLD POSITION, CANCEL TAKE-OFF»", significado: "No inicies el despegue; la autorización queda anulada (Doc 9432, 4.5.10).", ejemplo: `ATC: "Aviatory 452, hold position, cancel take-off, I say again, cancel take-off, vehicle on runway." PILOT: "Holding, Aviatory 452."` },
-        { n: 26, frase: "«STOP IMMEDIATELY»", significado: "Abandona ya la carrera de despegue; el ATC lo repite con el distintivo (Doc 9432, 4.5.11).", ejemplo: `"Stopping, Aviatory 452."` },
+      fichasFrases("Superficie y pista", [
+        { n: 17, frase: "CLEARED TO [límite] VIA [ruta]", significado: "Autorización de ruta; comprobar límite, trayectoria y condiciones. No permite entrar en pista.", ejemplo: "Colacionar [límite], [ruta], [nivel] y [código] recibidos." },
+        { n: 18, frase: "REQUEST START-UP", significado: "Pedir puesta en marcha conforme al procedimiento local.", ejemplo: "[dependencia], [indicativo], REQUEST START-UP, INFORMATION [letra recibida]." },
+        { n: 19, frase: "REQUEST PUSH-BACK", significado: "Pedir retroceso; la aprobación y condiciones deben oírse aparte.", ejemplo: "[dependencia], [indicativo], REQUEST PUSH-BACK." },
+        { n: 20, frase: "TAXI TO HOLDING POINT RUNWAY [pista]", significado: "Rodar hasta el punto de espera indicado, sin entrar en pista.", ejemplo: "Colacionar [pista], [ruta de rodaje] y cualquier límite recibido." },
+        { n: 21, frase: "HOLD SHORT OF RUNWAY [pista]", significado: "Mantener fuera de esa pista; el límite debe identificarse y colacionarse.", ejemplo: "HOLDING SHORT OF RUNWAY [pista recibida], [indicativo]." },
+        { n: 22, frase: "CROSS RUNWAY [pista]", significado: "Cruzar solo la pista autorizada y cumplir la condición de reporte si existe.", ejemplo: "CROSS RUNWAY [pista recibida], [indicativo]; reportar vacada si se pidió." },
+        { n: 23, frase: "LINE UP AND WAIT", significado: "Entrar y alinearse cuando corresponda, pero esperar autorización de despegue.", ejemplo: "RUNWAY [pista recibida], LINE UP AND WAIT, [indicativo]." },
+        { n: 24, frase: "CLEARED FOR TAKEOFF", significado: "Autorización específica de despegue en la pista indicada.", ejemplo: "RUNWAY [pista recibida], CLEARED FOR TAKEOFF, [indicativo]." },
+        { n: 25, frase: "CANCEL TAKEOFF", significado: "Se cancela la autorización; evaluar fase de carrera y responder según procedimiento.", ejemplo: "Ante CANCEL TAKEOFF, ejecutar el procedimiento aplicable y avisar cuando sea posible." },
+        { n: 26, frase: "STOP IMMEDIATELY", significado: "Instrucción urgente de detenerse; mantener control de la aeronave.", ejemplo: "STOPPING, [indicativo], cuando la carga de trabajo permita responder." },
       ]),
       fichasFrases("Salida, niveles y vectores", [
-        { n: 27, frase: "«WHEN PASSING (nivel) CONTACT (dependencia) (frecuencia)»", significado: "Cambio de frecuencia diferido hasta pasar ese nivel (Doc 9432, 2.8.2.1).", ejemplo: `"When passing flight level eight zero, one two nine decimal one, Aviatory 452."` },
-        { n: 28, frase: "«CLIMB TO (nivel)» / «LEAVING (nivel) CLIMBING TO (nivel)»", significado: "Ascenso y su colación (Doc 9432, 3.3.3.1).", ejemplo: `"Leaving flight level one one zero, climbing to flight level two four zero, Aviatory 452."` },
-        { n: 29, frase: "«MAINTAIN (nivel)»", significado: "Continúe en las condiciones especificadas (Doc 9432, 2.6 y 3.3.3.1).", ejemplo: `"Maintaining two thousand five hundred feet, Aviatory 452."` },
-        { n: 30, frase: "«STOP DESCENT (o CLIMB) AT (nivel)»", significado: "Anula el nivel autorizado antes; nivelas ahí (Doc 9432, 3.3.3.2).", ejemplo: `"Stop descent at flight level one five zero, Aviatory 452."` },
-        { n: 31, frase: "«EXPEDITE DESCENT (o CLIMB)» / «UNABLE TO EXPEDITE»", significado: "Régimen mayor que el normal, o que no puedes darlo (Doc 9432, 3.3.3.3).", ejemplo: `"Unable to expedite, Aviatory 452."` },
-        { n: 32, frase: "«CROSS (punto) (nivel) OR ABOVE, IF UNABLE MAINTAIN (nivel)»", significado: "Restricción de cruce con alternativa prevista (Doc 9432, 2.8.3.10).", ejemplo: `"Unable to cross TOLEX flight level one five zero due weight, maintaining flight level one three zero, Aviatory 452."` },
-        { n: 33, frase: "«TURN LEFT (o RIGHT) HEADING (tres dígitos) FOR (motivo)»", significado: "Vector con sentido de viraje y motivo (Doc 9432, 6.3.1).", ejemplo: `"Left heading zero five zero, Aviatory 452."` },
-        { n: 34, frase: "«RESUME OWN NAVIGATION DIRECT (punto)»", significado: "Terminan los vectores; navega directo al punto (Doc 9432, 6.3.3).", ejemplo: `"Direct GIKOS, Aviatory 452."` },
-        { n: 35, frase: "«TRAFFIC (hora de reloj), (distancia)…» / «TRAFFIC IN SIGHT» / «NEGATIVE CONTACT»", significado: "Información de tránsito y tus dos respuestas posibles (Doc 9432, 6.4.1 y 6.4.2).", ejemplo: `"Negative contact, request vectors, Aviatory 452."` },
-        { n: 36, frase: "«SQUAWK (código)» / «SQUAWK IDENT»", significado: "Selecciona el código / activa IDENT (Doc 9432, 6.5.1 y 6.6).", ejemplo: `"Squawk six four one one, Aviatory 452."` },
-        { n: 37, frase: "«CHECK ALTIMETER SETTING AND CONFIRM LEVEL»", significado: "Revisa el reglaje y confirma tu nivel actual (Doc 9432, 6.5.1 y 6.5.2).", ejemplo: `"Aviatory 452, altimeter one zero one three, flight level eight zero."` },
+        { n: 27, frase: "WHEN PASSING [nivel], CONTACT [dependencia]", significado: "Transferencia diferida; no cambiar antes de cumplir la condición.", ejemplo: "WHEN PASSING [nivel], CONTACT [dependencia y frecuencia recibidas]." },
+        { n: 28, frase: "CLIMB TO [nivel]", significado: "Ascender al nivel asignado; distinguirlo de una expectativa futura.", ejemplo: "CLIMBING TO [nivel recibido], [indicativo]." },
+        { n: 29, frase: "MAINTAIN [nivel]", significado: "Mantener el nivel indicado hasta nueva instrucción.", ejemplo: "MAINTAINING [nivel recibido], [indicativo]." },
+        { n: 30, frase: "STOP DESCENT AT [nivel]", significado: "Interrumpir el descenso y nivelar en el nuevo límite.", ejemplo: "STOP DESCENT AT [nivel recibido], [indicativo]." },
+        { n: 31, frase: "EXPEDITE CLIMB / DESCENT", significado: "Acelerar el cambio de nivel si es posible; si no, comunicar UNABLE.", ejemplo: "UNABLE TO EXPEDITE DUE [motivo], [indicativo]." },
+        { n: 32, frase: "CROSS [punto] AT OR ABOVE [nivel]", significado: "Restricción vertical en un punto; evaluar la capacidad antes de aceptar.", ejemplo: "Si no es posible: UNABLE TO CROSS [punto] AT [nivel], [indicativo]." },
+        { n: 33, frase: "TURN LEFT / RIGHT HEADING [rumbo]", significado: "Vector con dirección y rumbo; ambas partes pueden ser críticas.", ejemplo: "LEFT HEADING [tres dígitos recibidos], [indicativo]." },
+        { n: 34, frase: "RESUME OWN NAVIGATION", significado: "Termina el vectoramiento según la instrucción; verificar ruta o punto siguiente.", ejemplo: "RESUME OWN NAVIGATION DIRECT [punto recibido], [indicativo]." },
+        { n: 35, frase: "TRAFFIC IN SIGHT / NEGATIVE CONTACT", significado: "Informar si el tránsito señalado está a la vista o no.", ejemplo: "NEGATIVE CONTACT, [indicativo], si no se identifica el tránsito." },
+        { n: 36, frase: "SQUAWK [código] / SQUAWK IDENT", significado: "Seleccionar el código recibido o activar IDENT cuando se ordene.", ejemplo: "SQUAWK [cuatro dígitos recibidos], [indicativo]." },
+        { n: 37, frase: "CHECK ALTIMETER SETTING AND CONFIRM LEVEL", significado: "Comprobar reglaje altimétrico y confirmar nivel indicado.", ejemplo: "Tras verificar instrumentos: [reglaje y nivel actuales], [indicativo]." },
       ]),
-      fichasFrases("Llegada y aterrizaje", [
-        { n: 38, frase: "«EXPECT (tipo de aproximación) APPROACH RUNWAY (número)»", significado: "Aproximación prevista; prepárala (Doc 9432, 7.3.1).", ejemplo: `"Expecting ILS approach runway two four, Aviatory 452."` },
-        { n: 39, frase: "«CLEARED (tipo) APPROACH RUNWAY (número), REPORT ESTABLISHED»", significado: "Autorizado para la aproximación; avisa al quedar establecido (Doc 9432, 7.3.1).", ejemplo: `"Cleared straight-in ILS approach runway two four, wilco, Aviatory 452."` },
-        { n: 40, frase: "«CONTINUE APPROACH»", significado: "Sigue la aproximación. **No** es autorización para aterrizar (Doc 9432, 4.6.4 y 4.7.1).", ejemplo: `ATC: "Aviatory 452, continue approach, wind two six zero degrees one eight knots." PILOT: "Aviatory 452."` },
-        { n: 41, frase: "«CLEARED TO LAND»", significado: "Autorizado a aterrizar en la pista indicada (Doc 9432, 4.7.1).", ejemplo: `"Runway two seven, cleared to land, Aviatory 452."` },
-        { n: 42, frase: "«GO AROUND» / «GOING AROUND»", significado: "Orden del ATC / aviso o respuesta del piloto (Doc 9432, 4.8.1 y 4.8.3).", ejemplo: `"Going around, Aviatory 452."` },
+      fichasFrases("Llegada, contingencia y urgencia", [
+        { n: 38, frase: "EXPECT [aproximación] RUNWAY [pista]", significado: "Preparar la aproximación esperada; no es autorización para volarla.", ejemplo: "EXPECT [aproximación y pista recibidas]: preparar, sin abandonar la autorización actual." },
+        { n: 39, frase: "CLEARED [aproximación] APPROACH", significado: "Autorización para ejecutar la aproximación especificada con sus condiciones.", ejemplo: "CLEARED [aproximación recibida] RUNWAY [pista recibida], [indicativo]." },
+        { n: 40, frase: "CONTINUE APPROACH", significado: "Continuar aproximando; aún falta autorización para aterrizar.", ejemplo: "CONTINUING APPROACH, [indicativo]; esperar CLEARED TO LAND." },
+        { n: 41, frase: "CLEARED TO LAND", significado: "Autorización específica para aterrizar en la pista indicada.", ejemplo: "RUNWAY [pista recibida], CLEARED TO LAND, [indicativo]." },
+        { n: 42, frase: "GO AROUND / GOING AROUND", significado: "Orden de motor y al aire o aviso de la tripulación; seguir trayectoria aplicable.", ejemplo: "GOING AROUND, [indicativo]; comunicar necesidad adicional cuando sea posible." },
+        { n: 43, frase: "REDUCE SPEED TO [velocidad]", significado: "Control de velocidad: confirmar cifra y compatibilidad con configuración.", ejemplo: "REDUCING TO [velocidad recibida], [indicativo]." },
+        { n: 44, frase: "HOLD AT [punto]", significado: "Instrucción de espera; confirmar punto, nivel, sentido, rumbo/derrota y hora si fueron asignados.", ejemplo: "HOLD AT [punto recibido]; pedir los elementos que falten según el procedimiento aplicable." },
+        { n: 45, frase: "REQUEST WEATHER DEVIATION", significado: "Pedir desviación por meteorología con lado, extensión y motivo cuando se conozcan.", ejemplo: "REQUEST DEVIATION [lado y distancia] DUE WEATHER, [indicativo]; esperar respuesta." },
+        { n: 46, frase: "CLIMB VIA SID", significado: "En jurisdicciones donde se use, seguir restricciones verticales publicadas de la salida autorizada; consultar carta y variante estatal.", ejemplo: "CLIMB VIA [salida publicada y autorizada] TO [nivel recibido], [indicativo]." },
+        { n: 47, frase: "TCAS RA / CLEAR OF CONFLICT", significado: "Aviso de resolución del sistema anticolisión y fin del conflicto; seguir guía de equipo y operador.", ejemplo: "TCAS RA, [indicativo] cuando sea posible; después CLEAR OF CONFLICT." },
+        { n: 48, frase: "MINIMUM FUEL", significado: "Aviso de que cambios a la autorización podrían llevar a aterrizar por debajo de la reserva final prevista; no da prioridad automática.", ejemplo: "[dependencia], [indicativo], MINIMUM FUEL." },
+        { n: 49, frase: "MAYDAY / MAYDAY FUEL", significado: "Socorro ante peligro grave; para emergencia de combustible se usa la declaración prevista por OACI.", ejemplo: "MAYDAY repetido tres veces, [dependencia], [indicativo], [problema], [intención], [necesidad]." },
+        { n: 50, frase: "PAN PAN", significado: "Urgencia que afecta la seguridad sin llegar al estado de socorro descrito por MAYDAY.", ejemplo: "PAN PAN repetido tres veces, [dependencia], [indicativo], [situación], [intención]." },
       ]),
-      verificar(
-        "Las frases 43 a 50 son fraseología OACI que **no está** en las fuentes cargadas. Úsalas sabiendo que deben confirmarse contra el documento indicado en cada una (Doc 4444 cap. 12 y 15, edición vigente; Doc 9432 7.3, 8.7, 9.2, 9.3 y 11.6; Anexo 10 Vol. II cap. 5; Anexo 6 Parte I, 4.3.7).",
-      ),
-      fichasFrases("Pendientes de verificar", [
-        {
-          n: 43,
-          frase: "«REDUCE SPEED TO (número) KNOTS» / «MAINTAIN MINIMUM CLEAN SPEED»",
-          significado: "Control de velocidad; la velocidad mínima limpia es la mínima sin dispositivos hipersustentadores, frenos aerodinámicos ni tren (Doc 4444, 4.6.3.2 y nota, en español).",
-          ejemplo: `"Reduce speed to two two zero knots, Aviatory 452."`,
-          pendiente: "Doc 4444 cap. 12.",
-        },
-        {
-          n: 44,
-          frase: "«HOLD AT (punto)… EXPECT FURTHER CLEARANCE AT (hora)»",
-          significado: "Instrucción de espera y hora prevista de la próxima autorización.",
-          ejemplo: `"Hold at TOLEX, flight level one two zero, inbound track zero nine zero, left hand, expect further clearance at three five, Aviatory 452."`,
-          pendiente: "Doc 4444 cap. 12; Doc 9432 7.3 y 8.7.",
-        },
-        {
-          n: 45,
-          frase: "«REQUEST DEVIATION UP TO (distancia) LEFT (o RIGHT) OF TRACK DUE WEATHER»",
-          significado: "Solicitud de desvío lateral por meteorología, con lado, distancia y motivo.",
-          ejemplo: `"Aviatory 452, request deviation up to two zero miles right of track due weather."`,
-          pendiente: "Doc 4444 cap. 12 y 15.",
-        },
-        {
-          n: 46,
-          frase: "«CLIMB VIA SID TO (nivel)»",
-          significado: "Asciende siguiendo el perfil vertical y las restricciones publicadas de la SID hasta el nivel indicado.",
-          ejemplo: `"Climb via SID to flight level one three zero, Aviatory 452."`,
-          pendiente: "Doc 4444 cap. 12, edición vigente.",
-        },
-        {
-          n: 47,
-          frase: "«TCAS RA» / «CLEAR OF CONFLICT, RETURNING TO (autorización)»",
-          significado: "Te apartaste de la autorización por un RA / terminó y vuelves a lo autorizado.",
-          ejemplo: `"Aviatory 452, clear of conflict, returning to flight level one six zero."`,
-          pendiente: "Doc 4444 cap. 12 y 15; Doc 9432 11.6.",
-        },
-        {
-          n: 48,
-          frase: "«MINIMUM FUEL»",
-          significado:
-            "Debes aterrizar en un aeródromo específico y no puedes aceptar demoras adicionales. No es emergencia (definición en Doc 4444, cap. 1; la frase no está en lo cargado).",
-          ejemplo: `"Approach, Aviatory 452, minimum fuel."`,
-          pendiente: "Doc 4444 cap. 12 y 15; Anexo 6 Parte I, 4.3.7.",
-        },
-        {
-          n: 49,
-          frase: "«MAYDAY, MAYDAY, MAYDAY» (y «MAYDAY FUEL»)",
-          significado: "Socorro: peligro grave e inminente, se necesita ayuda inmediata.",
-          ejemplo: `"MAYDAY, MAYDAY, MAYDAY, Bogota Departure, Aviatory 452, engine fire number two, returning to Bogota, passing one two thousand feet, heading one three zero."`,
-          pendiente: "Anexo 10 Vol. II cap. 5; Doc 9432 9.2; Doc 4444 cap. 12 y 15 para MAYDAY FUEL.",
-        },
-        {
-          n: 50,
-          frase: "«PAN PAN, PAN PAN, PAN PAN»",
-          significado: "Urgencia: hay un problema que compromete la seguridad del avión o de alguien a bordo, sin peligro inminente.",
-          ejemplo: `"PAN PAN, PAN PAN, PAN PAN, Bogota Control, Aviatory 452, medical case on board, request priority to Bogota."`,
-          pendiente: "Anexo 10 Vol. II cap. 5; Doc 9432 9.3.",
-        },
-      ]),
-      { kind: "p", text: "**Conteo:** 42 frases [V] y 8 frases [P]." },
-      verificar(
-        "**Fuera de la lista, también pendientes:** «TRANSMITTING BLIND DUE TO RECEIVER FAILURE» (Anexo 10 Vol. II cap. 5; Doc 9432 9.5), respuestas CPDLC por enlace de datos (Doc 4444 cap. 14; Doc 10037) y «SQUAWK 7700» en inglés: el Doc 9432 (6.5.1) solo trae en español «TRANSPONDEDOR MAYDAY: seleccione código de emergencia» (Doc 4444 cap. 12). El código 7600 para problemas de radiocomunicaciones sí está verificado (Doc 9432, 6.6, nota).",
-      ),
-      fuentes(
-        "Doc 9432 · Doc 4444",
-        "Doc 9432 (4.ª ed.) 2.6 y notas, 2.8.1.4, 2.8.1.6, 2.8.1.8, 2.8.2.1, 2.8.2.2, 2.8.3.5, 2.8.3.6, 2.8.3.10, 3.3.3.1 a 3.3.3.3, 4.2.2, 4.3.1, 4.4.1 a 4.4.3, 4.5.3 a 4.5.5, 4.5.10, 4.5.11, 4.6.4, 4.7.1, 4.8.1, 4.8.3, 4.10, 6.3.1, 6.3.3, 6.4.1, 6.4.2, 6.5.1, 6.5.2, 6.6 y nota, 7.3.1; Doc 4444 (15.ª ed., Enm. 4) cap. 1 (combustible mínimo), 4.5.7.5.1, 4.6.3.2.",
-        [
-          "VERIFICAR: frases 43 a 50 contra los documentos indicados en cada una (no cargados).",
-          "VERIFICAR: «transmitting blind», respuestas CPDLC y «squawk 7700» en inglés, según se indica arriba.",
+      {
+        kind: "escenario",
+        titulo: "Del repaso a una decisión real",
+        situacion: "Ejercicio didáctico, no transmisión real. Durante rodaje, ATC entrega una ruta que termina en un punto de espera de pista. Más tarde comunica STANDBY ante una solicitud de cruce. La tripulación recibe entonces una indicación de frecuencia para CONTACT otra dependencia.",
+        preguntas: [
+          { q: "¿Qué tres frases no equivalen a permiso de cruce?", a: "TAXI TO HOLDING POINT limita el rodaje, STANDBY no autoriza y CONTACT solo ordena establecer comunicación. Falta autorización explícita para cruzar la pista." },
+          { q: "¿Qué debe retener la tripulación antes de cambiar de frecuencia?", a: "El límite de mantener fuera, la posición exacta y la necesidad de autorización específica. Si la transferencia deja duda, pedir aclaración antes de cualquier movimiento." },
         ],
-      ),
+        concepto: "Conocer una palabra significa conocer también lo que no autoriza.",
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "FAA AIM · OACI Doc 9432 · Aerocivil/eAIP",
+        bloques: [
+          { kind: "p", text: "FAA, Aeronautical Information Manual §§4-2 y 4-4-7: identificación, palabras de acuse, colación de niveles, vectores y pistas; incluye el ejemplo publicado con United Twelve: https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap4_section_4.html" },
+          { kind: "p", text: "OACI, Manual of Radiotelephony, Doc 9432, 4.ª edición: vocabulario y secuencias de radiotelefonía; la fraseología concreta puede variar por Estado: https://store.icao.int/en/manual-of-radiotelephony-doc-9432" },
+          { kind: "p", text: "OACI, material de formación de combustible: diferencia entre MINIMUM FUEL y declaración de emergencia: https://icao.int/SAM/Documents/2014-EDTO/EDTO%20Module%20%207%20%E2%80%93Implementing%20EDTO%20regulations.pdf" },
+          { kind: "p", text: "Para cartas, frecuencias, rutas y fraseología colombiana vigente, consultar exclusivamente Aerocivil/eAIP. Las imágenes, fichas y el escenario son didácticos, no un registro operacional: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+        ],
+      },
     ],
   },
 ]
