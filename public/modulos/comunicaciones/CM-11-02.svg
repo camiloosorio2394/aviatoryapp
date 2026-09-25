@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1740" viewBox="0 0 1080 1740" role="img" aria-labelledby="title desc">
+  <title id="title">Cómo elegir una respuesta a una transmisión de control</title>
+  <desc id="desc">Primero aclare cualquier parte que no haya entendido. Si no puede cumplir, diga unable con motivo. Si debe colacionar elementos críticos, colaciónelos con distintivo. Si una pregunta requiere respuesta, responda la pregunta. Para una instrucción sin colación puede usar wilco, y para recepción de información cuando corresponda, roger.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#1d2331"/><stop offset="1" stop-color="#382641"/></linearGradient>
+    <style>
+      .ey{font:700 20px Arial,sans-serif;letter-spacing:3px;fill:#d4bed7}.h{font:700 39px Arial,sans-serif;fill:#fff}.q{font:700 27px Arial,sans-serif;fill:#fff}.a{font:500 23px Arial,sans-serif;fill:#eee5f0}.tag{font:700 19px Arial,sans-serif;fill:#c5f5d7}.foot{font:500 21px Arial,sans-serif;fill:#e7e2ed}
+    </style>
+  </defs>
+  <rect width="1080" height="1740" rx="27" fill="url(#bg)"/>
+  <text class="ey" x="64" y="69">CONTROL → CABINA · DECISIÓN DE RESPUESTA</text>
+  <text class="h" x="64" y="128">No respondas siempre ROGER</text>
+  <text class="a" x="64" y="171">Escucha el mensaje completo y determina qué exige.</text>
+  <path d="M540 260v135M540 556v82M540 802v82M540 1048v82M540 1294v82" stroke="#9fe0be" stroke-width="5" stroke-dasharray="12 9"/>
+  <g>
+    <rect x="64" y="214" width="952" height="142" rx="20" fill="#63506f"/>
+    <rect x="64" y="397" width="952" height="142" rx="20" fill="#685067"/>
+    <rect x="64" y="643" width="952" height="142" rx="20" fill="#355d68"/>
+    <rect x="64" y="889" width="952" height="142" rx="20" fill="#45586d"/>
+    <rect x="64" y="1135" width="952" height="142" rx="20" fill="#4d566b"/>
+    <rect x="64" y="1381" width="952" height="142" rx="20" fill="#32685f"/>
+  </g>
+  <text class="q" x="94" y="263">1 · ¿Algo no quedó claro?</text><text class="a" x="94" y="305">SAY AGAIN / CONFIRM antes de actuar.</text>
+  <text class="q" x="94" y="446">2 · ¿No puedes cumplir la instrucción?</text><text class="a" x="94" y="488">UNABLE + motivo; propone opción si corresponde.</text>
+  <text class="q" x="94" y="692">3 · ¿Exige colación?</text><text class="a" x="94" y="734">Repite los elementos requeridos + distintivo.</text>
+  <text class="q" x="94" y="938">4 · ¿Es una pregunta directa?</text><text class="a" x="94" y="980">AFFIRM / NEGATIVE o respuesta específica; no ROGER.</text>
+  <text class="q" x="94" y="1184">5 · ¿Es una instrucción sin colación exigida?</text><text class="a" x="94" y="1226">WILCO comunica que entendiste y cumplirás.</text>
+  <text class="q" x="94" y="1430">6 · ¿Solo confirma recepción de información?</text><text class="a" x="94" y="1472">ROGER, cuando procede acusar recibo.</text>
+  <rect x="64" y="1576" width="952" height="99" rx="18" fill="#27584f"/>
+  <text class="tag" x="93" y="1615">LA PALABRA SE ELIGE POR SU SIGNIFICADO Y LA ACCIÓN ESPERADA</text>
+  <text class="foot" x="93" y="1648">No sustituye los requisitos de colación de la norma vigente.</text>
+</svg>

@@ -5,44 +5,17 @@
  * general, el Aviation English, la fraseología y el plain language, y se
  * repasan las palabras estándar que no admiten sinónimos.
  *
- * Fuente: docs/comunicaciones/nivel-2.md, entero. Cada intercambio del
- * Markdown es un bloque `code` con su significado debajo; lo que el Markdown
- * marca VERIFICAR sale en un callout «Verificar» visible antes de la
- * fraseología y, completo, en el detalle técnico de FUENTES. El formato de
- * los bloques y de los huecos está documentado al inicio de index.ts.
+ * Fuente editorial inicial: docs/comunicaciones/nivel-2.md. Las lecciones
+ * revisadas distinguen formulaciones publicadas de análisis didácticos,
+ * señalan lo pendiente de verificar y evitan intercambios locales inventados.
+ * El formato de los bloques está documentado al inicio de index.ts.
  */
 
 import type { DocBlockData, DocScreen } from "@/lib/docBlocks"
 
-/**
- * Un intercambio o una entrada de vocabulario: el título en negrita y, en
- * orden, sus piezas. Un texto es un párrafo en español; una lista de líneas es
- * la transmisión literal, una línea por turno de palabra.
- */
-function entrada(titulo: string, ...partes: (string | string[])[]): DocBlockData[] {
-  return [
-    { kind: "p", text: `**${titulo}**` },
-    ...partes.map((parte): DocBlockData =>
-      typeof parte === "string" ? { kind: "p", text: parte } : { kind: "code", text: parte.join("\n") },
-    ),
-  ]
-}
-
 /** Un error frecuente: el nombre del error como título y la explicación. */
 function error(titulo: string, text: string): DocBlockData {
   return { kind: "callout", tone: "warn", title: titulo, text }
-}
-
-/** Las convenciones de los ejemplos de todo el nivel (cabecera de nivel-2.md). */
-const CONVENCIONES: DocBlockData = {
-  kind: "list",
-  items: [
-    "Distintivo de ejemplo: `AVIATORY 452` (y `AVIATORY 425`, `AVIATORY 542` cuando hace falta un distintivo parecido). Estaciones («Bogota Ground», «Bogota Approach», «Bogota Control»), frecuencias, códigos y waypoints son **ficticios y educativos**. GIKOS es ficticio.",
-    "Los números van en cifras, como en el Doc 9432. Se pronuncian según el capítulo 5.",
-    "Cuando un intercambio sale de un ejemplo del Doc 9432, se indica «adaptado de Doc 9432 x.x»: se cambió `FASTAIR 345` o `G-CD` por `AVIATORY 452` y las estaciones del manual (que también son ficticias) por estaciones de ejemplo.",
-    "Lo rotulado **PLAIN LANGUAGE** no es fraseología normalizada: es lenguaje común.",
-    "Lo rotulado **(ejemplo construido)** no aparece en las fuentes cargadas y está listado en la línea VERIFICAR del capítulo.",
-  ],
 }
 
 export const NIVEL_2: DocScreen[] = [
@@ -709,12 +682,12 @@ export const NIVEL_2: DocScreen[] = [
     n: 11,
     title: "Palabras y expresiones estándar",
     kicker: "ROGER no es WILCO, STANDBY no es aprobación",
-    minutes: 16,
+    minutes: 18,
     blocks: [
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "Son las palabras y frases normalizadas de la radiotelefonía, cada una con un significado fijo. El Doc 9432 2.6 dice que «deberán utilizarse» con el significado que les da su tabla (español, inglés, significado). Ese significado es el que se cita aquí, entre comillas, tal cual.",
+        text: "Son palabras y frases normalizadas de la radiotelefonía de la Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization): cada una indica al otro extremo qué se recibió, qué se hará o qué debe aclararse. La tabla del Doc 9432, 2.6, fija sus significados. Esta lección los explica en español aplicado a la operación; no presenta diálogos inventados como si fueran fraseología publicada.",
       },
       {
         kind: "definicion",
@@ -736,8 +709,8 @@ export const NIVEL_2: DocScreen[] = [
           ["Qué compromete", "Solo que la transmisión llegó.", "Que entendió **y** que va a cumplir."],
           [
             "Cuándo",
-            "Información que no pide acción (tránsito, meteorología, una notificación que ATC recibe).",
-            "Una instrucción que no requiere colación (por ejemplo, «report passing FL 80»).",
+            "Información que no pide acción (tránsito, meteorología, una notificación que control recibe).",
+            "Una instrucción que no requiere colación (por ejemplo, notificar al pasar un nivel de vuelo).",
           ],
           [
             "Nunca",
@@ -760,297 +733,70 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "El Doc 9432 2.8.2.2 lo aplica así: se ordena «haga escucha» (MONITOR) de una frecuencia donde se radiodifunde información (el ejemplo es ATIS), y «quede en escucha» (STAND BY FOR…) de una dependencia que tiene intención de llamarlo pronto. En los dos casos, el que llama es el otro.",
+        text: "El Doc 9432 2.8.2.2 lo aplica así: se ordena «haga escucha» (MONITOR) de una frecuencia donde se radiodifunde información (el ejemplo es el servicio automático de información terminal, ATIS, Automatic Terminal Information Service), y «quede en escucha» (STAND BY FOR…) de una dependencia que tiene intención de llamarlo pronto. En los dos casos, el que llama es el otro.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-11-01 · Esquema · 16:9 · 1600×900 px",
-        descripcion:
-          "Imagen sugerida: tres tarjetas lado a lado, cada una dividida en dos mitades enfrentadas. Tarjeta 1: «ROGER» (icono de oído, «recibido») frente a «WILCO» (oído + mano en acción, «entendido y cumpliré»). Tarjeta 2: «STANDBY» (reloj de arena, «espere, lo llamo») frente a «APPROVED» (visto bueno, «concedido»), con una banda que dice «STANDBY ≠ sí». Tarjeta 3: «CONTACT» (radio con flecha saliente, «cambie y llame») frente a «MONITOR» (radio con auricular, «cambie y escuche»). Debajo de cada tarjeta, la cita corta del significado oficial del Doc 9432 2.6. Objetivo: fijar visualmente los tres pares que más se confunden y el compromiso que implica cada palabra.",
-        alto: 300,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-11-01.svg",
+        alt: "Tres comparaciones: ROGER no compromete cumplimiento como WILCO; STANDBY no concede la medida como APPROVED; CONTACT requiere establecer comunicación, MONITOR solo escuchar.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Reconoce qué compromiso crea cada palabra antes de responder. ROGER y WILCO tampoco sustituyen una colación exigida; STANDBY no autoriza a moverse. Amplía para comparar los tres pares. Significados basados en el Doc 9432, 2.6.",
       },
 
-      { kind: "sub", text: "Fraseología OACI" },
+      { kind: "sub", text: "Qué cambia con cada palabra" },
       {
         kind: "callout",
         tone: "verificar",
-        title: "Verificar",
-        text: "GO AHEAD y VERIFY no están confirmados como palabras normalizadas vigentes: consultar el Anexo 10 Vol. II cap. 5 (tabla de palabras y frases normalizadas, edición vigente) y, para VERIFY, también el Doc 4444 cap. 12. El uso actual de MONITOR para transferencias se confirma en el Doc 4444 cap. 12 y la AIP de cada Estado. Los ejemplos rotulados (ejemplo construido) (ACKNOWLEDGE, BREAK, BREAK BREAK, CONFIRM del piloto, CORRECT, DISREGARD, HOW DO YOU READ, READ BACK, SAY AGAIN ALL BEFORE, STANDBY a una solicitud de directo, VERIFY LEVEL y «are you able to accept runway 31») y la redacción del cruce de pista con número de pista se confirman contra el Doc 4444 cap. 12 y el Anexo 10 Vol. II cap. 5.",
+        title: "No enseñamos como verificado lo que falta contrastar",
+        text: "La edición consultada del Doc 9432 indica que GO AHEAD se omitió de su tabla y no confirma VERIFY como palabra general. Antes de enseñar cualquiera de las dos como fraseología vigente, hay que contrastar la edición aplicable del Anexo 10, Vol. II, y el Doc 4444. Tampoco se publican aquí frecuencias, pistas, puntos de ruta ni autorizaciones construidas.",
       },
       {
         kind: "p",
-        text: "Orden alfabético en inglés. Cada entrada: significado oficial, uso y ejemplo.",
+        text: "**ACKNOWLEDGE, AFFIRM y NEGATIVE responden a necesidades distintas.** ACKNOWLEDGE pide comunicar si el mensaje se recibió y comprendió; no sustituye la colación de elementos que la requieren. AFFIRM expresa una respuesta afirmativa directa y NEGATIVE una negativa o rechazo, según el contexto. ROGER solo confirma recepción. Si el controlador pregunta si la tripulación puede aceptar una instrucción o una pista, el piloto responde la pregunta y no deja la decisión implícita en ROGER. Significados del Doc 9432, 2.6.",
       },
-      ...entrada(
-        "ACKNOWLEDGE · «Comuníqueme si ha recibido y comprendido este mensaje».",
-        "ATC pide una confirmación explícita de recepción y comprensión.",
-        [
-          `ATC:   "Aviatory 452, birds reported in the vicinity of the airport, acknowledge."`,
-          `PILOT: "Roger, Aviatory 452."`,
-        ],
-        "(ejemplo construido) Si el mensaje contuviera algo que se colaciona (pista, nivel, QNH), la respuesta es la colación, no ROGER.",
-      ),
-      ...entrada(
-        "AFFIRM · «Sí».",
-        "La palabra normalizada es AFFIRM, no «affirmative» ni «yes».",
-        [
-          `ATC:   "Aviatory 452, are you ready for immediate departure?"`,
-          `PILOT: "Aviatory 452, affirm."`,
-          `ATC:   "Aviatory 452, line up. Be ready for immediate departure."`,
-          `PILOT: "Lining up, Aviatory 452."`,
-        ],
-        "Adaptado de Doc 9432 4.5.5. Nótese que LINE UP no es autorización de despegue (capítulo 17).",
-      ),
-      ...entrada(
-        "APPROVED · «Autorización concedida para la medida propuesta».",
-        "Responde a algo que el piloto pidió.",
-        [
-          `PILOT: "Bogota Ground, Aviatory 452, stand 27, request push-back."`,
-          `ATC:   "Aviatory 452, push-back approved."`,
-        ],
-        "Adaptado de Doc 9432 4.3.1. También «start up approved» (4.2.2). En el Doc 9432 la solicitud va a «Apron»: según el procedimiento local, el retroceso se pide al ATC o al servicio de dirección en la plataforma (4.3.1).",
-      ),
-      ...entrada(
-        "BREAK · «Por medio de esta palabra le indico la separación entre las partes del mensaje».",
-        "Se usa cuando no hay distinción clara entre el texto y las otras partes del mensaje.",
-        [
-          `ATC:   "Aviatory 452, descend to FL 180, break, traffic 12 o'clock, 10 miles, opposite direction, FL 190."`,
-        ],
-        "(ejemplo construido) El piloto colaciona la instrucción de nivel y responde a la información de tránsito.",
-      ),
-      ...entrada(
-        "BREAK BREAK · «Por medio de estas palabras se indica la separación entre los mensajes transmitidos a distintas aeronaves en un ambiente atareado».",
-        [
-          `ATC:   "Aviatory 452, contact Bogota Control 128.7, break break, Aviatory 425, descend to FL 200."`,
-          `PILOT: "128.7, Aviatory 452."`,
-          `PILOT: "Descending to FL 200, Aviatory 425."`,
-        ],
-        "(ejemplo construido) Con distintivos parecidos (452 / 425), escuchar hasta el final: la segunda instrucción es para otro.",
-      ),
-      ...entrada(
-        "CANCEL · «Anular la autorización transmitida anteriormente».",
-        [
-          `ATC:   "Aviatory 452, hold position, cancel take-off, I say again, cancel take-off, vehicle on runway."`,
-          `PILOT: "Holding, Aviatory 452."`,
-        ],
-        "Adaptado de Doc 9432 4.5.10. Es uno de los dos únicos usos permitidos de la palabra TAKE-OFF (Doc 9432 2.8.3.3).",
-      ),
-      ...entrada(
-        "CHECK · «Examine un sistema o procedimiento».",
-        "Nota: «No debe utilizarse en ningún otro contexto. Normalmente no se espera respuesta».",
-        [
-          `ATC:   "Aviatory 452, check altimeter setting and confirm level."`,
-          `PILOT: "Aviatory 452, altimeter 1013, FL 80."`,
-        ],
-        "Adaptado de Doc 9432 6.5.2. Aquí sí hay respuesta porque la instrucción incluye CONFIRM.",
-      ),
-      ...entrada(
-        "CLEARED · «Autorización para seguir en las condiciones determinadas».",
-        "Lo emite ATC. Diferencia con APPROVED: CLEARED fija condiciones (límite, ruta, nivel); APPROVED concede algo pedido.",
-        [
-          `ATC:   "Aviatory 452, cleared to GIKOS via A1, FL 280, Delta departure, squawk 5501."`,
-          `PILOT: "Cleared to GIKOS via A1, FL 280, Delta departure, squawk 5501, Aviatory 452."`,
-        ],
-        "Adaptado de Doc 9432 2.8.3.6. Una autorización de ruta no es autorización de despegue (2.8.3.3).",
-      ),
-      ...entrada(
-        "CONFIRM · «Solicito verificación de: (autorización, instrucciones, medidas, información)».",
-        "La usan los dos lados.",
-        [`ATC:   "Aviatory 452, confirm squawk."`, `PILOT: "Aviatory 452, squawking 6411."`],
-        "Adaptado de Doc 9432 6.5.2.",
-        [
-          `ATC:   "Aviatory 452, descend to FL 240."`,
-          `PILOT: "Aviatory 452, confirm descend to FL 240?"`,
-          `ATC:   "Aviatory 452, affirm, descend to FL 240."`,
-          `PILOT: "Descending to FL 240, Aviatory 452."`,
-        ],
-        "(ejemplo construido) El piloto duda del nivel (esperaba otro) y verifica antes de ejecutar.",
-      ),
-      ...entrada(
-        "CONTACT · «Establezca comunicaciones con…».",
-        [`ATC:   "Aviatory 452, contact Bogota Control 129.1."`, `PILOT: "129.1, Aviatory 452."`],
-        "Adaptado de Doc 9432 2.8.2.1. Después del cambio, el piloto **llama** a Bogota Control.",
-        [
-          `ATC:   "Aviatory 452, when passing FL 80 contact Bogota Control 129.1."`,
-          `PILOT: "When passing FL 80, 129.1, Aviatory 452."`,
-        ],
-        "Adaptado de Doc 9432 2.8.2.1: el cambio es condicional y se colaciona con la condición.",
-      ),
-      ...entrada(
-        "CORRECT · «Cierto» o «Exacto».",
-        [`PILOT: "Aviatory 452, confirm we are number two?"`, `ATC:   "Aviatory 452, correct, number two."`],
-        "(ejemplo construido) No confundir con CORRECTION.",
-      ),
-      ...entrada(
-        "CORRECTION · «Ha habido un error en esta transmisión (o mensaje indicado). La versión correcta es…».",
-        [`PILOT: "Aviatory 452, GIKOS 47, FL 330, TOLKO 07, correction, TOLKO 57."`, `ATC:   "Aviatory 452, roger."`],
-        "Adaptado de Doc 9432 2.8.1.6 (puntos ficticios). Se repite el último grupo correcto y luego la versión corregida. Si conviene repetir todo: «correction, I say again» (Doc 9432 2.8.1.7, en español «CORRECCIÓN, REPITO»).",
-      ),
-      ...entrada(
-        "DISREGARD · «Haga caso omiso de esto».",
-        [
-          `ATC:   "Aviatory 452, turn left heading 270... disregard. Aviatory 452, continue present heading."`,
-          `PILOT: "Continuing present heading, Aviatory 452."`,
-        ],
-        "(ejemplo construido) El piloto no ejecuta la instrucción anulada.",
-      ),
-      ...entrada(
-        "GO AHEAD · Estado a verificar.",
-        "El Doc 9432 (4.ª ed.) 2.6 dice: «Se ha omitido el término \"PROSIGA\" (GO AHEAD) y, en su lugar, el distintivo de llamada de la estación aeronáutica que llama seguido del distintivo de llamada de la estación aeronáutica que contesta se considerará como invitación para proseguir».",
-        [`PILOT: "Bogota Tower, Aviatory 452."`, `ATC:   "Aviatory 452, Bogota Tower."`, `PILOT: "Aviatory 452, (mensaje)."`],
-        "Significado: según el Doc 9432 cargado, la respuesta con los dos distintivos ya es la invitación a continuar. Adaptado de Doc 9432 2.8.1.1. Si GO AHEAD figura hoy en la lista vigente del Anexo 10 y con qué restricciones: VERIFICAR.",
-      ),
-      ...entrada(
-        "HOW DO YOU READ · «¿Cuál es la inteligibilidad de mi transmisión?».",
-        "La respuesta usa la escala de 1 (ininteligible) a 5 (perfectamente inteligible) del Doc 9432 2.8.4.3.",
-        [`PILOT: "Bogota Tower, Aviatory 452, radio check 118.7."`, `ATC:   "Aviatory 452, Bogota Tower, reading you five."`],
-        "Adaptado de Doc 9432 2.8.4.3 (prueba de radio).",
-        [`PILOT: "Bogota Tower, Aviatory 452, how do you read?"`, `ATC:   "Aviatory 452, reading you three, loud background whistle."`],
-        "(ejemplo construido con la respuesta del Doc 9432 2.8.4.3.)",
-      ),
-      ...entrada(
-        "I SAY AGAIN · «Repito para aclarar o recalcar».",
-        [
-          `ATC:   "Aviatory 452, QNH 1003."`,
-          `PILOT: "QNH 1013, Aviatory 452."`,
-          `ATC:   "Aviatory 452, negative, I say again, QNH 1003."`,
-          `PILOT: "QNH 1003, Aviatory 452."`,
-        ],
-        "Adaptado de Doc 9432 2.8.3.9. No confundir con SAY AGAIN (que pide al otro que repita).",
-      ),
-      ...entrada(
-        "MAINTAIN · «Continúe según las condiciones especificadas» o en sentido literal, p. ej., «mantenga VFR».",
-        [`ATC:   "Aviatory 452, maintain 2 500 feet."`, `PILOT: "Maintaining 2 500 feet, Aviatory 452."`],
-        "Adaptado de Doc 9432 3.3.3.1.",
-      ),
-      ...entrada(
-        "MONITOR · «Escuchar en (frecuencia)».",
-        [`ATC:   "Aviatory 452, monitor ATIS 123.25."`, `PILOT: "Monitoring 123.25, Aviatory 452."`],
-        "Adaptado de Doc 9432 2.8.2.2. El piloto escucha; no transmite en esa frecuencia.",
-        "Comparación con «quede en escucha»:",
-        [`ATC:   "Aviatory 452, stand by for Bogota Tower 118.9."`, `PILOT: "118.9, Aviatory 452."`],
-        "Adaptado de Doc 9432 2.8.2.2. El piloto cambia y espera a que la torre lo llame.",
-      ),
-      ...entrada(
-        "NEGATIVE · «No» o «Permiso no concedido», o «Es incorrecto» o «No se puede».",
-        [
-          `ATC:   "Aviatory 452, confirm transponder operating."`,
-          `PILOT: "Aviatory 452, negative, transponder unserviceable."`,
-        ],
-        "Adaptado de Doc 9432 6.5.2.",
-      ),
-      ...entrada(
-        "READ BACK · «Repítame todo este mensaje, o la parte especificada del mismo, exactamente como la haya recibido».",
-        [
-          `ATC:   "Aviatory 452, runway 13, QNH 1021, squawk 4127."`,
-          `PILOT: "Roger, Aviatory 452."`,
-          `ATC:   "Aviatory 452, read back."`,
-          `PILOT: "Runway 13, QNH 1021, squawk 4127, Aviatory 452."`,
-        ],
-        "(ejemplo construido) ROGER no bastaba: pista, reglaje de altímetro y código SSR siempre se colacionan (Doc 4444 4.5.7.5.1 c).",
-      ),
-      ...entrada(
-        "RECLEARED · «Se efectúa una modificación en su última autorización y esta nueva autorización invalida la anterior o parte de ella».",
-        [`ATC:   "Aviatory 452, recleared FL 330."`, `PILOT: "Recleared FL 330, Aviatory 452."`],
-        "Adaptado de Doc 9432 3.3.3.2. La autorización anterior (o la parte modificada) deja de valer.",
-      ),
-      ...entrada(
-        "REPORT · «Páseme la siguiente información…».",
-        [
-          `ATC:   "Aviatory 452, report passing FL 80."`,
-          `PILOT: "Aviatory 452, wilco."`,
-          `PILOT: "Aviatory 452, passing FL 80."`,
-        ],
-        "Adaptado de Doc 9432 3.3.3.1.",
-      ),
-      ...entrada(
-        "REQUEST · «Desearía saber…» o «Deseo obtener…».",
-        [
-          `PILOT: "Aviatory 452, request descent."`,
-          `ATC:   "Aviatory 452, descend to FL 60."`,
-          `PILOT: "Leaving FL 90, descending to FL 60, Aviatory 452."`,
-        ],
-        "Adaptado de Doc 9432 3.3.3.1. También «request time check» (2.5.2).",
-      ),
-      ...entrada(
-        "ROGER · «He recibido toda su transmisión anterior».",
-        "Nota: «En ningún caso debe utilizarse como contestación a una pregunta que exija que se \"COLACIONE\" una respuesta directa afirmativa (AFIRMATIVO) o negativa (NEGATIVO)».",
-        [`PILOT: "Aviatory 452, GIKOS 47, FL 330, TOLKO 57, RUMIK next."`, `ATC:   "Aviatory 452, roger."`],
-        "Adaptado de Doc 9432 3.4.1: el controlador recibe una notificación de posición.",
-        [
-          `ATC:   "Aviatory 452, traffic 2 o'clock, 5 miles, northbound, Cessna at 2 000 feet."`,
-          `PILOT: "Looking out, Aviatory 452."`,
-        ],
-        "Adaptado de Doc 9432 6.4.2 (información de tránsito). ROGER también sería aceptable aquí porque no hay instrucción.",
-      ),
-      ...entrada(
-        "ROGER mal usado",
-        [
-          `ATC:   "Aviatory 452, are you able to accept runway 31?"`,
-          `PILOT (incorrecto): "Roger, Aviatory 452."`,
-          `PILOT: "Aviatory 452, affirm."   (o "negative")`,
-        ],
-        "(ejemplo construido) Una pregunta pide AFFIRM o NEGATIVE; ROGER no dice ni sí ni no.",
-      ),
-      ...entrada(
-        "SAY AGAIN · «Repítame todo, o la siguiente parte, de su última transmisión».",
-        [
-          `ATC:   "Aviatory 452, (transmisión cortada) ...ading 250, descend to FL 180."`,
-          `PILOT: "Aviatory 452, say again all before descend."`,
-          `ATC:   "Aviatory 452, turn right heading 250, descend to FL 180."`,
-          `PILOT: "Right heading 250, descending to FL 180, Aviatory 452."`,
-        ],
-        "Formas del Doc 9432 2.8.1.4: «say again», «say again (elemento)», «say again all before…», «say again all after…», «say again all between… and…». Diálogo (ejemplo construido).",
-        [`ATC:   "Station calling Bogota Ground, say again your call sign."`, `PILOT: "Bogota Ground, Aviatory 452."`],
-        "Adaptado de Doc 9432 2.8.1.5.",
-      ),
-      ...entrada(
-        "STANDBY · «Espere y le llamaré».",
-        "Nota: «\"ESPERE\" no es ni una aprobación ni una denegación».",
-        [
-          `PILOT: "Bogota Ground, Aviatory 452, stand 27, request push-back."`,
-          `ATC:   "Aviatory 452, stand by. Expect one minute delay due B747 taxiing behind."`,
-          `PILOT: "Aviatory 452."   (y NO inicia el retroceso)`,
-        ],
-        "Adaptado de Doc 9432 4.3.1. El piloto no pide al tractor que empuje: espera la llamada. Si pasa un tiempo considerable, vuelve a llamar.",
-        [`PILOT: "Bogota Approach, Aviatory 452, request direct GIKOS."`, `ATC:   "Aviatory 452, standby."`],
-        "(ejemplo construido) El avión sigue en su ruta o rumbo actual. «Standby» no es «direct GIKOS».",
-      ),
-      ...entrada(
-        "UNABLE · «No puedo cumplir su solicitud, instrucciones o autorización».",
-        "Nota: normalmente va seguida de algún motivo.",
-        [`ATC:   "Aviatory 452, climb to FL 240, expedite until passing FL 180."`, `PILOT: "Unable to expedite, Aviatory 452."`],
-        "Adaptado de Doc 9432 3.3.3.3. Con motivo: «unable to cross TOLKO FL 150 due weight, maintaining FL 130» (2.8.3.10). UNABLE es una respuesta profesional, no una falta.",
-      ),
-      ...entrada(
-        "VERIFY · Estado a verificar.",
-        "No aparece en la tabla del Doc 9432 2.6 cargado. En la tabla de instrucciones SSR (Doc 9432 6.5.1) aparece en español «VERIFIQUE NIVEL: Compruebe y confirme su nivel», usada para verificar el nivel que presenta el Modo C, sin la columna en inglés.",
-        [`ATC:   "Aviatory 452, verify level."`, `PILOT: "Aviatory 452, maintaining FL 240."`],
-        "(ejemplo construido) Si VERIFY es palabra normalizada vigente y con qué significado exacto: VERIFICAR.",
-      ),
-      ...entrada(
-        "WILCO · «He comprendido su mensaje y procederé de acuerdo».",
-        [`ATC:   "Aviatory 452, next report RUMIK."`, `PILOT: "Aviatory 452, wilco."`],
-        "Adaptado de Doc 9432 3.4.2.",
-        [`ATC:   "Aviatory 452, cross runway 24, report vacated."`, `PILOT: "Crossing, wilco, Aviatory 452."`],
-        "Adaptado de Doc 9432 4.4.2 (en el ejemplo original, «CROSSING, WILCO G-CD»): la parte de pista se colaciona (CROSSING) y WILCO cubre «report vacated». En la práctica actual el cruce de pista se colaciona con el número de pista (Doc 4444 4.5.7.5.1 b; capítulo 16).",
-      ),
-      ...entrada(
-        "ROGER frente a WILCO, en la misma situación",
-        [
-          `ATC:   "Aviatory 452, report when ready for departure."`,
-          `PILOT: "Aviatory 452, wilco."          (correcto: entendió y va a notificar)`,
-          `PILOT: "Roger, Aviatory 452."          (incompleto: solo dice que lo escuchó)`,
-        ],
-        "Adaptado de Doc 9432 4.5.3 («G-CD WILCO»).",
-      ),
+      {
+        kind: "p",
+        text: "**APPROVED, CLEARED y RECLEARED no son sinónimos.** APPROVED concede la medida propuesta; CLEARED autoriza a proceder bajo condiciones determinadas; RECLEARED modifica la autorización anterior y la reemplaza en todo o en la parte indicada. El piloto identifica qué cambió y colaciona lo que exige la norma: no asume que una autorización de ruta implique autorización de despegue. Los ejemplos del Doc 9432, 2.8.3.6 y 3.3.3.2, ilustran la diferencia sin que esta lección invente una ruta o un nivel.",
+      },
+      {
+        kind: "p",
+        text: "**CANCEL y DISREGARD afectan mensajes anteriores de forma diferente.** CANCEL anula una autorización previa; DISREGARD pide no tener en cuenta el mensaje al que se refiere. Si cualquiera aparece durante una maniobra, la tripulación determina exactamente qué elemento quedó sin efecto, verifica la instrucción que sí permanece vigente y detiene una acción que ya no esté autorizada. No basta con escuchar la palabra aislada: el alcance de la cancelación importa.",
+      },
+      {
+        kind: "p",
+        text: "**CHECK, CONFIRM y READ BACK tampoco equivalen.** CHECK ordena examinar un sistema o procedimiento y, por sí sola, normalmente no exige respuesta. CONFIRM solicita verificar una autorización, medida o información concreta. READ BACK pide repetir el mensaje, o la parte señalada, como se recibió. Si la instrucción incluye un elemento crítico sujeto a colación, se colaciona aunque el piloto crea que ROGER comunica comprensión. La tabla de Doc 9432, 2.6, define las palabras; los requisitos de colación se confirman en Doc 4444, 4.5.7.5.1.",
+      },
+      {
+        kind: "p",
+        text: "**CONTACT y MONITOR determinan quién inicia la conversación.** CONTACT exige establecer comunicación con la dependencia indicada; MONITOR pide escuchar en una frecuencia. El Doc 9432, 2.8.2.1–2.8.2.2, diferencia los dos usos y muestra la escucha de información radiodifundida. Si una transferencia queda condicionada a un punto o nivel, esa condición forma parte del mensaje que debe conservarse. Antes de aplicar MONITOR a la transferencia entre dependencias, consulta el procedimiento local vigente; no lo equipares automáticamente con CONTACT.",
+      },
+      {
+        kind: "p",
+        text: "**REPORT, REQUEST y MAINTAIN cumplen funciones separadas.** REPORT pide transmitir un dato específico cuando corresponda; REQUEST introduce una solicitud; MAINTAIN ordena continuar bajo las condiciones especificadas. Pedir un descenso no es obtenerlo, y recibir la instrucción de notificar un punto no cambia la ruta autorizada. WILCO puede cerrar una instrucción de notificar que no exija colación, pero no sustituye la colación obligatoria de niveles o autorizaciones.",
+      },
+      {
+        kind: "p",
+        text: "**SAY AGAIN, I SAY AGAIN y CORRECTION reparan problemas distintos.** SAY AGAIN pide al otro repetir todo o una parte de su última transmisión; el Doc 9432, 2.8.1.4, describe cómo delimitar la parte faltante. I SAY AGAIN anuncia que el hablante mismo repite para aclarar o enfatizar. CORRECTION anuncia que el hablante corrige un error en su propia transmisión. CORRECT, en cambio, confirma que lo dicho por la otra parte es exacto. En una cabina ocupada, saber quién debe repetir evita que una corrección termine pareciendo una instrucción nueva.",
+      },
+      {
+        kind: "p",
+        text: "**BREAK y BREAK BREAK son señales de estructura, no autorizaciones.** BREAK separa partes de un mensaje cuando la división no es evidente. BREAK BREAK separa mensajes dirigidos a distintas aeronaves en un entorno ocupado. Ante indicativos parecidos, escuchar la separación y el distintivo siguiente protege de ejecutar una instrucción destinada a otro tráfico. No se añade aquí una frecuencia ni un intercambio ficticio para ilustrarlo: el punto es identificar el límite entre mensajes.",
+      },
+      {
+        kind: "p",
+        text: "**HOW DO YOU READ y la prueba de radio.** El Doc 9432, 2.8.4.3, describe una escala de inteligibilidad de uno a cinco. La cifra califica la recepción, no la competencia lingüística OACI del hablante ni la calidad de la decisión operacional. Si la comunicación resulta difícil, SPEAK SLOWER y WORDS TWICE tienen significados definidos; no conviertas una mala recepción en una colación adivinada.",
+      },
+      {
+        kind: "p",
+        text: "**STANDBY, UNABLE y WILCO comprometen acciones opuestas.** STANDBY significa esperar y que la estación volverá a llamar; no es aprobación ni denegación. UNABLE comunica que no se puede cumplir y normalmente se acompaña de motivo. WILCO comunica que el mensaje se entendió y se cumplirá. La tripulación no inicia un retroceso ni cambia de nivel después de STANDBY; tampoco dice WILCO a algo que sabe que no puede cumplir. Se ajusta al procedimiento local y espera la autorización efectiva.",
+      },
       { kind: "p", text: "**Otras palabras de la tabla del Doc 9432 2.6** que conviene reconocer:" },
       {
         kind: "table",
         head: ["Palabra", "Significado oficial", "Nota"],
         rows: [
-          ["OVER", "«Mi transmisión ha terminado y espero su respuesta».", "No se utiliza normalmente en VHF."],
+          ["OVER", "«Mi transmisión ha terminado y espero su respuesta».", "No se utiliza normalmente en muy alta frecuencia (VHF, very high frequency)."],
           [
             "OUT",
             "«Este intercambio de transmisiones ha terminado y no se espera respuesta».",
@@ -1070,19 +816,19 @@ export const NIVEL_2: DocScreen[] = [
         kind: "enLaOperacion",
         momento: "Cambio de frecuencia en salida",
         texto:
-          "Después del despegue, la torre suele pasar a salida con CONTACT: se cambia y se llama. En algunos aeropuertos la torre pide MONITOR y la salida llama primero. Cuál se usa depende del procedimiento local publicado; lo que no cambia es qué exige cada palabra.",
+          "En una transferencia con CONTACT, la tripulación sintoniza la frecuencia indicada y establece la comunicación; con MONITOR, sintoniza y escucha. En qué fase y con qué dependencia se usan depende del procedimiento local publicado y de la instrucción recibida. Si la llamada esperada no llega o la comunicación falla, se sigue el procedimiento aplicable: MONITOR nunca convierte el silencio en una nueva autorización.",
       },
       {
         kind: "enLaOperacion",
         momento: "Pushback con STANDBY",
         texto:
-          "El PM responde a Ground y avisa al personal de tierra que no hay autorización todavía. Un «standby» mal oído como «approved» termina en un retroceso sin autorización.",
+          "El piloto que monitorea (PM, pilot monitoring) confirma con la tripulación y el personal de tierra que todavía no hay aprobación para retroceder. STANDBY solo pide esperar; confundirlo con APPROVED podría iniciar un movimiento sin la autorización requerida.",
       },
       {
         kind: "enLaOperacion",
         momento: "WILCO en crucero",
         texto:
-          "Instrucciones de notificar un punto o una hora se contestan con WILCO; las de nivel, rumbo, velocidad, SSR y QNH se colacionan (Doc 4444 4.5.7.5.1 c).",
+          "Una instrucción de notificar que no exija colación puede reconocerse con WILCO. Los elementos sujetos a colación, como nivel, rumbo, velocidad, pista y código del radar secundario de vigilancia (SSR, secondary surveillance radar), se repiten según Doc 4444, 4.5.7.5.1; WILCO no los sustituye.",
       },
       {
         kind: "enLaOperacion",
@@ -1096,11 +842,11 @@ export const NIVEL_2: DocScreen[] = [
         "ROGER en lugar de colación",
         "El error más común. ROGER no le permite al controlador verificar que el piloto entendió el nivel, la pista o el QNH.",
       ),
-      error("ROGER a una pregunta", "La nota del Doc 9432 2.6 lo prohíbe: una pregunta pide AFFIRM o NEGATIVE."),
+      error("ROGER a una pregunta de sí o no", "Si la pregunta requiere una respuesta afirmativa o negativa directa, ROGER no comunica cuál de las dos corresponde. Use AFFIRM o NEGATIVE; si pide un dato, responda el dato solicitado."),
       error("«Affirmative» en vez de AFFIRM", "La palabra de la tabla es AFFIRM."),
       error(
         "Tomar STANDBY como «sí»",
-        "Empezar un rodaje, un pushback o un viraje porque ATC dijo «standby».",
+        "Empezar un rodaje, un retroceso o un viraje porque control de tránsito aéreo (ATC, air traffic control) dijo STANDBY.",
       ),
       error(
         "MONITOR tratado como CONTACT",
@@ -1117,13 +863,13 @@ export const NIVEL_2: DocScreen[] = [
       error("SAY AGAIN vs I SAY AGAIN", "Uno pide repetición; el otro la anuncia."),
 
       {
-        kind: "hueco",
-        rotulo: "CM-11-02 · Diagrama · 9:16 · 1080×1920 px",
-        descripcion:
-          "Imagen sugerida: árbol de decisión vertical para responder a una transmisión de ATC. Pregunta 1: «¿Es una pregunta?» → sí: AFFIRM / NEGATIVE (nunca ROGER). Pregunta 2: «¿Contiene pista, nivel, rumbo, velocidad, SSR, QNH, nivel de transición o autorización de ruta?» → sí: colación completa + distintivo. Pregunta 3: «¿Es una instrucción que no se colaciona?» → sí: WILCO (o colación). Pregunta 4: «¿Es solo información?» → ROGER. En cualquier punto: «¿No entendió?» → SAY AGAIN / CONFIRM. «¿No puede?» → UNABLE + motivo. Objetivo: que el piloto elija la respuesta correcta según el tipo de transmisión y no use ROGER como respuesta universal.",
-        alto: 560,
-        ratio: "9 / 16",
-        anchoMax: 340,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-11-02.svg",
+        alt: "Secuencia para responder a control: aclarar lo no entendido, informar si no puede cumplir, colacionar lo requerido, responder preguntas y distinguir WILCO de ROGER.",
+        ancho: 1080,
+        alto: 1740,
+        anchoMax: 520,
+        pie: "Elige la respuesta por la acción solicitada: primero aclara o declara UNABLE si corresponde, luego colaciona los elementos exigidos. WILCO comunica cumplimiento; ROGER solo recepción cuando procede. Amplía para seguir la secuencia. Herramienta didáctica basada en Doc 9432, 2.6 y requisitos de colación del Doc 4444.",
       },
       {
         kind: "summary",
@@ -1132,7 +878,7 @@ export const NIVEL_2: DocScreen[] = [
           "ROGER = recibido. WILCO = entendido y voy a cumplir. Ninguno reemplaza la colación.",
           "STANDBY = espere; no es aprobación ni denegación.",
           "CONTACT = cambie y llame. MONITOR = cambie y escuche.",
-          "AFFIRM y NEGATIVE para preguntas; nunca ROGER.",
+          "AFFIRM y NEGATIVE para respuestas directas de sí o no; ROGER no responde la pregunta.",
           "UNABLE + motivo es una respuesta profesional.",
           "GO AHEAD y VERIFY: verificar su estado en la norma vigente antes de enseñarlos como normalizados.",
         ],
@@ -1140,12 +886,12 @@ export const NIVEL_2: DocScreen[] = [
       {
         kind: "detalleTecnico",
         etiqueta: "Fuentes",
-        cita: "Doc 9432 2.6 · Doc 4444",
+        cita: "Doc 9432 · Doc 4444 · Anexo 10",
         bloques: [
           { kind: "sub", text: "Verificado" },
           {
             kind: "p",
-            text: "Doc 9432 (4.ª ed.) 2.6 (tabla completa de palabras y frases normalizadas con sus notas, incluida la nota de omisión de GO AHEAD), 2.5.2, 2.8.1.1, 2.8.1.4 a 2.8.1.7, 2.8.2.1, 2.8.2.2, 2.8.3.3, 2.8.3.6, 2.8.3.9, 2.8.3.10, 2.8.4.3, 3.3.3.1 a 3.3.3.3, 3.4.1, 3.4.2, 4.3.1, 4.5.3, 4.5.5, 4.5.10, 4.2.2, 4.4.2, 6.4.2, 6.5.1, 6.5.2; Doc 4444 (15.ª ed., Enm. 4) 4.5.7.5.1.",
+            text: "Doc 9432 (4.ª ed.) 2.6 (significados y notas), 2.8.1.4–2.8.1.7 (repetición y corrección), 2.8.2.1–2.8.2.2 (CONTACT y MONITOR), 2.8.3.6 (autorizaciones), 2.8.4.3 (inteligibilidad), 3.3.3.2 (RECLEARED); Doc 4444, 4.5.7.5.1 (colaciones); Anexo 10, Vol. II, 5.2.1.8 (palabras normalizadas, https://www.icao.int/Meetings/anconf12/Document%20Archive/AN10_V2_cons%5B1%5D.pdf).",
           },
           { kind: "sub", text: "Por verificar" },
           {
@@ -1154,12 +900,9 @@ export const NIVEL_2: DocScreen[] = [
               "VERIFICAR: estado vigente de GO AHEAD («proceed with your message») contra Anexo 10 Vol. II cap. 5, tabla de palabras y frases normalizadas, edición vigente (no cargado).",
               "VERIFICAR: VERIFY como palabra normalizada en inglés y su significado, contra Anexo 10 Vol. II cap. 5 y Doc 4444 cap. 12 (no cargados). El Doc 9432 6.5.1 solo trae «VERIFIQUE NIVEL» en español.",
               "VERIFICAR: uso actual de MONITOR para transferencias (p. ej. «monitor (dependencia) (frecuencia)») contra Doc 4444 cap. 12 y la AIP de cada Estado (no cargados).",
-              "VERIFICAR: ejemplos construidos de ACKNOWLEDGE, BREAK, BREAK BREAK, CONFIRM (pregunta del piloto), CORRECT, DISREGARD, HOW DO YOU READ, READ BACK, SAY AGAIN ALL BEFORE, STANDBY a solicitud de directo, VERIFY LEVEL y la pregunta «are you able to accept runway 31» contra Doc 4444 cap. 12 y Anexo 10 Vol. II cap. 5 (no cargados).",
-              "VERIFICAR: redacción actual de la autorización de cruce de pista con número de pista contra Doc 4444 cap. 12 (no cargado; capítulo 16).",
+              "VERIFICAR: fraseología operativa de ejemplos concretos, transferencias y cruces de pista contra Doc 4444, Anexo 10 y la publicación de información aeronáutica (AIP, Aeronautical Information Publication) vigente del Estado antes de llevarla al vuelo; por eso no se construyeron diálogos locales en esta lección.",
             ],
           },
-          { kind: "sub", text: "Convenciones de los ejemplos" },
-          CONVENCIONES,
         ],
       },
     ],
