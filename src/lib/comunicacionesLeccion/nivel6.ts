@@ -4,60 +4,12 @@
  * Lo que no va por voz o no va por VHF: ATIS y VOLMET, CPDLC y DCL, ACARS,
  * ADS-C, HF y SELCAL, y cómo se combinan en la operación oceánica.
  *
- * Fuente: docs/comunicaciones/nivel-6.md, entero. Cada intercambio del
- * Markdown es un bloque `code` con su significado debajo (`ejemplo`); los
- * rótulos (VERIFICAR) y PLAIN LANGUAGE de cada ejemplo se conservan en su
- * título. Lo que el Markdown marca VERIFICAR sale en un callout «Verificar»
- * visible y, completo, en el detalle técnico de FUENTES. Los textos de
- * pantalla CPDLC son ilustrativos y van todos con VERIFICAR: el Doc 4444
- * cap. 14 y el Doc 10037 (GOLD) no están cargados. El formato de los bloques
- * y de los huecos está documentado al inicio de index.ts.
+ * Cada lección revisada cita fuentes oficiales en su detalle técnico y
+ * distingue escenarios didácticos de comunicaciones reales. El formato
+ * de los bloques está documentado al inicio de index.ts.
  */
 
-import type { DocBlockData, DocScreen } from "@/lib/docBlocks"
-
-/**
- * Un intercambio: el título en negrita, la transmisión literal (una línea por
- * turno de palabra) y el significado en español.
- */
-function ejemplo(titulo: string, turnos: string[], significado: string): DocBlockData[] {
-  return [
-    { kind: "p", text: `**${titulo}**` },
-    { kind: "code", text: turnos.join("\n") },
-    { kind: "p", text: significado },
-  ]
-}
-
-/** Un error frecuente: el nombre del error como título y la explicación. */
-function error(titulo: string, text: string): DocBlockData {
-  return { kind: "callout", tone: "warn", title: titulo, text }
-}
-
-/** El aviso visible de lo que no está en las fuentes cargadas. */
-function verificar(text: string): DocBlockData {
-  return { kind: "callout", tone: "verificar", title: "Verificar", text }
-}
-
-/** Cómo leer los ejemplos: va al empezar la fraseología de cada lección. */
-const COMO_LEER: DocBlockData = {
-  kind: "callout",
-  tone: "info",
-  title: "Cómo leer los ejemplos",
-  text: "`AVIATORY 452`, «Oceanic Control», «Oceanic Radio», los puntos (GIKOS, ODRAK, PUVEL, TIMSA, BERUX) y las frecuencias HF son **ficticios**. Frase **sin etiqueta**: su estructura está en el Doc 9432 o el Doc 4444 cargados (el párrafo exacto va en Fuentes). **(VERIFICAR)**: no está en las fuentes cargadas. **PLAIN LANGUAGE**: lenguaje claro, no fraseología estandarizada. Los textos de pantalla CPDLC son **ilustrativos**.",
-}
-
-/** Las convenciones de los ejemplos de todo el nivel (notas de nivel-6.md). */
-const CONVENCIONES: DocBlockData = {
-  kind: "list",
-  items: [
-    "**VERIFICAR ANTES DE PUBLICAR.** Los mensajes CPDLC dependen del Doc 4444 cap. 14 y del Doc 10037 (GOLD), no cargados. No se publica hasta verificar cada línea VERIFICAR.",
-    "Fuentes cargadas para este nivel: Doc 4444 PANS-ATM (15.ª ed., Enm. 4, 2012; **no es la edición vigente**, existe la 16.ª de 2016 con enmiendas), cap. 1 a 5; Doc 9432 Manual de radiotelefonía (4.ª ed., 2007), cap. 1 a 7.3; Doc 9835 (2.ª ed., 2010), cap. 1 a 6; presentación de la FAA (Dakar, 2017) sobre el GOLD. Toda numeración de párrafo citada es la de esas ediciones y hay que confirmarla en la vigente.",
-    "No están cargados: Doc 4444 cap. 12 (fraseología), 13 (ADS-C), 14 (CPDLC), 15 (contingencias) ni el apéndice 5 (mensajes CPDLC); Doc 10037 (GOLD); Doc 9432 cap. 8 a 11 (control de área, control oceánico, meteorología, SELCAL); Anexo 3; Anexo 10 Vol. II; Anexo 11; NAT Doc 007; documentos regionales del Pacífico.",
-    "Por eso este nivel no trae identificadores de mensaje CPDLC (UM/DM) y todo texto de pantalla CPDLC va marcado VERIFICAR.",
-    "Distintivo de los ejemplos: `AVIATORY 452`. Las estaciones «Las Guindas» y «Santa Cleta» son las ficticias de la versión en español del Doc 9432. «Oceanic Control» y «Oceanic Radio» son estaciones **ficticias** para este curso. Los puntos GIKOS, ODRAK, PUVEL, TIMSA y BERUX son **ficticios**. Las frecuencias HF de los ejemplos son **ficticias**.",
-    "Los formatos oceánicos (informe de posición, autorización oceánica, SELCAL, uso de HF y de CPDLC) **varían por región** (Atlántico Norte, Pacífico, Atlántico Sur, Caribe). Lo que aquí se muestra es la estructura OACI general; el formato de cada región está en su documentación (NAT Doc 007 para el Atlántico Norte, AIP de cada Estado, Doc 7030 procedimientos suplementarios regionales).",
-  ],
-}
+import type { DocScreen } from "@/lib/docBlocks"
 
 export const NIVEL_6: DocScreen[] = [
   // ── 41 ──────────────────────────────────────────────────────────────────
@@ -1007,140 +959,105 @@ export const NIVEL_6: DocScreen[] = [
   {
     n: 50,
     title: "Comunicaciones oceánicas",
-    kicker: "HF, CPDLC, ADS-C y SELCAL juntos",
-    minutes: 10,
+    kicker: "Integrar voz, enlace de datos, vigilancia y transferencias",
+    minutes: 19,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "La suma de todo este nivel, aplicada al vuelo fuera de la cobertura VHF y radar: **HF** (con SELCAL) para la voz, **CPDLC** para las autorizaciones, **ADS-C** para la posición, **informes de posición** cuando no hay ADS-C, y **contingencias** cuando algo falla.",
+        text: "Una travesía oceánica no consiste en «pasar de muy alta frecuencia a HF». La tripulación coordina **varios servicios distintos**: voz de largo alcance, enlace de datos entre controlador y piloto, vigilancia automática y alertas selectivas. Cada uno responde a una pregunta diferente: ¿cómo llega una instrucción?, ¿quién tiene la autoridad para expedirla?, ¿cómo conoce tierra la posición?, ¿cómo despierta la estación a la cabina? Un canal disponible no garantiza que los demás funcionen ni modifica por sí solo la autorización vigente.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-50-01.svg",
+        alt: "Diagrama de tres capas: CPDLC para mensajes ATC, ADS-C para informes automáticos y HF con SELCAL para voz y alerta, entre cabina y servicios de tierra.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Diagrama conceptual, no una carta ni una configuración de avión. CPDLC cursa mensajes ATC; ADS-C informa a los sistemas de tierra bajo contratos; HF permite voz mediante una estación aeronáutica, y SELCAL puede alertar a la cabina. La distribución efectiva y las alternativas se verifican en la publicación del Estado y el manual del operador.",
+      },
+      { kind: "sub", text: "Qué hace cada sistema y qué no hace" },
+      {
+        kind: "table",
+        head: ["Medio", "Función operacional", "Límite importante"],
+        rows: [
+          ["CPDLC (Controller–Pilot Data Link Communications)", "Intercambia mensajes digitales de control, solicitudes, respuestas y acuses cuando la dependencia admite el servicio.", "Una solicitud enviada no es una autorización recibida; un fallo de conexión exige notificar y pasar al medio previsto."],
+          ["ADS-C (Automatic Dependent Surveillance–Contract)", "Entrega informes automáticos de estado, posición o intención bajo contratos con tierra.", "No es un canal de autorización; no dispensa por sí mismo todos los reportes especiales ni las instrucciones de voz."],
+          ["HF (High Frequency)", "Voz de largo alcance, con frecuencia por estación aeronáutica que retransmite al controlador.", "Propagación variable y posible demora; el operador de radio no concede cambios por sí mismo."],
+          ["SELCAL (Selective Calling)", "Avisa que una estación quiere establecer contacto con una aeronave cuya prueba fue satisfactoria.", "El tono no contiene el mensaje y un código puede compartirse; confirmar indicativo."],
+          ["SATVOICE (Satellite Voice)", "Voz satelital cuando el equipo, la aprobación y el procedimiento regional lo permiten.", "No elimina automáticamente la vigilancia HF/SELCAL ni se utiliza igual en todas las regiones."],
+        ],
+      },
+      {
+        kind: "p",
+        text: "En el Atlántico Norte (NAT, North Atlantic), el manual OACI NAT Doc 007 edición 2026-1 indica que, fuera del alcance de voz VHF y con CPDLC disponible, **CPDLC es normalmente el medio primario y la voz el alterno**. También exige mantener SELCAL operativo o una escucha continua en la HF asignada. Un vuelo con enlace de datos activo no puede concluir que la voz dejó de importar. Si la conexión de datos se degrada, la tripulación notifica oportunamente a la dependencia por el medio disponible; el controlador puede tener que revisar la separación aplicada.",
+      },
+      { kind: "sub", text: "Preparar la entrada sin repetir reglas antiguas" },
+      {
+        kind: "p",
+        text: "El NAT Doc 007 vigente señala que la aeronave en ruta entra en el espacio oceánico **conforme a su autorización ATC existente** y que no necesita una autorización oceánica separada. Esto corrige la antigua instrucción de obtener siempre una «oceanic clearance» adicional. Una modificación de ruta, nivel o velocidad sigue requiriendo una autorización explícita del controlador competente. Los requisitos de notificación de ruta, conexión y transferencia son propios de cada área; antes del vuelo se consultan el NAT Doc 007 y las AIP estatales vigentes, no una frase heredada de un ejemplo.",
+      },
       {
         kind: "list",
+        ordered: true,
         items: [
-          "**Antes de entrar**: logon (Doc 4444, 4.15.1.1), contacto HF, SELCAL check, y la autorización oceánica si la región la exige (VERIFICAR).",
-          "**Informes de posición.** En rutas con puntos designados se dan al pasar cada punto de notificación obligatoria (Doc 4444, 4.11.1.1). En rutas sin puntos designados, tan pronto como sea posible después de la primera media hora de vuelo y luego cada hora (4.11.1.2). Con ADS-C u otra fuente puede haber exención (4.11.1.3).",
-          "**Contenido del informe** (Doc 4444, 4.11.2.1; Doc 9432, 3.4.1): identificación, posición, hora, nivel, posición siguiente y hora, y punto significativo siguiente. Los tres últimos pueden omitirse por acuerdo regional; el nivel se incluye en la llamada inicial en una frecuencia nueva. Si te asignaron velocidad, va en el informe (4.11.2.2).",
-          "**Cambio de FIR.** Cuando la AIP lo prescribe o la dependencia lo pide, el último informe antes del límite se da también a la dependencia siguiente (Doc 4444, 4.11.1.4).",
-          "**Informe que no llega.** Si el ATC no recibe un informe a la hora prevista, no supone que la estimada era exacta y busca obtenerlo (Doc 4444, 4.11.1.5). Una estimada que cambia se corrige.",
-          "**Aeronotificaciones especiales.** Turbulencia o engelamiento moderado o fuerte, ondas orográficas fuertes, tormentas oscurecidas o en línea, tempestad fuerte de polvo o arena, cenizas volcánicas y actividad volcánica se notifican (Doc 4444, 4.12.3.1). Por voz llevan posición, hora, nivel y la condición (4.12.3.3).",
-          "**Contingencias.** Si falla CPDLC: voz (HF o SATCOM). Si falla la HF: CPDLC, SATCOM, relevo por otra aeronave o por la frecuencia aire-aire designada en la región (VERIFICAR). Los procedimientos de contingencia oceánica (desvío, descenso de emergencia, desviación por tiempo sin autorización) están en el Doc 4444, 15.2, no cargado: van con VERIFICAR y se tratan en su capítulo.",
+          "**Antes de perder VHF terrestre.** Revisar capacidad de comunicaciones de largo alcance, frecuencias asignadas, estación que servirá el área, procedimientos alternos y estado del enlace de datos. Verificar en el sistema de gestión de vuelo (FMS, Flight Management System) que la ruta cargada coincide con la autorización vigente; una ruta cargada no se convierte por ello en autorización.",
+          "**Antes del punto de entrada.** En la operación NAT descrita por OACI, si el vuelo no está ya conectado con ATC, el inicio de sesión CPDLC/ADS-C se realiza hacia la dependencia correspondiente 10–25 minutos antes del límite. Si no se pudieron efectuar las pruebas HF y SELCAL en tierra, se hacen antes de entrar. Se comprueba el resultado real, no solo la indicación de que se pulsó un botón.",
+          "**Contacto con la estación.** La estación aeronáutica asigna primaria y secundaria para voz y comprueba SELCAL. La tripulación registra estación, canales y punto de transferencia; el operador retransmite mensajes, pero la autorización procede del centro de control.",
+          "**Durante el cruce.** Monitorizar conexiones y alertas, verificar destinatario y contenido de cada mensaje, y distinguir posición informada automáticamente de autorización. En la región NAT, los vuelos con ADS-C no duplican por voz los informes rutinarios de posición salvo petición de la estación; las condiciones meteorológicas inusuales, como turbulencia severa, siguen notificándose por voz.",
+          "**Al cambiar de área.** Contactar la estación siguiente según el procedimiento, comprobar SELCAL de nuevo y confirmar frecuencia y conexión con el centro sucesivo. Una prueba válida para la estación anterior no se presupone válida en la transferencia.",
         ],
+      },
+      { kind: "sub", text: "Informes y estimadas: el caso NAT" },
+      {
+        kind: "p",
+        text: "Para vuelos NAT sin informe de posición por ADS-C, el manual establece reportar en los puntos significativos del plan de vuelo cuando la ruta no tiene puntos de notificación designados, salvo otra instrucción ATC. Si la estimada del próximo punto transmitida cambia **tres minutos o más**, se envía una estimada revisada tan pronto como sea posible. Los tiempos se expresan con cuatro cifras en UTC. No se puede trasladar ese umbral a todas las regiones oceánicas: la AIP del Estado y la instrucción de la dependencia determinan el formato y la frecuencia de los informes.",
       },
       {
-        kind: "secuencia",
-        titulo: "El informe de posición (Doc 4444, 4.11.2.1; Doc 9432, 3.4.1)",
-        items: ["Identificación", "Posición", "Hora", "Nivel", "Posición siguiente y hora", "Punto significativo siguiente"],
+        kind: "escenario",
+        titulo: "Enlace de datos degradado durante un cruce NAT",
+        situacion: "Ejercicio didáctico basado en NAT Doc 007, sin vuelo, ruta ni frecuencia inventados. La aeronave mantiene la ruta y el nivel autorizados. CPDLC estaba disponible como medio primario y ADS-C enviaba informes, pero el sistema indica ahora pérdida de conectividad. La estación HF asignada y la prueba SELCAL están registradas como operativas.",
+        preguntas: [
+          { q: "¿Se continúa como si ADS-C siguiera informando automáticamente?", a: "No. La tripulación verifica el estado real de las conexiones y notifica cuanto antes la falla a la dependencia. Los informes por voz o la alternativa concreta dependen de la instrucción recibida y del procedimiento regional." },
+          { q: "¿Se ejecuta un cambio de nivel solicitado por CPDLC antes de perder conexión?", a: "No por el solo envío de la solicitud. Se mantiene el nivel vigente hasta recibir autorización inequívoca por un canal disponible o aplicar una contingencia publicada ante una necesidad de seguridad." },
+          { q: "¿Con quién se establece voz y qué se conserva?", a: "Con la estación aeronáutica pertinente, usando la primaria o secundaria asignada según recepción. Se conserva la autorización actual y se anota cualquier mensaje retransmitido, su colación y confirmación." },
+        ],
+        concepto: "Una falla de un canal cambia el plan de comunicación, no autoriza por sí misma un cambio de trayectoria.",
       },
-      {
-        kind: "hueco",
-        rotulo: "CM-50-01 · Diagrama · 16:9 · 1600×900 px",
-        descripcion:
-          "Imagen sugerida: Ruta sobre el océano de una costa a otra (costas genéricas, sin nombres reales). En la costa de salida: «VHF / radar». En el tramo oceánico, sobre el avión, tres capas rotuladas: «HF + SELCAL (voz)», «CPDLC (autorizaciones)», «ADS-C (posición automática)». Puntos ficticios GIKOS, ODRAK, PUVEL con un globo «informe de posición» en cada uno. En la costa de llegada: «VHF / radar». Un recuadro lateral: «Si falla: CPDLC ↔ HF ↔ SATCOM». Objetivo: Que el piloto vea cómo se reparten los medios en un cruce oceánico y qué respaldo tiene cada uno.",
-        alto: 280,
-      },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "El formato del informe de posición con coordenadas y con Mach («Mach decimal eight two», «five five north two zero west», ejemplos 3 y 4) está sin verificar: NAT Doc 007, documentación del Pacífico y Doc 9432 cap. 8. Las palabras exactas de la aeronotificación especial por voz («special air-report», ejemplo 5): Doc 4444 apéndice 1. El formato y la exigencia de la autorización oceánica (ejemplo 7): NAT Doc 007 y AIP de cada Estado. Los procedimientos de contingencia oceánica y la frecuencia aire-aire regional: Doc 4444 15.2 y Doc 7030.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · Informe de posición en el formato del Doc 9432 (3.4.1), con puntos ficticios",
-        [
-          `PILOT:       "Oceanic Radio, Aviatory 452, GIKOS 47, flight level 330, ODRAK 57, PUVEL next."`,
-          `ATC (radio): "Aviatory 452, roger."`,
-        ],
-        "Significado: sobre GIKOS a los 47, FL330, estima ODRAK a los 57, siguiente PUVEL. Es el mismo orden del ejemplo «FASTAIR 345 WICKEN 47 FL 330 MARLO 57 COLIN NEXT». ROGER aquí basta: es un informe, no una autorización.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Informe con corrección (Doc 9432, 2.8.1.6)",
-        [`PILOT:       "Aviatory 452, GIKOS 47, flight level 330, ODRAK 07, correction ODRAK 57."`],
-        "Significado: «correction» y se repite el grupo correcto.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · Informe con velocidad asignada (Doc 4444, 4.11.2.2; forma de decir el Mach VERIFICAR)",
-        [`PILOT:       "Oceanic Radio, Aviatory 452, GIKOS 1235, flight level 350, Mach decimal eight two, ODRAK 1318, PUVEL next."`],
-        "Significado: con número de Mach asignado, se incluye en cada informe.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Informe con coordenadas (formato VERIFICAR por región: NAT, Pacífico)",
-        [`PILOT:       "Oceanic Radio, Aviatory 452, position five five north two zero west at 1235, flight level 350, estimating five five north three zero west at 1318, next five four north four zero west."`],
-        "Significado: en rutas definidas por latitud y longitud, la posición se dice en coordenadas. Cómo se abrevian y en qué orden se dicen cambia entre regiones.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Aeronotificación especial por voz (contenido Doc 4444, 4.12.3.3; forma de las palabras VERIFICAR)",
-        [`PILOT:       "Oceanic Radio, Aviatory 452, special air-report, TIMSA 1402, flight level 350, severe turbulence."`],
-        "Significado: tipo de mensaje, posición, hora, nivel y la condición. Se transmite tan pronto como sea posible (4.12.1.1).",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · Instrucciones de informe (Doc 9432, 3.4.2)",
-        [
-          `ATC (radio): "Aviatory 452, next report BERUX."`,
-          `PILOT:       "Wilco, Aviatory 452."`,
-        ],
-        "Significado: se sabe dónde es el próximo informe.",
-      ),
-      ...ejemplo(
-        "Ejemplo 7 · Autorización oceánica (formato VERIFICAR; el del Atlántico Norte está en NAT Doc 007)",
-        [
-          `ATC:         "Aviatory 452, cleared to Santa Cleta via GIKOS, (ruta), flight level 350, Mach decimal eight two."`,
-          `PILOT:       (colación completa), "Aviatory 452."`,
-        ],
-        "Significado: ruta, nivel y velocidad de la parte oceánica. Es una autorización de ruta: se colaciona completa (Doc 4444, 4.5.7.5.1 a).",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
       {
         kind: "enLaOperacion",
-        momento: "Un cruce oceánico",
-        texto: "Secuencia típica de un cruce, sujeta al procedimiento de cada región y del operador:",
+        momento: "Transferencia a la siguiente área oceánica",
+        texto: "El piloto que monitorea (PM, Pilot Monitoring) confirma la estación sucesiva, las frecuencias y la sesión de datos; el piloto que vuela (PF, Pilot Flying) conserva y verifica ruta, nivel y velocidad autorizados. Una discrepancia entre FMS y autorización se resuelve antes de que se convierta en desviación. El reparto concreto de tareas y el uso de voz satelital corresponden al procedimiento aprobado del operador y a la AIP del proveedor de servicio.",
         pasos: [
-          "Antes de la costa: autorización oceánica (voz o data link), logon CPDLC/ADS-C, frecuencia HF y SELCAL check.",
-          "En la entrada: comprobar que la ruta del FMS es la autorizada, punto por punto.",
-          "En crucero: CPDLC para solicitudes y autorizaciones; ADS-C reporta; informes por voz solo si no hay ADS-C o si se piden.",
-          "En cada punto: comprobar la estimada al siguiente y corregirla si cambia.",
-          "En la salida del espacio oceánico: transferencia de conexión y regreso a VHF.",
+          "Confirmar quién es la dependencia de control y quién es la estación que presta voz.",
+          "Registrar la prueba SELCAL con la estación sucesiva, incluso con CPDLC operativo cuando así lo exige NAT.",
+          "Si falla un enlace, notificar, recuperar el medio alterno publicado y mantener la autorización vigente.",
         ],
       },
-      { kind: "sub", text: "Error frecuente" },
-      error("Entrar sin autorización oceánica", "Entrar al espacio oceánico sin autorización oceánica donde se exige."),
-      error("Ruta del FMS distinta de la autorizada", "Ruta del FMS distinta de la autorizada (un punto mal copiado): el ADS-C reporta la ruta equivocada y el avión la vuela."),
-      error("Estimada vieja", "Informe de posición con estimada vieja."),
-      error("Sin plan para la falla doble", "No saber qué hacer si falla la HF y el CPDLC al mismo tiempo: la contingencia se estudia antes del vuelo."),
-      error("Aceptar a medio escuchar", "Aceptar por HF una autorización a medio escuchar porque el relevo tarda."),
+      {
+        kind: "callout",
+        tone: "warn",
+        title: "La antigua «autorización oceánica» no es una regla universal",
+        text: "El NAT Doc 007 2026-1 indica entrada con la autorización ATC existente, sin una autorización oceánica separada. Eso no permite cambiar la ruta por cuenta propia ni extrapolar la regla a otro espacio aéreo: cualquier enmienda requiere autorización y cada región tiene sus publicaciones.",
+      },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "En oceánico: HF + SELCAL para voz, CPDLC para control, ADS-C para posición.",
-          "Informe: quién, dónde, cuándo, nivel, próximo y hora, siguiente.",
-          "Estimada que cambia, estimada que se corrige.",
-          "Cada región tiene su formato: se estudia antes de volarla.",
-          "Si algo falla, hay otro medio; la contingencia se prepara en tierra.",
+          "CPDLC comunica; ADS-C informa; HF da voz; SELCAL alerta; SATVOICE depende de aprobación y región.",
+          "La estación aeronáutica retransmite, pero la autorización es del controlador.",
+          "En NAT 2026-1 no se exige una autorización oceánica separada para entrar en ruta; se respeta la autorización vigente.",
+          "La degradación del enlace de datos se notifica y se pasa a la alternativa publicada sin asumir permiso para maniobrar.",
+          "Reportes, estimadas, pruebas y transferencias se ejecutan conforme a la región concreta.",
         ],
       },
       {
         kind: "detalleTecnico",
-        etiqueta: "Fuentes",
-        cita: "Doc 4444 · Doc 9432",
+        etiqueta: "Fuentes y alcance",
+        cita: "OACI NAT Doc 007 2026-1 · FAA AC 91-70D",
         bloques: [
-          { kind: "sub", text: "Verificado" },
-          {
-            kind: "p",
-            text: "Doc 4444 (15.ª ed., Enm. 4) 4.5.7.5.1, 4.11.1.1 a 4.11.1.5, 4.11.2.1, 4.11.2.2, 4.12.1.1, 4.12.3.1, 4.12.3.3, 4.15.1.1; Doc 9432 (4.ª ed.) 2.8.1.6, 3.4.1, 3.4.2.",
-          },
-          { kind: "sub", text: "Por verificar" },
-          {
-            kind: "list",
-            items: [
-              "VERIFICAR: formato del informe de posición con coordenadas y con Mach («Mach decimal eight two», «five five north two zero west») contra NAT Doc 007, documentación del Pacífico y Doc 9432 cap. 8 (no cargados).",
-              "VERIFICAR: palabras exactas de la aeronotificación especial por voz («special air-report») contra Doc 4444 apéndice 1 (no cargado).",
-              "VERIFICAR: formato y exigencia de la autorización oceánica contra NAT Doc 007 y AIP de cada Estado (no cargados).",
-              "VERIFICAR: procedimientos de contingencia oceánica y frecuencia aire-aire regional contra Doc 4444 15.2 y Doc 7030 (no cargados).",
-            ],
-          },
-          { kind: "sub", text: "Convenciones de los ejemplos" },
-          CONVENCIONES,
+          { kind: "p", text: "OACI, NAT Doc 007 edición 2026-1, §§5.1, 5.3 y 6.3.31–6.3.41: medios de comunicación, informes/estimadas, entrada con autorización vigente, pruebas HF/SELCAL y logon 10–25 minutos antes si corresponde: https://www.icao.int/sites/default/files/EURNAT/Documents/EUR%20and%20Nat%20Docs/NAT%20Documents/NAT%20Documents/NAT%20Doc%20007/NAT-Doc-007-EN-Edition-V.2026-1-Amd-0.pdf" },
+          { kind: "p", text: "FAA, AC 91-70D vigente, §4.3: operador de radio HF, colación, SELCAL, datos y alternativas; orientación estadounidense que no reemplaza la AIP del área: https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_91-70D.pdf" },
+          { kind: "p", text: "Para servicios, estaciones, frecuencias y procedimientos colombianos, consultar exclusivamente la AIP/eAIP de Aerocivil. No se dibujó una carta ni una ruta colombiana: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "El diagrama y el escenario son didácticos; no son transcripciones reales, publicaciones de ruta ni sustitutos del manual operacional." },
         ],
       },
     ],
