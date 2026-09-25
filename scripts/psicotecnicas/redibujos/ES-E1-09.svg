@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="790" viewBox="0 0 1100 790" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Modelo de cuatro franjas geométricas y alternativas A a D</title>
+  <desc id="descripcion">Redibujo del ejercicio 9 del cuadernillo E1. La opción D separa demasiado las dos figuras negras; las otras reproducen una franja del modelo.</desc>
+  <defs>
+    <style>
+      .panel { fill: #fafbfc; stroke: #d8dee5; stroke-width: 2; }
+      .rotulo { fill: #202631; font: 700 25px Arial, sans-serif; }
+      .guia { fill: #637182; font: 600 18px Arial, sans-serif; letter-spacing: 1px; }
+      .contorno { fill: #fff; stroke: #515b67; stroke-width: 2; }
+      .negro { fill: #25272c; }
+    </style>
+    <g id="franja-uno">
+      <rect class="contorno" width="100" height="260"/>
+      <path class="negro" d="M0 80 50 52 100 80V207L50 235 0 207Z"/>
+    </g>
+    <g id="franja-dos">
+      <rect class="contorno" width="100" height="260"/>
+      <path class="negro" d="M0 112 50 84 100 112V200L50 228 0 200Z"/>
+      <path class="negro" d="M0 260V228L50 200 100 228V260Z"/>
+    </g>
+    <g id="franja-tres">
+      <rect class="contorno" width="100" height="260"/>
+      <path class="negro" d="M0 0H100V75L50 103 0 75Z"/>
+      <path class="negro" d="M0 138 50 110 100 138V204L50 232 0 204Z"/>
+    </g>
+    <g id="franja-cuatro">
+      <rect class="contorno" width="100" height="260"/>
+      <path class="negro" d="M0 23 50 0 100 23V96L50 124 0 96Z"/>
+      <path class="negro" d="M0 145 50 117 100 145V204L50 232 0 204Z"/>
+    </g>
+    <g id="franja-distinta">
+      <rect class="contorno" width="100" height="260"/>
+      <path class="negro" d="M0 0H100V75L50 103 0 75Z"/>
+      <path class="negro" d="M0 166 50 138 100 166V204L50 232 0 204Z"/>
+    </g>
+  </defs>
+  <rect width="1100" height="790" fill="#fff"/>
+  <text class="guia" x="36" y="40">MODELO</text>
+  <g transform="translate(350 65)">
+    <use href="#franja-uno"/>
+    <use href="#franja-dos" x="100"/>
+    <use href="#franja-tres" x="200"/>
+    <use href="#franja-cuatro" x="300"/>
+  </g>
+  <rect class="panel" x="30" y="350" width="510" height="195" rx="16"/>
+  <rect class="panel" x="560" y="350" width="510" height="195" rx="16"/>
+  <rect class="panel" x="30" y="560" width="510" height="195" rx="16"/>
+  <rect class="panel" x="560" y="560" width="510" height="195" rx="16"/>
+  <text class="rotulo" x="62" y="391">A</text>
+  <use href="#franja-cuatro" transform="translate(250 368) scale(.60)"/>
+  <text class="rotulo" x="592" y="391">B</text>
+  <use href="#franja-dos" transform="translate(780 368) scale(.60)"/>
+  <text class="rotulo" x="62" y="601">C</text>
+  <use href="#franja-uno" transform="translate(250 578) scale(.60)"/>
+  <text class="rotulo" x="592" y="601">D</text>
+  <use href="#franja-distinta" transform="translate(780 578) scale(.60)"/>
+</svg>

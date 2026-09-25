@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="1600" viewBox="0 0 1020 1600" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Completa la matriz de trazos</title>
+  <desc id="descripcion">Ocho recuadros con una cruz y remates oblicuos en diferentes extremos. Falta el noveno; hay cinco alternativas.</desc>
+  <rect width="1020" height="1600" fill="#fff"/>
+  <text x="35" y="50" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif" letter-spacing="1">COMPLETA LA MATRIZ</text>
+  <rect x="23" y="75" width="990" height="655" rx="17" fill="#fff" stroke="#d6e1e3" stroke-width="2"/>
+  <g transform="translate(35 100)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M90 90 L65 112" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g>
+<g transform="translate(365 100)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M140 45 L115 67" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g>
+<g transform="translate(695 100)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M190 90 L165 112" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g>
+<g transform="translate(35 305)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M190 90 L165 68 M140 135 L115 157" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g>
+<g transform="translate(365 305)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M140 45 L115 23 M190 90 L165 112" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g>
+<g transform="translate(695 305)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M90 90 L65 68 M140 45 L115 67" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g>
+<g transform="translate(35 510)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M140 45 L115 67 M190 90 L165 68 M140 135 L115 157 M140 90 L115 112" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g>
+<g transform="translate(365 510)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M140 45 L115 23 M190 90 L165 112 M140 90 L115 112" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g>
+<g transform="translate(695 510)"><rect width="280" height="180" fill="#f3f7f8" stroke="#26353d" stroke-width="3"/><text x="140" y="111" text-anchor="middle" font-size="58" fill="#64748b">?</text></g>
+  <g><rect x="35" y="765" width="460" height="250" rx="15" fill="#fafdfc" stroke="#d6e1e3" stroke-width="2"/>
+    <text x="57" y="808" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif">A</text>
+    <g transform="translate(125 817)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M140 45 L115 67 M90 90 L65 68 M140 90 L165 112" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g></g>
+<g><rect x="535" y="765" width="460" height="250" rx="15" fill="#fafdfc" stroke="#d6e1e3" stroke-width="2"/>
+    <text x="557" y="808" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif">B</text>
+    <g transform="translate(625 817)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M140 45 L115 67 M90 90 L65 112 M140 90 L115 112" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g></g>
+<g><rect x="35" y="1035" width="460" height="250" rx="15" fill="#fafdfc" stroke="#d6e1e3" stroke-width="2"/>
+    <text x="57" y="1078" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif">C</text>
+    <g transform="translate(125 1087)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M140 45 L115 67 M90 90 L65 68 M140 90 L115 112" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g></g>
+<g><rect x="535" y="1035" width="460" height="250" rx="15" fill="#fafdfc" stroke="#d6e1e3" stroke-width="2"/>
+    <text x="557" y="1078" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif">D</text>
+    <g transform="translate(625 1087)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M140 45 L165 67 M90 90 L65 68 M140 90 L165 112" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g></g>
+<g><rect x="35" y="1305" width="460" height="250" rx="15" fill="#fafdfc" stroke="#d6e1e3" stroke-width="2"/>
+    <text x="57" y="1348" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif">E</text>
+    <g transform="translate(125 1357)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M90 90 H190 M140 45 V135 M140 45 L115 67 M140 90 L165 65 L190 90" fill="none" stroke="#26353d" stroke-width="3.3" stroke-linecap="square" stroke-linejoin="miter"/>
+  </g></g>
+</svg>

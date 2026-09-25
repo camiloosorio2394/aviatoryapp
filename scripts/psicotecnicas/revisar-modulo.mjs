@@ -7,7 +7,7 @@
  * cara de arriba— salieron precisamente por ahí: los encontró una persona
  * mirando la pantalla, de uno en uno, por casualidad.
  *
- * Esto es esa misma revisión pero de golpe y en orden: los 238 ejercicios, cada
+ * Esto es esa misma revisión pero de golpe y en orden: los 237 ejercicios, cada
  * uno con lo que se ve, lo que responde y de dónde salió. La idea es recorrerla
  * y apuntar identificadores, que es lo único que hace falta para arreglarlos.
  *
@@ -32,9 +32,10 @@ const servidor = await createServer({
   logLevel: "silent",
 })
 
-let BANCO, dibujo, solucionador, aprobadas
+let BANCO, dibujo, solucionador, aprobadas, ejemplos
 try {
   ;({ BANCO } = await servidor.ssrLoadModule("/src/data/psicotecnicas/index.ts"))
+  ;({ EJEMPLOS_ESPACIAL: ejemplos } = await servidor.ssrLoadModule("/src/data/psicotecnicas/aprende.ts"))
   dibujo = await servidor.ssrLoadModule("/src/lib/psicotecnicasFiguras.ts")
   solucionador = await servidor.ssrLoadModule("/src/lib/psicotecnicasSolucionador.ts")
   ;({ FIGURAS_APROBADAS: aprobadas } = await servidor.ssrLoadModule(
@@ -49,6 +50,9 @@ const escapar = (s) =>
 
 /** En qué estado está cada ejercicio, y por qué. */
 function estadoDe(e) {
+  if (/^ES-E1-(0[1-9]|1[0-4])$|^ES-E2-(07|08|09|10)$/.test(e.id)) {
+    return { clase: "dibujada", texto: "Redibujada · contrastada con el cuadernillo" }
+  }
   if (e.figura) {
     const v = solucionador.resolverFigura(e.figura)
     if (v.estado === "resuelto" && v.opcion === e.respuesta) {
@@ -64,6 +68,9 @@ function estadoDe(e) {
     return { clase: "roja", texto: "Dibujada · sin comprobar" }
   }
   if (e.imagen) {
+    if (e.imagen.endsWith(".svg")) return { clase: "dibujada", texto: "Vectorial · proporciones verificadas" }
+    const didactica = e.imagen.includes("-didactico")
+    if (didactica) return { clase: "dibujada", texto: "Recompuesta · contrastada con el cuadernillo" }
     const limpia = e.imagen.includes("-limpio")
     return {
       clase: limpia ? "recorte" : "roja",
@@ -128,6 +135,16 @@ const secciones = familias
   })
   .join("\n")
 
+const seccionEjemplos = `<section id="ejemplos"><h2>Ejemplos resueltos <small>${ejemplos.length}</small></h2>
+  ${ejemplos.map((e, i) => `<article class="card" data-id="${escapar(e.id)}">
+    <header><span class="num">${i + 1}</span><code class="id">${escapar(e.id)}</code>
+    <span class="pill dibujada">Recompuesta · respuesta visible</span>
+    <button class="copiar" data-copia="${escapar(e.id)}">copiar id</button></header>
+    <h3>${escapar(e.titulo)}</h3>
+    <div class="lamina"><img loading="lazy" src="public${escapar(e.imagen)}" alt="${escapar(e.imagenAlt)}"></div>
+    <p>${escapar(e.respuesta)}</p><footer>${escapar(e.fuente)}</footer>
+  </article>`).join("\n")}</section>`
+
 const conImagen = BANCO.filter((e) => e.imagen && !e.figura).length
 const dibujadas = BANCO.filter((e) => e.figura).length
 
@@ -164,6 +181,7 @@ fs.writeFileSync(
             padding: 3px 9px; font-size: 12px; cursor: pointer; color: #475467 }
   .copiar:hover { background: #f2f4f7 }
   .lamina img { max-width: 100%; border: 1px solid #e3e6ea; border-radius: 8px; display: block }
+  #ejemplos .lamina img { width: min(100%, 720px) }
   .figura { padding: 6px 0 }
   .ops { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px }
   .op { margin: 0; border: 1px solid #d7dbe0; border-radius: 10px; padding: 6px; text-align: center }
@@ -194,10 +212,12 @@ fs.writeFileSync(
     <p><b>Cómo decírmelo.</b> Con el identificador basta: «ES-E2-08 la figura se ve chica»
     es suficiente para llegar al archivo, a la ficha y a la página del cuadernillo. Hay un
     botón «copiar id» en cada tarjeta.</p>
-    <p><b>Lo que ya sé que está mal:</b> los ocho ejemplos del E2 tienen el dibujo mordido
-    en origen, y las catorce del E1 llevan la marca de agua de DaVinci encima de las
-    opciones. Eso solo lo arregla dibujarlas.</p>
+    <p><b>Avance visual:</b> los ejercicios E1-01 a E1-14 y E2-07 a E2-10 están redibujados.
+    Los ocho ejemplos de aprendizaje E2 se recompusieron en láminas verticales; la rotación
+    del ejemplo 14 se adaptó para que el giro de 90° sea geométricamente correcto.
+    Los siete recortes A1 se recompusieron y NU-N1-03 es vectorial.</p>
   </div>
+  ${seccionEjemplos}
   ${secciones}
 </div>
 

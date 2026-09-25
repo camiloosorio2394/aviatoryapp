@@ -17,15 +17,23 @@ import { describirFigura, svgEnunciado, svgOpcion } from "@/lib/psicotecnicasFig
 /** El enunciado: la serie o la matriz, con su hueco. */
 export function FiguraEnunciado({ figura }: { figura: Figura }) {
   return (
-    <div
-      // `text-foreground` es lo que hace que el trazo siga al tema: dentro del
-      // SVG todo se dibuja con `currentColor`, así que en claro es tinta sobre
-      // papel y en oscuro al revés, sin dos juegos de archivos.
-      className="mt-4 flex justify-center overflow-x-auto rounded-xl border border-border bg-card p-3 text-foreground"
-      role="img"
-      aria-label={describirFigura(figura)}
-      dangerouslySetInnerHTML={{ __html: svgEnunciado(figura) }}
-    />
+    <>
+      <div
+        // El mismo papel blanco de las láminas recompuestas, incluso en modo
+        // oscuro. La tinta no cambia de polaridad al pasar de SVG a imagen.
+        className="mt-4 max-w-full overflow-x-auto rounded-xl border border-border bg-white p-3 text-[#16191D] [--card:#fff]"
+        role="img"
+        aria-label={describirFigura(figura)}
+      >
+        <div
+          className="flex w-max min-w-full justify-center"
+          dangerouslySetInnerHTML={{ __html: svgEnunciado(figura) }}
+        />
+      </div>
+      <p className="mt-1.5 text-[12px] text-muted-foreground sm:hidden">
+        Si no ves todas las casillas, desliza la figura hacia los lados.
+      </p>
+    </>
   )
 }
 
@@ -33,7 +41,7 @@ export function FiguraEnunciado({ figura }: { figura: Figura }) {
 export function FiguraOpcion({ figura, indice }: { figura: Figura; indice: number }) {
   return (
     <span
-      className="block text-foreground"
+      className="block rounded-md bg-white p-1 text-[#16191D] [--card:#fff]"
       aria-hidden="true"
       dangerouslySetInnerHTML={{ __html: svgOpcion(figura, indice) }}
     />

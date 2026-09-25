@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="790" viewBox="0 0 1100 790" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Piezas sueltas y cuatro montajes</title>
+  <desc id="descripcion">Redibujo del ejercicio 6 del cuadernillo E1. El modelo muestra un paralelogramo estrecho, un rectángulo corto y una pieza de barra horizontal con dos patas.</desc>
+  <defs>
+    <style>
+      .panel { fill: #fafbfc; stroke: #d8dee5; stroke-width: 2; }
+      .rotulo { fill: #202631; font: 700 25px Arial, sans-serif; }
+      .guia { fill: #637182; font: 600 18px Arial, sans-serif; letter-spacing: 1px; }
+      .trazo { fill: none; stroke: #202631; stroke-width: 3.8; stroke-linecap: square; stroke-linejoin: miter; }
+    </style>
+  </defs>
+
+  <rect width="1100" height="790" fill="#fff"/>
+  <text class="guia" x="36" y="45">PIEZAS DEL MODELO</text>
+  <g transform="translate(390 60) scale(1.12)">
+    <path class="trazo" d="M0 70 26 66 51 160 25 165Z"/>
+    <path class="trazo" d="M111 32H147V98H111Z"/>
+    <path class="trazo" d="M101 125H204 M151 125 128 157 M151 125 174 157"/>
+  </g>
+
+  <rect class="panel" x="30" y="260" width="510" height="250" rx="16"/>
+  <rect class="panel" x="560" y="260" width="510" height="250" rx="16"/>
+  <rect class="panel" x="30" y="525" width="510" height="250" rx="16"/>
+  <rect class="panel" x="560" y="525" width="510" height="250" rx="16"/>
+
+  <text class="rotulo" x="62" y="301">A</text>
+  <g class="trazo" transform="translate(206 316) scale(1.28)">
+    <path d="M46 60 0 60 7 42H46 M82 42H121L128 60H82 M46 28H82V73H46Z M46 60H82 M52 73 64 88 76 73 M17 99H111"/>
+  </g>
+
+  <text class="rotulo" x="592" y="301">B</text>
+  <g class="trazo" transform="translate(736 316) scale(1.28)">
+    <path d="M46 60 0 60 7 42H46 M82 42H121L128 60H82 M46 28H82V73H46Z M46 60H82 M64 28 50 4 M64 28 82 4 M64 73 52 99 M64 73 77 99"/>
+  </g>
+
+  <text class="rotulo" x="62" y="566">C</text>
+  <g class="trazo" transform="translate(206 581) scale(1.28)">
+    <path d="M46 43H82V73H46Z M57 43V0H75V43 M57 73V112H75V73 M46 52 12 28 M46 62 0 82 M82 52 116 28 M82 62 128 82"/>
+  </g>
+
+  <text class="rotulo" x="592" y="566">D</text>
+  <g class="trazo" transform="translate(736 581) scale(1.28)">
+    <path d="M51 6H77V55H51Z M27 55H101L115 75H13Z M51 75 64 95 77 75 M25 105H103"/>
+  </g>
+</svg>

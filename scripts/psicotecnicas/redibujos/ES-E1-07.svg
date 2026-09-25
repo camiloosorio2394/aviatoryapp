@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="790" viewBox="0 0 1100 790" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Dos trazos curvos y cuatro composiciones posibles</title>
+  <desc id="descripcion">Redibujo del ejercicio 7 del cuadernillo E1. El modelo contiene una doble curva abierta hacia arriba y una semicircunferencia inclinada con un rectángulo adosado.</desc>
+  <defs>
+    <style>
+      .panel { fill: #fafbfc; stroke: #d8dee5; stroke-width: 2; }
+      .rotulo { fill: #202631; font: 700 25px Arial, sans-serif; }
+      .guia { fill: #637182; font: 600 18px Arial, sans-serif; letter-spacing: 1px; }
+      .linea { fill: none; stroke: #202631; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="1100" height="790" fill="#fff"/>
+  <text class="guia" x="36" y="45">SUMA DE LAS DOS FIGURAS</text>
+  <g class="linea" transform="translate(382 83) scale(0.9)">
+    <path d="M0 45 C0 115 160 115 160 45 M0 64 C0 155 160 155 160 64"/>
+    <path d="M190 104 354 48 Q340 165 259 158 Q205 156 190 104Z M235 89 224 34 283 18 301 67"/>
+    <path d="M176 68H196 M186 58V78"/>
+  </g>
+
+  <rect class="panel" x="30" y="260" width="510" height="250" rx="16"/>
+  <rect class="panel" x="560" y="260" width="510" height="250" rx="16"/>
+  <rect class="panel" x="30" y="525" width="510" height="250" rx="16"/>
+  <rect class="panel" x="560" y="525" width="510" height="250" rx="16"/>
+
+  <text class="rotulo" x="62" y="301">A</text>
+  <g class="linea" transform="translate(215 295) scale(1.1)">
+    <path d="M0 54 140 44 Q129 103 72 106 Q15 106 0 54Z"/>
+    <path d="M15 89 C15 150 125 150 125 89 M15 114 C15 177 125 177 125 114"/>
+    <path d="M36 49 34 0 91 -8 93 47"/>
+  </g>
+
+  <text class="rotulo" x="592" y="301">B</text>
+  <g class="linea" transform="translate(742 295) scale(1.1)">
+    <path d="M13 88 C13 -7 127 -7 127 88 M0 111 C8 19 131 19 140 111 M10 116 C12 53 128 53 130 116 M20 111V143 M120 111V143"/>
+    <path d="M47 56V110H93V56"/>
+  </g>
+
+  <text class="rotulo" x="62" y="566">C</text>
+  <g class="linea" transform="translate(215 560) scale(1.1)">
+    <path d="M13 88 C13 -7 127 -7 127 88 M0 111 C8 19 131 19 140 111 M10 116 C12 53 128 53 130 116 M20 111V143 M120 111V143"/>
+    <path d="M47 113V164H93V113"/>
+  </g>
+
+  <text class="rotulo" x="592" y="566">D</text>
+  <g class="linea" transform="translate(738 560) scale(1.1)">
+    <path d="M15 112 C-9 51 46 2 91 38 Q116 49 140 79 M15 112 140 79 17 159Z"/>
+    <path d="M75 124 107 176 143 153 111 102"/>
+  </g>
+</svg>

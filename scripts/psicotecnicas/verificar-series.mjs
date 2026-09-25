@@ -1,5 +1,5 @@
 /**
- * Resuelve las 162 series numéricas por cuenta propia y compara.
+ * Resuelve las series numéricas activas por cuenta propia y compara.
  *
  * Por qué hace falta otro verificador. El que ya había, `verificar-respuestas`,
  * no resuelve nada: lee del PDF las operaciones que el propio documento declara
@@ -278,7 +278,7 @@ function intrusoDeducido(n) {
 
 /** Los números del enunciado, sin mirar nada más. */
 function numerosDe(enunciado) {
-  const cuerpo = enunciado.replace(/^.*?:\s*/, "").replace(/[…\.]+\s*$/, "")
+  const cuerpo = enunciado.replace(/^[^:?]*[:?]\s*/, "").replace(/[…\.]+\s*$/, "")
   return cuerpo
     .split(/[,;]/)
     .map((t) => t.trim().replace(/\s/g, "").replace(",", "."))
@@ -292,9 +292,9 @@ const servidor = await createServer({
   appType: "custom",
   logLevel: "silent",
 })
-let SERIES
+let SERIES, PAREJAS_N2_09
 try {
-  ;({ SERIES } = await servidor.ssrLoadModule("/src/data/psicotecnicas/series.ts"))
+  ;({ SERIES_REVISADAS: SERIES, PAREJAS_N2_09 } = await servidor.ssrLoadModule("/src/data/psicotecnicas/seriesRevisadas.ts"))
 } finally {
   await servidor.close()
 }
@@ -306,7 +306,13 @@ const sinRegla = []
 
 for (const e of SERIES) {
   const n = numerosDe(e.enunciado)
-  const delBanco = Number(e.opciones[e.respuesta].replace(/\s/g, "").replace(",", "."))
+  const respuestaTexto = e.opciones[e.respuesta]
+  const delBanco = Number(respuestaTexto.split(" y ")[0].replace(/\s/g, "").replace(",", "."))
+  const pareja = PAREJAS_N2_09[e.id]
+  if (pareja && respuestaTexto !== `${pareja.primero} y ${pareja.segundo}`) {
+    discrepan.push({ id: e.id, deducido: `${pareja.primero} y ${pareja.segundo}`, delBanco: respuestaTexto, regla: "pareja cotejada con la fuente", serie: n })
+    continue
+  }
 
   if (n.length < 4) {
     sinRegla.push({ id: e.id, motivo: `solo se leyeron ${n.length} términos del enunciado` })
@@ -384,8 +390,17 @@ if (ambiguas.length > 0) {
 if (sinRegla.length > 0) {
   console.log()
   console.log(ambar(`Sin regla en la familia (${sinRegla.length}):`))
-  for (const s of sinRegla.slice(0, 25)) console.log(`  ${ambar("·")} ${s.id}: ${s.motivo}`)
-  if (sinRegla.length > 25) console.log(tenue(`  … y ${sinRegla.length - 25} más`))
+  const detalle = process.argv.includes("--detalle")
+  for (const s of detalle ? sinRegla : sinRegla.slice(0, 25)) {
+    console.log(`  ${ambar("·")} ${s.id}: ${s.motivo}`)
+    if (detalle) {
+      const ejercicio = SERIES.find((e) => e.id === s.id)
+      console.log(`     ${ejercicio.enunciado}`)
+      console.log(`     respuesta: ${ejercicio.opciones[ejercicio.respuesta]}`)
+      console.log(`     ${ejercicio.explicacion}`)
+    }
+  }
+  if (!detalle && sinRegla.length > 25) console.log(tenue(`  … y ${sinRegla.length - 25} más`))
 }
 
 console.log()

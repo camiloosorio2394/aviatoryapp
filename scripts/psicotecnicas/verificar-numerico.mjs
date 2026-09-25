@@ -1,5 +1,5 @@
 /**
- * Recalcula los 38 ejercicios de opción múltiple de razonamiento numérico.
+ * Recalcula los ejercicios activos de opción múltiple de razonamiento numérico.
  *
  * Uso:
  *   node scripts/psicotecnicas/verificar-numerico.mjs
@@ -211,4 +211,4 @@ if (fallos.length > 0) {
   for (const f of fallos) console.error(`  · ${f}`)
   process.exit(1)
 }
-console.log("✓ los 38 coinciden con el cálculo hecho desde el enunciado")
+console.log(`✓ los ${comprobados} coinciden con el cálculo hecho desde el enunciado`)

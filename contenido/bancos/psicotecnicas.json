@@ -13,7 +13,7 @@
         "E"
       ],
       "correcta": 2,
-      "explicacion": "Solo cambian dos cosas: si está o no el segmento vertical que baja del vértice, y en qué esquinas de la base aparecen los trazos cortos. Siguiendo ambas por separado, la casilla vacía pide la combinación de la C. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Solo cambian dos cosas: si está o no el segmento vertical que baja del vértice, y en qué esquinas de la base aparecen los trazos cortos. Siguiendo ambas por separado, la casilla vacía pide la combinación de la C. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 01/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -242,7 +242,7 @@
         "E"
       ],
       "correcta": 3,
-      "explicacion": "El rombo es fijo; lo que se mueve son las líneas de dentro, que se van añadiendo en un orden constante y girando de lado. La D es la única que continúa las dos cosas a la vez. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "El rombo no cambia. Cuenta sus brazos interiores en el orden de lectura: 1, 2, 3, 4, 3, 2, 1, 2 y luego deben ser 3. Solo la D tiene tres brazos; no hace falta suponer un giro que la matriz no demuestra. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 02/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -498,7 +498,7 @@
         "E"
       ],
       "correcta": 4,
-      "explicacion": "Hay tres elementos independientes: el cuadrado central, los puntos y los cuadraditos negros, y cada uno tiene su propio recorrido por el marco. Conviene tapar dos y seguir solo el tercero. La combinación pendiente es la E. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Hay tres elementos independientes: el cuadrado central, los puntos y los cuadraditos negros, y cada uno tiene su propio recorrido por el marco. Conviene tapar dos y seguir solo el tercero. La combinación pendiente es la E. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 03/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -686,7 +686,7 @@
         "E"
       ],
       "correcta": 0,
-      "explicacion": "Dos atributos a la vez: la orientación de la pieza —que gira un cuarto de vuelta cada paso— y su relleno, que rota entre rayado, punteado y blanco. La A es la que cierra las dos series. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "La punta y el relleno avanzan juntos por un ciclo de tres estados: arriba con rayado, abajo con punteado y derecha en blanco. Cada fila empieza un estado más adelante. Tras derecha y arriba, falta abajo con punteado: la A. La orientación de la barra interior no determina la respuesta. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 04/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -714,7 +714,8 @@
                 {
                   "tipo": "pieza-punta",
                   "mira": "abajo",
-                  "relleno": "punteado"
+                  "relleno": "punteado",
+                  "barra": "vertical"
                 }
               ]
             },
@@ -724,7 +725,8 @@
                 {
                   "tipo": "pieza-punta",
                   "mira": "derecha",
-                  "relleno": "blanco"
+                  "relleno": "blanco",
+                  "barra": "horizontal"
                 }
               ]
             },
@@ -734,7 +736,30 @@
                 {
                   "tipo": "pieza-punta",
                   "mira": "abajo",
-                  "relleno": "punteado"
+                  "relleno": "punteado",
+                  "barra": "vertical"
+                }
+              ]
+            },
+            {
+              "marco": true,
+              "elementos": [
+                {
+                  "tipo": "pieza-punta",
+                  "mira": "derecha",
+                  "relleno": "blanco",
+                  "barra": "horizontal"
+                }
+              ]
+            },
+            {
+              "marco": true,
+              "elementos": [
+                {
+                  "tipo": "pieza-punta",
+                  "mira": "arriba",
+                  "relleno": "rayado-diagonal",
+                  "barra": "vertical"
                 }
               ]
             },
@@ -754,27 +779,8 @@
                 {
                   "tipo": "pieza-punta",
                   "mira": "arriba",
-                  "relleno": "rayado-diagonal"
-                }
-              ]
-            },
-            {
-              "marco": true,
-              "elementos": [
-                {
-                  "tipo": "pieza-punta",
-                  "mira": "derecha",
-                  "relleno": "blanco"
-                }
-              ]
-            },
-            {
-              "marco": true,
-              "elementos": [
-                {
-                  "tipo": "pieza-punta",
-                  "mira": "arriba",
-                  "relleno": "rayado-diagonal"
+                  "relleno": "rayado-diagonal",
+                  "barra": "vertical"
                 }
               ]
             },
@@ -848,7 +854,7 @@
         "E"
       ],
       "correcta": 1,
-      "explicacion": "Aquí lo único que cambia es cómo se reparte el rectángulo y con qué relleno: negro, rayado o blanco. Las nueve casillas agotan las combinaciones, y la que falta es la B. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Aquí lo único que cambia es cómo se reparte el rectángulo y con qué relleno: negro, rayado o blanco. Las nueve casillas agotan las combinaciones, y la que falta es la B. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 05/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -1023,7 +1029,7 @@
         "E"
       ],
       "correcta": 2,
-      "explicacion": "Dos atributos que corren en paralelo: el relleno de la forma de arriba (negro, blanco, rayado) y hacia qué lado abre el gancho de abajo. Cruzando ambos, falta la C. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Dos atributos que corren en paralelo: el relleno de la forma de arriba (negro, blanco, rayado) y hacia qué lado abre el gancho de abajo. Cruzando ambos, falta la C. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 06/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -1211,7 +1217,7 @@
         "E"
       ],
       "correcta": 0,
-      "explicacion": "Tres elementos —triángulo, cruz y barra negra— y cada fila los reparte de otra manera, pero ninguno se repite dos veces en la misma posición dentro de una fila. Con esa restricción, la casilla vacía solo admite la A. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Tres elementos —triángulo, cruz y barra negra— y cada fila los reparte de otra manera, pero ninguno se repite dos veces en la misma posición dentro de una fila. Con esa restricción, la casilla vacía solo admite la A. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 07/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -1399,14 +1405,14 @@
         "E"
       ],
       "correcta": 3,
-      "explicacion": "Las diagonales dividen cada rectángulo en cuatro sectores y lo que cambia es cuál se rellena y con qué: negro o rayado. Se sigue primero el sector y después el relleno. Falta la D. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Las dos diagonales son el marco fijo; separa el relleno de arriba del pequeño bloque interior. En la última fila, la zona superior pasa de negra a blanca y luego debe quedar rayada. Sobre la diagonal principal, el bloque horizontal aparece rayado, blanco y finalmente negro. Solo la D combina zona superior rayada con bloque negro horizontal; B deja ese bloque blanco y C lo convierte en una franja vertical. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 08/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Patrones",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-08-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-08-didactico.svg",
         "imagenAlt": "Matriz de rectángulos cruzados por sus diagonales, con sectores rellenos en negro o en rayado vertical.",
         "opcionesEnImagen": true
       }
@@ -1422,7 +1428,7 @@
         "E"
       ],
       "correcta": 4,
-      "explicacion": "El círculo y el triángulo llevan cada uno su propio ciclo: el círculo sube y baja, el triángulo alterna la punta hacia arriba y hacia abajo. La E es la que cumple los dos ciclos. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "El círculo y el triángulo llevan cada uno su propio ciclo: el círculo sube y baja, el triángulo alterna la punta hacia arriba y hacia abajo. La E es la que cumple los dos ciclos. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 09/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -1584,14 +1590,14 @@
         "E"
       ],
       "correcta": 1,
-      "explicacion": "El armazón de diagonales se mantiene y lo que viaja es el triángulo pequeño, que además cambia entre negro y rayado. Siguiendo su recorrido y su relleno, la respuesta es la B. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Sigue dos ciclos, no la figura completa: el armazón apunta abajo, derecha y arriba, y ese orden se desplaza una casilla en cada fila. El triángulo pequeño alterna rayado, sin relleno y negro. En la última casilla toca armazón hacia la derecha y triángulo sin relleno, apuntando a la derecha: B. La D conserva el armazón, pero cambia la orientación del triángulo pequeño. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 10/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Transformaciones",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-10-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-10-didactico.svg",
         "imagenAlt": "Matriz de rectángulos con líneas diagonales y un triángulo pequeño que cambia de posición y de relleno.",
         "opcionesEnImagen": true
       }
@@ -1607,7 +1613,7 @@
         "E"
       ],
       "correcta": 0,
-      "explicacion": "Tres atributos, y el tercero está fuera del recuadro. La letra y el relleno del lomo van como un sudoku: las tres letras y los tres rellenos en cada fila y en cada columna, sin repetirse. Eso ya pide la A con el lomo rayado. Falta mirar el tallo que cuelga de cada cuadro: la barra del final aparece dos veces por fila y dos por columna, así que a la casilla vacía le toca sin barra, y ahí se cae la D. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Tres atributos, y el tercero está fuera del recuadro. La letra y el relleno del lomo van como un sudoku: las tres letras y los tres rellenos en cada fila y en cada columna, sin repetirse. Eso ya pide la A con el lomo rayado. Falta mirar el tallo que cuelga de cada cuadro: la barra del final aparece dos veces por fila y dos por columna, así que a la casilla vacía le toca sin barra, y ahí se cae la D. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 11/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -1795,7 +1801,7 @@
         "E"
       ],
       "correcta": 4,
-      "explicacion": "Dos sudokus encima del mismo tablero. El símbolo —asterisco, viga, línea— sale una vez en cada fila y en cada columna; la cantidad hace lo mismo con el tres, el cuatro y el cinco. Conviene contar antes de mirar la forma. En la fila del hueco ya están el cuatro y el cinco, y en su columna el cinco y el cuatro: solo cabe el tres, y el símbolo que falta es la línea. La E es tres líneas. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Dos sudokus encima del mismo tablero. El símbolo —asterisco, viga, línea— sale una vez en cada fila y en cada columna; la cantidad hace lo mismo con el tres, el cuatro y el cinco. Conviene contar antes de mirar la forma. En la fila del hueco ya están el cuatro y el cinco, y en su columna el cinco y el cuatro: solo cabe el tres, y el símbolo que falta es la línea. La E es tres líneas. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 12/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -1994,14 +2000,14 @@
         "E"
       ],
       "correcta": 3,
-      "explicacion": "El círculo con su cuerda es el fondo; lo que hay que seguir son las tres formas pequeñas, cada una con su recorrido. Son tres series a la vez, y por eso conviene resolverlas de una en una. Queda la D. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "El arco y la cuerda son la referencia fija. Sigue por separado el triángulo, el cuadrado y el círculo: la pieza que falta los muestra arriba, abajo y a la izquierda del arco, respectivamente. La C parece casi igual, pero coloca el círculo dentro del arco; la D lo deja fuera, como exige la matriz. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 13/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Matrices",
         "nivel": "avanzado",
         "tiempo": 75,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-13-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-13-didactico.svg",
         "imagenAlt": "Matriz con un círculo cortado por una cuerda y tres formas pequeñas —triángulo, cuadrado y circunferencia— colocadas alrededor.",
         "opcionesEnImagen": true
       }
@@ -2017,14 +2023,14 @@
         "E"
       ],
       "correcta": 1,
-      "explicacion": "Aquí hay una pista numérica: los números avanzan de uno en uno leyendo la matriz en orden, y a la vez el sector negro gira una posición fija en cada paso. El número que toca y la posición del sector coinciden solo en la B. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Separa tres pistas. La última fila lleva 3, 6 y 9, así que falta el 9. La cuña negra avanza un cuadrante en sentido horario al recorrer cada fila: en la última toca el superior izquierdo. La línea diagonal sigue su propio recorrido y debe salir hacia abajo a la derecha. A y B tienen 9 y la cuña correcta, pero solo B coloca también la diagonal donde corresponde. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 14/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Secuencias de figuras",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-14-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-14-didactico.svg",
         "imagenAlt": "Matriz de circunferencias divididas en sectores, con un número dentro y un sector negro que gira.",
         "opcionesEnImagen": true
       }
@@ -2040,14 +2046,14 @@
         "E"
       ],
       "correcta": 2,
-      "explicacion": "Todas las casillas son la misma figura girada; lo difícil es que hay poco a lo que agarrarse. Conviene fijar un trazo concreto —el más largo, por ejemplo— y medir cuánto gira de casilla a casilla. Con ese giro constante, la respuesta es la C. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "La cruz larga permanece fija; no hay que girar la figura entera. Mira los remates oblicuos por separado: en la última casilla el extremo izquierdo debe subir, el superior debe bajar hacia la izquierda y aparece un trazo corto que sale del centro hacia abajo a la izquierda. Esa combinación es la C. En B el remate izquierdo baja; en A el remate central va hacia la derecha. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 15/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Rotación de elementos",
         "nivel": "avanzado",
         "tiempo": 75,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-15-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-15-didactico.svg",
         "imagenAlt": "Matriz con una cruz de la que salen trazos cortos en los extremos, en distintas orientaciones.",
         "opcionesEnImagen": true
       }
@@ -2063,15 +2069,15 @@
         "E"
       ],
       "correcta": 1,
-      "explicacion": "Cada casilla reparte tres rellenos —rayado, cuadrícula y blanco— entre los cuadrantes, y lo que rota es en qué cuadrante cae cada uno. Siguiendo la rotación, falta la B. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "No basta con ver dos sectores sombreados: también importa la dirección de las rayas. En la última fila, los dos sectores rayados pasan de la mitad inferior a la superior. La pieza buscada debe conservar ambos sectores superiores con rayas diagonales opuestas, como la B. A, C y D usan rayas verticales; E no reúne los dos sectores arriba. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 16/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Patrones",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-16-limpio.webp",
-        "imagenAlt": "Matriz de rectángulos partidos en cuatro cuadrantes, rellenos con rayado diagonal, cuadrícula o blanco.",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-16-didactico.svg",
+        "imagenAlt": "Matriz de rectángulos divididos en cuatro sectores; las rayas cambian de posición y dirección.",
         "opcionesEnImagen": true
       }
     },
@@ -2086,7 +2092,7 @@
         "E"
       ],
       "correcta": 2,
-      "explicacion": "Lo primero es mirar bien las puntas: no se tiñe la punta entera, se tiñe media. En la primera fila, la de arriba a la izquierda; en la segunda, la de abajo a la derecha; en la tercera, las dos. El relleno del remate también va por filas: blanco, rayado y negro. Y la forma del remate es un sudoku —torre, triángulo y plancha una vez por fila y por columna—, igual que el cuerpo. Al hueco le tocan las dos medias puntas, la torre negra y el cuerpo rayado, que es la C. Las rayas que parten el cuerpo no cuentan: ninguna alternativa las lleva. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Lo primero es mirar bien las puntas: no se tiñe la punta entera, se tiñe media. En la primera fila, la de arriba a la izquierda; en la segunda, la de abajo a la derecha; en la tercera, las dos. El relleno del remate también va por filas: blanco, rayado y negro. Y la forma del remate es un sudoku —torre, triángulo y plancha una vez por fila y por columna—, igual que el cuerpo. Al hueco le tocan las dos medias puntas, la torre negra y el cuerpo rayado, que es la C. Las rayas que parten el cuerpo no cuentan: ninguna alternativa las lleva. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 17/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -2313,14 +2319,14 @@
         "E"
       ],
       "correcta": 3,
-      "explicacion": "Tres atributos independientes: la letra, en qué sector cae el triángulo negro y dónde está el punto. Cada uno se repite una vez por fila y una por columna. Cruzando los tres, la casilla vacía solo admite la D. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "La letra cambia por fila —A, B, C— y el triángulo grande pasa del sector superior izquierdo al superior derecho y luego al inferior derecho. Hay un tercer ciclo: casilla sin marca, pequeña zona negra y punto; esos tres estados se desplazan una posición en cada fila. En el hueco toca C, triángulo grande abajo a la derecha y pequeña zona negra a la izquierda. La D reúne los tres rasgos. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 18/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Matrices",
         "nivel": "avanzado",
         "tiempo": 75,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-18-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-18-didactico.svg",
         "imagenAlt": "Matriz de rectángulos con diagonales, una letra (A, B o C), un triángulo negro y un punto que se desplazan.",
         "opcionesEnImagen": true
       }
@@ -2336,7 +2342,7 @@
         "E"
       ],
       "correcta": 4,
-      "explicacion": "Dos series a la vez: cuántos puntos hay —que sube y baja siguiendo su propio ritmo— y dónde se coloca la figura angular respecto de la diagonal. Contar primero y mirar la posición después evita perderse. Queda la E. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Dos series a la vez: cuántos puntos hay —que sube y baja siguiendo su propio ritmo— y dónde se coloca la figura angular respecto de la diagonal. Contar primero y mirar la posición después evita perderse. Queda la E. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 19/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -2632,7 +2638,7 @@
         "E"
       ],
       "correcta": 0,
-      "explicacion": "Es la más cargada de la serie: conviven el triángulo negro, el rayado, y la pareja de círculo y cuadrado enlazados. Con tantos elementos, la única forma de no perderse es taparlos todos menos uno y seguir ese hasta el final, y repetir. La combinación que falta es la A. El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; la casilla que falta es la combinación que todavía no ha aparecido.",
+      "explicacion": "Es la más cargada de la serie: conviven el triángulo negro, el rayado, y la pareja de círculo y cuadrado enlazados. Con tantos elementos, la única forma de no perderse es taparlos todos menos uno y seguir ese hasta el final, y repetir. La combinación que falta es la A. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 20/20",
       "metadatos": {
         "categoria": "abstracto",
@@ -3125,7 +3131,7 @@
     },
     {
       "id": "ES-E1-05",
-      "enunciado": "A continuación se muestra un papel que ha sido plegado y agujereado según se muestra. Elige, entre las respuestas, la que se ajusta al papel una vez desplegado completamente:",
+      "enunciado": "Tras doblar y perforar el papel como indica la figura, ¿cómo quedan los agujeros al abrirlo por completo?",
       "opciones": [
         "A",
         "B",
@@ -3147,7 +3153,7 @@
     },
     {
       "id": "ES-E1-06",
-      "enunciado": "Indica qué figura, de las 4 opciones, corresponde a la figura descompuesta de la izquierda:",
+      "enunciado": "¿Qué montaje se puede formar con las tres piezas de la izquierda, sin cambiar sus formas?",
       "opciones": [
         "A",
         "B",
@@ -3155,7 +3161,7 @@
         "D"
       ],
       "correcta": 0,
-      "explicacion": "Se montan las piezas sin girarlas más de lo que permite el enunciado y se comprueba que ninguna se solape ni sobre material. Las opciones B, C y D exigen deformar o duplicar alguna de las dos piezas; la A las usa tal cual.",
+      "explicacion": "Se montan las tres piezas conservando sus contornos y se comprueba que ninguna se solape ni sobre material. Las opciones B, C y D alteran o colocan mal algún trazo; la A conserva la combinación mostrada.",
       "referencia": "Test razonamiento espacial (670006116), ej. 6",
       "metadatos": {
         "categoria": "espacial",
@@ -3163,13 +3169,13 @@
         "nivel": "intermedio",
         "tiempo": 45,
         "imagen": "/psicotecnicas/espacial/ES-E1-06.webp",
-        "imagenAlt": "Dos piezas sueltas a la izquierda y cuatro montajes posibles A a D dentro de recuadros.",
+        "imagenAlt": "Tres piezas sueltas a la izquierda y cuatro montajes posibles A a D dentro de recuadros.",
         "opcionesEnImagen": true
       }
     },
     {
       "id": "ES-E1-07",
-      "enunciado": "Decide cuál de las 4 vistas corresponde a la figura resultante de la izquierda una vez sumadas:",
+      "enunciado": "Si superpones los dos trazos de la izquierda sin girarlos, ¿qué figura obtienes?",
       "opciones": [
         "A",
         "B",
@@ -3191,7 +3197,7 @@
     },
     {
       "id": "ES-E1-08",
-      "enunciado": "Completa la figura con una de las opciones:",
+      "enunciado": "¿Qué opción reproduce la silueta blanca del modelo?",
       "opciones": [
         "A",
         "B",
@@ -3199,7 +3205,7 @@
         "D"
       ],
       "correcta": 0,
-      "explicacion": "El truco es mirar el borde por donde se corta, no el interior del parche: la línea de la mancha tiene que continuar sin salto al colocar la pieza. Solo la A empalma el contorno; las demás dejan un escalón visible.",
+      "explicacion": "Hay que comparar la silueta completa, incluidos los salientes pequeños y los dos puntos separados de abajo. A conserva esas posiciones y tamaños; en las demás cambia al menos uno de esos detalles.",
       "referencia": "Test razonamiento espacial (670006116), ej. 8",
       "metadatos": {
         "categoria": "espacial",
@@ -3207,7 +3213,7 @@
         "nivel": "basico",
         "tiempo": 45,
         "imagen": "/psicotecnicas/espacial/ES-E1-08.webp",
-        "imagenAlt": "Una mancha blanca sobre fondo negro a la que le falta un trozo, y cuatro parches A a D.",
+        "imagenAlt": "Una silueta blanca sobre fondo oscuro y cuatro siluetas negras A a D para comparar.",
         "opcionesEnImagen": true
       }
     },
@@ -3221,7 +3227,7 @@
         "D"
       ],
       "correcta": 3,
-      "explicacion": "Tres de las cuatro son el mismo fragmento del modelo girado; la cuarta está espejada, y una figura espejada no se obtiene girando en el plano. Ese es el criterio que la delata: la D.",
+      "explicacion": "A, B y C reproducen franjas del modelo. En D, la separación blanca entre la punta de la figura superior y la figura inferior es mayor que en la franja correspondiente; esa distancia la delata.",
       "referencia": "Test razonamiento espacial (670006116), ej. 9",
       "metadatos": {
         "categoria": "espacial",
@@ -3235,7 +3241,7 @@
     },
     {
       "id": "ES-E1-10",
-      "enunciado": "Al puzle le faltan dos piezas, una de ellas está a la derecha del mismo. ¿Cuál de las cuatro piezas de la derecha es la otra pieza que completa el puzle?",
+      "enunciado": "Al puzle le faltan dos piezas. Una ya está identificada a la derecha: ¿cuál de las otras cuatro completa el espacio restante?",
       "opciones": [
         "A",
         "B",
@@ -3257,7 +3263,7 @@
     },
     {
       "id": "ES-E1-11",
-      "enunciado": "Indique cuál, de las cuatro respuestas, corresponde a la figura original una vez que se le extraiga el trozo indicado:",
+      "enunciado": "Si retiras el fragmento señalado de la pieza original, ¿qué forma queda?",
       "opciones": [
         "A",
         "B",
@@ -3279,7 +3285,7 @@
     },
     {
       "id": "ES-E1-12",
-      "enunciado": "Indique cuál, de las cuatro respuestas, corresponde a la figura original una vez que se le extraiga el trozo indicado:",
+      "enunciado": "¿Cuál es el sólido que queda tras extraer el fragmento indicado?",
       "opciones": [
         "A",
         "B",
@@ -3301,7 +3307,7 @@
     },
     {
       "id": "ES-E1-13",
-      "enunciado": "¿Cuántas veces la figura de la izquierda taparía los huecos de la figura de la derecha?",
+      "enunciado": "Si usas la pieza de la izquierda como unidad de superficie, ¿cuántas necesitas para cubrir las zonas blancas de la derecha?",
       "opciones": [
         "4",
         "5",
@@ -3322,7 +3328,7 @@
     },
     {
       "id": "ES-E1-14",
-      "enunciado": "¿Cuántas veces la figura de la izquierda taparía los huecos de la figura de la derecha?",
+      "enunciado": "¿Cuántas copias de la pieza de la izquierda equivalen al área blanca total de la figura derecha?",
       "opciones": [
         "8",
         "7",
@@ -3343,7 +3349,7 @@
     },
     {
       "id": "ES-E2-07",
-      "enunciado": "En la siguiente figura, calcule la menor cantidad de cubitos que faltan para construir un cubo sólido.",
+      "enunciado": "¿Cuántos cubitos faltan, como mínimo, para completar un cubo sólido que contenga toda esta figura?",
       "opciones": [
         "12",
         "17",
@@ -3409,7 +3415,7 @@
     },
     {
       "id": "ES-E2-10",
-      "enunciado": "De acuerdo al gráfico, ¿cuál es la cantidad de puntos no visibles?",
+      "enunciado": "Entre los dos dados, ¿cuántos puntos hay en las caras que no se ven?",
       "opciones": [
         "25",
         "26",
@@ -3418,7 +3424,7 @@
         "20"
       ],
       "correcta": 0,
-      "explicacion": "Un dado suma 1 + 2 + 3 + 4 + 5 + 6 = 21 puntos, así que los dos juntos suman 42. No visibles son todas las caras que no se ven: las tres traseras de cada dado, la que apoya en la mesa y las dos caras que quedan pegadas entre los dos dados. Restando los 17 puntos a la vista de los 42 totales quedan 25.",
+      "explicacion": "Cada dado suma 1 + 2 + 3 + 4 + 5 + 6 = 21 puntos; entre los dos hay 42. En la lámina se ven cinco caras: dos frentes de 5, dos lados de 3 y una cara superior de 1. Eso suma 5 + 5 + 3 + 3 + 1 = 17 puntos visibles. Los demás, incluidas las caras de contacto y las que miran hacia atrás o hacia la mesa, suman 42 − 17 = 25.",
       "referencia": "Test de razonamiento espacial (667045629), pregunta 10",
       "metadatos": {
         "categoria": "espacial",
@@ -3426,7 +3432,7 @@
         "nivel": "avanzado",
         "tiempo": 75,
         "imagen": "/psicotecnicas/espacial/ES-E2-10-limpio.webp",
-        "imagenAlt": "Dos dados apilados uno sobre otro, encima de una mesa."
+        "imagenAlt": "Dos dados apilados sobre una mesa: cada frente muestra cinco puntos, cada lado derecho tres y la cara superior visible uno."
       }
     },
     {
@@ -3484,27 +3490,8 @@
         "subcategoria": "Aplicación del área",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/numerico/NU-N1-03.webp",
+        "imagen": "/psicotecnicas/numerico/NU-N1-03-didactico.svg",
         "imagenAlt": "Figura con forma de casa: un cuadrado de lado 2 con un triángulo encima; los cuatro lados marcados miden 2."
-      }
-    },
-    {
-      "id": "NU-N1-04",
-      "enunciado": "¿Cuántos grupos de 5 letras se pueden formar de la palabra Matemáticas?",
-      "opciones": [
-        "120",
-        "144",
-        "462",
-        "720"
-      ],
-      "correcta": 2,
-      "explicacion": "«Matemáticas» tiene 11 letras y un grupo no distingue el orden, así que es una combinación: C(11,5) = 11!/(5!·6!) = 462. Si el orden importara sería una permutación y el número sería mucho mayor.",
-      "referencia": "Razonamiento Numérico (256486461), ej. 4",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Permutación y combinación",
-        "nivel": "intermedio",
-        "tiempo": 60
       }
     },
     {
@@ -3574,7 +3561,7 @@
         "24"
       ],
       "correcta": 2,
-      "explicacion": "Al llevar los cuatro vértices al centro, cada esquina doblada tapa exactamente un cuarto de la superficie que ocupaba, y la figura que queda es la mitad del cuadrado original. Área = 36/2 = 18 cm². La figura resultante es otro cuadrado, girado 45°.",
+      "explicacion": "Cada esquina plegada es un triángulo rectángulo de catetos 3 cm y área 4,5 cm². Los cuatro pliegues recortan 18 cm² del contorno original; el cuadrado visible que queda tiene área 36 − 18 = 18 cm² y está girado 45°.",
       "referencia": "Razonamiento Numérico (256486461), ej. 8",
       "metadatos": {
         "categoria": "numerico",
@@ -3585,7 +3572,7 @@
     },
     {
       "id": "NU-N1-09",
-      "enunciado": "Víctor lanza 3 monedas al aire y obtiene los siguientes posibles resultados: E = {ccc, ccs, csc, css, scc, scs, ssc, sss}, donde C es cara y S es sello. ¿Cuál es la probabilidad de que salgan por lo menos 2 caras?",
+      "enunciado": "Víctor lanza 3 monedas equilibradas. Si C es cara y S es sello, los resultados posibles son {CCC, CCS, CSC, CSS, SCC, SCS, SSC, SSS}. ¿Cuál es la probabilidad de obtener al menos 2 caras?",
       "opciones": [
         "1/8",
         "1/4",
@@ -3623,7 +3610,7 @@
     },
     {
       "id": "NU-N1-12",
-      "enunciado": "El movimiento de una partícula se describe con la expresión h = −t² + 5t + c, donde h es la distancia recorrida en metros, t el tiempo en minutos y c una constante. Si una partícula recorrió 12 metros en 2 minutos, ¿cuántos metros recorrerá en 4 minutos?",
+      "enunciado": "Una magnitud h, en metros, depende del tiempo t, en minutos, según h(t) = −t² + 5t + c. Si h(2) = 12, ¿cuánto vale h(4)?",
       "opciones": [
         "6",
         "10",
@@ -3661,7 +3648,7 @@
     },
     {
       "id": "NU-N1-14",
-      "enunciado": "Identifique el elemento que completa la serie: A1, B1, C3, E5, H8, ___ , U21",
+      "enunciado": "Identifique el elemento que completa la serie: A1, B2, C3, E5, H8, ___ , U21",
       "opciones": [
         "I12",
         "L12",
@@ -3669,32 +3656,13 @@
         "M13"
       ],
       "correcta": 3,
-      "explicacion": "Hay que leer las dos series a la vez. Los números son Fibonacci: 1, 1, 3… en realidad 1, 1, 2, 3, 5, 8, 13, 21, y las letras ocupan exactamente esa posición en el alfabeto: A=1, B=2, C=3, E=5, H=8, ?=13, U=21. La posición 13 es la M, así que el término es M13. Las opciones con 12 rompen la serie numérica.",
+      "explicacion": "Usa el alfabeto latino de 26 letras, sin Ñ: A, B, C, E, H, M y U ocupan las posiciones 1, 2, 3, 5, 8, 13 y 21. El número escrito al lado repite esa posición. Cada posición resulta de sumar las dos anteriores; por eso entre H8 y U21 va M13. El original imprimía B1; aquí se corrigió a B2 para que letras y números sigan la misma regla.",
       "referencia": "Razonamiento Numérico (256486461), ej. 14",
       "metadatos": {
         "categoria": "numerico",
         "subcategoria": "Sucesiones alfanuméricas",
         "nivel": "avanzado",
         "tiempo": 75
-      }
-    },
-    {
-      "id": "NU-N1-15",
-      "enunciado": "Identifique el término que completa la sucesión: B, d, g, __, U",
-      "opciones": [
-        "J",
-        "K",
-        "L",
-        "N"
-      ],
-      "correcta": 1,
-      "explicacion": "Se traducen las letras a su posición: B=2, d=4, g=7. Los saltos crecen de uno en uno: +2, +3, +4… El siguiente salto es +4 sobre 7, que da 11, y la undécima letra es la K.",
-      "referencia": "Razonamiento Numérico (256486461), ej. 15",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Sucesiones alfanuméricas",
-        "nivel": "intermedio",
-        "tiempo": 60
       }
     },
     {
@@ -3707,7 +3675,7 @@
         "12"
       ],
       "correcta": 3,
-      "explicacion": "El triángulo rectángulo de catetos 3 y 4 tiene área (3×4)/2 = 6 cm². El rectángulo mide 6 × 12 = 72 cm². Caben 72/6 = 12.",
+      "explicacion": "Cada triángulo tiene área (3 × 4)/2 = 6 cm²; el rectángulo tiene 6 × 12 = 72 cm². La división da 12 triángulos. Aquí también se pueden acomodar sin huecos: divide el rectángulo en seis piezas de 3 × 4 cm y corta cada una por su diagonal.",
       "referencia": "Razonamiento Numérico (256486461), ej. 16",
       "metadatos": {
         "categoria": "numerico",
@@ -3718,7 +3686,7 @@
     },
     {
       "id": "NU-N1-17",
-      "enunciado": "Tengo 1600 contactos en mi red social, pero conozco solo al 25%, y solo chateo con el 10%. ¿Con cuántos no chateo?",
+      "enunciado": "Tengo 1600 contactos en mi red social, pero conozco solo al 25% y chateo con el 10% de quienes conozco. ¿Con cuántos no chateo?",
       "opciones": [
         "40",
         "400",
@@ -3775,7 +3743,7 @@
     },
     {
       "id": "NU-N1-20",
-      "enunciado": "En una feria gastronómica se ofertan dos platos típicos —hornado y caldo de patas— y cuatro bebidas: jugo de tomate, chicha, limonada o gaseosa. Si quien compró un boleto debe tomar necesariamente un plato y una bebida, la probabilidad de que solicite hornado con limonada o con chicha es:",
+      "enunciado": "En una feria se ofrecen dos platos —hornado y caldo de patas— y cuatro bebidas: jugo de tomate, chicha, limonada o gaseosa. Cada cliente elige un plato y una bebida, y todas las combinaciones son igualmente probables. ¿Qué probabilidad hay de elegir hornado con limonada o con chicha?",
       "opciones": [
         "0,125",
         "0,250",
@@ -3870,7 +3838,7 @@
     },
     {
       "id": "NU-N1-25",
-      "enunciado": "En un hotel existen lámparas de pared de 2 focos y lámparas de techo de 5 focos. El total de lámparas que posee el hotel es 108 y el total de focos es 348. ¿Cuántas lámparas de pared y de techo existen en cada planta si el hotel es de 4 pisos?",
+      "enunciado": "Un hotel tiene lámparas de pared con 2 focos y lámparas de techo con 5. En total hay 108 lámparas y 348 focos. Si las lámparas de cada tipo se reparten por igual entre los 4 pisos, ¿cuántas de pared y cuántas de techo hay en cada piso?",
       "opciones": [
         "8 y 11",
         "16 y 11",
@@ -3908,7 +3876,7 @@
     },
     {
       "id": "NU-N1-27",
-      "enunciado": "Tres caballos (A, B y C) participan en una carrera. El caballo C tiene el doble de probabilidad de ganar que B, y B el doble que A. Calcule la probabilidad de que gane B.",
+      "enunciado": "En una carrera participan tres caballos, A, B y C, sin posibilidad de empate. C tiene el doble de probabilidad de ganar que B, y B el doble que A. ¿Cuál es la probabilidad de que gane B?",
       "opciones": [
         "1/8",
         "1/7",
@@ -3965,7 +3933,7 @@
     },
     {
       "id": "NU-N1-30",
-      "enunciado": "En un campeonato de fútbol se juega todos contra todos. Si inicialmente son 10 equipos y luego se incluyen 2 más, el número de cotejos adicionales que deben jugarse es:",
+      "enunciado": "En un campeonato cada pareja de equipos juega un solo partido. Si primero participan 10 equipos y luego se agregan 2 más, ¿cuántos partidos adicionales deben programarse?",
       "opciones": [
         "4",
         "20",
@@ -4155,7 +4123,7 @@
     },
     {
       "id": "NU-N2-01-01",
-      "enunciado": "Complete la serie: 50, 52, 54, 56, 58, 60, 62, …",
+      "enunciado": "¿Qué número sigue en esta serie? 50, 52, 54, 56, 58, 60, 62, …",
       "opciones": [
         "66",
         "64",
@@ -4163,7 +4131,7 @@
         "60"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 64. El documento lo desglosa así: Se observa que es una serie creciente, se va sumando 2 a cada número. 50 (+2) 52 (+2) 54 (+2) 56 (+2) 58 (+2) 60 (+2) 62 (+2).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 2. Por eso, después de 62 viene 64.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.1",
       "metadatos": {
         "categoria": "numerico",
@@ -4174,7 +4142,7 @@
     },
     {
       "id": "NU-N2-01-02",
-      "enunciado": "Complete la serie: 1, 3, 5, 7, 9, 11, 13, 15, 17, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 3, 5, 7, 9, 11, 13, 15, 17, …",
       "opciones": [
         "21",
         "15",
@@ -4182,7 +4150,7 @@
         "20"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 19. El documento lo desglosa así: 1 (+2) 3 (+2) 5 (+2) 7 (+2) 9 (+2) 11 (+2) 13 (+2) 15 (+2) 17 (+2).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 2. Por eso, después de 17 viene 19.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.2",
       "metadatos": {
         "categoria": "numerico",
@@ -4193,7 +4161,7 @@
     },
     {
       "id": "NU-N2-01-03",
-      "enunciado": "Complete la serie: 1, 4, 7, 10, 13, 16, 19, 22, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 4, 7, 10, 13, 16, 19, 22, …",
       "opciones": [
         "28",
         "19",
@@ -4201,7 +4169,7 @@
         "25"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 25. El documento lo desglosa así: 1 (+3) 4 (+3) 7 (+3) 10 (+3) 13 (+3) 16 (+3) 19 (+3) 22 (+3).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 3. Por eso, después de 22 viene 25.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.3",
       "metadatos": {
         "categoria": "numerico",
@@ -4212,7 +4180,7 @@
     },
     {
       "id": "NU-N2-01-04",
-      "enunciado": "Complete la serie: 6, 11, 16, 21, 26, 31, 36, …",
+      "enunciado": "¿Qué número sigue en esta serie? 6, 11, 16, 21, 26, 31, 36, …",
       "opciones": [
         "31",
         "41",
@@ -4220,7 +4188,7 @@
         "46"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 41. El documento lo desglosa así: 6 (+5) 11 (+5) 16 (+5) 21 (+5) 26 (+5) 31 (+5) 36 (+5).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 5. Por eso, después de 36 viene 41.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.4",
       "metadatos": {
         "categoria": "numerico",
@@ -4231,7 +4199,7 @@
     },
     {
       "id": "NU-N2-01-05",
-      "enunciado": "Complete la serie: 5, 9, 13, 17, 21, 25, 29, …",
+      "enunciado": "¿Qué número sigue en esta serie? 5, 9, 13, 17, 21, 25, 29, …",
       "opciones": [
         "37",
         "34",
@@ -4239,7 +4207,7 @@
         "25"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 33. El documento lo desglosa así: 5 (+4) 9 (+4) 13 (+4) 17 (+4) 21 (+4) 25 (+4) 29 (+4).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 4. Por eso, después de 29 viene 33.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.5",
       "metadatos": {
         "categoria": "numerico",
@@ -4250,7 +4218,7 @@
     },
     {
       "id": "NU-N2-01-06",
-      "enunciado": "Complete la serie: 32, 29, 26, 23, 21, 18, 15, 12, 10, …",
+      "enunciado": "¿Qué número sigue en esta serie? 32, 29, 26, 23, 21, 18, 15, 12, 10, …",
       "opciones": [
         "8",
         "4",
@@ -4258,7 +4226,7 @@
         "13"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 7. El documento lo desglosa así: (-3) 29 (-3) 26 (-3) 23 (-2) 21 (-3) 18 (-3) 15 (-3) 12 (-2) 10 (-3).",
+      "explicacion": "Los saltos se repiten en un ciclo: -3, -3, -3, -2. Ahora toca restar 3. Por eso, después de 10 viene 7.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.6",
       "metadatos": {
         "categoria": "numerico",
@@ -4269,7 +4237,7 @@
     },
     {
       "id": "NU-N2-01-07",
-      "enunciado": "Complete la serie: 20, 24, 21, 25, 22, 26, 23, 27, 24, 28, 25, …",
+      "enunciado": "¿Qué número sigue en esta serie? 20, 24, 21, 25, 22, 26, 23, 27, 24, 28, 25, …",
       "opciones": [
         "33",
         "21",
@@ -4277,7 +4245,7 @@
         "29"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 29. El documento lo desglosa así: (+4) 24 (-3) 21 (+4) 25 (-3) 22 (+4) 26 (-3) 23 (+4) 27 (-3) 24 (+4) 28 (-3) 25 (+4).",
+      "explicacion": "Los saltos se repiten en un ciclo: 4, -3. Ahora toca sumar 4. Por eso, después de 25 viene 29.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.7",
       "metadatos": {
         "categoria": "numerico",
@@ -4288,7 +4256,7 @@
     },
     {
       "id": "NU-N2-01-08",
-      "enunciado": "Complete la serie: 100, 96, 102, 98, 104, 100, 106, …",
+      "enunciado": "¿Qué número sigue en esta serie? 100, 96, 102, 98, 104, 100, 106, …",
       "opciones": [
         "110",
         "98",
@@ -4296,7 +4264,7 @@
         "112"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 102. El documento lo desglosa así: (-4) 96 (+6) 102 (-4) 98 (+6) 104 (-4) 100 (+6) 106 (-4).",
+      "explicacion": "Los saltos se repiten en un ciclo: -4, 6. Ahora toca restar 4. Por eso, después de 106 viene 102.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.8",
       "metadatos": {
         "categoria": "numerico",
@@ -4307,7 +4275,7 @@
     },
     {
       "id": "NU-N2-01-09",
-      "enunciado": "Complete la serie: 3, 6, 4, 8, 6, 12, 10, 20, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 6, 4, 8, 6, 12, 10, 20, …",
       "opciones": [
         "30",
         "18",
@@ -4315,7 +4283,7 @@
         "16"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 18. El documento lo desglosa así: (x2) 6 (-2) 4 (x2) 8 (-2) 6 (x2) 12 (-2) 10 (x2) 20 (- 2).",
+      "explicacion": "Se alternan dos pasos: duplicar el valor y restar 2. Compruébalo desde el inicio: 3 → 6 → 4 → 8 → 6. Tras 10 → 20 toca restar 2, así que sigue 18.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.9",
       "metadatos": {
         "categoria": "numerico",
@@ -4326,7 +4294,7 @@
     },
     {
       "id": "NU-N2-01-10",
-      "enunciado": "Complete la serie: 1, 12, 23, 18, 29, 40, 35, 46, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 12, 23, 18, 29, 40, 35, 46, …",
       "opciones": [
         "68",
         "35",
@@ -4334,7 +4302,7 @@
         "58"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 57. El documento lo desglosa así: 1 (+11) 12 (+11) 23 (-5) 18 (+11) 29 (+11) 40 (-5) 35 (+11) 46 (+11).",
+      "explicacion": "Los saltos se repiten en un ciclo: 11, 11, -5. Ahora toca sumar 11. Por eso, después de 46 viene 57.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.10",
       "metadatos": {
         "categoria": "numerico",
@@ -4345,7 +4313,7 @@
     },
     {
       "id": "NU-N2-01-11",
-      "enunciado": "Complete la serie: 1, 3, 9, 27, 81, 243, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 3, 9, 27, 81, 243, …",
       "opciones": [
         "1215",
         "-243",
@@ -4353,7 +4321,7 @@
         "729"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 729. El documento lo desglosa así: 1 (x3) 3 (x3) 9 (x3) 27 (x3) 81 (x3) 243 (x3).",
+      "explicacion": "La distancia entre términos cambia, pero la proporción no: cada valor se multiplica por 3. Por eso, después de 243 viene 729.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.11",
       "metadatos": {
         "categoria": "numerico",
@@ -4364,7 +4332,7 @@
     },
     {
       "id": "NU-N2-01-12",
-      "enunciado": "Complete la serie: 3, 3, 9, 4, 4, 16, 5, 5, 25, 6, 6, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 3, 9, 4, 4, 16, 5, 5, 25, 6, 6, …",
       "opciones": [
         "66",
         "36",
@@ -4372,7 +4340,7 @@
         "6"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 36. El documento lo desglosa así: 3 (x) 3 (=) 9 // 4 (x) 4 (=) 16 // 5 (x) 5 (=) 25 // 6 (x) 6 (=).",
+      "explicacion": "Agrupa de tres en tres: 3, 3, 9; 4, 4, 16; 5, 5, 25. En cada grupo se repite un número y luego aparece su cuadrado. Después de 6, 6 viene 6² = 36.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.12",
       "metadatos": {
         "categoria": "numerico",
@@ -4383,7 +4351,7 @@
     },
     {
       "id": "NU-N2-01-14",
-      "enunciado": "Complete la serie: 1, 2, 4, 8, 16, 32, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 2, 4, 8, 16, 32, …",
       "opciones": [
         "96",
         "48",
@@ -4391,7 +4359,7 @@
         "0"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 64. El documento lo desglosa así: 1 (x2) 2 (x2) 4 (x2) 8 (x2) 16 (x2) 32 (x2).",
+      "explicacion": "La distancia entre términos cambia, pero la proporción no: cada valor se multiplica por 2. Por eso, después de 32 viene 64.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.14",
       "metadatos": {
         "categoria": "numerico",
@@ -4402,7 +4370,7 @@
     },
     {
       "id": "NU-N2-01-15",
-      "enunciado": "Complete la serie: 1, 1, 2, 3, 5, 8, 13, 21, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 1, 2, 3, 5, 8, 13, 21, …",
       "opciones": [
         "47",
         "8",
@@ -4410,7 +4378,7 @@
         "34"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 34. El documento lo desglosa así: 1 (+) 1 (+) 2 (+) 3 (+) 5 (+) 8 (+) 13 (+) 21.",
+      "explicacion": "Cada valor suma los dos anteriores. Los últimos son 13 y 21. Por eso, después de 21 viene 34.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.15",
       "metadatos": {
         "categoria": "numerico",
@@ -4421,7 +4389,7 @@
     },
     {
       "id": "NU-N2-01-16",
-      "enunciado": "Complete la serie: 3, 7, 15, 31, 63, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 7, 15, 31, 63, …",
       "opciones": [
         "191",
         "127",
@@ -4429,7 +4397,7 @@
         "95"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 127. El documento lo desglosa así: 3 (x2 +1) 7 (x2 +1) 15 (x2 +1) 31 (x2 +1) 63 (x2 +1).",
+      "explicacion": "Cada número es el anterior multiplicado por 2 y aumentado en 1: 3 → 7 → 15 → 31 → 63. Por tanto, 63 × 2 + 1 = 127.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.16",
       "metadatos": {
         "categoria": "numerico",
@@ -4440,7 +4408,7 @@
     },
     {
       "id": "NU-N2-01-17",
-      "enunciado": "Complete la serie: 2, 3, 5, 9, 17, 33, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 3, 5, 9, 17, 33, …",
       "opciones": [
         "1",
         "65",
@@ -4448,7 +4416,7 @@
         "97"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 65. El documento lo desglosa así: 2 (x2 -1) 3 (x2 -1) 5 (x2 -1) 9 (x2 -1) 17 (x2 -1) 33 (x2 -1).",
+      "explicacion": "Cada término duplica al anterior y le resta 1: 2 → 3 → 5 → 9 → 17 → 33. Sigue 33 × 2 − 1 = 65.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.17",
       "metadatos": {
         "categoria": "numerico",
@@ -4459,7 +4427,7 @@
     },
     {
       "id": "NU-N2-01-18",
-      "enunciado": "Complete la serie: 1, 1, 2, 2, 2, 6, 6, 6, 18, 18, 18, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 1, 2, 2, 2, 6, 6, 6, 18, 18, 18, …",
       "opciones": [
         "18",
         "54",
@@ -4467,7 +4435,7 @@
         "-18"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 54. El documento lo desglosa así: 1 (+) 1 (=) 2 (+) 2 (+) 2 (=) 6 (+) 6 (+) 6 (=) 18 (+) 18 (+) 18 (=).",
+      "explicacion": "Desde el 2, cada valor aparece tres veces y después se triplica: 2, 2, 2; 6, 6, 6; 18, 18, 18. El bloque siguiente empieza en 18 × 3 = 54.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.18",
       "metadatos": {
         "categoria": "numerico",
@@ -4478,7 +4446,7 @@
     },
     {
       "id": "NU-N2-01-19",
-      "enunciado": "Complete la serie: 100, 95, 89, 82, 74, 65, …",
+      "enunciado": "¿Qué número sigue en esta serie? 100, 95, 89, 82, 74, 65, …",
       "opciones": [
         "45",
         "75",
@@ -4486,7 +4454,7 @@
         "55"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 55. El documento lo desglosa así: 100 (-5) 95 (-6) 89 (-7) 82 (-8) 74 (-9) 65 (-10).",
+      "explicacion": "Los saltos son -5, -6, -7, -8, -9. Cada salto cambia en -1; el siguiente será -10. Por eso, después de 65 viene 55.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.19",
       "metadatos": {
         "categoria": "numerico",
@@ -4497,7 +4465,7 @@
     },
     {
       "id": "NU-N2-01-20",
-      "enunciado": "Complete la serie: 2, 8, 3, 12, 7, 28, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 8, 3, 12, 7, 28, …",
       "opciones": [
         "33",
         "23",
@@ -4505,7 +4473,7 @@
         "49"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 23. El documento lo desglosa así: 2 (x4) 8 (-5) 3 (x4) 12 (-5) 7 (x4) 28 (-5).",
+      "explicacion": "Separa las posiciones impares: 2, 3, 7; sus aumentos son +1 y +4, y el siguiente es +16. Las posiciones pares 8, 12, 28 confirman ese crecimiento de los saltos. Sigue 7 + 16 = 23.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.20",
       "metadatos": {
         "categoria": "numerico",
@@ -4516,7 +4484,7 @@
     },
     {
       "id": "NU-N2-02-01",
-      "enunciado": "Complete la serie: 52, 51, 50, 49, 48, 47, 46, 45, …",
+      "enunciado": "¿Qué número sigue en esta serie? 52, 51, 50, 49, 48, 47, 46, 45, …",
       "opciones": [
         "45",
         "44",
@@ -4524,7 +4492,7 @@
         "46"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 44. El documento lo desglosa así: 52 (-1) 51 (-1) 50 (-1) 49 (-1) 48 (-1) 47 (-1) 46 (-1) 45 (-1).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, resta 1. Por eso, después de 45 viene 44.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.1",
       "metadatos": {
         "categoria": "numerico",
@@ -4535,7 +4503,7 @@
     },
     {
       "id": "NU-N2-02-02",
-      "enunciado": "Complete la serie: 30, 30, 29, 29, 30, 30, 29, 29, …",
+      "enunciado": "¿Qué número sigue en esta serie? 30, 30, 29, 29, 30, 30, 29, 29, …",
       "opciones": [
         "31",
         "30",
@@ -4543,7 +4511,7 @@
         "28"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 30. El documento lo desglosa así: 30 (=) 30 (-1) 29 (=) 29 (+1) 30 (=) 30 (-1) 29 (=) 29 (+1).",
+      "explicacion": "La serie repite bloques de cuatro: 30, 30, 29, 29. Terminó un bloque completo; el siguiente comienza otra vez en 30.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.2",
       "metadatos": {
         "categoria": "numerico",
@@ -4554,7 +4522,7 @@
     },
     {
       "id": "NU-N2-02-03",
-      "enunciado": "Complete la serie: 2, 2, 4, 4, 6, 6, 8, 8, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 2, 4, 4, 6, 6, 8, 8, …",
       "opciones": [
         "8",
         "6",
@@ -4562,7 +4530,7 @@
         "10"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 10. El documento lo desglosa así: 2 (=) 2 (+2) 4 (=) 4 (+2) 6 (=) 6 (+2) 8 (=) 8 (+2).",
+      "explicacion": "Los saltos se repiten en un ciclo: 0, 2. Ahora toca sumar 2. Por eso, después de 8 viene 10.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.3",
       "metadatos": {
         "categoria": "numerico",
@@ -4573,7 +4541,7 @@
     },
     {
       "id": "NU-N2-02-04",
-      "enunciado": "Complete la serie: 12, 6, 11, 6, 10, 6, 9, 6, …",
+      "enunciado": "¿Qué número sigue en esta serie? 12, 6, 11, 6, 10, 6, 9, 6, …",
       "opciones": [
         "4",
         "8",
@@ -4581,7 +4549,7 @@
         "3"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 8. El documento lo desglosa así: 12 6 11 6 10 6 9 6.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 12 → 11 → 10 → 9 (salto -1); 6 → 6 → 6 → 6 (salto 0). El siguiente término pertenece al recorrido 1. Por eso, después de 6 viene 8.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.4",
       "metadatos": {
         "categoria": "numerico",
@@ -4592,7 +4560,7 @@
     },
     {
       "id": "NU-N2-02-05",
-      "enunciado": "Complete la serie: 1, 2, 4, 8, 16, 32, 64, 128, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 2, 4, 8, 16, 32, 64, 128, …",
       "opciones": [
         "192",
         "0",
@@ -4600,7 +4568,7 @@
         "384"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 256. El documento lo desglosa así: 1 (x2) 2 (x2) 4 (x2) 8 (x2) 16 (x2) 32 (x2) 64 (x2) 128 (x2).",
+      "explicacion": "La distancia entre términos cambia, pero la proporción no: cada valor se multiplica por 2. Por eso, después de 128 viene 256.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.5",
       "metadatos": {
         "categoria": "numerico",
@@ -4611,7 +4579,7 @@
     },
     {
       "id": "NU-N2-02-06",
-      "enunciado": "Complete la serie: 22, 25, 23, 26, 24, 27, 25, 28, …",
+      "enunciado": "¿Qué número sigue en esta serie? 22, 25, 23, 26, 24, 27, 25, 28, …",
       "opciones": [
         "31",
         "24",
@@ -4619,7 +4587,7 @@
         "30"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 26. El documento lo desglosa así: 22 (+3) 25 (-2) 23 (+3) 26 (-2) 24 (+3) 27 (-2) 25 (+3) 28 (-2).",
+      "explicacion": "Los saltos se repiten en un ciclo: 3, -2. Ahora toca restar 2. Por eso, después de 28 viene 26.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.6",
       "metadatos": {
         "categoria": "numerico",
@@ -4630,7 +4598,7 @@
     },
     {
       "id": "NU-N2-02-07",
-      "enunciado": "Complete la serie: 11, 8, 10, 7, 9, 6, 8, 5, …",
+      "enunciado": "¿Qué número sigue en esta serie? 11, 8, 10, 7, 9, 6, 8, 5, …",
       "opciones": [
         "2",
         "3",
@@ -4638,7 +4606,7 @@
         "7"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 7. El documento lo desglosa así: 11 (-3) 8 (+2) 10 (-3) 7 (+2) 9 (-3) 6 (+2) 8 (-3) 5 (+2).",
+      "explicacion": "Los saltos se repiten en un ciclo: -3, 2. Ahora toca sumar 2. Por eso, después de 5 viene 7.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.7",
       "metadatos": {
         "categoria": "numerico",
@@ -4649,7 +4617,7 @@
     },
     {
       "id": "NU-N2-02-08",
-      "enunciado": "Complete la serie: 3, 4, 7, 12, 19, 28, 39, 52, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 4, 7, 12, 19, 28, 39, 52, …",
       "opciones": [
         "82",
         "67",
@@ -4657,7 +4625,7 @@
         "65"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 67. El documento lo desglosa así: 3 (+1) 4 (+3) 7 (+5) 12 (+7) 19 (+9) 28 (+11) 39 (+13) 52 (+15).",
+      "explicacion": "Los saltos son 1, 3, 5, 7, 9, 11, 13. Cada salto cambia en 2; el siguiente será 15. Por eso, después de 52 viene 67.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.8",
       "metadatos": {
         "categoria": "numerico",
@@ -4668,7 +4636,7 @@
     },
     {
       "id": "NU-N2-02-09",
-      "enunciado": "Complete la serie: 2, 9, 4, 18, 6, 36, 8, 72, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 9, 4, 18, 6, 36, 8, 72, …",
       "opciones": [
         "136",
         "134",
@@ -4676,7 +4644,7 @@
         "-52"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 10. El documento lo desglosa así: 2 9 4 18 6 36 8 72.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 2 → 4 → 6 → 8 (salto 2); 9 → 18 → 36 → 72 (×2). El siguiente término pertenece al recorrido 1. Por eso, después de 72 viene 10.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.9",
       "metadatos": {
         "categoria": "numerico",
@@ -4687,7 +4655,7 @@
     },
     {
       "id": "NU-N2-02-10",
-      "enunciado": "Complete la serie: 10, 22, 14, 26, 18, 30, 22, 34, …",
+      "enunciado": "¿Qué número sigue en esta serie? 10, 22, 14, 26, 18, 30, 22, 34, …",
       "opciones": [
         "18",
         "26",
@@ -4695,7 +4663,7 @@
         "42"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 26. El documento lo desglosa así: 10, 22, 14, 26, 18, 30, 22, 34.",
+      "explicacion": "Los saltos se repiten en un ciclo: 12, -8. Ahora toca restar 8. Por eso, después de 34 viene 26.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.10",
       "metadatos": {
         "categoria": "numerico",
@@ -4706,7 +4674,7 @@
     },
     {
       "id": "NU-N2-02-11",
-      "enunciado": "Complete la serie: 3, 5, 7, 9, 11, 13, 15, 17, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 5, 7, 9, 11, 13, 15, 17, …",
       "opciones": [
         "15",
         "20",
@@ -4714,7 +4682,7 @@
         "19"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 19. El documento lo desglosa así: 3 (+2) 5 (+2) 7 (+2) 9 (+2) 11 (+2) 13 (+2) 15 (+2) 17 (+2).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 2. Por eso, después de 17 viene 19.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.11",
       "metadatos": {
         "categoria": "numerico",
@@ -4725,7 +4693,7 @@
     },
     {
       "id": "NU-N2-02-12",
-      "enunciado": "Complete la serie: 1, 8, 2, 8, 3, 8, 4, 8, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 8, 2, 8, 3, 8, 4, 8, …",
       "opciones": [
         "11",
         "2",
@@ -4733,7 +4701,7 @@
         "12"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 5. El documento lo desglosa así: 1 8 2 8 3 8 4 8.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 1 → 2 → 3 → 4 (salto 1); 8 → 8 → 8 → 8 (salto 0). El siguiente término pertenece al recorrido 1. Por eso, después de 8 viene 5.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.12",
       "metadatos": {
         "categoria": "numerico",
@@ -4744,7 +4712,7 @@
     },
     {
       "id": "NU-N2-02-14",
-      "enunciado": "Complete la serie: 34, 36, 18, 20, 10, 12, 6, 8, …",
+      "enunciado": "¿Qué número sigue en esta serie? 34, 36, 18, 20, 10, 12, 6, 8, …",
       "opciones": [
         "0",
         "4",
@@ -4752,7 +4720,7 @@
         "12"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 4. El documento lo desglosa así: 34 (+2) 36 (:2) 18 (+2) 20 (:2) 10 (+2) 12 (:2) 6 (+2) 8 (:2).",
+      "explicacion": "Los pasos alternan sumar 2 y dividir entre 2: 34 → 36 → 18 → 20 → 10 → 12 → 6 → 8. Ahora toca dividir 8 entre 2: sigue 4.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.14",
       "metadatos": {
         "categoria": "numerico",
@@ -4763,7 +4731,7 @@
     },
     {
       "id": "NU-N2-02-15",
-      "enunciado": "Complete la serie: 56, 57, 59, 60, 62, 63, 65, 66, …",
+      "enunciado": "¿Qué número sigue en esta serie? 56, 57, 59, 60, 62, 63, 65, 66, …",
       "opciones": [
         "70",
         "64",
@@ -4771,7 +4739,7 @@
         "68"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 68. El documento lo desglosa así: 56 (+1) 57 (+2) 59 (+1) 60 (+2) 62 (+1) 63 (+2) 65 (+1) 66 (+2).",
+      "explicacion": "Los saltos se repiten en un ciclo: 1, 2. Ahora toca sumar 2. Por eso, después de 66 viene 68.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.15",
       "metadatos": {
         "categoria": "numerico",
@@ -4782,7 +4750,7 @@
     },
     {
       "id": "NU-N2-02-16",
-      "enunciado": "Complete la serie: 5, 7, 8, 16, 18, 19, 38, 40, …",
+      "enunciado": "¿Qué número sigue en esta serie? 5, 7, 8, 16, 18, 19, 38, 40, …",
       "opciones": [
         "39",
         "41",
@@ -4790,7 +4758,7 @@
         "42"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 41. El documento lo desglosa así: 5 (+2) 7 (+1) 8 (x2) 16 (+2) 18 (+1) 19 (x2) 38 (+2) 40 (+1).",
+      "explicacion": "Se repite la secuencia de operaciones +2, +1, ×2: 5 → 7 → 8 → 16 y 16 → 18 → 19 → 38. Después de 38 → 40 toca sumar 1: sigue 41.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.16",
       "metadatos": {
         "categoria": "numerico",
@@ -4801,7 +4769,7 @@
     },
     {
       "id": "NU-N2-02-17",
-      "enunciado": "Complete la serie: 13, 14, 16, 19, 23, 28, 34, 41, …",
+      "enunciado": "¿Qué número sigue en esta serie? 13, 14, 16, 19, 23, 28, 34, 41, …",
       "opciones": [
         "48",
         "33",
@@ -4809,7 +4777,7 @@
         "57"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 49. El documento lo desglosa así: 13 (+1) 14 (+2) 16 (+3) 19 (+4) 23 (+5) 28 (+6) 34 (+7) 41 (+8).",
+      "explicacion": "Los saltos son 1, 2, 3, 4, 5, 6, 7. Cada salto cambia en 1; el siguiente será 8. Por eso, después de 41 viene 49.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.17",
       "metadatos": {
         "categoria": "numerico",
@@ -4820,7 +4788,7 @@
     },
     {
       "id": "NU-N2-02-18",
-      "enunciado": "Complete la serie: 36, 35, 33, 30, 26, 21, 15, 8, …",
+      "enunciado": "¿Qué número sigue en esta serie? 36, 35, 33, 30, 26, 21, 15, 8, …",
       "opciones": [
         "1",
         "-8",
@@ -4828,7 +4796,7 @@
         "16"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 0. El documento lo desglosa así: 36 (-1) 35 (-2) 33 (-3) 30 (-4) 26 (-5) 21 (-6) 15 (-7) 8 (-8).",
+      "explicacion": "Los saltos son -1, -2, -3, -4, -5, -6, -7. Cada salto cambia en -1; el siguiente será -8. Por eso, después de 8 viene 0.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.18",
       "metadatos": {
         "categoria": "numerico",
@@ -4839,7 +4807,7 @@
     },
     {
       "id": "NU-N2-02-19",
-      "enunciado": "Complete la serie: 2, 5, 3, 7, 10, 8, 12, 15, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 5, 3, 7, 10, 8, 12, 15, …",
       "opciones": [
         "11",
         "17",
@@ -4847,7 +4815,7 @@
         "13"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 13. El documento lo desglosa así: 2 (+3) 5 (-2) 3 (+4) 7 (+3) 10 (-2) 8 (+4) 12 (+3) 15 (-2).",
+      "explicacion": "Los saltos se repiten en un ciclo: 3, -2, 4. Ahora toca restar 2. Por eso, después de 15 viene 13.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.19",
       "metadatos": {
         "categoria": "numerico",
@@ -4858,7 +4826,7 @@
     },
     {
       "id": "NU-N2-02-20",
-      "enunciado": "Complete la serie: 12, 13, 17, 16, 22, 19, 27, 22, …",
+      "enunciado": "¿Qué número sigue en esta serie? 12, 13, 17, 16, 22, 19, 27, 22, …",
       "opciones": [
         "12",
         "42",
@@ -4866,7 +4834,7 @@
         "17"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 32. El documento lo desglosa así: 12 13 17 16 22 19 27 22.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 12 → 17 → 22 → 27 (salto 5); 13 → 16 → 19 → 22 (salto 3). El siguiente término pertenece al recorrido 1. Por eso, después de 22 viene 32.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.20",
       "metadatos": {
         "categoria": "numerico",
@@ -4877,7 +4845,7 @@
     },
     {
       "id": "NU-N2-03-02",
-      "enunciado": "Complete la serie: 7, 8, 10, 11, 13, 14, 16, 17, …",
+      "enunciado": "¿Qué número sigue en esta serie? 7, 8, 10, 11, 13, 14, 16, 17, …",
       "opciones": [
         "21",
         "19",
@@ -4885,7 +4853,7 @@
         "15"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 19. El documento lo desglosa así: 7 (+1) 8 (+2) 10 (+1) 11 (+2) 13 (+1) 14 (+2) 16 (+1) 17 (+2).",
+      "explicacion": "Los saltos se repiten en un ciclo: 1, 2. Ahora toca sumar 2. Por eso, después de 17 viene 19.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.2",
       "metadatos": {
         "categoria": "numerico",
@@ -4896,7 +4864,7 @@
     },
     {
       "id": "NU-N2-03-03",
-      "enunciado": "Complete la serie: 3, 5, 13, 15, 23, 25, 33, 35, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 5, 13, 15, 23, 25, 33, 35, …",
       "opciones": [
         "37",
         "27",
@@ -4904,7 +4872,7 @@
         "43"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 43. El documento lo desglosa así: 3 (+2) 5 (+8) 13 (+2) 15 (+8) 23 (+2) 25 (+8) 33 (+2) 35 (+8).",
+      "explicacion": "Los saltos se repiten en un ciclo: 2, 8. Ahora toca sumar 8. Por eso, después de 35 viene 43.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.3",
       "metadatos": {
         "categoria": "numerico",
@@ -4915,7 +4883,7 @@
     },
     {
       "id": "NU-N2-03-04",
-      "enunciado": "Complete la serie: 20, 23, 26, 29, 32, 35, 38, 41, …",
+      "enunciado": "¿Qué número sigue en esta serie? 20, 23, 26, 29, 32, 35, 38, 41, …",
       "opciones": [
         "38",
         "44",
@@ -4923,7 +4891,7 @@
         "47"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 44. El documento lo desglosa así: 20 (+3) 23 (+3) 26 (+3) 29 (+3) 32 (+3) 35 (+3) 38 (+3) 41 (+3).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 3. Por eso, después de 41 viene 44.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.4",
       "metadatos": {
         "categoria": "numerico",
@@ -4934,7 +4902,7 @@
     },
     {
       "id": "NU-N2-03-06",
-      "enunciado": "Complete la serie: 56, 56, 53, 53, 48, 48, 41, 41, …",
+      "enunciado": "¿Qué número sigue en esta serie? 56, 56, 53, 53, 48, 48, 41, 41, …",
       "opciones": [
         "23",
         "32",
@@ -4942,7 +4910,7 @@
         "50"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 32. El documento lo desglosa así: 56 (=) 56 (-3) 53 (=) 53 (-5) 48 (=) 48 (-7) 41 (=) 41 (-9).",
+      "explicacion": "Los términos vienen duplicados: 56, 56; 53, 53; 48, 48; 41, 41. Entre parejas se resta 3, después 5, 7 y 9. Sigue 41 − 9 = 32.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.6",
       "metadatos": {
         "categoria": "numerico",
@@ -4953,7 +4921,7 @@
     },
     {
       "id": "NU-N2-03-07",
-      "enunciado": "Complete la serie: 45, 42, 40, 37, 35, 32, 30, 27, …",
+      "enunciado": "¿Qué número sigue en esta serie? 45, 42, 40, 37, 35, 32, 30, 27, …",
       "opciones": [
         "24",
         "23",
@@ -4961,7 +4929,7 @@
         "25"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 25. El documento lo desglosa así: 45 (-3) 42 (-2) 40 (-3) 37 (-2) 35 (-3) 32 (-2) 30 (-3) 27 (-2).",
+      "explicacion": "Los saltos se repiten en un ciclo: -3, -2. Ahora toca restar 2. Por eso, después de 27 viene 25.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.7",
       "metadatos": {
         "categoria": "numerico",
@@ -4972,7 +4940,7 @@
     },
     {
       "id": "NU-N2-03-08",
-      "enunciado": "Complete la serie: 10, 11, 13, 16, 20, 25, 31, 38, …",
+      "enunciado": "¿Qué número sigue en esta serie? 10, 11, 13, 16, 20, 25, 31, 38, …",
       "opciones": [
         "30",
         "54",
@@ -4980,7 +4948,7 @@
         "45"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 46. El documento lo desglosa así: 10 (+1) 11 (+2) 13 (+3) 16 (+4) 20 (+5) 25 (+6) 31 (+7) 38 (+8).",
+      "explicacion": "Los saltos son 1, 2, 3, 4, 5, 6, 7. Cada salto cambia en 1; el siguiente será 8. Por eso, después de 38 viene 46.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.8",
       "metadatos": {
         "categoria": "numerico",
@@ -4991,7 +4959,7 @@
     },
     {
       "id": "NU-N2-03-09",
-      "enunciado": "Complete la serie: 46, 45, 43, 40, 36, 31, 25, 18, …",
+      "enunciado": "¿Qué número sigue en esta serie? 46, 45, 43, 40, 36, 31, 25, 18, …",
       "opciones": [
         "26",
         "10",
@@ -4999,7 +4967,7 @@
         "2"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 10. El documento lo desglosa así: 46 (-1) 45 (-2) 43 (-3) 40 (-4) 36 (-5) 31 (-6) 25 (-7) 18 (-8).",
+      "explicacion": "Los saltos son -1, -2, -3, -4, -5, -6, -7. Cada salto cambia en -1; el siguiente será -8. Por eso, después de 18 viene 10.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.9",
       "metadatos": {
         "categoria": "numerico",
@@ -5010,7 +4978,7 @@
     },
     {
       "id": "NU-N2-03-10",
-      "enunciado": "Complete la serie: 4, 8, 10, 30, 33, 132, 136, 680, …",
+      "enunciado": "¿Qué número sigue en esta serie? 4, 8, 10, 30, 33, 132, 136, 680, …",
       "opciones": [
         "1224",
         "685",
@@ -5018,7 +4986,7 @@
         "675"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 685. El documento lo desglosa así: 4 (x2) 8 (+2) 10 (x3) 30 (+3) 33 (x4) 132 (+4) 136 (x5) 680 (+5).",
+      "explicacion": "Se alternan una multiplicación y una suma con el mismo número creciente: ×2, +2; ×3, +3; ×4, +4; ×5, +5. Tras 136 × 5 = 680 toca sumar 5: 685.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.10",
       "metadatos": {
         "categoria": "numerico",
@@ -5029,7 +4997,7 @@
     },
     {
       "id": "NU-N2-03-11",
-      "enunciado": "Complete la serie: 5, 12, 10, 12, 20, 12, 40, 12, …",
+      "enunciado": "¿Qué número sigue en esta serie? 5, 12, 10, 12, 20, 12, 40, 12, …",
       "opciones": [
         "-16",
         "-56",
@@ -5037,7 +5005,7 @@
         "80"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 80. El documento lo desglosa así: 5 12 10 12 20 12 40 12.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 5 → 10 → 20 → 40 (×2); 12 → 12 → 12 → 12 (salto 0). El siguiente término pertenece al recorrido 1. Por eso, después de 12 viene 80.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.11",
       "metadatos": {
         "categoria": "numerico",
@@ -5048,7 +5016,7 @@
     },
     {
       "id": "NU-N2-03-12",
-      "enunciado": "Complete la serie: 13, 12, 10, 9, 7, 6, 4, 3, …",
+      "enunciado": "¿Qué número sigue en esta serie? 13, 12, 10, 9, 7, 6, 4, 3, …",
       "opciones": [
         "-1",
         "1",
@@ -5056,7 +5024,7 @@
         "2"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 1. El documento lo desglosa así: 13 (-1) 12 (-2) 10 (-1) 9 (-2) 7 (-1) 6 (-2) 4 (-1) 3 (-2).",
+      "explicacion": "Los saltos se repiten en un ciclo: -1, -2. Ahora toca restar 2. Por eso, después de 3 viene 1.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.12",
       "metadatos": {
         "categoria": "numerico",
@@ -5067,7 +5035,7 @@
     },
     {
       "id": "NU-N2-03-13",
-      "enunciado": "Complete la serie: 18, 18, 16, 16, 14, 14, 12, 12, …",
+      "enunciado": "¿Qué número sigue en esta serie? 18, 18, 16, 16, 14, 14, 12, 12, …",
       "opciones": [
         "12",
         "14",
@@ -5075,7 +5043,7 @@
         "8"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 10. El documento lo desglosa así: 18 (=) 18 (-2) 16 (=) 16 (-2) 14 (=) 14 (-2) 12 (=) 12 (-2).",
+      "explicacion": "Los saltos se repiten en un ciclo: 0, -2. Ahora toca restar 2. Por eso, después de 12 viene 10.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.13",
       "metadatos": {
         "categoria": "numerico",
@@ -5086,7 +5054,7 @@
     },
     {
       "id": "NU-N2-03-14",
-      "enunciado": "Complete la serie: 9, 5, 14, 5, 19, 5, 24, 5, …",
+      "enunciado": "¿Qué número sigue en esta serie? 9, 5, 14, 5, 19, 5, 24, 5, …",
       "opciones": [
         "-14",
         "29",
@@ -5094,7 +5062,7 @@
         "-19"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 29. El documento lo desglosa así: 9 (+) 5 (=) 14 (+) 5 (=) 19 (+) 5 (=) 24 (+) 5.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 9 → 14 → 19 → 24 (salto 5); 5 → 5 → 5 → 5 (salto 0). El siguiente término pertenece al recorrido 1. Por eso, después de 5 viene 29.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.14",
       "metadatos": {
         "categoria": "numerico",
@@ -5105,7 +5073,7 @@
     },
     {
       "id": "NU-N2-03-15",
-      "enunciado": "Complete la serie: 1, 2, 4, 7, 11, 16, 22, 29, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 2, 4, 7, 11, 16, 22, 29, …",
       "opciones": [
         "36",
         "45",
@@ -5113,7 +5081,7 @@
         "37"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 37. El documento lo desglosa así: 1 (+1) 2 (+2) 4 (+3) 7 (+4) 11 (+5) 16 (+6) 22 (+7) 29 (+8).",
+      "explicacion": "Los saltos son 1, 2, 3, 4, 5, 6, 7. Cada salto cambia en 1; el siguiente será 8. Por eso, después de 29 viene 37.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.15",
       "metadatos": {
         "categoria": "numerico",
@@ -5124,7 +5092,7 @@
     },
     {
       "id": "NU-N2-03-16",
-      "enunciado": "Complete la serie: 3, 6, 12, 24, 48, 96, 192, 384, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 6, 12, 24, 48, 96, 192, 384, …",
       "opciones": [
         "0",
         "1152",
@@ -5132,7 +5100,7 @@
         "576"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 768. El documento lo desglosa así: 3 (x2) 6 (x2) 12 (x2) 24 (x2) 48 (x2) 96 (x2) 192 (x2) 384 (x2).",
+      "explicacion": "La distancia entre términos cambia, pero la proporción no: cada valor se multiplica por 2. Por eso, después de 384 viene 768.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.16",
       "metadatos": {
         "categoria": "numerico",
@@ -5143,7 +5111,7 @@
     },
     {
       "id": "NU-N2-03-17",
-      "enunciado": "Complete la serie: 98, 99, 97, 100, 96, 101, 95, 102, …",
+      "enunciado": "¿Qué número sigue en esta serie? 98, 99, 97, 100, 96, 101, 95, 102, …",
       "opciones": [
         "110",
         "94",
@@ -5151,7 +5119,7 @@
         "86"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 94. El documento lo desglosa así: 98 (+1) 99 (-2) 97 (+3) 100 (-4) 96 (+5) 101 (-6) 95 (+7) 102 (-8).",
+      "explicacion": "Separa las posiciones en 2 recorridos: 98 → 97 → 96 → 95 (salto -1); 99 → 100 → 101 → 102 (salto 1). El siguiente término pertenece al recorrido 1. Por eso, después de 102 viene 94.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.17",
       "metadatos": {
         "categoria": "numerico",
@@ -5162,7 +5130,7 @@
     },
     {
       "id": "NU-N2-04-01",
-      "enunciado": "Complete la serie: 10, 13, 16, 19, 22, 25, 28, …",
+      "enunciado": "¿Qué número sigue en esta serie? 10, 13, 16, 19, 22, 25, 28, …",
       "opciones": [
         "34",
         "31",
@@ -5170,7 +5138,7 @@
         "25"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 31. El documento lo desglosa así: 10 (+3) 13 (+3) 16 (+3) 19 (+3) 22 (+3) 25 (+3) 28 (+3).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 3. Por eso, después de 28 viene 31.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.1",
       "metadatos": {
         "categoria": "numerico",
@@ -5181,7 +5149,7 @@
     },
     {
       "id": "NU-N2-04-02",
-      "enunciado": "Complete la serie: 8, 12, 8, 22, 8, 32, 8, …",
+      "enunciado": "¿Qué número sigue en esta serie? 8, 12, 8, 22, 8, 32, 8, …",
       "opciones": [
         "-16",
         "76",
@@ -5189,7 +5157,7 @@
         "-26"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 42. El documento lo desglosa así: 8 12 8 22 8 32 8.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 8 → 8 → 8 → 8 (salto 0); 12 → 22 → 32 (salto 10). El siguiente término pertenece al recorrido 2. Por eso, después de 8 viene 42.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.2",
       "metadatos": {
         "categoria": "numerico",
@@ -5200,7 +5168,7 @@
     },
     {
       "id": "NU-N2-04-03",
-      "enunciado": "Complete la serie: 2, 5, 10, 3, 6, 12, 4, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 5, 10, 3, 6, 12, 4, …",
       "opciones": [
         "-4",
         "1",
@@ -5208,7 +5176,7 @@
         "7"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 7. El documento lo desglosa así: 2 (+3) 5 (x2) 10 // 3 (+3) 6 (x2) 12 // 4 (+3).",
+      "explicacion": "Lee ternas: 2, 5, 10; 3, 6, 12; 4, 7, 14. En cada terna se suma 3 y luego se duplica. Después del 4 va 7.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.3",
       "metadatos": {
         "categoria": "numerico",
@@ -5219,7 +5187,7 @@
     },
     {
       "id": "NU-N2-04-04",
-      "enunciado": "Complete la serie: 3, 6, 12, 3, 9, 27, 3, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 6, 12, 3, 9, 27, 3, …",
       "opciones": [
         "21",
         "12",
@@ -5227,7 +5195,7 @@
         "-21"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 12. El documento lo desglosa así: 3 (x2) 6 (x2) 12 // 3 (x3) 9 (x3) 27 // 3 (x4).",
+      "explicacion": "Las ternas comparten el primer 3: 3, 6, 12 (×2); 3, 9, 27 (×3); 3, 12, 48 (×4). Después del último 3 va 12.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.4",
       "metadatos": {
         "categoria": "numerico",
@@ -5238,7 +5206,7 @@
     },
     {
       "id": "NU-N2-04-06",
-      "enunciado": "Complete la serie: 27, 24, 21, 18, 15, 12, 9, …",
+      "enunciado": "¿Qué número sigue en esta serie? 27, 24, 21, 18, 15, 12, 9, …",
       "opciones": [
         "3",
         "12",
@@ -5246,7 +5214,7 @@
         "7"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 6. El documento lo desglosa así: 27 (-3) 24 (-3) 21 (-3) 18 (-3) 15 (-3) 12 (-3) 9 (-3).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, resta 3. Por eso, después de 9 viene 6.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.6",
       "metadatos": {
         "categoria": "numerico",
@@ -5257,7 +5225,7 @@
     },
     {
       "id": "NU-N2-04-07",
-      "enunciado": "Complete la serie: 1, 2, 4, 2, 3, 9, 3, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 2, 4, 2, 3, 9, 3, …",
       "opciones": [
         "-3",
         "5",
@@ -5265,7 +5233,7 @@
         "4"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 4. El documento lo desglosa así: 1 (+1) 2 (x2) 4 (:2) 2 (+1) 3 (x3) 9 (:3) 3 (+1).",
+      "explicacion": "En cada bloque se suma 1, se multiplica por el número obtenido y luego se divide para volver al inicio del bloque: 1, 2, 4; 2, 3, 9; 3, 4, 16. Por eso sigue 4.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.7",
       "metadatos": {
         "categoria": "numerico",
@@ -5276,7 +5244,7 @@
     },
     {
       "id": "NU-N2-04-08",
-      "enunciado": "Complete la serie: 96, 13, 48, 26, 24, 52, 12, …",
+      "enunciado": "¿Qué número sigue en esta serie? 96, 13, 48, 26, 24, 52, 12, …",
       "opciones": [
         "196",
         "104",
@@ -5284,7 +5252,7 @@
         "-28"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 104. El documento lo desglosa así: 96 13 48 26 24 52 12.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 96 → 48 → 24 → 12 (×0.5); 13 → 26 → 52 (×2). El siguiente término pertenece al recorrido 2. Por eso, después de 12 viene 104.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.8",
       "metadatos": {
         "categoria": "numerico",
@@ -5295,7 +5263,7 @@
     },
     {
       "id": "NU-N2-04-09",
-      "enunciado": "Complete la serie: 5, 17, 29, 6, 18, 30, 7, …",
+      "enunciado": "¿Qué número sigue en esta serie? 5, 17, 29, 6, 18, 30, 7, …",
       "opciones": [
         "-16",
         "-5",
@@ -5303,7 +5271,7 @@
         "31"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 19. El documento lo desglosa así: 5 (+12) 17 (+12) 29 6 (+12) 18 (+12) 30 7.",
+      "explicacion": "Los saltos se repiten en un ciclo: 12, 12, -23. Ahora toca sumar 12. Por eso, después de 7 viene 19.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.9",
       "metadatos": {
         "categoria": "numerico",
@@ -5314,7 +5282,7 @@
     },
     {
       "id": "NU-N2-04-10",
-      "enunciado": "Complete la serie: 18, 19, 17, 20, 16, 21, 15, …",
+      "enunciado": "¿Qué número sigue en esta serie? 18, 19, 17, 20, 16, 21, 15, …",
       "opciones": [
         "29",
         "22",
@@ -5322,7 +5290,7 @@
         "8"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 22. El documento lo desglosa así: 18 (+1) 19 (-2) 17 (+3) 20 (-4) 16 (+5) 21 (-6) 15 (+7).",
+      "explicacion": "Separa las posiciones en 2 recorridos: 18 → 17 → 16 → 15 (salto -1); 19 → 20 → 21 (salto 1). El siguiente término pertenece al recorrido 2. Por eso, después de 15 viene 22.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.10",
       "metadatos": {
         "categoria": "numerico",
@@ -5333,7 +5301,7 @@
     },
     {
       "id": "NU-N2-04-11",
-      "enunciado": "Complete la serie: 1, 2, 4, 8, 16, 32, 64, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 2, 4, 8, 16, 32, 64, …",
       "opciones": [
         "96",
         "192",
@@ -5341,7 +5309,7 @@
         "128"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 128. El documento lo desglosa así: 1 (x2) 2 (x2) 4 (x2) 8 (x2) 16 (x2) 32 (x2) 64 (x2).",
+      "explicacion": "La distancia entre términos cambia, pero la proporción no: cada valor se multiplica por 2. Por eso, después de 64 viene 128.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.11",
       "metadatos": {
         "categoria": "numerico",
@@ -5352,7 +5320,7 @@
     },
     {
       "id": "NU-N2-04-12",
-      "enunciado": "Complete la serie: 3, 7, 11, 15, 19, 23, 27, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 7, 11, 15, 19, 23, 27, …",
       "opciones": [
         "32",
         "31",
@@ -5360,7 +5328,7 @@
         "35"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 31. El documento lo desglosa así: 3 (+4) 7 (+4) 11 (+4) 15 (+4) 19 (+4) 23 (+4) 27 (+4).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 4. Por eso, después de 27 viene 31.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.12",
       "metadatos": {
         "categoria": "numerico",
@@ -5371,7 +5339,7 @@
     },
     {
       "id": "NU-N2-04-13",
-      "enunciado": "Complete la serie: 19, 16, 13, 10, 7, 4, 1, …",
+      "enunciado": "¿Qué número sigue en esta serie? 19, 16, 13, 10, 7, 4, 1, …",
       "opciones": [
         "-1",
         "-2",
@@ -5379,7 +5347,7 @@
         "4"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es -2. El documento lo desglosa así: 19 (-3) 16 (-3) 13 (-3) 10 (-3) 7 (-3) 4 (-3) 1 (-3).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, resta 3. Por eso, después de 1 viene -2.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.13",
       "metadatos": {
         "categoria": "numerico",
@@ -5390,7 +5358,7 @@
     },
     {
       "id": "NU-N2-04-14",
-      "enunciado": "Complete la serie: 3, 9, 18, 20, 60, 120, 122, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 9, 18, 20, 60, 120, 122, …",
       "opciones": [
         "124",
         "610",
@@ -5398,7 +5366,7 @@
         "-122"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 366. El documento lo desglosa así: 3 (x3) 9 (x2) 18 (+2) 20 (x3) 60 (x2) 120 (+2) 122 (x3).",
+      "explicacion": "Hay un ciclo de tres operaciones: ×3, ×2 y +2. Se ve en 3 → 9 → 18 → 20 y de nuevo 20 → 60 → 120 → 122. El ciclo reinicia con 122 × 3 = 366.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.14",
       "metadatos": {
         "categoria": "numerico",
@@ -5409,7 +5377,7 @@
     },
     {
       "id": "NU-N2-04-15",
-      "enunciado": "Complete la serie: 7, 8, 9, 12, 13, 14, 17, …",
+      "enunciado": "¿Qué número sigue en esta serie? 7, 8, 9, 12, 13, 14, 17, …",
       "opciones": [
         "20",
         "19",
@@ -5417,7 +5385,7 @@
         "18"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 18. El documento lo desglosa así: 7 (+1) 8 (+1) 9 (+3) 12 (+1) 13 (+1) 14 (+3) 17 (+1).",
+      "explicacion": "Los saltos se repiten en un ciclo: 1, 1, 3. Ahora toca sumar 1. Por eso, después de 17 viene 18.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.15",
       "metadatos": {
         "categoria": "numerico",
@@ -5428,7 +5396,7 @@
     },
     {
       "id": "NU-N2-04-16",
-      "enunciado": "Complete la serie: 4, 5, 7, 10, 14, 19, 25, …",
+      "enunciado": "¿Qué número sigue en esta serie? 4, 5, 7, 10, 14, 19, 25, …",
       "opciones": [
         "39",
         "32",
@@ -5436,7 +5404,7 @@
         "31"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 32. El documento lo desglosa así: 4 (+1) 5 (+2) 7 (+3) 10 (+4) 14 (+5) 19 (+6) 25 (+7).",
+      "explicacion": "Los saltos son 1, 2, 3, 4, 5, 6. Cada salto cambia en 1; el siguiente será 7. Por eso, después de 25 viene 32.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.16",
       "metadatos": {
         "categoria": "numerico",
@@ -5447,7 +5415,7 @@
     },
     {
       "id": "NU-N2-04-17",
-      "enunciado": "Complete la serie: 5, 7, 9, 10, 12, 14, 15, …",
+      "enunciado": "¿Qué número sigue en esta serie? 5, 7, 9, 10, 12, 14, 15, …",
       "opciones": [
         "13",
         "17",
@@ -5455,7 +5423,7 @@
         "19"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 17. El documento lo desglosa así: 5 (+2) 7 (+2) 9 (+1) 10 (+2) 12 (+2) 14 (+1) 15 (+2).",
+      "explicacion": "Los saltos se repiten en un ciclo: 2, 2, 1. Ahora toca sumar 2. Por eso, después de 15 viene 17.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.17",
       "metadatos": {
         "categoria": "numerico",
@@ -5466,7 +5434,7 @@
     },
     {
       "id": "NU-N2-04-18",
-      "enunciado": "Complete la serie: 9, 10, 13, 12, 13, 16, 15, …",
+      "enunciado": "¿Qué número sigue en esta serie? 9, 10, 13, 12, 13, 16, 15, …",
       "opciones": [
         "14",
         "16",
@@ -5474,7 +5442,7 @@
         "15"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 16. El documento lo desglosa así: 9 (+1) 10 (+3) 13 (-1) 12 (+1) 13 (+3) 16 (-1) 15 (+1).",
+      "explicacion": "Los saltos se repiten en un ciclo: 1, 3, -1. Ahora toca sumar 1. Por eso, después de 15 viene 16.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.18",
       "metadatos": {
         "categoria": "numerico",
@@ -5484,27 +5452,8 @@
       }
     },
     {
-      "id": "NU-N2-04-19",
-      "enunciado": "Complete la serie: 8, 7, 16, 14, 24, 48, 32, …",
-      "opciones": [
-        "16",
-        "160",
-        "-32",
-        "96"
-      ],
-      "correcta": 3,
-      "explicacion": "El término que sigue es 96. El documento lo desglosa así: 8 7 16 14 24 48 32.",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.19",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Sucesiones alternantes",
-        "nivel": "avanzado",
-        "tiempo": 75
-      }
-    },
-    {
       "id": "NU-N2-04-20",
-      "enunciado": "Complete la serie: 11, 10, 7, 9, 8, 5, 7, …",
+      "enunciado": "¿Qué número sigue en esta serie? 11, 10, 7, 9, 8, 5, 7, …",
       "opciones": [
         "8",
         "5",
@@ -5512,7 +5461,7 @@
         "9"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 6. El documento lo desglosa así: 11 (-1) 10 (-3) 7 (+2) 9 (-1) 8 (-3) 5 (+2) 7 (-1).",
+      "explicacion": "Los saltos se repiten en un ciclo: -1, -3, 2. Ahora toca restar 1. Por eso, después de 7 viene 6.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.20",
       "metadatos": {
         "categoria": "numerico",
@@ -5523,7 +5472,7 @@
     },
     {
       "id": "NU-N2-05-01",
-      "enunciado": "Complete la serie: 80, 40, 44, 22, 26, 13, …",
+      "enunciado": "¿Qué número sigue en esta serie? 80, 40, 44, 22, 26, 13, …",
       "opciones": [
         "0",
         "9",
@@ -5531,7 +5480,7 @@
         "21"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 17. El documento lo desglosa así: 80 (:2) 40 (+4) 44 (:2) 22 (+4) 26 (:2) 13.",
+      "explicacion": "Alterna dividir entre 2 y sumar 4: 80 → 40 → 44 → 22 → 26 → 13. El paso siguiente es 13 + 4 = 17.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.1",
       "metadatos": {
         "categoria": "numerico",
@@ -5542,7 +5491,7 @@
     },
     {
       "id": "NU-N2-05-02",
-      "enunciado": "Complete la serie: 6, 4, 12, 6, 24, 8, 48, …",
+      "enunciado": "¿Qué número sigue en esta serie? 6, 4, 12, 6, 24, 8, 48, …",
       "opciones": [
         "-28",
         "10",
@@ -5550,7 +5499,7 @@
         "86"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 10. El documento lo desglosa así: 6 4 12 6 24 8 48.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 6 → 12 → 24 → 48 (×2); 4 → 6 → 8 (salto 2). El siguiente término pertenece al recorrido 2. Por eso, después de 48 viene 10.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.2",
       "metadatos": {
         "categoria": "numerico",
@@ -5561,7 +5510,7 @@
     },
     {
       "id": "NU-N2-05-03",
-      "enunciado": "Complete la serie: 25, 21, 29, 17, 33, 13, 37, …",
+      "enunciado": "¿Qué número sigue en esta serie? 25, 21, 29, 17, 33, 13, 37, …",
       "opciones": [
         "61",
         "65",
@@ -5569,7 +5518,7 @@
         "9"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 9. El documento lo desglosa así: 25 21 29 17 33 13 37.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 25 → 29 → 33 → 37 (salto 4); 21 → 17 → 13 (salto -4). El siguiente término pertenece al recorrido 2. Por eso, después de 37 viene 9.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.3",
       "metadatos": {
         "categoria": "numerico",
@@ -5580,7 +5529,7 @@
     },
     {
       "id": "NU-N2-05-04",
-      "enunciado": "Complete la serie: 11, 14, 17, 20, 23, 26, …",
+      "enunciado": "¿Qué número sigue en esta serie? 11, 14, 17, 20, 23, 26, …",
       "opciones": [
         "30",
         "29",
@@ -5588,7 +5537,7 @@
         "32"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 29. El documento lo desglosa así: 11 14 17 20 23 26.",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 3. Por eso, después de 26 viene 29.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.4",
       "metadatos": {
         "categoria": "numerico",
@@ -5599,7 +5548,7 @@
     },
     {
       "id": "NU-N2-05-05",
-      "enunciado": "Complete la serie: 2, 3, 5, 8, 13, 21, 34, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 3, 5, 8, 13, 21, 34, …",
       "opciones": [
         "13",
         "55",
@@ -5607,7 +5556,7 @@
         "76"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 55. El documento lo desglosa así: 2 (+) 3 (=) 5 (+3) (=) 8 (+5) (=) 13 (+5) (=) 21 (+13) (=) 34.",
+      "explicacion": "Cada valor suma los dos anteriores. Los últimos son 21 y 34. Por eso, después de 34 viene 55.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.5",
       "metadatos": {
         "categoria": "numerico",
@@ -5618,7 +5567,7 @@
     },
     {
       "id": "NU-N2-05-06",
-      "enunciado": "Complete la serie: 2, 2, 4, 2, 6, 2, 8, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 2, 4, 2, 6, 2, 8, …",
       "opciones": [
         "14",
         "-4",
@@ -5626,7 +5575,7 @@
         "3"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 2. El documento lo desglosa así: 2 (+) 2 (=) 4 (+) 2 (=) 6 (+) 2 (=) 8.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 2 → 4 → 6 → 8 (salto 2); 2 → 2 → 2 (salto 0). El siguiente término pertenece al recorrido 2. Por eso, después de 8 viene 2.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.6",
       "metadatos": {
         "categoria": "numerico",
@@ -5637,7 +5586,7 @@
     },
     {
       "id": "NU-N2-05-08",
-      "enunciado": "Complete la serie: 6, 12, 11, 13, 26, 25, 27, …",
+      "enunciado": "¿Qué número sigue en esta serie? 6, 12, 11, 13, 26, 25, 27, …",
       "opciones": [
         "0",
         "81",
@@ -5645,7 +5594,7 @@
         "29"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 54. El documento lo desglosa así: 6 (x2) 12 (-1) 11 (+2) 13 (x2) 26 (-1) 25 (+2) 27.",
+      "explicacion": "Se repiten tres operaciones: ×2, −1 y +2. Así se pasa de 6 a 12, 11, 13 y luego a 26, 25, 27. Toca duplicar 27: sigue 54.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.8",
       "metadatos": {
         "categoria": "numerico",
@@ -5656,7 +5605,7 @@
     },
     {
       "id": "NU-N2-05-09",
-      "enunciado": "Complete la serie: 4, 4, 8, 6, 16, 8, 32, 10, 64, …",
+      "enunciado": "¿Qué número sigue en esta serie? 4, 4, 8, 6, 16, 8, 32, 10, 64, …",
       "opciones": [
         "118",
         "116",
@@ -5664,7 +5613,7 @@
         "-40"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 12. El documento lo desglosa así: 4 4 8 6 16 8 32 10 64.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 4 → 8 → 16 → 32 → 64 (×2); 4 → 6 → 8 → 10 (salto 2). El siguiente término pertenece al recorrido 2. Por eso, después de 64 viene 12.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.9",
       "metadatos": {
         "categoria": "numerico",
@@ -5675,7 +5624,7 @@
     },
     {
       "id": "NU-N2-05-10",
-      "enunciado": "Complete la serie: 7, 11, 17, 29, 43, …",
+      "enunciado": "¿Qué número sigue en esta serie? 7, 11, 17, 29, 43, …",
       "opciones": [
         "57",
         "71",
@@ -5683,7 +5632,7 @@
         "15"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 71. El documento lo desglosa así: 7 11 17 29 43.",
+      "explicacion": "Mira las diferencias: +4, +6, +12, +14. Alternan sumar 2 a la diferencia y duplicarla: 4, 6, 12, 14, 28. Entonces 43 + 28 = 71.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.10",
       "metadatos": {
         "categoria": "numerico",
@@ -5694,7 +5643,7 @@
     },
     {
       "id": "NU-N2-05-11",
-      "enunciado": "Complete la serie: 60, 55, 59, 56, 58, …",
+      "enunciado": "¿Qué número sigue en esta serie? 60, 55, 59, 56, 58, …",
       "opciones": [
         "56",
         "59",
@@ -5702,7 +5651,7 @@
         "57"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 57. El documento lo desglosa así: 60 (-5) 55 (+4) 59 (-3) 56 (+2) 58 (-1).",
+      "explicacion": "Los saltos alternan signo y su valor absoluto baja de uno en uno: −5, +4, −3, +2, −1. Después de 58 sigue 57.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.11",
       "metadatos": {
         "categoria": "numerico",
@@ -5713,7 +5662,7 @@
     },
     {
       "id": "NU-N2-05-12",
-      "enunciado": "Complete la serie: 15, 5, 6, 2, 3, …",
+      "enunciado": "¿Qué número sigue en esta serie? 15, 5, 6, 2, 3, …",
       "opciones": [
         "5",
         "1",
@@ -5721,7 +5670,7 @@
         "4"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 1. El documento lo desglosa así: 15 (:3) 5 (+1) 6 (:3) 2 (+1) 3 (:3).",
+      "explicacion": "Alterna dividir entre 3 y sumar 1: 15 → 5 → 6 → 2 → 3. Ahora corresponde 3 ÷ 3 = 1.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.12",
       "metadatos": {
         "categoria": "numerico",
@@ -5732,7 +5681,7 @@
     },
     {
       "id": "NU-N2-05-13",
-      "enunciado": "Complete la serie: 3, 5, 9, 17, 33, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 5, 9, 17, 33, …",
       "opciones": [
         "49",
         "65",
@@ -5740,7 +5689,7 @@
         "97"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 65. El documento lo desglosa así: 3 (+2) 5 (+4) 9 (+8) 17 (+16) 33 (+32).",
+      "explicacion": "La operación constante es duplicar y restar 1: 3 → 5 → 9 → 17 → 33. El siguiente valor es 33 × 2 − 1 = 65.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.13",
       "metadatos": {
         "categoria": "numerico",
@@ -5751,7 +5700,7 @@
     },
     {
       "id": "NU-N2-05-14",
-      "enunciado": "Complete la serie: 11, 12, 12, 14, 13, 16, 14, …",
+      "enunciado": "¿Qué número sigue en esta serie? 11, 12, 12, 14, 13, 16, 14, …",
       "opciones": [
         "12",
         "18",
@@ -5759,7 +5708,7 @@
         "10"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 18. El documento lo desglosa así: 11 12 12 14 13 16 14.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 11 → 12 → 13 → 14 (salto 1); 12 → 14 → 16 (salto 2). El siguiente término pertenece al recorrido 2. Por eso, después de 14 viene 18.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.14",
       "metadatos": {
         "categoria": "numerico",
@@ -5770,7 +5719,7 @@
     },
     {
       "id": "NU-N2-05-15",
-      "enunciado": "Complete la serie: 2, 13, 5, 15, 8, 17, 11, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 13, 5, 15, 8, 17, 11, …",
       "opciones": [
         "5",
         "27",
@@ -5778,7 +5727,7 @@
         "19"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 19. El documento lo desglosa así: 2 13 5 15 8 17 11.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 2 → 5 → 8 → 11 (salto 3); 13 → 15 → 17 (salto 2). El siguiente término pertenece al recorrido 2. Por eso, después de 11 viene 19.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.15",
       "metadatos": {
         "categoria": "numerico",
@@ -5789,7 +5738,7 @@
     },
     {
       "id": "NU-N2-05-16",
-      "enunciado": "Complete la serie: 10, 8, 16, 14, 28, 26, …",
+      "enunciado": "¿Qué número sigue en esta serie? 10, 8, 16, 14, 28, 26, …",
       "opciones": [
         "0",
         "78",
@@ -5797,7 +5746,7 @@
         "24"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 52. El documento lo desglosa así: 10 (-2) 8 (x2) 16 (-2) 14 (x2) 28 (-2) 26.",
+      "explicacion": "Un paso resta 2 y el siguiente duplica: 10 → 8 → 16 → 14 → 28 → 26. Después de restar toca duplicar 26: sigue 52.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.16",
       "metadatos": {
         "categoria": "numerico",
@@ -5808,7 +5757,7 @@
     },
     {
       "id": "NU-N2-05-17",
-      "enunciado": "Complete la serie: 1, 3, 5, 8, 11, 15, 19, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 3, 5, 8, 11, 15, 19, …",
       "opciones": [
         "23",
         "14",
@@ -5816,7 +5765,7 @@
         "29"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 24. El documento lo desglosa así: 1 (+2) 3 (+2) 5 (+3) 8 (+3) 11 (+4) 15 (+4) 19 (+5).",
+      "explicacion": "Los saltos se presentan por parejas: +2, +2; +3, +3; +4, +4. La pareja siguiente empieza con +5; por eso 19 + 5 = 24.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.17",
       "metadatos": {
         "categoria": "numerico",
@@ -5827,7 +5776,7 @@
     },
     {
       "id": "NU-N2-05-18",
-      "enunciado": "Complete la serie: 4, 6, 8, 7, 6, 9, 12, 11, …",
+      "enunciado": "¿Qué número sigue en esta serie? 4, 6, 8, 7, 6, 9, 12, 11, …",
       "opciones": [
         "9",
         "12",
@@ -5835,7 +5784,7 @@
         "11"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 10. El documento lo desglosa así: 4 (+2) 6 (+2) 8 (-1) 7 (-1) 6 (+3) 9 (+3) 12 (-1) 11 (-1).",
+      "explicacion": "Los saltos van por parejas: +2, +2; −1, −1; +3, +3; −1, −1. Después de 11 toca restar 1 y queda 10.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.18",
       "metadatos": {
         "categoria": "numerico",
@@ -5846,7 +5795,7 @@
     },
     {
       "id": "NU-N2-05-19",
-      "enunciado": "Complete la serie: 8, 3, 10, 6, 12, 9, 14, 12, …",
+      "enunciado": "¿Qué número sigue en esta serie? 8, 3, 10, 6, 12, 9, 14, 12, …",
       "opciones": [
         "20",
         "8",
@@ -5854,7 +5803,7 @@
         "16"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 16. El documento lo desglosa así: 8 3 10 6 12 9 14 12.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 8 → 10 → 12 → 14 (salto 2); 3 → 6 → 9 → 12 (salto 3). El siguiente término pertenece al recorrido 1. Por eso, después de 12 viene 16.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.19",
       "metadatos": {
         "categoria": "numerico",
@@ -5865,7 +5814,7 @@
     },
     {
       "id": "NU-N2-05-20",
-      "enunciado": "Complete la serie: 2, 4, 16, 256, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 4, 16, 256, …",
       "opciones": [
         "-65024",
         "130816",
@@ -5873,7 +5822,7 @@
         "496"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 65536. El documento lo desglosa así: 2 (x2) 4 (x4) 16 (x16) 256 (x256).",
+      "explicacion": "Cada término es el cuadrado del anterior: 2² = 4, 4² = 16, 16² = 256 y 256² = 65 536.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.20",
       "metadatos": {
         "categoria": "numerico",
@@ -5883,27 +5832,8 @@
       }
     },
     {
-      "id": "NU-N2-06-01",
-      "enunciado": "Complete la serie: 4, 7, 11, 13, 16, …",
-      "opciones": [
-        "12",
-        "20",
-        "19",
-        "24"
-      ],
-      "correcta": 1,
-      "explicacion": "El término que sigue es 20. El documento lo desglosa así: 4 (+3) 7 (+4) 11 (+2) 13 (+3) 16 (+4).",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.1",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Sucesiones de progresión variable",
-        "nivel": "avanzado",
-        "tiempo": 75
-      }
-    },
-    {
       "id": "NU-N2-06-02",
-      "enunciado": "Complete la serie: 5, 9, 11, 15, 17, 21, …",
+      "enunciado": "¿Qué número sigue en esta serie? 5, 9, 11, 15, 17, 21, …",
       "opciones": [
         "25",
         "19",
@@ -5911,7 +5841,7 @@
         "24"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 23. El documento lo desglosa así: 5 (+4) 9 (+2) 11 (+4) 15 (+2) 17 (+4) 21 (+2).",
+      "explicacion": "Los saltos se repiten en un ciclo: 4, 2. Ahora toca sumar 2. Por eso, después de 21 viene 23.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.2",
       "metadatos": {
         "categoria": "numerico",
@@ -5922,7 +5852,7 @@
     },
     {
       "id": "NU-N2-06-03",
-      "enunciado": "Complete la serie: 1, 4, 10, 22, 46, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 4, 10, 22, 46, …",
       "opciones": [
         "70",
         "-2",
@@ -5930,7 +5860,7 @@
         "94"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 94. El documento lo desglosa así: 1 (+3) 4 (+6) 10 (+12) 22 (+24) 46 (+48).",
+      "explicacion": "Comprueba la misma operación en todos los pasos: multiplicar por 2 y sumar 2. Así, 1 → 4 → 10 → 22 → 46; luego 46 × 2 + 2 = 94.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.3",
       "metadatos": {
         "categoria": "numerico",
@@ -5941,7 +5871,7 @@
     },
     {
       "id": "NU-N2-06-04",
-      "enunciado": "Complete la serie: 55, 45, 40, 30, 25, 15, 10, …",
+      "enunciado": "¿Qué número sigue en esta serie? 55, 45, 40, 30, 25, 15, 10, …",
       "opciones": [
         "-10",
         "0",
@@ -5949,7 +5879,7 @@
         "5"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 0. El documento lo desglosa así: 55 (-10) 45 (-5) 40 (-10) 30 (-5) 25 (-10) 15 (-5) 10 (-10).",
+      "explicacion": "Los saltos se repiten en un ciclo: -10, -5. Ahora toca restar 10. Por eso, después de 10 viene 0.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.4",
       "metadatos": {
         "categoria": "numerico",
@@ -5960,7 +5890,7 @@
     },
     {
       "id": "NU-N2-06-05",
-      "enunciado": "Complete la serie: 14, 15, 17, 20, 21, 23, 26, …",
+      "enunciado": "¿Qué número sigue en esta serie? 14, 15, 17, 20, 21, 23, 26, …",
       "opciones": [
         "29",
         "27",
@@ -5968,7 +5898,7 @@
         "28"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 27. El documento lo desglosa así: 14 (+1) 15 (+2) 17 (+3) 20 (+1) 21 (+2) 23 (+3) 26 (+1).",
+      "explicacion": "Los saltos se repiten en un ciclo: 1, 2, 3. Ahora toca sumar 1. Por eso, después de 26 viene 27.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.5",
       "metadatos": {
         "categoria": "numerico",
@@ -5979,7 +5909,7 @@
     },
     {
       "id": "NU-N2-06-06",
-      "enunciado": "Complete la serie: 3, 15, 10, 9, 17, 10, 27, 19, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 15, 10, 9, 17, 10, 27, 19, …",
       "opciones": [
         "11",
         "10",
@@ -5987,7 +5917,7 @@
         "28"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 10. El documento lo desglosa así: 3 15 10 9 17 10 27 19.",
+      "explicacion": "Se entrelazan tres columnas: 3, 9, 27 (×3); 15, 17, 19 (+2); y 10, 10, 10 (constante). Sigue el tercer valor de la última terna: 10.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.6",
       "metadatos": {
         "categoria": "numerico",
@@ -5998,7 +5928,7 @@
     },
     {
       "id": "NU-N2-06-07",
-      "enunciado": "Complete la serie: 65, 60, 55, 50, 45, 40, …",
+      "enunciado": "¿Qué número sigue en esta serie? 65, 60, 55, 50, 45, 40, …",
       "opciones": [
         "30",
         "45",
@@ -6006,7 +5936,7 @@
         "35"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 35. El documento lo desglosa así: 65 (-5) 60 (-5) 55 (-5) 50 (-5) 45 (-5) 40 (-5).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, resta 5. Por eso, después de 40 viene 35.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.7",
       "metadatos": {
         "categoria": "numerico",
@@ -6017,7 +5947,7 @@
     },
     {
       "id": "NU-N2-06-08",
-      "enunciado": "Complete la serie: 8, 1, 10, 2, 13, 6, 17, 24, …",
+      "enunciado": "¿Qué número sigue en esta serie? 8, 1, 10, 2, 13, 6, 17, 24, …",
       "opciones": [
         "20",
         "22",
@@ -6025,7 +5955,7 @@
         "31"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 22. El documento lo desglosa así: 8 1 10 2 13 6 17 24.",
+      "explicacion": "Separa posiciones impares y pares. Las impares son 8, 10, 13, 17: sus saltos son +2, +3 y +4, así que sigue 22. Las pares 1, 2, 6, 24 multiplican por 2, 3 y 4.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.8",
       "metadatos": {
         "categoria": "numerico",
@@ -6036,7 +5966,7 @@
     },
     {
       "id": "NU-N2-06-09",
-      "enunciado": "Complete la serie: 7, 2, 3, 14, 4, 6, 28, 8, 12, …",
+      "enunciado": "¿Qué número sigue en esta serie? 7, 2, 3, 14, 4, 6, 28, 8, 12, …",
       "opciones": [
         "-32",
         "56",
@@ -6044,7 +5974,7 @@
         "100"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 56. El documento lo desglosa así: 7 2 3 // 14 4 6 // 28 8 12.",
+      "explicacion": "Separa las posiciones en 3 recorridos: 7 → 14 → 28 (×2); 2 → 4 → 8 (×2); 3 → 6 → 12 (×2). El siguiente término pertenece al recorrido 1. Por eso, después de 12 viene 56.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.9",
       "metadatos": {
         "categoria": "numerico",
@@ -6055,7 +5985,7 @@
     },
     {
       "id": "NU-N2-06-10",
-      "enunciado": "Complete la serie: 22, 6, 8, 24, 9, 8, 26, 12, 8, 28, 15, 8, …",
+      "enunciado": "¿Qué número sigue en esta serie? 22, 6, 8, 24, 9, 8, 26, 12, 8, 28, 15, 8, …",
       "opciones": [
         "1",
         "30",
@@ -6063,7 +5993,7 @@
         "-14"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 30. El documento lo desglosa así: 22 6 8 24 9 8 26 12 8 28 15 8.",
+      "explicacion": "Separa las posiciones en 3 recorridos: 22 → 24 → 26 → 28 (salto 2); 6 → 9 → 12 → 15 (salto 3); 8 → 8 → 8 → 8 (salto 0). El siguiente término pertenece al recorrido 1. Por eso, después de 8 viene 30.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.10",
       "metadatos": {
         "categoria": "numerico",
@@ -6074,7 +6004,7 @@
     },
     {
       "id": "NU-N2-06-11",
-      "enunciado": "Complete la serie: 78, 79, 80, 81, 82, 83, …",
+      "enunciado": "¿Qué número sigue en esta serie? 78, 79, 80, 81, 82, 83, …",
       "opciones": [
         "85",
         "83",
@@ -6082,7 +6012,7 @@
         "84"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 84. El documento lo desglosa así: 78 (+1) 79 (+1) 80 (+1) 81 (+1) 82 (+1) 83 (+1).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 1. Por eso, después de 83 viene 84.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.11",
       "metadatos": {
         "categoria": "numerico",
@@ -6093,7 +6023,7 @@
     },
     {
       "id": "NU-N2-06-12",
-      "enunciado": "Complete la serie: 6, 7, 10, 15, 22, 31, 42, …",
+      "enunciado": "¿Qué número sigue en esta serie? 6, 7, 10, 15, 22, 31, 42, …",
       "opciones": [
         "29",
         "68",
@@ -6101,7 +6031,7 @@
         "53"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 55. El documento lo desglosa así: 6 (+1) 7 (+3) 10 (+5) 15 (+7) 22 (+9) 31 (+11) 42 (+13).",
+      "explicacion": "Los saltos son 1, 3, 5, 7, 9, 11. Cada salto cambia en 2; el siguiente será 13. Por eso, después de 42 viene 55.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.12",
       "metadatos": {
         "categoria": "numerico",
@@ -6112,7 +6042,7 @@
     },
     {
       "id": "NU-N2-06-13",
-      "enunciado": "Complete la serie: 19, 16, 14, 11, 9, 6, 4, …",
+      "enunciado": "¿Qué número sigue en esta serie? 19, 16, 14, 11, 9, 6, 4, …",
       "opciones": [
         "2",
         "7",
@@ -6120,7 +6050,7 @@
         "-2"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 1. El documento lo desglosa así: 19 (-3) 16 (-2) 14 (-3) 11 (-2) 9 (-3) 6 (-2) 4 (-3).",
+      "explicacion": "Los saltos se repiten en un ciclo: -3, -2. Ahora toca restar 3. Por eso, después de 4 viene 1.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.13",
       "metadatos": {
         "categoria": "numerico",
@@ -6131,7 +6061,7 @@
     },
     {
       "id": "NU-N2-06-14",
-      "enunciado": "Complete la serie: 30, 28, 14, 12, 6, …",
+      "enunciado": "¿Qué número sigue en esta serie? 30, 28, 14, 12, 6, …",
       "opciones": [
         "0",
         "4",
@@ -6139,7 +6069,7 @@
         "8"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 4. El documento lo desglosa así: 30 (-2) 28 (:2) 14 (-2) 12 (:2) 6 (-2).",
+      "explicacion": "Alterna restar 2 y dividir entre 2: 30 → 28 → 14 → 12 → 6. Ahora toca 6 − 2 = 4.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.14",
       "metadatos": {
         "categoria": "numerico",
@@ -6150,7 +6080,7 @@
     },
     {
       "id": "NU-N2-06-15",
-      "enunciado": "Complete la serie: 20, 60, 17, 30, 14, 15, …",
+      "enunciado": "¿Qué número sigue en esta serie? 20, 60, 17, 30, 14, 15, …",
       "opciones": [
         "7",
         "19",
@@ -6158,7 +6088,7 @@
         "11"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 11. El documento lo desglosa así: 20 60 17 30 14 15.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 20 → 17 → 14 (salto -3); 60 → 30 → 15 (×0.5). El siguiente término pertenece al recorrido 1. Por eso, después de 15 viene 11.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.15",
       "metadatos": {
         "categoria": "numerico",
@@ -6169,7 +6099,7 @@
     },
     {
       "id": "NU-N2-06-16",
-      "enunciado": "Complete la serie: 16, 8, 24, 12, 36, …",
+      "enunciado": "¿Qué número sigue en esta serie? 16, 8, 24, 12, 36, …",
       "opciones": [
         "54",
         "0",
@@ -6177,7 +6107,7 @@
         "60"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 18. El documento lo desglosa así: 16 (+) 8 (=) 24 (+) 12 (=) 36.",
+      "explicacion": "Se repiten dos pasos: dividir entre 2 y multiplicar por 3. Compruébalo con 16 → 8 → 24 → 12 → 36. Sigue 36 ÷ 2 = 18.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.16",
       "metadatos": {
         "categoria": "numerico",
@@ -6188,7 +6118,7 @@
     },
     {
       "id": "NU-N2-06-17",
-      "enunciado": "Complete la serie: 1, 2, 3, 6, 9, 12, 17, 22, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 2, 3, 6, 9, 12, 17, 22, …",
       "opciones": [
         "28",
         "27",
@@ -6196,7 +6126,7 @@
         "17"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 27. El documento lo desglosa así: 1 (+1) 2 (+1) 3 // 6 (+3) 9 (+3) 12 // 17 (+5) 22 (+5).",
+      "explicacion": "Son ternas con saltos iguales dentro de cada grupo: 1, 2, 3 (+1); 6, 9, 12 (+3); 17, 22, 27 (+5). Sigue 27.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.17",
       "metadatos": {
         "categoria": "numerico",
@@ -6207,7 +6137,7 @@
     },
     {
       "id": "NU-N2-06-18",
-      "enunciado": "Complete la serie: 43, 34, 26, 19, 13, 8, …",
+      "enunciado": "¿Qué número sigue en esta serie? 43, 34, 26, 19, 13, 8, …",
       "opciones": [
         "0",
         "4",
@@ -6215,7 +6145,7 @@
         "12"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 4. El documento lo desglosa así: 43 (-9) 34 (-8) 26 (-7) 19 (-6) 13 (-5) 8 (-4).",
+      "explicacion": "Los saltos son -9, -8, -7, -6, -5. Cada salto cambia en 1; el siguiente será -4. Por eso, después de 8 viene 4.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.18",
       "metadatos": {
         "categoria": "numerico",
@@ -6226,7 +6156,7 @@
     },
     {
       "id": "NU-N2-06-19",
-      "enunciado": "Complete la serie: 13, 55, 99, 145, …",
+      "enunciado": "¿Qué número sigue en esta serie? 13, 55, 99, 145, …",
       "opciones": [
         "191",
         "97",
@@ -6234,32 +6164,13 @@
         "193"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 193. El documento lo desglosa así: 13 (+42) 55 (+44) 99 (+46) 145 (+48).",
+      "explicacion": "Los saltos son 42, 44, 46. Cada salto cambia en 2; el siguiente será 48. Por eso, después de 145 viene 193.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.19",
       "metadatos": {
         "categoria": "numerico",
         "subcategoria": "Sucesiones de progresión variable",
         "nivel": "intermedio",
         "tiempo": 60
-      }
-    },
-    {
-      "id": "NU-N2-06-20",
-      "enunciado": "Complete la serie: 66, 68, 67, 79, 68, 80, …",
-      "opciones": [
-        "61",
-        "99",
-        "118",
-        "92"
-      ],
-      "correcta": 1,
-      "explicacion": "El término que sigue es 99. El documento lo desglosa así: 66 68 67 79 68 80.",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 6.20",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Sucesiones alternantes",
-        "nivel": "avanzado",
-        "tiempo": 75
       }
     },
     {
@@ -6272,7 +6183,7 @@
         "4"
       ],
       "correcta": 1,
-      "explicacion": "El número que sobra es 7: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+      "explicacion": "Sin el 7 queda 2, 4, 6, 8, 10, 12: todos son pares consecutivos, con salto +2.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.1",
       "metadatos": {
         "categoria": "numerico",
@@ -6291,7 +6202,7 @@
         "19"
       ],
       "correcta": 1,
-      "explicacion": "El número que sobra es 20: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+      "explicacion": "El segundo 20 rompe la cuenta descendente de uno en uno: 24, 23, 22, 21, 20, 19, 18, 17, 16, 15.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.2",
       "metadatos": {
         "categoria": "numerico",
@@ -6302,7 +6213,7 @@
     },
     {
       "id": "NU-N2-07-03",
-      "enunciado": "Complete la serie: 18, 21, 24, 27, 30, …",
+      "enunciado": "¿Qué número sigue en esta serie? 18, 21, 24, 27, 30, …",
       "opciones": [
         "27",
         "34",
@@ -6310,7 +6221,7 @@
         "33"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 33. El documento lo desglosa así: 18 (+3) 21 (+3) 24 (+3) 27 (+3) 30 (+3).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 3. Por eso, después de 30 viene 33.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.3",
       "metadatos": {
         "categoria": "numerico",
@@ -6321,7 +6232,7 @@
     },
     {
       "id": "NU-N2-07-04",
-      "enunciado": "Complete la serie: 12, 17, 22, 27, 32, 37, …",
+      "enunciado": "¿Qué número sigue en esta serie? 12, 17, 22, 27, 32, 37, …",
       "opciones": [
         "43",
         "42",
@@ -6329,7 +6240,7 @@
         "47"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 42. El documento lo desglosa así: 12 (+5) 17 (+5) 22 (+5) 27 (+5) 32 (+5) 37 (+5).",
+      "explicacion": "Compara términos consecutivos: el cambio siempre es el mismo, suma 5. Por eso, después de 37 viene 42.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.4",
       "metadatos": {
         "categoria": "numerico",
@@ -6340,7 +6251,7 @@
     },
     {
       "id": "NU-N2-07-05",
-      "enunciado": "Complete la serie: 24, 22, 20, 19, 18, 16, 14, …",
+      "enunciado": "¿Qué número sigue en esta serie? 24, 22, 20, 19, 18, 16, 14, …",
       "opciones": [
         "12",
         "13",
@@ -6348,7 +6259,7 @@
         "15"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 13. El documento lo desglosa así: 24 (-2) 22 (-2) 20 (-1) 19 (-1) 18 (-2) 16 (-2) 14 (-1).",
+      "explicacion": "Las restas se agrupan por parejas: −2, −2; −1, −1; −2, −2. La siguiente pareja empieza restando 1: 14 − 1 = 13.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.5",
       "metadatos": {
         "categoria": "numerico",
@@ -6367,7 +6278,7 @@
         "18"
       ],
       "correcta": 2,
-      "explicacion": "El número que sobra es 1: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+      "explicacion": "El 1 inicial sobra porque desde 2 todos los términos se multiplican por 3: 2, 6, 18, 54, 162.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.6",
       "metadatos": {
         "categoria": "numerico",
@@ -6377,65 +6288,8 @@
       }
     },
     {
-      "id": "NU-N2-07-07",
-      "enunciado": "Señala el número que sobra en la serie: 1, 2, 4, 9, 3, 7, 4, 9, 10, 5, 4",
-      "opciones": [
-        "4",
-        "7",
-        "1",
-        "9"
-      ],
-      "correcta": 3,
-      "explicacion": "El número que sobra es 9: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.7",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Número que rompe la serie",
-        "nivel": "intermedio",
-        "tiempo": 60
-      }
-    },
-    {
-      "id": "NU-N2-07-08",
-      "enunciado": "Complete la serie: 50, 47, 45, 42, 41, 40, 37, …",
-      "opciones": [
-        "33",
-        "35",
-        "39",
-        "34"
-      ],
-      "correcta": 1,
-      "explicacion": "El término que sigue es 35. El documento lo desglosa así: 50 (-3) 47 (-2) 45 (-3) 42 (-1) 41 (-1) 40 (-3) 37 (-2).",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.8",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Sucesiones de progresión variable",
-        "nivel": "avanzado",
-        "tiempo": 75
-      }
-    },
-    {
-      "id": "NU-N2-07-09",
-      "enunciado": "Señala el número que sobra en la serie: 1, 2, 3, 6, 4, 5, 6, 6, 7, 8, 9",
-      "opciones": [
-        "1",
-        "6",
-        "5",
-        "3"
-      ],
-      "correcta": 1,
-      "explicacion": "El número que sobra es 6: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.9",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Número que rompe la serie",
-        "nivel": "intermedio",
-        "tiempo": 60
-      }
-    },
-    {
       "id": "NU-N2-07-10",
-      "enunciado": "Complete la serie: 1, 11, 31, 61, 101, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 11, 31, 61, 101, …",
       "opciones": [
         "201",
         "151",
@@ -6443,7 +6297,7 @@
         "51"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 151. El documento lo desglosa así: 1 (+10) 11 (+20) 31 (+30) 61 (+40) 101 (+50).",
+      "explicacion": "Los saltos son 10, 20, 30, 40. Cada salto cambia en 10; el siguiente será 50. Por eso, después de 101 viene 151.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.10",
       "metadatos": {
         "categoria": "numerico",
@@ -6454,7 +6308,7 @@
     },
     {
       "id": "NU-N2-07-11",
-      "enunciado": "Complete la serie: 10, 11, 12, 15, 16, 17, 20, 21, …",
+      "enunciado": "¿Qué número sigue en esta serie? 10, 11, 12, 15, 16, 17, 20, 21, …",
       "opciones": [
         "23",
         "20",
@@ -6462,7 +6316,7 @@
         "22"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 22. El documento lo desglosa así: 10 11 12 (+3) 15 16 17 (+3) 20 21.",
+      "explicacion": "Los saltos se repiten en un ciclo: 1, 1, 3. Ahora toca sumar 1. Por eso, después de 21 viene 22.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.11",
       "metadatos": {
         "categoria": "numerico",
@@ -6473,7 +6327,7 @@
     },
     {
       "id": "NU-N2-07-12",
-      "enunciado": "Complete la serie: 3, 6, 10, 12, 24, 28, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 6, 10, 12, 24, 28, …",
       "opciones": [
         "31",
         "30",
@@ -6481,7 +6335,7 @@
         "32"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 30. El documento lo desglosa así: 3 (x2) 6 (+4) 10 (+2) 12 (x2) 24 (+4) 28 (+2).",
+      "explicacion": "El ciclo es ×2, +4, +2: 3 → 6 → 10 → 12 y 12 → 24 → 28. Para cerrar el segundo ciclo suma 2: sigue 30.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.12",
       "metadatos": {
         "categoria": "numerico",
@@ -6492,7 +6346,7 @@
     },
     {
       "id": "NU-N2-07-13",
-      "enunciado": "Complete la serie: 2, 3, 5, 8, 11, 13, 14, 15, 17, 20, 23, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 3, 5, 8, 11, 13, 14, 15, 17, 20, 23, …",
       "opciones": [
         "26",
         "25",
@@ -6500,7 +6354,7 @@
         "27"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 25. El documento lo desglosa así: 2 (+1) 3 (+2) 5 (+3) 8 (+3) 11 (+2) 13 (+1) 14 (+1) 15 (+2) 17 (+3) 20 (+3) 23 (+2).",
+      "explicacion": "Los saltos forman un ciclo que sube y baja: +1, +2, +3, +3, +2, +1, y vuelve a empezar. Después de 23 corresponde +2, por tanto 25.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.13",
       "metadatos": {
         "categoria": "numerico",
@@ -6511,7 +6365,7 @@
     },
     {
       "id": "NU-N2-07-14",
-      "enunciado": "Complete la serie: 3, 9, 27, 81, 27, 9, 3, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 9, 27, 81, 27, 9, 3, …",
       "opciones": [
         "-3",
         "-1",
@@ -6519,7 +6373,7 @@
         "5"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 1. El documento lo desglosa así: 3 (x3) 9 (x3) 27 (x3) 81 (:3) 27 (:3) 9 (:3) 3 (:3).",
+      "explicacion": "La serie multiplica por 3 hasta 81 y luego divide por 3: 81, 27, 9, 3, 1. Sigue 1.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.14",
       "metadatos": {
         "categoria": "numerico",
@@ -6530,7 +6384,7 @@
     },
     {
       "id": "NU-N2-07-15",
-      "enunciado": "Complete la serie: 4, 8, 5, 10, 6, 12, …",
+      "enunciado": "¿Qué número sigue en esta serie? 4, 8, 5, 10, 6, 12, …",
       "opciones": [
         "18",
         "2",
@@ -6538,7 +6392,7 @@
         "7"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 7. El documento lo desglosa así: 4 8 5 10 6 12.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 4 → 5 → 6 (salto 1); 8 → 10 → 12 (salto 2). El siguiente término pertenece al recorrido 1. Por eso, después de 12 viene 7.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.15",
       "metadatos": {
         "categoria": "numerico",
@@ -6557,7 +6411,7 @@
         "17"
       ],
       "correcta": 2,
-      "explicacion": "El número que sobra es 22: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+      "explicacion": "El 22 es el único par. Sin él queda la serie de impares consecutivos 13, 15, 17, 19, 21, 23, 25, 27.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.1",
       "metadatos": {
         "categoria": "numerico",
@@ -6576,7 +6430,7 @@
         "15"
       ],
       "correcta": 1,
-      "explicacion": "El número que sobra es 16: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+      "explicacion": "El 16 es el único par. Los demás son impares descendentes de dos en dos: 23, 21, 19, 17, 15, 13, 11, 9.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.2",
       "metadatos": {
         "categoria": "numerico",
@@ -6595,7 +6449,7 @@
         "9"
       ],
       "correcta": 3,
-      "explicacion": "El número que sobra es 9: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+      "explicacion": "Lee la secuencia sin el 9: 2, 4, 8, 16, 32, 64. Cada término duplica al anterior; el 9 es el único que interrumpe esa regla, así que se señala como intruso.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.3",
       "metadatos": {
         "categoria": "numerico",
@@ -6605,84 +6459,8 @@
       }
     },
     {
-      "id": "NU-N2-08-04",
-      "enunciado": "Señala el número que sobra en la serie: 58, 53, 49, 46, 44, 43",
-      "opciones": [
-        "53",
-        "43",
-        "49",
-        "58"
-      ],
-      "correcta": 1,
-      "explicacion": "El número que sobra es 43: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.4",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Número que rompe la serie",
-        "nivel": "intermedio",
-        "tiempo": 60
-      }
-    },
-    {
-      "id": "NU-N2-08-05",
-      "enunciado": "Complete la serie: 6, 12, 18, 24, 54, 48, 16, …",
-      "opciones": [
-        "-64",
-        "96",
-        "-16",
-        "176"
-      ],
-      "correcta": 1,
-      "explicacion": "El término que sigue es 96. El documento lo desglosa así: 6 12 18 24 54 48 162.",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.5",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Sucesiones alternantes",
-        "nivel": "avanzado",
-        "tiempo": 75
-      }
-    },
-    {
-      "id": "NU-N2-08-06",
-      "enunciado": "Complete la serie: 3, 6, 9, 27, 81, 243, …",
-      "opciones": [
-        "249",
-        "246",
-        "405",
-        "240"
-      ],
-      "correcta": 1,
-      "explicacion": "El término que sigue es 246. El documento lo desglosa así: 3 (+3) 6 (+3) 9 (x3) 27 (x3) 81 (x3) 243 (+3).",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.6",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Sucesiones multiplicativas",
-        "nivel": "intermedio",
-        "tiempo": 60
-      }
-    },
-    {
-      "id": "NU-N2-08-07",
-      "enunciado": "Complete la serie: 15, 20, 23, 28, 31, 35, 37, 41, …",
-      "opciones": [
-        "45",
-        "40",
-        "43",
-        "42"
-      ],
-      "correcta": 3,
-      "explicacion": "El término que sigue es 42. El documento lo desglosa así: 15 20 23 28 31 35 37 41.",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.7",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Sucesiones alternantes",
-        "nivel": "avanzado",
-        "tiempo": 75
-      }
-    },
-    {
       "id": "NU-N2-08-09",
-      "enunciado": "Complete la serie: 15, 17, 21, 27, 35, 45, …",
+      "enunciado": "¿Qué número sigue en esta serie? 15, 17, 21, 27, 35, 45, …",
       "opciones": [
         "55",
         "33",
@@ -6690,7 +6468,7 @@
         "69"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 57. El documento lo desglosa así: 15 (+2) 17 (+4) 21 (+6) 27 (+8) 35 (+10) 45 (+12).",
+      "explicacion": "Los saltos son 2, 4, 6, 8, 10. Cada salto cambia en 2; el siguiente será 12. Por eso, después de 45 viene 57.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.9",
       "metadatos": {
         "categoria": "numerico",
@@ -6701,7 +6479,7 @@
     },
     {
       "id": "NU-N2-08-11",
-      "enunciado": "Complete la serie: 10, 11, 12, 15, 16, 17, 20, 21, …",
+      "enunciado": "¿Qué número sigue en esta serie? 10, 11, 12, 15, 16, 17, 20, 21, …",
       "opciones": [
         "20",
         "21",
@@ -6709,7 +6487,7 @@
         "22"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 22. El documento lo desglosa así: 10 (+1) 11 (+1) 12 (+3) 15 (+1) 16 (+1) 17 (+3) 20 (+1) 21 (+1).",
+      "explicacion": "Los saltos se repiten en un ciclo: 1, 1, 3. Ahora toca sumar 1. Por eso, después de 21 viene 22.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.11",
       "metadatos": {
         "categoria": "numerico",
@@ -6728,7 +6506,7 @@
         "5"
       ],
       "correcta": 1,
-      "explicacion": "El número que sobra es 15: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+      "explicacion": "Prueba primero la regla más sencilla: sumar 4 en cada paso. Así se obtiene 1, 5, 9, 13, 17, 21, 25. El 15 queda fuera de esa progresión y por eso es el número que sobra.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.13",
       "metadatos": {
         "categoria": "numerico",
@@ -6747,7 +6525,7 @@
         "7"
       ],
       "correcta": 1,
-      "explicacion": "El número que sobra es 8: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+      "explicacion": "El 8 rompe la secuencia de números impares repetidos dos veces: 3, 3, 5, 5, 7, 7, 9, 9.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.14",
       "metadatos": {
         "categoria": "numerico",
@@ -6758,7 +6536,7 @@
     },
     {
       "id": "NU-N2-08-15",
-      "enunciado": "Complete la serie: 22, 25, 29, 34, 40, 47, …",
+      "enunciado": "¿Qué número sigue en esta serie? 22, 25, 29, 34, 40, 47, …",
       "opciones": [
         "54",
         "63",
@@ -6766,7 +6544,7 @@
         "55"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 55. El documento lo desglosa así: 22 (+3) 25 (+4) 29 (+5) 34 (+6) 40 (+7) 47 (+8).",
+      "explicacion": "Los saltos son 3, 4, 5, 6, 7. Cada salto cambia en 1; el siguiente será 8. Por eso, después de 47 viene 55.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.15",
       "metadatos": {
         "categoria": "numerico",
@@ -6777,197 +6555,197 @@
     },
     {
       "id": "NU-N2-09-01",
-      "enunciado": "Complete la serie: 76, 72, 68, 71, 74, 72, 70, …",
+      "enunciado": "Indica los dos números que siguen en la serie: 76, 72, 68, 71, 74, 72, 70, …",
       "opciones": [
-        "69",
-        "71",
-        "68",
-        "72"
+        "69 y 70",
+        "71 y 72",
+        "68 y 69",
+        "72 y 73"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 71. El documento lo desglosa así: 76 (-4) 72 (-4) 68 (+3) 71 (+3) 74 (-2) 72 (-2) 70 (+1).",
+      "explicacion": "Los dos números que siguen son 71 y 72. Los saltos vienen por parejas: −4, −4; +3, +3; −2, −2; +1, +1.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 9.1",
       "metadatos": {
         "categoria": "numerico",
-        "subcategoria": "Sucesiones de progresión variable",
+        "subcategoria": "Dos términos de una serie",
         "nivel": "avanzado",
         "tiempo": 75
       }
     },
     {
       "id": "NU-N2-09-02",
-      "enunciado": "Complete la serie: 4, 7, 10, 14, 18, 23, 28, 34, …",
+      "enunciado": "Indica los dos números que siguen en la serie: 4, 7, 10, 14, 18, 23, 28, 34, …",
       "opciones": [
-        "46",
-        "28",
-        "40",
-        "41"
+        "46 y 53",
+        "28 y 35",
+        "40 y 47",
+        "41 y 48"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 40. El documento lo desglosa así: 4 (+3) 7 (+3) 10 (+4) 14 (+4) 18 (+5) 23 (+5) 28 (+6) 34 (+6).",
+      "explicacion": "Los dos números que siguen son 40 y 47. Los saltos se repiten de dos en dos: +3, +3; +4, +4; +5, +5; +6, +6; después +7, +7.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 9.2",
       "metadatos": {
         "categoria": "numerico",
-        "subcategoria": "Sucesiones de progresión variable",
+        "subcategoria": "Dos términos de una serie",
         "nivel": "avanzado",
         "tiempo": 75
       }
     },
     {
       "id": "NU-N2-09-03",
-      "enunciado": "Complete la serie: 1, 3, 4, 7, 11, 18, 29, 47, …",
+      "enunciado": "Indica los dos números que siguen en la serie: 1, 3, 4, 7, 11, 18, 29, 47, …",
       "opciones": [
-        "105",
-        "18",
-        "65",
-        "76"
+        "105 y 152",
+        "18 y 65",
+        "65 y 112",
+        "76 y 123"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 76. El documento lo desglosa así: 1 (+) 3 (+) 4 (+) 7 (+) 11 (+) 18 (+) 29 (+) 47 (+).",
+      "explicacion": "Los dos números que siguen son 76 y 123. Cada término es la suma de los dos anteriores: 29 + 47 = 76 y 47 + 76 = 123.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 9.3",
       "metadatos": {
         "categoria": "numerico",
-        "subcategoria": "Sucesiones alternantes",
+        "subcategoria": "Dos términos de una serie",
         "nivel": "intermedio",
         "tiempo": 60
       }
     },
     {
       "id": "NU-N2-09-04",
-      "enunciado": "Complete la serie: 3, 4, 5, 6, 8, 5, 12, 16, 5, 24, …",
+      "enunciado": "Indica los dos números que siguen en la serie: 3, 4, 5, 6, 8, 5, 12, 16, 5, 24, …",
       "opciones": [
-        "40",
-        "32",
-        "16",
-        "43"
+        "40 y 5",
+        "32 y 5",
+        "16 y 5",
+        "43 y 5"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 32. El documento lo desglosa así: 3 4 5 6 8 5 12 16 5 24.",
+      "explicacion": "Los dos números que siguen son 32 y 5. Se repiten ternas: 3, 4, 5; 6, 8, 5; 12, 16, 5; 24, 32, 5. Los dos primeros se duplican y el tercero permanece en 5.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 9.4",
       "metadatos": {
         "categoria": "numerico",
-        "subcategoria": "Sucesiones alternantes",
+        "subcategoria": "Dos términos de una serie",
         "nivel": "avanzado",
         "tiempo": 75
       }
     },
     {
       "id": "NU-N2-09-05",
-      "enunciado": "Complete la serie: 2, 4, 8, 20, 8, 16, 32, 20, 32, 64, …",
+      "enunciado": "Indica los dos números que siguen en la serie: 2, 4, 8, 20, 8, 16, 32, 20, 32, 64, …",
       "opciones": [
-        "0",
-        "128",
-        "96",
-        "192"
+        "0 y 20",
+        "128 y 20",
+        "96 y 20",
+        "192 y 20"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 128. El documento lo desglosa así: 2 (x2) 4 (x2) 8 20 8 (x2) 16 (x2) 32 20 32 (x2) 64 (x2).",
+      "explicacion": "Los dos números que siguen son 128 y 20. Los bloques son 2, 4, 8, 20; 8, 16, 32, 20; 32, 64, 128, 20. Los tres primeros valores de cada bloque se duplican y el cuarto permanece en 20.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 9.5",
       "metadatos": {
         "categoria": "numerico",
-        "subcategoria": "Sucesiones multiplicativas",
+        "subcategoria": "Dos términos de una serie",
         "nivel": "intermedio",
         "tiempo": 60
       }
     },
     {
       "id": "NU-N2-09-06",
-      "enunciado": "Complete la serie: 5, 7, 10, 14, 19, 25, 32, 40, …",
+      "enunciado": "Indica los dos números que siguen en la serie: 5, 7, 10, 14, 19, 25, 32, 40, …",
       "opciones": [
-        "48",
-        "49",
-        "58",
-        "31"
+        "48 y 58",
+        "49 y 59",
+        "58 y 68",
+        "31 y 41"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 49. El documento lo desglosa así: 5 (+2) 7 (+3) 10 (+4) 14 (+5) 19 (+6) 25 (+7) 32 (+8) 40 (+9).",
+      "explicacion": "Los dos números que siguen son 49 y 59. Las diferencias son +2, +3, +4, +5, +6, +7, +8, luego +9 y +10.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 9.6",
       "metadatos": {
         "categoria": "numerico",
-        "subcategoria": "Sucesiones de progresión variable",
+        "subcategoria": "Dos términos de una serie",
         "nivel": "intermedio",
         "tiempo": 60
       }
     },
     {
       "id": "NU-N2-09-07",
-      "enunciado": "Complete la serie: 4, 6, 6, 9, 8, 13, 10, 18, …",
+      "enunciado": "Indica los dos números que siguen en la serie: 4, 6, 6, 9, 8, 13, 10, 18, …",
       "opciones": [
-        "26",
-        "24",
-        "6",
-        "12"
+        "26 y 24",
+        "24 y 24",
+        "6 y 24",
+        "12 y 24"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 12. El documento lo desglosa así: 4 6 6 9 8 13 10 18.",
+      "explicacion": "Los dos números que siguen son 12 y 24. Las posiciones impares son 4, 6, 8, 10, 12 (+2); las pares son 6, 9, 13, 18, 24 (saltos +3, +4, +5, +6).",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 9.7",
       "metadatos": {
         "categoria": "numerico",
-        "subcategoria": "Sucesiones alternantes",
+        "subcategoria": "Dos términos de una serie",
         "nivel": "avanzado",
         "tiempo": 75
       }
     },
     {
       "id": "NU-N2-09-08",
-      "enunciado": "Complete la serie: 6, 7, 9, 13, 21, …",
+      "enunciado": "Indica los dos números que siguen en la serie: 6, 7, 9, 13, 21, …",
       "opciones": [
-        "5",
-        "53",
-        "37",
-        "29"
+        "5 y 37",
+        "53 y 85",
+        "37 y 69",
+        "29 y 61"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 37. El documento lo desglosa así: 6 (+1) 7 (+2) 9 (+4) 13 (+8) 21 (+16).",
+      "explicacion": "Los dos números que siguen son 37 y 69. Cada salto duplica el anterior: +1, +2, +4, +8, +16, +32.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 9.8",
       "metadatos": {
         "categoria": "numerico",
-        "subcategoria": "Sucesiones de progresión variable",
+        "subcategoria": "Dos términos de una serie",
         "nivel": "avanzado",
         "tiempo": 75
       }
     },
     {
       "id": "NU-N2-09-09",
-      "enunciado": "Complete la serie: 2, 6, 14, 30, 62, …",
+      "enunciado": "Indica los dos números que siguen en la serie: 2, 6, 14, 30, 62, …",
       "opciones": [
-        "-2",
-        "126",
-        "94",
-        "190"
+        "-2 y 126",
+        "126 y 254",
+        "94 y 222",
+        "190 y 318"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 126. El documento lo desglosa así: 2 (+4) 6 (+8) 14 (+16) 30 (+32) 62 (+64).",
+      "explicacion": "Los dos números que siguen son 126 y 254. Los saltos son potencias de dos: +4, +8, +16, +32, +64, +128.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 9.9",
       "metadatos": {
         "categoria": "numerico",
-        "subcategoria": "Sucesiones de progresión variable",
+        "subcategoria": "Dos términos de una serie",
         "nivel": "avanzado",
         "tiempo": 75
       }
     },
     {
       "id": "NU-N2-09-10",
-      "enunciado": "Complete la serie: 1, 2, 4, 8, 16, …",
+      "enunciado": "Indica los dos números que siguen en la serie: 1, 2, 4, 8, 16, …",
       "opciones": [
-        "48",
-        "32",
-        "24",
-        "0"
+        "48 y 96",
+        "32 y 64",
+        "24 y 48",
+        "0 y 0"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 32. El documento lo desglosa así: 1 (x2) 2 (x2) 4 (x2) 8 (x2) 16 (x2).",
+      "explicacion": "Los dos números que siguen son 32 y 64. Cada término duplica el anterior: 16 × 2 = 32 y 32 × 2 = 64.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 9.10",
       "metadatos": {
         "categoria": "numerico",
-        "subcategoria": "Sucesiones multiplicativas",
+        "subcategoria": "Dos términos de una serie",
         "nivel": "intermedio",
         "tiempo": 60
       }
     },
     {
       "id": "NU-N2-10-01",
-      "enunciado": "Complete la serie: 78, 77, 81, 80, 84, 83, 87, …",
+      "enunciado": "¿Qué número sigue en esta serie? 78, 77, 81, 80, 84, 83, 87, …",
       "opciones": [
         "91",
         "86",
@@ -6975,7 +6753,7 @@
         "85"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 86. El documento lo desglosa así: 78 (-1) 77 (+4) 81 (-1) 80 (+4) 84 (-1) 83 (+4) 87 (-1).",
+      "explicacion": "Los saltos se repiten en un ciclo: -1, 4. Ahora toca restar 1. Por eso, después de 87 viene 86.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.1",
       "metadatos": {
         "categoria": "numerico",
@@ -6986,7 +6764,7 @@
     },
     {
       "id": "NU-N2-10-02",
-      "enunciado": "Complete la serie: 20, 4, 40, 8, 80, 16, 160, …",
+      "enunciado": "¿Qué número sigue en esta serie? 20, 4, 40, 8, 80, 16, 160, …",
       "opciones": [
         "-96",
         "32",
@@ -6994,7 +6772,7 @@
         "288"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 32. El documento lo desglosa así: 20 4 40 8 80 16 160.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 20 → 40 → 80 → 160 (×2); 4 → 8 → 16 (×2). El siguiente término pertenece al recorrido 2. Por eso, después de 160 viene 32.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.2",
       "metadatos": {
         "categoria": "numerico",
@@ -7005,7 +6783,7 @@
     },
     {
       "id": "NU-N2-10-03",
-      "enunciado": "Complete la serie: 13, 14, 15, 12, 17, 10, 19, …",
+      "enunciado": "¿Qué número sigue en esta serie? 13, 14, 15, 12, 17, 10, 19, …",
       "opciones": [
         "-3",
         "30",
@@ -7013,7 +6791,7 @@
         "8"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 8. El documento lo desglosa así: 13 14 15 12 17 10 19.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 13 → 15 → 17 → 19 (salto 2); 14 → 12 → 10 (salto -2). El siguiente término pertenece al recorrido 2. Por eso, después de 19 viene 8.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.3",
       "metadatos": {
         "categoria": "numerico",
@@ -7024,7 +6802,7 @@
     },
     {
       "id": "NU-N2-10-04",
-      "enunciado": "Complete la serie: 2, 20, 3, 19, 5, 17, 8, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 20, 3, 19, 5, 17, 8, …",
       "opciones": [
         "2",
         "14",
@@ -7032,7 +6810,7 @@
         "-1"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 14. El documento lo desglosa así: 2 20 3 19 5 17 8.",
+      "explicacion": "En posiciones impares van 2, 3, 5, 8; cada término suma los dos anteriores. En las pares van 20, 19, 17 y 14, restando 1, 2 y 3. La siguiente posición es par: 14.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.4",
       "metadatos": {
         "categoria": "numerico",
@@ -7042,27 +6820,8 @@
       }
     },
     {
-      "id": "NU-N2-10-05",
-      "enunciado": "Complete la serie: 2, 4, 8, 8, 64, 14, 14, …",
-      "opciones": [
-        "14",
-        "196",
-        "-168",
-        "378"
-      ],
-      "correcta": 1,
-      "explicacion": "El término que sigue es 196. El documento lo desglosa así: 2 (x) 2 (=) 4 // 8 (x) 8 (=) 64 // 14 (x) 14 (=).",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.5",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Sucesiones multiplicativas",
-        "nivel": "intermedio",
-        "tiempo": 60
-      }
-    },
-    {
       "id": "NU-N2-10-06",
-      "enunciado": "Complete la serie: 4, 7, 13, 25, 49, 97, …",
+      "enunciado": "¿Qué número sigue en esta serie? 4, 7, 13, 25, 49, 97, …",
       "opciones": [
         "145",
         "289",
@@ -7070,7 +6829,7 @@
         "1"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 193. El documento lo desglosa así: 4 (+3) 7 (+6) 13 (+12) 25 (+24) 49 (+48) 97 (+96).",
+      "explicacion": "Cada valor es el doble del anterior menos 1: 4 → 7 → 13 → 25 → 49 → 97. Sigue 97 × 2 − 1 = 193.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.6",
       "metadatos": {
         "categoria": "numerico",
@@ -7081,7 +6840,7 @@
     },
     {
       "id": "NU-N2-10-07",
-      "enunciado": "Complete la serie: 3, 6, 11, 14, 19, 22, 27, …",
+      "enunciado": "¿Qué número sigue en esta serie? 3, 6, 11, 14, 19, 22, 27, …",
       "opciones": [
         "32",
         "33",
@@ -7089,7 +6848,7 @@
         "30"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 30. El documento lo desglosa así: 3 6 11 14 19 22 27.",
+      "explicacion": "Los saltos se repiten en un ciclo: 3, 5. Ahora toca sumar 3. Por eso, después de 27 viene 30.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.7",
       "metadatos": {
         "categoria": "numerico",
@@ -7100,7 +6859,7 @@
     },
     {
       "id": "NU-N2-10-08",
-      "enunciado": "Complete la serie: 864, 432, 144, 72, 24, 12, 4, …",
+      "enunciado": "¿Qué número sigue en esta serie? 864, 432, 144, 72, 24, 12, 4, …",
       "opciones": [
         "0",
         "2",
@@ -7108,7 +6867,7 @@
         "-4"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 2. El documento lo desglosa así: 864 (:2) 432 (:3) 144 (:2) 72 (:3) 24 (:2) 12 (:3) 4 (:2).",
+      "explicacion": "Separa las posiciones en 2 recorridos: 864 → 144 → 24 → 4 (×0.16666666666666666); 432 → 72 → 12 (×0.16666666666666666). El siguiente término pertenece al recorrido 2. Por eso, después de 4 viene 2.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.8",
       "metadatos": {
         "categoria": "numerico",
@@ -7119,7 +6878,7 @@
     },
     {
       "id": "NU-N2-10-09",
-      "enunciado": "Complete la serie: 7, 5, 11, 9, 15, 13, 19, …",
+      "enunciado": "¿Qué número sigue en esta serie? 7, 5, 11, 9, 15, 13, 19, …",
       "opciones": [
         "25",
         "17",
@@ -7127,7 +6886,7 @@
         "15"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 17. El documento lo desglosa así: 7 5 11 9 15 13 19.",
+      "explicacion": "Los saltos se repiten en un ciclo: -2, 6. Ahora toca restar 2. Por eso, después de 19 viene 17.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.9",
       "metadatos": {
         "categoria": "numerico",
@@ -7138,7 +6897,7 @@
     },
     {
       "id": "NU-N2-10-10",
-      "enunciado": "Complete la serie: 2, 3, 6, 15, 42, 123, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 3, 6, 15, 42, 123, …",
       "opciones": [
         "609",
         "366",
@@ -7146,7 +6905,7 @@
         "-120"
       ],
       "correcta": 1,
-      "explicacion": "El término que sigue es 366. El documento lo desglosa así: 2 (+1) 3 (+3) 6 (+9) 15 (+27) 42 (+81) 123 (+243).",
+      "explicacion": "En todos los pasos se multiplica por 3 y se resta 3: 2 → 3 → 6 → 15 → 42 → 123. Aplicado una vez más: 123 × 3 − 3 = 366.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.10",
       "metadatos": {
         "categoria": "numerico",
@@ -7157,7 +6916,7 @@
     },
     {
       "id": "NU-N2-10-11",
-      "enunciado": "Complete la serie: 2, 4, 12, 48, 240, 1440, …",
+      "enunciado": "¿Qué número sigue en esta serie? 2, 4, 12, 48, 240, 1440, …",
       "opciones": [
         "2640",
         "18720",
@@ -7165,7 +6924,7 @@
         "10080"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 10080. El documento lo desglosa así: 2 (x2) 4 (x3) 12 (x4) 48 (x5) 240 (x6) 1440 (x7).",
+      "explicacion": "Los factores crecen uno por uno: 2 × 2 = 4, luego ×3 = 12, ×4 = 48, ×5 = 240, ×6 = 1440. Sigue ×7 = 10 080.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.11",
       "metadatos": {
         "categoria": "numerico",
@@ -7176,7 +6935,7 @@
     },
     {
       "id": "NU-N2-10-12",
-      "enunciado": "Complete la serie: 1, 2, 6, 12, 36, 72, 216, …",
+      "enunciado": "¿Qué número sigue en esta serie? 1, 2, 6, 12, 36, 72, 216, …",
       "opciones": [
         "0",
         "648",
@@ -7184,7 +6943,7 @@
         "360"
       ],
       "correcta": 2,
-      "explicacion": "El término que sigue es 432. El documento lo desglosa así: 1 (x2) 2 (x3) 6 (x2) 12 (x3) 36 (x2) 72 (x3) 216 (x2).",
+      "explicacion": "Separa las posiciones en 2 recorridos: 1 → 6 → 36 → 216 (×6); 2 → 12 → 72 (×6). El siguiente término pertenece al recorrido 2. Por eso, después de 216 viene 432.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.12",
       "metadatos": {
         "categoria": "numerico",
@@ -7194,27 +6953,8 @@
       }
     },
     {
-      "id": "NU-N2-10-13",
-      "enunciado": "Complete la serie: 3, 6, 7, 14, 17, 102, …",
-      "opciones": [
-        "187",
-        "107",
-        "97",
-        "112"
-      ],
-      "correcta": 1,
-      "explicacion": "El término que sigue es 107. El documento lo desglosa así: 3 (x2) 6 (+1) 7 (x2) 14 (+3) 17 (x6) 102 (+5).",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.13",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Sucesiones multiplicativas",
-        "nivel": "avanzado",
-        "tiempo": 75
-      }
-    },
-    {
       "id": "NU-N2-10-15",
-      "enunciado": "Complete la serie: 21, 3, 17, 7, 13, 11, …",
+      "enunciado": "¿Qué número sigue en esta serie? 21, 3, 17, 7, 13, 11, …",
       "opciones": [
         "7",
         "13",
@@ -7222,7 +6962,7 @@
         "9"
       ],
       "correcta": 3,
-      "explicacion": "El término que sigue es 9. El documento lo desglosa así: 21 3 17 7 13 11.",
+      "explicacion": "Separa las posiciones en 2 recorridos: 21 → 17 → 13 (salto -4); 3 → 7 → 11 (salto 4). El siguiente término pertenece al recorrido 1. Por eso, después de 11 viene 9.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.15",
       "metadatos": {
         "categoria": "numerico",

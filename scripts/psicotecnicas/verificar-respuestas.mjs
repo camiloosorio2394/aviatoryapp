@@ -57,8 +57,8 @@ registerHooks({
   },
 })
 
-const { SERIES } = await import(
-  pathToFileURL(path.resolve(raiz, "src/data/psicotecnicas/series.ts")).href
+const { SERIES_REVISADAS: SERIES } = await import(
+  pathToFileURL(path.resolve(raiz, "src/data/psicotecnicas/seriesRevisadas.ts")).href
 )
 
 // ── La fuente, otra vez, para leer el rastro de operaciones ─────────────────
@@ -131,9 +131,9 @@ const sinComprobar = []
 for (const e of SERIES) {
   const [, , nEj, nItem] = e.id.split("-").map((p, i) => (i >= 2 ? Number(p) : p))
   const solucion = soluciones.get(nEj)?.get(nItem)
-  const respuesta = Number(e.opciones[e.respuesta])
+  const respuesta = Number(e.opciones[e.respuesta].split(" y ")[0])
   const terminos = e.enunciado
-    .replace(/^Complete la serie:\s*/, "")
+    .replace(/^[^:?]*[:?]\s*/, "")
     .replace(/,?\s*…\s*$/, "")
     .split(/,\s*/)
     .map(Number)

@@ -13,27 +13,27 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-04",
     categoria: "espacial",
     titulo: "Despliegue de un cubo con números",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-04-limpio.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-04-didactico.webp",
     imagenAlt: "Desarrollo de un cubo con los números 1, 2, 3, 4 y 6, y cuatro cubos plegados.",
     respuesta:
-      "La A. Al plegar, la cara del 1 y la del 3 quedan opuestas, así que ningún cubo puede mostrar las dos a la vez.",
+      "La A. En este desarrollo se oponen 4 y 2, 6 y 3, y 1 y la cara vacía. También hay que conservar el orden y la orientación de las cifras al plegar; no basta con reunir tres caras que parezcan vecinas.",
     fuente: "Test de razonamiento espacial (667045629), pregunta 1",
   },
   {
     id: "EJ-E2-05",
     categoria: "espacial",
     titulo: "Despliegue de un dado por puntos",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-05-limpio.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-05-didactico.webp",
     imagenAlt: "Desarrollo de un dado marcado con puntos y cuatro dados plegados.",
     respuesta:
-      "La C. En un dado las caras opuestas suman siete, y esa regla descarta sola tres de las cuatro alternativas.",
+      "La C. Este desarrollo no representa un dado convencional: tiene una cara sin puntos y dos caras con tres. Sus parejas opuestas son 4–2, 3 de la izquierda–1 y cara vacía–3 del extremo derecho. La C respeta esas relaciones al plegarse.",
     fuente: "Test de razonamiento espacial (667045629), pregunta 2",
   },
   {
     id: "EJ-E2-06",
     categoria: "espacial",
     titulo: "Despliegue con flechas y símbolos",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-06-limpio.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-06-didactico.webp",
     imagenAlt: "Desarrollo con un cuadrado, un triángulo y dos flechas, y cuatro cubos plegados.",
     respuesta:
       "La D. Con las flechas no basta con que la cara sea la correcta: tiene que apuntar hacia donde queda al cerrar el cubo.",
@@ -43,7 +43,7 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-07",
     categoria: "espacial",
     titulo: "Despliegue con cuatro símbolos",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-07-limpio.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-07-didactico.webp",
     imagenAlt: "Desarrollo con triángulo, círculo, estrella y cuadrado, y cuatro cubos plegados.",
     respuesta:
       "La C. Se comprueba con un par de caras contiguas: las que en el desarrollo comparten arista tienen que seguir compartiéndola en el cubo.",
@@ -53,7 +53,7 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-08",
     categoria: "espacial",
     titulo: "Del cubo al desarrollo",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-08-limpio.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-08-didactico.webp",
     imagenAlt: "Un cubo con las caras divididas en triángulos negros y cinco desarrollos posibles.",
     respuesta:
       "La A. Aquí el camino es el inverso: se parte del cubo y se busca el desarrollo, vigilando la orientación de cada triángulo.",
@@ -63,7 +63,7 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-09",
     categoria: "espacial",
     titulo: "Qué sólido forma el desarrollo",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-09-limpio.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-09-didactico.webp",
     imagenAlt: "Un desarrollo con puntos, cruz, línea y asterisco, y cinco sólidos posibles.",
     respuesta:
       "La B. Con cinco alternativas conviene descartar por pares de caras opuestas antes de intentar plegar entero.",
@@ -73,17 +73,17 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-14",
     categoria: "espacial",
     titulo: "Rotación de 90 grados",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-14-limpio.webp",
-    imagenAlt: "Dos siluetas de perro en un recuadro y cuatro rotaciones posibles.",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-14-didactico.webp",
+    imagenAlt: "Dos perros orientados hacia la izquierda, uno sobre otro; cuatro transformaciones muestran giros, reflejo y traslado.",
     respuesta:
-      "La B. Girar no es reflejar: dos de las opciones son la figura espejada, que nunca se obtiene rotando en el plano.",
-    fuente: "Test de razonamiento espacial (667045629), pregunta 11",
+      "La B. Se gira toda la figura 90° en sentido horario: la columna pasa a fila y también giran las siluetas. La A gira en sentido contrario; la C refleja los perros; la D solo los traslada.",
+    fuente: "Adaptación didáctica de Test de razonamiento espacial (667045629), pregunta 11",
   },
   {
     id: "EJ-E2-15",
     categoria: "espacial",
     titulo: "Despliegue de una caja",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-15-limpio.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-15-didactico.webp",
     imagenAlt: "Desarrollo de una caja con caras trapezoidales y cuatro cajas formadas.",
     respuesta:
       "La C. Cuando las caras no son cuadradas hay que mirar también las proporciones: la caja resultante conserva el ancho de cada trapecio.",
