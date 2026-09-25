@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pérdida de capacidad RVSM y comunicación a ATC</title>
+  <desc id="desc">En espacio RVSM, la separación vertical de mil pies depende de la capacidad de mantener altura. Si el equipo o la turbulencia la comprometen, la tripulación informa a ATC y coordina una autorización revisada.</desc>
+  <rect width="1600" height="900" fill="#101d2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="94" y="108" fill="#f3f9fb" font-size="51" font-weight="700">RVSM: comunicar cuando ya no se puede mantener</text>
+    <text x="96" y="161" fill="#b9cbd3" font-size="28">La capacidad depende del estado real del avión y de la atmósfera</text>
+    <rect x="94" y="242" width="600" height="452" rx="27" fill="#203b49" stroke="#83ddce" stroke-width="4"/>
+    <text x="130" y="310" fill="#83ddce" font-size="29" font-weight="700">BANDA RVSM</text>
+    <text x="130" y="381" fill="#ffffff" font-size="43" font-weight="700">FL 290 – FL 410</text>
+    <text x="130" y="446" fill="#e2ecee" font-size="29">Separación vertical mínima</text>
+    <text x="130" y="487" fill="#e2ecee" font-size="29">de 1 000 ft entre aeronaves</text>
+    <text x="130" y="528" fill="#e2ecee" font-size="29">aprobadas, donde se aplica.</text>
+    <text x="130" y="625" fill="#a9c7ca" font-size="26">La aprobación sola no basta</text>
+    <text x="130" y="660" fill="#a9c7ca" font-size="26">si se degrada la capacidad.</text>
+    <rect x="748" y="242" width="758" height="452" rx="27" fill="#26394a" stroke="#9cafb9" stroke-width="3"/>
+    <text x="782" y="310" fill="#c9d8de" font-size="29" font-weight="700">CUANDO CAMBIA LA CAPACIDAD</text>
+    <text x="782" y="378" fill="#ffffff" font-size="31">Equipo: «UNABLE RVSM DUE EQUIPMENT»</text>
+    <text x="782" y="440" fill="#ffffff" font-size="28">Turbulencia: «UNABLE RVSM DUE TURBULENCE»</text>
+    <text x="782" y="516" fill="#83ddce" font-size="28" font-weight="700">Informar sin demora a ATC.</text>
+    <text x="782" y="571" fill="#d1dee2" font-size="27">Mantener la autorización hasta recibir otra,</text>
+    <text x="782" y="610" fill="#d1dee2" font-size="27">salvo contingencia que exija acción inmediata.</text>
+    <text x="95" y="777" fill="#83ddce" font-size="32" font-weight="700">Al recuperar capacidad: «READY TO RESUME RVSM».</text>
+    <text x="95" y="824" fill="#b1c5ce" font-size="25">No cambies de nivel ni asumas separación nueva por la llamada solamente.</text>
+  </g>
+</svg>

@@ -1018,123 +1018,115 @@ export const NIVEL_5: DocScreen[] = [
   {
     n: 39,
     title: "RVSM",
-    kicker: "Cuándo se pierde la capacidad y cómo se dice",
-    minutes: 9,
+    kicker: "Avisar la pérdida de capacidad sin demora",
+    minutes: 19,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "RVSM (separación vertical mínima reducida) es la aplicación de 1000 ft de separación vertical entre el FL 290 y el FL 410 inclusive, cuando fuera de ese espacio designado se aplican nominalmente 2000 ft desde el FL 290 (Doc 4444 2.6.1.1 nota 1 y 5.3.2). Solo pueden operar ahí aeronaves con aprobación RVSM.",
+        text: "La separación vertical mínima reducida (RVSM, Reduced Vertical Separation Minimum) permite aplicar 1 000 ft entre niveles de vuelo (FL, Flight Level) 290 y 410 inclusive, entre aeronaves aprobadas en el espacio donde está implantada. La autorización de la aeronave y el explotador no garantiza que la capacidad permanezca durante todo el vuelo. Una falla de equipo o turbulencia que impida mantener la precisión exigida cambia la situación operacional: la tripulación debe informar sin demora al control de tránsito aéreo (ATC, Air Traffic Control), describir la limitación y coordinar la continuación.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-39-01.svg",
+        alt: "Banda RVSM de FL 290 a FL 410 y mensajes ante incapacidad por equipo o turbulencia.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Esquema basado en EASA SERA.11013 y AMC1 SERA.14001. Se reconoce una pérdida de capacidad porque el equipo o la turbulencia ya no permiten mantener la performance vertical requerida. La decisión de cabina es avisar sin demora y obtener una autorización revisada o aplicar la contingencia pertinente si no puede esperar.",
+      },
+      { kind: "sub", text: "Detectar, comunicar y coordinar" },
       {
         kind: "list",
+        ordered: true,
         items: [
-          "**Aprobación.** El explotador se asegura antes de la salida de que la aeronave tiene la aprobación RVSM requerida cuando va a operar en ese espacio aéreo (Doc 4444 4.4.1.4 b). En el plan de vuelo se indica esa capacidad (VERIFICAR la casilla y la letra en el Apéndice 2 vigente).",
-          "**Pérdida de capacidad.** Cuando una falla de altimetría, del piloto automático u otro sistema degrada la performance por debajo de lo requerido para ese espacio aéreo, la tripulación lo notifica **sin demora** al ATC (Doc 4444 5.2.2). El ATC entonces aplica otra separación.",
-          "**Turbulencia.** Turbulencia que no deja mantener el nivel con la precisión requerida también es motivo para informar que no puede seguir en RVSM (VERIFICAR).",
-          "**Aeronave sin aprobación.** Si una aeronave no aprobada es autorizada a entrar o cruzar el espacio RVSM (por ejemplo, en vuelos especiales), lo informa en la comunicación, con la frase NEGATIVE RVSM (VERIFICAR).",
-          "**Frases cortas.** El ATC necesita saber tres cosas: que usted no puede operar en RVSM, por qué y qué va a hacer o pedir.",
+          "**Comprobar el efecto:** contrastar indicaciones altimétricas, capacidad de mantenimiento de nivel, automatismos y la lista aplicable al avión. Una indicación anómala no basta para diagnosticar una causa por radio; se determina si la performance requerida puede sostenerse.",
+          "**Avisar sin demora:** cuando la degradación cae por debajo del requisito del espacio aéreo, ATC necesita conocerlo para establecer otra separación. La expresión UNABLE RVSM DUE EQUIPMENT corresponde a degradación de equipo; UNABLE RVSM DUE TURBULENCE, a turbulencia intensa que impide cumplir el mantenimiento de altura.",
+          "**Explicar qué puede hacer:** junto a la frase normalizada, transmitir de forma breve el efecto real, si puede mantener el nivel actual y qué necesita: tiempo, un nivel alternativo o una autorización revisada. La solicitud no equivale a aprobación.",
+          "**Mantener o actuar según contingencia:** no iniciar un cambio de nivel por el solo hecho de pronunciar UNABLE RVSM. Seguir la autorización hasta recibir otra si es seguro; cuando la condición exige desviarse antes, aplicar el procedimiento de contingencia vigente del espacio aéreo y comunicar la acción tan pronto como sea posible.",
+          "**Confirmar recuperación:** READY TO RESUME RVSM informa que vuelve a estar disponible la capacidad después de una contingencia de equipo o tiempo atmosférico. ATC debe conocerlo y coordinar el tratamiento subsiguiente; la frase no otorga una autorización nueva.",
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "CM-39-01 · Esquema · 4:5 · 1080×1350 px",
-        descripcion: "Imagen sugerida: Columna vertical de niveles de vuelo del FL 280 al FL 420. Entre FL 290 y FL 410, banda sombreada con el rótulo «RVSM: 1000 ft» y niveles cada 1000 ft. Fuera de la banda, rótulos de separación nominal según Doc 4444 5.3.2. A un lado, tres fichas de fallas: «altímetro», «piloto automático / mantenimiento de nivel», «turbulencia fuerte», cada una con una flecha hacia «Notificar al ATC sin demora (Doc 4444 5.2.2)». Objetivo: Que el piloto entienda dónde aplica RVSM y qué fallas le quitan la capacidad y obligan a avisar.",
-        alto: 420,
-        ratio: "4 / 5",
-        anchoMax: 420,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-39-02.webp",
+        alt: "Historieta de tres paneles: pilotos comprueban altimetría, PM informa incapacidad RVSM y ATS coordina.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no un vuelo real: 1) ambos pilotos comparan indicaciones y comprueban la capacidad; 2) el piloto que vuela (PF, pilot flying) conserva el control y el piloto que monitorea (PM, pilot monitoring) avisa a ATC; 3) los controladores coordinan separación o una alternativa. Las pantallas no representan valores ni rutas válidos.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Toda la fraseología RVSM de esta lección está sin verificar: «CONFIRM RVSM APPROVED», «AFFIRM RVSM», «NEGATIVE RVSM», «UNABLE RVSM DUE EQUIPMENT», «UNABLE RVSM DUE TURBULENCE», «READY TO RESUME RVSM», «UNABLE ISSUE CLEARANCE INTO RVSM AIRSPACE, MAINTAIN (level)» y en qué transmisiones se incluye NEGATIVE RVSM: **Doc 4444 cap. 12** (fraseología RVSM). La indicación RVSM en el plan de vuelo: **Doc 4444 Apéndice 2 vigente**. La turbulencia como causa de pérdida de capacidad y los procedimientos de contingencia: **Doc 9574** y **Doc 4444 cap. 15**.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · El ATC pregunta la aprobación (VERIFICAR)",
-        [`ATC:   "AVIATORY 452, CONFIRM RVSM APPROVED."`, `PILOT: "AFFIRM RVSM, AVIATORY 452."`],
-        "Significado: el ATC pregunta si la aeronave tiene aprobación RVSM.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Pérdida de capacidad por equipo (VERIFICAR)",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, UNABLE RVSM DUE EQUIPMENT."`,
-          `ATC:   "AVIATORY 452, ROGER, DESCEND TO FLIGHT LEVEL 280."`,
-          `PILOT: "DESCENDING FLIGHT LEVEL 280, AVIATORY 452."`,
+      { kind: "sub", text: "Fraseología con contexto" },
+      {
+        kind: "table",
+        head: ["Situación", "Frase normalizada", "Decisión que implica"],
+        rows: [
+          ["ATC comprueba aprobación", "CONFIRM RVSM APPROVED / AFFIRM RVSM", "Confirmar la aprobación real; no usar AFFIRM si se perdió la capacidad."],
+          ["Aeronave no aprobada", "NEGATIVE RVSM", "Identificar estado de aprobación distinto de una falla sobrevenida."],
+          ["Capacidad degradada por equipo", "UNABLE RVSM DUE EQUIPMENT", "Avisar el efecto y solicitar coordinación sin demora."],
+          ["Turbulencia que impide mantener altura", "UNABLE RVSM DUE TURBULENCE", "Avisar la incapacidad efectiva, no toda turbulencia leve."],
+          ["Capacidad recuperada", "READY TO RESUME RVSM", "Informar la recuperación; esperar coordinación antes de asumir otra separación."],
         ],
-        "Significado: perdió la capacidad RVSM por una falla (por ejemplo, un altímetro principal). El ATC lo saca del espacio RVSM o aplica otra separación. La respuesta del ATC es un ejemplo: puede ser otra.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · Pérdida de capacidad por turbulencia (VERIFICAR)",
-        [`PILOT: "BOGOTA CONTROL, AVIATORY 452, UNABLE RVSM DUE TURBULENCE."`, `ATC:   "AVIATORY 452, ROGER."`],
-        "Significado: turbulencia que no deja mantener el nivel dentro de la precisión requerida.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Listo para volver a RVSM (VERIFICAR)",
-        [`PILOT: "BOGOTA CONTROL, AVIATORY 452, READY TO RESUME RVSM."`, `ATC:   "AVIATORY 452, ROGER."`],
-        "Significado: terminó la turbulencia o se recuperó el sistema; el ATC decide cuándo lo vuelve a tratar como RVSM.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Aeronave sin aprobación (VERIFICAR)",
-        [`PILOT: "BOGOTA CONTROL, AVIATORY 452, FLIGHT LEVEL 370, NEGATIVE RVSM."`, `ATC:   "AVIATORY 452, ROGER."`],
-        "Significado: primer contacto de una aeronave sin aprobación RVSM (o que la perdió) dentro de ese espacio aéreo. VERIFICAR en qué transmisiones se exige incluir NEGATIVE RVSM.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · El ATC no puede autorizar el ascenso (VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, UNABLE ISSUE CLEARANCE INTO RVSM AIRSPACE, MAINTAIN FLIGHT LEVEL 280."`,
-          `PILOT: "MAINTAINING FLIGHT LEVEL 280, AVIATORY 452."`,
+      },
+      {
+        kind: "p",
+        text: "Estas expresiones constan en EASA AMC1 SERA.14001. NEGATIVE RVSM comunica que la aeronave no está aprobada; UNABLE RVSM DUE EQUIPMENT o DUE TURBULENCE comunica una incapacidad concreta en vuelo. La fraseología exacta y las condiciones de entrada de aeronaves no aprobadas pueden variar por región y Estado; esta lección no inventa una exención ni una autorización colombiana.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Lo que ATC necesita saber",
+        text: "Identificación real — estado RVSM — causa observable o tipo de limitación — posibilidad de mantener el nivel actual — intención o solicitud. Es una estructura de comunicación didáctica, no una transcripción. No asigna nivel, ruta, frecuencia ni descenso ficticios. Si una acción inmediata de seguridad obliga a apartarse de la autorización, se aplican las contingencias publicadas y se informa tan pronto como se pueda.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Desacuerdo altimétrico en crucero",
+        situacion: "Caso didáctico sin vuelo, nivel, ruta o frecuencia inventados. En espacio RVSM aparecen indicaciones altimétricas discrepantes. La tripulación comprueba según el procedimiento del avión y concluye que ya no puede demostrar la performance vertical requerida. PF mantiene el avión controlado; PM informa a ATC. No hay autorización nueva todavía.",
+        preguntas: [
+          {
+            q: "¿Qué mensaje debe salir y cuándo?",
+            a: "Sin demora, PM transmite la identificación real y UNABLE RVSM DUE EQUIPMENT, seguido de la capacidad actual de mantener nivel y una solicitud concreta si se necesita. La noticia permite que ATC revise la separación. No se sustituye con un relato largo sin la frase clave."
+          },
+          {
+            q: "¿Se desciende automáticamente fuera de RVSM después de la llamada?",
+            a: "No. La frase no es autorización para abandonar el nivel. Si puede mantenerse el vuelo seguro se espera la instrucción revisada. Si no puede mantenerse y la seguridad exige acción inmediata, se aplica la contingencia pertinente y se comunica la desviación tan pronto como sea posible."
+          },
+          {
+            q: "Tras resolver la discrepancia, ¿basta con volver a operar en RVSM sin avisar?",
+            a: "No. Se verifica que la capacidad realmente se recuperó y PM informa READY TO RESUME RVSM. ATC coordina la situación y cualquier autorización posterior. Un simple cese de la alarma no demuestra por sí solo la recuperación."
+          },
         ],
-        "Significado: el ATC no puede autorizar a una aeronave no aprobada a subir al espacio RVSM.",
-      ),
-      ...ejemplo(
-        "Ejemplo 7 · Qué pasó, qué significa y qué pide (PLAIN LANGUAGE con la frase RVSM)",
-        [`PILOT: "BOGOTA CONTROL, AVIATORY 452, ALTIMETER DISAGREE, UNABLE RVSM DUE EQUIPMENT, REQUEST FLIGHT LEVEL 280."`],
-        "Significado: **PLAIN LANGUAGE** para la descripción («altimeter disagree») y la solicitud, junto con la frase RVSM. Así el ATC sabe qué pasó, qué significa y qué pide usted.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
+        concepto: "La capacidad de mantener altura es una condición presente que se comprueba, se comunica y se vuelve a confirmar cuando cambia.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "En crucero, entre FL 290 y FL 410",
-        texto: "Casi toda la operación de jet de línea en crucero ocurre en espacio RVSM. La MEL del explotador dice qué equipos se necesitan para operar en RVSM; si uno falla en vuelo, la lista anormal del avión y el manual del explotador indican cuándo se pierde la capacidad. En ese momento se avisa al ATC con la frase corta y se espera su instrucción; no se cambia de nivel por cuenta propia salvo contingencia. Algunas regiones tienen procedimientos de contingencia particulares (por ejemplo, oceánicas; ver Nivel 6).",
+        momento: "No perder de vista autorización y contingencia",
+        texto: "El manual y la lista del avión, junto con la lista de equipo mínimo (MEL, Minimum Equipment List) y la aprobación del explotador, determinan qué sistemas sustentan la operación RVSM. PF mantiene el control; PM documenta qué indicaciones discrepan, avisa a ATC y confirma cualquier autorización nueva. Las prácticas de contingencia difieren entre espacios continentales y oceánicos: se revisan las publicaciones de la región que realmente se está sobrevolando. Para Colombia, la referencia local debe salir de Aerocivil/eAIP vigente, no de los niveles o frases de un ejemplo inventado.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Seguir en RVSM con altímetros en desacuerdo",
-        "Seguir en RVSM con un altímetro en desacuerdo sin decir nada.",
-      ),
-      error(
-        "El relato sin la frase clave",
-        "Explicar la falla con un relato largo y no decir la frase clave («UNABLE RVSM DUE EQUIPMENT»).",
-      ),
-      error(
-        "Cambiar de nivel sin autorización",
-        "Cambiar de nivel sin autorización por una falla que no lo exige.",
-      ),
-      error(
-        "No avisar la recuperación",
-        "Olvidar informar cuando la capacidad se recupera y seguir con restricciones que ya no aplican.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Seguir sin avisar", text: "Una discrepancia que elimina la performance vertical exigida afecta la separación utilizada por ATC. La comunicación no espera al próximo cambio de frecuencia." },
+      { kind: "callout", tone: "warn", title: "Confundir aprobación con capacidad actual", text: "Un avión aprobado puede quedar temporalmente incapaz. NEGATIVE RVSM no reemplaza la frase de degradación por equipo o turbulencia." },
+      { kind: "callout", tone: "warn", title: "Asumir un descenso autorizado", text: "UNABLE RVSM informa una limitación; no permite seleccionar por cuenta propia otro FL, salvo una contingencia que exija acción inmediata." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "RVSM: 1000 ft entre FL 290 y FL 410 inclusive, solo con aprobación.",
-          "La pérdida de capacidad se notifica sin demora (Doc 4444 5.2.2).",
-          "«UNABLE RVSM DUE EQUIPMENT» / «DUE TURBULENCE»; «READY TO RESUME RVSM».",
-          "Aeronave no aprobada: «NEGATIVE RVSM».",
-          "El ATC decide el nivel; usted informa y pide.",
+          "RVSM aplica 1 000 ft entre FL 290 y FL 410 inclusive donde está implantado.",
+          "La performance degradada se informa a ATC sin demora.",
+          "UNABLE RVSM DUE EQUIPMENT o DUE TURBULENCE describe la causa pertinente.",
+          "READY TO RESUME RVSM informa recuperación, no una autorización nueva.",
+          "La maniobra y separación subsiguientes se coordinan con ATC o se rigen por una contingencia publicada.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432 · Doc 9574",
-        "Doc 4444 (15.ª ed., Enm. 4) 2.6.1.1 nota 1 (RVSM, 300 m / 1000 ft entre FL 290 y FL 410 inclusive); 4.4.1.4 b) (aprobación RVSM antes de la salida); 5.2.2 (deterioro de la performance: notificar sin demora); 5.3.2 (separación vertical mínima; nota sobre Doc 9574); preámbulo, Tabla A (14.ª ed., Enm. 3: fraseología relativa a RVSM). Doc 9432 (4.ª ed.) 2.6 (AFFIRM, UNABLE).",
-        [
-          "VERIFICAR: «CONFIRM RVSM APPROVED», «AFFIRM RVSM», «NEGATIVE RVSM», «UNABLE RVSM DUE EQUIPMENT», «UNABLE RVSM DUE TURBULENCE», «READY TO RESUME RVSM», «UNABLE ISSUE CLEARANCE INTO RVSM AIRSPACE, MAINTAIN (level)» y en qué transmisiones se incluye NEGATIVE RVSM, contra Doc 4444 cap. 12 (fraseología RVSM) (no cargado).",
-          "VERIFICAR: indicación de la aprobación RVSM en el plan de vuelo contra Doc 4444 Apéndice 2 vigente (no cargado).",
-          "VERIFICAR: turbulencia como causa de pérdida de capacidad y procedimientos de contingencia contra Doc 9574 y Doc 4444 cap. 15 (no cargados).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA SERA.11013 · AMC1 SERA.14001 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.11013 y GM1, notificación de performance degradada en espacio RVSM: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9921" },
+          { kind: "p", text: "EASA, misma publicación, AMC1 SERA.14001, fraseología RVSM de aprobación, degradación y recuperación: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299" },
+          { kind: "p", text: "EASA, Easy Access Rules for Air Operations, revisión marzo de 2026, orientación de operación RVSM y contingencias de equipo/meteorología: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-air-operations?erules-id=ERULES-1963177438-13098" },
+          { kind: "p", text: "Aerocivil, portal oficial AIP Colombia y eAIP para espacios, procedimientos y publicaciones locales vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "La historieta y el escenario son didácticos. La aplicación local y las contingencias particulares se verifican en la publicación vigente y en el manual del explotador; no se han inventado niveles, rutas ni autorizaciones." },
         ],
-      ),
+      },
     ],
   },
   // ── 40 ──────────────────────────────────────────────────────────────────
