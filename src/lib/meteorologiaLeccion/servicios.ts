@@ -561,123 +561,105 @@ export const PARTE_SERVICIOS: DocScreen[] = [
   {
     n: 5,
     title: "Las cartas del tiempo",
-    kicker: "La imagen global, antes de mirar ningún aeródromo",
+    kicker: "Fuente, hora válida, nivel y decisión",
     minutes: 7,
     blocks: [
       {
         kind: "p",
-        text: "Las cartas se miran **al principio** de la planificación, no al final. Dan la imagen global: dónde están los frentes y los sistemas, y hacia dónde van. Después se baja al detalle del aeródromo con el METAR y el TAF. Al revés no funciona, porque un METAR bueno no te dice que dentro de dos horas te va a cruzar un frente.",
+        text: "**En la portada:** dos pilotos revisan el briefing frente a un aeropuerto con lluvia a distancia. **Cómo lo reconoces:** lo visible en la plataforma no describe toda la ruta ni la hora de llegada. **Qué decides:** leer los productos meteorológicos con su fuente, hora válida, área y nivel antes de compararlos con METAR, TAF y avisos; el contenido de las pantallas no representa una carta oficial.",
+      },
+      {
+        kind: "definicion",
+        text: "Una carta meteorológica es una presentación de observaciones, análisis o pronósticos. No la confundas con una carta aeronáutica de navegación o procedimiento del AIP/eAIP: tienen finalidades y fuentes distintas. En un briefing de aerolínea, la misma información puede llegar como datos digitales y mostrarse en la aplicación aprobada por el explotador; la leyenda y la hora válida del producto siguen siendo esenciales.",
+      },
+      {
+        kind: "sub",
+        text: "Primero distingue qué estás mirando",
       },
       {
         kind: "fichas",
         columnas: 2,
-        titulo: "Cuatro cartas y para qué sirve cada una",
+        titulo: "Cuatro vistas que no son intercambiables",
         items: [
           {
             titulo: "Análisis de superficie",
-            ref: "tiempo actual",
-            puntos: [
-              "Muestra altas y bajas, frentes, temperaturas, punto de rocío, dirección y velocidad del viento, tiempo local y obstrucciones a la visión.",
-              "Es un informe preparado por computadora, transmitido cada 3 horas.",
-              "Trae además las observaciones de superficie en cada punto de notificación, con su modelo de estación.",
-            ],
+            ref: "diagnóstico de una hora pasada o reciente",
+            puntos: ["Ayuda a ubicar sistemas de presión y frentes según la leyenda del proveedor.", "No es por sí solo un pronóstico de la hora en que cruzarás la zona."],
           },
           {
-            titulo: "Representación del tiempo",
-            ref: "tiempo actual",
-            puntos: ["Fuente de información meteorológica actual para hacerse la imagen de conjunto."],
+            titulo: "Tiempo significativo (SIGWX)",
+            ref: "pronóstico para un área, nivel y hora",
+            puntos: ["Resume fenómenos importantes para el vuelo, según el producto y la capa representada.", "La representación del sistema WAFS evoluciona; comprueba leyenda y validez del briefing recibido."],
           },
           {
-            titulo: "Resumen de radar",
-            ref: "tiempo actual",
-            puntos: ["La imagen de la precipitación, con los límites del radar que ya conoces."],
+            titulo: "Viento y temperatura en altura",
+            ref: "pronóstico por nivel y hora",
+            puntos: ["Apoya la selección de trayectoria y nivel y el cálculo de tiempos y combustible.", "No identifica por sí solo todos los peligros meteorológicos."],
           },
           {
-            titulo: "Tiempo significativo",
-            ref: "pronóstico",
-            puntos: ["Da la imagen general del tiempo pronosticado."],
+            titulo: "Radar y satélite",
+            ref: "observación con cobertura y demora propias",
+            puntos: ["Aportan contexto actualizado de precipitación o nubosidad según el sensor.", "Una zona sin eco o sin detalle no prueba ausencia de turbulencia o engelamiento."],
           },
         ],
       },
       {
-        kind: "sub",
-        text: "Leer un modelo de estación",
+        kind: "callout",
+        tone: "warn",
+        title: "La hora de emisión no es la hora válida",
+        text: "Un análisis resume condiciones observadas o analizadas para una hora; una carta pronosticada se refiere a un tiempo futuro. Antes de extrapolar un frente o una zona de tormentas, comprueba su movimiento previsto y la hora de paso de tu vuelo. La imagen antigua puede seguir en pantalla aun cuando exista una actualización.",
       },
       {
-        kind: "vinetas",
-        items: [
-          "La forma dice quién observó: un modelo redondeado es un observador oficial; uno cuadrado, una estación automática. Las de mar adentro vienen de buques, boyas o plataformas.",
-          "La cobertura del cielo se muestra como despejado, dispersas, fragmentado, cubierto u oscurecido.",
-          "Los símbolos de nubes bajas van debajo del modelo, y los de medias y altas encima. Normalmente solo se representa un tipo.",
-          "El viento va con una flecha unida al círculo de la estación: la flecha apunta desde donde sopla el viento.",
-          "Cada púa de la flecha son 10 kt, media púa son 5 kt, y un banderín son 50 kt.",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t30-01-lectura-productos.webp",
+        alt: "Flujo didáctico para leer productos meteorológicos: fuente y tipo, hora y área, nivel y leyenda, contraste con avisos y decisión operacional",
+        ancho: 1600,
+        alto: 720,
+        pie: "Secuencia de lectura, no carta meteorológica ni aeronáutica. Para una operación real, consulta los productos y publicaciones vigentes.",
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** cuatro comprobaciones antes de convertir colores o símbolos en una decisión. **Cómo lo reconoces:** la fuente, hora válida, área, niveles y leyenda deben aparecer en el producto original o en el briefing aprobado. **Qué decides:** ubicar tu ruta y hora estimada, contrastar el fenómeno con avisos y observaciones, y revisar nivel, combustible y alternos con despacho y control cuando corresponda.",
+      },
+      {
+        kind: "sub",
+        text: "Símbolos y límites: usa la leyenda, no la memoria",
+      },
+      {
+        kind: "p",
+        text: "En un análisis de superficie, las isobaras unen lugares de presión semejante. Su separación orienta sobre el gradiente de presión: más juntas suelen asociarse con vientos más intensos, pero el viento real depende también de la fricción, la curvatura y el terreno. No sustituyas con esa pista un pronóstico de viento en altura ni los reportes del aeropuerto.",
+      },
+      {
+        kind: "p",
+        text: "Los colores, contornos y símbolos no tienen por qué ser iguales en todas las plataformas. Un círculo de estación o una púa de viento solo se interpreta con la leyenda y las unidades de ese producto; la forma del punto no demuestra por sí sola quién hizo la observación. En cartas aeronáuticas del AIP/eAIP, utiliza exclusivamente la versión vigente de Aerocivil y su leyenda oficial.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        title: "El AIP no reemplaza el briefing meteorológico",
+        text: "Aerocivil publica el AIP/eAIP y las cartas aeronáuticas vigentes de Colombia; sus servicios meteorológicos y el briefing operacional suministran los productos meteorológicos aplicables. Aquí no se reproduce ninguna carta real ni se simula una vigente. Para un vuelo usa la fuente oficial y el procedimiento de tu explotador, y comprueba hora y versión antes de actuar.",
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Antes de aceptar el briefing",
+        situacion: "Una pantalla muestra un área de tiempo significativo cerca de tu ruta, pero no se ve la hora válida. En otra pestaña, el radar reciente muestra precipitación más al este y el TAF de destino sigue dentro de mínimos.",
+        pregunta: "¿Puedes descartar el área pronosticada y mantener la ruta sin más comprobaciones?",
+        claves: [
+          "No. Primero identifico fuente, hora válida, capa, leyenda y actualización del pronóstico.",
+          "Comparo la evolución con SIGMET y otras observaciones; un radar reciente no invalida por sí solo un pronóstico posterior.",
+          "El TAF de destino no describe toda la ruta. Si el riesgo coincide con el tramo, evalúo desvío, nivel, combustible y alternos con despacho y control.",
         ],
       },
       {
         kind: "check",
-        question:
-          "En un modelo de estación, la flecha del viento lleva un banderín y dos púas enteras. ¿Qué viento hay, y de dónde?",
+        question: "Ves una carta de tiempo significativo junto a un radar más reciente. ¿Qué comparación es válida?",
         options: [
-          "52 kt, y la flecha apunta hacia donde va el viento",
-          "70 kt, y la flecha apunta desde donde sopla el viento",
-          "20 kt: las púas son las que cuentan, y el banderín solo marca que el dato es medido",
+          "Si el radar no muestra ecos en la ruta, descartar automáticamente cualquier fenómeno pronosticado.",
+          "Comparar fuente, hora válida, nivel, cobertura y leyenda; después integrar avisos y observaciones.",
+          "Tratar ambas imágenes como observaciones de la misma hora porque aparecen en el mismo briefing.",
         ],
         answer: 1,
-        explain:
-          "Un banderín son 50 kt, cada púa entera 10 kt y media púa 5 kt: 50 más 10 más 10 son 70 kt. Y la otra mitad del símbolo es la dirección: la flecha apunta desde donde sopla el viento, igual que los 270 de un METAR son de dónde viene y no hacia dónde va.",
-      },
-      {
-        kind: "callout",
-        tone: "tip",
-        title: "La presión a nivel del mar, en tres dígitos",
-        text: "Viene en tres dígitos a la décima de milibar más cercana. Si es 1.000 mb o más, se antepone un 10; si es menos de 1.000, se antepone un 9. Y debajo va el cambio de presión en décimas de milibar en las últimas tres horas, que es la tendencia.",
-      },
-      {
-        kind: "sub",
-        text: "Las isobaras, que son el mapa del viento",
-      },
-      {
-        kind: "p",
-        text: "Las isobaras unen puntos de igual presión, como las curvas de nivel de un mapa topográfico. Lo que dibujan es el **gradiente de presión**, y de ahí sale el viento:",
-      },
-      {
-        kind: "kv",
-        items: [
-          { k: "Isobaras muy juntas", v: "gradiente fuerte: predominan vientos fuertes" },
-          { k: "Isobaras muy separadas", v: "gradiente pequeño: vientos suaves" },
-        ],
-      },
-      {
-        kind: "fichas",
-        columnas: 2,
-        titulo: "Y el vocabulario de la carta",
-        items: [
-          {
-            titulo: "Alta y baja",
-            puntos: [
-              "Una alta es un área de alta presión rodeada de presiones menores.",
-              "Una baja es un área de baja presión rodeada de presiones mayores.",
-            ],
-          },
-          {
-            titulo: "Lomada, surco y collado",
-            puntos: [
-              "Una lomada es un área alargada de alta presión.",
-              "Un surco es un área alargada de baja presión.",
-              "Un collado es la intersección entre una lomada y un surco, o la zona neutra entre dos altas o dos bajas.",
-            ],
-          },
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Lo que la carta te dice del viento que vas a encontrar arriba",
-        text: "Las isobaras informan sobre el viento en los primeros miles de pies. Cerca del suelo la fricción cambia la dirección y frena la velocidad, pero entre 2.000 y 3.000 ft la velocidad es mayor y la dirección se vuelve más paralela a las isobaras. La regla práctica del capítulo, que está escrita para el hemisferio norte: el viento a 2.000 ft AGL está de 20° a 40° **a la derecha** del de superficie, es decir, girado en el sentido de las agujas del reloj, y es más fuerte, con más giro sobre terreno rugoso y menos sobre agua abierta. **En el hemisferio sur el giro es al revés: a la izquierda.** Con viento de superficie del 180, a 2.000 ft esperas del 200 al 220 en el norte y del 140 al 160 en el sur. Sin información de vientos en altura, esa estimación te saca del apuro.",
-      },
-      {
-        kind: "infografia",
-        nombre: "meteo-isobaras",
+        explain: "Tiempo significativo es un pronóstico; radar es observación con cobertura y demora propias. La comparación solo tiene sentido si primero alineas los tiempos, la zona y el nivel, y consideras los avisos vigentes.",
       },
       {
         kind: "entrevista",
@@ -685,24 +667,24 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         preguntas: [
           {
             nivel: "concepto",
-            q: "¿En qué momento de la planificación se usan las cartas del tiempo y por qué?",
+            q: "¿Qué miras antes de interpretar una carta meteorológica del briefing?",
             respuesta:
-              "En las etapas iniciales, porque dan la imagen global: el movimiento de los frentes y de los sistemas importantes. Con esa imagen ya sabes si tu ruta va a cruzarlos y cuándo, y después se baja al detalle de cada aeródromo con el METAR y el TAF.",
-            claves: ["Etapas iniciales", "Imagen global", "Movimiento de frentes y sistemas"],
+              "Identifico productor, tipo de producto, hora de emisión y de validez, área, nivel, leyenda y versión. Después cruzo la ruta y la hora de paso con avisos y observaciones, y reviso aeródromos con METAR y TAF.",
+            claves: ["Fuente y tipo", "Hora válida y nivel", "Ruta y contraste"],
           },
           {
             nivel: "interpretacion",
-            q: "En una carta de superficie ve isobaras muy juntas. ¿Qué espera?",
+            q: "En un análisis de superficie ve isobaras muy juntas. ¿Qué puede inferir?",
             respuesta:
-              "Un gradiente de presión fuerte y, por tanto, vientos fuertes en esa zona. Las isobaras muy separadas indican gradiente pequeño y vientos suaves.",
-            claves: ["Gradiente fuerte", "Vientos fuertes", "Separadas: vientos suaves"],
+              "Indican un gradiente de presión marcado y sugieren viento más intenso en la zona, pero la velocidad y dirección reales dependen también de terreno, fricción y curvatura. Confirmo con los productos de viento pertinentes y las observaciones, sin extrapolar esa carta al nivel de crucero.",
+            claves: ["Gradiente marcado", "Inferencia, no dato de viento", "Confirmar con producto del nivel"],
           },
           {
             nivel: "situacion",
-            q: "No tiene información de vientos en altura. ¿Cómo estima el viento a 2.000 ft AGL?",
+            q: "El radar reciente parece despejado, pero una carta pronosticada muestra riesgo en la ruta. ¿Cómo lo resuelve?",
             respuesta:
-              "A partir del viento de superficie: a 2.000 ft AGL suele estar de 20° a 40° a la derecha del de superficie en el hemisferio norte, y a la izquierda en el hemisferio sur, y con más velocidad, porque arriba la fricción ya no lo frena ni reduce el efecto de Coriolis. El cambio de dirección es mayor sobre terreno rugoso y menor sobre superficies planas como agua abierta.",
-            claves: ["20° a 40°: a la derecha en el norte, a la izquierda en el sur", "Más velocidad", "Menos fricción", "Más giro en terreno rugoso"],
+              "No son imágenes del mismo tipo ni necesariamente de la misma hora. Verifico validez, cobertura, nivel y evolución del pronóstico, consulto avisos y reportes y preparo una alternativa si el riesgo coincide con el tramo; la coordino según procedimientos y autorizaciones.",
+            claves: ["Pronóstico frente a observación", "Alinear hora, lugar y nivel", "Alternativa coordinada"],
           },
         ],
       },

@@ -1609,6 +1609,7 @@ export const METAR_SOURCES: string[] = [
   "Para informes de piloto: OACI, Doc 8896, capítulo 7 (AIREP SPECIAL); FAA, Aeronautical Information Manual, capítulo 7 (ejemplo y campos del PIREP), y AC 00-45H (RAREP histórico reemplazado por RCM).",
   "Para avisos en ruta: OACI, Anexo 3, capítulo 7 (SIGMET y AIRMET, fenómenos y validez); OACI, informe SAM/RCM/2 de 2023 (disponibilidad regional de AIRMET); FAA, Aeronautical Information Manual, capítulo 7 (productos propios de EE. UU.). Para operar, consulta el aviso y AIP/eAIP vigentes de cada región.",
   "Para pronósticos en ruta: OACI/OMM, Sistema de pronósticos de área mundial (WAFS); OACI, Anexo 3, pronósticos de viento y temperatura en altura y tiempo significativo; OACI, material de instrucción WAFS sobre uso de campos reticulados en la planificación del vuelo.",
+  "Para cartas del briefing: OACI, documentación WAFS y avisos sobre los formatos digitales de tiempo significativo; Aerocivil, AIP/eAIP Colombia y leyendas oficiales de sus cartas aeronáuticas. Las cartas aeronáuticas no equivalen a los productos meteorológicos.",
 ]
 
 export type { LessonBlock }
