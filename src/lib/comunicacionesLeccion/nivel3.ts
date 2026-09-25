@@ -738,212 +738,130 @@ export const NIVEL_3: DocScreen[] = [
     n: 17,
     title: "Seguridad en la pista",
     kicker: "HOLD SHORT, LINE UP AND WAIT y la autorización de despegue",
-    minutes: 13,
+    minutes: 19,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "El conjunto de autorizaciones y hábitos que protegen la pista. Una pista es el único lugar del aeródromo donde un avión a 140 nudos y uno detenido pueden estar en el mismo punto. Las autorizaciones que la tocan son pocas y todas se colacionan (Doc 4444, 4.5.7.5.1 b):",
+        text: "La protección de una pista depende de distinguir cuatro estados que pueden sucederse en segundos: esperar fuera, entrar para alinearse, permanecer alineado y comenzar el despegue. Ninguno nace automáticamente del anterior. Una tripulación puede haber colacionado perfectamente LINE UP AND WAIT y, por expectativa, comenzar la carrera sin la autorización posterior. La Administración Federal de Aviación de Estados Unidos (FAA, Federal Aviation Administration) advierte precisamente sobre eventos de ese tipo en su Manual de Información Aeronáutica (AIM, Aeronautical Information Manual).",
+      },
+      { kind: "sub", text: "Cada frase cambia un permiso distinto" },
+      {
+        kind: "table",
+        head: ["Frase recibida", "Estado autorizado", "Límite que permanece"],
+        rows: [
+          ["HOLD SHORT OF RUNWAY", "Esperar antes del punto de espera de la pista identificada.", "No entrar ni cruzar la pista."],
+          ["CROSS RUNWAY", "Cruzar la pista identificada y salir de ella.", "No alinearse para despegar ni cruzar otra pista."],
+          ["LINE UP AND WAIT", "Entrar en la pista asignada, alinearse y esperar.", "No iniciar la carrera de despegue."],
+          ["CLEARED FOR TAKE-OFF", "Iniciar el despegue en la pista autorizada, si el avión y la tripulación están listos.", "No sustituye la evaluación de seguridad, configuración ni pista correcta."],
+          ["CONTINUE APPROACH", "Continuar la aproximación mientras se espera la decisión posterior.", "No aterrizar sin autorización de aterrizaje."],
+          ["CLEARED TO LAND", "Aterrizar en la pista autorizada, si sigue siendo seguro.", "No obliga a aterrizar si la pista está ocupada o el aterrizaje deja de ser seguro."],
+        ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-17-01.svg",
+        alt: "Tres estados de seguridad de pista: esperar fuera, alinearse y esperar, despegar solo después de una autorización separada.",
+        ancho: 1600,
+        alto: 850,
+        pie: "Modelo de estados, no una carta de aeródromo: HOLD SHORT conserva el avión fuera; LINE UP AND WAIT autoriza a alinearse, pero no a iniciar la carrera; CLEARED FOR TAKE-OFF es una autorización posterior que debe corresponder al indicativo y a la pista correctos. La secuencia visual no representa un procedimiento local colombiano.",
+      },
+      { kind: "sub", text: "Del punto de espera a la carrera" },
+      {
+        kind: "list",
+        ordered: true,
+        items: [
+          "**Antes de entrar.** Ambos pilotos comprueban el indicativo llamado, el número de pista, la entrada o intersección si aplica y el tipo exacto de instrucción. La señalización exterior y la carta vigente deben concordar con la autorización; la duda se aclara con el avión detenido.",
+          "**Al recibir LINE UP AND WAIT.** Se colaciona la instrucción conforme a la fraseología aplicable, se verifica el entorno y se entra solo a la pista autorizada. La aeronave queda alineada y esperando. Que el tráfico anterior haya salido, o que la tripulación esté lista, no genera un permiso de despegue.",
+          "**Durante la espera.** Se mantiene escucha de torre y vigilancia de la pista y las aproximaciones. Una transmisión para un indicativo parecido no se acepta como propia. Si la espera, el tráfico o una instrucción no concuerdan con lo previsto, se consulta a control de tránsito aéreo (ATC, air traffic control).",
+          "**Al recibir CLEARED FOR TAKE-OFF.** Ambos pilotos comprueban indicativo, pista e instrucción; solo entonces, y si la operación es segura, inician la secuencia de despegue según los procedimientos operacionales normalizados (SOP, standard operating procedures) del operador. Si la autorización no se oyó completa, no se completa por expectativa: se pide confirmación.",
+          "**Si cambia el estado.** HOLD POSITION, CANCEL TAKE-OFF u otra instrucción urgente exige atención inmediata, pero la respuesta física de la tripulación durante una carrera ya iniciada se rige por el estado del avión, la velocidad y el SOP. La radio avisa del peligro; no sustituye el juicio operacional ni una maniobra de rechazo bien entrenada.",
+        ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-17-02.webp",
+        alt: "Historieta de cuatro paneles con dos pilotos y un controlador: escuchar, emitir instrucción, contrastar y pedir aclaración antes de actuar.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no transcripción: 1) la tripulación registra la instrucción; 2) torre responde; 3) ambos pilotos comparan lo escuchado con el estado del avión; 4) ante una duda, el piloto confirma por radio mientras el otro sigue verificando. No hay pista, carta, frecuencia ni procedimiento local representado en las viñetas. Amplía la imagen para ver cada interlocutor.",
+      },
+      { kind: "sub", text: "Dos referencias oficiales que no son idénticas" },
+      {
+        kind: "p",
+        text: "El Manual sobre la Prevención de Incursiones en la Pista de la Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization), Doc 9870, incluye un ejemplo **publicado con fines de fraseología**: un indicativo SAS 941 recibe una instrucción de alinearse detrás de un DC-9 en final corta; la condición se repite en la colación. No es una grabación ni prueba de que ese vuelo haya ocurrido. La guía de la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency) conserva un ejemplo de esa estructura y exige reconocer el tránsito que condiciona la autorización. Si no se identifica con certeza, el piloto no declara que lo tiene a la vista y solicita aclaración.",
+      },
+      {
+        kind: "p",
+        text: "La FAA, en cambio, instruye a sus controladores a **no usar** frases condicionales del tipo «detrás del tráfico que aterriza» para LINE UP AND WAIT. Por eso sería incorrecto enseñar una única frase condicional como válida en todos los Estados. Para una operación concreta, la tripulación consulta la publicación de información aeronáutica (AIP, Aeronautical Information Publication) vigente, los procedimientos locales y la frase efectivamente recibida; para Colombia, solo la eAIP de Aerocivil sirve para afirmar datos o requisitos locales actuales.",
       },
       {
         kind: "table",
-        head: ["Autorización", "Qué permite", "Qué NO permite"],
+        head: ["Documento", "Lo que muestra", "Cómo se usa en esta lección"],
         rows: [
-          ["HOLD SHORT OF RUNWAY", "Nada: detenerse antes del punto de espera", "Entrar"],
-          ["LINE UP AND WAIT", "Entrar, alinearse y **esperar**", "Despegar"],
-          ["LINE UP (be ready for immediate departure)", "Entrar y alinearse, listo para salir ya", "Despegar sin la autorización"],
-          ["CROSS RUNWAY", "Cruzar esa pista y salir de ella", "Detenerse en ella, cruzar otra"],
-          ["CLEARED FOR TAKE-OFF", "Despegar", ""],
-          ["CONTINUE APPROACH", "Seguir la aproximación", "Aterrizar"],
-          ["CLEARED TO LAND", "Aterrizar", ""],
-          ["VACATE / TAKE FIRST RIGHT", "Salir de la pista por donde indican", ""],
+          ["OACI Doc 9870, apéndice A", "Ejemplo editorial de autorización condicional y colación de la condición.", "Analizar orden e identificación; no presentarlo como audio real ni como regla colombiana vigente."],
+          ["EASA SERA.8015, material guía", "Ejemplo europeo de condición antes de alinearse detrás de tráfico identificado.", "Comparar el papel de la condición; verificar aplicabilidad local antes de usarla."],
+          ["FAA AIM 5-2-5 y orden JO 7110.65", "LINE UP AND WAIT no autoriza despegue; en Estados Unidos se prohíben esas frases condicionales para esa instrucción.", "Evitar trasladar automáticamente una práctica de una jurisdicción a otra."],
         ],
       },
-
-      { kind: "sub", text: "Lo que debe saber un piloto" },
-      {
-        kind: "definicion",
-        text: "**LINE UP AND WAIT no es CLEARED FOR TAKE-OFF.** Es la confusión más peligrosa de este nivel: en la pista, con motores listos y la lista de antes del despegue hecha, la mente espera oír «take-off». Por eso la OACI reserva la palabra TAKE-OFF solo para cuando se autoriza el despegue o se cancela (Doc 9432, 2.8.3.3); en los demás casos se usa DEPARTURE o AIRBORNE. **Si no oyó «take-off», no despega.**",
-      },
-      {
-        kind: "p",
-        text: "**Varias pistas en uso.** Cuando el piloto podría confundirse de pista, la autorización de despegue debe incluir el número de pista (Doc 9432, 4.5.8). Colacione siempre el número y verifique que la pista donde está alineado es esa (rumbo de pista, letreros, pantalla de navegación).",
-      },
-      { kind: "p", text: "**Autorizaciones condicionales** (Doc 9432, 4.5.7):" },
-      {
-        kind: "list",
-        items: [
-          "**No se usan** para movimientos en pistas en actividad salvo que el controlador **y** el piloto vean la aeronave o vehículo en cuestión.",
-          "Si la condición es un avión que aterriza, el que sale debe identificarlo bien: a veces no basta con el tipo, hace falta el color o la compañía.",
-          "Orden: 1) distintivo, 2) condición, 3) autorización, 4) breve repetición de la condición.",
-          "Se colacionan o se acusan de modo que quede claro que se entendieron y se cumplirán (Doc 4444, 4.5.7.5.1.1). En la práctica, la colación repite la condición: «behind the landing Airbus, line up and wait behind».",
-        ],
-      },
-      {
-        kind: "p",
-        text: "**CONTINUE APPROACH no es CLEARED TO LAND** (Doc 9432, 4.7.1). Si en final corta no tiene autorización de aterrizaje, pídala; si no la obtiene, se hace motor y al aire según el procedimiento (Nivel 4).",
-      },
-      {
-        kind: "p",
-        text: "**Salir de la pista.** Salvo instrucción en contrario, se sigue en frecuencia de torre hasta dejar libre la pista (Doc 9432, 4.9). Libre significa: todo el avión pasó el punto de espera.",
-      },
-      {
-        kind: "p",
-        text: "**Qué hace el controlador cuando algo sale mal** (Doc 9432, 4.5.10 y 4.5.11): «take off immediately or hold short of runway», «take off immediately or vacate runway», «hold position, cancel take-off», y si ya inició la carrera, «stop immediately» repetido con el distintivo.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "CM-17-01 · Diagrama · 16:9 · 1600×900 px",
-        descripcion:
-          "Imagen sugerida: dos paneles lado a lado con el mismo avión sobre el eje de la pista 13, vista en planta. Panel izquierdo, rótulo «LINE UP AND WAIT»: avión alineado, frenos (icono de freno), flecha de avance tachada, texto «Entrar y esperar. No despegar». Panel derecho, rótulo «RUNWAY 13 CLEARED FOR TAKE-OFF»: el mismo avión con flecha de avance larga, texto «Solo con la palabra TAKE-OFF y el número de pista». Entre los dos, una franja ámbar: «Si no oyó TAKE-OFF, no despega». Objetivo: fijar de vista la diferencia entre entrar a la pista y estar autorizado a despegar.",
-        alto: 300,
-        ratio: "16 / 9",
-      },
-      {
-        kind: "hueco",
-        rotulo: "CM-17-02 · Esquema · 16:9 · 1600×900 px",
-        descripcion:
-          "Imagen sugerida: vista oblicua desde atrás y arriba de un avión en el punto de espera de la pista 13. En la final de la misma pista, un Airbus con tren abajo, marcado con un recuadro «¿es ESTE?». Un segundo avión más lejos, en final larga, marcado «no confundir». Globo de torre: «AVIATORY 452, behind the landing Airbus, line up and wait behind». Numeración 1 a 4 en el globo sobre las partes: distintivo, condición, autorización, repetición de la condición. Objetivo: que el piloto entienda la estructura de la autorización condicional y que la condición depende de identificar al avión correcto.",
-        alto: 300,
-        ratio: "16 / 9",
-      },
-
-      { kind: "sub", text: "Fraseología OACI" },
-      {
-        kind: "callout",
-        tone: "verificar",
-        title: "Verificar",
-        text: "La colación completa de «line up and wait runway (number)» y la variante «line up and wait runway (number) intersection (name)» no están comprobadas: consultar Doc 4444 cap. 12 (fraseología de despegue), no cargado. El formato vigente de la autorización condicional (por ejemplo «behind (aircraft) on short final, line up and wait behind») y si se admite condicional de cruce de pista: Doc 4444 cap. 12 y cap. 7, no cargados. El uso de luces exteriores como indicación de autorización y la verificación de pista correcta: SOP del operador y reglamentación del Estado (en Colombia, RAC).",
-      },
-      ...entrada(
-        "Ejemplo 1. Line up and wait (Doc 9432, 4.5.3)",
-        [
-          `ATC:   "AVIATORY 452, report when ready for departure."`,
-          `PILOT: "Wilco, AVIATORY 452."`,
-          `PILOT: "AVIATORY 452, ready."`,
-          `ATC:   "AVIATORY 452, line up and wait."`,
-          `PILOT: "Lining up, AVIATORY 452."`,
-        ],
-        "Significado: en el Doc 9432 (4.ª ed.) la colación es «lining up». Como entrar a la pista siempre se colaciona (Doc 4444, 4.5.7.5.1 b), muchos Estados piden repetir la instrucción completa con el número de pista: «Line up and wait runway 13, AVIATORY 452». Ver VERIFICAR.",
-      ),
-      ...entrada(
-        "Ejemplo 2. Autorización condicional (Doc 9432, 4.5.7)",
-        [
-          `ATC:   "AVIATORY 452, report the Airbus on final in sight."`,
-          `PILOT: "AVIATORY 452, Airbus in sight."`,
-          `ATC:   "AVIATORY 452, behind the landing Airbus, line up and wait behind."`,
-          `PILOT: "Behind the Airbus, line up and wait behind, AVIATORY 452."`,
-        ],
-        "Significado: primero se asegura que el piloto ve el tránsito; luego viene la condición. Si usted no está seguro de cuál es el Airbus, **no diga «in sight»**.",
-      ),
-      ...entrada(
-        "Ejemplo 3. Cruce de pista (Doc 9432, 4.4, ejemplo tras 4.4.2)",
-        [
-          `PILOT: "AVIATORY 452, approaching holding point, request cross runway 18."`,
-          `ATC:   "AVIATORY 452, hold short runway 18."`,
-          `PILOT: "AVIATORY 452, holding short."`,
-          `ATC:   "AVIATORY 452, cross runway 18, report vacated."`,
-          `PILOT: "Crossing, wilco, AVIATORY 452."`,
-          `PILOT: "AVIATORY 452, runway vacated."`,
-        ],
-        "Significado: pedir el cruce no es tener el cruce. La autorización llega sola y con número de pista.",
-      ),
-      ...entrada(
-        "Ejemplo 4. Despegue inmediato o esperar fuera (Doc 9432, 4.5.10)",
-        [`ATC:   "AVIATORY 452, take off immediately or hold short of runway."`, `PILOT: "Holding short, AVIATORY 452."`],
-        "Significado: si la tripulación no puede despegar ya (lista incompleta, carga de trabajo), la respuesta correcta es quedarse fuera. La otra opción del Doc 9432 es «take off immediately or vacate runway».",
-      ),
-      ...entrada("Ejemplo 5. Cancelación del despegue (Doc 9432, 4.5.10)", [
-        `ATC:   "AVIATORY 452, hold position, cancel take-off, I say again, cancel take-off, vehicle on runway."`,
-        `PILOT: "Holding, AVIATORY 452."`,
-      ]),
-      ...entrada(
-        "Ejemplo 6. Detenerse en plena carrera (Doc 9432, 4.5.11 y 4.5.12)",
-        [
-          `ATC:   "AVIATORY 452, stop immediately, AVIATORY 452, stop immediately."`,
-          `PILOT: "Stopping, AVIATORY 452."`,
-        ],
-        "Significado: el controlador repite la instrucción y el distintivo. La decisión de abortar a alta velocidad sigue siendo de la tripulación según sus procedimientos de performance; la frase le avisa del peligro.",
-      ),
+      { kind: "sub", text: "Caso de entrenamiento: la autorización que se esperaba oír" },
       {
         kind: "escenario",
-        titulo: "Ejemplo 7. Distintivo parecido en la pista",
-        situacion:
-          "Escenario de práctica; palabras de Doc 9432, 2.6 y 2.8.3.7. ATC: `AVIATORY 452, line up and wait runway 13.` PILOT (AVIATORY 425): `Line up and wait runway 13, AVIATORY 425.`",
+        titulo: "Alineados, pero sin autorización de despegue",
+        situacion: "Simulación didáctica sin indicativo ni aeropuerto inventados: la tripulación recibió y colacionó LINE UP AND WAIT para la pista asignada. El avión precedente despega. Uno de los pilotos dice que «ya nos toca» mientras el otro no recuerda haber escuchado CLEARED FOR TAKE-OFF para su indicativo.",
         preguntas: [
           {
-            q: "¿Qué detecta el controlador y qué hace?",
-            a: "ATC: `AVIATORY 425, negative, hold position. AVIATORY 452, line up and wait runway 13.` PILOT (AVIATORY 452): `Line up and wait runway 13, AVIATORY 452.` El distintivo al final de la colación permitió detectar que respondió el avión equivocado. Si el 425 hubiera colacionado sin distintivo, dos aviones habrían podido entrar a la misma pista.",
+            q: "¿Cuál es la decisión correcta antes de aplicar potencia?",
+            a: "Mantener la aeronave alineada y en espera. El piloto que atiende la radio solicita confirmación de la autorización para su indicativo y pista; ambos verifican la respuesta completa. La salida del tráfico anterior no modifica por sí sola el permiso.",
+          },
+          {
+            q: "¿Qué cambia si se oye un indicativo casi igual al propio?",
+            a: "No se actúa por parecido. Se confirma el destinatario de la transmisión con torre y se colaciona el indicativo propio. El AIM de la FAA recomienda pedir confirmación antes de iniciar la carrera cuando existe incertidumbre sobre a quién iba dirigida la autorización.",
           },
         ],
-        concepto: "Todo lo que toca una pista se colaciona, con número de pista y distintivo.",
+        concepto: "La expectativa de salida nunca reemplaza una autorización explícita y verificada.",
       },
-      ...entrada(
-        "Ejemplo 8. Continue approach vs cleared to land (Doc 9432, 4.7.1)",
-        [
-          `PILOT: "AVIATORY 452, long final."`,
-          `ATC:   "AVIATORY 452, continue approach, wind 260 degrees 18 knots."`,
-          `PILOT: "AVIATORY 452."`,
-          `PILOT: "AVIATORY 452, final."`,
-          `ATC:   "AVIATORY 452, runway 27, cleared to land, wind 270 degrees 20 knots."`,
-          `PILOT: "Runway 27, cleared to land, AVIATORY 452."`,
-        ],
-        "Significado: solo la segunda transmisión autoriza el aterrizaje. En el Doc 9432 el acuse de «continue approach» es solo el distintivo.",
-      ),
-      ...entrada(
-        "Ejemplo 9. Salida de pista y cambio a Ground (Doc 9432, 4.9)",
-        [
-          `ATC:   "AVIATORY 452, take first right, when vacated contact Ground 118.350."`,
-          `PILOT: "First right, wilco, 118.350, AVIATORY 452."`,
-        ],
-        "Significado: no cambia de frecuencia hasta dejar libre la pista. Si cambia antes y la torre necesita detenerlo, no lo escuchará.",
-      ),
-      ...entrada(
-        "Ejemplo 10. Duda en la pista (construido con CONFIRM, Doc 9432, 2.6)",
-        [
-          `PILOT: "AVIATORY 452, confirm cleared for take-off runway 13."`,
-          `ATC:   "AVIATORY 452, negative, line up and wait runway 13."`,
-          `PILOT: "Line up and wait runway 13, AVIATORY 452."`,
-        ],
-        "Significado: preguntar cuesta segundos. Despegar con una duda puede costar la pista.",
-      ),
-
-      { kind: "sub", text: "Aplicación en aerolínea" },
+      { kind: "sub", text: "La misma disciplina al llegar" },
+      {
+        kind: "p",
+        text: "CONTINUE APPROACH y CLEARED TO LAND figuran como instrucciones distintas en la fraseología EASA. La primera mantiene la aproximación; no autoriza tocar la pista. Si la autorización de aterrizaje no llega a tiempo para una continuación segura, la tripulación solicita aclaración y ejecuta la maniobra correspondiente conforme a sus mínimos, condiciones y SOP. Además, el AIM de la FAA recuerda que una autorización de aterrizaje no obliga a aterrizar sobre una pista ocupada: la vigilancia visual y la decisión de seguridad siguen en la cabina.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Antes de cruzar o entrar a una pista",
-        texto:
-          "Los operadores suelen fijar en su SOP: confirmación cruzada entre pilotos antes de cruzar o entrar a una pista; luces exteriores que indican la fase (por ejemplo, encender ciertas luces al recibir la autorización de despegue) y verificación de pista correcta antes de aplicar potencia. Los detalles varían por operador y por Estado; el principio común es que **ambos pilotos oyen y entienden cada autorización que toca una pista**.",
+        momento: "Antes de entrar, despegar o aterrizar",
+        texto: "El piloto que opera los mandos vigila trayectoria, configuración y pista; el piloto que atiende la radio escucha el indicativo, copia la autorización y detecta discrepancias. Ambos confirman el cambio de estado antes de actuar. Las luces exteriores pueden formar parte del SOP, pero no son prueba de que ATC haya autorizado despegue. Una orden dirigida a otro avión, una condición no identificada o una frase cortada son motivos para detener o mantener la espera y preguntar.",
       },
-
-      { kind: "sub", text: "Error frecuente" },
-      error("Despegar con LINE UP AND WAIT (expectation bias: «ya nos tocaba»)."),
-      error("Aceptar una condicional sin ver el avión de la condición, o viendo otro."),
-      error("Colacionar una autorización para otra pista o para otro distintivo."),
-      error("Cruzar porque «el de adelante cruzó»."),
-      error("Cambiar a Ground antes de dejar libre la pista."),
-      error("Aterrizar con «continue approach»."),
-
+      { kind: "sub", text: "Errores que importan" },
+      error("Iniciar la carrera tras LINE UP AND WAIT porque la pista parece libre."),
+      error("Reaccionar a una autorización emitida para un indicativo parecido."),
+      error("Aceptar una condición sobre tráfico que no se ha identificado con certeza."),
+      error("Suponer que una autorización condicional publicada por OACI/EASA se usa igual en Estados Unidos o Colombia."),
+      error("Aterrizar solo con CONTINUE APPROACH o continuar pese a una pista ocupada."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Todo lo que toca una pista se colaciona, con número de pista y distintivo.",
-          "LINE UP AND WAIT: entra y espera. Solo TAKE-OFF autoriza a despegar.",
-          "Condicional: solo si ambos ven el tránsito; se repite la condición.",
+          "HOLD SHORT mantiene fuera; LINE UP AND WAIT permite alinearse y esperar; CLEARED FOR TAKE-OFF autoriza a iniciar la salida si es seguro.",
+          "Pista, indicativo e intersección, si procede, se escuchan y se verifican antes de actuar.",
+          "Una condición se identifica y se colaciona donde esté autorizada; FAA no usa frases condicionales para LINE UP AND WAIT.",
           "CONTINUE APPROACH no es CLEARED TO LAND.",
-          "La pista está libre cuando todo el avión pasó el punto de espera.",
+          "La seguridad observada en cabina puede exigir detenerse o irse al aire incluso ante una autorización.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1 (Incursión en la pista, Punto de espera de la pista), 4.5.7.5.1 b), 4.5.7.5.1.1; Doc 9432 (4.ª ed.) 2.6, 2.8.3.3, 2.8.3.7, 2.8.3.9, 4.4 y Nota, 4.5.3, 4.5.5, 4.5.7, 4.5.8, 4.5.10, 4.5.11, 4.5.12, 4.7.1, 4.9.",
-        [
-          "VERIFICAR: colación completa de «line up and wait runway (number)» y la variante «line up and wait runway (number) intersection (name)» contra Doc 4444 cap. 12 (fraseología de despegue), no cargado.",
-          "VERIFICAR: formato vigente de la autorización condicional (por ejemplo «behind (aircraft) on short final, line up and wait behind») y si se admite condicional de cruce de pista, contra Doc 4444 cap. 12 y cap. 7, no cargados.",
-          "VERIFICAR: uso de luces exteriores como indicación de autorización y verificación de pista correcta: SOP del operador y reglamentación del Estado (en Colombia, RAC).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "OACI Doc 9870 · EASA SERA · FAA AIM y JO 7110.65",
+        bloques: [
+          { kind: "sub", text: "Documentos consultados" },
+          { kind: "p", text: "OACI, Manual on the Prevention of Runway Incursions, Doc 9870, apéndice A, apartados 2.5–2.7 y 3.1–3.2 (https://www.icao.int/sites/default/files/Aerodromes/RunwaySafety/ICAO_manual_prev_RI.pdf). Es un documento histórico oficial para entender la estructura de la fraseología, no una actualización local. EASA, Easy Access Rules for Standardised European Rules of the Air, GM1 SERA.8015(ec) y Appendix 1 to AMC1 SERA.14001 (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9888 y https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). FAA, AIM 5-2-5 (https://www.faa.gov/air_traffic/publications/aim_html/chap5_section_2.html), Pilot Best Practices for Airfield Safety (https://www.faa.gov/airports/runway_safety/pilots/best_practices) y orden JO 7110.65, 3-9-4 (https://www.faa.gov/air_traffic/publications/atpubs/atc_html/chap3_section_9.html)." },
+          { kind: "sub", text: "Límite de aplicación" },
+          { kind: "list", items: [
+            "El ejemplo SAS 941 / DC-9 es un ejemplo publicado por OACI para enseñar la estructura; no una transcripción verificada de un vuelo real.",
+            "Los procedimientos de Estados Unidos y Europa se contrastan expresamente y no se atribuyen a la reglamentación colombiana.",
+            "Antes de una operación en Colombia, consultar eAIP de Aerocivil, SOP del operador y autorización real de ATC. Ninguna imagen de esta lección equivale a una carta ni a una orden de control.",
+          ] },
         ],
-      ),
+      },
     ],
   },
 
