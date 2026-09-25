@@ -224,7 +224,7 @@ export function MeteoCoriolis() {
     <InfografiaCanvas
       width={W}
       height={H}
-      label="Cuatro sistemas de presión, dos por hemisferio, separados por la línea del ecuador. En el hemisferio norte el aire entra a la baja girando en sentido antihorario y sale de la alta girando en sentido horario. En el hemisferio sur ocurre al revés: entra a la baja en sentido horario y sale de la alta en sentido antihorario. Cada sistema arranca con un tramo recto que marca el empuje de la presión antes de que la fuerza de Coriolis lo desvíe."
+      label="Esquema simplificado de circulación cerca de la superficie: cuatro sistemas de presión, dos por hemisferio, separados por el ecuador. En el hemisferio norte el aire gira hacia la baja en sentido antihorario y se aleja de la alta en sentido horario. En el hemisferio sur esos giros se invierten. Los trazos discontinuos representan el gradiente de presión; las espirales representan la circulación resultante cerca del suelo."
       vectorial
     >
       <svg

@@ -104,7 +104,7 @@ function Perfil({
 export function MeteoInversion() {
   const w = (DER - IZQ - 74) / 2
   return (
-    <Lienzo etiqueta="Dos perfiles verticales de temperatura, uno al lado del otro. En el normal la temperatura baja de forma continua con la altura. En el de inversión, los primeros cientos de pies se calientan con la altura en lugar de enfriarse, y esa capa deja atrapado debajo el tiempo y la mala visibilidad.">
+    <Lienzo etiqueta="Dos perfiles verticales ideales de temperatura, uno al lado del otro. En el primero la temperatura baja con la altura. En el segundo, dentro de una capa baja de inversión, aumenta con la altura. La inversión limita la mezcla vertical y puede favorecer acumulación de humedad o contaminantes; no implica niebla ni visibilidad reducida por sí sola.">
       <Perfil x={IZQ} w={w} titulo="SIN INVERSIÓN" />
       <Perfil x={IZQ + w + 74} w={w} titulo="CON INVERSIÓN" invertido />
 
@@ -127,20 +127,20 @@ export function MeteoInversion() {
         </Rotulo>
       </g>
       <Rotulo x={DER} y={H - 42} ancla="end" color={SECUNDARIO} tam={16}>
-        DEBAJO QUEDA ATRAPADO EL TIEMPO
+        PUEDE LIMITAR LA MEZCLA VERTICAL
       </Rotulo>
     </Lienzo>
   )
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 7 · Dónde se cortan las dos rectas está la base de la nube
+// 7 · Convergencia de temperatura y rocío de una parcela ascendente
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
  * Las cifras son las del ejemplo de la sección y no otras: 29 °C de temperatura,
- * 21 °C de punto de rocío, y la base a 3.260 ft porque los 8 °C de separación se
- * cierran a 2,45 °C por cada 1.000 ft. Si el ejemplo del texto cambia, cambian
+ * 21 °C de punto de rocío, y la condensación cerca de 3.270 ft porque los 8 °C
+ * se cierran a 2,45 °C por cada 1.000 ft. Si el ejemplo del texto cambia, cambian
  * aquí: la lámina no puede enseñar una cuenta distinta de la que está escrita.
  */
 const T_SUELO = 29
@@ -157,11 +157,12 @@ export function MeteoBaseNube() {
   const yBase = y(BASE_KFT)
   // En superficie, el punto de rocío queda a la izquierda de la temperatura.
   const xPR = x0 + 300
-  const xT = x0 + 520
-  const xCorte = x0 + 96
+  const xT = x0 + 500
+  // Escala horizontal: 25 px/°C. Ambas rectas recorren así la misma escala.
+  const xCorte = xT - 3 * BASE_KFT * 25
 
   return (
-    <Lienzo etiqueta="Gráfico de temperatura contra altura. Dos rectas salen del suelo, la de temperatura desde 29 grados y la de punto de rocío desde 21, y se acercan 2,45 grados por cada mil pies hasta cortarse a 3.260 pies. Ahí está la base de la nube.">
+    <Lienzo etiqueta="Gráfico de una parcela ascendente: temperatura de 29 grados y punto de rocío de 21 grados en superficie convergen aproximadamente a 3.270 pies sobre el terreno. La intersección estima el nivel de condensación por ascenso, no el techo observado.">
       {/* Rejilla de alturas. */}
       {[1, 2, 3, 4].map((k) => (
         <g key={k}>
@@ -179,7 +180,7 @@ export function MeteoBaseNube() {
       <Corriente d={`M${xT},${ySuelo} L${xCorte},${yBase}`} color={ACENTO} grosor={3} />
       <Corriente d={`M${xPR},${ySuelo} L${xCorte},${yBase}`} color={ACENTO_CLARO} grosor={3} />
 
-      {/* La nube donde se encuentran. */}
+      {/* La nube representa la posible condensación si el ascenso continúa. */}
       <g>
         {[0, 1, 2, 3].map((i) => (
           <circle
@@ -196,11 +197,11 @@ export function MeteoBaseNube() {
         <line x1={xCorte - 68} y1={yBase} x2={xCorte + 72} y2={yBase} stroke={ACENTO} strokeWidth={2.4} />
       </g>
 
-      <Rotulo x={xCorte + 92} y={yBase - 6} color={ACENTO} tam={19}>
-        BASE DE LA NUBE
+      <Rotulo x={xCorte + 92} y={yBase - 6} color={ACENTO} tam={17}>
+        NIVEL DE CONDENSACIÓN
       </Rotulo>
       <Rotulo x={xCorte + 92} y={yBase + 20} color={SECUNDARIO} tam={17}>
-        3.260 ft
+        ≈ 3.270 ft AGL
       </Rotulo>
 
       <Rotulo x={xPR - 4} y={ySuelo + 34} color={ACENTO_CLARO} tam={17}>
@@ -226,7 +227,7 @@ export function MeteoBaseNube() {
 // 8 · Las cuatro familias, cada una a su altura
 // ═══════════════════════════════════════════════════════════════════════════
 
-/** Fronteras del capítulo: bases de 6.500 y 20.000 ft AGL. */
+/** Referencias visuales aproximadas; los niveles se superponen y varían con la latitud. */
 const FRONTERA_BAJA = 6.5
 const FRONTERA_ALTA = 20
 const TECHO_KFT = 30
@@ -256,7 +257,7 @@ export function MeteoFamilias() {
   )
 
   return (
-    <Lienzo etiqueta="Corte vertical con las cuatro familias de nubes a su altura. Las bajas van de la superficie a 6.500 pies, las medias de 6.500 a 20.000, y las altas por encima de 20.000. A la derecha, una nube de desarrollo vertical con la base entre las bajas y la cima arriba del todo, atravesándolas todas.">
+    <Lienzo etiqueta="Esquema orientativo de cuatro familias de nubes. Una línea marca 6.500 pies y otra 20.000 pies sobre el terreno como referencias; los niveles medios y altos pueden superponerse y cambian con la latitud. A la derecha una nube de desarrollo vertical atraviesa varios niveles.">
       {/* Bandas de cada familia, cada vez más tenues al subir. */}
       <rect x={xEje} y={y(FRONTERA_BAJA)} width={DER - xEje} height={ySuelo - y(FRONTERA_BAJA)} fill={RESALTADO} />
       <rect
@@ -348,23 +349,15 @@ export function MeteoFamilias() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 9 · Cuatro nieblas, cuatro decisiones
+// 9 · Cuatro mecanismos de formación de niebla
 // ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * El veredicto de cada una sale del texto de la sección, que es donde está la
- * decisión del despacho: la de radiación **se quema con el sol y el viento**, la
- * de advección y la de ladera **no**, y pueden durar días. La de vapor es la
- * única a la que el módulo le asocia hielo, así que ese es su rótulo.
- *
- * Son cuatro y no cinco a propósito: la de hielo la llevan las fichas de arriba,
- * es de regiones árticas y meter una quinta viñeta solo añadiría densidad.
- */
+/** El esquema compara mecanismos; ningún rótulo predice la disipación ni excluye engelamiento. */
 const NIEBLAS = [
-  { clave: "radiacion", nombre: "DE RADIACIÓN", veredicto: "SE QUEMA CON EL SOL", bueno: true },
-  { clave: "adveccion", nombre: "DE ADVECCIÓN", veredicto: "NO SE QUEMA", bueno: false },
-  { clave: "ladera", nombre: "DE LADERA", veredicto: "NO SE QUEMA", bueno: false },
-  { clave: "vapor", nombre: "DE VAPOR", veredicto: "ADEMÁS TRAE HIELO", bueno: false },
+  { clave: "radiacion", nombre: "DE RADIACIÓN", mecanismo: "SUELO SE ENFRÍA" },
+  { clave: "adveccion", nombre: "DE ADVECCIÓN", mecanismo: "AIRE SOBRE SUPERFICIE FRÍA" },
+  { clave: "ladera", nombre: "DE LADERA", mecanismo: "ASCENSO POR LA LADERA" },
+  { clave: "vapor", nombre: "DE VAPOR", mecanismo: "AIRE FRÍO SOBRE AGUA TIBIA" },
 ] as const
 
 /** El mecanismo de cada niebla, dibujado dentro de su viñeta. */
@@ -377,7 +370,7 @@ function Mecanismo({ clave, x, y: yy, w, h }: { clave: string; x: number; y: num
     return (
       <g>
         {banda}
-        {/* El suelo se enfría de noche y el sol la levanta por la mañana. */}
+        {/* El suelo se enfría y enfría el aire próximo; la viñeta no predice disipación. */}
         {[0, 1, 2].map((i) => (
           <Flecha key={i} x1={x + 40 + i * 46} y1={suelo - 34} x2={x + 40 + i * 46} y2={suelo - 74} color={SECUNDARIO} grosor={1.8} tam={10} />
         ))}
@@ -454,7 +447,7 @@ export function MeteoNieblas() {
   const w = (DER - IZQ - 36) / 2
   const h = 176
   return (
-    <Lienzo etiqueta="Cuatro viñetas con el mecanismo de cada tipo de niebla: de radiación, de advección, de ladera y de vapor. Debajo de cada una, si se quema con el sol o no. La de radiación se quema; la de advección y la de ladera no; la de vapor además trae hielo.">
+    <Lienzo etiqueta="Cuatro viñetas comparan mecanismos de niebla: enfriamiento nocturno del suelo, aire húmedo sobre una superficie fría, ascenso por ladera y aire frío sobre agua relativamente cálida. El mecanismo no determina por sí solo cuándo se disipará ni excluye el riesgo de hielo.">
       {NIEBLAS.map((n, i) => {
         const x = IZQ + (i % 2) * (w + 36)
         const yy = 78 + Math.floor(i / 2) * (h + 92)
@@ -466,8 +459,8 @@ export function MeteoNieblas() {
             <rect x={x} y={yy} width={w} height={h} fill="none" stroke={LINEA} strokeWidth={1.4} />
             <Mecanismo clave={n.clave} x={x} y={yy} w={w} h={h} />
             <line x1={x} y1={yy + h} x2={x + w} y2={yy + h} stroke={TINTA} strokeWidth={2} />
-            <Rotulo x={x} y={yy + h + 32} color={n.bueno ? ACENTO_CLARO : ACENTO} tam={16}>
-              {n.veredicto}
+            <Rotulo x={x} y={yy + h + 32} color={ACENTO} tam={14}>
+              {n.mecanismo}
             </Rotulo>
           </g>
         )

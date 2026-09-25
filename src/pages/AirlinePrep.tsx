@@ -110,9 +110,6 @@ import { fetchPbnProgress, readPbnLocal } from "@/lib/pbnProgress"
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.webp"
 import simulacroPhoto from "@/assets/photos/notam-evaluacion-examen.webp"
-// La misma foto que abre el hub de Psicotécnicas. Antes la tarjeta traía la
-// portada del SIMULACRO, que es una página interior del tema.
-import psicoPhoto from "@/assets/photos/psicotecnicas-mano-panel.webp"
 // La cabina al amanecer: la foto no la usa ninguna tarjeta de esta pantalla,
 // así que el hero no repite imagen con lo que tiene debajo.
 import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
@@ -347,7 +344,7 @@ export function AirlinePrep() {
           meta: `${NOTAM_TOTALES.lessonScreens} secciones · ${NOTAM_TOTALES.lessonMinutes} min`,
           descripcion:
             "Lee la línea Q y decodifica avisos reales de la Aerocivil.",
-          foto: "/modulos/notam/tema-notam-operacion.webp",
+          foto: "/modulos/notam/tema-notam-briefing.webp",
           cta: ctaDeTema(notam.overall),
           avance: notam.overall,
           completo: notam.overall >= 100,
@@ -371,7 +368,7 @@ export function AirlinePrep() {
           // Lo que se aprende, en el orden en que se lee.
           descripcion:
             "Del cielo al informe: nubes, frentes, METAR y TAF.",
-          foto: "/modulos/meteorologia/tema-meteorologia-conveccion.webp",
+          foto: "/modulos/meteorologia/tema-meteorologia-tormenta.webp",
           cta: ctaDeTema(metar.overall),
           avance: metar.overall,
           completo: metar.overall >= 100,
@@ -393,7 +390,7 @@ export function AirlinePrep() {
           titulo: "Mercancías peligrosas",
           meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_LECTURA_MINUTOS} min`,
           descripcion: "Clases, NOTOC, baterías de litio y qué hacer en vuelo.",
-          foto: "/modulos/mercancias/tema-mercancias-carga.webp",
+          foto: "/modulos/mercancias/tema-mercancias-etiqueta.webp",
           cta: ctaDeTema(mercancias.overall),
           avance: mercancias.overall,
           completo: mercancias.overall >= 100,
@@ -415,7 +412,7 @@ export function AirlinePrep() {
           titulo: "Aerodinámica",
           meta: `${AERO_LECTURA_TOTAL} secciones · ${AERO_LECTURA_MINUTOS} min`,
           descripcion: "Sustentación, pérdida, factor de carga, Mach y altitud de densidad.",
-          foto: "/modulos/aerodinamica/tema-aerodinamica-ala.webp",
+          foto: "/modulos/aerodinamica/tema-aerodinamica-tunel.webp",
           cta: ctaDeTema(aero.overall),
           avance: aero.overall,
           completo: aero.overall >= 100,
@@ -614,7 +611,7 @@ export function AirlinePrep() {
           titulo: "Pruebas psicotécnicas",
           meta: `${PSICO_TOTAL} ejercicios · simulacro de ${SIMULACRO_TOTAL}`,
           descripcion: "Razonamiento abstracto, espacial y numérico, con reloj.",
-          foto: psicoPhoto,
+          foto: "/modulos/psicotecnicas/tema-psicotecnicas-razonamiento.webp",
           cta: mejorPsico === null ? "Empezar" : "Entrenar",
           avance: mejorPsico ?? 0,
           estado:

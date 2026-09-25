@@ -9,7 +9,7 @@ import { METAR_LESSON, METAR_NIVELES } from "@/lib/metarLesson"
 
 /**
  * Lección de Meteorología, con el mismo lector que NOTAM y Mercancías y el
- * tema verde del módulo (`lector-mt`).
+ * acento turquesa petróleo del módulo (`lector-mt`).
  *
  * Antes tenía lector propio: una hoja continua con índice lateral y detección
  * de sección por scroll. Funcionaba, pero era el único módulo que se leía

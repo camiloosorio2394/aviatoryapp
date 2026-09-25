@@ -14,7 +14,7 @@ import {
 import type { ResultadoEvaluacion } from "@/services/evaluaciones"
 
 /**
- * Evaluación del tema METAR (ruta /app/aerolinea/meteorologia/evaluacion).
+ * Evaluación del módulo de Meteorología (ruta /app/aerolinea/meteorologia/evaluacion).
  *
  * Cierra el tema: hasta ahora el piloto leía y decodificaba, pero nunca
  * comprobaba si había aprendido, así que el tema no podía marcarse como
@@ -49,7 +49,7 @@ export function MetarExam() {
               <ClipboardCheck className="h-3.5 w-3.5" /> Meteorología · Evaluación
             </>
           }
-          title="Evaluación de METAR"
+          title="Evaluación de Meteorología"
           subtitle={`${METAR_EXAM_PER_ATTEMPT} preguntas de opción múltiple, barajadas. Cada una trae su explicación y su referencia. Apruebas con ${METAR_EXAM_PASS_SCORE} sobre 100.`}
         />
 
@@ -81,9 +81,9 @@ export function MetarExam() {
               <section className="mt-6 rounded-xl surface p-6">
                 <div className="text-[15px] font-semibold">Antes de volver a intentarlo</div>
                 <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[680px]">
-                  Mira la revisión de abajo y vuelve a las secciones que fallaste. La práctica del
-                  tema te deja interpretar informes enteros con respuesta modelo, que es lo que más
-                  rápido cierra los huecos.
+                  Revisa las explicaciones y vuelve a las lecciones que necesitas reforzar. En la
+                  práctica puedes interpretar casos completos y contrastar tu decisión con una
+                  respuesta modelo.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
