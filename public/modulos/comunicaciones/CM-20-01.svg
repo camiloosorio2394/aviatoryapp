@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Altitud, capa y nivel de transición</title>
+<desc id="desc">Diagrama conceptual sin cifras locales: abajo altitudes con QNH, en medio la capa de transición, arriba niveles de vuelo con referencia estándar. Flechas separan ascenso y descenso.</desc>
+<defs>
+  <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0c1c2d"/><stop offset="1" stop-color="#163449"/></linearGradient>
+  <linearGradient id="band" x2="1"><stop stop-color="#d6fff0" stop-opacity=".13"/><stop offset="1" stop-color="#d6fff0" stop-opacity=".05"/></linearGradient>
+  <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 9 4.5 0 9Z" fill="#83eac1"/></marker>
+  <style>text{font-family:Arial,Helvetica,sans-serif;fill:#f3faf8}.small{font-size:24px;fill:#b9d1d3}.label{font-size:30px;font-weight:700}.title{font-size:48px;font-weight:700}.mint{fill:#90f2c8}.line{stroke:#9dedce;stroke-width:4;stroke-dasharray:14 12}.chip{fill:#183d4d;stroke:#6fd8b0;stroke-width:2}</style>
+</defs>
+<rect width="1600" height="900" rx="32" fill="url(#bg)"/>
+<text x="82" y="92" class="title">Dos referencias verticales</text>
+<text x="82" y="135" class="small">La transición se publica para cada entorno: aquí no hay valores locales.</text>
+<rect x="82" y="195" width="1010" height="175" rx="20" fill="#1e4655"/>
+<rect x="82" y="391" width="1010" height="147" rx="20" fill="url(#band)" stroke="#62b69f" stroke-width="2"/>
+<rect x="82" y="560" width="1010" height="210" rx="20" fill="#203d4c"/>
+<path d="M82 380H1092M82 550H1092" class="line"/>
+<text x="660" y="361" class="small">Nivel de transición</text>
+<text x="660" y="586" class="small">Altitud de transición</text>
+<text x="124" y="247" class="label mint">Niveles de vuelo</text>
+<text x="124" y="292" class="small">Referencia estándar: 1013,2 hPa</text>
+<text x="124" y="341" class="small">Se transmite «FLIGHT LEVEL …»</text>
+<text x="124" y="441" class="label">Capa de transición</text>
+<text x="124" y="488" class="small">Entre el nivel y la altitud de transición</text>
+<text x="124" y="621" class="label mint">Altitudes</text>
+<text x="124" y="666" class="small">Referencia altimétrica aplicable, normalmente QNH</text>
+<text x="124" y="718" class="small">Se transmite la altitud en pies o metros</text>
+<rect x="1117" y="191" width="400" height="579" rx="20" fill="#102a38" stroke="#456b71" stroke-width="2"/>
+<text x="1150" y="248" class="label">Cambio de referencia</text>
+<path d="M1195 651V338" stroke="#83eac1" stroke-width="9" marker-end="url(#arrow)"/>
+<text x="1233" y="402" class="small">ASCENSO</text>
+<text x="1233" y="439" class="small">Ajuste estándar al</text>
+<text x="1233" y="474" class="small">cruzar la altitud</text>
+<text x="1233" y="509" class="small">de transición</text>
+<path d="M1470 318V628" stroke="#e9d390" stroke-width="9"/>
+<path d="M1458 614 1470 641 1482 614Z" fill="#e9d390"/>
+<text x="1233" y="594" class="small">DESCENSO</text>
+<text x="1233" y="629" class="small">QNH al cruzar el</text>
+<text x="1233" y="664" class="small">nivel de transición</text>
+<text x="83" y="830" class="small">Esquema didáctico · confirmar AIP/eAIP, autorización y SOP antes de operar</text>
+</svg>
