@@ -268,7 +268,7 @@ export function PsicoPlayer({ sesion, onCorregir, onRegistrar, onAplazar, onTerm
         <div
           className={
             ejercicio.figura
-              ? "mt-5 flex flex-wrap gap-3"
+              ? "mt-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3"
               : ejercicio.opcionesEnImagen
                 ? "mt-5 flex flex-wrap gap-2"
                 : "mt-5 grid gap-2 sm:grid-cols-2"
@@ -294,7 +294,7 @@ export function PsicoPlayer({ sesion, onCorregir, onRegistrar, onAplazar, onTerm
                 className={[
                   "pj-opcion rounded-xl border text-left",
                   ejercicio.figura
-                    ? "flex flex-col items-center gap-1 p-2"
+                    ? "flex min-w-0 flex-col items-center gap-1 p-2"
                     : ejercicio.opcionesEnImagen
                       ? "h-12 w-14 flex items-center justify-center text-[17px] font-semibold"
                       : "px-4 py-3 text-[15px]",

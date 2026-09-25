@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { ArrowLeft, ArrowRight, GraduationCap } from "lucide-react"
+import { ArrowLeft, ArrowRight, ChevronDown, GraduationCap } from "lucide-react"
 import { PageHeader } from "@/components/ui/page-header"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { PSICO_HUB } from "@/lib/psicotecnicas"
@@ -76,71 +76,106 @@ export function PsicoAprende() {
           subtitle="Tres formas de razonar, tres métodos distintos. Aprende a reconocer la regla antes de correr contra el reloj."
         />
 
-        <nav aria-label="Métodos por familia" className="mb-8 flex flex-wrap gap-2">
-          {GUIAS.map((guia) => (
-            <a key={guia.id} href={`#psico-${guia.id}`} className="rounded-full border border-border bg-card px-4 py-2 text-[13px] font-medium hover:bg-muted">
-              {guia.numero} · {guia.id === "numerico" ? "Numérico" : guia.id === "espacial" ? "Espacial" : "Abstracto"}
+        <nav id="ruta-aprende" aria-label="Ruta de aprendizaje" className="mb-10 grid gap-3 sm:grid-cols-3">
+          {[
+            { numero: "01", titulo: "Reconoce la regla", detalle: "Tres métodos", destino: "metodos" },
+            { numero: "02", titulo: "Mira cómo se pliega", detalle: `${TEORIA_CUBO.length} láminas`, destino: "cubos" },
+            { numero: "03", titulo: "Comprueba tu criterio", detalle: `${EJEMPLOS_ESPACIAL.length} ejemplos`, destino: "ejemplos" },
+          ].map((etapa) => (
+            <a
+              key={etapa.numero}
+              href={`#psico-${etapa.destino}`}
+              className="group flex items-start gap-3 rounded-2xl surface surface-lift p-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              <span className="nh-display text-[12px] font-semibold tabular-nums" style={{ color: "var(--av-blue-500)" }}>
+                {etapa.numero}
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-[15px] font-semibold leading-tight">{etapa.titulo}</span>
+                <span className="mt-1 block text-[12px] text-muted-foreground">{etapa.detalle}</span>
+              </span>
+              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden />
             </a>
           ))}
         </nav>
 
-        <div className="space-y-4">
-          {GUIAS.map((guia) => (
-            <section id={`psico-${guia.id}`} key={guia.id} className="scroll-mt-6 rounded-2xl border border-border bg-card p-5 sm:p-7">
-              <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Método {guia.numero}</div>
-              <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">{guia.titulo}</h2>
-              <p className="mt-1 text-[14px] text-muted-foreground">{guia.pregunta}</p>
-              <ol className="mt-4 space-y-2 pl-5 text-[15px] leading-relaxed marker:font-semibold">
-                {guia.pasos.map((paso) => <li key={paso}>{paso}</li>)}
-              </ol>
-              <p className="mt-4 rounded-xl bg-muted/50 p-3 text-[14px] leading-relaxed"><strong>Así se aplica:</strong> {guia.ejemplo}</p>
-              <Link to={`${PSICO_HUB}/practica?categoria=${guia.id}`} className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-foreground hover:underline">
-                Practicar {guia.id === "numerico" ? "numérico" : guia.id} <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </section>
-          ))}
-        </div>
-
-        {/* === TEORÍA === */}
-        <div className="mt-10 mb-4">
-          <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Profundiza · espacial</div>
-          <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">Plegado de cubos</h2>
-          <p className="mt-1 text-[15px] text-muted-foreground">Dos láminas para pasar del desarrollo plano al sólido y reconocer caras opuestas.</p>
-        </div>
-        <div className="space-y-4">
-          {TEORIA_CUBO.map((t) => (
-            <section key={t.id} className="rounded-2xl surface p-5 sm:p-7">
-              <h2 className="text-[19px] font-semibold tracking-[-0.01em]">{t.titulo}</h2>
-              <ImagenPsicoAmpliable src={t.imagen} alt={t.imagenAlt} />
-              <p className="mt-3 text-[15px] leading-relaxed text-foreground/90">{t.pie}</p>
-            </section>
-          ))}
-        </div>
-
-        {/* === EJEMPLOS RESUELTOS === */}
-        <div className="mt-10 mb-5">
-          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            Espacial · {EJEMPLOS_ESPACIAL.length} resueltos
+        <section id="psico-metodos" className="scroll-mt-6" aria-labelledby="titulo-metodos">
+          <div className="mb-4">
+            <div className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em]" style={{ color: "var(--av-blue-500)" }}>
+              Etapa 01 de 03 · fundamentos
+            </div>
+            <h2 id="titulo-metodos" className="mt-1 text-[22px] font-semibold tracking-[-0.02em]">Reconoce la regla</h2>
+            <p className="mt-1 text-[15px] text-muted-foreground">Elige la familia que quieres trabajar y aplica sus pasos antes de mirar el reloj.</p>
           </div>
-          <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">
-            Comprueba el método con ejemplos
-          </h2>
-          <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[68ch]">
-            La respuesta está señalada en cada figura recompuesta. Sirven para ver el
-            razonamiento, no para medirte: para eso están los modos cronometrados.
-          </p>
-        </div>
+          <div className="space-y-4">
+            {GUIAS.map((guia) => (
+              <article key={guia.id} className="rounded-2xl surface p-5 sm:p-7">
+                <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Método {guia.numero}</div>
+                <h3 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">{guia.titulo}</h3>
+                <p className="mt-1 text-[14px] text-muted-foreground">{guia.pregunta}</p>
+                <ol className="mt-4 space-y-2 pl-5 text-[15px] leading-relaxed marker:font-semibold">
+                  {guia.pasos.map((paso) => <li key={paso}>{paso}</li>)}
+                </ol>
+                <p className="mt-4 rounded-xl bg-muted/50 p-3 text-[14px] leading-relaxed"><strong>Así se aplica:</strong> {guia.ejemplo}</p>
+                <Link to={`${PSICO_HUB}/practica?categoria=${guia.id}`} className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-foreground hover:underline">
+                  Practicar {guia.id === "numerico" ? "numérico" : guia.id} <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </article>
+            ))}
+          </div>
+        </section>
 
-        <div className="space-y-4">
-          {EJEMPLOS_ESPACIAL.map((e) => (
-            <section key={e.id} className="rounded-2xl border border-border bg-card p-5">
-              <h3 className="text-[15px] font-semibold">{e.titulo}</h3>
-              <ImagenPsicoAmpliable src={e.imagen} alt={e.imagenAlt} />
-              <p className="mt-3 text-[15px] leading-relaxed text-foreground/90">{e.respuesta}</p>
-              <p className="mt-2 text-[13px] text-muted-foreground">{e.fuente}</p>
-            </section>
-          ))}
-        </div>
+        <section id="psico-cubos" className="mt-10 scroll-mt-6" aria-labelledby="titulo-cubos">
+          <div className="mb-4">
+            <div className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em]" style={{ color: "var(--av-blue-500)" }}>
+              Etapa 02 de 03 · demostración espacial
+            </div>
+            <h2 id="titulo-cubos" className="mt-1 text-[22px] font-semibold tracking-[-0.02em]">Mira cómo se pliega</h2>
+            <p className="mt-1 text-[15px] text-muted-foreground">Del desarrollo plano al cubo: identifica las caras opuestas antes de elegir una opción.</p>
+          </div>
+          <div className="space-y-4">
+            {TEORIA_CUBO.map((t) => (
+              <article key={t.id} className="rounded-2xl surface p-5 sm:p-7">
+                <h3 className="text-[19px] font-semibold tracking-[-0.01em]">{t.titulo}</h3>
+                <ImagenPsicoAmpliable src={t.imagen} alt={t.imagenAlt} />
+                <p className="mt-3 text-[15px] leading-relaxed text-foreground/90">{t.pie}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="psico-ejemplos" className="mt-10 scroll-mt-6" aria-labelledby="titulo-ejemplos">
+          <div className="mb-5">
+            <div className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em]" style={{ color: "var(--av-blue-500)" }}>
+              Etapa 03 de 03 · {EJEMPLOS_ESPACIAL.length} ejemplos resueltos
+            </div>
+            <h2 id="titulo-ejemplos" className="mt-1 text-[22px] font-semibold tracking-[-0.02em]">Comprueba tu criterio</h2>
+            <p className="mt-1.5 max-w-[68ch] text-[15px] text-muted-foreground">
+              Abre los ejemplos que quieras revisar. La respuesta está señalada en la figura recompuesta;
+              úsala para seguir el razonamiento, no para medir tu velocidad.
+            </p>
+          </div>
+          <div className="space-y-3">
+            {EJEMPLOS_ESPACIAL.map((e, i) => (
+              <details key={e.id} open={i === 0 ? true : undefined} className="group rounded-2xl surface">
+                <summary className="flex cursor-pointer list-none items-center gap-3 p-5 marker:hidden sm:px-7 [&::-webkit-details-marker]:hidden">
+                  <span className="nh-display text-[12px] font-semibold tabular-nums" style={{ color: "var(--av-blue-500)" }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="min-w-0 flex-1 text-[16px] font-semibold">{e.titulo}</span>
+                  <span className="hidden text-[12px] text-muted-foreground sm:inline group-open:hidden">Ver razonamiento</span>
+                  <span className="hidden text-[12px] text-muted-foreground sm:group-open:inline">Ocultar razonamiento</span>
+                  <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" aria-hidden />
+                </summary>
+                <div className="border-t border-border/70 px-5 pb-5 sm:px-7 sm:pb-7">
+                  <ImagenPsicoAmpliable src={e.imagen} alt={e.imagenAlt} />
+                  <p className="mt-3 text-[15px] leading-relaxed text-foreground/90">{e.respuesta}</p>
+                  <p className="mt-2 text-[13px] text-muted-foreground">{e.fuente}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
 
         <section className="mt-8 rounded-2xl surface p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
