@@ -267,18 +267,18 @@ export const NIVEL_2: DocScreen[] = [
     n: 9,
     title: "Competencia lingüística OACI",
     kicker: "Los seis niveles y qué exige el nivel 4",
-    minutes: 11,
+    minutes: 14,
     blocks: [
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "Son los requisitos de competencia lingüística de la OACI: el nivel de comprensión y expresión oral que pilotos, controladores y operadores de estaciones aeronáuticas deben acreditar en el idioma que usan en radiotelefonía. Están en el Anexo 1 (normas 1.2.9, descriptores integrales del Apéndice 1 y escala de calificación del Adjunto A) y los explica el Doc 9835.",
+        text: "Son los requisitos de competencia lingüística de la Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization): el nivel de comprensión y expresión oral que deben acreditar quienes usan la radiotelefonía en operaciones internacionales. Están en el Anexo 1 (normas 1.2.9, descriptores integrales del Apéndice 1 y escala de calificación del Adjunto A) y los explica el Doc 9835. No se trata de sonar como hablante nativo, sino de transmitir y entender información operacional, incluso cuando la situación cambia.",
       },
       {
         kind: "callout",
         tone: "info",
         title: "Esto no es la preparación del examen",
-        text: "La app tiene un módulo de Inglés ICAO que entrena para la evaluación. **Este capítulo no prepara el examen**: explica qué significa, en la frecuencia, comunicarse al nivel que la OACI considera operacional.",
+        text: "La app tiene un módulo de Inglés OACI que entrena para la evaluación. **Este capítulo no prepara el examen**: explica qué significa, en la frecuencia, comunicarse al nivel que la OACI considera operacional.",
       },
 
       { kind: "sub", text: "Lo que debe saber un piloto" },
@@ -297,7 +297,7 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Los descriptores de los niveles 1 y 2 están en el Apéndice A del Doc 9835 y en el Adjunto A del Anexo 1, que no están cargados (VERIFICAR). El Doc 9835 solo explica los niveles 3 a 6 (4.6.1).",
+        text: "Los niveles 1 y 2 no cumplen el mínimo operacional. Esta lección se concentra en el umbral del 4 y sus diferencias con 3, 5 y 6; para usar la escala completa en una evaluación formal hay que consultar el Adjunto A del Anexo 1 vigente, no inferir descriptores a partir de los nombres de la tabla.",
       },
       {
         kind: "p",
@@ -309,15 +309,15 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**La nota final es la más baja de las seis, no el promedio** (4.5.5 d y 4.5.11). Un piloto con 5 en todo y 3 en pronunciación es nivel 3. El Doc 9835 da la razón: un piloto con nivel 4 en todo menos en pronunciación «puede no ser comprendido» por los controladores.",
+        text: "**La nota final es la más baja de las seis, no el promedio** (4.5.5 d y 4.5.11). En la lámina, una comprensión de 3 hace que el resultado global sea 3, aunque las otras habilidades estén en 4 o 5. El Doc 9835 ilustra la misma lógica con la pronunciación: una debilidad ahí puede impedir que el controlador comprenda al piloto.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-09-01 · Esquema · 16:9 · 1600×900 px",
-        descripcion:
-          "Imagen sugerida: escala horizontal de seis escalones numerados 1 a 6 con su nombre en español e inglés. Una línea vertical gruesa entre el 3 y el 4 rotulada «mínimo operacional». Debajo, seis barras verticales (una por habilidad: pronunciación, estructura, vocabulario, fluidez, comprensión, interacción) con valores de ejemplo 5, 5, 4, 5, 3, 5; la barra de comprensión resaltada y una flecha que dice «Nota final: 3 (la más baja)». Sin cifras de reevaluación. Objetivo: que el piloto entienda que el nivel 4 es un piso y que una sola habilidad débil define la calificación completa.",
-        alto: 300,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-09-01.svg",
+        alt: "Seis niveles de competencia lingüística OACI; el mínimo operacional empieza en cuatro. Ejemplo de seis habilidades: 5, 5, 4, 5, 3 y 5; la comprensión en tres fija el resultado global en tres.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Reconoce el nivel 4 como piso operacional. Si una sola habilidad queda en 3, el resultado global es 3 aunque las demás sean mayores; no promedies. Los valores son didácticos, no una evaluación real. Amplía la lámina para leer las seis habilidades. Basado en el Doc 9835, 4.5.5 y 4.5.11.",
       },
       { kind: "p", text: "**Nivel 4, descriptores textuales** (Doc 9835 4.6.2 a 4.6.7):" },
       {
@@ -397,7 +397,7 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**Reevaluación.** Quien no alcanza el nivel 6 debe reevaluarse a intervalos (Anexo 1, 1.2.9.6, citado en Doc 9835 4.4.8 y 4.4.9); quien acredita el nivel 6 no necesita reevaluación periódica (Nota 1 de 1.2.9.7). La razón es la **pérdida del idioma** que se puede dar en los niveles bajos (4.4.7). Los intervalos recomendados están en el Anexo 1, 1.2.9.7, que no está cargado: VERIFICAR, y confirmar además qué exige la autoridad colombiana.",
+        text: "**Reevaluación.** Quien no alcanza el nivel 6 debe reevaluarse a intervalos (Anexo 1, 1.2.9.6, citado en Doc 9835 4.4.8 y 4.4.9); quien acredita el nivel 6 no necesita reevaluación periódica (Nota 1 de 1.2.9.7). La razón es la **pérdida del idioma** que puede darse en los niveles inferiores (4.4.7). La OACI recomienda tres años para el nivel 4 y seis para el 5, pero la autoridad aeronáutica de cada Estado establece el intervalo aplicable; hay que comprobar el de la licencia propia, sin convertir una recomendación en regla colombiana.",
       },
       {
         kind: "p",
@@ -417,85 +417,54 @@ export const NIVEL_2: DocScreen[] = [
         text: "Y SAY AGAIN a veces debe entenderse como un pedido de aclaración, no de repetición literal: el controlador puede reformular.",
       },
 
-      { kind: "sub", text: "Fraseología OACI" },
+      { kind: "sub", text: "Cómo se reconoce el nivel operacional en la frecuencia" },
       {
-        kind: "callout",
-        tone: "verificar",
-        title: "Verificar",
-        text: "Varias frases de esta lección son ejemplos construidos y no están comprobadas: «say again slowly», el diálogo «are we number one or number two», la respuesta ATC «you are number two, following…» (fraseología de secuencia en aproximación) y la respuesta ATC «roger, maintain FL 240, report when ready to proceed» con «request to maintain present level» (PLAIN LANGUAGE). Consultar Doc 4444 cap. 12. Tampoco están cargados los descriptores de los niveles 1 y 2 ni los nombres en inglés de niveles y habilidades (Doc 9835 Apéndice A y Anexo 1 Adjunto A en inglés), los intervalos de reevaluación (Anexo 1, 1.2.9.7) ni cómo se acredita la competencia en Colombia (RAC 61).",
+        kind: "p",
+        text: "**Una calificación no sustituye el juicio en cabina.** El descriptor de comprensión del nivel 4 acepta que lo imprevisto tome más tiempo, pero exige una estrategia para aclararlo. Si la transmisión llega rápida, distorsionada o contiene un término desconocido, la acción competente es solicitar repetición o confirmación antes de ejecutar; asentir sin entender no demuestra fluidez. El Anexo 10, volumen II, 5.2.1.8, define **SAY AGAIN** para pedir repetición y **SPEAK SLOWER** para reducir la velocidad de habla. No hay que combinar palabras para inventar una frase que parezca normalizada.",
       },
       {
         kind: "p",
-        text: "Los intercambios muestran conductas del nivel 4 en la frecuencia. No son ejercicios de examen.",
+        text: "**Interacción y escucha son una sola barrera.** El Doc 9432, 2.8.3.9, ilustra la corrección de una colación errónea mediante **NEGATIVE, I SAY AGAIN**. El aprendizaje no es memorizar un número de presión: es notar la discrepancia, detener la cadena de supuestos y volver a confirmar el dato crítico. Para un piloto de aerolínea, esto abarca también autorizaciones, restricciones y pista asignada; la habilidad lingüística se vuelve útil cuando protege una decisión operacional concreta.",
       },
-      ...entrada(
-        "Interacción: detectar un malentendido y verificar",
-        [
-          `ATC:   "Aviatory 452, QNH 1003."`,
-          `PILOT: "QNH 1013, Aviatory 452."`,
-          `ATC:   "Aviatory 452, negative, I say again, QNH 1003."`,
-          `PILOT: "QNH 1003, Aviatory 452."`,
-        ],
-        "Significado: el controlador escucha la colación, detecta el error y corrige con NEGATIVE I SAY AGAIN. El piloto colaciona otra vez. Adaptado de Doc 9432 2.8.3.9.",
-      ),
-      ...entrada(
-        "Comprensión: algo inesperado, y el piloto pide aclaración en vez de suponer",
-        [
-          `ATC:   "Aviatory 452, (transmisión en lenguaje común, rápida, con un término que el piloto no conoce)."`,
-          `PILOT: "Aviatory 452, say again slowly."   (o "speak slower")`,
-        ],
-        "Significado: comprensión de nivel 4 «más lenta o requiere estrategias de aclaración» ante lo imprevisto. Pedirla es lo que el descriptor espera. SPEAK SLOWER está en el Doc 9432 2.6 con el significado «Disminuya la velocidad al hablar». «Say again slowly» es (ejemplo construido).",
-      ),
-      ...entrada(
-        "Vocabulario: parafrasear cuando no aparece la palabra (PLAIN LANGUAGE)",
-        [
-          `PILOT: "Aviatory 452, we have a problem with the... the system that moves the flight controls. Hydraulic system. Pressure is low on one system. Request to maintain present level while we run the checklist."`,
-          `ATC:   "Aviatory 452, roger, maintain FL 240, report when ready to proceed."`,
-          `PILOT: "Maintaining FL 240, wilco, Aviatory 452."`,
-        ],
-        "Significado: el piloto no encuentra de entrada el término, describe la función con palabras simples y termina con lo que necesita. Eso es parafrasear (descriptor de vocabulario, nivel 4).",
-      ),
-      ...entrada(
-        "Pronunciación y fluidez: repetir lo crítico cuando la recepción es mala",
-        [
-          `PILOT: "Bogota Approach, Aviatory 452, 2 500 feet, I say again 2 500 feet, engine losing power, engine losing power."`,
-        ],
-        "Significado: el Doc 9432 2.8.1.8 manda repetir los elementos importantes cuando se prevé recepción difícil. Adaptado de Doc 9432 2.8.1.8 (en el ejemplo original es una aeronave liviana en VFR; el procedimiento de urgencia y socorro va en los capítulos 34 a 36).",
-      ),
-      ...entrada(
-        "Interacción: iniciar un intercambio no previsto (PLAIN LANGUAGE)",
-        [
-          `PILOT: "Bogota Approach, Aviatory 452, request information: are we number one or number two for the approach, behind the Airbus?"`,
-          `ATC:   "Aviatory 452, you are number two, following an A320 on 8 miles final."`,
-          `PILOT: "Number two, traffic in sight, Aviatory 452."`,
-        ],
-        "Significado: el Doc 9835 (3.3.18) cita un caso real («¿Quién va adelante? ¿Nosotros o el Air Europe?») para mostrar que no existe fraseología OACI para esa pregunta y que se necesita lenguaje común. El nivel 4 «inicia y sostiene intercambios verbales aun cuando trate sobre situaciones imprevistas». Diálogo (ejemplo construido) sobre esa base.",
-      ),
+      {
+        kind: "p",
+        text: "**Parafrasear no es improvisar una autorización.** El descriptor de vocabulario permite describir con palabras simples un problema cuando falta el término exacto. El piloto puede explicar qué sistema falla, qué capacidad conserva y qué necesita, manteniendo las palabras normalizadas que sí correspondan. El controlador no debe tener que inferir si la aeronave puede aceptar descenso, mantener nivel o continuar la aproximación. Los procedimientos de emergencia y la coordinación con control de tránsito aéreo (ATC, air traffic control) se estudian aparte; aquí se evalúa si el mensaje es inteligible y permite una respuesta útil.",
+      },
+      {
+        kind: "p",
+        text: "**El caso que cita el propio manual.** El Doc 9835, 3.3.18, recoge una pregunta espontánea sobre quién precedía a una aeronave en la secuencia, mencionando a Air Europe. No ofrece una plantilla universal de respuesta para cada dependencia. Enseña que una duda operacional sin frase hecha exige lenguaje común claro y una respuesta que cierre la duda. Por eso no se recrea aquí un diálogo, una frecuencia, un rumbo o una matrícula no publicados.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        title: "Antes de aplicar una regla de licencia",
+        text: "La OACI recomienda reevaluar el nivel 4 cada tres años y el 5 cada seis; **cada autoridad fija el intervalo aplicable**. Confirma requisitos, anotación y vigencia en la regulación colombiana y en el Estado que expidió tu licencia antes de usar esta lección como guía de cumplimiento. La fuente abierta de OACI sobre licencias distingue recomendación internacional de obligación nacional.",
+      },
 
       { kind: "sub", text: "Aplicación en aerolínea" },
       {
         kind: "enLaOperacion",
         momento: "Requisito de contratación",
         texto:
-          "Las aerolíneas que vuelan internacional exigen el nivel vigente anotado en la licencia. Cuál y con qué vigencia lo fija cada autoridad; VERIFICAR RAC 61 para Colombia y la norma del Estado del operador.",
+          "Para una operación internacional, la tripulación debe cumplir los requisitos lingüísticos aplicables y acreditar el nivel conforme a su licencia y al Estado que la expide. Las condiciones de selección de una aerolínea pueden ser adicionales; no se deducen de la escala OACI. En Colombia, confirma la anotación y vigencia contra la regulación aeronáutica vigente.",
       },
       {
         kind: "enLaOperacion",
         momento: "El nivel es un piso, no una meta",
         texto:
-          "El Doc 9835 (4.4.7) explica que el nivel 4 está lejos del 6 y que en esos niveles puede aparecer pérdida del idioma; por eso la reevaluación periódica. Un piloto que obtuvo 4 y no vuelve a practicar inglés operacional llega a la siguiente evaluación peor.",
+          "El Doc 9835 (4.4.7) explica que el nivel 4 está lejos del 6 y que puede haber pérdida de competencia lingüística; por eso existe la reevaluación periódica. Mantener práctica de escucha, aclaración y lenguaje común importa entre evaluaciones, no solo antes de presentar una prueba.",
       },
       {
         kind: "enLaOperacion",
         momento: "Nivel 4 no es lo que se ve en la entrevista",
         texto:
-          "El evaluador no le pone nota OACI: mira si entiende a la primera, si responde breve y si pide aclaración sin nervios. Esas son las conductas de «interacciones» y «comprensión».",
+          "Una entrevista de selección no reemplaza una evaluación formal de competencia lingüística. Sí permite observar si el candidato comprende el escenario, responde con claridad y solicita aclaración cuando no entiende: conductas de «interacciones» y «comprensión» que también importan en operación.",
       },
       {
         kind: "enLaOperacion",
         momento: "Cabina con dos niveles distintos",
         texto:
-          "Si uno de los pilotos tiene nivel 6 y el otro 4, el de nivel más alto no debe asumir las comunicaciones difíciles «por comodidad» sin que el SOP lo diga: los dos tienen que entender cada autorización (capítulo 59).",
+          "Si uno de los pilotos tiene nivel 6 y el otro 4, repartir las comunicaciones por costumbre no exime al otro de comprender las autorizaciones. La asignación de funciones sigue los procedimientos operativos estandarizados (SOP, Standard Operating Procedures) del explotador, y ambos verifican los elementos críticos (capítulo 59).",
       },
 
       { kind: "sub", text: "Error frecuente" },
@@ -524,19 +493,19 @@ export const NIVEL_2: DocScreen[] = [
           "El nivel 4 (operacional) es el mínimo para operar donde aplican los requisitos.",
           "Seis habilidades, y la nota final es la más baja de todas.",
           "El acento no es el problema; que interfiera con la comprensión, sí.",
-          "Quien no es nivel 6 se reevalúa periódicamente; los intervalos los fija la norma (verificar).",
+          "Quien no es nivel 6 se reevalúa periódicamente: la OACI recomienda intervalos y cada autoridad fija los aplicables.",
           "El nivel 4 se nota en la frecuencia: responde rápido, parafrasea y verifica lo dudoso.",
         ],
       },
       {
         kind: "detalleTecnico",
         etiqueta: "Fuentes",
-        cita: "Doc 9835 · Doc 9432",
+        cita: "Doc 9835 · Anexo 10 · Preguntas frecuentes OACI",
         bloques: [
           { kind: "sub", text: "Verificado" },
           {
             kind: "p",
-            text: "Doc 9835 (2.ª ed.) 4.4.4, 4.4.7, 4.4.8, 4.4.9, 4.4.11, 4.5.2, 4.5.3 c), 4.5.5 c) y d), 4.5.6, 4.5.9, 4.5.11, 4.5.12, 4.6.1, 4.6.2 a 4.6.7 (descriptores niveles 3 a 6, citados textualmente los del nivel 4), 3.3.18, 6.2.8.6; Doc 9432 (4.ª ed.) 2.6 (SPEAK SLOWER), 2.8.1.8, 2.8.3.9.",
+            text: "Doc 9835 (2.ª ed.) 4.4.4, 4.4.7–4.4.11, 4.5.2, 4.5.3 c), 4.5.5 c) y d), 4.5.6, 4.5.9, 4.5.11, 4.5.12, 4.6.1–4.6.7, 3.3.18 y 6.2.8.6 (https://www4.icao.int/aelts/uploads/icao%20doc9835%202nd%20edition.pdf); Doc 9432 (4.ª ed.) 2.8.3.9; Anexo 10, Vol. II, 5.2.1.8 (https://www.icao.int/Meetings/anconf12/Document%20Archive/AN10_V2_cons%5B1%5D.pdf); preguntas frecuentes OACI sobre licencias e intervalos (https://www.icao.int/personnel-licensing-faq).",
           },
           { kind: "sub", text: "Por verificar" },
           {
@@ -544,14 +513,11 @@ export const NIVEL_2: DocScreen[] = [
             items: [
               "VERIFICAR: descriptores de los niveles 1 (preelemental) y 2 (elemental) contra Doc 9835 Apéndice A y Anexo 1 Adjunto A (no cargados).",
               "VERIFICAR: nombres en inglés de los niveles (Pre-elementary, Elementary, Pre-operational, Operational, Extended, Expert) y de las habilidades (Pronunciation, Structure, Vocabulary, Fluency, Comprehension, Interactions) contra la versión en inglés del Anexo 1 Adjunto A (no cargada; el Doc 9835 cargado está en español).",
-              "VERIFICAR: intervalos de reevaluación contra Anexo 1, 1.2.9.7 (no cargado). No se dan cifras aquí.",
+              "VERIFICAR: intervalo obligatorio y modo de acreditación en Colombia contra la normativa nacional vigente; la recomendación OACI no lo reemplaza.",
               "VERIFICAR: cómo se acredita y anota la competencia en Colombia, y su vigencia, contra RAC 61 (no cargado).",
-              "VERIFICAR: las frases «say again slowly» y el diálogo de secuencia «are we number one or number two» son ejemplos construidos; la respuesta ATC «you are number two, following…» contra Doc 4444 cap. 12, fraseología de secuencia en aproximación (no cargado).",
-              "VERIFICAR: la respuesta ATC construida «roger, maintain FL 240, report when ready to proceed» y «request to maintain present level» (PLAIN LANGUAGE) contra Doc 4444 cap. 12 (no cargado).",
+              "VERIFICAR: cualquier fraseología adicional de secuencia, emergencia o autorizaciones contra el Doc 4444 y el Anexo 10 vigentes antes de emplearla en operación.",
             ],
           },
-          { kind: "sub", text: "Convenciones de los ejemplos" },
-          CONVENCIONES,
         ],
       },
     ],
