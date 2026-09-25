@@ -8,6 +8,17 @@ describe("práctica de Meteorología", () => {
     expect(practica.meta.aviso_obligatorio_en_pantalla).toContain("simulados")
   })
 
+  it("incluye claves METAR/TAF de varios países además de Colombia", () => {
+    const codigos = practica.ejercicios.map((caso) => caso.metar.match(/^(?:METAR|SPECI|TAF) ([A-Z]{4})/)?.[1])
+    const presentes = new Set(codigos)
+
+    for (const codigo of ["EGLL", "EHAM", "OMDB", "LFPG", "SBGR"]) {
+      expect(presentes, `falta el aeródromo internacional ${codigo}`).toContain(codigo)
+    }
+
+    expect(presentes).toContain("KMIA") // Convenciones estadounidenses explícitas.
+  })
+
   it("no confunde la sintaxis TREND de METAR/SPECI con las ventanas TAF", () => {
     for (const caso of practica.ejercicios) {
       if (!/^(METAR|SPECI) /.test(caso.metar)) continue

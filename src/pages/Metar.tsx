@@ -138,7 +138,7 @@ export function Metar() {
       meta: `${METAR_PRACTICE_TOTAL} casos simulados con respuesta modelo`,
       title: "3. Práctica",
       blurb:
-        "Interpretas observaciones, pronósticos y escenarios en ruta con tus palabras. Después comparas tu criterio con la respuesta modelo.",
+        "Lee METAR, TAF y escenarios simulados de aeródromos de Colombia y otros países. Explica qué significan y contrasta tu análisis con la respuesta modelo.",
       cta: "Iniciar práctica",
       photo: practicaPhoto,
       photoAspect: "5/2" as const,

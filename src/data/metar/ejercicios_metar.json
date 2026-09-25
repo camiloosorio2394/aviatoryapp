@@ -22,13 +22,13 @@
     {
       "id": 1,
       "nivel": "basico",
-      "titulo": "Un día tranquilo en Rionegro",
-      "metar": "METAR SKRG 121200Z 09008KT 9999 FEW020 SCT100 18/12 Q1025 NOSIG",
+      "titulo": "Una mañana tranquila en Heathrow",
+      "metar": "METAR EGLL 121200Z 24008KT 9999 FEW020 SCT100 18/12 Q1025 NOSIG",
       "consigna": "Describe qué informa este METAR: dónde, cuándo en hora de Colombia, cómo está el cielo y si ves algo que condicione la operación.",
-      "respuesta_modelo": "Informe de rutina de José María Córdova (SKRG), día 12 a las 12:00 UTC, es decir, las 07:00 de Colombia. Viento del este (090°) a 8 nudos. Visibilidad de 10 km o más. Escasas a 2000 ft y dispersas a 10 000 ft: ninguna capa constituye techo. Temperatura 18 °C, punto de rocío 12 °C y QNH 1025. NOSIG indica que no se pronostica un cambio significativo durante las dos horas de validez de la tendencia; no equivale a una autorización para operar. Hay que contrastar pista, mínimos y pronósticos vigentes para el vuelo.",
+      "respuesta_modelo": "Informe rutinario simulado de Londres/Heathrow (EGLL), día 12 a las 12:00 UTC, equivalente a las 07:00 de Colombia. Viento del oeste-suroeste (240°) a 8 nudos. Visibilidad de 10 km o más. Escasas a 2000 ft y dispersas a 10 000 ft: ninguna capa constituye techo. Temperatura 18 °C, punto de rocío 12 °C y QNH 1025. NOSIG indica que no se pronostica un cambio significativo durante las dos horas de validez de la tendencia; no equivale a una autorización para operar. Hay que contrastar pista, mínimos y pronósticos vigentes para el vuelo.",
       "puntos_clave": [
-        "SKRG, día 12 a las 12:00 UTC = 07:00 en Colombia",
-        "Viento flojo del este, 8 nudos",
+        "EGLL, día 12 a las 12:00 UTC = 07:00 en Colombia",
+        "Viento flojo del oeste-suroeste, 8 nudos",
         "9999 = visibilidad de 10 km o más",
         "FEW y SCT no hacen techo: hace falta BKN u OVC",
         "18/12: seis grados de separación; no demuestra riesgo inmediato ni excluye una evolución posterior",
@@ -124,13 +124,13 @@
     {
       "id": 6,
       "nivel": "basico",
-      "titulo": "CAVOK en Cartagena",
-      "metar": "METAR SKCG 191400Z 05012KT CAVOK 32/26 Q1011 NOSIG",
+      "titulo": "CAVOK en Dubái",
+      "metar": "METAR OMDB 191400Z 05012KT CAVOK 32/26 Q1011 NOSIG",
       "consigna": "El informe es muy corto. Explica qué criterios resume CAVOK y qué no informa.",
-      "respuesta_modelo": "Rafael Núñez (SKCG), día 19 a las 14:00 UTC, es decir, las 09:00 de Colombia. Viento del noreste a 12 kt. CAVOK sustituye los grupos de visibilidad, alcance visual en pista, tiempo presente y nubes cuando se cumplen sus criterios: visibilidad de 10 km o más, sin tiempo significativo ni nubes de importancia operacional (por debajo de 5000 ft o de la altitud mínima de sector más alta, lo que sea mayor, ni CB o TCU). Temperatura 32 °C, punto de rocío 26 °C y QNH 1011. NOSIG se limita a las dos horas de la tendencia. CAVOK no informa condiciones de pista, limitaciones de viento ni rendimiento; esos datos deben verificarse aparte.",
+      "respuesta_modelo": "Aeropuerto Internacional de Dubái (OMDB), día 19 a las 14:00 UTC, equivalente a las 09:00 de Colombia. Viento del noreste a 12 kt. CAVOK sustituye los grupos de visibilidad, alcance visual en pista, tiempo presente y nubes cuando se cumplen sus criterios: visibilidad de 10 km o más, sin tiempo significativo ni nubes de importancia operacional (por debajo de 5000 ft o de la altitud mínima de sector más alta, lo que sea mayor, ni CB o TCU). Temperatura 32 °C, punto de rocío 26 °C y QNH 1011. NOSIG se limita a las dos horas de la tendencia. CAVOK no informa condiciones de pista, limitaciones de viento ni rendimiento; esos datos deben verificarse aparte.",
       "puntos_clave": [
         "CAVOK sustituye visibilidad, tiempo presente y nubes",
-        "Garantiza 10 km o más y nada de CB ni TCU",
+        "En esta observación resume 10 km o más y ausencia de CB/TCU y tiempo significativo",
         "Sin nubes por debajo del umbral operacional aplicable ni CB/TCU",
         "32/26: verificar rendimiento de despegue y condiciones de pista por separado"
       ],
@@ -242,10 +242,10 @@
     {
       "id": 12,
       "nivel": "avanzado",
-      "titulo": "Niebla costera y alterno",
-      "metar": "METAR SKSM 141300Z 02012KT 0800 FG SCT002 BKN006 26/26 Q1011 NOSIG",
-      "consigna": "Son las ocho de la mañana y hay niebla con viento. Explica por qué esto no es lo mismo que la niebla de madrugada, y qué implica para la espera.",
-      "respuesta_modelo": "Simón Bolívar (SKSM), día 14 a las 13:00 UTC, es decir, las 08:00 de Colombia. Viento del noreste a 12 kt, visibilidad de 800 m con niebla, SCT002 y techo BKN006 de 600 ft. Temperatura y punto de rocío de 26 °C; QNH 1011. El viento y la hora hacen considerar advección de aire húmedo, pero el METAR aislado no permite distinguir con seguridad el tipo de niebla ni fijar un umbral universal de viento. NOSIG indica que no se prevé cambio significativo en las dos horas siguientes, no que la situación vaya a durar días. La decisión depende de mínimos y observaciones vigentes; si se necesita alterno, se comprueba que tenga condiciones y capacidad adecuadas, considerando si comparte el mismo fenómeno regional.",
+      "titulo": "Niebla y alterno en Schiphol",
+      "metar": "METAR EHAM 141300Z 02012KT 0800 FG SCT002 BKN006 10/10 Q1011 NOSIG",
+      "consigna": "En Colombia son las 08:00 y el METAR de Schiphol reporta niebla con viento. Explica qué permite inferir y qué no sobre el mecanismo y la espera.",
+      "respuesta_modelo": "Ámsterdam/Schiphol (EHAM), día 14 a las 13:00 UTC, equivalente a las 08:00 de Colombia. Viento del noreste a 12 kt, visibilidad de 800 m con niebla, SCT002 y techo BKN006 de 600 ft. Temperatura y punto de rocío de 10 °C; QNH 1011. El viento y la hora hacen considerar advección de aire húmedo, pero el METAR aislado no permite distinguir con seguridad el tipo de niebla ni fijar un umbral universal de viento. NOSIG indica que no se prevé cambio significativo en las dos horas siguientes, no que la situación vaya a durar días. La decisión depende de mínimos y observaciones vigentes; si se necesita alterno, se comprueba que tenga condiciones y capacidad adecuadas, considerando si comparte el mismo fenómeno regional.",
       "puntos_clave": [
         "Viento de 12 kt con niebla: considerar advección, sin afirmarla con un solo METAR",
         "La persistencia y disipación dependen de la evolución de la masa de aire",
@@ -361,10 +361,10 @@
     {
       "id": 18,
       "nivel": "intermedio",
-      "titulo": "Llovizna y deterioro previsto",
-      "metar": "METAR SKVV 091200Z 08006KT 6000 -DZ OVC009 22/21 Q1010 BECMG FM1300 TL1400 3000 RA BKN005",
+      "titulo": "Llovizna y deterioro en París",
+      "metar": "METAR LFPG 091200Z 08006KT 6000 -DZ OVC009 12/11 Q1010 BECMG FM1300 TL1400 3000 RA BKN005",
       "consigna": "Explica las condiciones actuales, el cambio pronosticado y por qué el informe no identifica por sí solo un frente cálido.",
-      "respuesta_modelo": "Vanguardia (SKVV), día 9 a las 12:00 UTC (07:00 de Colombia). Viento del este a 6 kt, visibilidad de 6 km con llovizna, techo OVC009 de 900 ft, temperatura 22 °C, punto de rocío 21 °C y QNH 1010. BECMG FM1300 TL1400 prevé una transición a 3 km con lluvia y techo BKN005 de 500 ft entre las 13:00 y las 14:00 UTC; después se espera que prevalezcan las nuevas condiciones, dentro de la validez de la tendencia. Llovizna y nubosidad estratiforme son compatibles con distintas situaciones, no prueban un frente cálido. Para una llegada posterior se usa el pronóstico válido para esa hora, se comprueban mínimos y alternos, y se contrasta cualquier hipótesis frontal con cartas y observaciones regionales.",
+      "respuesta_modelo": "París/Charles de Gaulle (LFPG), día 9 a las 12:00 UTC (07:00 de Colombia). Viento del este a 6 kt, visibilidad de 6 km con llovizna, techo OVC009 de 900 ft, temperatura 12 °C, punto de rocío 11 °C y QNH 1010. BECMG FM1300 TL1400 prevé una transición a 3 km con lluvia y techo BKN005 de 500 ft entre las 13:00 y las 14:00 UTC; después se espera que prevalezcan las nuevas condiciones, dentro de la validez de la tendencia. Llovizna y nubosidad estratiforme son compatibles con distintas situaciones, no prueban un frente cálido. Para una llegada posterior se usa el pronóstico válido para esa hora, se comprueban mínimos y alternos, y se contrasta cualquier hipótesis frontal con cartas y observaciones regionales.",
       "puntos_clave": [
         "Llovizna (DZ) y cielo cubierto: datos observados, no prueba de frente cálido",
         "Separación de un grado: aire casi saturado",
@@ -622,10 +622,10 @@
     {
       "id": 31,
       "nivel": "basico",
-      "titulo": "Leer la cabecera de un TAF",
-      "metar": "TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020",
+      "titulo": "Leer la cabecera de un TAF en Schiphol",
+      "metar": "TAF EHAM 121100Z 1212/1318 09008KT 9999 SCT020",
       "consigna": "Solo cabecera y grupo predominante. Di cuándo se emitió, cuándo vale y qué promete si nada cambia.",
-      "respuesta_modelo": "Pronóstico de aeródromo para El Dorado (SKBO), emitido el día 12 a las 11:00 UTC. Válido desde el día 12 a las 12:00 UTC hasta el día 13 a las 18:00 UTC: 30 horas. En Colombia, del día 12 a las 07:00 al día 13 a las 13:00. El grupo predominante pronostica viento del este a 8 kt, visibilidad de 10 km o más y SCT020: nubes dispersas a 2000 ft, sin techo pronosticado en ese grupo. Al no haber grupos de cambio, esas condiciones se prevén durante el periodo, pero el TAF no garantiza que cada observación futura coincida ni reemplaza la revisión de actualizaciones.",
+      "respuesta_modelo": "Pronóstico de aeródromo simulado para Ámsterdam/Schiphol (EHAM), emitido el día 12 a las 11:00 UTC. Válido desde el día 12 a las 12:00 UTC hasta el día 13 a las 18:00 UTC: 30 horas. En Colombia, del día 12 a las 07:00 al día 13 a las 13:00. El grupo predominante pronostica viento del este a 8 kt, visibilidad de 10 km o más y SCT020: nubes dispersas a 2000 ft, sin techo pronosticado en ese grupo. Al no haber grupos de cambio, esas condiciones se prevén durante el periodo, pero el TAF no garantiza que cada observación futura coincida ni reemplaza la revisión de actualizaciones.",
       "puntos_clave": [
         "121100Z: emitido el 12 a las 11:00 UTC",
         "1212/1318: válido del 12 a las 12Z al 13 a las 18Z",
@@ -922,10 +922,10 @@
     {
       "id": 46,
       "nivel": "basico",
-      "titulo": "CAVOK en un pronóstico",
-      "metar": "TAF SKRH 191100Z 1912/2012 06010KT CAVOK",
+      "titulo": "CAVOK en el pronóstico de São Paulo",
+      "metar": "TAF SBGR 191100Z 1912/2012 06010KT CAVOK",
       "consigna": "Di qué condiciones pronostica CAVOK en este TAF y qué datos no aporta.",
-      "respuesta_modelo": "Almirante Padilla (SKRH). TAF emitido el día 19 a las 11:00 UTC y válido del 19 a las 12:00 al 20 a las 12:00 UTC. Pronostica viento del noreste a 10 kt y CAVOK. Este código resume visibilidad de 10 km o más, ausencia de tiempo significativo y de nubes de importancia operacional: ninguna por debajo de 5000 ft o de la altitud mínima de sector más alta, lo que sea mayor, ni CB ni TCU. Puede haber nubes altas. CAVOK en un pronóstico no garantiza las observaciones futuras; tampoco informa estado de pista, QNH ni rendimiento. El viento figura en su grupo separado.",
+      "respuesta_modelo": "Aeropuerto Internacional de São Paulo/Guarulhos (SBGR). TAF emitido el día 19 a las 11:00 UTC y válido del 19 a las 12:00 al 20 a las 12:00 UTC. En hora de Colombia, el periodo va del día 19 a las 07:00 al día 20 a las 07:00. Pronostica viento del noreste a 10 kt y CAVOK. Este código resume visibilidad de 10 km o más, ausencia de tiempo significativo y de nubes de importancia operacional: ninguna por debajo de 5000 ft o de la altitud mínima de sector más alta, lo que sea mayor, ni CB ni TCU. Puede haber nubes altas. CAVOK en un pronóstico no garantiza las observaciones futuras; tampoco informa estado de pista, QNH ni rendimiento. El viento figura en su grupo separado.",
       "puntos_clave": [
         "Visibilidad de 10 km o más",
         "Sin nubes bajo 5000 ft o la MSA, la que sea mayor",
