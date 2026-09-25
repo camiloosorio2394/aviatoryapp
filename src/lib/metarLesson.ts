@@ -1608,6 +1608,7 @@ export const METAR_SOURCES: string[] = [
   "Para límites de radar y satélite: Servicio Meteorológico Nacional de EE. UU. (NOAA/NWS), guías de radar Doppler; OMM, OSCAR/Space y guía de observaciones satelitales. Comprueba el producto local vigente.",
   "Para informes de piloto: OACI, Doc 8896, capítulo 7 (AIREP SPECIAL); FAA, Aeronautical Information Manual, capítulo 7 (ejemplo y campos del PIREP), y AC 00-45H (RAREP histórico reemplazado por RCM).",
   "Para avisos en ruta: OACI, Anexo 3, capítulo 7 (SIGMET y AIRMET, fenómenos y validez); OACI, informe SAM/RCM/2 de 2023 (disponibilidad regional de AIRMET); FAA, Aeronautical Information Manual, capítulo 7 (productos propios de EE. UU.). Para operar, consulta el aviso y AIP/eAIP vigentes de cada región.",
+  "Para pronósticos en ruta: OACI/OMM, Sistema de pronósticos de área mundial (WAFS); OACI, Anexo 3, pronósticos de viento y temperatura en altura y tiempo significativo; OACI, material de instrucción WAFS sobre uso de campos reticulados en la planificación del vuelo.",
 ]
 
 export type { LessonBlock }

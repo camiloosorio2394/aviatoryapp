@@ -439,128 +439,120 @@ export const PARTE_SERVICIOS: DocScreen[] = [
   {
     n: 4,
     title: "Pronóstico de área y vientos en altura",
-    kicker: "Lo que va a pasar en una región, y qué viento hay en tu nivel",
+    kicker: "Tiempo en ruta, nivel y combustible",
     minutes: 8,
     blocks: [
       {
         kind: "p",
-        text: "El METAR y el TAF hablan de un aeródromo. El pronóstico de área habla de una región entera, que es lo que necesitas para la parte de la ruta que no tiene aeropuerto debajo. Y el pronóstico de vientos en altura es lo que convierte un plan de vuelo en un cálculo de combustible.",
+        text: "**En la portada:** una tripulación contrasta el plan de vuelo con las condiciones visibles en ruta. **Cómo lo reconoces:** una vista por la ventana no representa el tiempo de toda la trayectoria ni el viento a cada nivel. **Qué decides:** comparar pronósticos válidos para la ruta y la hora previstas con el plan operacional, y volver a evaluar si el viento o los fenómenos cambian.",
       },
       {
-        kind: "sub",
-        text: "El pronóstico de área",
+        kind: "definicion",
+        text: "Un pronóstico de área describe condiciones previstas para una región, no para un solo aeródromo. En vuelos de aerolínea se combinan productos de tiempo significativo, viento y temperatura en altura, avisos en ruta y pronósticos de los aeródromos. El sistema de pronósticos de área mundial, WAFS (World Area Forecast System), suministra campos de viento y temperatura en altura y pronósticos de tiempo significativo para la planificación.",
       },
       {
-        kind: "p",
-        text: "Trae una **sinopsis**, que es un resumen breve con la localización y el movimiento de los sistemas de presión, los frentes y los patrones de circulación, y después el tiempo y las nubes por zonas. Las ubicaciones pueden darse por estados, por regiones o por accidentes geográficos como cadenas montañosas.",
-      },
-      {
-        kind: "code",
-        text: "SYNOPSIS...LOW PRES TROF 10Z OK/TX PNHDL AREA FCST MOV EWD\nINTO CNTRL-SWRN OK BY 04Z. WRMFNT 10Z CNTRL OK-SRN AR-NRN MS\nFCST LIFT NWD INTO NERN OK-NRN AR EXTRM NRN MS BY 04Z.",
-      },
-      {
-        kind: "p",
-        text: "Traducido: a las 1000Z hay un centro de baja presión sobre Oklahoma y Texas que se prevé que se mueva al este hasta el centro suroeste de Oklahoma a las 0400Z. Y un frente cálido situado a las 1000Z sobre el centro de Oklahoma, sur de Arkansas y norte de Mississippi, que se prevé que se levante hacia el noroeste hasta el noreste de Oklahoma a las 0400Z.",
-      },
-      {
-        kind: "callout",
-        tone: "tip",
-        title: "Lo que hay que sacar de una sinopsis",
-        text: "Dos cosas y en este orden: dónde están los sistemas ahora, y hacia dónde y a qué hora se mueven. Con eso ya sabes si tu ruta va a cruzarlos y aproximadamente cuándo, antes de mirar ningún aeródromo.",
-      },
-      {
-        kind: "callout",
-        tone: "warn",
-        title: "La declaración de precaución no es letra pequeña",
-        text: "El pronóstico de área cubre nubes y tiempo VFR, así que trae una advertencia diciendo que hay que consultar además el AIRMET correspondiente para condiciones IFR y oscurecimiento de montaña. Y otra: cuando aparece el código TS, implica que puede haber turbulencia severa o mayor, engelamiento severo, cizalladura a bajo nivel y condiciones IFR. Una sola sigla arrastra cuatro peligros.",
-      },
-      {
-        kind: "check",
-        question:
-          "En el pronóstico de área de tu zona aparece el código TS. ¿Qué tienes que dar por incluido?",
-        options: [
-          "Solo tormentas: si hubiera turbulencia o engelamiento severos irían codificados aparte",
-          "Tormentas y granizo, que es lo que define la sigla",
-          "Turbulencia severa o mayor, engelamiento severo, cizalladura a bajo nivel y condiciones IFR",
-        ],
-        answer: 2,
-        explain:
-          "Cuando aparece TS en un pronóstico de área, esa sola sigla implica que puede haber turbulencia severa o mayor, engelamiento severo, cizalladura a bajo nivel y condiciones IFR. No hace falta que los escriban: van dentro. Y como el pronóstico de área cubre nubes y tiempo VFR, trae además la advertencia de consultar el AIRMET correspondiente para condiciones IFR y oscurecimiento de montaña.",
-      },
-      {
-        kind: "sub",
-        text: "Vientos y temperaturas en altura",
-      },
-      {
-        kind: "kv",
-        items: [
-          { k: "Hasta 12.000 ft", v: "son alturas verdaderas" },
-          { k: "Por encima de 18.000 ft", v: "son altitudes de presión" },
-          { k: "Dirección", v: "siempre referida al norte verdadero" },
-          { k: "Velocidad", v: "en nudos" },
-          { k: "Temperatura", v: "en grados Celsius" },
-          { k: "No se pronostica viento", v: "si el nivel está dentro de 1.500 ft de la elevación de la estación" },
-          { k: "No se pronostica temperatura", v: "para estaciones dentro de 2.500 ft del nivel" },
-        ],
-      },
-      {
-        kind: "sub",
-        text: "La codificación que se pregunta en las entrevistas",
-      },
-      {
-        kind: "p",
-        text: "Un grupo normal de cuatro dígitos es dirección y velocidad. Pero cuando la velocidad pronosticada pasa de 100 kt no cabe, así que se codifica: **se suman 50 a la dirección y se restan 100 a la velocidad.** Para leerlo, se hace al revés.",
-      },
-      {
-        kind: "pasos",
+        kind: "fichas",
+        columnas: 2,
+        titulo: "Dos preguntas distintas para la misma ruta",
         items: [
           {
-            rotulo: "El grupo llega así",
-            texto: "731960. Si los dos primeros dígitos pasan de 36, es que está codificado: no existe un rumbo 73.",
+            titulo: "¿Qué tiempo cruzaremos?",
+            ref: "pronóstico de área y tiempo significativo",
+            puntos: [
+              "Identifica zonas y horas previstas de convección, turbulencia, engelamiento o ceniza según el producto disponible.",
+              "Comprueba el nivel o la capa afectada, el movimiento y las actualizaciones; contrasta con SIGMET y observaciones recientes.",
+              "No convierte en segura una ruta por el solo hecho de no representar un fenómeno.",
+            ],
           },
           {
-            rotulo: "Deshaz la dirección",
-            texto: "73 menos 50 son 23, o sea 230 grados.",
-          },
-          {
-            rotulo: "Deshaz la velocidad",
-            texto: "19 más 100 son 119 nudos.",
-            fuerte: true,
-          },
-          {
-            rotulo: "Y lo que queda",
-            texto: "60 es la temperatura: -60 °C. Resultado: viento 230 a 119 kt con -60 °C.",
+            titulo: "¿Qué viento tendremos?",
+            ref: "viento y temperatura por nivel y hora",
+            puntos: [
+              "El viento previsto modifica la velocidad sobre el suelo, los tiempos estimados y el combustible calculado.",
+              "La temperatura en altura influye en performance y en la selección operacional del nivel.",
+              "Compara varios niveles y segmentos; un viento favorable aislado no justifica atravesar tiempo peligroso.",
+            ],
           },
         ],
       },
       {
         kind: "callout",
         tone: "info",
-        title: "El tope de la escala",
-        text: "Si el viento pronosticado es de 200 kt o más, se codifica como 99. Un «7799» son 270 grados a 199 kt o más. Y por encima de 24.000 ft las temperaturas son siempre negativas, así que el signo menos se omite.",
+        title: "No hay un único «pronóstico de área» universal",
+        text: "El formato textual de una sinopsis de Estados Unidos no es el formato obligatorio de Colombia ni del WAFS. Las áreas, niveles, horas válidas y representación dependen del producto y del proveedor. Para una operación real, usa el briefing aprobado por el explotador y la publicación vigente del Estado correspondiente.",
       },
       {
-        kind: "infografia",
-        nombre: "meteo-viento-codificado",
+        kind: "sub",
+        text: "Cómo leerlo para una decisión de aerolínea",
       },
       {
-        kind: "piensaComoPiloto",
-        momento: "Planificando el nivel de crucero",
-        situacion:
-          "Tienes el pronóstico de viento para tres niveles y en el del medio aparece el grupo 731960. El copiloto lo lee como «viento del 073 a 19 nudos» y dice que ese nivel es el mejor porque casi no hay viento.",
-        pregunta: "¿Qué le corriges?",
-        claves: [
-          "No existe un rumbo 073 en una codificación de dos dígitos que va de 01 a 36: el 73 ya avisa de que el grupo está codificado.",
-          "Restando 50 a la dirección y sumando 100 a la velocidad, es viento del 230 a 119 nudos.",
-          "De «casi no hay viento» a 119 nudos hay toda la planificación de combustible de diferencia, y además el signo cambia: ese nivel puede ser el mejor o el peor según el rumbo.",
-          "Y los 60 finales son -60 °C, que también importa.",
+        kind: "pasos",
+        items: [
+          { rotulo: "Ubica la trayectoria", texto: "Marca origen, ruta, alternos y las regiones de información de vuelo que atravesarás." },
+          { rotulo: "Alinea los tiempos", texto: "Compara hora prevista de paso y período válido de cada pronóstico; no uses una carta de otra hora como si fuera actual." },
+          { rotulo: "Separa los niveles", texto: "Distingue fenómenos por capa y viento/temperatura por nivel; confirma la unidad y la referencia del producto." },
+          { rotulo: "Contrasta y decide", texto: "Cruza el pronóstico con SIGMET, observaciones y reportes de pilotos. Evalúa ruta, nivel, combustible y alternos con despacho y control.", fuerte: true },
+        ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t29-01-viento-planificacion.webp",
+        alt: "Esquema conceptual que relaciona viento de frente o de cola con velocidad sobre el suelo, tiempo y combustible, y recuerda comprobar nivel, hora y riesgos",
+        ancho: 1600,
+        alto: 720,
+        pie: "Relación cualitativa para estudiar; no es una carta meteorológica ni reemplaza el cálculo del plan de vuelo aprobado.",
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** el viento previsto cambia la velocidad sobre el suelo aunque la velocidad del avión respecto al aire sea la misma. **Cómo lo reconoces:** compara el componente de viento en la dirección de la ruta, no solo la velocidad total del viento. **Qué decides:** revisar tiempos, combustible y reservas en el plan aprobado; antes de elegir otro nivel, considera performance, tiempo significativo, autorizaciones y procedimientos de la empresa.",
+      },
+      {
+        kind: "sub",
+        text: "Viento y temperatura en altura",
+      },
+      {
+        kind: "kv",
+        items: [
+          { k: "Nivel y hora", v: "El pronóstico se refiere a niveles y tiempos válidos definidos; verifica ambos antes de compararlo con tu tramo." },
+          { k: "Dirección y velocidad", v: "Lee la convención y unidad del producto. El componente sobre la ruta determina viento de frente, de cola o cruzado." },
+          { k: "Temperatura", v: "Contrástala con performance y limitaciones; no es solo un dato de confort." },
+          { k: "Plan operacional", v: "La planificación integra vientos a lo largo de la ruta, tiempos y consumo; no se decide con un único punto de la carta." },
         ],
       },
       {
         kind: "callout",
+        tone: "warn",
+        title: "Viento favorable no significa nivel favorable",
+        text: "Un nivel puede mejorar el viento y a la vez atravesar turbulencia, engelamiento o una capa de convección. Tampoco basta elegir el menor tiempo: comprueba las limitaciones de la aeronave, la autorización, las reservas y el combustible del tramo y de los alternos.",
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Briefing previo al vuelo",
+        situacion: "El plan operacional prevé un fuerte viento de frente en el tramo de regreso. Un pronóstico más reciente indica que el núcleo de viento se desplazó hacia el nivel inicialmente planificado y que un nivel alternativo coincide con una zona de turbulencia prevista.",
+        pregunta: "¿Qué revisas antes de aceptar el nivel o la cantidad de combustible del plan?",
+        claves: [
+          "Compruebo las horas válidas y la trayectoria del viento en los distintos niveles y segmentos, no solo un valor puntual.",
+          "Reviso los tiempos, el consumo y las reservas calculadas con despacho conforme al plan y manual aprobados.",
+          "Contrasto el nivel alternativo con el pronóstico de turbulencia, SIGMET, performance y autorización disponible.",
+          "Si el cambio afecta los márgenes, ajusto la planificación por el procedimiento del explotador antes de salir.",
+        ],
+      },
+      {
+        kind: "check",
+        question: "El pronóstico actualizado aumenta el viento de frente a tu nivel y el nivel con menos viento coincide con turbulencia significativa. ¿Qué criterio aplicas?",
+        options: [
+          "Elegir el nivel con menos viento sin revisar el resto, porque así siempre baja el consumo.",
+          "Mantener el plan original: el viento previsto no influye en tiempo ni combustible.",
+          "Recalcular tiempos y combustible con despacho y comparar niveles con los riesgos, performance y autorizaciones.",
+        ],
+        answer: 2,
+        explain: "El viento modifica la velocidad sobre el suelo y, con ella, tiempo y combustible; pero un nivel más favorable por viento puede no ser aceptable por tiempo significativo u otras limitaciones. La decisión corresponde al plan aprobado y a la coordinación operacional.",
+      },
+      {
+        kind: "callout",
         tone: "verificar",
-        title: "El formato local",
-        text: "Cómo se llama el pronóstico de área en tu país, qué regiones cubre y en qué formato publica los vientos en altura lo define su servicio meteorológico. La codificación de arriba es la del capítulo. Antes de usarla en una operación real, confirma el formato del producto que vas a recibir.",
+        title: "El producto que recibes puede ser distinto",
+        text: "Un pronóstico textual de área, un campo reticulado de viento y una carta de tiempo significativo no se leen con la misma clave. Confirma fuente, hora válida, niveles, unidades y limitaciones en el briefing aprobado; consulta el AIP/eAIP vigente para los servicios del Estado. Esta lección no reproduce una carta ni datos meteorológicos actuales.",
       },
     ],
   },
