@@ -182,6 +182,7 @@ cinco columnas como en papel.
 
 ## Pendiente
 
-- La página, la ruta, el progreso y la regla de ESLint (arriba).
+- ~~La página, la ruta, el progreso y la regla de ESLint~~: hechos el 25-sep-2026
+  (`src/pages/MelPractice.tsx`, `src/lib/melPracticaGrupos.ts`; ver `docs/MEL_ESTADO.md`).
 - Probarlo a 360 px en un teléfono real: la tabla está pensada para eso, pero solo se probó en
   jsdom.

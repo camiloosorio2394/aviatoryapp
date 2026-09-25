@@ -38,6 +38,7 @@ import {
   MEL_PODEMOS_SALIR,
   MEL_PRACTICA_DATOS,
 } from "@/lib/melPracticaDatos"
+import { MEL_LECCIONES } from "@/lib/melLeccion"
 
 function plazo(p: Partial<EjCalculaElPlazo> & Pick<EjCalculaElPlazo, "categoria" | "plazo">): EjCalculaElPlazo {
   return { id: "x", tipo: "calculaElPlazo", fuente: "", explicacion: "", situacion: "", cuenta: "local", opciones: [], ...p }
@@ -346,5 +347,31 @@ describe("datos de práctica", () => {
     const docs = Object.values(import.meta.glob<string>("/docs/mel/*.md", { query: "?raw", import: "default", eager: true })).join("\n")
     expect(docs.length).toBeGreaterThan(0)
     for (const e of MEL_ENTRADAS_INVENTADAS) expect(docs.includes(e.codigo), e.codigo).toBe(false)
+  })
+
+  it("no copia enunciados ni opciones largas del banco de la evaluación, ni lo hacen las lecciones", () => {
+    // CLAUDE.md: la práctica y los «pon a prueba» no copian una pregunta de
+    // evaluación. Se compara el texto aplanado (sin mayúsculas ni signos), así
+    // que tampoco pasa una copia con otra puntuación.
+    const bancos = import.meta.glob<{ preguntas: { id: string; enunciado: string; opciones: string[] }[] }>(
+      "/contenido/bancos/mel_evaluacion.json",
+      { import: "default", eager: true },
+    )
+    const banco = Object.values(bancos)[0]
+    expect(banco?.preguntas.length).toBe(70)
+    const plano = (s: string) => s.toLowerCase().replace(/[^a-z0-9áéíóúüñ]+/g, " ").trim()
+    const textos = {
+      practica: plano(JSON.stringify(MEL_PRACTICA_DATOS)),
+      lecciones: plano(JSON.stringify(MEL_LECCIONES)),
+    }
+    const copias: string[] = []
+    for (const p of banco?.preguntas ?? []) {
+      // Las opciones cortas («Categoría C», «Sí») son rótulos sueltos: solo cuentan las frases.
+      const frases = [p.enunciado, ...p.opciones.filter((o) => o.trim().split(/\s+/).length >= 6)]
+      for (const f of frases) {
+        for (const [donde, texto] of Object.entries(textos)) if (texto.includes(plano(f))) copias.push(`${p.id} en ${donde}: ${f}`)
+      }
+    }
+    expect(copias).toEqual([])
   })
 })

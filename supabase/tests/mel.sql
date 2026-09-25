@@ -1,16 +1,21 @@
 -- ============================================================================
--- Módulo MEL: progreso, catálogo y permisos.
--- Migración 20260928000000.
+-- Módulo MEL: progreso, catálogo, permisos, puerta de la evaluación, panel y
+-- logros. Migraciones 20260928000000, 20260928010000 y 20260928020000.
 --
--- Corre esto con la migración aplicada. Comprueba que la RPC valida contra el
--- catálogo (40 lecciones, ninguna práctica todavía), que repetir no duplica,
--- que cada piloto ve solo lo suyo, que nadie escribe la tabla directo, que
--- anon no tiene nada, y que la migración no tocó los otros siete módulos.
--- Es la parte de progreso de supabase/tests/comunicaciones.sql.
+-- Corre esto con las tres migraciones aplicadas, el catálogo de la práctica
+-- cargado (node scripts/catalogo/sembrar.mjs mel) y el banco sembrado
+-- (supabase/seeds/mel_evaluacion.sql): la puerta abre una evaluación de verdad
+-- y la termina. Comprueba que la RPC valida contra el catálogo (40 lecciones y
+-- las claves de práctica de contenido/catalogo), que repetir no duplica, que
+-- cada piloto ve solo lo suyo, que nadie escribe las tablas directo, que anon
+-- no tiene nada, la puerta (39 lecciones no abren, 40 sí), que el intento
+-- llega a su tabla, que los otros siete módulos siguen contando, que el panel
+-- no perdió nada y los cuatro logros. Es el recorrido de
+-- supabase/tests/comunicaciones.sql.
 --
--- ESCRITA SIN BASE DONDE CORRERLA (24-sep-2026): sigue línea por línea la
--- prueba de progreso de Comunicaciones. Si falla por algo que no sea una regla
--- (un nombre, un tipo), es la prueba la que hay que corregir.
+-- ESCRITA SIN BASE DONDE CORRERLA (25-sep-2026): sigue línea por línea la
+-- prueba de Comunicaciones. Si falla por algo que no sea una regla (un nombre,
+-- un tipo), es la prueba la que hay que corregir.
 --
 -- No borra filas: el punto de partida se fija con upsert y todo lo escrito se
 -- deshace. Termina en PRUEBA_DESHECHA con la lista de lo verificado, o en
@@ -18,23 +23,34 @@
 -- ============================================================================
 do $prueba$
 declare
-  x_a uuid; x_b uuid; x_n int; x_m int; x_log text := '';
+  x_a uuid; x_b uuid; x_n int; x_m int; x_r jsonb; x_t text; x_log text := '';
+  x_i int; x_sesion uuid; x_master_antes boolean; x_practicas text[];
 begin
   select id into x_a from auth.users order by created_at limit 1;
   select id into x_b from auth.users order by created_at offset 1 limit 1;
   if x_a is null or x_b is null then raise exception 'FALLO hacen falta dos usuarios'; end if;
 
   -- ── Catálogo y umbral ─────────────────────────────────────────────────────
-  select lecciones, cardinality(practicas) into x_n, x_m
+  select lecciones, cardinality(practicas), practicas into x_n, x_m, x_practicas
   from public.modulos_contenido where modulo = 'mel';
   if x_n is null then raise exception 'FALLO no hay catálogo de mel'; end if;
-  if x_n <> 40 or x_m <> 0 then raise exception 'FALLO catalogo mel % %', x_n, x_m; end if;
-  x_log := x_log || ' catalogo_40_y_0';
+  -- Las claves las carga `node scripts/catalogo/sembrar.mjs mel` (sin eso
+  -- falla aquí, que es lo que se quiere). El número lo manda
+  -- contenido/catalogo/modulos.json; aquí basta con que haya y con que todas
+  -- sean de este módulo (claveEjercicioMel).
+  if x_n <> 40 or x_m < 1 then raise exception 'FALLO catalogo mel % %', x_n, x_m; end if;
+  if exists (select 1 from unnest(x_practicas) p where p !~ '^mel-[A-Za-z]+-') then
+    raise exception 'FALLO hay claves de práctica que no salen de claveEjercicioMel';
+  end if;
+  x_log := x_log || ' catalogo_40_y_practica';
 
   if (select total from public.module_thresholds where code = 'mel_lesson') is distinct from 40 then
     raise exception 'FALLO el umbral de lección no es 40';
   end if;
-  x_log := x_log || ' umbral';
+  if (select total from public.module_thresholds where code = 'mel_pass') is distinct from 80 then
+    raise exception 'FALLO el umbral de aprobación no es 80';
+  end if;
+  x_log := x_log || ' umbrales';
 
   -- ── Permisos: lectura para authenticated, nada para anon, RLS encendida ──
   if not (select relrowsecurity from pg_class where oid = 'public.user_mel_progress'::regclass) then
@@ -62,17 +78,18 @@ begin
   values (x_a, '{}', '{}')
   on conflict (user_id) do update set lesson_screens = '{}', practice_done = '{}';
   insert into public.user_mel_progress (user_id, lesson_screens, practice_done)
-  values (x_b, '{1,2,3}', '{}')
-  on conflict (user_id) do update set lesson_screens = '{1,2,3}', practice_done = '{}';
+  values (x_b, '{1,2,3}', array[x_practicas[1]])
+  on conflict (user_id) do update set lesson_screens = '{1,2,3}', practice_done = array[x_practicas[1]];
 
   perform set_config('request.jwt.claims', json_build_object('sub', x_a, 'role', 'authenticated')::text, true);
   set local role authenticated;
 
   -- ── Marcar progreso: solo lo que existe en el catálogo ────────────────────
   perform public.mel_mark_progress(1::smallint, null);
-  perform public.mel_mark_progress(40::smallint, null);
+  perform public.mel_mark_progress(null, x_practicas[1]);
+  perform public.mel_mark_progress(40::smallint, x_practicas[x_m]);
   -- Repetir no duplica.
-  perform public.mel_mark_progress(1::smallint, null);
+  perform public.mel_mark_progress(1::smallint, x_practicas[1]);
 
   begin
     perform public.mel_mark_progress(41::smallint, null);
@@ -84,9 +101,9 @@ begin
     raise exception 'FALLO leccion 0 aceptada';
   exception when invalid_parameter_value then x_log := x_log || ' leccion_cero';
   end;
-  -- Sin práctica en el catálogo, ninguna clave entra; tampoco una de otro módulo.
+  -- Una clave que no está en el catálogo no entra; tampoco una de otro módulo.
   begin
-    perform public.mel_mark_progress(null, 'mel-pra-01');
+    perform public.mel_mark_progress(null, 'mel-inventada-x01');
     raise exception 'FALLO practica inventada aceptada';
   exception when invalid_parameter_value then x_log := x_log || ' practica_inventada';
   end;
@@ -98,7 +115,9 @@ begin
 
   select array_length(lesson_screens, 1), coalesce(array_length(practice_done, 1), 0)
   into x_n, x_m from public.user_mel_progress where user_id = x_a;
-  if x_n <> 2 or x_m <> 0 then raise exception 'FALLO progreso de A: % lecciones, % practicas', x_n, x_m; end if;
+  if x_n <> 2 or x_m <> (case when cardinality(x_practicas) = 1 then 1 else 2 end) then
+    raise exception 'FALLO progreso de A: % lecciones, % practicas', x_n, x_m;
+  end if;
   x_log := x_log || ' rpc_idempotente';
 
   -- ── RLS: cada uno ve lo suyo, y nadie escribe directo ────────────────────
@@ -121,6 +140,51 @@ begin
     raise exception 'FALLO insert directo aceptado';
   exception when insufficient_privilege then x_log := x_log || ' sin_insert_directo';
   end;
+  begin
+    insert into public.user_mel_exam_attempts (user_id, score, correct, total)
+    values (x_a, 100, 25, 25);
+    raise exception 'FALLO intento escrito a mano';
+  exception when insufficient_privilege then x_log := x_log || ' sin_intento_a_mano';
+  end;
+
+  -- ── La puerta: sin las 40 lecciones en la base no abre ────────────────────
+  -- A ya tiene la 1 y la 40; con 2 a 38 son 39 de 40.
+  for x_i in 2..38 loop
+    perform public.mel_mark_progress(x_i::smallint, null);
+  end loop;
+  begin
+    perform public.evaluacion_iniciar('mel_evaluacion');
+    raise exception 'FALLO abrio con 39 lecciones';
+  exception when others then if sqlerrm <> 'leccion_incompleta' then raise; end if;
+  end;
+  x_log := x_log || ' puerta_cerrada_con_39';
+
+  perform public.mel_mark_progress(39::smallint, null);
+  x_r := public.evaluacion_iniciar('mel_evaluacion');
+  x_sesion := (x_r ->> 'sesion')::uuid;
+  if x_sesion is null then raise exception 'FALLO la evaluación no devolvió sesión: %', x_r; end if;
+  if jsonb_array_length(x_r -> 'preguntas') <> 25 then
+    raise exception 'FALLO el intento trae % preguntas', jsonb_array_length(x_r -> 'preguntas');
+  end if;
+  if exists (select 1 from jsonb_array_elements(x_r -> 'preguntas') e
+             where e ? 'correcta' or e ? 'explicacion') then
+    raise exception 'FALLO el intento entrega la corrección al abrir';
+  end if;
+  x_log := x_log || ' puerta_abierta_con_40';
+
+  -- Terminar escribe en la tabla del módulo, con la corrección solo de lo
+  -- respondido.
+  perform public.evaluacion_responder(x_sesion, 1, 0);
+  x_r := public.evaluacion_terminar(x_sesion);
+  if (x_r -> 'revision' -> 0 ->> 'explicacion') is null then
+    raise exception 'FALLO respondida sin corrección';
+  end if;
+  select count(*) into x_n from jsonb_array_elements(x_r -> 'revision') e
+  where (e ->> 'posicion')::int > 1 and (e ? 'explicacion') and e ->> 'explicacion' is not null;
+  if x_n <> 0 then raise exception 'FALLO % sin responder traen explicación', x_n; end if;
+  select count(*) into x_n from public.user_mel_exam_attempts where user_id = x_a;
+  if x_n < 1 then raise exception 'FALLO el intento no llegó a user_mel_exam_attempts'; end if;
+  x_log := x_log || ' terminar_escribe_en_mel';
 
   reset role;
 
@@ -134,11 +198,117 @@ begin
     x_log := x_log || ' sin_sesion';
   end;
 
-  -- ── Los otros módulos siguen en su catálogo ──────────────────────────────
+  -- ── Los otros módulos siguen en su catálogo y contando ────────────────────
   select count(*) into x_n from public.modulos_contenido
   where modulo in ('notam', 'metar', 'mercancias', 'aerodinamica', 'aeropuertos', 'performance', 'comunicaciones');
   if x_n <> 7 then raise exception 'FALLO un módulo viejo perdió su catálogo: %', x_n; end if;
-  x_log := x_log || ' modulos_viejos';
+  if private.secciones_leidas(x_a, 'mel') <> 40 then
+    raise exception 'FALLO secciones_leidas mel: %', private.secciones_leidas(x_a, 'mel');
+  end if;
+  if private.practicas_hechas(x_a, 'mel') <> (case when cardinality(x_practicas) = 1 then 1 else 2 end) then
+    raise exception 'FALLO practicas_hechas mel';
+  end if;
+  if private.secciones_leidas(x_b, 'mel') <> 3 then
+    raise exception 'FALLO secciones_leidas de B';
+  end if;
+  if private.secciones_leidas(x_b, 'notam') is null or private.secciones_leidas(x_b, 'metar') is null
+     or private.secciones_leidas(x_b, 'mercancias') is null or private.secciones_leidas(x_b, 'aerodinamica') is null
+     or private.secciones_leidas(x_b, 'aeropuertos') is null or private.secciones_leidas(x_b, 'performance') is null
+     or private.secciones_leidas(x_b, 'comunicaciones') is null
+     or private.practicas_hechas(x_b, 'aeropuertos') is null or private.practicas_hechas(x_b, 'performance') is null
+     or private.practicas_hechas(x_b, 'comunicaciones') is null then
+    raise exception 'FALLO un módulo viejo dejó de contar';
+  end if;
+  if private.practicas_hechas(x_b, 'inventado') <> 0 then
+    raise exception 'FALLO un módulo que no existe cuenta algo';
+  end if;
+  x_log := x_log || ' conteos_y_modulos_viejos';
+
+  -- ── Panel: los ocho módulos, el plan y las postulaciones ─────────────────
+  perform set_config('request.jwt.claims', json_build_object('sub', x_a, 'role', 'authenticated')::text, true);
+  set local role authenticated;
+  x_r := public.panel_tarjetas();
+  reset role;
+
+  if x_r -> 'mel' is null then raise exception 'FALLO el panel no trae mel'; end if;
+  if (x_r -> 'mel' ->> 'lecciones')::int <> 40 then
+    raise exception 'FALLO el panel dice %', x_r -> 'mel';
+  end if;
+  if x_r -> 'mel' ->> 'mejor' is null then
+    raise exception 'FALLO el panel no ve el intento terminado';
+  end if;
+  if x_r -> 'notam' is null or x_r -> 'metar' is null or x_r -> 'mercancias' is null
+     or x_r -> 'aerodinamica' is null or x_r -> 'aeropuertos' is null
+     or x_r -> 'performance' is null or x_r -> 'comunicaciones' is null then
+    raise exception 'FALLO el panel perdió un módulo';
+  end if;
+  if not (x_r ? 'plan') or jsonb_typeof(x_r -> 'postulaciones') <> 'array' then
+    raise exception 'FALLO el panel perdió el plan o las postulaciones';
+  end if;
+  x_log := x_log || ' panel_con_plan_y_postulaciones';
+
+  -- ── Logros ────────────────────────────────────────────────────────────────
+  select count(*) into x_n from public.achievements
+  where code in ('mel_lesson', 'mel_practice', 'mel_exam', 'mel_master');
+  if x_n <> 4 then raise exception 'FALLO logros de mel: %', x_n; end if;
+
+  select count(*) into x_n from pg_trigger
+  where tgname in ('trg_check_achievements_mel', 'trg_check_achievements_mel_exam')
+    and not tgisinternal;
+  if x_n <> 2 then raise exception 'FALLO faltan disparadores de logros: %', x_n; end if;
+
+  x_t := pg_get_functiondef('public.check_and_unlock_achievements(uuid)'::regprocedure);
+  if x_t not like '%''mel''%' or x_t not like '%''comunicaciones''%' or x_t not like '%''performance''%'
+     or x_t not like '%''aeropuertos''%' or x_t not like '%''aerodinamica''%' then
+    raise exception 'FALLO check_and_unlock_achievements no repasa todos los módulos';
+  end if;
+  perform private.desbloquear_logros(x_a, 'mel');
+  perform private.desbloquear_logros(x_a, 'comunicaciones');
+  perform private.desbloquear_logros(x_a, 'performance');
+  perform private.desbloquear_logros(x_a, 'aeropuertos');
+  perform private.desbloquear_logros(x_a, 'aerodinamica');
+  perform private.desbloquear_logros(x_a, 'mercancias');
+  perform private.desbloquear_logros(x_a, 'notam');
+  perform private.desbloquear_logros(x_a, 'metar');
+  perform private.desbloquear_logros(x_a, 'aerolinea');
+  x_log := x_log || ' grupos_y_disparadores';
+
+  -- Las 40 lecciones ya desbloquearon el de lección (por el disparador de la RPC).
+  select count(*) into x_n from public.user_achievements ua
+  join public.achievements a on a.id = ua.achievement_id
+  where ua.user_id = x_a and a.code = 'mel_lesson';
+  if x_n <> 1 then raise exception 'FALLO la lección completa no desbloqueó su logro'; end if;
+
+  -- Con toda la práctica, el de práctica; sin aprobar, no el de dominado.
+  select exists (
+    select 1 from public.user_achievements ua join public.achievements a on a.id = ua.achievement_id
+    where ua.user_id = x_a and a.code = 'mel_master'
+  ) into x_master_antes;
+  update public.user_mel_progress
+  set practice_done = x_practicas
+  where user_id = x_a;
+  select count(*) into x_n from public.user_achievements ua
+  join public.achievements a on a.id = ua.achievement_id
+  where ua.user_id = x_a and a.code = 'mel_practice';
+  if x_n <> 1 then raise exception 'FALLO la práctica completa no desbloqueó su logro'; end if;
+  if not x_master_antes and not exists (
+    select 1 from public.user_mel_exam_attempts where user_id = x_a and score >= 80
+  ) and exists (
+    select 1 from public.user_achievements ua join public.achievements a on a.id = ua.achievement_id
+    where ua.user_id = x_a and a.code = 'mel_master'
+  ) then
+    raise exception 'FALLO módulo dominado sin aprobar la evaluación';
+  end if;
+  x_log := x_log || ' logros_leccion_y_practica';
+
+  -- Y con un intento aprobado, los cuatro.
+  insert into public.user_mel_exam_attempts (user_id, score, correct, total)
+  values (x_a, 84, 21, 25);
+  select count(*) into x_n from public.user_achievements ua
+  join public.achievements a on a.id = ua.achievement_id
+  where ua.user_id = x_a and a.code like 'mel%';
+  if x_n <> 4 then raise exception 'FALLO con la evaluación aprobada hay % logros de 4', x_n; end if;
+  x_log := x_log || ' logros_los_cuatro';
 
   raise exception 'PRUEBA_DESHECHA%', x_log;
 end

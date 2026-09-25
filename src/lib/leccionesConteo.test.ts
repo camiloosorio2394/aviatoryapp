@@ -26,6 +26,8 @@ import { CM_PRACTICA_TOTAL } from "@/lib/comunicacionesPracticaGrupos"
 import migracionComunicaciones from "../../supabase/migrations/20260927000000_progreso_de_comunicaciones.sql?raw"
 import { MEL_LECTURA_TOTAL, MEL_NIVELES } from "@/lib/mel"
 import { MEL_CAPITULOS, MEL_LECCIONES, MEL_LECCION_TOTAL } from "@/lib/melLeccion"
+import { MEL_PRACTICA_CONTEO } from "@/lib/melConteo"
+import { MEL_PRACTICA_TOTAL } from "@/lib/melPracticaGrupos"
 import migracionMel from "../../supabase/migrations/20260928000000_progreso_de_mel.sql?raw"
 import melNivel1 from "../../docs/mel/nivel-1.md?raw"
 import melNivel2 from "../../docs/mel/nivel-2.md?raw"
@@ -119,11 +121,16 @@ describe("conteos fijos de las lecciones", () => {
     // 16-25, 26-33 y 34-40.
     expect(MEL_NIVELES.map((n) => n.desde)).toEqual([1, 4, 16, 26, 34])
     for (const n of MEL_NIVELES.map((x) => x.desde)) expect(MEL_LECCIONES[n - 1]?.n).toBe(n)
-    // Mientras el módulo no esté en contenido/catalogo/modulos.json, su fila de
-    // modulos_contenido la escribe la migración: si cambia el número de
-    // lecciones, hace falta otra migración (o pasar el módulo al catálogo).
+    // La migración de progreso nace con el número de lecciones; desde ahí la
+    // fila la mantiene contenido/catalogo/modulos.json (scripts/catalogo).
     expect(migracionMel).toContain(`values ('mel', ${MEL_LECCION_TOTAL}, '{}'::text[])`)
     expect(migracionMel).toContain(`('mel_lesson', ${MEL_LECCION_TOTAL},`)
+  })
+
+  it("MEL: el conteo liviano de la práctica", () => {
+    // El panel y el hub no pueden importar los ejercicios enteros, así que
+    // llevan el número aparte. Si entra o sale un ejercicio, aquí se ve.
+    expect(MEL_PRACTICA_CONTEO).toBe(MEL_PRACTICA_TOTAL)
   })
 
   it("MEL: cada lección es el capítulo que toca, en el orden de docs/mel/", () => {

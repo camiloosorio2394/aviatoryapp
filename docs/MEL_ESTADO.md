@@ -44,14 +44,16 @@ Camilo encuentre la imagen en el documento.
 ## Plan, en orden
 
 - [x] **1. Infraestructura** (24-sep-2026). Ver «Qué se hizo» abajo.
-- [ ] **2. Contenido**, nivel por nivel, desde `docs/mel/nivel-N.md` hacia
-      `src/lib/melLeccion/nivelN.ts`. Una cosa a la vez: un nivel por sesión.
+- [x] **2. Contenido**, nivel por nivel, desde `docs/mel/nivel-N.md` hacia
+      `src/lib/melLeccion/nivelN.ts`. Ninguna lección sigue con el marcador
+      `EN_REDACCION`.
 - [ ] **3. Portadas** de lección (`public/modulos/mel/leccion-NN.webp`, 16:9)
       y las imágenes de cada lección.
-- [ ] **4. Práctica**. Al conectarla: el módulo entra a
-      `contenido/catalogo/modulos.json`, a `MODULOS_AEROLINEA` y a
-      `CARA_DE_MODULO` (ver «Lo que no entró todavía»).
-- [ ] **5. Evaluación**, con el banco en el servidor.
+- [x] **4. Práctica** (25-sep-2026), conectada. Ver «Qué se hizo (pasos 4
+      y 5)». El motor está en `docs/MEL_PRACTICA.md`.
+- [x] **5. Evaluación** (25-sep-2026), con el banco de 70 en el servidor.
+      **SQL escrito y no aplicado**: ver «Lo que le queda por correr a
+      Camilo».
 - [ ] **6. Video de apertura** (`MEL-VID-01`), con la serie de HyperFrames.
       Antes de generar voz: `"lang": "es"` en `audio_request.json` (ver
       CLAUDE.md, «Trampa del idioma de la voz»).
@@ -90,27 +92,81 @@ Camilo encuentre la imagen en el documento.
 - `supabase/migrations/20260928000000_progreso_de_mel.sql` y su prueba
   `supabase/tests/mel.sql`.
 
-### Lo que no entró todavía, y por qué
+### Lo que el paso 1 dejó fuera, y ya entró
 
-`ClaveModulo`, `MODULOS_AEROLINEA` (`src/lib/modulosAerolinea.ts`) y
-`CARA_DE_MODULO` (`src/components/aerolinea/carasDeModulo.ts`) **no tienen
-MEL**, igual que Comunicaciones en su paso 1. Las tres cosas van juntas con el
-catálogo y no se pueden separar:
+`ClaveModulo`, `MODULOS_AEROLINEA`, `CARA_DE_MODULO`, el catálogo y las seis
+funciones compartidas no podían tener MEL sin práctica (el catálogo exige al
+menos una por módulo, y meter el módulo al catálogo obliga a republicar las
+funciones con su rama). Entraron juntos en los pasos 4 y 5.
 
-- `scripts/catalogo/catalogo.test.ts` exige que `MODULOS_AEROLINEA` tenga las
-  mismas claves que `contenido/catalogo/modulos.json`, y que cada módulo de
-  esa lista tenga **al menos una práctica**. MEL no tiene práctica.
-- `CARA_DE_MODULO` es `Record<ClaveModulo, …>`: agregar la clave obliga a
-  tener la cara, y agregarla sin el módulo en la lista haría que el tipo del
-  panel prometiera una tarjeta que la base no manda.
-- Meter MEL al catálogo obliga (`scripts/migraciones/funciones-compartidas.test.ts`)
-  a republicar las seis funciones compartidas con su rama. Eso es de la
-  migración de evaluación y logros, no de esta.
+## Qué se hizo (pasos 4 y 5)
 
-Cuando llegue la práctica: el módulo entra a `catalogo.test.ts` y al
-catálogo, a `MODULOS_AEROLINEA` (token `var(--av-mel-500)`), a
-`CARA_DE_MODULO` (icono `ListChecks`, color `var(--av-mel-700)`, hueco
-`MEL-TEM-01`), y `node scripts/catalogo/sembrar.mjs mel` carga la fila.
+### Práctica
+
+- `src/pages/MelPractice.tsx`, ruta `/app/aerolinea/mel/practica` (hija de
+  `AppLayout`, junto a las de Comunicaciones). Misma casa que
+  `ComunicacionesPractice`: cabecera (hueco `MEL-PRA-01`), pestañas, barra de
+  avance, tira de saltos y el ejercicio. Los seis tipos van en el orden del
+  defecto al despacho: **Encontrar y leer** (busca el ítem, lee la entrada),
+  **Plazo** (calcula el plazo), **Decidir el despacho** (¿podemos salir?,
+  ítems combinados) e **Impacto en el vuelo** (impacto operacional).
+- La raíz de la página re-ancla `--av-blue-500` a `MEL_ACENTO`: los
+  componentes del motor toman el grafito sin tocarlos. Verde, ámbar y rojo
+  siguen siendo solo semánticos.
+- `src/lib/melPracticaGrupos.ts`: el orden de la pantalla y
+  `MEL_PRACTICA_CLAVES` (todas con `claveEjercicioMel`, nunca a mano). Es el
+  único que importa `melPracticaDatos.ts`; la página importa este. Los dos
+  están en `CONTENIDO` de `eslint.config.js`.
+- `src/lib/melConteo.ts` (`MEL_PRACTICA_CONTEO = 68`), el conteo liviano para
+  el hub, el panel e Ingreso a aerolínea; `leccionesConteo.test.ts` lo compara
+  con los ejercicios.
+- Progreso: `markMelProgress({ practiceId })`, respaldo local y base. Un
+  ejercicio queda resuelto al terminarlo, acertado o no, como en
+  Comunicaciones y Aeropuertos (`docs/MEL_PRACTICA.md` sugería contar solo el
+  acierto completo; se prefirió la regla de los demás módulos).
+- Catálogo: el módulo entró a `contenido/catalogo/modulos.json` (40 lecciones
+  y 68 claves), a `scripts/catalogo/catalogo.test.ts`, a `MODULOS_AEROLINEA`
+  (token `var(--av-mel-500)`) y a `CARA_DE_MODULO` (icono `ListChecks`, color
+  `var(--av-mel-700)`, hueco `MEL-TEM-01`).
+
+### Evaluación
+
+- Banco `contenido/bancos/mel_evaluacion.json` (70 preguntas, ya existía) y
+  su siembra `supabase/seeds/mel_evaluacion.sql`.
+- `src/lib/melEvaluacion.ts` (total 70, 25 por intento, 80 para aprobar),
+  `src/pages/MelExam.tsx` sobre `ExamenModulo`, ruta
+  `/app/aerolinea/mel/evaluacion`, historial en `services/intentosExamen.ts`,
+  la clave en `services/evaluaciones.ts` y el tipo de la tabla en
+  `integrations/supabase/types.ts`, escrito a mano con la forma de la
+  migración.
+- La mejor nota entra al avance (`melProgress.ts` y el respaldo local):
+  lección, práctica y evaluación pesan igual, como en Comunicaciones.
+- El hub tiene ahora «1. Aprende», «2. Practica» (hueco `MEL-POR-02`) y
+  «3. Evaluación» (hueco `MEL-POR-03`).
+- El servidor abre la evaluación solo con las 40 lecciones en la base
+  (`modulo_leccion = 'mel'`).
+- **La práctica no copia la evaluación**: `melPractica.test.ts` compara cada
+  enunciado y cada opción de seis palabras o más del banco con los ejercicios
+  y con las lecciones. Salió una coincidencia: una opción de `mel-ev-057`
+  citaba literal el RAC 121.995(d)(1) que la lección 30 también cita. Se
+  reescribió la opción del banco («Mantener de forma automática el nivel de
+  vuelo elegido»), sin cambiar la respuesta.
+
+### Dos migraciones más
+
+- `20260928010000_evaluacion_de_mel.sql`: tabla de intentos, CHECK de destino
+  con los ocho módulos y el simulacro, reglas (25, 80, al final, 3 h), fuente,
+  umbral `mel_pass`, `evaluacion_terminar` y `secciones_leidas` (copiadas de
+  20260927010000) con su rama, y `modulo_leccion = 'mel'`.
+- `20260928020000_panel_y_logros_de_mel.sql`: `practicas_hechas`, los cuatro
+  logros (orden 34 a 37), `desbloquear_logros` (con la guarda del catálogo
+  vacío), los dos disparadores, `check_and_unlock_achievements` y
+  `panel_tarjetas` (copiadas de 20260927020000, con plan, postulaciones y los
+  siete módulos, más MEL). **No escribe las claves de práctica**: van por
+  `scripts/catalogo`.
+- Pruebas: `supabase/tests/mel_evaluacion.sql` (nueva), `mel.sql` (ahora con
+  catálogo con práctica, puerta, panel y logros, como `comunicaciones.sql`) y
+  el caso de MEL en `logros.sql`.
 
 ## El color: grafito de bitácora
 
@@ -174,43 +230,71 @@ Todo está en el comentario de `src/lib/melLeccion/index.ts`. Lo esencial:
 
 ## Lo que le queda por correr a Camilo
 
-Nada de esto está aplicado. Producción está en `20260927020000` (las tres de
-Comunicaciones aplicadas, verificado en `schema_migrations` el 24-sep-2026).
+**Todo lo anterior ya está aplicado y no se repite**: producción está en
+`20260927020000` (los siete módulos, con las tres de Comunicaciones,
+verificado en `schema_migrations` el 24-sep-2026). Correr otra vez una
+migración vieja después de estas dejaría las funciones compartidas sin MEL.
+
+Solo lo de MEL, en este orden y cada paso en **su propia ejecución** del SQL
+Editor:
 
 | # | Qué se pega en el SQL Editor | Resultado esperado |
 |---|---|---|
 | 1 | `supabase/migrations/20260928000000_progreso_de_mel.sql` | Sin error (un aviso de «does not exist, skipping» por la política, normal) |
-| 2 | `supabase/tests/mel.sql` | Termina en `PRUEBA_DESHECHA catalogo_40_y_0 umbral permisos leccion_fuera leccion_cero practica_inventada clave_ajena rpc_idempotente rls_progreso sin_update_directo sin_insert_directo sin_sesion modulos_viejos` (eso es pasar) |
-| 3 | `supabase/tests/permisos.sql` | Como antes. La tabla nueva solo da `select`. |
+| 2 | `supabase/migrations/20260928010000_evaluacion_de_mel.sql` | Sin error (mismo tipo de aviso) |
+| 3 | `supabase/migrations/20260928020000_panel_y_logros_de_mel.sql` | Sin error (avisos de «does not exist, skipping» por los disparadores) |
+| 4 | La salida de `node scripts/catalogo/sembrar.mjs mel` (solo este módulo) | `INSERT 0 1` |
+| 5 | `supabase/seeds/mel_evaluacion.sql` (el banco, 70 preguntas) | `UPDATE 0` |
+| 6 | Las pruebas, una por ejecución: `supabase/tests/mel_evaluacion.sql`, `mel.sql`, `logros.sql`, `permisos.sql`, `panel.sql` | Cada una termina en el error `PRUEBA_DESHECHA …` (eso es pasar) |
+| 7 | En la terminal, con el CLI enlazado: `supabase migration repair --status applied 20260928000000 20260928010000 20260928020000` | Las tres quedan registradas con la versión de su archivo |
 
-No toca ninguna función compartida, así que no hay orden que respetar con
-otras migraciones fuera de ir después de `20260927020000`.
+Lo que tiene que decir cada prueba del paso 6:
 
-Después de aplicar, si se aplicó con `apply_migration` o la CLI:
+- `mel_evaluacion.sql`: `PRUEBA_DESHECHA reglas_25_de_70_y_80 destino_y_leccion_gobernada un_solo_banco_sin_cupo banco_70_bien_formado reparto_por_nivel intentos_cerrados sin_intento_a_mano terminar_enruta_los_nueve secciones_leidas_los_ocho`
+- `mel.sql`: `PRUEBA_DESHECHA catalogo_40_y_practica umbrales permisos leccion_fuera leccion_cero practica_inventada clave_ajena rpc_idempotente rls_progreso sin_update_directo sin_insert_directo sin_intento_a_mano puerta_cerrada_con_39 puerta_abierta_con_40 terminar_escribe_en_mel sin_sesion conteos_y_modulos_viejos panel_con_plan_y_postulaciones grupos_y_disparadores logros_leccion_y_practica logros_los_cuatro`
+- `logros.sql`: la lista de antes con `mel_con_catalogo` después de `comunicaciones_con_catalogo`.
+- `permisos.sql` y `panel.sql`: como antes. La tabla de intentos nueva solo da `select`.
 
-```sql
-select version, name from supabase_migrations.schema_migrations
-where name = 'progreso_de_mel';
-```
+Qué pasa si se cambia el orden:
 
-y el archivo se renombra con esa versión (y la ruta en
-`src/lib/leccionesConteo.test.ts`, que lo lee), y se sube la marca
-`ULTIMA_APLICADA` de `supabase/HISTORIAL_DE_MIGRACIONES.md`.
+- 2 antes que 1: falla en el insert de `evaluaciones` (`modulo_leccion` es
+  clave foránea a la fila `mel` de `modulos_contenido`, que nace en 1) y no
+  queda nada aplicado.
+- 3 antes que 2: falla en el disparador sobre `user_mel_exam_attempts`, que
+  nace en 2.
+- 4 antes que 1: el upsert crea la fila igual, pero 1 corrida después la deja
+  sin práctica: entonces se repite 4.
+- Sin 4: la práctica funciona en el navegador pero la base rechaza cada clave
+  (el progreso queda local), el logro de práctica no se puede ganar y
+  `mel.sql` falla en el catálogo.
+- Sin 5: la evaluación abre y se cae al sortear; `mel_evaluacion.sql` falla
+  en el conteo del banco.
+
+Después del paso 7, se sube la marca `ULTIMA_APLICADA` de
+`supabase/HISTORIAL_DE_MIGRACIONES.md` a `20260928020000`.
+
+**Cuando cambien los ejercicios**: `ACTUALIZAR_CATALOGO=1 npx vitest run
+scripts/catalogo`, ajustar `MEL_PRACTICA_CONTEO` en `src/lib/melConteo.ts`
+(la prueba dice el número) y volver a pegar la salida de
+`node scripts/catalogo/sembrar.mjs mel`.
 
 ### Lo que no se pudo probar
 
-La migración y su prueba **no se corrieron** contra ninguna base: esta sesión
-no debía escribir en producción. Son copia de la parte de progreso de
-Comunicaciones (`20260927000000` y la primera versión de
-`supabase/tests/comunicaciones.sql`) con el nombre del módulo y los números
-cambiados.
+Las migraciones y sus pruebas **no se corrieron** contra ninguna base: esta
+sesión no debía escribir en producción. Son copia de las tres de
+Comunicaciones con el nombre del módulo y los números cambiados, y las
+funciones compartidas salen de su versión aplicada (20260927010000 y
+20260927020000) con una rama más; `scripts/migraciones/funciones-compartidas.test.ts`
+confirma que las seis conocen los ocho módulos y que el panel conserva sus
+claves fijas. Si una prueba falla por un nombre o un tipo y no por una regla,
+lo que hay que corregir es la prueba.
 
-### Mientras no la corra
+### Mientras no las corra
 
-Nada se rompe. La consulta a la tabla que aún no existe falla y el módulo se
-queda con el respaldo local: el hub y el lector leen y escriben en
-`localStorage`. Y como las 40 lecciones están en redacción, tampoco hay nada
-que marcar todavía.
+Nada se rompe. Las consultas a las tablas que aún no existen fallan y el
+módulo se queda con el respaldo local: el hub, la práctica y el lector leen y
+escriben en `localStorage`, y el panel lee el módulo como «sin empezar». La
+evaluación no abre (no hay reglas en el servidor).
 
 ## Decisiones que tiene que confirmar Camilo
 
@@ -223,9 +307,12 @@ que marcar todavía.
    discovery», «Number installed», «Number required for dispatch», «Remarks
    or exceptions», «Placarding», «Revision status». Una vez hechas las
    portadas, no se cambian.
-3. **La tarjeta ya se ve** en Ingreso a aerolínea, con 40 lecciones en
-   redacción. Si se prefiere esconderla hasta que haya contenido, es quitar un
-   bloque de `temas` en `AirlinePrep.tsx`.
+3. **El módulo ya está en el panel y en el catálogo**, con la práctica y la
+   evaluación: su tarjeta del panel usa `var(--av-mel-500)` e icono
+   `ListChecks`, y el tema de Ingreso a aerolínea suma ejercicios.
 4. Visto de paso, no es de este módulo: Performance tiene hub y lección pero
    no tarjeta en Ingreso a aerolínea, y `TEMAS_EN_CAMINO` todavía anuncia
    «Performance y planificación» como futuro.
+5. Visto de paso: los logros de Performance y de Comunicaciones usan los dos
+   el orden 30 a 33 en `achievements`. Los de MEL van en 34 a 37 para no
+   sumar otro empate.

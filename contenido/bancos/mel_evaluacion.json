@@ -792,7 +792,7 @@
       "opciones": [
         "Indicar a la tripulación el nivel de vuelo en que vuela",
         "Alertar a la tripulación si se desvía del nivel seleccionado",
-        "Mantener automáticamente el nivel de vuelo seleccionado",
+        "Mantener de forma automática el nivel de vuelo elegido",
         "Mostrar el tránsito cercano en la pantalla de navegación"
       ],
       "correcta": 3,

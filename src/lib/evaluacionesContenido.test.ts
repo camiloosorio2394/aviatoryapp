@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest"
 import { BANCO_TOTAL, MP_CHEQUEO_TOTAL, TEMAS_SIMULACRO } from "@/lib/airlineMock"
 import { AP_EVALUACION_META } from "@/lib/aeropuertosEvaluacion"
 import { CM_EVALUACION_META } from "@/lib/comunicacionesEvaluacion"
+import { MEL_EVALUACION_META } from "@/lib/melEvaluacion"
 import { MP_EVALUACION_META } from "@/lib/mercanciasEvaluacion"
 import { METAR_EXAM_TOTAL } from "@/lib/metar"
 import { TOTALS } from "@/lib/notam"
@@ -36,6 +37,8 @@ describe("evaluaciones: la app y los bancos del servidor", () => {
     expect(AP_EVALUACION_META.porIntento).toBeLessThanOrEqual(AP_EVALUACION_META.total)
     expect(CM_EVALUACION_META.total).toBe(banco("comunicaciones_evaluacion").preguntas.length)
     expect(CM_EVALUACION_META.porIntento).toBeLessThanOrEqual(CM_EVALUACION_META.total)
+    expect(MEL_EVALUACION_META.total).toBe(banco("mel_evaluacion").preguntas.length)
+    expect(MEL_EVALUACION_META.porIntento).toBeLessThanOrEqual(MEL_EVALUACION_META.total)
     expect(BANCO_TOTAL).toBe(TEMAS_SIMULACRO.reduce((s, t) => s + t.preguntas, 0))
     expect(EXAM_PER_ATTEMPT).toBeLessThanOrEqual(TOTALS.examQuestions)
   })
@@ -48,6 +51,7 @@ describe("evaluaciones: la app y los bancos del servidor", () => {
       "mercancias_chequeo",
       "aeropuertos_evaluacion",
       "comunicaciones_evaluacion",
+      "mel_evaluacion",
     ]
       .flatMap((nombre) => banco(nombre).preguntas.map((p) => p.enunciado))
       // Los enunciados muy cortos ("¿Qué significa RWY?") pueden coincidir con

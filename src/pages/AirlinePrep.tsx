@@ -87,6 +87,7 @@ import {
   resumirMel,
 } from "@/lib/mel"
 import { fetchMelProgress } from "@/lib/melProgress"
+import { MEL_PRACTICA_CONTEO } from "@/lib/melConteo"
 import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
@@ -437,9 +438,7 @@ export function AirlinePrep() {
               : `${comunicaciones.lessonRead}/${CM_LECTURA_TOTAL} lecciones · ${comunicaciones.practiceDone}/${CM_PRACTICA_CONTEO} ejercicios`,
         },
       },
-      // MEL: por ahora solo la lección, con sus 40 lecciones en redacción. El
-      // avance del tema es el de la lección hasta que lleguen práctica y
-      // evaluación.
+      // MEL: lección, práctica y evaluación, como Comunicaciones ATC.
       {
         nombre: MEL_TITULO_CORTO,
         to: MEL_HUB,
@@ -459,7 +458,7 @@ export function AirlinePrep() {
             ? "Sin empezar"
             : mel.overall >= 100
               ? "Tema completo"
-              : `${mel.lessonRead}/${MEL_LECTURA_TOTAL} lecciones`,
+              : `${mel.lessonRead}/${MEL_LECTURA_TOTAL} lecciones · ${mel.practiceDone}/${MEL_PRACTICA_CONTEO} ejercicios`,
         },
       },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace

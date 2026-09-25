@@ -1,6 +1,6 @@
 /**
  * Los intentos de evaluación de los módulos: NOTAM, Meteorología, Mercancías,
- * Aerodinámica, Aeropuertos y Comunicaciones ATC.
+ * Aerodinámica, Aeropuertos, Performance, Comunicaciones ATC y MEL.
  *
  * Cada módulo tiene su tabla y sus columnas (unas guardan `created_at` y otras
  * `taken_at`, unas el aprobado y otras lo deducen del puntaje), así que lo que
@@ -20,6 +20,7 @@ export type TablaDeIntentos =
   | "user_aeropuertos_exam_attempts"
   | "user_performance_exam_attempts"
   | "user_comunicaciones_exam_attempts"
+  | "user_mel_exam_attempts"
 
 /** Cuántos intentos trae la lista del historial. */
 export const INTENTOS_EN_LA_LISTA = 10
@@ -167,5 +168,16 @@ export function traerHistorialComunicaciones(
     "taken_at",
     userId,
     "comunicaciones: historial de evaluación",
+  )
+}
+
+/** Y MEL. */
+export function traerHistorialMel(userId: string): Promise<Historial<FilaIntentoMercancias> | null> {
+  return traerHistorial<FilaIntentoMercancias>(
+    "user_mel_exam_attempts",
+    "id,score,correct,total,taken_at",
+    "taken_at",
+    userId,
+    "mel: historial de evaluación",
   )
 }

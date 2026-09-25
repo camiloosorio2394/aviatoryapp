@@ -1,5 +1,5 @@
 import type { ComponentType } from "react"
-import { AlertTriangle, CloudSun, Gauge, Headset, TowerControl, Wind } from "lucide-react"
+import { AlertTriangle, CloudSun, Gauge, Headset, ListChecks, TowerControl, Wind } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
 import { AP_ACENTO } from "@/lib/aeropuertos"
 import type { ClaveModulo } from "@/lib/modulosAerolinea"
@@ -90,5 +90,12 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     color: "var(--av-cm-700)",
     fotoHueco: "CM-TEM-01 · 2:1 · 1200×600 · Piloto con auriculares y la mano en el selector de frecuencia",
     descripcion: "Escuchar, interpretar, confirmar y responder al ATC, de la rampa al océano.",
+  },
+  mel: {
+    // El mismo icono que su tarjeta en Ingreso a aerolínea.
+    icon: ListChecks,
+    color: "var(--av-mel-700)",
+    fotoHueco: "MEL-TEM-01 · 2:1 · 1200×600 · Etiqueta INOP sobre un mando de cabina, con la MEL abierta al lado",
+    descripcion: "Leer una entrada, cumplir el (M) y el (O) y decidir si el avión sale.",
   },
 }

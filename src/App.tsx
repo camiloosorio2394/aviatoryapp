@@ -87,6 +87,8 @@ const ComunicacionesPractice = page(() => import("@/pages/ComunicacionesPractice
 const ComunicacionesExam = page(() => import("@/pages/ComunicacionesExam"), "ComunicacionesExam")
 const Mel = page(() => import("@/pages/Mel"), "Mel")
 const MelLeccion = page(() => import("@/pages/MelLeccion"), "MelLeccion")
+const MelPractice = page(() => import("@/pages/MelPractice"), "MelPractice")
+const MelExam = page(() => import("@/pages/MelExam"), "MelExam")
 const MercanciasPractice = page(() => import("@/pages/MercanciasPractice"), "MercanciasPractice")
 const MercanciasExam = page(() => import("@/pages/MercanciasExam"), "MercanciasExam")
 const Aerodinamica = page(() => import("@/pages/Aerodinamica"), "Aerodinamica")
@@ -245,9 +247,11 @@ function App() {
               <Route path="/app/aerolinea/comunicaciones" element={<Comunicaciones />} />
               <Route path="/app/aerolinea/comunicaciones/practica" element={<ComunicacionesPractice />} />
               <Route path="/app/aerolinea/comunicaciones/evaluacion" element={<ComunicacionesExam />} />
-              {/* Tema MEL. Por ahora solo el hub; la lección va arriba, a pantalla
-                  completa. */}
+              {/* Tema MEL. El hub, la práctica y la evaluación; la lección va
+                  arriba, a pantalla completa. */}
               <Route path="/app/aerolinea/mel" element={<Mel />} />
+              <Route path="/app/aerolinea/mel/practica" element={<MelPractice />} />
+              <Route path="/app/aerolinea/mel/evaluacion" element={<MelExam />} />
               <Route path="/app/aerolinea/aerodinamica/practica" element={<AerodinamicaPractice />} />
               <Route path="/app/aerolinea/aerodinamica/evaluacion" element={<AerodinamicaExam />} />
               {/* Tema Performance. No lleva práctica aparte: los ejercicios y los

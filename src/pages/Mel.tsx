@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, BookOpen } from "lucide-react"
+import { ArrowLeft, BookOpen, GraduationCap, ListChecks } from "lucide-react"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { EspacioVideo } from "@/components/modulo/EspacioVideo"
@@ -8,13 +8,16 @@ import { useSession } from "@/hooks/useSession"
 import {
   MEL_ACENTO,
   MEL_APRENDE,
+  MEL_EVALUACION,
   MEL_FUENTES,
   MEL_LECTURA_TOTAL,
   MEL_NIVELES,
+  MEL_PRACTICA,
   MEL_TITULO,
   readMelLocal,
   resumirMel,
 } from "@/lib/mel"
+import { MEL_PRACTICA_CONTEO } from "@/lib/melConteo"
 import { fetchMelProgress, pushPendingMel } from "@/lib/melProgress"
 
 /**
@@ -22,11 +25,8 @@ import { fetchMelProgress, pushPendingMel } from "@/lib/melProgress"
  * Ruta: /app/aerolinea/mel
  *
  * La misma casa que el hub de Comunicaciones ATC: hero con velo del acento
- * (aquí grafito), el espacio del video de apertura y las puertas numeradas.
- * Por ahora hay una sola puerta, la lección: práctica y evaluación no existen
- * todavía y no se anuncian (una puerta que no lleva a ningún lado es peor que
- * ninguna). Cuando lleguen, entran aquí como «2. Practica» y «3. Evaluación»,
- * igual que en Comunicaciones.
+ * (aquí grafito), el espacio del video de apertura y las puertas numeradas:
+ * la lección, la práctica con entradas de MEL y la evaluación del servidor.
  *
  * El video todavía no está grabado: su hueco queda rotulado con lo que hace
  * falta producir.
@@ -56,7 +56,14 @@ export function Mel() {
     }
   }, [user, sesionCargando])
 
-  const { lessonRead: leidas, lessonPct: pct } = useMemo(() => resumirMel(progreso), [progreso])
+  const {
+    lessonRead: leidas,
+    lessonPct: pct,
+    practiceDone: practicados,
+    practicePct,
+    best: mejor,
+    passed,
+  } = useMemo(() => resumirMel(progreso), [progreso])
 
   const partes: CourseCardProps[] = [
     {
@@ -79,6 +86,40 @@ export function Mel() {
       progress: pct,
       done: leidas >= MEL_LECTURA_TOTAL,
       cta: "Iniciar formación",
+    },
+    {
+      to: MEL_PRACTICA,
+      densidad: "compacta",
+      photoAspect: "5/2",
+      icon: ListChecks,
+      color: MEL_ACENTO,
+      meta: `${MEL_PRACTICA_CONTEO} ejercicios con entradas de MEL`,
+      title: "2. Practica",
+      blurb: "Encontrar el ítem, leer la entrada, calcular el plazo, decidir si sale y qué le cambia al vuelo.",
+      photoHueco: "MEL-POR-02 · 5:2 · 1200×480 · Tablet con la MEL abierta en una entrada, sobre el pedestal de la cabina",
+      status:
+        practicados === 0
+          ? "Sin empezar"
+          : practicados >= MEL_PRACTICA_CONTEO
+            ? "Práctica completa"
+            : `${practicados} de ${MEL_PRACTICA_CONTEO} ejercicios`,
+      progress: practicePct,
+      done: practicados >= MEL_PRACTICA_CONTEO,
+      cta: practicados === 0 ? "Iniciar práctica" : "Seguir practicando",
+    },
+    {
+      to: MEL_EVALUACION,
+      densidad: "compacta",
+      photoAspect: "5/2",
+      icon: GraduationCap,
+      color: MEL_ACENTO,
+      meta: "Opción múltiple, con explicación al final",
+      title: "3. Evaluación",
+      blurb: "Lo que preguntan de MEL en una entrevista técnica, con corrección al terminar.",
+      photoHueco: "MEL-POR-03 · 5:2 · 1200×480 · Tech log con un diferido anotado y la etiqueta INOP al lado",
+      status: mejor === null ? "Sin intentos" : `Mejor puntaje: ${mejor}`,
+      done: passed,
+      cta: mejor === null ? "Iniciar evaluación" : "Volver a presentarla",
     },
   ]
 

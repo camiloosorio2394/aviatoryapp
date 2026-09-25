@@ -26,6 +26,8 @@ import { AP_PRACTICA_CLAVES } from "@/lib/aeropuertosPractica"
 import { PERF_LECCION_TOTAL, PERF_PRACTICA_CLAVES } from "@/lib/performanceLeccion"
 import { CM_LECCION_TOTAL } from "@/lib/comunicacionesLeccion"
 import { CM_PRACTICA_CLAVES } from "@/lib/comunicacionesPracticaGrupos"
+import { MEL_LECCION_TOTAL } from "@/lib/melLeccion"
+import { MEL_PRACTICA_CLAVES } from "@/lib/melPracticaGrupos"
 import { MODULOS_AEROLINEA } from "@/lib/modulosAerolinea"
 
 /**
@@ -77,6 +79,12 @@ function catalogoDesdeContenido() {
     comunicaciones: {
       lecciones: CM_LECCION_TOTAL,
       practicas: CM_PRACTICA_CLAVES,
+    },
+    // Las claves salen de claveEjercicioMel sobre los ejercicios
+    // (melPracticaGrupos.ts): cambian los ejercicios, cambia esto.
+    mel: {
+      lecciones: MEL_LECCION_TOTAL,
+      practicas: MEL_PRACTICA_CLAVES,
     },
   }
 }

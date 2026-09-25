@@ -3035,6 +3035,33 @@ export type Database = {
         }
         Relationships: []
       }
+      user_mel_exam_attempts: {
+        Row: {
+          correct: number
+          id: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          id?: string
+          score: number
+          taken_at?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          id?: string
+          score?: number
+          taken_at?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_mel_progress: {
         Row: {
           lesson_screens: number[]

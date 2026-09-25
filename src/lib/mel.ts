@@ -15,12 +15,13 @@
  * tipo, no la MEL de un operador); lo que es de Colombia se cita por RAC y lo
  * que depende del operador se dice como tal.
  *
- * Estado (24-sep-2026): las 40 lecciones existen con su título y el marcador
- * «en redacción». Faltan el contenido, la práctica, la evaluación y el video.
- * Ver docs/MEL_ESTADO.md.
+ * Estado (25-sep-2026): las 40 lecciones con su contenido, la práctica de
+ * seis tipos conectada y la evaluación en el servidor. Faltan las portadas y
+ * el video. Ver docs/MEL_ESTADO.md.
  */
 
 import type { LectorNivel } from "@/components/lesson/LectorLeccion"
+import { MEL_PRACTICA_CONTEO } from "@/lib/melConteo"
 
 /** Nombre completo del módulo, para el hub. */
 export const MEL_TITULO = "Minimum Equipment List (MEL)"
@@ -35,6 +36,15 @@ export const MEL_FUENTES = "Anexo 6 de la OACI, RAC 121 y RAC 91, FAA Order 8900
 export const MEL_HUB = "/app/aerolinea/mel"
 /** La lección, con el lector genérico. */
 export const MEL_APRENDE = `${MEL_HUB}/aprende`
+/** La práctica, los seis tipos de ejercicio. */
+export const MEL_PRACTICA = `${MEL_HUB}/practica`
+/** La evaluación, con el banco en el servidor. */
+export const MEL_EVALUACION = `${MEL_HUB}/evaluacion`
+
+/** Preguntas por intento de la evaluación. La regla que manda es la de la tabla `evaluaciones`. */
+export const MEL_EXAM_PER_ATTEMPT = 25
+/** Nota para aprobar, igual que `mel_pass` en module_thresholds. */
+export const MEL_PASS_SCORE = 80
 
 /**
  * El grafito de bitácora del módulo, para las pantallas que no son el lector.
@@ -72,21 +82,42 @@ export const MEL_LECTURA_TOTAL = 40
 
 export interface MelResumen {
   lessonRead: number
+  practiceDone: number
+  best: number | null
+  passed: boolean
   lessonPct: number
-  /**
-   * Avance del módulo entero, 0 a 100. Mientras no haya práctica ni
-   * evaluación es el de la lección; cuando lleguen, pesan igual las tres, como
-   * en Comunicaciones ATC.
-   */
+  practicePct: number
+  examPct: number
+  /** Avance del módulo entero, 0 a 100: lección, práctica y evaluación pesan igual. */
   overall: number
   empty: boolean
 }
 
-export function resumirMel(p: { lessonScreens: number[] }): MelResumen {
+/**
+ * Resume el avance del módulo, como `resumirComunicaciones`: las tres partes
+ * pesan igual, porque leer sin practicar ni evaluarse no es tener el tema.
+ * Solo cuentan las claves de esta práctica (`mel-…`).
+ */
+export function resumirMel(p: { lessonScreens: number[]; practiceDone: string[]; bestScore: number | null }): MelResumen {
   const leidas = new Set(p.lessonScreens.filter((n) => n >= 1 && n <= MEL_LECTURA_TOTAL))
   const lessonRead = Math.min(leidas.size, MEL_LECTURA_TOTAL)
+  const practiceDone = Math.min(new Set(p.practiceDone.filter((k) => k.startsWith("mel-"))).size, MEL_PRACTICA_CONTEO)
+  const best = p.bestScore
+  const passed = best !== null && best >= MEL_PASS_SCORE
   const lessonPct = Math.round((lessonRead / MEL_LECTURA_TOTAL) * 100)
-  return { lessonRead, lessonPct, overall: lessonPct, empty: lessonRead === 0 }
+  const practicePct = Math.round((practiceDone / MEL_PRACTICA_CONTEO) * 100)
+  const examPct = passed ? 100 : (best ?? 0)
+  return {
+    lessonRead,
+    practiceDone,
+    best,
+    passed,
+    lessonPct,
+    practicePct,
+    examPct,
+    overall: Math.round((lessonPct + practicePct + examPct) / 3),
+    empty: lessonRead === 0 && practiceDone === 0 && best === null,
+  }
 }
 
 // ─── Respaldo local del avance ───────────────────────────────────────────────
@@ -104,11 +135,13 @@ const LS_KEY = "aviatory.mel.progress"
 export interface MelProgreso {
   /** Números de lección leída, 1 a MEL_LECTURA_TOTAL. */
   lessonScreens: number[]
-  /** Claves de práctica resueltas. Vacío hasta que exista la práctica. */
+  /** Claves de práctica resueltas, las de `claveEjercicioMel`. */
   practiceDone: string[]
+  /** Mejor puntaje de la evaluación en este navegador, o null. */
+  bestScore: number | null
 }
 
-const VACIO: MelProgreso = { lessonScreens: [], practiceDone: [] }
+const VACIO: MelProgreso = { lessonScreens: [], practiceDone: [], bestScore: null }
 
 export function readMelLocal(): MelProgreso {
   try {
@@ -118,6 +151,7 @@ export function readMelLocal(): MelProgreso {
     return {
       lessonScreens: Array.isArray(p.lessonScreens) ? p.lessonScreens : [],
       practiceDone: Array.isArray(p.practiceDone) ? p.practiceDone : [],
+      bestScore: typeof p.bestScore === "number" ? p.bestScore : null,
     }
   } catch {
     return { ...VACIO }
@@ -132,6 +166,12 @@ export function writeMelLocal(lessonScreens: number[]): void {
 /** Y al revés: guarda lo practicado sin pisar lo leído. */
 export function writeMelPracticas(practiceDone: string[]): void {
   escribir({ ...readMelLocal(), practiceDone })
+}
+
+/** Y el mejor puntaje de la evaluación, sin pisar lo demás. */
+export function writeMelMejor(bestScore: number): void {
+  const antes = readMelLocal().bestScore
+  escribir({ ...readMelLocal(), bestScore: antes === null ? bestScore : Math.max(antes, bestScore) })
 }
 
 function escribir(p: MelProgreso): void {

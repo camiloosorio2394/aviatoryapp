@@ -30,6 +30,8 @@ import { PERF_HUB, PERF_LECTURA_TOTAL, PERF_PASS_SCORE, PERF_PRACTICA_TOTAL } fr
 
 import { CM_HUB, CM_LECTURA_TOTAL, CM_PASS_SCORE } from "@/lib/comunicaciones"
 import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
+import { MEL_HUB, MEL_LECTURA_TOTAL, MEL_PASS_SCORE } from "@/lib/mel"
+import { MEL_PRACTICA_CONTEO } from "@/lib/melConteo"
 
 /** Las claves son las de `contenido/catalogo/modulos.json`, y la prueba lo exige. */
 export type ClaveModulo =
@@ -40,6 +42,7 @@ export type ClaveModulo =
   | "aeropuertos"
   | "performance"
   | "comunicaciones"
+  | "mel"
 
 export interface ModuloAerolinea {
   clave: ClaveModulo
@@ -136,6 +139,18 @@ export const MODULOS_AEROLINEA: ModuloAerolinea[] = [
       aprobacion: CM_PASS_SCORE,
     },
     promesa: "Escuchar, interpretar, confirmar y responder al ATC.",
+  },
+  {
+    clave: "mel",
+    titulo: "MEL",
+    hub: MEL_HUB,
+    acento: "var(--av-mel-500)",
+    totales: {
+      secciones: MEL_LECTURA_TOTAL,
+      practicas: MEL_PRACTICA_CONTEO,
+      aprobacion: MEL_PASS_SCORE,
+    },
+    promesa: "Leer la entrada, cumplir lo que pide y decidir si el avión sale.",
   },
 ]
 
