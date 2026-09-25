@@ -86,387 +86,107 @@ export const NIVEL_7: DocScreen[] = [
   {
     n: 51,
     title: "Comunicaciones en situaciones anormales",
-    kicker: "Fraseología donde exista y plain English donde no",
-    minutes: 15,
+    kicker: "Del hecho operacional a una petición que ATC pueda atender",
+    minutes: 18,
     blocks: [
       {
         kind: "p",
-        text: "Capítulos 51 a 61. Cuando la frase estándar no alcanza y cuando el que falla es el oído: situaciones no normales, inglés para lo no normal, pedir aclaración, acentos, sesgo de expectativa, distintivos parecidos, transmisiones bloqueadas, cabina estéril, PF y PM, gestión de autorizaciones y los errores que más se repiten.",
+        text: "En una situación no normal, la radio no es un informe de mantenimiento. El controlador necesita entender **qué sucede, qué puede hacer el avión, qué ayuda necesita la tripulación y cuál es su intención**. La tripulación mantiene el control de la trayectoria, usa la fraseología estandarizada cuando existe y recurre al inglés claro cuando la situación no cabe en una fórmula. La prioridad de la llamada depende de si hay socorro, urgencia u otra condición anormal; una condición que amenaza la seguridad no debe esconderse detrás de palabras vagas.",
       },
-      { kind: "sub", text: "¿Qué es?" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-51-01.webp",
+        alt: "Historieta de tres escenas: tripulación estabiliza el vuelo, comunica el problema a ATC y el controlador coordina asistencia mientras la cabina continúa la lista.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Secuencia didáctica, no transcripción real: 1) PF conserva el control y PM identifica la necesidad inmediata; 2) PM comunica naturaleza, capacidad, necesidad e intención; 3) ATC coordina asistencia y la cabina continúa sus tareas. Ningún panel ni posición dibujados representan un vuelo específico.",
+      },
+      { kind: "sub", text: "No hay una frase prefabricada para toda falla" },
       {
         kind: "p",
-        text: "Es lo que se dice por radio cuando algo del avión, de la cabina o del entorno sale de lo normal: una falla de sistema, un pasajero enfermo, humo, un impacto con aves, meteorología que obliga a desviarse. La fraseología OACI cubre las rutinas; para buena parte de estas situaciones **no existe una frase normalizada** y hay que usar lenguaje común (Doc 9432 3.2.2; Doc 9835 3.3.13).",
+        text: "El Manual de requisitos de competencia lingüística de OACI (Doc 9835) explica que la fraseología cubre gran parte de la rutina, pero ante problemas técnicos, pasajeros enfermos u otros sucesos inesperados pilotos y controladores deben usar lenguaje común. Ese inglés no es improvisación descuidada: debe ser inteligible, directo, pertinente, no ambiguo y conciso. Si ATC emite un nivel, rumbo, velocidad o autorización, **esa parte vuelve a la fraseología y a su colación**. Decir «we have a problem» sin explicar limitaciones ni petición deja al controlador sin una acción concreta.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      {
+        kind: "table",
+        head: ["Pregunta para la cabina", "Información útil para ATC", "Evitar"],
+        rows: [
+          ["¿Qué ocurre?", "Naturaleza observable: pérdida de empuje, humo, enfermedad, falla de sistema u otra condición.", "Diagnóstico técnico no confirmado o siglas internas del fabricante."],
+          ["¿Qué puede hacer el avión?", "Capacidad real: mantener nivel, virar, aceptar una aproximación o necesitar tiempo.", "Prometer una maniobra que aún no se ha evaluado."],
+          ["¿Qué se necesita?", "Prioridad, vectores, demora, descenso, pista, asistencia o espacio para la lista.", "Pedir ayuda sin decir cuál ni cuándo."],
+          ["¿Qué se hará?", "Intención actual y cualquier cambio de intención tan pronto se conozca.", "Dejar que ATC suponga que la intención sigue igual."],
+        ],
+      },
+      { kind: "sub", text: "Prioridad y primera llamada" },
+      {
+        kind: "p",
+        text: "La guía FAA AIM §6-3-1 distingue socorro y urgencia y recomienda iniciar las llamadas correspondientes con MAYDAY o PAN PAN, preferiblemente repetidos tres veces. También explica que el piloto puede obtener ayuda al contactar la dependencia competente y comunicar la naturaleza de la dificultad, las intenciones y la asistencia deseada. La prioridad no se determina por una etiqueta de falla aislada: depende de su efecto actual o inminente sobre la seguridad. Se transmite por la frecuencia en uso si funciona; otros canales se emplean según el procedimiento aplicable cuando hace falta.",
+      },
       {
         kind: "list",
+        ordered: true,
         items: [
-          "Primero se vuela el avión. La llamada se hace cuando la trayectoria está controlada y la tripulación sabe qué pasa (Aviate, Navigate, Communicate).",
-          "ATC necesita cuatro cosas para ayudarle: **qué pasa, qué puede hacer el avión, qué necesita la tripulación y qué piensa hacer**. No necesita el detalle técnico del sistema.",
-          "No toda falla es MAYDAY o PAN PAN. Declarar una condición de socorro o urgencia es decisión del comandante según la gravedad; una falla contenida puede comunicarse en lenguaje común sin prefijo. Lo que no se puede hacer es **subestimar** una situación grave con palabras vagas.",
-          "La fraseología se usa primero cuando existe (Doc 9835 4.3.3). El lenguaje común entra donde la fraseología no alcanza y debe ser igual de claro, conciso y sin ambigüedad (Doc 9835 4.3.4; Doc 9432 3.2.3 y 3.2.4).",
-          "El Doc 9835 3.3.19 cita un diálogo real entre un controlador y el piloto de un avión liviano que no podía bajar el tren: **el 60% del diálogo tuvo que hacerse en lenguaje común**. En una situación no normal, la mayor parte de lo que se dice no está en ningún manual de fraseología.",
-          "Cuando se cambia de fraseología a lenguaje común y de vuelta (salto de código, Doc 9835 3.3.21), la fraseología se contamina de palabras sobrantes y el lenguaje común se vuelve telegráfico. En las partes normalizadas (niveles, rumbos, pistas, colación) se vuelve a la fraseología exacta.",
+          "**Controlar y repartir tareas.** El piloto que vuela (PF, Pilot Flying) mantiene una trayectoria segura. El piloto que monitorea (PM, Pilot Monitoring) recopila la información necesaria y comunica; la distribución puede cambiar por la situación y el procedimiento del operador.",
+          "**Declarar la prioridad adecuada.** Si existe socorro o urgencia, usar la señal correspondiente de manera temprana. Una falla contenida que no amenaza la seguridad puede requerir coordinación sin prefijo, pero debe describirse con precisión.",
+          "**Transmitir primero lo que permite actuar.** Naturaleza, capacidad, necesidad e intención. La posición y otros datos que ATC desconozca se añaden según el contexto; no se recita una lista interminable mientras el avión requiere atención.",
+          "**Escuchar la respuesta.** ATC puede ofrecer vectores, demora, prioridad o asistencia. La cabina confirma qué puede aceptar y colaciona cualquier autorización crítica. «Stand by» debe acompañarse de una nueva comunicación cuando haya información útil.",
+          "**Actualizar.** Si la lista revela otra limitación, cambia la intención o el tiempo necesario, informar de nuevo. Una primera estimación no es un compromiso inmutable.",
         ],
       },
-      {
-        kind: "hueco",
-        rotulo: "CM-51-01 · Diagrama · 4:5 · 1080×1350 px",
-        descripcion:
-          "Imagen sugerida: Tarjeta vertical en cuatro franjas apiladas, cada una con un icono simple y una palabra en inglés: PROBLEM (triángulo de alerta), CAPABILITY (avión con flecha de trayectoria), NEEDS (mano que pide), INTENTIONS (flecha hacia un aeropuerto). A la izquierda, una línea vertical que une las cuatro franjas con el rótulo «Lo que ATC necesita saber». Colores neutros; el ámbar solo en el triángulo. Objetivo: Que el piloto memorice el orden de la información que ATC necesita en cualquier situación no normal, antes que el nombre técnico de la falla.",
-        alto: 420,
-        ratio: "4 / 5",
-        anchoMax: 420,
-      },
-      { kind: "sub", text: "Fraseología OACI" },
+      { kind: "sub", text: "Caso real documentado: US Airways 1549" },
       {
         kind: "p",
-        text: "Diez situaciones. En cada una: qué hay normalizado y cómo se dice lo que no lo está. Los prefijos MAYDAY y PAN PAN se muestran cuando la situación los justificaría; su texto exacto y el orden de los elementos están en VERIFICAR (Anexo 10 Vol. II cap. 5; Doc 4444 cap. 15; Doc 9432 cap. 9).",
+        text: "El 15 de enero de 2009, el vuelo **US Airways 1549**, de LaGuardia a Charlotte, perdió casi todo el empuje en ambos motores después de impactar aves y terminó acuatizando en el río Hudson. El informe NTSB/AAR-10/03 y las entrevistas del expediente describen cómo la tripulación comunicó la emergencia, explicó la pérdida de empuje y cambió su evaluación sobre la posibilidad de regresar a LaGuardia. La enseñanza no es memorizar una frase célebre: **ATC solo puede coordinar alternativas compatibles con la capacidad que la tripulación va comunicando**. Esta lección resume el caso; la historieta anterior no reproduce ese vuelo ni es una transcripción de sus mensajes.",
       },
-      COMO_LEER,
-      verificar(
-        "Las llamadas MAYDAY y PAN PAN de esta lección (repetición y orden: estación, identificación, naturaleza, intención, posición, nivel, rumbo), el acuse «roger MAYDAY», el descenso de emergencia, la señal MEDICAL tras PAN PAN, la pregunta por personas a bordo y autonomía, «STATE INTENTIONS», las frases de desvío por meteorología, «UNABLE RVSM DUE EQUIPMENT», la redacción inglesa de las observaciones de tren y la interferencia ilícita **no están en las fuentes cargadas**. Consultar el Anexo 10 Vol. II cap. 5, el Doc 4444 cap. 12 y 15, el Doc 9432 cap. 9 (y la versión inglesa de 4.7.3) y el Anexo 10 Vol. IV antes de tomarlas como norma.",
-      ),
-
-      { kind: "sub", text: "51.1 Falla hidráulica" },
       {
-        kind: "p",
-        text: "**STANDARD PHRASEOLOGY**: no hay una frase normalizada para «falla hidráulica». Si la tripulación la considera urgencia, se antepone PAN PAN (VERIFICAR). Lo que sí es normalizado son los niveles, rumbos y esperas que ATC asigne después.",
+        kind: "escenario",
+        titulo: "Una intención cambia después de revisar la capacidad",
+        situacion: "Ejercicio didáctico inspirado en el principio operacional documentado por NTSB en US Airways 1549, no en su diálogo literal. Una tripulación comunica una condición seria y inicialmente considera regresar al aeropuerto de salida. Al evaluar la performance y la lista, concluye que esa alternativa ya no es viable. ATC aún ofrece vectores de regreso.",
+        preguntas: [
+          { q: "¿Se acepta la ruta sugerida para no interrumpir al controlador?", a: "No. La tripulación informa de inmediato que esa alternativa no es viable y comunica una intención actualizada, incluso si requiere asistencia distinta. El controlador necesita la capacidad real, no una aceptación por cortesía." },
+          { q: "¿Qué detalle técnico debe preceder a la petición de ayuda?", a: "Ninguno que retrase lo esencial. Se describe la naturaleza y consecuencia operacional, se comunica lo que el avión puede o no puede hacer y se pide la ayuda concreta; el diagnóstico detallado puede esperar." },
+          { q: "Si ATC asigna un rumbo o nivel mientras se gestiona la falla, ¿qué ocurre con la colación?", a: "Se colacionan los elementos críticos que realmente pueden aceptarse. Si no se puede cumplir, se dice de inmediato y se solicita una alternativa; la prioridad no convierte una instrucción ambigua en segura." },
+        ],
+        concepto: "La comunicación eficaz actualiza la intención cuando cambia la capacidad del avión.",
       },
-      ...ejemplo(
-        "Ejemplo 1 · Ejemplo conceptual: ATC pide intenciones («state intentions»: VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, state intentions."`,
-          `PILOT: "We have a hydraulic problem. We need approximately ten minutes to complete the checklist and would like to remain in the present area. AVIATORY 452."`,
-        ],
-        "Significado: ATC pregunta qué va a hacer la tripulación. El piloto dice qué pasa (problema hidráulico), cuánto tiempo necesita (diez minutos) y qué quiere (quedarse en la zona). **PLAIN ENGLISH**.",
-      ),
       {
-        kind: "callout",
-        tone: "tip",
-        title: "Por qué es efectivo",
-        text: "Una idea por frase; da un tiempo concreto que ATC puede planear; pide algo que ATC puede conceder (un área, un nivel, una espera) sin obligarlo a adivinar. No explica qué sistema falló ni por qué, porque eso no cambia lo que ATC tiene que hacer.",
-      },
-      ...ejemplo(
-        "Ejemplo 2 · Nivel y rumbo asignados",
-        [
-          `ATC:   "AVIATORY 452, roger. Maintain flight level one two zero, turn right heading one eight zero. Advise when ready for approach."`,
-          `PILOT: "Maintain flight level one two zero, right heading one eight zero, wilco. AVIATORY 452."`,
+        kind: "enLaOperacion",
+        momento: "Después de la primera comunicación",
+        texto: "PM mantiene un registro breve de lo transmitido, de la ayuda solicitada y de la respuesta de ATC. PF verifica que una autorización recibida sea compatible con la trayectoria y las limitaciones actuales. Si la cabina necesita tiempo para una lista, lo pide explícitamente; si la situación se agrava, revisa la prioridad de la llamada. Evitar términos vagos como «un pequeño problema» cuando el efecto real es pérdida de capacidad, y evitar asimismo detalles de ingeniería que ATC no puede usar.",
+        pasos: [
+          "Nombrar la condición y su consecuencia operacional, no una hipótesis no confirmada.",
+          "Pedir una acción que ATC pueda proporcionar y señalar el tiempo necesario.",
+          "Actualizar limitaciones e intención; colacionar solo autorizaciones entendidas y aceptables.",
         ],
-        "Significado: nivel y rumbo se colacionan siempre (Doc 4444 4.5.7.5.1 c). «Advise when ready» es lenguaje común; se acusa con WILCO.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · Lista completa: la consecuencia para el aeropuerto (PLAIN ENGLISH)",
-        [
-          `PILOT: "Bogota Approach, AVIATORY 452, checklist complete. We have no nosewheel steering and we expect a longer landing roll. We will need to be towed from the runway. Request ILS runway one three left."`,
-        ],
-        "Significado: **PLAIN ENGLISH**. El piloto anuncia la consecuencia que afecta al aeropuerto (bloqueará la pista porque no puede rodar), no la descripción del sistema.",
-      ),
-
-      { kind: "sub", text: "51.2 Falla eléctrica" },
-      {
-        kind: "p",
-        text: "**STANDARD PHRASEOLOGY**: ninguna específica. Según la gravedad, PAN PAN o MAYDAY (VERIFICAR).",
-      },
-      ...ejemplo(
-        "Ejemplo 4 · Llamada de urgencia (PAN PAN: VERIFICAR)",
-        [
-          `PILOT: "PAN PAN, PAN PAN, PAN PAN, Bogota Control, AVIATORY 452, electrical failure, operating on standby power. We may lose some radios. Flight level three two zero, request direct Bogota and descent."`,
-        ],
-        "Significado: urgencia. Lo clave para ATC es «podemos perder radios»: le avisa que el contacto puede cortarse. Nombre de estación, identificación, naturaleza, intención, posición, nivel y rumbo van en el orden que fije el Anexo 10 (VERIFICAR).",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Nueva autorización de ruta y nivel",
-        [
-          `ATC:   "AVIATORY 452, roger. Cleared direct Bogota. Descend to flight level two four zero."`,
-          `PILOT: "Direct Bogota, descend to flight level two four zero. AVIATORY 452."`,
-        ],
-        "Significado: nueva autorización de ruta y nivel. Se colaciona completa aunque haya urgencia.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · Qué hará si pierde contacto (PLAIN ENGLISH)",
-        [`PILOT: "AVIATORY 452, if we lose contact we will continue to Bogota as cleared."`],
-        "Significado: **PLAIN ENGLISH**. El piloto adelanta qué hará si pierde comunicaciones, para que ATC lo sepa antes. Lo que haga después, sin radio, lo rige el procedimiento de falla de comunicaciones (capítulo 32) y el procedimiento nacional publicado en el AIP.",
-      ),
-
-      { kind: "sub", text: "51.3 Pérdida de presurización" },
-      {
-        kind: "p",
-        text: "**STANDARD PHRASEOLOGY**: el descenso de emergencia tiene procedimiento propio en el Doc 4444 cap. 15 y en el Doc 9432 9.4, que no están cargados (VERIFICAR su redacción).",
-      },
-      ...ejemplo(
-        "Ejemplo 7 · Llamada de socorro con descenso de emergencia (MAYDAY y descenso de emergencia: VERIFICAR)",
-        [
-          `PILOT: "MAYDAY, MAYDAY, MAYDAY, Bogota Control, AVIATORY 452, loss of cabin pressure, emergency descent to flight level one zero zero, heading two seven zero."`,
-        ],
-        "Significado: socorro. Rumbo y nivel objetivo van en la llamada porque ATC necesita separar a otros tráficos de un avión que baja rápido.",
-      ),
-      ...ejemplo("Ejemplo 8 · Acuse de ATC y colación («roger MAYDAY»: VERIFICAR)", [
-        `ATC:   "AVIATORY 452, roger MAYDAY. Descend to flight level one zero zero. Report level."`,
-        `PILOT: "Descend to flight level one zero zero, wilco. AVIATORY 452."`,
-      ]),
-      ...ejemplo(
-        "Ejemplo 9 · Al nivelar",
-        [`PILOT: "AVIATORY 452, maintaining flight level one zero zero. Cabin under control. Request direct Bogota."`],
-        "Significado: al nivelar, el piloto reporta nivel (normalizado) y estado (lenguaje común).",
-      ),
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Nota",
-        text: "En el descenso la prioridad es la máscara, el avión y el procedimiento. Si la llamada no cabe al inicio, se hace después; lo que diga el procedimiento del operador manda.",
-      },
-
-      { kind: "sub", text: "51.4 Problema médico a bordo" },
-      {
-        kind: "p",
-        text: "**STANDARD PHRASEOLOGY**: no hay frase para describir al paciente. La urgencia se declara con PAN PAN si la tripulación lo decide (VERIFICAR).",
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "Trampa",
-        text: "En el Anexo 10 Vol. II, la señal «MEDICAL» después de PAN PAN está asociada a **transportes sanitarios** (vuelos protegidos por los Convenios de Ginebra), no a un pasajero enfermo (VERIFICAR Anexo 10 Vol. II 5.3.3.4). Para un pasajero enfermo se dice «medical emergency on board» en lenguaje común.",
+        title: "No confundir una reconstrucción didáctica con una transmisión real",
+        text: "El caso US Airways 1549 está identificado y documentado por NTSB. Las preguntas de esta página son escenarios de entrenamiento, no mensajes reales de ese vuelo ni fraseología colombiana publicada.",
       },
-      ...ejemplo(
-        "Ejemplo 10 · Urgencia médica con desvío (PAN PAN: VERIFICAR)",
-        [
-          `PILOT: "PAN PAN, PAN PAN, PAN PAN, Bogota Control, AVIATORY 452, medical emergency on board. Request diversion to Cali, direct. Flight level three five zero."`,
-        ],
-        "Significado: urgencia, intención (desviar a Cali) y pedido (directo).",
-      ),
-      ...ejemplo(
-        "Ejemplo 11 · Autorización y datos del paciente (PLAIN ENGLISH)",
-        [
-          `ATC:   "AVIATORY 452, roger. Cleared direct Cali, descend to flight level two four zero. Do you require medical assistance on arrival?"`,
-          `PILOT: "Direct Cali, descend to flight level two four zero. Affirm, request ambulance on arrival. Male passenger, sixty years old, chest pain, conscious. AVIATORY 452."`,
-        ],
-        "Significado: colación de ruta y nivel; luego datos concretos del paciente (**PLAIN ENGLISH**). Sin diagnósticos: lo que vea la tripulación.",
-      ),
-      {
-        kind: "p",
-        text: "Contraste que da el Doc 9835 3.3.15: un piloto militar que pedía apoyo para una paciente habló con frases largas, hipótesis («para el caso en que debamos desviarnos») y pedidos indirectos («quisiéramos solicitar»). El manual lo pone como ejemplo de lenguaje común «bien poco claro» (3.3.16). La versión de arriba dice lo mismo en tres frases.",
-      },
-
-      { kind: "sub", text: "51.5 Humo en cabina de pasajeros o en cabina de mando" },
-      {
-        kind: "p",
-        text: "**STANDARD PHRASEOLOGY**: ninguna para «humo». Humo o fuego a bordo suele llevar a socorro; la decisión es del comandante según el procedimiento del operador.",
-      },
-      ...ejemplo(
-        "Ejemplo 12 · Llamada de socorro por humo (MAYDAY: VERIFICAR)",
-        [
-          `PILOT: "MAYDAY, MAYDAY, MAYDAY, Bogota Approach, AVIATORY 452, smoke in the cabin, request immediate return to Bogota. Passing flight level one five zero, heading three four zero."`,
-        ],
-        "Significado: socorro, naturaleza, intención, nivel y rumbo.",
-      ),
-      ...ejemplo(
-        "Ejemplo 13 · Rumbo, altitud y QNH («roger MAYDAY»: VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, roger MAYDAY. Turn left heading one eight zero, descend to eight thousand feet, QNH one zero two eight. Expect ILS runway one three left."`,
-          `PILOT: "Left heading one eight zero, descend eight thousand feet, QNH one zero two eight. AVIATORY 452."`,
-        ],
-        "Significado: rumbo, altitud y QNH se colacionan siempre (Doc 4444 4.5.7.5.1 c).",
-      ),
-      ...ejemplo(
-        "Ejemplo 14 · Pedir servicios y avisar que está ocupado (PLAIN ENGLISH)",
-        [
-          `PILOT: "AVIATORY 452, smoke is decreasing. We will need the fire services on landing. We will pass persons on board and fuel later, busy now."`,
-        ],
-        "Significado: **PLAIN ENGLISH**. El piloto dice qué necesita y avisa que no puede atender más preguntas ahora. Decir «busy now» es legítimo: ATC prefiere saberlo a esperar una respuesta.",
-      ),
-      ...ejemplo(
-        "Ejemplo 15 · Personas a bordo y autonomía (redacción: VERIFICAR)",
-        [`ATC:   "AVIATORY 452, roger. Report persons on board and endurance when able."`],
-        "Significado: ATC pide personas a bordo y autonomía para los servicios de salvamento. La redacción OACI exacta de esta pregunta está en VERIFICAR; en Estados Unidos se oye «souls on board».",
-      ),
-
-      { kind: "sub", text: "51.6 Pasajero perturbador (passenger disturbance)" },
-      {
-        kind: "p",
-        text: "**STANDARD PHRASEOLOGY**: no hay frase para un pasajero violento. **No confundir con interferencia ilícita** (secuestro o amenaza a la seguridad del vuelo), que tiene procedimiento y código de transpondedor propios (capítulo 31; Doc 4444 cap. 15, VERIFICAR).",
-      },
-      ...ejemplo(
-        "Ejemplo 16 · Pasajero perturbador reducido (PLAIN ENGLISH)",
-        [
-          `PILOT: "Bogota Approach, AVIATORY 452, we have a disruptive passenger, now restrained. Situation under control. Request police on arrival."`,
-        ],
-        "Significado: **PLAIN ENGLISH**. Qué pasa, en qué estado está (controlado) y qué necesita (policía al llegar).",
-      ),
-      ...ejemplo("Ejemplo 17 · Respuesta de ATC", [
-        `ATC:   "AVIATORY 452, roger. Police will meet you at the stand. Say stand number when known."`,
-        `PILOT: "Wilco. AVIATORY 452."`,
-      ]),
-      ...ejemplo(
-        "Ejemplo 18 · La situación empeora (PLAIN ENGLISH)",
-        [`PILOT: "AVIATORY 452, the passenger is no longer restrained. Crew is managing. We request priority landing."`],
-        "Significado: la situación empeoró. El piloto actualiza a ATC en cuanto cambia. Si en algún momento la seguridad del vuelo queda amenazada, pasa a urgencia o socorro según el procedimiento del operador.",
-      ),
-
-      { kind: "sub", text: "51.7 Impacto con aves (bird strike)" },
-      {
-        kind: "p",
-        text: "**STANDARD PHRASEOLOGY**: ninguna para «bird strike». Hay que reportarlo porque afecta a otros: ATC avisa a las aeronaves siguientes y puede inspeccionar la pista.",
-      },
-      ...ejemplo(
-        "Ejemplo 19 · Impacto sin consecuencias (PLAIN ENGLISH)",
-        [
-          `PILOT: "Bogota Departure, AVIATORY 452, bird strike on departure, engine parameters normal. Request to continue as cleared."`,
-        ],
-        "Significado: **PLAIN ENGLISH**. Qué pasó y que el avión está bien; la tripulación pide seguir.",
-      ),
-      ...ejemplo(
-        "Ejemplo 20 · Información para la inspección de pista",
-        [
-          `ATC:   "AVIATORY 452, roger. Continue climb to flight level one eight zero. Say position on the runway where you hit the birds."`,
-          `PILOT: "Climb flight level one eight zero. We estimate halfway down the runway, at rotation. AVIATORY 452."`,
-        ],
-        "Significado: colación del nivel; luego información para la inspección de pista.",
-      ),
-      ...ejemplo(
-        "Ejemplo 21 · Impacto con pérdida de motor (MAYDAY: VERIFICAR)",
-        [
-          `PILOT: "MAYDAY, MAYDAY, MAYDAY, Bogota Tower, AVIATORY 452, bird strike, engine failure left engine, maintaining three thousand five hundred feet, request immediate return runway one three right."`,
-        ],
-        "Significado: otra gravedad. Con pérdida de motor en despegue, socorro.",
-      ),
-
-      { kind: "sub", text: "51.8 Evitar meteorología (weather avoidance)" },
-      {
-        kind: "p",
-        text: "**STANDARD PHRASEOLOGY**: el Doc 4444 cap. 12 y cap. 15 traen frases y procedimientos de desvío por meteorología que no están cargados (VERIFICAR). Mientras tanto, la forma segura es pedir con elementos concretos: dirección, distancia, motivo y hasta cuándo.",
-      },
-      ...ejemplo(
-        "Ejemplo 22 · Desvío pedido y aprobado (frases de desvío: VERIFICAR)",
-        [
-          `PILOT: "Bogota Control, AVIATORY 452, request deviation two zero miles right of track due weather."`,
-          `ATC:   "AVIATORY 452, deviation up to two zero miles right of track approved. Report back on track."`,
-          `PILOT: "Up to two zero miles right of track, wilco. AVIATORY 452."`,
-        ],
-        "Significado: se pide y se aprueba un desvío acotado. «Report back on track» obliga a avisar al regresar.",
-      ),
-      ...ejemplo(
-        "Ejemplo 23 · No aceptar lo que no se puede cumplir (frases de desvío: VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, unable deviation right due traffic. Left deviation approved up to one five miles."`,
-          `PILOT: "Unable left deviation due weather. Request climb to flight level three seven zero to remain clear. AVIATORY 452."`,
-        ],
-        "Significado: el piloto no acepta lo que no puede cumplir (UNABLE, Doc 9432 2.6 y 2.8.3.10) y ofrece una alternativa.",
-      ),
-      ...ejemplo(
-        "Ejemplo 24 · Aviso de lo que el avión va a hacer (PLAIN ENGLISH)",
-        [`PILOT: "AVIATORY 452, unable to maintain track due weather. We are turning right heading zero niner zero."`],
-        "Significado: **PLAIN ENGLISH**. Aviso de lo que el avión va a hacer cuando no hay tiempo de esperar autorización. Qué puede hacer la tripulación sin autorización está en el Doc 4444 cap. 15 y en la normativa nacional (VERIFICAR).",
-      ),
-
-      { kind: "sub", text: "51.9 Pérdida de instrumentos o de indicaciones" },
-      {
-        kind: "p",
-        text: "**STANDARD PHRASEOLOGY**: frases como «UNABLE RVSM DUE EQUIPMENT» existen en el Doc 4444 cap. 12 (VERIFICAR). Para describir la falla, lenguaje común.",
-      },
-      ...ejemplo(
-        "Ejemplo 25 · Velocidad no fiable (PLAIN ENGLISH)",
-        [
-          `PILOT: "Bogota Control, AVIATORY 452, unreliable airspeed indication. We are maintaining flight level three three zero. Request no level changes and radar ground speed checks."`,
-        ],
-        "Significado: **PLAIN ENGLISH**. El piloto dice qué perdió, qué está haciendo y qué ayuda concreta pide (velocidad sobre tierra del radar).",
-      ),
-      ...ejemplo(
-        "Ejemplo 26 · Datos independientes de ATC",
-        [
-          `ATC:   "AVIATORY 452, roger. Ground speed four six zero knots. Mode C readout flight level three three zero."`,
-          `PILOT: "Four six zero knots, thank you. AVIATORY 452."`,
-        ],
-        "Significado: ATC le da datos independientes de sus instrumentos.",
-      ),
-      ...ejemplo(
-        "Ejemplo 27 · Pérdida de capacidad RVSM («UNABLE RVSM DUE EQUIPMENT»: VERIFICAR)",
-        [`PILOT: "AVIATORY 452, unable RVSM due equipment."`],
-        "Significado: aviso de pérdida de capacidad RVSM (capítulo 39). ATC tendrá que cambiar la separación o el nivel.",
-      ),
-
-      { kind: "sub", text: "51.10 Problema con el tren de aterrizaje" },
-      {
-        kind: "p",
-        text: "**STANDARD PHRASEOLOGY**: el Doc 9432 4.7.2 trae la solicitud de pasada baja para inspección visual del tren. Esta parte **está verificada**:",
-      },
-      ...ejemplo(
-        "Ejemplo 28 · Pasada baja para inspección del tren (modelo verificado, Doc 9432 4.7.2)",
-        [
-          `PILOT: "Bogota Tower, AVIATORY 452, request low pass, unsafe left gear indication."`,
-          `ATC:   "AVIATORY 452, cleared low pass runway one three right, not below five hundred feet, report final."`,
-          `PILOT: "Runway one three right, not below five hundred feet, wilco. AVIATORY 452."`,
-        ],
-        "Significado: la frase y su respuesta siguen el modelo del Doc 9432 4.7.2 (allí con FASTAIR 345 y pista 27). La tripulación pide que la torre mire el tren.",
-      ),
-      {
-        kind: "p",
-        text: "Después de la pasada, la torre describe lo que ve. El Doc 9432 4.7.3 da las respuestas en español («el tren de aterrizaje parece estar desplegado», «la rueda izquierda no parece estar desplegada»); su redacción en inglés está en VERIFICAR.",
-      },
-      ...ejemplo(
-        "Ejemplo 29 · Lo que ve la torre (redacción inglesa: VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, the landing gear appears to be down."`,
-          `PILOT: "Roger. We will make a full stop landing. Request fire services standing by. AVIATORY 452."`,
-        ],
-        "Significado: la torre dice «parece»: no puede certificar que el tren está asegurado. El piloto decide y pide lo que necesita (**PLAIN ENGLISH**).",
-      ),
-      {
-        kind: "p",
-        text: "El Doc 9835 3.3.19 muestra el caso real que cita (en español, sin nombres): ATC pregunta las intenciones sobre el tren, el piloto responde que intentará bajarlo de nuevo y, si no puede, aterrizará con las tres ruedas arriba; ATC ofrece una pasada baja para verificación visual. Buena parte de eso no tiene fórmula normalizada.",
-      },
-
-      { kind: "sub", text: "Aplicación en aerolínea" },
-      {
-        kind: "enLaOperacion",
-        momento: "Durante la falla, en cabina y en frecuencia",
-        texto: "En la cabina de un avión de transporte, la falla se gestiona con la lista de verificación y el reparto de tareas del operador. Normalmente uno vuela y el otro comunica y lee la lista, pero el reparto exacto lo fija el SOP del operador (capítulo 59).",
-        pasos: [
-          "La primera llamada suele ser corta: qué pasa, que la tripulación está trabajando en ello y qué necesita **ahora** (un rumbo, un nivel, tiempo). La segunda, cuando hay plan: intención, aproximación, servicios en tierra.",
-          "Los servicios en tierra (bomberos, ambulancia, policía, remolque) se piden por radio a ATC. Mientras antes se pidan, antes llegan.",
-        ],
-      },
-      { kind: "sub", text: "Error frecuente" },
-      error("Minimizar", "**Minimizar**: «we have a little problem», «nothing serious». ATC no puede medir la gravedad si el piloto no la dice."),
-      error(
-        "Narrar el sistema",
-        "**Narrar el sistema** en vez de decir la consecuencia: «the green system low pressure light came on during the flap extension…». A ATC le sirve «we will need a longer runway» o «we will need to be towed».",
-      ),
-      error(
-        "Mezclar la colación con la explicación",
-        "**Mezclar la colación con la explicación** y dejar un nivel o un rumbo sin colacionar.",
-      ),
-      error("PAN PAN MEDICAL para un pasajero enfermo", "Usar PAN PAN MEDICAL para un pasajero enfermo (ver 51.4)."),
-      error("No actualizar a ATC", "No actualizar a ATC cuando la situación empeora o mejora."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Primero se vuela el avión; la llamada viene después.",
-          "ATC necesita: problema, capacidad, necesidades e intenciones.",
-          "Fraseología donde existe; lenguaje común claro y corto donde no.",
-          "Niveles, rumbos, QNH, pistas y autorizaciones se colacionan siempre, también en emergencia.",
-          "Pedir servicios en tierra temprano.",
-          "Declarar la gravedad real: ni más ni menos.",
+          "Primero se conserva una trayectoria segura y se reparte la carga de trabajo.",
+          "ATC necesita naturaleza, capacidad, ayuda requerida e intención actual.",
+          "MAYDAY o PAN PAN dan prioridad cuando corresponde; la falla por sí sola no decide la categoría.",
+          "El inglés claro completa la fraseología, no sustituye la colación de autorizaciones.",
+          "Cuando cambia la capacidad del avión, se actualiza la intención comunicada.",
         ],
       },
-      fuentes(
-        "Doc 9835 · Doc 9432 · Doc 4444",
-        "Doc 9835 (2.ª ed.) 3.3.13, 3.3.15, 3.3.16, 3.3.19, 3.3.21, 4.3.3, 4.3.4; Doc 9432 (4.ª ed.) 2.6 (UNABLE, WILCO), 2.8.3.10, 3.2.2, 3.2.3, 3.2.4, 4.7.2 (REQUEST LOW PASS UNSAFE LEFT GEAR INDICATION y su autorización), 4.7.3 (respuestas de la torre, en español); Doc 4444 (15.ª ed., Enm. 4) 4.5.7.5.1.",
-        [
-          "VERIFICAR: texto exacto de la llamada MAYDAY y PAN PAN (repetición, orden: estación, identificación, naturaleza, intención, posición, nivel, rumbo) contra Anexo 10 Vol. II cap. 5 (5.3), Doc 4444 cap. 15 y Doc 9432 cap. 9 (no cargados).",
-          "VERIFICAR: «roger MAYDAY» como acuse de ATC contra Doc 9432 cap. 9 y Doc 4444 cap. 15.",
-          "VERIFICAR: procedimiento y fraseología de descenso de emergencia contra Doc 4444 cap. 15 y Doc 9432 9.4.",
-          "VERIFICAR: uso de la señal MEDICAL tras PAN PAN solo para transportes sanitarios contra Anexo 10 Vol. II 5.3.3.4.",
-          "VERIFICAR: redacción OACI de la pregunta por personas a bordo y autonomía («persons on board», «endurance») contra Doc 4444 cap. 12 y 15; «souls on board» es uso de Estados Unidos (FAA JO 7110.65).",
-          "VERIFICAR: «STATE INTENTIONS» / «REPORT INTENTIONS» como frase de ATC contra Doc 4444 cap. 12.",
-          "VERIFICAR: frases de desvío por meteorología («REQUEST DEVIATION… DUE WEATHER», «DEVIATION APPROVED», «REPORT BACK ON TRACK») contra Doc 4444 cap. 12 y procedimiento de contingencia de 15.2.",
-          "VERIFICAR: «UNABLE RVSM DUE EQUIPMENT» contra Doc 4444 cap. 12.",
-          "VERIFICAR: redacción en inglés de las observaciones de tren («THE LANDING GEAR APPEARS DOWN») contra la versión inglesa del Doc 9432 4.7.3.",
-          "VERIFICAR: interferencia ilícita, código 7500 y procedimiento contra Doc 4444 cap. 15 y Anexo 10 Vol. IV.",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "FAA AIM §6-3-1 · OACI Doc 9835 · NTSB/AAR-10/03",
+        bloques: [
+          { kind: "p", text: "FAA, Aeronautical Information Manual §6-3-1, comunicaciones de socorro y urgencia, contenido y prioridad de la llamada: https://www.faa.gov/air_traffic/publications/aim_html/chap6_section_3.html" },
+          { kind: "p", text: "OACI, Doc 9835, 2.ª edición, §§3.3.13–3.3.17: uso de lenguaje común cuando la fraseología no cubre lo inesperado y sus exigencias de claridad. Documento oficial de OACI, no una fraseología local: https://www4.icao.int/aelts/uploads/icao%20doc9835%202nd%20edition.pdf" },
+          { kind: "p", text: "NTSB, informe de accidente AAR-10/03, US Airways vuelo 1549, hecho y secuencia operacional; entrevistas del expediente para la comunicación inicial y la revisión de la alternativa: https://www.ntsb.gov/investigations/accidentreports/reports/aar1003.pdf" },
+          { kind: "p", text: "Para fraseología, dependencias y procedimientos colombianos vigentes, consultar la AIP/eAIP oficial de Aerocivil; aquí no se asigna ninguna frecuencia ni se representa una carta: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "Fotografía, historieta y ejercicio son recreaciones didácticas. No contienen audio ni transcripciones ATC reales." },
         ],
-      ),
+      },
     ],
   },
   // ── 52 ──────────────────────────────────────────────────────────────────
