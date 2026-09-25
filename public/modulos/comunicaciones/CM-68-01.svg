@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cuatro defensas de la comunicación operacional</title>
+  <desc id="desc">Escuchar el mensaje, decidir si puede cumplirse, comunicar con precisión y verificar la ejecución.</desc>
+  <rect width="1600" height="900" fill="#102235"/>
+  <rect x="70" y="60" width="1460" height="780" rx="32" fill="#1c3548" stroke="#4d7181" stroke-width="2"/>
+  <text x="120" y="145" fill="#a7f3d0" font-family="Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="4">SÍNTESIS DEL MÓDULO</text>
+  <text x="120" y="208" fill="#fff" font-family="Arial,sans-serif" font-size="50" font-weight="700">Una comunicación segura tiene cuatro defensas</text>
+  <text x="120" y="258" fill="#cbdbe3" font-family="Arial,sans-serif" font-size="24">No basta repetir: hay que comprender, aceptar con criterio y comprobar.</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="120" y="335" width="320" height="290" rx="24" fill="#29475b" stroke="#699b96"/>
+    <text x="151" y="395" fill="#a7f3d0" font-size="27" font-weight="700">01 · ESCUCHAR</text>
+    <text x="151" y="455" fill="#fff" font-size="27" font-weight="700">¿Es para mí?</text>
+    <text x="151" y="510" fill="#d8e6eb" font-size="21">Acción, dato,</text>
+    <text x="151" y="540" fill="#d8e6eb" font-size="21">condición y límite.</text>
+    <text x="151" y="586" fill="#a7f3d0" font-size="20">Si falta: aclarar.</text>
+    <rect x="470" y="335" width="320" height="290" rx="24" fill="#29475b" stroke="#699b96"/>
+    <text x="501" y="395" fill="#a7f3d0" font-size="27" font-weight="700">02 · DECIDIR</text>
+    <text x="501" y="455" fill="#fff" font-size="27" font-weight="700">¿Puedo cumplir?</text>
+    <text x="501" y="510" fill="#d8e6eb" font-size="21">Capacidad y</text>
+    <text x="501" y="540" fill="#d8e6eb" font-size="21">prioridad de vuelo.</text>
+    <text x="501" y="586" fill="#a7f3d0" font-size="20">Si no: UNABLE.</text>
+    <rect x="820" y="335" width="320" height="290" rx="24" fill="#29475b" stroke="#699b96"/>
+    <text x="851" y="395" fill="#a7f3d0" font-size="27" font-weight="700">03 · COMUNICAR</text>
+    <text x="851" y="455" fill="#fff" font-size="27" font-weight="700">¿Qué entendí?</text>
+    <text x="851" y="510" fill="#d8e6eb" font-size="21">Fraseología y</text>
+    <text x="851" y="540" fill="#d8e6eb" font-size="21">colación precisa.</text>
+    <text x="851" y="586" fill="#a7f3d0" font-size="20">Sin datos supuestos.</text>
+    <rect x="1170" y="335" width="310" height="290" rx="24" fill="#215044" stroke="#93dfba"/>
+    <text x="1201" y="395" fill="#a7f3d0" font-size="27" font-weight="700">04 · VERIFICAR</text>
+    <text x="1201" y="455" fill="#fff" font-size="27" font-weight="700">¿Qué vuela el avión?</text>
+    <text x="1201" y="510" fill="#d8e6eb" font-size="21">Hearback, ajuste</text>
+    <text x="1201" y="540" fill="#d8e6eb" font-size="21">y trayectoria.</text>
+    <text x="1201" y="586" fill="#a7f3d0" font-size="20">Monitorizar.</text>
+  </g>
+  <text x="120" y="710" fill="#fff" font-family="Arial,sans-serif" font-size="27" font-weight="700">La barrera final es observar que la instrucción se cumpla como fue autorizada.</text>
+  <text x="120" y="774" fill="#b6cbd2" font-family="Arial,sans-serif" font-size="21">Esquema didáctico; seguir procedimientos del Estado y del explotador.</text>
+</svg>
