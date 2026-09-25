@@ -2498,7 +2498,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 8,
     "title": "RAC 203 · Servicio meteorológico",
     "kicker": "Cómo se vuela",
-    "minutes": 7,
+    "minutes": 3,
     "blocks": [
       {
         "kind": "p",
@@ -2510,7 +2510,11 @@ export const RAC_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "El RAC 203 regula al **proveedor** del servicio meteorológico (METP): cómo observa, pronostica, emite avisos y entrega la información a tránsito aéreo, a los explotadores y a las tripulaciones. Casi todo va dirigido a ese proveedor, pero el RAC aplica también a los explotadores de aeronaves «según la materia que les corresponde» (203.005 (c)). Para el piloto hay dos cosas: **lo que tú le reportas al servicio** (observaciones de aeronave, AIREP) y **lo que el servicio te debe entregar** (exposición verbal, documentación de vuelo, información en vuelo). La lectura e interpretación de METAR y TAF está en el módulo de Meteorología de Aviatory y no se repite aquí."
+        "text": "El RAC 203 regula al **proveedor** del servicio meteorológico: cómo observa, pronostica, emite avisos y entrega la información. Casi todo va dirigido a él. Lo que es tuyo cabe en una ficha: **tú también eres una estación meteorológica**, y hay dos cifras de avisos que conviene tener en la cabeza."
+      },
+      {
+        "kind": "p",
+        "text": "Leer e interpretar METAR, TAF y SIGMET está en el módulo de **Meteorología operacional** de Aviatory y no se repite aquí."
       },
       {
         "kind": "titulo",
@@ -2518,17 +2522,34 @@ export const RAC_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "sub",
-        "text": "Tú también eres una estación meteorológica: las observaciones de aeronave"
+        "text": "Cuándo tienes que reportar: la observación especial (AIREP especial)"
       },
       {
-        "kind": "vinetas",
+        "kind": "p",
+        "text": "**Todas las aeronaves** hacen una observación especial cuando encuentran u observan (203.320):"
+      },
+      {
+        "kind": "list",
         "items": [
-          "Se hacen dos tipos de observación a bordo (203.305): **Ordinarias**: en ruta y en el ascenso inicial; **Especiales y otras extraordinarias**: en cualquier fase del vuelo.",
-          "**Ordinarias**: son **automáticas** por enlace de datos aire-tierra (ADS-C o SSR Modo S): cada **15 minutos** en ruta y cada **30 segundos** durante los **10 primeros minutos** del ascenso inicial (203.310 (a)). En rutas de alta densidad se designa una aeronave por nivel de vuelo, más o menos cada hora (203.310 (c)). **Si la aeronave no tiene enlace de datos aire-tierra, está exenta** de las ordinarias (203.315).",
-          "**Especiales**: **todas las aeronaves** las hacen cuando encuentran u observan (203.320): turbulencia **moderada o fuerte**; engelamiento **moderado o fuerte**; onda orográfica **fuerte**; tormentas sin granizo, oscurecidas, inmersas, generalizadas o en líneas de turbonada; tormentas con granizo, en las mismas condiciones; tempestades de polvo o arena fuertes; nube de cenizas volcánicas; actividad volcánica precursora de erupción o erupción; **eficacia de frenado en la pista peor que la notificada.**",
-          "**Extraordinarias**: cualquier otra condición, por ejemplo **cizalladura del viento**, que **el piloto al mando** estime que puede afectar la seguridad o la operación de otras aeronaves. Se la advierte a la dependencia ATS **tan pronto como sea posible** (203.325 (a)).",
-          "¿Por qué importa tu reporte? Porque el engelamiento, la turbulencia y buena parte de la cizalladura **no se pueden observar bien desde tierra**: en la mayoría de los casos, lo que reporta una aeronave es la única evidencia disponible (203.325 (b))."
-        ]
+          "Turbulencia **moderada o fuerte**.",
+          "Engelamiento **moderado o fuerte**.",
+          "Onda orográfica **fuerte**.",
+          "Tormentas sin granizo, oscurecidas, inmersas, generalizadas o en líneas de turbonada.",
+          "Tormentas con granizo, en las mismas condiciones.",
+          "Tempestades de polvo o arena fuertes.",
+          "Nube de cenizas volcánicas.",
+          "Actividad volcánica precursora de erupción o erupción.",
+          "**Eficacia de frenado en la pista peor que la notificada.**"
+        ],
+        "ordered": true
+      },
+      {
+        "kind": "p",
+        "text": "Y cualquier otra cosa que el **piloto al mando** estime que puede afectar la seguridad o la operación de otras aeronaves (por ejemplo, **cizalladura del viento**) se advierte al ATS **tan pronto como sea posible**: es la observación extraordinaria (203.325 (a))."
+      },
+      {
+        "kind": "p",
+        "text": "**Por qué importa tu reporte:** el engelamiento, la turbulencia y buena parte de la cizalladura **no se observan bien desde tierra**. En la mayoría de los casos, lo que reporta una aeronave es la única evidencia disponible (203.325 (b))."
       },
       {
         "kind": "sub",
@@ -2537,51 +2558,34 @@ export const RAC_LECCIONES: DocScreen[] = [
       {
         "kind": "vinetas",
         "items": [
-          "Por **enlace de datos aire-tierra**. Si no hay enlace de datos, o no sirve, las especiales y extraordinarias se reportan **por voz** (203.330 (a)).",
-          "**En el momento** de la observación o lo antes posible después (203.330 (b)).",
-          "Van como **aeronotificaciones (AIREP)** ordinarias o especiales. Por enlace de datos llevan como mínimo: dirección del viento, velocidad del viento, temperatura del aire y, en las especiales, la condición que las motivó (203.330 (c)). El formulario AIREP está en los PANS-ATM, Doc. 4444 (203.001, «Aeronotificación», Nota).",
-          "¿Qué pasa con tu AIREP especial por voz? El ATS lo retransmite sin demora a la oficina de vigilancia meteorológica (OVM) (203.330 (d)); si el fenómeno no justifica un SIGMET, la OVM lo difunde igual que un SIGMET (203.335 (c)); los de actividad volcánica van al centro de avisos de cenizas (VAAC) (203.335 (b)). Las aeronotificaciones especiales se transmiten a otras aeronaves por enlace ascendente durante **60 minutos** (203.330 (e)).",
-          "**La obligación del piloto** está escrita en sus propios RAC: RAC 121.2315 (el explotador debe dar a la tripulación procedimientos para hacer estas observaciones y el PIC reporta la eficacia de frenado por AIREP) y RAC 91.580 (el PIC notifica al ATC lo antes posible condiciones adversas que puedan afectar a otras aeronaves)."
+          "Las **ordinarias** son automáticas por enlace de datos aire-tierra. **Si tu avión no tiene enlace de datos, estás exento de las ordinarias** (203.315), pero **no de las especiales**.",
+          "Sin enlace de datos, las especiales y extraordinarias van **por voz** (203.330 (a)), **en el momento** de la observación o lo antes posible después (203.330 (b)).",
+          "El ATS retransmite tu AIREP especial sin demora a la oficina de vigilancia meteorológica (203.330 (d)), y se transmite a otras aeronaves durante **60 minutos** (203.330 (e))."
         ]
       },
       {
         "kind": "sub",
-        "text": "Lo que el servicio te debe dar antes del vuelo"
+        "text": "La obligación también está en tus propios RAC"
       },
       {
-        "kind": "list",
-        "items": [
-          "La información MET se da al explotador para planificar y replanificar, y a la **tripulación antes de la salida y en vuelo** (203.701 (a)).",
-          "Debe cubrir la hora, la altitud y la extensión geográfica del vuelo, **hasta el aeródromo de aterrizaje previsto y entre este y los alternos** que designe el explotador (203.701 (c)). Debe estar actualizada e incluir información de observación y de pronóstico, de aeródromo y en ruta (203.701 (d)).",
-          "Los pronósticos de **viento y temperatura en altitud** y los de **tiempo significativo (SIGWX)** por encima de **FL 100** se entregan apenas estén disponibles, y **por lo menos 3 horas antes de la salida** (203.701 (g)).",
-          "**Exposición verbal (briefing) y consulta**: se dan **a petición** de la tripulación. Cubren ruta, destino, alternos y otros aeródromos pertinentes (203.705 (a)). Si el meteorólogo opina que el tiempo en un aeródromo va a diferir apreciablemente del pronóstico de la documentación, **debe hacértelo notar**, y esa parte del briefing queda registrada (203.705 (c)). Si no se puede en persona, se da por teléfono u otro medio (203.705 (e)).",
-          "**Documentación de vuelo**: contiene la información de 203.701 (d) (203.710 (a)). Si la información cambia bastante respecto a la de planificación, se avisa al explotador (203.710 (b)); si hace falta una enmienda después de entregarla y antes del despegue, se expide al explotador o al ATS para que llegue a la aeronave (203.710 (c)). Lo que viene de otras oficinas se incluye **sin modificar** (203.710 (e)). El proveedor la guarda **al menos 30 días**, y más si hay una investigación (203.710 (g)).",
-          "**Autoservicio**: si el briefing es por un sistema automatizado, debe permitirte consultar con una oficina meteorológica de aeródromo por teléfono, web u otro medio (203.715 (d))."
-        ]
+        "kind": "p",
+        "text": "**RAC 121.2315** (el explotador da a la tripulación procedimientos para estas observaciones y el PIC reporta la eficacia de frenado por AIREP) y **RAC 91.580** (el PIC notifica al ATC lo antes posible las condiciones adversas que puedan afectar a otras aeronaves)."
       },
       {
         "kind": "sub",
-        "text": "Lo que recibes en vuelo"
+        "text": "Dos cifras de avisos"
       },
       {
         "kind": "vinetas",
         "items": [
-          "La información para aeronaves en vuelo llega a través del **ATS** y por **VOLMET** o **D-VOLMET** (203.720 (a), (e)). Si la pides en vuelo, la oficina que reciba la solicitud debe conseguirla (203.720 (d)).",
-          "**VOLMET por voz**: la continua en VHF trae METAR y SPECI actuales y tendencia si hay; la regular en HF, lo mismo y, si un acuerdo regional lo dice, TAF y SIGMET (203.920).",
-          "**D-VOLMET** (enlace de datos): METAR, SPECI, tendencia, TAF, SIGMET, aeronotificaciones especiales no cubiertas por un SIGMET y, si hay, AIRMET (203.915)."
+          "**SIGMET**: validez máxima de **4 horas**; **6 horas** para cenizas volcánicas y ciclones tropicales (203.515 (c)).",
+          "**Aviso de cizalladura**: cubre la aproximación y el despegue hasta **500 m (1.600 ft)** sobre la pista, y **se cancela cuando los reportes de aeronaves** indican que ya no hay cizalladura (203.530 (a), (b)). Otra razón para reportar."
         ]
       },
       {
-        "kind": "sub",
-        "text": "Avisos que te afectan directamente"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "**SIGMET**: fenómenos en ruta que afectan la seguridad: tormenta, ciclón tropical, turbulencia, engelamiento, ondas orográficas, tempestad de polvo o arena, cenizas volcánicas y nube radiactiva (203.515 (a)). Validez **máxima de 4 horas**; **6 horas** para cenizas volcánicas y ciclones tropicales (203.515 (c)).",
-          "**AIRMET**: para vuelos a baja altura (por debajo de FL 100, o FL 150 en zonas montañosas). Validez máxima de **4 horas** (203.520). El propio RAC advierte que la norma está disponible **para cuando el proveedor decida implementarla** (203.520, Nota).",
-          "**Avisos de cizalladura del viento**: cubren la trayectoria de aproximación o despegue, el circuito entre la pista y **500 m (1.600 ft)**, y el recorrido de aterrizaje o despegue. Se cancelan cuando los **reportes de aeronaves** indican que ya no hay cizalladura, o tras un tiempo acordado sin reportes (203.530 (a), (b)). Otra razón para reportar."
-        ]
+        "kind": "callout",
+        "tone": "info",
+        "text": "**AIRMET**: la norma existe, pero el propio RAC dice que está disponible «para cuando el proveedor decida implementarla» (203.520, Nota). No des por hecho que en Colombia se emite."
       },
       {
         "kind": "titulo",
@@ -2595,21 +2599,6 @@ export const RAC_LECCIONES: DocScreen[] = [
           "Numeral"
         ],
         "rows": [
-          [
-            "Observaciones ordinarias automáticas en ruta",
-            "cada 15 min (ADS-C o SSR Modo S)",
-            "203.310 (a)"
-          ],
-          [
-            "Observaciones ordinarias en ascenso inicial",
-            "cada 30 s, primeros 10 min",
-            "203.310 (a)"
-          ],
-          [
-            "Sin enlace de datos aire-tierra",
-            "exento de ordinarias; especiales por voz",
-            "203.315; 203.330 (a)"
-          ],
           [
             "AIREP especial: turbulencia / engelamiento",
             "moderado o fuerte",
@@ -2626,34 +2615,29 @@ export const RAC_LECCIONES: DocScreen[] = [
             "203.320 (9)"
           ],
           [
-            "Contenido mínimo AIREP por enlace de datos",
-            "viento (dirección y velocidad), temperatura, condición que lo motiva",
-            "203.330 (c)"
+            "Cizalladura y demás",
+            "observación extraordinaria, al ATS lo antes posible",
+            "203.325 (a)"
           ],
           [
-            "Retransmisión de AIREP especial a otras aeronaves",
+            "Sin enlace de datos aire-tierra",
+            "exento de ordinarias; especiales por voz",
+            "203.315; 203.330 (a)"
+          ],
+          [
+            "Cuándo se reporta",
+            "en el momento o lo antes posible después",
+            "203.330 (b)"
+          ],
+          [
+            "Retransmisión a otras aeronaves",
             "60 min",
             "203.330 (e)"
-          ],
-          [
-            "Vientos, temperaturas y SIGWX sobre FL 100",
-            "a más tardar 3 h antes de la salida",
-            "203.701 (g)"
-          ],
-          [
-            "Conservación de la documentación de vuelo",
-            "mínimo 30 días",
-            "203.710 (g)"
           ],
           [
             "Validez SIGMET",
             "máx. 4 h (6 h cenizas y ciclones)",
             "203.515 (c)"
-          ],
-          [
-            "Validez AIRMET",
-            "máx. 4 h",
-            "203.520 (c)"
           ],
           [
             "Aviso de cizalladura",
@@ -2667,14 +2651,13 @@ export const RAC_LECCIONES: DocScreen[] = [
         "text": "En pocas palabras"
       },
       {
-        "kind": "list",
+        "kind": "vinetas",
         "items": [
-          "El RAC 203 es para el proveedor meteorológico; al piloto le toca reportar y le toca recibir.",
-          "Reporta AIREP especial por turbulencia o engelamiento moderado o fuerte, onda orográfica fuerte, tormentas, polvo o arena, cenizas o volcán, y frenado peor que el notificado.",
-          "Cizalladura y cualquier otra cosa que pueda afectar a otros: avísala al ATS lo antes posible.",
-          "Sin enlace de datos, las especiales van por voz, en el momento o lo antes posible.",
-          "El briefing es a petición; la documentación cubre ruta, destino y alternos; lo que cambie antes del despegue te debe llegar como enmienda.",
-          "SIGMET dura máximo 4 h (6 h cenizas y ciclones). En vuelo: ATS, VOLMET y D-VOLMET."
+          "El RAC 203 es del proveedor; al piloto le toca **reportar**.",
+          "AIREP especial: turbulencia o engelamiento moderado o fuerte, onda orográfica fuerte, tormentas, polvo o arena, cenizas o volcán, y frenado peor que el notificado.",
+          "Cizalladura y cualquier cosa que pueda afectar a otros: al ATS lo antes posible.",
+          "Sin enlace de datos estás exento de las ordinarias, **no** de las especiales: esas van por voz.",
+          "SIGMET dura máximo 4 h; 6 h si es por cenizas o ciclón tropical."
         ]
       }
     ]
@@ -2683,7 +2666,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 9,
     "title": "RAC 119 · Certificación de explotadores",
     "kicker": "La aerolínea",
-    "minutes": 4,
+    "minutes": 2,
     "blocks": [
       {
         "kind": "p",
@@ -2695,7 +2678,7 @@ export const RAC_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Fija cómo una empresa obtiene y conserva el permiso para hacer transporte aéreo comercial en Colombia, cuándo debe operar según el RAC 121 o el RAC 135 y qué directivos debe tener."
+        "text": "Cómo una empresa obtiene y conserva el permiso para hacer transporte aéreo comercial. Casi todo es trámite del explotador: solicitud, requisitos financieros, auditorías, directivos y sus años de experiencia. Al piloto le sirven tres cosas, y las tres se le aparecen en la operación."
       },
       {
         "kind": "titulo",
@@ -2703,21 +2686,24 @@ export const RAC_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "sub",
-        "text": "El certificado y las especificaciones de operación"
+        "text": "1. El certificado y las especificaciones de operación"
       },
       {
         "kind": "vinetas",
         "items": [
-          "En Colombia el certificado de explotador de servicios aéreos (AOC en la OACI) se llama **certificado de operación (CDO)**. Sin CDO válido y sin sus especificaciones no se hace transporte aéreo comercial (119.010(a), 119.020(a)).",
-          "Las **especificaciones relativas a las operaciones (OpSpecs)** son las autorizaciones, aprobaciones, condiciones y limitaciones de cada modelo de aeronave. Forman parte del CDO y están sujetas a las condiciones del manual de operaciones (119.025(a) y (b)).",
-          "Qué traen las OpSpecs (119.270(a)): matrículas, tipos de operación, área autorizada, limitaciones especiales y aprobaciones específicas como mercancías peligrosas, baja visibilidad, separación vertical mínima reducida (RVSM), vuelos con tiempo de desviación extendido (EDTO), navegación basada en la performance con autorización obligatoria (PBN AR) y maletines electrónicos de vuelo (EFB). La empresa no puede volar en un área que sus OpSpecs no autoricen (119.020(d)).",
-          "Lo que te toca: el explotador debe **llevar a bordo copia de las OpSpecs**, con traducción al inglés en vuelos internacionales, y mantenerte informado de lo que aplica a tus funciones; su cumplimiento es obligatorio (119.260(a)). Si hay arrendamiento, intercambio o fletamento, va a bordo una copia del contrato (Apéndice 1, nota 20).",
-          "Un CDO 121 puede incluir operaciones 135 en sus OpSpecs; un CDO 135 no puede operar bajo 121 (119.015(c))."
+          "En Colombia el certificado de explotador (el **AOC** de la OACI) se llama **certificado de operación (CDO)**. Sin CDO y sin sus especificaciones no hay transporte aéreo comercial (119.010 (a), 119.020 (a)).",
+          "Las **especificaciones relativas a las operaciones (OpSpecs)** son las autorizaciones, condiciones y limitaciones de cada modelo de aeronave, y forman parte del CDO (119.025 (a) y (b)). **Ahí viven las aprobaciones específicas**: mercancías peligrosas, baja visibilidad, **RVSM**, **EDTO**, **PBN con autorización obligatoria (AR)** y maletines electrónicos de vuelo (119.270 (a)). La empresa no puede volar en un área que sus OpSpecs no autoricen (119.020 (d)).",
+          "**Lo que te toca:** el explotador lleva **copia de las OpSpecs a bordo**, con traducción al inglés en vuelos internacionales, y te mantiene informado de lo que aplica a tus funciones. Cumplirlas es obligatorio (119.260 (a))."
         ]
       },
       {
+        "kind": "callout",
+        "tone": "info",
+        "text": "Cuando un módulo de Aviatory dice «el operador debe estar autorizado» (PBN, RVSM, ETOPS), esta es la hoja donde se comprueba."
+      },
+      {
         "kind": "sub",
-        "text": "¿121 o 135?"
+        "text": "2. ¿Tu operación es 121 o 135?"
       },
       {
         "kind": "table",
@@ -2729,67 +2715,32 @@ export const RAC_LECCIONES: DocScreen[] = [
         "rows": [
           [
             "**Regular** con aviones",
-            "Turborreactores (de cualquier tamaño), o turbohélices de más de 19 asientos o más de 5.700 kg (119.110(a)(1))",
-            "Turbohélices y recíprocos de 19 asientos o menos **y** 5.700 kg o menos (119.115(a)(1))"
+            "Turborreactores de cualquier tamaño, o turbohélices de más de 19 asientos o más de 5.700 kg (119.110 (a)(1))",
+            "Turbohélices y recíprocos de 19 asientos o menos **y** 5.700 kg o menos (119.115 (a)(1))"
           ],
           [
             "**No regular** con aviones",
-            "Más de 19 asientos, o más de 5.700 kg, o carga paga de más de 3.400 kg en carga exclusiva (119.110(a)(2))",
-            "19 asientos o menos y 5.700 kg o menos, incluso turborreactores, o carga paga de 3.400 kg o menos (119.115(a)(2))"
+            "Más de 19 asientos, o más de 5.700 kg, o carga paga de más de 3.400 kg (119.110 (a)(2))",
+            "19 asientos o menos y 5.700 kg o menos, incluso turborreactores (119.115 (a)(2))"
           ],
           [
             "**Helicópteros**",
             "No aplica",
-            "Todas, regulares y no regulares (119.120)"
+            "Todas (119.120)"
           ]
         ]
       },
       {
         "kind": "p",
-        "text": "El RAC 119 no aplica a instrucción de alumnos, vuelos ferry o de entrenamiento ni trabajos aéreos especiales, entre otros (119.005(c))."
+        "text": "Un CDO 121 puede incluir operaciones 135 en sus OpSpecs; un CDO 135 no puede operar bajo 121 (119.015 (c))."
       },
       {
         "kind": "sub",
-        "text": "Personal directivo obligatorio (RAC 121)"
+        "text": "3. El inspector a bordo"
       },
       {
         "kind": "p",
-        "text": "La empresa designa un **directivo responsable** (financia las operaciones y promueve la política de seguridad operacional del RAC 219) y cubre estos puestos (119.330(b) y (d)):"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "Director o responsable de operaciones.",
-          "Director de gestión del mantenimiento de la aeronavegabilidad.",
-          "Gerente del sistema de gestión de la seguridad operacional (SMS).",
-          "**Jefe de pilotos**.",
-          "Jefe de entrenamiento."
-        ]
-      },
-      {
-        "kind": "p",
-        "text": "Cambios o vacantes se notifican a la Aerocivil en **10 días** (119.330(h)(3)). Requisitos para servir en 121:"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "**Director de operaciones**: licencia de piloto de transporte de línea (PTL) y 3 años como director o supervisor con control operacional en los últimos 6 años; si es su primera vez, 3 años en los últimos 6 como piloto al mando (PIC) de aviones de más de 5.700 kg (119.335(a)).",
-          "**Jefe de pilotos**: PTL habilitado en al menos un avión de la flota; si es su primera vez, 3 años en los últimos 6 como PIC de aviones de más de 5.700 kg (119.335(b)).",
-          "**Jefe de entrenamiento**: conocer los RAC, el manual, el programa de entrenamiento y las OpSpecs, y tener habilitación de instructor de vuelo en un equipo de la flota (119.335(e)).",
-          "La Aerocivil puede aceptar experiencia equivalente y revocar esa desviación (119.335(f) y (g))."
-        ]
-      },
-      {
-        "kind": "p",
-        "text": "En el RAC 135 no se exige jefe de entrenamiento. Si los PIC necesitan PTL, el director de operaciones y el jefe de pilotos también, con 3 años de PIC en operación comercial; si basta licencia comercial (PCA), se exige al menos PCA con instrumentos cuando aplique (119.340(d), 119.345)."
-      },
-      {
-        "kind": "sub",
-        "text": "El inspector a bordo"
-      },
-      {
-        "kind": "p",
-        "text": "Si un inspector acreditado de la Aerocivil se presenta ante el PIC para inspeccionar, el PIC debe **admitirlo a bordo** con acceso libre y darle los medios para su labor. Si se niega, el inspector puede inmovilizar la aeronave, sin perjuicio de sanciones. El explotador reserva el **asiento del observador** para los inspectores (119.315(b)(4) y (c))."
+        "text": "Si un inspector acreditado de la Aerocivil se presenta ante el **piloto al mando** para inspeccionar, el PIC debe **admitirlo a bordo**, con acceso libre y los medios para su labor. Si se niega, el inspector puede **inmovilizar la aeronave**, sin perjuicio de sanciones. El explotador le reserva el **asiento del observador** (119.315 (b)(4) y (c))."
       },
       {
         "kind": "titulo",
@@ -2809,6 +2760,16 @@ export const RAC_LECCIONES: DocScreen[] = [
             "119.001, 119.010"
           ],
           [
+            "Dónde están RVSM, EDTO y PBN AR",
+            "En las OpSpecs, como aprobaciones específicas",
+            "119.270 (a)"
+          ],
+          [
+            "OpSpecs a bordo",
+            "Copia; en inglés si es internacional",
+            "119.260 (a)(6)"
+          ],
+          [
             "Límite 121/135",
             "19 asientos · 5.700 kg · 3.400 kg de carga paga",
             "119.110, 119.115"
@@ -2816,27 +2777,12 @@ export const RAC_LECCIONES: DocScreen[] = [
           [
             "Jet regular",
             "Siempre RAC 121",
-            "119.110(a)(1)(i)"
+            "119.110 (a)(1)(i)"
           ],
           [
-            "OpSpecs a bordo",
-            "Copia; en inglés si es internacional",
-            "119.260(a)(6)"
-          ],
-          [
-            "Experiencia de director de operaciones y jefe de pilotos (121)",
-            "PTL + 3 años en los últimos 6",
-            "119.335(a), (b)"
-          ],
-          [
-            "Cambio de directivos",
-            "Notificar en 10 días",
-            "119.330(h)(3)"
-          ],
-          [
-            "Operación de emergencia autorizada por la Aerocivil sin tiempo para enmendar las OpSpecs: informe escrito del explotador",
-            "48 horas después de completarla",
-            "119.310(b)(2)(ii)"
+            "Inspector a bordo",
+            "El PIC lo admite; negarse puede inmovilizar el avión",
+            "119.315 (b)(4) y (c)"
           ]
         ]
       },
@@ -2848,9 +2794,9 @@ export const RAC_LECCIONES: DocScreen[] = [
         "kind": "vinetas",
         "items": [
           "El AOC colombiano es el CDO; las OpSpecs dicen qué, dónde y con qué aprobaciones puede volar cada avión.",
+          "RVSM, EDTO y PBN AR son aprobaciones específicas y están en las OpSpecs.",
           "Copia de las OpSpecs a bordo, en inglés si el vuelo es internacional.",
-          "Jet regular o avión de más de 19 sillas o 5.700 kg: RAC 121. Lo pequeño y todos los helicópteros: RAC 135.",
-          "El director de operaciones y el jefe de pilotos de una aerolínea 121 son PTL con 3 años de experiencia en los últimos 6.",
+          "Jet regular, o avión de más de 19 sillas o 5.700 kg: RAC 121. Lo pequeño y todos los helicópteros: RAC 135.",
           "Al inspector de la Aerocivil se le da acceso a bordo; negarse puede inmovilizar el avión."
         ]
       }

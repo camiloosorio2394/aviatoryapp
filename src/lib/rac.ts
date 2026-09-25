@@ -36,7 +36,7 @@ export const RAC_EVALUACION = `${RAC_HUB}/evaluacion`
 export const RAC_LECTURA_TOTAL = 19
 
 /** Lectura estimada de las diecinueve unidades, en minutos (RAC_MINUTOS). */
-export const RAC_LECTURA_MINUTOS = 140
+export const RAC_LECTURA_MINUTOS = 134
 
 /** Preguntas de práctica: el quiz de cada unidad (RAC_PRACTICA_CLAVES). */
 export const RAC_PRACTICA_TOTAL = 54
