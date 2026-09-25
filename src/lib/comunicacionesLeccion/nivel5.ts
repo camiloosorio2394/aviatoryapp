@@ -86,174 +86,131 @@ export const NIVEL_5: DocScreen[] = [
   {
     n: 31,
     title: "Transpondedor y SSR",
-    kicker: "Códigos, IDENT y los códigos especiales",
-    minutes: 9,
+    kicker: "Código, altitud, IDENT y vigilancia",
+    minutes: 18,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "El radar secundario de vigilancia (SSR) interroga al transpondedor de la aeronave y este responde con datos: un código de cuatro dígitos (identidad), la altitud de presión y, en Modo S, más información. El Doc 4444 lo define como «sistema radar de vigilancia que usa transmisores/receptores (interrogadores) y transpondedores». El ATC usa esa respuesta para identificarlo, separarlo y darle servicio de vigilancia.",
+        text: "El radar secundario de vigilancia (SSR, Secondary Surveillance Radar) interroga el transpondedor de la aeronave. Su respuesta permite al servicio de tránsito aéreo (ATS, Air Traffic Services) asociar una traza con un código y, según el equipo, con altitud de presión e identificación. En una operación de aerolínea no basta repetir un código por radio: hay que seleccionarlo correctamente, verificar la transmisión y detectar cualquier discrepancia que comunique el controlador.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
       {
-        kind: "p",
-        text: "**Modos.** El Doc 4444 cap. 1 menciona cuatro modos definidos en el Anexo 10: A, C, S e intermodo. Para la cabina basta esto:",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-31-01.svg",
+        alt: "Esquema de instrucción ATS, selección y verificación del transpondedor en cabina, y comprobación por el controlador.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Esquema didáctico: la instrucción SQUAWK se escucha y colaciona, se selecciona y comprueba en cabina, y ATS observa la respuesta. Modo A aporta el código; Modo C, altitud de presión; Modo S, identificación entre otros datos. La figura no reproduce una pantalla, código asignado ni procedimiento local.",
       },
+      { kind: "sub", text: "Qué distingue la tripulación" },
       {
         kind: "glosario",
         items: [
-          { k: "Modo A", v: "el código de cuatro dígitos que asigna el ATC." },
-          { k: "Modo C", v: "agrega la altitud de presión. «TRANSPONDER CHARLIE» es la instrucción de activarla." },
-          {
-            k: "Modo S",
-            v: "interrogación selectiva; entre otros datos transmite la identificación de la aeronave, que debe coincidir con el distintivo del plan de vuelo. Por eso existe la instrucción de «reactivar la identificación Modo S».",
-          },
+          { k: "Modo A", v: "Código de cuatro dígitos octales que ATS asigna o que corresponde a una situación especial. El código concreto de un vuelo sale de la autorización real, no de esta lección." },
+          { k: "Modo C", v: "Transmite altitud de presión. Un valor que no concuerde con el nivel comunicado debe investigarse; no se corrige inventando un nivel para que coincida con la pantalla del controlador." },
+          { k: "Modo S", v: "Permite interrogación selectiva y transmite, entre otros datos, la identificación de la aeronave. Debe concordar con la identificación del plan de vuelo según las reglas aplicables." },
+          { k: "IDENT", v: "Función que destaca temporalmente la respuesta de la aeronave para que ATS la identifique. No es un código ni reemplaza una colación verbal." },
         ],
       },
-      {
-        kind: "list",
-        items: [
-          "**El código SSR se colaciona siempre.** Está en la lista de elementos que se colacionan (Doc 4444 4.5.7.5.1 c; Doc 9432 2.8.3.5 c).",
-          "**Los dígitos se dicen uno por uno**: 2400 se transmite «dos cuatro cero cero» (Doc 9432 2.4).",
-          "**IDENT** es un botón: no se dice «ident» por radio en lugar de oprimirlo. Si el ATC pide IDENT, se oprime y se acusa recibo.",
-        ],
-      },
-      { kind: "p", text: "**Tres códigos especiales:**" },
-      {
-        kind: "table",
-        head: ["Código", "Significado", "Fuente"],
-        rows: [
-          ["7700", "Emergencia", "VERIFICAR"],
-          ["7600", "Falla de radiocomunicaciones", "Doc 9432 6.6, nota (cargado)"],
-          ["7500", "Interferencia ilícita (apoderamiento)", "VERIFICAR"],
-        ],
-      },
-      { kind: "p", text: "**Precauciones con los códigos especiales:**" },
-      {
-        kind: "list",
-        items: [
-          "En una emergencia se selecciona 7700 salvo que el ATC ya le haya asignado otro código y esté en contacto con usted: en ese caso, lo normal es conservar el código asignado. VERIFICAR.",
-          "Al cambiar de código en un panel de perillas, evite pasar por 7500, 7600 o 7700 aunque sea un instante. VERIFICAR.",
-          "El 7500 activa procedimientos de seguridad en tierra. No se usa «para probar» ni se comenta en frecuencia. Qué hace la tripulación en ese caso lo fijan el Anexo 2, el Doc 4444 cap. 15 y los procedimientos de seguridad del explotador; no es tema de este capítulo.",
-        ],
-      },
-      {
-        kind: "hueco",
-        rotulo: "CM-31-01 · Esquema · 16:9 · 1600×900 px",
-        descripcion: "Imagen sugerida: Panel de transpondedor genérico (sin marca) con el código 4321 en pantalla, selector STBY / ALT / ON y botón IDENT resaltado. A la derecha, la pantalla del controlador con la etiqueta de la aeronave: distintivo AVIATORY 452, nivel de vuelo del Modo C y la marca de IDENT parpadeando. Debajo, tres fichas de color neutro con 7700 / 7600 / 7500 y su significado en una línea. Objetivo: Que el piloto relacione cada control del panel con lo que ve el controlador y reconozca los tres códigos especiales de un vistazo.",
-        alto: 280,
-      },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología y reglas que no están en las fuentes cargadas. La forma inglesa de SQUAWK STANDBY, SQUAWK CHARLIE, STOP SQUAWK CHARLIE WRONG INDICATION, SQUAWK MAYDAY, RESET MODE S IDENTIFICATION y CONFIRM (level): **Doc 4444 cap. 12** (fraseología SSR/ADS-B) y la versión inglesa del **Doc 9432 6.5.1**. 7700 = emergencia y 7500 = interferencia ilícita: **Anexo 10 Vol. IV** y **Doc 4444 cap. 15 / Doc 8168 Vol. I**. Conservar el código asignado en emergencia y no pasar por los códigos especiales al cambiar de código: **Doc 8168 Vol. I** (y Doc 4444 cap. 15).",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · Asignación de código",
-        [`ATC:   "AVIATORY 452, SQUAWK 4321."`, `PILOT: "4321, AVIATORY 452."`],
-        "Significado: seleccione el código 4321. Se colaciona el código (es elemento de colación obligatoria).",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Confirmar el código",
-        [`ATC:   "AVIATORY 452, CONFIRM SQUAWK."`, `PILOT: "AVIATORY 452, SQUAWKING 4321."`],
-        "Significado: el ATC pide confirmar el código seleccionado; usted dice el que tiene en el panel, no el que cree que le dieron.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · Volver a seleccionar el código",
-        [`ATC:   "AVIATORY 452, RESET SQUAWK 4321."`, `PILOT: "RESETTING 4321, AVIATORY 452."`],
-        "Significado: vuelva a seleccionar el código asignado (el ATC no lo está recibiendo bien).",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · IDENT",
-        [`ATC:   "AVIATORY 452, SQUAWK IDENT."`, `PILOT: "AVIATORY 452." (y oprime IDENT)`],
-        "Significado: active el dispositivo de identificación. Es la instrucción que el Doc 9432 muestra para confirmar que una aeronave recibe aunque no transmita (6.6).",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · El nivel del Modo C no coincide",
-        [
-          `ATC:   "AVIATORY 452, CHECK ALTIMETER SETTING AND CONFIRM LEVEL."`,
-          `PILOT: "AVIATORY 452, ALTIMETER 1013, FLIGHT LEVEL 80."`,
-        ],
-        "Significado: el nivel del Modo C no coincide con lo esperado: revise el reglaje y diga su nivel actual.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · Transpondedor fuera de servicio",
-        [
-          `ATC:   "AVIATORY 452, CONFIRM TRANSPONDER OPERATING."`,
-          `PILOT: "AVIATORY 452, NEGATIVE, TRANSPONDER UNSERVICEABLE."`,
-        ],
-        "Significado: el ATC no ve su respuesta. Si el equipo falló, se dice sin rodeos: afecta su servicio de vigilancia y el acceso a ciertos espacios aéreos.",
-      ),
-      ...ejemplo(
-        "Ejemplo 7 · Capacidad del transpondedor",
-        [
-          `ATC:   "AVIATORY 452, ADVISE TYPE OF TRANSPONDER CAPABILITY."`,
-          `PILOT: "AVIATORY 452, TRANSPONDER CHARLIE."`,
-        ],
-        "Significado: el ATC pregunta qué capacidad tiene su transpondedor.",
-      ),
       {
         kind: "p",
-        text: "**Instrucciones de la lista del Doc 9432 6.5.1 cuya forma inglesa no está en el texto cargado (solo la española):**",
+        text: "La vigilancia secundaria no convierte automáticamente al controlador en responsable de verificar cada ajuste de cabina. La tripulación mantiene su comprobación independiente del código, modo y estado conforme al equipo y al procedimiento normalizado de operación (SOP, Standard Operating Procedures) del explotador.",
       },
       {
-        kind: "table",
-        head: ["Inglés (VERIFICAR)", "Español cargado (Doc 9432 6.5.1)", "Qué hace el piloto"],
-        rows: [
-          ["SQUAWK STANDBY", "TRANSPONDEDOR A ESPERA", "Selecciona STBY"],
-          ["SQUAWK CHARLIE", "TRANSPONDEDOR CHARLIE", "Activa el reporte de altitud"],
-          [
-            "STOP SQUAWK CHARLIE WRONG INDICATION",
-            "INTERRUMPA TRANSPONDEDOR CHARLIE INDICACIÓN ERRÓNEA",
-            "Apaga el reporte de altitud defectuoso",
-          ],
-          ["SQUAWK MAYDAY", "TRANSPONDEDOR MAYDAY", "Selecciona el código de emergencia"],
-          ["RESET MODE S IDENTIFICATION", "REACTIVE IDENTIFICACIÓN CON MODO S", "Vuelve a cargar la identificación Modo S"],
-          ["CONFIRM (level)", "VERIFIQUE NIVEL", "Confirma su nivel (el ATC comprueba el Modo C)"],
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-31-02.webp",
+        alt: "Historieta de tres paneles: tripulación coteja el ajuste, controlador solicita identificación y piloto actúa sobre el transpondedor.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no transcripción: 1) ambos pilotos cotejan la instrucción y el ajuste; 2) el controlador observa una traza y solicita IDENT; 3) la tripulación opera IDENT tras la solicitud. Los paneles no muestran datos de vigilancia reales ni una frecuencia.",
+      },
+      { kind: "sub", text: "Secuencia de una asignación normal" },
+      {
+        kind: "list",
+        ordered: true,
+        items: [
+          "**Recibir y colacionar:** cuando ATS asigna un código, el piloto que monitorea (PM, pilot monitoring) lo lee dígito por dígito con su distintivo. La fraseología SQUAWK (code) está en la tabla oficial de EASA; el número entre paréntesis es un campo variable, no un código de ejemplo.",
+          "**Seleccionar y comprobar:** el piloto designado introduce el código recibido y el otro verifica visualmente el ajuste y el estado de transmisión según el SOP. Un readback perfecto no detecta por sí solo una cifra mal seleccionada.",
+          "**Confirmar una duda:** si ATS pide CONFIRM SQUAWK (code), se comprueba lo que realmente indica el equipo y se responde SQUAWKING (code). Si lo seleccionado no coincide con lo asignado, se corrige y se informa; no se confirma de memoria.",
+          "**Reajustar cuando proceda:** RESET SQUAWK [(mode)] (code) pide volver a seleccionar modo y código. La tripulación comprueba la configuración y sigue cualquier instrucción adicional; si el equipo no responde, comunica la falla de forma explícita.",
+          "**IDENT solo a solicitud:** SQUAWK [(code)] [AND] IDENT solicita operar la función de identificación. Se acciona el control una vez solicitado por ATS; decir la palabra por radio sin activarlo no produce la señal de identificación.",
         ],
       },
-      { kind: "sub", text: "Aplicación en aerolínea" },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Plantillas oficiales, no una conversación grabada",
+        text: "SQUAWK (code), CONFIRM SQUAWK (code), SQUAWKING (code), RESET SQUAWK [(mode)] (code), SQUAWK [(code)] [AND] IDENT y SQUAWK CHARLIE proceden de la tabla de fraseología de EASA AMC1 SERA.14001, sección 2.3. Se muestran como plantillas para aprender la estructura; no representan una transmisión de un vuelo ni asignan un código utilizable.",
+      },
+      { kind: "sub", text: "Cuando la indicación no concuerda" },
+      {
+        kind: "list",
+        items: [
+          "**Altitud:** CHECK ALTIMETER SETTING AND CONFIRM (level) exige revisar el reglaje y confirmar el nivel real. Si la indicación transmitida sigue siendo errónea, se informa la discrepancia y se cumplen las instrucciones; STOP SQUAWK CHARLIE WRONG INDICATION es una instrucción distinta que detiene la transmisión de altitud defectuosa.",
+          "**Identificación Modo S:** si ATS detecta una identidad diferente, la tabla oficial contempla RE-ENTER [ADS-B or MODE S] AIRCRAFT IDENTIFICATION. Antes de cambiarla se coteja con el plan de vuelo y el procedimiento del equipo; no se reemplaza el distintivo por uno supuesto.",
+          "**Equipo inoperativo:** se informa sin rodeos si el transpondedor deja de funcionar. La continuidad del vuelo y el acceso al espacio aéreo dependen de los requisitos y autorizaciones aplicables; no se presume que basta con una llamada de radio.",
+        ],
+      },
+      { kind: "sub", text: "Códigos reservados y decisión" },
+      {
+        kind: "table",
+        head: ["Código", "Situación reconocida", "Lectura operacional"],
+        rows: [
+          ["7700", "Emergencia", "Se usa de acuerdo con la situación y el procedimiento aplicable. Si ATS ya asignó un código, la regla OACI citada permite mantenerlo salvo otra instrucción; 7700 puede elegirse si hay motivo específico para considerarlo mejor."],
+          ["7600", "Falla de radiocomunicaciones", "Señaliza la falla; luego rigen los procedimientos de comunicaciones perdidas para el vuelo y espacio aéreo concretos, no una ruta dibujada aquí."],
+          ["7500", "Interferencia ilícita", "Tiene implicaciones de seguridad. No se selecciona para ensayos ni se da por hecho que la tripulación pueda explicar la situación por radio."],
+        ],
+      },
+      {
+        kind: "p",
+        text: "La OACI reserva estos tres códigos en el Anexo 10, Volumen IV. La fuente oficial de la OACI que reproduce el Doc 8168 aclara que en emergencia se conserva el código previamente especificado por ATS salvo nueva instrucción, aunque el piloto puede seleccionar 7700 si cree que es la mejor medida. La falla de comunicaciones y la interferencia ilícita requieren sus propios procedimientos; no son variaciones de una simple asignación de código.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Código colacionado, indicación distinta",
+        situacion: "Caso didáctico sin aeródromo, ruta, distintivo, frecuencia ni código discreto inventados. Durante preparación de salida, ATS asigna un código. PM lo colaciona correctamente; al verificar el panel, el piloto que vuela (PF, pilot flying) detecta una cifra distinta. Después de corregirla, ATS pregunta por la indicación de altitud recibida.",
+        preguntas: [
+          {
+            q: "¿Qué hace la tripulación antes de continuar?",
+            a: "Detiene la aceptación tácita de la configuración, coteja la autorización y el código real, corrige el ajuste y vuelve a verificarlo en el equipo. Si la discrepancia generó una respuesta incorrecta, la aclara con ATS. El readback inicial no prueba que el panel estuviera bien."
+          },
+          {
+            q: "¿Cómo responde a la pregunta sobre altitud?",
+            a: "Revisa reglaje y nivel efectivo, confirma el nivel que vuela y comunica cualquier discrepancia de transmisión. No altera una altitud autorizada ni desactiva por iniciativa propia una función sin identificar el problema y cumplir la instrucción aplicable."
+          },
+        ],
+        concepto: "La vigilancia fiable exige colación, ajuste, comprobación y comunicación de fallas; son controles distintos.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Del despacho a la transferencia",
-        texto: "El código llega casi siempre en la autorización de ruta («… SQUAWK 5501», Doc 9432 2.8.3.5) y se coloca antes del rodaje. En la transferencia a otra dependencia el ATC puede asignar un código nuevo: se colaciona y se cambia en el momento. En cabina, quien selecciona el código lo dice en voz alta y el otro piloto lo verifica en el panel; el reparto de tareas lo fija el SOP del explotador. Si el Modo S identifica la aeronave con un distintivo distinto al del plan de vuelo, el ATC lo ve y puede pedirle reactivar la identificación.",
+        momento: "De la autorización a la transferencia",
+        texto: "PM registra y colaciona el código asignado; la tripulación lo ajusta y lo coteja con el equipo antes de continuar, según el SOP. Una transferencia puede traer un código nuevo, por lo que se vuelve a hacer el ciclo completo. Si ATS solicita IDENT o verifica un nivel discrepante, la tripulación actúa solo tras entender la instrucción y describe el estado real del avión y del transpondedor. El modo y momento de activación en tierra dependen del procedimiento local y del equipo: no se enseña aquí una regla universal de pushback.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Colacionar un código y seleccionar otro",
-        "Colacionar un código y seleccionar otro (por ejemplo 4321 colacionado y 4231 en el panel). El readback correcto no sirve si nadie verifica el panel.",
-      ),
-      error("Decir «ident» en vez de oprimirlo", "Decir «ident» por radio sin oprimir el botón."),
-      error("Pasar por un código especial", "Pasar por 7700 o 7500 al girar perillas."),
-      error(
-        "Transpondedor en STBY después del pushback",
-        "Dejar el transpondedor en STBY después del pushback: el ATC y el ACAS de otros aviones pierden la altitud de presión.",
-      ),
-      error(
-        "Contestar lo que le dieron, no lo que tiene",
-        "Contestar «CONFIRM SQUAWK» con el código que le dieron en lugar del que tiene seleccionado.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Colacionar bien y seleccionar mal", text: "El código dicho por radio y el mostrado en el equipo deben cotejarse por separado; el error de selección puede sobrevivir a un readback correcto." },
+      { kind: "callout", tone: "warn", title: "Activar IDENT sin solicitud", text: "IDENT no se pulsa por rutina, al cambiar de frecuencia ni para probar el equipo: se opera cuando ATS lo solicita." },
+      { kind: "callout", tone: "warn", title: "Tratar 7500, 7600 o 7700 como códigos ordinarios", text: "Sus significados son reservados. Un ajuste accidental puede desencadenar una respuesta operacional o de seguridad no deseada." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "El código SSR siempre se colaciona, dígito por dígito.",
-          "IDENT se oprime; no se dice.",
-          "7700 emergencia, 7600 falla de comunicaciones, 7500 interferencia ilícita.",
-          "Si ya tiene código asignado y contacto con el ATC, en emergencia normalmente lo conserva (VERIFICAR).",
-          "Quien colaciona y quien verifica el panel pueden ser personas distintas: las dos cosas se hacen.",
+          "La respuesta del transpondedor y el readback verbal se verifican por separado.",
+          "Modo A es código; Modo C añade altitud de presión; Modo S puede transmitir identificación.",
+          "IDENT solo se opera cuando ATS lo solicita.",
+          "Una discrepancia de altitud o identidad se comprueba y comunica, no se maquilla.",
+          "7700, 7600 y 7500 tienen fines reservados diferentes.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1, definiciones «Radar secundario de vigilancia (SSR)» y «Modo (SSR)»; 4.5.7.5.1 c). Doc 9432 (4.ª ed.) 2.4 (códigos del transpondedor), 2.8.3.5 c), 6.5.1 (lista de instrucciones SSR, en español), 6.5.2 (ejemplos SQUAWK, CONFIRM SQUAWK, SQUAWKING, RESET SQUAWK, CHECK ALTIMETER SETTING AND CONFIRM LEVEL, CONFIRM TRANSPONDER OPERATING, TRANSPONDER UNSERVICEABLE, ADVISE TYPE OF TRANSPONDER CAPABILITY), 6.6 (SQUAWK IDENT; nota: código 7600).",
-        [
-          "VERIFICAR: forma inglesa de SQUAWK STANDBY, SQUAWK CHARLIE, STOP SQUAWK CHARLIE WRONG INDICATION, SQUAWK MAYDAY, RESET MODE S IDENTIFICATION y CONFIRM (level) contra Doc 4444 cap. 12 (fraseología SSR/ADS-B) y la versión inglesa del Doc 9432 6.5.1 (no cargados).",
-          "VERIFICAR: 7700 = emergencia y 7500 = interferencia ilícita contra Anexo 10 Vol. IV y Doc 4444 cap. 15 / Doc 8168 Vol. I (no cargados).",
-          "VERIFICAR: regla de conservar el código asignado en emergencia cuando hay contacto con el ATC, contra Doc 8168 Vol. I (procedimientos de utilización del transpondedor) y Doc 4444 cap. 15 (no cargados).",
-          "VERIFICAR: precaución de no pasar por códigos especiales al cambiar de código, contra Doc 8168 Vol. I (no cargado).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA SERA · OACI Anexo 10 Vol. IV · OACI Doc 8168",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, AMC1 SERA.14001 sección 2.3 (fraseología SSR, IDENT, altitud e identificación): https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299" },
+          { kind: "p", text: "OACI, Anexo 10, Vol. IV, 2.1.4.2: reserva 7700, 7600 y 7500: https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/Annex10_Volume%204_cons.pdf" },
+          { kind: "p", text: "OACI, extracto del Doc 8168 Vol. I en el anexo de Anexo 17: operación del transpondedor en emergencia y 7500: https://www.icao.int/casp-ap/Test%20Document/an17_cons.pdf" },
+          { kind: "p", text: "Los ejemplos y la historieta son didácticos, no transcripciones. La tabla EASA es una referencia de fraseología, no reemplaza las instrucciones de la autoridad o explotador aplicables al vuelo. No se indican códigos discretos, aeródromos, frecuencias, rutas ni requisitos locales colombianos; para estos últimos se consulta únicamente la eAIP vigente de Aerocivil." },
         ],
-      ),
+      },
     ],
   },
   // ── 32 ──────────────────────────────────────────────────────────────────
