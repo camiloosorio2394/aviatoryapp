@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Ruta, vector y navegación propia</title>
+<desc id="desc">Tres estados conceptuales: ruta autorizada, rumbo vectorizado por control y retorno a navegación propia mediante una instrucción que identifique el punto o tramo.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0c1b2c"/><stop offset="1" stop-color="#173c49"/></linearGradient><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#95efd0"/></marker><style>text{font-family:Arial,Helvetica,sans-serif;fill:#f4faf8}.title{font-size:49px;font-weight:700}.sub{font-size:26px;fill:#b9d6d4}.head{font-size:30px;font-weight:700}.mint{fill:#9aefcc}.body{font-size:25px}.rule{stroke:#95efd0;stroke-width:5;fill:none;marker-end:url(#a)}.dash{stroke:#7ea6af;stroke-width:3;stroke-dasharray:11 10}</style></defs>
+<rect width="1600" height="900" rx="30" fill="url(#bg)"/>
+<text x="76" y="89" class="title">Quién guía la trayectoria lateral</text>
+<text x="76" y="134" class="sub">Cada cambio necesita una instrucción clara y una comprobación en cabina.</text>
+<rect x="76" y="195" width="450" height="554" rx="24" fill="#203b4b" stroke="#4b7981" stroke-width="2"/>
+<rect x="576" y="195" width="450" height="554" rx="24" fill="#1f4751" stroke="#67ac9a" stroke-width="2"/>
+<rect x="1076" y="195" width="450" height="554" rx="24" fill="#203b4b" stroke="#4b7981" stroke-width="2"/>
+<text x="111" y="252" class="head mint">1 · Ruta autorizada</text>
+<text x="611" y="252" class="head mint">2 · Vector ATC</text>
+<text x="1111" y="252" class="head mint">3 · Navegación propia</text>
+<path d="M175 555 275 458 380 358" class="rule"/>
+<circle cx="175" cy="555" r="10" fill="#fff"/><circle cx="380" cy="358" r="10" fill="#fff"/>
+<text x="111" y="637" class="body">Seguimiento de la ruta</text><text x="111" y="674" class="body">efectivamente autorizada</text>
+<path d="M625 548 977 374" class="rule"/>
+<path d="M708 602 791 495" class="dash"/>
+<text x="611" y="637" class="body">Volar el rumbo instruido;</text><text x="611" y="674" class="body">no activar ruta propia</text>
+<path d="M1140 548 1344 443" class="rule"/>
+<circle cx="1344" cy="443" r="13" fill="#fff"/>
+<path d="M1344 443 1460 348" class="dash"/>
+<text x="1111" y="637" class="body">Ir al punto o tramo que</text><text x="1111" y="674" class="body">ATC haya identificado</text>
+<text x="76" y="820" class="sub">Esquema didáctico · no es carta ni trayectoria a escala · nivel y velocidad siguen requiriendo verificación</text>
+</svg>
