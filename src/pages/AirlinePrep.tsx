@@ -536,7 +536,7 @@ export function AirlinePrep() {
           titulo: CB_TITULO,
           meta: `${CB_LECTURA_TOTAL} capítulos · 10 escenarios`,
           descripcion: "Block fuel, reserva final, fuel check, combustible mínimo y MAYDAY: decidir antes de que falte.",
-          fotoHueco: "CB-TEMA · 3:2 · 1200×800 · Página de combustible del FMS con la predicción al destino y al alterno",
+          foto: "/modulos/combustible/tema-combustible.webp",
           cta: ctaDeTema(combustible.overall),
           avance: combustible.overall,
           completo: combustible.overall >= 100,

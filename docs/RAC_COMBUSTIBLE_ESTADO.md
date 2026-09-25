@@ -136,8 +136,9 @@ comprueba las dos cosas.
 ## Pendiente
 
 - [x] **Fase 1, RAC:** foto del tema, hero y tres tarjetas del hub en WebP.
-- [ ] **Imágenes.** Las tarjetas y el hub muestran sus huecos rotulados:
-      `CB-TEMA`, `CB-HUB-01..03`. Las lecciones
+- [x] **Fase 2, Combustible:** foto del tema, hero y tres tarjetas del hub en WebP.
+- [ ] **Imágenes.** El tema y el hub de RAC y de Combustible ya tienen sus cinco
+      fotos cada uno. Las lecciones
       no tienen portada (`portadaAuto: false`); cuando existan, van a
       `public/modulos/rac/leccion-NN.webp` y
       `public/modulos/combustible/leccion-NN.webp` y se quita ese `false`.

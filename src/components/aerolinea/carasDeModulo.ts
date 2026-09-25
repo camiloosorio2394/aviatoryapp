@@ -115,7 +115,7 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
   combustible: {
     icon: Fuel,
     color: "var(--av-cb-700)",
-    fotoHueco: "CB-TEMA · Portada de tema · 3:2 · 1200×800 · Página de combustible del FMS con la predicción al destino y al alterno",
+    foto: "/modulos/combustible/tema-combustible.webp",
     descripcion: "Block fuel, reserva final, fuel check, combustible mínimo y MAYDAY: decidir antes de que falte.",
   },
   rvsm: {
