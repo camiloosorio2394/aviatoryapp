@@ -11,6 +11,7 @@ import {
   Gauge,
   Headset,
   MoveVertical,
+  Route as RouteIcon,
   Play,
   Scale,
   Wind,
@@ -103,6 +104,8 @@ import {
   resumirRvsm,
 } from "@/lib/rvsm"
 import { fetchRvsmProgress, readRvsmLocal } from "@/lib/rvsmProgress"
+import { PBN_HUB, PBN_LECTURA_TOTAL, PBN_PRACTICA_TOTAL, PBN_TITULO, resumirPbn } from "@/lib/pbn"
+import { fetchPbnProgress, readPbnLocal } from "@/lib/pbnProgress"
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.webp"
@@ -201,6 +204,7 @@ export function AirlinePrep() {
   const [racProgreso, setRacProgreso] = useState(() => readRacLocal())
   const [combustibleProgreso, setCombustibleProgreso] = useState(() => readCombustibleLocal())
   const [rvsmProgreso, setRvsmProgreso] = useState(() => readRvsmLocal())
+  const [pbnProgreso, setPbnProgreso] = useState(() => readPbnLocal())
   const [mejorPsico, setMejorPsico] = useState<number | null>(
     () => leerPsicoLocal().mejorSimulacro
   )
@@ -221,7 +225,7 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, pfRes, racRes, cbRes, rvRes, psicoRes] =
+      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, pfRes, racRes, cbRes, rvRes, pbRes, psicoRes] =
         await Promise.all([
           fetchNotamProgress(user.id),
           fetchMetarProgress(user.id),
@@ -235,6 +239,7 @@ export function AirlinePrep() {
           fetchRacProgress(user.id),
           fetchCombustibleProgress(user.id),
           fetchRvsmProgress(user.id),
+          fetchPbnProgress(user.id),
           mejorSimulacroRemoto(user.id),
         ])
       if (cancelled) return
@@ -272,6 +277,7 @@ export function AirlinePrep() {
       if (racRes) setRacProgreso(racRes)
       if (cbRes) setCombustibleProgreso(cbRes)
       if (rvRes) setRvsmProgreso(rvRes)
+      if (pbRes) setPbnProgreso(pbRes)
 
       // La última vez que tocó CUALQUIER tema: la más reciente de las cuatro
       // filas de progreso. Se compara en ISO, que ordena igual que la fecha.
@@ -317,6 +323,7 @@ export function AirlinePrep() {
   const rac = useMemo(() => resumirRac(racProgreso), [racProgreso])
   const combustible = useMemo(() => resumirCombustible(combustibleProgreso), [combustibleProgreso])
   const rvsm = useMemo(() => resumirRvsm(rvsmProgreso), [rvsmProgreso])
+  const pbn = useMemo(() => resumirPbn(pbnProgreso), [pbnProgreso])
 
   // Los estados van en cifras cortas («9/9 secciones») porque la tarjeta de
   // cuatro columnas les da un renglón. Los que decían «13 secciones cortas» o
@@ -566,6 +573,31 @@ export function AirlinePrep() {
               : `${rvsm.lessonRead}/${RVSM_LECTURA_TOTAL} capítulos · ${rvsm.practiceDone}/${RVSM_PRACTICA_TOTAL} preguntas`,
         },
       },
+      // PBN: cincuenta y dos capítulos. El módulo más largo del bloque
+      // avanzado, y el que más se pregunta en entrevista técnica.
+      {
+        nombre: PBN_TITULO,
+        to: PBN_HUB,
+        pct: pbn.overall,
+        card: {
+          to: PBN_HUB,
+          icon: RouteIcon,
+          color: "var(--av-pbn-700)",
+          titulo: PBN_TITULO,
+          meta: `${PBN_LECTURA_TOTAL} capítulos · 12 escenarios`,
+          descripcion: "RNAV y RNP, el número, la carta, el FMS y qué decir cuando se pierde la capacidad.",
+          fotoHueco:
+            "PBN-TEMA · 3:2 · 1200×800 · Carta de llegada con la trayectoria definida por waypoints y la especificación rotulada sobre un segmento",
+          cta: ctaDeTema(pbn.overall),
+          avance: pbn.overall,
+          completo: pbn.overall >= 100,
+          estado: pbn.empty
+            ? "Sin empezar"
+            : pbn.overall >= 100
+              ? "Tema completo"
+              : `${pbn.lessonRead}/${PBN_LECTURA_TOTAL} capítulos · ${pbn.practiceDone}/${PBN_PRACTICA_TOTAL} preguntas`,
+        },
+      },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace
       // de avance es el mejor resultado del simulacro, que es lo único que
       // mide de verdad si ya estás listo para el proceso.
@@ -657,6 +689,7 @@ export function AirlinePrep() {
     rac,
     combustible,
     rvsm,
+    pbn,
     mejorSimulacro,
     mejorPsico,
   ])

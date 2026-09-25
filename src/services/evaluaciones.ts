@@ -24,6 +24,7 @@ export type ClaveEvaluacion =
   | "rac_evaluacion"
   | "combustible_evaluacion"
   | "rvsm_evaluacion"
+  | "pbn_evaluacion"
   | "simulacro_aerolinea"
 
 export type Retroalimentacion = "inmediata" | "al_final"

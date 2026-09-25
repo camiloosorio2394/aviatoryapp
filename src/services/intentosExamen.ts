@@ -24,6 +24,7 @@ export type TablaDeIntentos =
   | "user_rac_exam_attempts"
   | "user_combustible_exam_attempts"
   | "user_rvsm_exam_attempts"
+  | "user_pbn_exam_attempts"
 
 /** Cuántos intentos trae la lista del historial. */
 export const INTENTOS_EN_LA_LISTA = 10
@@ -208,5 +209,18 @@ export function traerHistorialRvsm(
     "taken_at",
     userId,
     "rvsm: historial de evaluación",
+  )
+}
+
+/** Y PBN. */
+export function traerHistorialPbn(
+  userId: string,
+): Promise<Historial<FilaIntentoMercancias> | null> {
+  return traerHistorial<FilaIntentoMercancias>(
+    "user_pbn_exam_attempts",
+    "id,score,correct,total,taken_at",
+    "taken_at",
+    userId,
+    "pbn: historial de evaluación",
   )
 }
