@@ -501,8 +501,7 @@ export function AirlinePrep() {
               : `${comunicaciones.lessonRead}/${CM_LECTURA_TOTAL} lecciones · ${comunicaciones.practiceDone}/${CM_PRACTICA_CONTEO} ejercicios`,
         },
       },
-      // RAC: una unidad por reglamento, práctica de opción múltiple y
-      // evaluación. Sin portada todavía: la tarjeta lleva su hueco rotulado.
+      // RAC: una unidad por reglamento, práctica de opción múltiple y evaluación.
       {
         nombre: RAC_TITULO,
         to: RAC_HUB,
@@ -514,7 +513,7 @@ export function AirlinePrep() {
           titulo: RAC_TITULO,
           meta: `${RAC_LECTURA_TOTAL} unidades · 5 bloques`,
           descripcion: "Licencias, médico, reglas de vuelo, aerolínea y sanciones: lo que te toca de cada RAC.",
-          fotoHueco: "RAC-TEMA · 3:2 · 1200×800 · Licencia de piloto y certificado médico sobre el manual de operaciones, en cabina",
+          foto: "/modulos/rac/tema-rac.webp",
           cta: ctaDeTema(rac.overall),
           avance: rac.overall,
           completo: rac.overall >= 100,

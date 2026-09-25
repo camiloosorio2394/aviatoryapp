@@ -27,9 +27,7 @@ import { fetchRacProgress, pushPendingRac, readRacLocal } from "@/lib/racProgres
  * Ruta: /app/aerolinea/rac
  *
  * La misma casa que los demás hubs: hero con velo navy, el panel de avance con
- * sus tres filas y las puertas numeradas. Lo propio es el acento grafito y que
- * todavía no hay fotos: el hero va sobre el navy liso y las tarjetas muestran
- * su hueco rotulado, que es lo que pinta `CourseCard` sin portada.
+ * sus tres filas y las puertas numeradas. Lo propio es el acento grafito.
  */
 
 const ACENTO = "var(--av-rac-700)"
@@ -80,6 +78,7 @@ export function Rac() {
       blurb:
         "Una unidad por reglamento: qué regula, qué te toca como piloto, los datos que se preguntan y el numeral de cada uno.",
       cta: "Iniciar formación",
+      photo: "/modulos/rac/hub-aprende.webp",
       photoHueco: "RAC-HUB-01 · Portada · 5:2 · 1200×480 · Manual de operaciones y RAC impresos sobre el pedestal de una cabina",
       status:
         resumen.lessonRead === 0
@@ -101,6 +100,7 @@ export function Rac() {
       blurb:
         "Preguntas de situación sobre cada unidad, con la explicación y el numeral de la respuesta al instante.",
       cta: "Practicar",
+      photo: "/modulos/rac/hub-practica.webp",
       photoHueco: "RAC-HUB-02 · Portada · 5:2 · 1200×480 · Piloto estudiando con la tableta en el briefing, antes del vuelo",
       status:
         resumen.practiceDone === 0
@@ -120,6 +120,7 @@ export function Rac() {
       blurb:
         "Cincuenta preguntas sobre las diecinueve unidades; cada intento toma veinte al azar. El resultado dice qué reglamentos repasar.",
       cta: "Presentar la evaluación",
+      photo: "/modulos/rac/hub-evaluacion.webp",
       photoHueco: "RAC-HUB-03 · Portada · 5:2 · 1200×480 · Licencia y certificado médico sobre la mesa de un examen",
       status: resumen.best === null ? "Sin intentos" : `Mejor: ${resumen.best} / 100`,
       progress: resumen.examPct,
@@ -136,8 +137,13 @@ export function Rac() {
         <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
       </Link>
 
-      {/* Sin foto todavía: el navy liso es la base del hero de todos los módulos. */}
       <section className="relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+        <img
+          src="/modulos/rac/hub-hero.webp"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover object-[67%_center] lg:object-center"
+        />
         <div
           className="pointer-events-none absolute inset-0"
           style={{

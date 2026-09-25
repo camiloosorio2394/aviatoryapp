@@ -109,7 +109,7 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
   rac: {
     icon: Scale,
     color: "var(--av-rac-700)",
-    fotoHueco: "RAC-TEMA · Portada de tema · 3:2 · 1200×800 · Licencia de piloto y certificado médico sobre el manual de operaciones, en cabina",
+    foto: "/modulos/rac/tema-rac.webp",
     descripcion: "Licencias, médico, reglas de vuelo, aerolínea y sanciones: lo que dice cada RAC y lo que te toca a ti.",
   },
   combustible: {
