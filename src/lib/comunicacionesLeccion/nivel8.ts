@@ -561,147 +561,131 @@ export const NIVEL_8: DocScreen[] = [
   // ── 64 ──────────────────────────────────────────────────────────────────
   {
     n: 64,
-    title: "Plain English: práctica",
-    kicker: "Escenarios sin frase estándar suficiente",
-    minutes: 9,
+    title: "Plain English: práctica no normal",
+    kicker: "Lo inesperado se describe con hechos, capacidad e intención",
+    minutes: 22,
     blocks: [
       {
         kind: "p",
-        text: "Diez situaciones en las que la fraseología normalizada no alcanza. El Doc 9432 (3.2.2) dice que la fraseología no pretende cubrir todas las situaciones, y el Doc 9835 (4.3.4) pide que el lenguaje claro se use «con claridad y concisión y evitando toda ambigüedad, como si se tratara de la fraseología normalizada». No es permiso para charlar (Doc 9432, 3.2.4): incluso en lenguaje común hay que hablar con fluidez, claridad y concisión (Doc 9835, 3.3.20).",
+        text: "La fraseología normalizada no cubre cada falla, enfermedad o condición meteorológica. El Manual de requisitos de competencia lingüística de la Organización de Aviación Civil Internacional (OACI; International Civil Aviation Organization, ICAO), Doc 9835, exige que el lenguaje común sea inteligible, directo, pertinente y no ambiguo. Eso no elimina las palabras normalizadas para niveles, autorizaciones, MAYDAY o PAN PAN cuando corresponden. En una situación no normal, el piloto no debe adornar el mensaje: debe convertir **hechos confirmados, capacidad real, ayuda requerida e intención actual** en información que ATC pueda usar.",
       },
       {
-        kind: "secuencia",
-        titulo: "La plantilla que funciona en casi todos los casos (vista en el capítulo 52)",
-        numerada: true,
-        items: [
-          "**Qué pasa** (el problema, en una frase).",
-          "**Qué puedes y qué no puedes hacer.**",
-          "**Qué necesitas** (pista, nivel, rumbo, tiempo, servicios en tierra).",
-          "**Qué vas a hacer** (intención).",
-        ],
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-64-01.svg",
+        alt: "Cuatro bloques de un mensaje no normal: hecho observado, capacidad y límites, ayuda requerida e intención actual; con una flecha de actualización cuando cambia la evaluación.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Plantilla didáctica, no orden fijo de transmisión: decir el hecho observable, la capacidad que afecta al vuelo, la ayuda concreta y la intención actual. Si una lista cambia la capacidad o la decisión, actualizar el mensaje a ATC.",
       },
-      {
-        kind: "p",
-        text: "Todos los ejemplos en inglés de este capítulo son **PLAIN LANGUAGE**. Donde aparecen MAYDAY o PAN PAN, el prefijo va marcado para verificar. Si declarar socorro o urgencia lo decide el capitán con la QRH y el SOP; aquí se muestra la comunicación, no la decisión técnica.",
-      },
-      COMO_LEER,
-      verificar(
-        "Los prefijos MAYDAY y PAN PAN y el orden de los elementos del mensaje (64.1 y 64.2), la fraseología de turbulencia y de imposibilidad de mantener nivel en RVSM (64.6) y la de degradación de capacidad PBN (64.7) no están en las fuentes cargadas. Consultar Anexo 10 Vol. II cap. 5, Doc 9432 9.2 y 9.3 y Doc 4444 cap. 12 y 15.",
-      ),
       {
         kind: "callout",
         tone: "info",
-        title: "Valores didácticos",
-        text: "Los límites de velocidad, tiempos y configuraciones de los ejemplos son didácticos; los reales salen de la QRH y el AFM del avión.",
+        title: "Ejemplos, no transcripciones",
+        text: "Los mensajes siguientes están construidos para practicar inglés claro. No representan vuelos reales, no asignan rutas, pistas, frecuencias ni límites de aeronave y no sustituyen el manual de operaciones. La categoría de urgencia o socorro se decide por el efecto de la condición; no por la etiqueta del sistema.",
       },
+      { kind: "sub", text: "Diez situaciones para responder en voz alta" },
       ...caso64({
-        titulo: "64.1 Pasajero gravemente enfermo",
-        situacion: "En crucero, a 40 minutos del destino. Un pasajero inconsciente; hay un médico a bordo que pide aterrizar lo antes posible.",
-        comunicar: "Que hay una emergencia médica, cuál es la gravedad, que quieres prioridad y servicios médicos al llegar.",
-        turnos: [
-          `PILOT: "PAN PAN, PAN PAN, PAN PAN, Bogota Control, Aviatory 452, medical emergency. One passenger unconscious, a doctor is on board. Request priority to Bogota and ambulance on arrival."`,
+        titulo: "1. Emergencia médica a bordo",
+        situacion: "Un pasajero necesita atención urgente y la tripulación evalúa desviar. Aún no se ha decidido destino.",
+        comunicar: "La condición observada, prioridad que se solicita, intención provisional y asistencia médica al arribo.",
+        turnos: ["PILOT (ejemplo didáctico): We have a seriously ill passenger. We are assessing a diversion. Request priority and medical assistance on arrival."],
+        porQue: "No se inventa un diagnóstico ni un aeropuerto. Si la condición cumple criterios de urgencia o socorro se usa la señal correspondiente. Se actualiza la intención cuando la cabina decide el destino.",
+      }),
+      ...caso64({
+        titulo: "2. Olor a quemado sin fuente identificada",
+        situacion: "Se percibe olor a quemado; no hay confirmación de fuego. La tripulación aplica la lista y requiere tiempo.",
+        comunicar: "Hecho observado, incertidumbre sobre la fuente, limitación actual y ayuda pedida.",
+        turnos: ["PILOT (ejemplo didáctico): We have a burning smell in the cabin; the source is not identified. We need time to complete the checklist. Request vectors away from traffic."],
+        porQue: "Decir «source not identified» evita presentar una hipótesis como certeza. Si la amenaza crece, cambia la prioridad y la intención; ATC debe conocerlo.",
+      }),
+      ...caso64({
+        titulo: "3. Indicación de tren no asegurado",
+        situacion: "Un indicador no confirma una pata abajo y asegurada durante la llegada.",
+        comunicar: "Indicación exacta, necesidad de interrumpir aproximación y tiempo o apoyo necesario.",
+        turnos: ["PILOT (ejemplo didáctico): We have an unsafe landing gear indication. We need to discontinue the approach and complete the checklist. We will advise our intentions."],
+        porQue: "No afirmar que el tren está físicamente arriba: solo se conoce la indicación. Una pasada de inspección se solicita si es apropiada tras evaluar la situación.",
+      }),
+      ...caso64({
+        titulo: "4. Configuración de alas limitada",
+        situacion: "Una superficie de alta sustentación no responde como se esperaba y la tripulación aún no ha establecido las limitaciones finales.",
+        comunicar: "Efecto operacional confirmado, tiempo para lista e intención provisional.",
+        turnos: ["PILOT (ejemplo didáctico): We cannot use the planned configuration. We need to level off and complete the checklist. We will advise the speed limit when confirmed."],
+        porQue: "No inventar velocidades o altitudes antes de consultar la documentación de la aeronave. La limitación confirmada se comunica tan pronto sea útil para la separación.",
+      }),
+      ...caso64({
+        titulo: "5. Impacto con aves",
+        situacion: "Tras un golpe y una indicación anormal, la tripulación estabiliza el vuelo. Puede haber restos en pista.",
+        comunicar: "Naturaleza del evento, efecto confirmado, evaluación pendiente y posible peligro para otras aeronaves.",
+        turnos: ["PILOT (ejemplo didáctico): We had a bird strike after departure. We are assessing an engine indication. There may be debris on the runway. Request time to evaluate."],
+        porQue: "No declarar motor fallado sin evidencia. La información sobre posibles restos es pertinente para la torre, pero la cabina no debe distraerse de volar el avión.",
+      }),
+      ...caso64({
+        titulo: "6. Turbulencia y nivel",
+        situacion: "La turbulencia impide mantener el nivel con precisión. El siguiente nivel aún no está autorizado.",
+        comunicar: "Incapacidad actual, motivo y solicitud de alternativa.",
+        turnos: ["PILOT (ejemplo didáctico): Unable to maintain the assigned level due severe turbulence. Request a different level. We will advise when stable."],
+        porQue: "La información crítica es que la separación puede verse afectada. La petición no constituye por sí misma autorización para cambiar de nivel.",
+      }),
+      ...caso64({
+        titulo: "7. Capacidad de navegación degradada",
+        situacion: "El sistema ya no satisface el requisito de la aproximación prevista.",
+        comunicar: "Capacidad que se perdió, procedimiento que no puede aceptarse y alternativa solicitada.",
+        turnos: ["PILOT (ejemplo didáctico): We cannot continue the planned navigation procedure. Request an alternative approach or radar vectors."],
+        porQue: "La frase depende de la capacidad realmente perdida y de la aprobación de la aeronave. No afirmar una falla específica de RNP si el diagnóstico no está confirmado.",
+      }),
+      ...caso64({
+        titulo: "8. Posible daño en rueda",
+        situacion: "La torre observa restos tras el despegue, pero la tripulación aún no sabe si son propios.",
+        comunicar: "Sospecha diferenciada de hechos, necesidades para evaluar y servicios de apoyo.",
+        turnos: ["PILOT (ejemplo didáctico): The runway debris may be from our aircraft. We have no confirmed tyre indication yet. Request time to assess before landing."],
+        porQue: "«May be» comunica incertidumbre. No pedir un tiempo fijo ni prometer aterrizaje inmediato hasta completar la evaluación pertinente.",
+      }),
+      ...caso64({
+        titulo: "9. Falla hidráulica",
+        situacion: "Una alerta indica pérdida de un sistema, pero las consecuencias en controles o tren aún se evalúan.",
+        comunicar: "Problema confirmado, capacidad actual y tiempo o espacio requerido.",
+        turnos: ["PILOT (ejemplo didáctico): We have a hydraulic system warning. Flight controls are responding normally at present. Request time to complete the checklist."],
+        porQue: "La expresión «at present» deja claro que la capacidad puede cambiar. No transmitir detalles de ingeniería que todavía no alteran la ayuda de ATC.",
+      }),
+      ...caso64({
+        titulo: "10. Meteorología en trayectoria",
+        situacion: "Una célula convectiva bloquea el tramo autorizado y la tripulación necesita separarse.",
+        comunicar: "Ruta actual inviable, dirección preferida y solicitud concreta de desvío.",
+        turnos: ["PILOT (ejemplo didáctico): Unable to continue on the assigned track due weather. Request deviation to the right. We will advise the extent required."],
+        porQue: "Se solicita el desvío, no se anuncia como realizado. Los límites específicos provienen de la respuesta ATC y de las contingencias publicadas, no de este ejemplo.",
+      }),
+      {
+        kind: "escenario",
+        titulo: "Cambió la capacidad después de la primera llamada",
+        situacion: "La tripulación comunicó que necesitaba tiempo para una lista por una alerta de sistema. Durante la evaluación descubre que ya no puede mantener el nivel asignado. ATC aún planifica con la capacidad comunicada inicialmente.",
+        preguntas: [
+          { q: "¿Qué se transmite primero?", a: "La incapacidad actual para mantener el nivel y el motivo confirmado; después una solicitud compatible con el control del avión. No se espera a terminar todos los detalles de la lista." },
+          { q: "¿Se repite toda la historia técnica?", a: "No. Se actualiza el dato que cambió la separación y la intención. El diagnóstico completo no sustituye la necesidad operacional." },
+          { q: "¿Qué parte vuelve a fraseología normalizada?", a: "Los niveles, rumbos, autorizaciones y sus colaciones. El lenguaje claro explica el evento inesperado y la capacidad." },
         ],
-        porQue:
-          "Cuatro frases cortas. El ATC sabe qué pasa, qué quiere y qué tiene que preparar en tierra. No hay diagnóstico ni historia: si el ATC necesita más (edad, estado), lo pregunta.",
-        verificar: "Prefijo PAN PAN y orden del mensaje: Anexo 10 Vol. II cap. 5; Doc 9432 9.3 (no cargados).",
-      }),
-      ...caso64({
-        titulo: "64.2 Olor a humo en cabina",
-        situacion:
-          "FL 360. La tripulación de cabina reporta olor a quemado cerca de la cocina trasera. No hay humo visible. La lista de verificación está en curso.",
-        comunicar: "El problema, que la fuente no está identificada, que quieres descender y aterrizar pronto, y a dónde.",
-        turnos: [
-          `PILOT: "MAYDAY, MAYDAY, MAYDAY, Bogota Control, Aviatory 452, burning smell in the cabin, source unknown. Request immediate descent and diversion to Cali."`,
+        concepto: "Una primera intención es provisional: ATC necesita sus cambios oportunamente.",
+      },
+      {
+        kind: "summary",
+        title: "En pocas palabras",
+        items: [
+          "Describir lo observado, no una causa supuesta.",
+          "Decir lo que el avión puede y no puede hacer ahora.",
+          "Pedir una ayuda que ATC pueda proporcionar.",
+          "Actualizar intención y prioridad cuando la evaluación cambie.",
+          "Mantener fraseología para los elementos que sí están normalizados.",
         ],
-        porQue:
-          "«Source unknown» le dice al ATC que el problema puede crecer. «Immediate descent» y el aeropuerto concreto le permiten actuar sin preguntar. Algunos operadores tratan todo olor o humo como socorro; otros dejan la decisión al capitán: es SOP, no fraseología.",
-        verificar: "Prefijo MAYDAY y orden del mensaje: Anexo 10 Vol. II cap. 5; Doc 9432 9.2 (no cargados).",
-      }),
-      ...caso64({
-        titulo: "64.3 Indicación de tren",
-        situacion: "En aproximación, el tren izquierdo no marca abajo y asegurado.",
-        comunicar: "La indicación, que necesitas tiempo para la lista y que quieres una inspección visual desde la torre.",
-        turnos: [
-          `PILOT: "Aviatory 452, unsafe left gear indication. Request to discontinue the approach and hold for one five minutes to complete the checklist. Then request low pass runway two seven for visual inspection."`,
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "OACI Doc 9835 · FAA AIM §6-3-1 · Aerocivil/eAIP",
+        bloques: [
+          { kind: "p", text: "OACI, Doc 9835, 2.ª edición, uso de lenguaje común para eventos inesperados y cualidades de claridad, concisión y ausencia de ambigüedad: https://www4.icao.int/aelts/uploads/icao%20doc9835%202nd%20edition.pdf" },
+          { kind: "p", text: "FAA, Aeronautical Information Manual §6-3-1, comunicaciones de socorro y urgencia, naturaleza, intenciones y asistencia deseada: https://www.faa.gov/air_traffic/publications/aim_html/chap6_section_3.html" },
+          { kind: "p", text: "Para aplicación colombiana, consultar exclusivamente Aerocivil/eAIP y el manual del explotador. La fotografía, el diagrama y las diez frases son material didáctico; ninguna corresponde a una transmisión real: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
         ],
-        porQue:
-          "«Unsafe left gear indication» y «request low pass» son las palabras del ejemplo del Doc 9432 (4.7.2), así que el controlador las reconoce. Da un tiempo concreto: el ATC puede planear 15 minutos, no «a while».",
-      }),
-      ...caso64({
-        titulo: "64.4 Flaps que no retraen",
-        situacion: "Después del despegue, los flaps quedan en 5 y no retraen. Tu velocidad máxima con esa configuración es 200 kt y el consumo sube.",
-        comunicar: "Que no puedes acelerar, qué límite tienes y qué quieres hacer.",
-        turnos: [
-          `PILOT: "Aviatory 452, flaps are stuck, we cannot retract them. Maximum speed two zero zero knots. Request to level off at one two thousand feet and hold to complete the checklist. We will probably return to Bogota."`,
-        ],
-        porQue:
-          "El ATC no necesita saber de hidráulica: necesita el límite de velocidad (le cambia la secuencia) y la intención probable. «We will probably return» anticipa sin comprometerse.",
-      }),
-      ...caso64({
-        titulo: "64.5 Impacto con ave (bird strike)",
-        situacion: "En la carrera de despegue sentiste un golpe en el motor derecho. Parámetros normales.",
-        comunicar: "El impacto, el estado actual, que puede haber restos en la pista y tu intención.",
-        turnos: [
-          `PILOT: "Tower, Aviatory 452, bird strike on the right engine during take-off. Engine parameters are normal. There may be bird remains on the runway. Request to maintain five thousand feet and hold to evaluate."`,
-        ],
-        porQue:
-          "Avisa lo que afecta a otros (restos en la pista) además de lo propio. «Parameters are normal» evita que el ATC active una emergencia que no declaraste. Si cambia algo, lo dices.",
-      }),
-      ...caso64({
-        titulo: "64.6 Turbulencia severa",
-        situacion: "FL 370. Turbulencia severa, no puedes mantener el nivel dentro de la tolerancia.",
-        comunicar: "Que no puedes mantener el nivel, por qué y qué nivel pides.",
-        turnos: [`PILOT: "Aviatory 452, severe turbulence, unable to maintain flight level three seven zero. Request descent to flight level three three zero."`],
-        porQue:
-          "Empieza con el dato que cambia la separación («unable to maintain»). La solicitud es concreta. Una notificación de turbulencia también sirve a los aviones que vienen detrás.",
-        verificar: "Fraseología de turbulencia y de imposibilidad de mantener nivel en RVSM: Doc 4444 cap. 12 y 15 (no cargados).",
-      }),
-      ...caso64({
-        titulo: "64.7 Degradación de navegación",
-        situacion: "En la llegada, el FMS avisa que la precisión de navegación no cumple lo requerido y la aproximación prevista es RNP.",
-        comunicar: "Que no puedes hacer el procedimiento RNAV/RNP y qué alternativa necesitas.",
-        turnos: [`PILOT: "Approach, Aviatory 452, we have lost our RNP capability. Unable RNP approach. Request ILS approach runway two four, or vectors."`],
-        porQue: "El problema en una frase, el UNABLE con motivo (Doc 9432, 2.8.3.10) y dos alternativas que el ATC puede elegir.",
-        verificar: "Fraseología de degradación de capacidad PBN («unable RNP»): Doc 4444 cap. 12 (no cargado).",
-      }),
-      ...caso64({
-        titulo: "64.8 Sospecha de daño en llanta",
-        situacion: "Después del despegue, la torre informa restos de caucho en la pista. Crees que puede ser tu avión.",
-        comunicar: "Que puede ser tuyo, que no tienes indicaciones (o las que tienes), que necesitas tiempo y qué harás al aterrizar.",
-        turnos: [
-          `PILOT: "Tower, Aviatory 452, we may have a burst tyre from our take-off. No abnormal indications at the moment. Request to hold at five thousand feet to burn fuel. Request fire services on standby for our landing."`,
-        ],
-        porQue:
-          "Separa lo que sabes («no abnormal indications») de lo que sospechas («may have»). Pide lo que necesitarás con tiempo. «Standby» aquí es lenguaje claro («en espera de actuar»), no la palabra normalizada STANDBY.",
-      }),
-      ...caso64({
-        titulo: "64.9 Falla hidráulica",
-        situacion: "Aviso de pérdida de un sistema hidráulico en la llegada.",
-        comunicar: "El problema, que necesitas tiempo y espacio, y dónde quieres quedarte.",
-        turnos: [
-          `ATC:   "Aviatory 452, state intentions."`,
-          `PILOT: "We have a hydraulic problem. We need approximately ten minutes to complete the checklist and would like to remain in the present area."`,
-        ],
-        porQue:
-          "Es el ejemplo del capítulo 51. Responde exactamente lo que el ATC preguntó (intención), da un tiempo y pide algo que el ATC puede dar (quedarte en la zona). No habla de presiones ni de sistemas.",
-      }),
-      ...caso64({
-        titulo: "64.10 Evitar meteorología",
-        situacion: "En la llegada, una celda sobre el punto al que te llevan los vectores.",
-        comunicar: "Que no puedes seguir el rumbo asignado, qué rumbo necesitas y por cuánto.",
-        turnos: [`PILOT: "Approach, Aviatory 452, unable heading two seven zero due weather. Request heading three zero zero for about one five miles."`],
-        porQue: "UNABLE con motivo, luego la alternativa con número y duración. El ATC puede aprobar o darte otra opción sin preguntar nada más.",
-      }),
-      fuentes(
-        "Doc 9432 · Doc 9835",
-        "Doc 9432 (4.ª ed.) 2.8.3.10, 3.2.2, 3.2.4, 4.7.2, 4.7.3; Doc 9835 (2.ª ed.) 3.3.20, 4.3.3, 4.3.4.",
-        [
-          "VERIFICAR: prefijos MAYDAY y PAN PAN y el orden de los elementos del mensaje contra Anexo 10 Vol. II cap. 5 y Doc 9432 9.2 y 9.3 (no cargados).",
-          "VERIFICAR: fraseología de turbulencia y de imposibilidad de mantener nivel en espacio RVSM contra Doc 4444 cap. 12 y 15 (no cargados).",
-          "VERIFICAR: fraseología de degradación de capacidad PBN («unable RNP») contra Doc 4444 cap. 12 (no cargado).",
-        ],
-        ["Los límites de velocidad, tiempos y configuraciones de los ejemplos son didácticos; los reales salen de la QRH y el AFM del avión."],
-      ),
+      },
     ],
   },
   // ── 65 ──────────────────────────────────────────────────────────────────
