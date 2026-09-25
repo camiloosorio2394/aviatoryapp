@@ -169,7 +169,7 @@ export const NIVEL_1: DocScreen[] = [
         alt: "Seis extractos reales de publicaciones oficiales de Aerocivil: carta de aeródromo, movimiento en tierra, estacionamiento, obstáculos, terreno de precisión y ficha AD 2",
         ancho: 1600,
         alto: 900,
-        pie: "Fuente visual: Aerocivil, eAIP (Electronic Aeronautical Information Publication) Colombia, AIRAC (Aeronautical Information Regulation and Control) AMDT 72/26, vigente desde el 9 de julio de 2026. Cada publicación responde una pregunta distinta: la carta de aeródromo da la vista general; el plano de movimiento amplía calles y puntos críticos; el de estacionamiento ubica puestos y guías; la carta de obstáculos combina planta y perfil; la topográfica de precisión muestra el terreno en la aproximación; y la ficha AD 2 reúne los datos operativos. Primero eliges la publicación según la decisión que necesitas tomar y después confirmas que siga vigente.",
+        pie: "Fuente visual: Aerocivil, eAIP (Electronic Aeronautical Information Publication) Colombia, AIRAC (Aeronautical Information Regulation and Control) AMDT 70/26, vigente desde el 22 de enero de 2026. Cada publicación responde una pregunta distinta: la carta de aeródromo da la vista general; el plano de movimiento amplía calles y puntos críticos; el de estacionamiento ubica puestos y guías; la carta de obstáculos combina planta y perfil; la topográfica de precisión muestra el terreno en la aproximación; y la ficha AD 2 reúne los datos operativos. Primero eliges la publicación según la decisión que necesitas tomar y después confirmas que siga vigente.",
       },
       {
         kind: "p",
@@ -188,7 +188,7 @@ export const NIVEL_1: DocScreen[] = [
             puntos: [
               "La carta oficial de aeródromo muestra la configuración general, las pistas, las calles, las plataformas y las distancias publicadas. La reconoces por la planta completa, la escala, el norte y las tablas que acompañan el plano. Úsala para construir una imagen general del aeropuerto; si una calle o un puesto queda demasiado pequeño, pasa al plano específico en vez de adivinar.",
             ],
-            nota: "Fuente: Aerocivil, eAIP Colombia, carta de aeródromo SKBO, AIRAC AMDT 72/26.",
+            nota: "Fuente: Aerocivil, eAIP Colombia, carta de aeródromo SKBO, AIRAC AMDT 70/26.",
           },
           {
             titulo: "Plano de movimientos en tierra",
@@ -199,7 +199,7 @@ export const NIVEL_1: DocScreen[] = [
             puntos: [
               "El plano de movimiento en tierra amplía la red de calles, los puntos de espera y los HS (Hot Spots), o puntos críticos. Se reconoce porque el rodaje ocupa el centro de la hoja y los HS aparecen identificados en el plano y explicados en una tabla. Se estudia antes de arrancar: durante el rodaje se confirma la autorización, la señalización exterior y la posición, sin intentar aprender la ruta con la aeronave en movimiento.",
             ],
-            nota: "Fuente: Aerocivil, eAIP Colombia, plano de movimiento en tierra SKBO, AIRAC AMDT 72/26.",
+            nota: "Fuente: Aerocivil, eAIP Colombia, plano de movimiento en tierra SKBO, AIRAC AMDT 70/26.",
           },
           {
             titulo: "Plano de estacionamiento y atraque",
@@ -210,7 +210,7 @@ export const NIVEL_1: DocScreen[] = [
             puntos: [
               "El plano de estacionamiento y atraque amplía la plataforma hasta mostrar puestos, calles de acceso y guías de entrada. Lo reconoces por la numeración detallada de posiciones y por la silueta de la terminal. Sirve para anticipar por dónde entrar al puesto y qué referencias buscar; la autorización de ATC y la guía del sistema de atraque o del señalero siguen teniendo prioridad sobre la interpretación del plano.",
             ],
-            nota: "Fuente: Aerocivil, eAIP Colombia, plano de estacionamiento y atraque de aeronaves de la Terminal 1 de SKBO, AIRAC AMDT 72/26.",
+            nota: "Fuente: Aerocivil, eAIP Colombia, plano de estacionamiento y atraque de aeronaves de la Terminal 1 de SKBO, AIRAC AMDT 70/26.",
           },
           {
             titulo: "Carta de obstáculos tipo A",
@@ -221,7 +221,7 @@ export const NIVEL_1: DocScreen[] = [
             puntos: [
               "La carta de obstáculos tipo A combina un perfil lateral con una planta de la trayectoria de despegue. Se reconoce por la superficie de pendiente, los obstáculos acotados y el recuadro de TORA (Take-Off Run Available), TODA (Take-Off Distance Available), ASDA (Accelerate-Stop Distance Available) y LDA (Landing Distance Available). Sirve para entender qué obstáculo limita la salida; el cálculo final se hace con la documentación operacional aprobada de la aeronave y los datos vigentes.",
             ],
-            nota: "Fuente: Aerocivil, eAIP Colombia, carta de obstáculos tipo A SKBO 14L-32R, AIRAC AMDT 72/26.",
+            nota: "Fuente: Aerocivil, eAIP Colombia, carta de obstáculos tipo A SKBO 14L-32R, AIRAC AMDT 70/26.",
           },
           {
             titulo: "Carta topográfica de precisión",
@@ -232,7 +232,7 @@ export const NIVEL_1: DocScreen[] = [
             puntos: [
               "La carta topográfica de aproximación de precisión representa el perfil del terreno y las alturas alrededor del eje final. La reconoces por la vista en planta, el perfil longitudinal y las curvas de nivel. Apoya el estudio y la certificación de aproximaciones de precisión, especialmente categorías II y III; no reemplaza la carta de aproximación instrumental que la tripulación utiliza para volar el procedimiento.",
             ],
-            nota: "Fuente: Aerocivil, eAIP Colombia, carta topográfica de aproximación de precisión SKBO 14L-32R, AIRAC AMDT 72/26.",
+            nota: "Fuente: Aerocivil, eAIP Colombia, carta topográfica de aproximación de precisión SKBO 14L-32R, AIRAC AMDT 70/26.",
           },
           {
             titulo: "Carta electrónica de terreno y obstáculos",
