@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
+  <title id="t">Transpondedor, vigilancia secundaria e identificación</title>
+  <desc id="d">Esquema conceptual de una instrucción ATS, selección y verificación en cabina, respuesta del transpondedor y lectura por el controlador.</desc>
+  <rect width="1600" height="900" fill="#0c1724"/>
+  <text x="80" y="105" fill="#e9f7f3" font-family="Arial, sans-serif" font-size="46" font-weight="700">Lo que ocurre después de SQUAWK</text>
+  <text x="80" y="153" fill="#a7c5c1" font-family="Arial, sans-serif" font-size="25">La instrucción, el equipo y la vigilancia son tres pasos distintos</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="80" y="225" width="430" height="400" rx="32" fill="#172b3d" stroke="#6edac0" stroke-width="3"/>
+    <circle cx="140" cy="290" r="27" fill="#6edac0"/><text x="132" y="300" fill="#0c1724" font-size="27" font-weight="700">1</text>
+    <text x="185" y="300" fill="#e9f7f3" font-size="34" font-weight="700">ATC transmite</text>
+    <text x="125" y="380" fill="#e9f7f3" font-size="30">SQUAWK (code)</text>
+    <text x="125" y="437" fill="#a7c5c1" font-size="25">Código asignado, sin usar</text>
+    <text x="125" y="472" fill="#a7c5c1" font-size="25">un número ficticio aquí.</text>
+    <text x="125" y="548" fill="#6edac0" font-size="25">IDENT: solo si lo pide ATS</text>
+    <path d="M535 423h50m-15-13 15 13-15 13" stroke="#6edac0" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <rect x="595" y="225" width="430" height="400" rx="32" fill="#172b3d" stroke="#6edac0" stroke-width="3"/>
+    <circle cx="655" cy="290" r="27" fill="#6edac0"/><text x="647" y="300" fill="#0c1724" font-size="27" font-weight="700">2</text>
+    <text x="700" y="300" fill="#e9f7f3" font-size="34" font-weight="700">Cabina coteja</text>
+    <text x="640" y="380" fill="#e9f7f3" font-size="27">Escucha → colaciona</text>
+    <text x="640" y="430" fill="#e9f7f3" font-size="27">→ selecciona → verifica</text>
+    <text x="640" y="515" fill="#a7c5c1" font-size="24">Código y modo según equipo</text>
+    <text x="640" y="550" fill="#a7c5c1" font-size="24">y procedimiento aplicable</text>
+    <path d="M1050 423h50m-15-13 15 13-15 13" stroke="#6edac0" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <rect x="1110" y="225" width="410" height="400" rx="32" fill="#172b3d" stroke="#6edac0" stroke-width="3"/>
+    <circle cx="1170" cy="290" r="27" fill="#6edac0"/><text x="1162" y="300" fill="#0c1724" font-size="27" font-weight="700">3</text>
+    <text x="1215" y="300" fill="#e9f7f3" font-size="34" font-weight="700">ATS comprueba</text>
+    <text x="1155" y="380" fill="#e9f7f3" font-size="27">Respuesta del equipo</text>
+    <text x="1155" y="430" fill="#a7c5c1" font-size="24">Modo A: código</text>
+    <text x="1155" y="470" fill="#a7c5c1" font-size="24">Modo C: altitud de presión</text>
+    <text x="1155" y="510" fill="#a7c5c1" font-size="24">Modo S: identificación</text>
+    <text x="1155" y="560" fill="#6edac0" font-size="23">Si discrepa, aclarar</text>
+    <rect x="80" y="685" width="1440" height="128" rx="27" fill="#203648"/>
+    <text x="118" y="742" fill="#e9f7f3" font-size="27" font-weight="700">7700 · emergencia</text>
+    <text x="578" y="742" fill="#e9f7f3" font-size="27" font-weight="700">7600 · falla de radio</text>
+    <text x="1118" y="742" fill="#e9f7f3" font-size="27" font-weight="700">7500 · interferencia ilícita</text>
+    <text x="118" y="784" fill="#a7c5c1" font-size="21">Códigos reservados: selección y procedimientos conforme a la situación y a las reglas aplicables, nunca como prueba.</text>
+  </g>
+</svg>

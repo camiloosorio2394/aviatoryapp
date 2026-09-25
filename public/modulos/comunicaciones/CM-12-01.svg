@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Readback y hearback: circuito de verificación</title>
+  <desc id="desc">Control transmite una instrucción; la cabina colaciona los datos críticos y su distintivo; control compara lo oído con lo emitido; si hay discrepancia corrige y la cabina vuelve a colacionar. Si coincide, se actúa solo según la autorización existente.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#192332"/><stop offset="1" stop-color="#38253c"/></linearGradient>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto"><path d="M1 1L10 6 1 11" fill="none" stroke="#a6e4c5" stroke-width="2"/></marker>
+    <style>.ey{font:700 22px Arial,sans-serif;letter-spacing:4px;fill:#a6e4c5}.h{font:700 46px Arial,sans-serif;fill:#fff}.n{font:700 23px Arial,sans-serif;fill:#a6e4c5}.q{font:700 30px Arial,sans-serif;fill:#fff}.a{font:500 23px Arial,sans-serif;fill:#ece8ee}.small{font:500 20px Arial,sans-serif;fill:#e0dce6}.tag{font:700 20px Arial,sans-serif;fill:#142c28}</style>
+  </defs>
+  <rect width="1600" height="900" rx="28" fill="url(#bg)"/>
+  <text class="ey" x="74" y="72">COMUNICACIONES · LECCIÓN 12</text>
+  <text class="h" x="74" y="132">Una colación es un circuito, no un acuse</text>
+  <text class="a" x="75" y="178">Cada lado tiene una tarea distinta antes de que la aeronave actúe.</text>
+  <path d="M742 335H852M1233 421V510M851 598H742" fill="none" stroke="#a6e4c5" stroke-width="5" marker-end="url(#arrow)"/>
+  <rect x="74" y="224" width="640" height="218" rx="24" fill="#41576a"/>
+  <text class="n" x="110" y="272">01 · CONTROL EMITE</text>
+  <text class="q" x="110" y="318">Destinatario, acción y condiciones</text>
+  <text class="a" x="110" y="358">El controlador transmite la instrucción</text>
+  <text class="a" x="110" y="391">que pretende que se cumpla.</text>
+  <rect x="856" y="224" width="670" height="218" rx="24" fill="#4e4663"/>
+  <text class="n" x="892" y="272">02 · CABINA COLACIONA</text>
+  <text class="q" x="892" y="318">Dato crítico + distintivo propio</text>
+  <text class="a" x="892" y="358">Repite lo realmente oído y conserva</text>
+  <text class="a" x="892" y="391">las restricciones de la instrucción.</text>
+  <rect x="856" y="510" width="670" height="218" rx="24" fill="#305f63"/>
+  <text class="n" x="892" y="558">03 · CONTROL VERIFICA</text>
+  <text class="q" x="892" y="604">¿Coincide lo emitido con lo repetido?</text>
+  <text class="a" x="892" y="644">Si no coincide, corrige el elemento</text>
+  <text class="a" x="892" y="677">y la cabina vuelve a colacionar.</text>
+  <rect x="74" y="510" width="640" height="218" rx="24" fill="#514b65"/>
+  <text class="n" x="110" y="558">04 · SOLO ENTONCES SE ACTÚA</text>
+  <text class="q" x="110" y="604">La autorización no cambia por el silencio</text>
+  <text class="a" x="110" y="644">Se ejecuta únicamente la instrucción</text>
+  <text class="a" x="110" y="677">válida y con sus condiciones.</text>
+  <rect x="74" y="770" width="1452" height="68" rx="18" fill="#a6e4c5"/>
+  <text class="tag" x="110" y="813">SI LA CABINA O CONTROL DETECTAN UNA DISCREPANCIA: ACLARAR → CORREGIR → COLACIONAR DE NUEVO</text>
+  <text class="small" x="75" y="873">Esquema didáctico basado en Doc 4444, 4.5.7.5, y Doc 9432, 2.8.3; no representa un intercambio real.</text>
+</svg>

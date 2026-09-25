@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
+  <title id="t">Estructura del mensaje MAYDAY</title>
+  <desc id="d">Mensaje inicial de socorro en seis piezas, seguido por información adicional cuando la carga de trabajo lo permite.</desc>
+  <rect width="1600" height="900" fill="#0c1724"/>
+  <g font-family="Arial, sans-serif">
+    <text x="78" y="111" fill="#e9f7f3" font-size="49" font-weight="700">MAYDAY: información en dos momentos</text>
+    <text x="80" y="166" fill="#a7c5c1" font-size="25">Primero controlar el avión; después un mensaje breve, claro y útil</text>
+    <rect x="78" y="239" width="1444" height="70" rx="22" fill="#6edac0"/>
+    <text x="113" y="285" fill="#0c1724" font-size="31" font-weight="700">MAYDAY · MAYDAY · MAYDAY</text>
+    <text x="794" y="284" fill="#0c1724" font-size="23">Señal de socorro, preferiblemente tres veces</text>
+    <g fill="#172b3d" stroke="#6edac0" stroke-width="2">
+      <rect x="78" y="346" width="436" height="142" rx="26"/>
+      <rect x="582" y="346" width="436" height="142" rx="26"/>
+      <rect x="1086" y="346" width="436" height="142" rx="26"/>
+      <rect x="78" y="521" width="436" height="142" rx="26"/>
+      <rect x="582" y="521" width="436" height="142" rx="26"/>
+      <rect x="1086" y="521" width="436" height="142" rx="26"/>
+    </g>
+    <g fill="#6edac0" font-size="23" font-weight="700">
+      <text x="109" y="392">01</text><text x="613" y="392">02</text><text x="1117" y="392">03</text>
+      <text x="109" y="567">04</text><text x="613" y="567">05</text><text x="1117" y="567">06</text>
+    </g>
+    <g fill="#e9f7f3" font-size="30" font-weight="700">
+      <text x="109" y="445">Estación, si hay tiempo</text>
+      <text x="613" y="445">Identificación</text>
+      <text x="1117" y="445">Qué ocurre</text>
+      <text x="109" y="620">Qué hará la tripulación</text>
+      <text x="613" y="620">Posición · nivel · rumbo</text>
+      <text x="1117" y="620">Datos útiles después</text>
+    </g>
+    <rect x="78" y="710" width="1444" height="126" rx="29" fill="#203648"/>
+    <text x="116" y="762" fill="#e9f7f3" font-size="28" font-weight="700">Prioridad de cabina: volar → navegar → comunicar</text>
+    <text x="116" y="804" fill="#a7c5c1" font-size="23">La norma pide tantos elementos como sea posible; no se retrasa una acción urgente para completar una plantilla.</text>
+  </g>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" role="img" aria-labelledby="title desc">
+  <title id="title">Límites durante el rodaje</title>
+  <desc id="desc">Esquema conceptual de cuatro decisiones: leer la autorización, detenerse en el límite, confirmar la pista y continuar solo con autorización expresa de cruce.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1">
+      <stop stop-color="#101d31"/>
+      <stop offset="1" stop-color="#172c41"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="12" stdDeviation="17" flood-color="#08101d" flood-opacity=".3"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="760" rx="32" fill="url(#bg)"/>
+  <text x="80" y="96" fill="#9cebd7" font-family="Inter,Arial,sans-serif" font-size="23" font-weight="700" letter-spacing="5">RODAJE · LÍMITES Y CRUCES</text>
+  <text x="80" y="162" fill="#f7fbff" font-family="Inter,Arial,sans-serif" font-size="46" font-weight="750">Una ruta no equivale a permiso de pista</text>
+  <text x="80" y="207" fill="#b9c9d5" font-family="Inter,Arial,sans-serif" font-size="25">Lectura conceptual de la autorización; no representa un aeródromo ni una carta operativa.</text>
+  <path d="M252 396 H1345" stroke="#58cbb6" stroke-width="8" stroke-linecap="round" opacity=".65"/>
+  <g filter="url(#shadow)" font-family="Inter,Arial,sans-serif">
+    <rect x="80" y="270" width="330" height="280" rx="24" fill="#f5fafb"/>
+    <rect x="450" y="270" width="330" height="280" rx="24" fill="#f5fafb"/>
+    <rect x="820" y="270" width="330" height="280" rx="24" fill="#f5fafb"/>
+    <rect x="1190" y="270" width="330" height="280" rx="24" fill="#e3f8f0"/>
+  </g>
+  <g fill="#0d2a3c" font-family="Inter,Arial,sans-serif">
+    <text x="110" y="332" font-size="25" font-weight="800">01 · ESCUCHAR</text>
+    <text x="480" y="332" font-size="25" font-weight="800">02 · IDENTIFICAR</text>
+    <text x="850" y="332" font-size="25" font-weight="800">03 · DETENER</text>
+    <text x="1220" y="332" font-size="25" font-weight="800">04 · CONTINUAR</text>
+  </g>
+  <g fill="#244458" font-family="Inter,Arial,sans-serif" font-size="24">
+    <text x="110" y="402"><tspan x="110">Ruta y límite</tspan><tspan x="110" dy="38">recibidos por radio</tspan></text>
+    <text x="480" y="402"><tspan x="480">Pista intermedia</tspan><tspan x="480" dy="38">y punto de espera</tspan></text>
+    <text x="850" y="402"><tspan x="850">Antes del límite;</tspan><tspan x="850" dy="38">aclarar cualquier duda</tspan></text>
+    <text x="1220" y="402"><tspan x="1220">Solo con cruce</tspan><tspan x="1220" dy="38">expreso y colacionado</tspan></text>
+  </g>
+  <g fill="#3fbaa4">
+    <circle cx="405" cy="396" r="17"/><circle cx="775" cy="396" r="17"/><circle cx="1145" cy="396" r="17"/>
+  </g>
+  <text x="80" y="634" fill="#e6f1f3" font-family="Inter,Arial,sans-serif" font-size="26" font-weight="600">Si no se oyó HOLD SHORT ni CROSS RUNWAY ante una pista: parar y preguntar.</text>
+  <text x="80" y="692" fill="#9fb5c5" font-family="Inter,Arial,sans-serif" font-size="20">Esquema didáctico · La carta vigente, ATC y el procedimiento del operador prevalecen.</text>
+</svg>

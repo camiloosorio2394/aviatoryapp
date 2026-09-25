@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="850" viewBox="0 0 1600 850" role="img" aria-labelledby="title desc">
+  <title id="title">SID publicada y cambio ATC: comprobar tres dimensiones</title>
+  <desc id="desc">Matriz conceptual de trayectoria lateral, nivel y velocidad. Un cambio de un componente no cancela automáticamente los otros.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#142434"/><stop offset="1" stop-color="#244351"/></linearGradient></defs>
+  <rect width="1600" height="850" rx="38" fill="url(#bg)"/>
+  <g font-family="Arial,sans-serif">
+    <text x="76" y="82" fill="#9adfce" font-size="24" font-weight="700" letter-spacing="5">SID · SALIDA INSTRUMENTAL</text>
+    <text x="76" y="145" fill="#fff" font-size="48" font-weight="700">¿Qué modifica exactamente la nueva instrucción?</text>
+    <text x="76" y="197" fill="#c3d0d7" font-size="25">Contrastar cada autorización con la SID publicada y lo seleccionado en cabina</text>
+    <rect x="76" y="250" width="1448" height="447" rx="26" fill="#f7faf9"/>
+    <rect x="76" y="250" width="1448" height="80" rx="26" fill="#dff7ef"/>
+    <rect x="76" y="305" width="1448" height="25" fill="#dff7ef"/>
+    <path d="M76 452h1448M76 574h1448M421 250v447M964 250v447" stroke="#d0dfdd" stroke-width="3"/>
+    <g fill="#203b49" font-weight="700" font-size="23">
+      <text x="106" y="299">DIMENSIÓN</text><text x="451" y="299">LO PUBLICADO EN LA SID</text><text x="994" y="299">LO QUE PUEDE CAMBIAR ATC</text>
+      <text x="106" y="384">LATERAL</text><text x="106" y="506">VERTICAL</text><text x="106" y="628">VELOCIDAD</text>
+    </g>
+    <g fill="#354d59" font-size="24">
+      <text x="451" y="380">Secuencia de puntos y tramos</text>
+      <text x="451" y="502">Límites publicados</text>
+      <text x="451" y="624">Restricciones aplicables</text>
+      <text x="994" y="376">Directo o vector explícito</text>
+      <text x="994" y="498">Nuevo nivel o cancelación expresa</text>
+      <text x="994" y="620">Nueva velocidad o cancelación expresa</text>
+    </g>
+    <rect x="76" y="724" width="1448" height="72" rx="18" fill="#ffffff" fill-opacity=".12"/>
+    <text x="104" y="769" fill="#fff" font-size="25" font-weight="700">Cambiar una dimensión no borra automáticamente las restricciones de las otras.</text>
+    <text x="76" y="826" fill="#c3d0d7" font-size="18">Esquema conceptual: no es una carta, una salida real ni una instrucción de control.</text>
+  </g>
+</svg>

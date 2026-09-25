@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Ordenar un mensaje en inglés claro</title>
+  <desc id="desc">Cuatro tarjetas: problema, capacidad, necesidad e intención. No es fraseología estandarizada sino una ayuda para preparar una comunicación no normal.</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0d1c2d"/><stop offset="1" stop-color="#1a3b4a"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="30" fill="url(#bg)"/>
+  <text x="90" y="108" fill="#aaf2d4" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="5">PLAIN LANGUAGE</text>
+  <text x="90" y="169" fill="#fff" font-family="Arial,sans-serif" font-size="45" font-weight="700">Cuatro datos que permiten actuar</text>
+  <text x="90" y="211" fill="#c5d7df" font-family="Arial,sans-serif" font-size="24">Guía de preparación del mensaje · no es una frase OACI de orden obligatorio</text>
+  <rect x="88" y="268" width="680" height="190" rx="24" fill="#244253" stroke="#7caaa9" stroke-width="2"/>
+  <circle cx="145" cy="327" r="26" fill="#aaf2d4"/><text x="135" y="336" fill="#0c2830" font-family="Arial,sans-serif" font-size="25" font-weight="700">1</text>
+  <text x="193" y="330" fill="#aaf2d4" font-family="Arial,sans-serif" font-size="29" font-weight="700">PROBLEM</text>
+  <text x="118" y="384" fill="#fff" font-family="Arial,sans-serif" font-size="27">¿Qué está sucediendo?</text>
+  <text x="118" y="422" fill="#c5d7df" font-family="Arial,sans-serif" font-size="22">Describir el efecto observable.</text>
+  <rect x="832" y="268" width="680" height="190" rx="24" fill="#244253" stroke="#7caaa9" stroke-width="2"/>
+  <circle cx="889" cy="327" r="26" fill="#aaf2d4"/><text x="879" y="336" fill="#0c2830" font-family="Arial,sans-serif" font-size="25" font-weight="700">2</text>
+  <text x="937" y="330" fill="#aaf2d4" font-family="Arial,sans-serif" font-size="29" font-weight="700">CAPABILITY</text>
+  <text x="862" y="384" fill="#fff" font-family="Arial,sans-serif" font-size="27">¿Qué puede o no puede hacer?</text>
+  <text x="862" y="422" fill="#c5d7df" font-family="Arial,sans-serif" font-size="22">No prometer una maniobra sin evaluar.</text>
+  <rect x="88" y="488" width="680" height="190" rx="24" fill="#244253" stroke="#7caaa9" stroke-width="2"/>
+  <circle cx="145" cy="547" r="26" fill="#aaf2d4"/><text x="135" y="556" fill="#0c2830" font-family="Arial,sans-serif" font-size="25" font-weight="700">3</text>
+  <text x="193" y="550" fill="#aaf2d4" font-family="Arial,sans-serif" font-size="29" font-weight="700">NEEDS</text>
+  <text x="118" y="604" fill="#fff" font-family="Arial,sans-serif" font-size="27">¿Qué ayuda requiere?</text>
+  <text x="118" y="642" fill="#c5d7df" font-family="Arial,sans-serif" font-size="22">Pedir una acción concreta a ATC.</text>
+  <rect x="832" y="488" width="680" height="190" rx="24" fill="#244253" stroke="#7caaa9" stroke-width="2"/>
+  <circle cx="889" cy="547" r="26" fill="#aaf2d4"/><text x="879" y="556" fill="#0c2830" font-family="Arial,sans-serif" font-size="25" font-weight="700">4</text>
+  <text x="937" y="550" fill="#aaf2d4" font-family="Arial,sans-serif" font-size="29" font-weight="700">INTENTIONS</text>
+  <text x="862" y="604" fill="#fff" font-family="Arial,sans-serif" font-size="27">¿Qué hará ahora?</text>
+  <text x="862" y="642" fill="#c5d7df" font-family="Arial,sans-serif" font-size="22">Actualizar si la evaluación cambia.</text>
+  <rect x="88" y="732" width="1424" height="92" rx="18" fill="#123c43" stroke="#64bc9e" stroke-width="2"/>
+  <text x="128" y="788" fill="#e9fff5" font-family="Arial,sans-serif" font-size="27" font-weight="700">Mensajes cortos y directos; colación estándar para niveles, rumbos y autorizaciones.</text>
+</svg>

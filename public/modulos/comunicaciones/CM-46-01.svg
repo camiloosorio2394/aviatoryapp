@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">El enlace de datos no determina la autoridad del mensaje</title>
+  <desc id="desc">Dos flujos pueden llegar a la cabina: mensaje operacional de compañía por ACARS y autorización ATC por CPDLC o PDC. La tripulación comprueba emisor, tipo de mensaje y respuesta exigida antes de actuar.</desc>
+  <rect width="1600" height="900" fill="#101d2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="93" y="104" fill="#f3f9fb" font-size="49" font-weight="700">¿Quién emitió el mensaje?</text>
+    <text x="95" y="162" fill="#b9cad3" font-size="27">El transporte de datos no convierte una recomendación en autorización ATC</text>
+    <rect x="91" y="222" width="1418" height="250" rx="27" fill="#203947" stroke="#84ddcf" stroke-width="3"/>
+    <text x="125" y="280" fill="#84ddcf" font-size="34" font-weight="700">MENSAJE OPERACIONAL</text>
+    <rect x="127" y="326" width="342" height="106" rx="19" fill="#344f5a"/><text x="169" y="391" fill="#f3f9fb" font-size="26">Despacho / operador</text>
+    <path d="M481 379h105" stroke="#84ddcf" stroke-width="5"/><path d="m586 379-19-12v24z" fill="#84ddcf"/>
+    <rect x="598" y="326" width="330" height="106" rx="19" fill="#344f5a"/><text x="633" y="390" fill="#f3f9fb" font-size="26">Red de datos</text>
+    <path d="M940 379h105" stroke="#84ddcf" stroke-width="5"/><path d="m1045 379-19-12v24z" fill="#84ddcf"/>
+    <rect x="1057" y="326" width="405" height="106" rx="19" fill="#344f5a"/><text x="1094" y="373" fill="#f3f9fb" font-size="26">Tripulación evalúa</text><text x="1094" y="410" fill="#cbd9df" font-size="23">No cambia autorización ATC</text>
+    <rect x="91" y="514" width="1418" height="250" rx="27" fill="#203947" stroke="#84ddcf" stroke-width="3"/>
+    <text x="125" y="572" fill="#84ddcf" font-size="34" font-weight="700">AUTORIZACIÓN ATC</text>
+    <rect x="127" y="618" width="342" height="106" rx="19" fill="#344f5a"/><text x="169" y="683" fill="#f3f9fb" font-size="26">Dependencia ATC</text>
+    <path d="M481 671h105" stroke="#84ddcf" stroke-width="5"/><path d="m586 671-19-12v24z" fill="#84ddcf"/>
+    <rect x="598" y="618" width="330" height="106" rx="19" fill="#344f5a"/><text x="633" y="682" fill="#f3f9fb" font-size="26">Servicio autorizado</text>
+    <path d="M940 671h105" stroke="#84ddcf" stroke-width="5"/><path d="m1045 671-19-12v24z" fill="#84ddcf"/>
+    <rect x="1057" y="618" width="405" height="106" rx="19" fill="#344f5a"/><text x="1094" y="662" fill="#f3f9fb" font-size="26">Tripulación verifica</text><text x="1094" y="701" fill="#cbd9df" font-size="23">y responde según servicio</text>
+    <text x="93" y="833" fill="#f3f9fb" font-size="27">Una PDC puede viajar por ACARS y seguir siendo autorización ATC: confirma siempre el origen.</text>
+  </g>
+</svg>

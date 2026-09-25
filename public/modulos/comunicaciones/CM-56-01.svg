@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="title desc">
+  <title id="title">Dos distintivos parecidos en una frecuencia</title>
+  <desc id="desc">Ejemplo de indicativos United 31 y Alaska 31 del manual FAA. El controlador identifica al destinatario y solo ese avión colaciona y actúa.</desc>
+  <rect width="1600" height="900" fill="#0d1c2e"/>
+  <rect x="70" y="70" width="1460" height="760" rx="32" fill="#142a3d" stroke="#3a5a6b" stroke-width="2"/>
+  <text x="120" y="153" fill="#bfffe5" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="4">DISTINTIVOS PARECIDOS</text>
+  <text x="120" y="214" fill="#f5fbfc" font-family="Arial, sans-serif" font-size="47" font-weight="700">El número coincide; el destinatario no</text>
+  <rect x="120" y="285" width="410" height="295" rx="24" fill="#1d3549" stroke="#7893a2" stroke-width="2"/>
+  <text x="155" y="346" fill="#b0c9d2" font-family="Arial, sans-serif" font-size="26" font-weight="700">AVIÓN A</text>
+  <text x="155" y="426" fill="#f4fafb" font-family="Arial, sans-serif" font-size="52" font-weight="700">UNITED 31</text>
+  <text x="155" y="498" fill="#bfffe5" font-family="Arial, sans-serif" font-size="25">Escucha su distintivo completo</text>
+  <text x="155" y="539" fill="#bfffe5" font-family="Arial, sans-serif" font-size="25">Colaciona con su indicativo</text>
+  <rect x="595" y="285" width="410" height="295" rx="24" fill="#1d3549" stroke="#7893a2" stroke-width="2"/>
+  <text x="630" y="346" fill="#b0c9d2" font-family="Arial, sans-serif" font-size="26" font-weight="700">CONTROLADOR</text>
+  <text x="630" y="419" fill="#f4fafb" font-family="Arial, sans-serif" font-size="34" font-weight="700">Nombra al destinatario</text>
+  <text x="630" y="470" fill="#d9e8e9" font-family="Arial, sans-serif" font-size="24">Advierte similitud en frecuencia</text>
+  <text x="630" y="520" fill="#d9e8e9" font-family="Arial, sans-serif" font-size="24">Escucha la colación completa</text>
+  <rect x="1070" y="285" width="410" height="295" rx="24" fill="#1d3549" stroke="#7893a2" stroke-width="2"/>
+  <text x="1105" y="346" fill="#b0c9d2" font-family="Arial, sans-serif" font-size="26" font-weight="700">AVIÓN B</text>
+  <text x="1105" y="426" fill="#f4fafb" font-family="Arial, sans-serif" font-size="52" font-weight="700">ALASKA 31</text>
+  <text x="1105" y="498" fill="#bfffe5" font-family="Arial, sans-serif" font-size="25">No responde por el «31»</text>
+  <text x="1105" y="539" fill="#bfffe5" font-family="Arial, sans-serif" font-size="25">Mantiene su autorización</text>
+  <path d="M800 608v39" fill="none" stroke="#8af4cb" stroke-width="6" stroke-linecap="round"/>
+  <path d="m784 634 16 16 16-16" fill="none" stroke="#8af4cb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="120" y="670" width="1360" height="87" rx="20" fill="#163e42" stroke="#8af4cb" stroke-width="2"/>
+  <text x="165" y="725" fill="#e8fff3" font-family="Arial, sans-serif" font-size="28" font-weight="700">Si el indicativo llegó incompleto: confirmar destinatario antes de actuar.</text>
+  <text x="120" y="798" fill="#9bb4bf" font-family="Arial, sans-serif" font-size="19">Nombres tomados del ejemplo publicado en FAA JO 7110.65 §2-4-15; no son vuelos actuales ni una transcripción.</text>
+</svg>

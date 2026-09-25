@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-labelledby="title desc">
+  <title id="title">Antes de ejecutar una autorización ATC</title>
+  <desc id="desc">Flujo de cabina para reconocer el destinatario, pedir repetición o confirmación, comunicar que no se puede cumplir y actuar solo dentro de lo autorizado.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0c1726"/><stop offset="1" stop-color="#172b3b"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#9fdcca"/></marker>
+    <style>
+      text{font-family:Inter,Arial,sans-serif;fill:#f1f7f6} .eyebrow{font-size:22px;font-weight:700;letter-spacing:4px;fill:#a7dccc} .heading{font-size:49px;font-weight:800} .small{font-size:23px;fill:#c6d3d6} .question{font-size:28px;font-weight:700} .answer{font-size:28px;font-weight:800;fill:#c5f0df} .note{font-size:22px;fill:#d5dfdf} .line{fill:none;stroke:#9fdcca;stroke-width:5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="1500" rx="46" fill="url(#bg)"/>
+  <rect x="34" y="34" width="1132" height="1432" rx="34" fill="none" stroke="#3a5962" stroke-width="2"/>
+  <text x="80" y="111" class="eyebrow">AUTORIZACIONES · DECISIÓN DE CABINA</text>
+  <text x="80" y="177" class="heading">Entender antes de actuar</text>
+  <text x="80" y="222" class="small">Cada salida resuelve una duda distinta; ninguna amplía el permiso recibido.</text>
+
+  <rect x="88" y="269" width="615" height="110" rx="20" fill="#25394a" stroke="#6b9f9b" stroke-width="2"/>
+  <text x="120" y="316" class="question">1 · ¿Era para mi distintivo?</text>
+  <text x="120" y="351" class="small">Identifica destinatario y mensaje completo.</text>
+  <path d="M704 324H744" class="line"/>
+  <rect x="764" y="269" width="346" height="110" rx="20" fill="#293f45"/>
+  <text x="791" y="319" class="answer">No: no actúes</text>
+  <text x="791" y="353" class="note">Aclara si es necesario.</text>
+
+  <path d="M393 381V426" class="line"/>
+  <rect x="88" y="443" width="615" height="110" rx="20" fill="#25394a" stroke="#6b9f9b" stroke-width="2"/>
+  <text x="120" y="490" class="question">2 · ¿Escuché todos los datos?</text>
+  <text x="120" y="525" class="small">Acción, valor, límite y condiciones.</text>
+  <path d="M704 498H744" class="line"/>
+  <rect x="764" y="443" width="346" height="110" rx="20" fill="#293f45"/>
+  <text x="791" y="494" class="answer">No: SAY AGAIN</text>
+  <text x="791" y="528" class="note">Pide la parte perdida.</text>
+
+  <path d="M393 555V600" class="line"/>
+  <rect x="88" y="617" width="615" height="110" rx="20" fill="#25394a" stroke="#6b9f9b" stroke-width="2"/>
+  <text x="120" y="664" class="question">3 · ¿Estoy seguro de cada dato?</text>
+  <text x="120" y="699" class="small">No completes con lo que esperabas.</text>
+  <path d="M704 672H744" class="line"/>
+  <rect x="764" y="617" width="346" height="110" rx="20" fill="#293f45"/>
+  <text x="791" y="668" class="answer">No: CONFIRM</text>
+  <text x="791" y="702" class="note">Verifica el dato dudoso.</text>
+
+  <path d="M393 729V774" class="line"/>
+  <rect x="88" y="791" width="615" height="110" rx="20" fill="#25394a" stroke="#6b9f9b" stroke-width="2"/>
+  <text x="120" y="838" class="question">4 · ¿Puedo cumplir con seguridad?</text>
+  <text x="120" y="873" class="small">Avión, desempeño, entorno y reglas.</text>
+  <path d="M704 846H744" class="line"/>
+  <rect x="764" y="791" width="346" height="110" rx="20" fill="#483b3d" stroke="#cb947b" stroke-width="2"/>
+  <text x="791" y="842" class="answer">No: UNABLE</text>
+  <text x="791" y="876" class="note">Da el motivo relevante.</text>
+
+  <path d="M393 903V950" class="line"/>
+  <rect x="88" y="968" width="1022" height="125" rx="22" fill="#31574f" stroke="#b6ead7" stroke-width="2"/>
+  <text x="121" y="1017" class="answer">Sí: colaciona lo exigido y coteja</text>
+  <text x="121" y="1056" class="note">Si ATC corrige, registra y colaciona el dato corregido.</text>
+  <path d="M599 1095V1143" class="line"/>
+  <rect x="88" y="1160" width="1022" height="126" rx="22" fill="#31574f" stroke="#b6ead7" stroke-width="2"/>
+  <text x="121" y="1211" class="answer">Configura · verifica · ejecuta</text>
+  <text x="121" y="1251" class="note">Solo dentro del alcance autorizado y del procedimiento aplicable.</text>
+
+  <rect x="88" y="1331" width="1022" height="86" rx="18" fill="#283442"/>
+  <text x="121" y="1382" class="question">STANDBY no autoriza. Una solicitud tampoco.</text>
+  <text x="88" y="1451" class="small">Esquema didáctico · no es una transmisión ni una autorización real.</text>
+</svg>

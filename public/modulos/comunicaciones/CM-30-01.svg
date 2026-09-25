@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Motor y al aire: volar, navegar y comunicar</title>
+  <desc id="desc">Secuencia conceptual de una aproximación frustrada con orden ATC o decisión de la tripulación, prioridad de control del avión, navegación autorizada y comunicación breve.</desc>
+  <rect width="1600" height="900" rx="30" fill="#101e2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="76" y="98" fill="#f0f8f6" font-size="43" font-weight="700">Motor y al aire: primero controlar el avión</text>
+    <text x="78" y="143" fill="#aabfc0" font-size="22">Esquema didáctico · La trayectoria concreta viene de la carta y de las instrucciones aplicables.</text>
+    <rect x="76" y="214" width="1448" height="129" rx="23" fill="#24343d" stroke="#71868c" stroke-width="2"/>
+    <text x="112" y="268" fill="#9be9cd" font-size="26" font-weight="700">DISPARADOR</text>
+    <text x="112" y="312" fill="#f0f8f6" font-size="26">Orden GO AROUND de ATC  o  decisión de la tripulación por seguridad.</text>
+    <rect x="76" y="389" width="449" height="268" rx="23" fill="#1a383a" stroke="#9be9cd" stroke-width="2"/>
+    <text x="108" y="451" fill="#9be9cd" font-size="26" font-weight="700">1 · VOLAR</text>
+    <text x="108" y="507" fill="#f0f8f6" font-size="29" font-weight="700">Trayectoria segura</text>
+    <text x="108" y="558" fill="#c6d4d5" font-size="22">PF aplica el procedimiento</text>
+    <text x="108" y="594" fill="#c6d4d5" font-size="22">de la aeronave y estabiliza</text>
+    <text x="108" y="630" fill="#c6d4d5" font-size="22">el ascenso inicial.</text>
+    <path d="M532 520h54" stroke="#9be9cd" stroke-width="5" stroke-linecap="round"/><path d="m576 510 19 10-19 10" fill="none" stroke="#9be9cd" stroke-width="5"/>
+    <rect x="602" y="389" width="449" height="268" rx="23" fill="#22313d" stroke="#71868c" stroke-width="2"/>
+    <text x="634" y="451" fill="#9be9cd" font-size="26" font-weight="700">2 · NAVEGAR</text>
+    <text x="634" y="507" fill="#f0f8f6" font-size="29" font-weight="700">Ruta aplicable</text>
+    <text x="634" y="558" fill="#c6d4d5" font-size="22">Verificar frustrada publicada</text>
+    <text x="634" y="594" fill="#c6d4d5" font-size="22">o instrucción ATC diferente,</text>
+    <text x="634" y="630" fill="#c6d4d5" font-size="22">según corresponda.</text>
+    <path d="M1059 520h54" stroke="#9be9cd" stroke-width="5" stroke-linecap="round"/><path d="m1103 510 19 10-19 10" fill="none" stroke="#9be9cd" stroke-width="5"/>
+    <rect x="1128" y="389" width="396" height="268" rx="23" fill="#22313d" stroke="#71868c" stroke-width="2"/>
+    <text x="1160" y="451" fill="#9be9cd" font-size="26" font-weight="700">3 · COMUNICAR</text>
+    <text x="1160" y="507" fill="#f0f8f6" font-size="27" font-weight="700">GOING AROUND</text>
+    <text x="1160" y="558" fill="#c6d4d5" font-size="22">PM informa tan pronto</text>
+    <text x="1160" y="594" fill="#c6d4d5" font-size="22">como la carga de trabajo</text>
+    <text x="1160" y="630" fill="#c6d4d5" font-size="22">lo permite.</text>
+    <text x="79" y="749" fill="#f0f8f6" font-size="25">Después: colacionar nuevas instrucciones y verificar nivel, rumbo y siguiente dependencia.</text>
+    <text x="79" y="819" fill="#aabfc0" font-size="21">GO AROUND / GOING AROUND: EASA AMC1 SERA.14001 · Verificar procedimiento local y del operador.</text>
+  </g>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Prioridades de vuelo y hábitos antes de transmitir</title>
+  <desc id="desc">Jerarquía de instrucción: primero controlar la aeronave, después asegurar navegación y trayectoria, y después informar y coordinar. Debajo, cuatro hábitos de transmisión: escuchar, preparar el mensaje, pulsar antes de hablar y soltar y verificar.</desc>
+  <defs>
+    <style>
+      .heading{font:700 51px Arial,sans-serif;fill:#261c2b}
+      .eyebrow{font:700 23px Arial,sans-serif;letter-spacing:3px;fill:#795882}
+      .stage{font:700 39px Arial,sans-serif;fill:#fff}
+      .stageSub{font:500 25px Arial,sans-serif;fill:#fff}
+      .habit{font:700 28px Arial,sans-serif;fill:#382c40}
+      .habitSub{font:500 23px Arial,sans-serif;fill:#514956}
+      .note{font:500 22px Arial,sans-serif;fill:#625a65}
+    </style>
+  </defs>
+  <rect width="1080" height="1350" rx="30" fill="#fbf9fb"/>
+  <text x="58" y="78" class="eyebrow">PRIORIDADES EN CABINA</text>
+  <text x="58" y="145" class="heading">Primero el avión.</text>
+  <text x="58" y="205" class="heading">Luego la frecuencia.</text>
+  <text x="58" y="258" class="note">Jerarquía de instrucción, no una fraseología de la OACI</text>
+
+  <path d="M359 322H721L772 463H308Z" fill="#9e73a6"/>
+  <path d="M308 481H772L826 645H254Z" fill="#80578e"/>
+  <path d="M254 663H826L900 861H180Z" fill="#60396f"/>
+  <text x="540" y="390" text-anchor="middle" class="stage">COMMUNICATE</text>
+  <text x="540" y="428" text-anchor="middle" class="stageSub">Informe y coordine</text>
+  <text x="540" y="556" text-anchor="middle" class="stage">NAVIGATE</text>
+  <text x="540" y="597" text-anchor="middle" class="stageSub">Conozca posición y trayectoria</text>
+  <text x="540" y="748" text-anchor="middle" class="stage">AVIATE</text>
+  <text x="540" y="794" text-anchor="middle" class="stageSub">Mantenga el control de la aeronave</text>
+
+  <text x="58" y="938" class="eyebrow">CUANDO YA PUEDE TRANSMITIR</text>
+  <g transform="translate(58 966)">
+    <rect width="462" height="112" rx="17" fill="#f0e9f2"/>
+    <circle cx="45" cy="45" r="26" fill="#70467e"/><text x="45" y="54" text-anchor="middle" class="stageSub">1</text>
+    <text x="88" y="45" class="habit">Escuche antes</text>
+    <text x="88" y="82" class="habitSub">No pise otra transmisión.</text>
+  </g>
+  <g transform="translate(560 966)">
+    <rect width="462" height="112" rx="17" fill="#f0e9f2"/>
+    <circle cx="45" cy="45" r="26" fill="#70467e"/><text x="45" y="54" text-anchor="middle" class="stageSub">2</text>
+    <text x="88" y="45" class="habit">Prepare el mensaje</text>
+    <text x="88" y="82" class="habitSub">A quién, quién es, qué pide.</text>
+  </g>
+  <g transform="translate(58 1096)">
+    <rect width="462" height="112" rx="17" fill="#f0e9f2"/>
+    <circle cx="45" cy="45" r="26" fill="#70467e"/><text x="45" y="54" text-anchor="middle" class="stageSub">3</text>
+    <text x="88" y="45" class="habit">Pulse y después hable</text>
+    <text x="88" y="82" class="habitSub">No recorte el distintivo.</text>
+  </g>
+  <g transform="translate(560 1096)">
+    <rect width="462" height="112" rx="17" fill="#f0e9f2"/>
+    <circle cx="45" cy="45" r="26" fill="#70467e"/><text x="45" y="54" text-anchor="middle" class="stageSub">4</text>
+    <text x="88" y="45" class="habit">Suelte y verifique</text>
+    <text x="88" y="82" class="habitSub">Confirme que la radio queda libre.</text>
+  </g>
+  <text x="58" y="1282" class="note">Si el mensaje se cortó o hay duda, restablezca la comunicación.</text>
+</svg>

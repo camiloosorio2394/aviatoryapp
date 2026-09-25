@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="title desc">
+  <title id="title">Filtro contra el sesgo de expectativa</title>
+  <desc id="desc">Una expectativa de cabina no equivale a una instrucción recibida. La tripulación escucha, colaciona y confirma antes de actuar.</desc>
+  <rect width="1600" height="900" fill="#0d1c2e"/>
+  <rect x="70" y="70" width="1460" height="760" rx="32" fill="#13283c" stroke="#37576b" stroke-width="2"/>
+  <text x="120" y="151" fill="#bfffe5" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="4">SESGO DE EXPECTATIVA</text>
+  <text x="120" y="210" fill="#f4fafb" font-family="Arial, sans-serif" font-size="47" font-weight="700">Lo esperado no es lo autorizado</text>
+  <rect x="120" y="276" width="398" height="282" rx="22" fill="#1c3449" stroke="#527189" stroke-width="2"/>
+  <text x="155" y="333" fill="#a8c5d2" font-family="Arial, sans-serif" font-size="27" font-weight="700">1 · EXPECTATIVA</text>
+  <text x="155" y="422" fill="#fff2d5" font-family="Arial, sans-serif" font-size="46" font-weight="700">FL 370</text>
+  <text x="155" y="485" fill="#d2e3e8" font-family="Arial, sans-serif" font-size="25">Nivel solicitado</text>
+  <rect x="601" y="276" width="398" height="282" rx="22" fill="#1c3449" stroke="#527189" stroke-width="2"/>
+  <text x="636" y="333" fill="#a8c5d2" font-family="Arial, sans-serif" font-size="27" font-weight="700">2 · RECEPCIÓN</text>
+  <text x="636" y="422" fill="#bfffe5" font-family="Arial, sans-serif" font-size="46" font-weight="700">FL 350</text>
+  <text x="636" y="485" fill="#d2e3e8" font-family="Arial, sans-serif" font-size="25">Nivel transmitido</text>
+  <rect x="1082" y="276" width="398" height="282" rx="22" fill="#173f42" stroke="#8af4cb" stroke-width="3"/>
+  <text x="1117" y="333" fill="#bfffe5" font-family="Arial, sans-serif" font-size="27" font-weight="700">3 · VERIFICACIÓN</text>
+  <text x="1117" y="422" fill="#bfffe5" font-family="Arial, sans-serif" font-size="46" font-weight="700">FL 350</text>
+  <text x="1117" y="485" fill="#e0f6ec" font-family="Arial, sans-serif" font-size="25">Colacionado y confirmado</text>
+  <path d="M537 417h43m-16-16 16 16-16 16M1018 417h43m-16-16 16 16-16 16" fill="none" stroke="#8af4cb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="120" y="628" width="1360" height="120" rx="20" fill="#0d2731" stroke="#39736a" stroke-width="2"/>
+  <text x="160" y="681" fill="#f4fafb" font-family="Arial, sans-serif" font-size="29" font-weight="700">Defensa de cabina</text>
+  <text x="160" y="722" fill="#bfffe5" font-family="Arial, sans-serif" font-size="26">Escuchar el dato distinto  ·  colacionar lo recibido  ·  comprobar la selección</text>
+  <text x="120" y="792" fill="#92aab6" font-family="Arial, sans-serif" font-size="20">Ejemplo numérico didáctico; no corresponde a una autorización real.</text>
+</svg>

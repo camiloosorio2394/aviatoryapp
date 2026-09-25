@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" role="img" aria-labelledby="title desc">
+  <title id="title">Secuencia orientativa de dependencias durante un vuelo de línea</title>
+  <desc id="desc">Del puesto de estacionamiento a la pista: Delivery, Ground, Tower y Departure. En ruta y llegada: Control, Approach, Tower y Ground. Cada transferencia de frecuencia se hace por instrucción; la secuencia exacta depende del aeropuerto y del servicio disponible.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10Z" fill="#9b6ca5"/>
+    </marker>
+    <style>
+      .title{font:700 46px Arial,sans-serif;fill:#22212a}
+      .small{font:600 24px Arial,sans-serif;fill:#6d6272}
+      .name{font:700 35px Arial,sans-serif;fill:#5e3567}
+      .detail{font:500 27px Arial,sans-serif;fill:#292b35}
+      .num{font:700 25px Arial,sans-serif;fill:white}
+      .box{fill:white;stroke:#e1d8e3;stroke-width:3}
+      .line{fill:none;stroke:#9b6ca5;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1600" height="760" rx="24" fill="#fbfaf8"/>
+  <text x="48" y="79" class="title">¿Con quién hablas en cada fase?</text>
+  <text x="48" y="119" class="small">Secuencia orientativa · el cambio de frecuencia lo indica la dependencia</text>
+
+  <path class="line" d="M367 255H431"/>
+  <path class="line" d="M764 255H828"/>
+  <path class="line" d="M1161 255H1225"/>
+  <path class="line" d="M1402 347v57"/>
+  <path class="line" d="M1234 512h-64"/>
+  <path class="line" d="M837 512h-64"/>
+  <path class="line" d="M440 512h-64"/>
+
+  <g transform="translate(48 162)">
+    <rect class="box" width="315" height="182" rx="20"/>
+    <circle cx="40" cy="41" r="27" fill="#5e3567"/><text x="40" y="50" class="num" text-anchor="middle">1</text>
+    <text x="78" y="52" class="name">DELIVERY</text>
+    <text x="25" y="109" class="detail">Autorización de ruta</text>
+    <text x="25" y="149" class="small">Si existe por separado</text>
+  </g>
+  <g transform="translate(445 162)">
+    <rect class="box" width="315" height="182" rx="20"/>
+    <circle cx="40" cy="41" r="27" fill="#5e3567"/><text x="40" y="50" class="num" text-anchor="middle">2</text>
+    <text x="78" y="52" class="name">GROUND</text>
+    <text x="25" y="109" class="detail">Rodaje hacia pista</text>
+    <text x="25" y="149" class="small">Superficie</text>
+  </g>
+  <g transform="translate(842 162)">
+    <rect class="box" width="315" height="182" rx="20"/>
+    <circle cx="40" cy="41" r="27" fill="#5e3567"/><text x="40" y="50" class="num" text-anchor="middle">3</text>
+    <text x="78" y="52" class="name">TOWER</text>
+    <text x="25" y="109" class="detail">Pista y despegue</text>
+    <text x="25" y="149" class="small">Control de aeródromo</text>
+  </g>
+  <g transform="translate(1239 162)">
+    <rect class="box" width="315" height="182" rx="20"/>
+    <circle cx="40" cy="41" r="27" fill="#5e3567"/><text x="40" y="50" class="num" text-anchor="middle">4</text>
+    <text x="78" y="52" class="name">DEPARTURE</text>
+    <text x="25" y="109" class="detail">Salida y ascenso</text>
+    <text x="25" y="149" class="small">Área terminal</text>
+  </g>
+
+  <g transform="translate(1239 420)">
+    <rect class="box" width="315" height="182" rx="20"/>
+    <circle cx="40" cy="41" r="27" fill="#5e3567"/><text x="40" y="50" class="num" text-anchor="middle">5</text>
+    <text x="78" y="52" class="name">CONTROL</text>
+    <text x="25" y="109" class="detail">Tránsito en ruta</text>
+    <text x="25" y="149" class="small">Centro de área</text>
+  </g>
+  <g transform="translate(842 420)">
+    <rect class="box" width="315" height="182" rx="20"/>
+    <circle cx="40" cy="41" r="27" fill="#5e3567"/><text x="40" y="50" class="num" text-anchor="middle">6</text>
+    <text x="78" y="52" class="name">APPROACH</text>
+    <text x="25" y="109" class="detail">Llegada y descenso</text>
+    <text x="25" y="149" class="small">Área terminal</text>
+  </g>
+  <g transform="translate(445 420)">
+    <rect class="box" width="315" height="182" rx="20"/>
+    <circle cx="40" cy="41" r="27" fill="#5e3567"/><text x="40" y="50" class="num" text-anchor="middle">7</text>
+    <text x="78" y="52" class="name">TOWER</text>
+    <text x="25" y="109" class="detail">Aterrizaje y pista</text>
+    <text x="25" y="149" class="small">Hasta dejarla libre</text>
+  </g>
+  <g transform="translate(48 420)">
+    <rect class="box" width="315" height="182" rx="20"/>
+    <circle cx="40" cy="41" r="27" fill="#5e3567"/><text x="40" y="50" class="num" text-anchor="middle">8</text>
+    <text x="78" y="52" class="name">GROUND</text>
+    <text x="25" y="109" class="detail">Rodaje al puesto</text>
+    <text x="25" y="149" class="small">Tras liberar la pista</text>
+  </g>
+  <text x="48" y="674" class="small">CONTACT: cambie y llame · MONITOR: cambie y escuche · STAND BY: espere</text>
+  <text x="48" y="714" class="small">El AIP y las instrucciones ATC determinan las dependencias, frecuencias y puntos de transferencia reales.</text>
+</svg>

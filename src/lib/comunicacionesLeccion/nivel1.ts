@@ -54,7 +54,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "callout",
         tone: "info",
         title: "Sobre los ejemplos de este módulo",
-        text: "Los ejemplos del Doc 9432 usan distintivos y lugares ficticios (FASTAIR 345, STEPHENVILLE, GEORGETOWN). Aquí se adaptan a `AVIATORY 452` y a estaciones colombianas de ejemplo («Bogota Ground», «Bogota Approach»). **Son ejemplos educativos**: frecuencias, puestos, waypoints (GIKOS y similares) y SID son ficticios. Lo real está en el AIP de cada Estado. La fraseología va en inglés, como la usa el piloto. Lo que no es fraseología normalizada va rotulado **PLAIN LANGUAGE**. Los números en las transmisiones se escriben en cifras para leerlos rápido; la lección 5 explica cómo se pronuncian.",
+        text: "El Doc 9432 combina fraseología con ejemplos ficticios. Las transmisiones de práctica de esta lección que usan `AVIATORY 452` también son **simulaciones**, no grabaciones ni autorizaciones vigentes: sus frecuencias, puntos y procedimientos deben contrastarse con la publicación de información aeronáutica (AIP, Aeronautical Information Publication) actual antes de cualquier uso operacional. La historieta de abajo es distinta: reconstruye, sin atribuir diálogos inventados a los protagonistas, la secuencia documentada del vuelo US Airways 1549 entre LaGuardia y Charlotte. La fraseología de ejemplo se muestra en inglés; `PLAIN LANGUAGE` identifica el lenguaje no normalizado. La lección 5 explica cómo pronunciar los números.",
       },
       { kind: "sub", text: "¿Qué es?" },
       {
@@ -63,7 +63,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "El servicio de control de tránsito aéreo existe para prevenir colisiones entre aeronaves y, en el área de maniobras, entre aeronaves y obstáculos, y para acelerar y mantener ordenado el movimiento del tránsito (Doc 4444, cap. 1, definición de «Servicio de control de tránsito aéreo»). La radio es la herramienta con la que eso ocurre.",
+        text: "El servicio de control de tránsito aéreo (ATC, Air Traffic Control) existe para prevenir colisiones entre aeronaves y, en el área de maniobras, entre aeronaves y obstáculos, y para acelerar y mantener ordenado el movimiento del tránsito (Doc 4444, cap. 1, definición de «Servicio de control de tránsito aéreo»). La radio es la herramienta con la que eso ocurre.",
       },
       { kind: "sub", text: "Lo que debe saber un piloto" },
       {
@@ -76,7 +76,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**Las cinco cualidades que busca la OACI.** La fraseología se concibió para que las comunicaciones sean **eficientes, claras, concisas e inequívocas** (Doc 9432, Preámbulo; 3.2.2). A eso se suma:",
+        text: "**Las cinco cualidades que busca la Organización de Aviación Civil Internacional (OACI; International Civil Aviation Organization, ICAO).** La fraseología se concibió para que las comunicaciones sean **eficientes, claras, concisas e inequívocas** (Doc 9432, Preámbulo; 3.2.2). A eso se suma:",
       },
       {
         kind: "table",
@@ -108,27 +108,51 @@ export const NIVEL_1: DocScreen[] = [
         text: "El Preámbulo del Doc 9432 añade un punto que un piloto latinoamericano vive todos los días: a menudo ni quien transmite ni quien recibe habla en su primer idioma. Por eso las transmisiones deben ser lentas y claras, y las frases directas, sin modismos, se entienden mejor que las indirectas o coloquiales.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-01-01 · Diagrama · 16:9 · 1600×900",
-        descripcion:
-          "Vista lateral esquemática de un vuelo de línea (despegue, ascenso, crucero, descenso, aproximación). Sobre la trayectoria, la aeronave en tres posiciones unidas por líneas de radio punteadas a tres dependencias en tierra: torre de control (junto a la pista de salida), dependencia de aproximación (radar terminal) y centro de control de área (edificio con pantallas, en ruta). En cada línea, un rótulo corto en mono mayúsculas: TOWER, APPROACH, CONTROL. Al pie, franja con las palabras CLARO · BREVE · PRECISO · ESTÁNDAR. Objetivo: que el piloto vea que durante un vuelo habla con varias dependencias, cada una responsable de una parte, y que todas usan el mismo idioma normalizado.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-01-01.webp",
+        alt: "Historieta de cuatro escenas: tripulación del vuelo 1549 en ascenso, encuentro con aves, controlador de salida de Nueva York y decisión de amaraje en el río Hudson.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Caso real, ilustración interpretativa: US Airways 1549, LaGuardia–Charlotte, 15 de enero de 2009. Amplía la imagen para examinar las escenas; lee debajo la secuencia operacional. Fuente: Junta Nacional de Seguridad del Transporte de EE. UU. (NTSB, National Transportation Safety Board), informe AAR-10/03, sección 1.1.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
       {
         kind: "pasos",
         items: [
           {
-            rotulo: "Colación con corrección del controlador (hearback)",
+            rotulo: "1 · Salida: transmitir posición y autorización completa",
+            texto: "Tras despegar de LaGuardia, la tripulación contactó a la dependencia de salida e informó su altitud y el ascenso autorizado. El controlador emitió una nueva instrucción de ascenso. **Para el piloto de aerolínea, la tarea no es repetir un dato aislado:** hay que identificar el vuelo, entender el nuevo límite vertical, compararlo con la autorización anterior y confirmar lo que efectivamente se va a cumplir. La ruta prevista era LaGuardia–Charlotte; el informe del NTSB documenta esa secuencia antes del encuentro con aves.",
+          },
+          {
+            rotulo: "2 · Emergencia: prioridad, condición y capacidad",
+            texto: "Aproximadamente dos minutos después del despegue, la aeronave encontró aves y perdió casi todo el empuje de ambos motores. El comandante asumió el control, pidió al primer oficial la lista de doble falla de motor y comunicó la emergencia a salida: impacto con aves, pérdida de empuje en ambos motores e intención inicial de regresar a LaGuardia. El informe señala un detalle crucial de disciplina de frecuencia: las primeras palabras de emergencia coincidieron con otra transmisión y **no llegaron al controlador**. La cabina debe transmitir la condición y verificar que ATC la haya recibido; emitir una frase no equivale a haber establecido comunicación.",
+          },
+          {
+            rotulo: "3 · ATC responde; la tripulación evalúa, no acepta por reflejo",
+            texto: "El controlador acusó recibo y ofreció un rumbo y opciones de aterrizaje. La tripulación, mientras ejecutaba tareas de cabina y evaluaba la energía disponible, no trató la propuesta como una orden que pudiera cumplirse automáticamente. En una comunicación real, el piloto debe comunicar con claridad si una autorización es inviable y evitar una colación que sugiera una capacidad inexistente. Aquí el valor de la radio es crear una imagen compartida de la situación entre cabina y control, no solo mantener frases breves.",
+          },
+          {
+            rotulo: "4 · Decisión: «unable» y alternativa comunicada",
+            texto: "Cuando el controlador planteó la pista 13 de LaGuardia, el comandante respondió que no podían alcanzarla y que quizá terminarían en el Hudson. Esa respuesta puso una limitación operacional explícita sobre la mesa y permitió a ATC ajustar su apoyo a la decisión de la tripulación. El caso enseña a **decir lo que la aeronave puede o no puede hacer**, sostener la prioridad de volar el avión y mantener la información esencial circulando aun bajo carga de trabajo extrema. La ilustración resume hechos del informe; no pretende reproducir la cabina ni el radar con exactitud histórica.",
+          },
+        ],
+      },
+      { kind: "sub", text: "Fraseología y secuencia de radio" },
+      {
+        kind: "pasos",
+        items: [
+          {
+            rotulo: "Vuelo 1549: del ascenso normal a una emergencia real",
             codigo: tx(
-              "ATC:   AVIATORY 452, QNH 1003.",
-              "PILOT: QNH 1013, AVIATORY 452.",
-              "ATC:   AVIATORY 452, NEGATIVE I SAY AGAIN, QNH 1003.",
-              "PILOT: QNH 1003, AVIATORY 452.",
+              "SECUENCIA DOCUMENTADA POR NTSB · RESUMEN, NO TRANSCRIPCIÓN LITERAL",
+              "15:25:51 · CABINA → SALIDA: 700 ft, en ascenso a 5 000 ft.",
+              "           SALIDA → CABINA: continuar ascenso hasta 15 000 ft; la tripulación acusa recibo.",
+              "15:27:33 · CABINA → SALIDA: impacto de aves, pérdida de empuje en ambos motores, intención de regresar a LaGuardia.",
+              "           SALIDA → CABINA: ofrece viraje izquierdo rumbo 220°; la tripulación confirma el rumbo.",
+              "15:28:05 · SALIDA → CABINA: pregunta si pueden usar la pista 13.",
+              "           CABINA → SALIDA: no pueden; quizá deban amarar en el Hudson.",
             ),
             texto:
-              "**Significado:** el piloto colacionó mal el reglaje. El controlador escuchó la colación, detectó el error y lo corrigió con «NEGATIVE I SAY AGAIN» seguido del valor correcto (Doc 9432, 2.8.3.9). Así funciona la red: nadie actúa sobre un dato que no se confirmó.",
+              "**Qué debe detectar un piloto de aerolínea:** la comunicación cambió de una autorización de ascenso con límite vertical a una emergencia con capacidad de maniobra degradada. El controlador propuso opciones, pero la tripulación evaluó si realmente podía cumplirlas y comunicó la imposibilidad. No es un ejercicio de colacionar un número aislado. Los hechos y los tiempos proceden del informe NTSB AAR-10/03, §1.1; para estudiar las palabras exactas hay que acudir al registro del apéndice B. El primer MAYDAY se superpuso con otra transmisión y no llegó al controlador.",
           },
           {
             rotulo: "Un número ambiguo y su forma correcta",
@@ -233,7 +257,7 @@ export const NIVEL_1: DocScreen[] = [
           { kind: "sub", text: "Fuentes cargadas en este nivel" },
           {
             kind: "p",
-            text: "Doc 9432 «Manual de radiotelefonía» (4.ª ed., 2007, edición en español), Doc 4444 PANS-ATM (15.ª ed., Enm. 4, 2012, edición en español, parcial) y Doc 9835 (2.ª ed., 2010). La 15.ª edición del Doc 4444 no es la vigente; cada lección marca con «Verificar» lo que hay que confirmar en la edición en vigor.",
+            text: "Doc 9432 «Manual de radiotelefonía» (4.ª ed., 2007, edición en español), Doc 4444 PANS-ATM (15.ª ed., Enm. 4, 2012, edición en español, parcial), Doc 9835 (2.ª ed., 2010) y NTSB AAR-10/03, §1.1 y apéndice B (https://www.ntsb.gov/investigations/accidentreports/reports/aar1003.pdf). La 15.ª edición del Doc 4444 no es la vigente; cada lección marca con «Verificar» lo que hay que confirmar en la edición en vigor.",
           },
           { kind: "sub", text: "Verificado" },
           {
@@ -262,7 +286,7 @@ export const NIVEL_1: DocScreen[] = [
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "El ATS (servicio de tránsito aéreo) es la expresión genérica que abarca información de vuelo, alerta, asesoramiento de tránsito aéreo y control de tránsito aéreo, este último dividido en control de área, de aproximación y de aeródromo (Doc 4444, cap. 1; Doc 9432, 1.1). Cada servicio lo presta una dependencia, y cada dependencia tiene su distintivo de llamada en la radio.",
+        text: "Los servicios de tránsito aéreo (ATS, Air Traffic Services) abarcan información de vuelo, alerta, asesoramiento de tránsito aéreo y control de tránsito aéreo (ATC, Air Traffic Control). Este último se divide en control de área, de aproximación y de aeródromo (Doc 4444, cap. 1; Doc 9432, 1.1). Cada servicio lo presta una dependencia, y cada dependencia tiene su distintivo de llamada en la radio.",
       },
       { kind: "sub", text: "Lo que debe saber un piloto" },
       { kind: "p", text: "**Quién presta cada servicio** (Doc 4444, 4.1 y 4.2):" },
@@ -332,12 +356,12 @@ export const NIVEL_1: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "CM-02-01 · Diagrama · 21:9 · 2100×900",
-        descripcion:
-          "Línea de tiempo horizontal de un vuelo completo entre dos aeropuertos, dividida en ocho tramos de color neutro con el acento del módulo. De izquierda a derecha: DELIVERY (aeronave en el puesto, autorización de ruta) → GROUND (rodaje) → TOWER (pista, despegue) → DEPARTURE (ascenso inicial) → CONTROL (en ruta, crucero) → APPROACH (descenso y aproximación) → TOWER (aterrizaje) → GROUND (rodaje a puesto). En cada cambio de tramo, un marcador con la palabra CONTACT y una frecuencia ficticia. Encima de todo, una franja fina con la FIR y el rótulo INFORMATION para vuelos fuera de espacio controlado. Objetivo: que el piloto memorice la secuencia típica de dependencias y entienda que cada cambio es una transferencia ordenada, no un salto.",
-        alto: 280,
-        ratio: "21 / 9",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-02-01.svg",
+        alt: "Flujo orientativo de ocho fases: Delivery, Ground, Tower, Departure, Control, Approach, Tower y Ground; el servicio disponible y cada transferencia dependen del aeropuerto y de ATC.",
+        ancho: 1600,
+        alto: 760,
+        pie: "Secuencia de referencia, no carta ni procedimiento de un aeropuerto concreto. La disponibilidad de cada dependencia y la frecuencia aplicable se consultan en el AIP vigente y en las instrucciones de ATC. Amplía el esquema para leer cada fase.",
       },
       { kind: "sub", text: "Fraseología OACI" },
       {
@@ -493,7 +517,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "list",
         items: [
           "**Escuche antes de hablar.** Haga escucha en la frecuencia para no pisar otra transmisión.",
-          "**Piense antes de oprimir el PTT.** Tenga armado el mensaje (a quién, quién es, qué quiere) antes de hablar. Evite «humm», «este…» (2.2.1 g).",
+          "**Piense antes de oprimir el pulsador de transmisión (PTT, push-to-talk).** Tenga armado el mensaje (a quién, quién es, qué quiere) antes de hablar. Evite «humm», «este…» (2.2.1 g).",
           "**Oprima a fondo el PTT antes de empezar a hablar** y no lo suelte hasta terminar (2.2.1 j). Si habla antes o suelta antes, se corta la primera o la última palabra, que suele ser el distintivo.",
         ],
       },
@@ -546,16 +570,28 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**AVIATE, NAVIGATE, COMMUNICATE.** Es un principio de instrucción muy difundido en la formación de pilotos (no aparece en los documentos OACI cargados): primero controlar la aeronave, luego saber dónde está y hacia dónde va, luego comunicar. La comunicación es fundamental, pero **no desplaza el control de la aeronave**. Los propios documentos OACI reconocen la carga de trabajo: los controladores deberían evitar transmitir durante el despegue, el ascenso inicial, la última etapa de la aproximación final o el recorrido de aterrizaje, salvo por seguridad (Doc 9432, 4.1.2), y no deben dar autorizaciones a un piloto que está alineándose o despegando (Doc 9432, 2.8.3.2). Del lado del piloto, un «STANDBY» a tiempo es mejor que una colación hecha a medias mientras se pilota.",
+        text: "**AVIATE, NAVIGATE, COMMUNICATE.** Es un principio de instrucción muy difundido en la formación de pilotos (no aparece en los documentos cargados de la Organización de Aviación Civil Internacional —OACI; International Civil Aviation Organization, ICAO—): primero controlar la aeronave, luego saber dónde está y hacia dónde va, luego comunicar. La comunicación es fundamental, pero **no desplaza el control de la aeronave**. Los propios documentos OACI reconocen la carga de trabajo: los controladores deberían evitar transmitir durante el despegue, el ascenso inicial, la última etapa de la aproximación final o el recorrido de aterrizaje, salvo por seguridad (Doc 9432, 4.1.2), y no deben dar autorizaciones a un piloto que está alineándose o despegando (Doc 9432, 2.8.3.2). Del lado del piloto, un «STANDBY» a tiempo es mejor que una colación hecha a medias mientras se pilota.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-03-01 · Esquema · 4:5 · 1080×1350",
-        descripcion:
-          "Pirámide de tres niveles, de abajo hacia arriba: AVIATE (base ancha, «controle la aeronave»), NAVIGATE («sepa dónde está y hacia dónde va»), COMMUNICATE (vértice, «informe y coordine»). A la derecha de la pirámide, una columna de cuatro íconos con rótulo corto: ESCUCHE ANTES, PIENSE ANTES DEL PTT, PTT A FONDO, SUELTE Y VERIFIQUE. Colores del módulo, sin rojo ni ámbar. Objetivo: que el piloto fije el orden de prioridades y los cuatro hábitos de transmisión que evitan cortes y bloqueos.",
-        alto: 420,
-        ratio: "4 / 5",
-        anchoMax: 420,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-03-01.svg",
+        alt: "Pirámide de prioridades de vuelo: controlar la aeronave, asegurar posición y trayectoria, y después comunicar; cuatro hábitos para transmitir sin cortar ni bloquear la frecuencia.",
+        ancho: 1080,
+        alto: 1350,
+        pie: "La base de la pirámide es controlar la aeronave; comunicar no sustituye esa tarea. Al transmitir, escuche, prepare el mensaje, oprima el PTT antes de hablar y suéltelo al terminar. Amplíe el esquema para leer cada paso. «Aviate, navigate, communicate» es un principio de instrucción, no una autorización para omitir una llamada de seguridad ni una cita normativa de la OACI.",
+      },
+      { kind: "sub", text: "Aplicación en una cabina de línea" },
+      {
+        kind: "p",
+        text: "**La prioridad no es «contestar rápido», sino que la tripulación conserve una imagen correcta de lo que el avión está haciendo.** Cuando llega una llamada mientras se configura un cambio de trayectoria, el piloto que vuela mantiene el control y la conciencia de posición; el piloto que comunica escucha el distintivo, identifica qué cambió y contrasta la instrucción con el plan y las limitaciones del momento. Si no oyó el nivel, el rumbo o el punto completo, no lo reconstruye por expectativa: pide la parte que falta. Si necesita unos segundos para coordinar en cabina, lo comunica y vuelve a llamar. Una colación pronunciada con fluidez, pero basada en un dato incompleto, no aporta seguridad.",
+      },
+      {
+        kind: "p",
+        text: "**El vuelo US Airways 1549, presentado en la lección anterior, muestra por qué esta jerarquía importa de verdad.** Tras el impacto con aves y la pérdida de empuje, la tripulación tuvo que controlar una aeronave con energía limitada, valorar si alguna pista era alcanzable, trabajar en cabina y mantener informado al controlador. La primera transmisión de emergencia se superpuso con otra llamada y no llegó a salida, según el informe AAR-10/03, §1.1, de la Junta Nacional de Seguridad del Transporte de Estados Unidos (NTSB, National Transportation Safety Board). La lección para un aspirante no es memorizar una frase corta: es reconocer que la frecuencia es compartida, comprobar si el mensaje esencial llegó y expresar con claridad la capacidad real de la aeronave. Cuando una opción de retorno dejó de ser viable, comunicar «unable» permitió que control de tránsito aéreo entendiera el límite operacional en vez de interpretar una colación como aceptación.",
+      },
+      {
+        kind: "p",
+        text: "**Después de cada transmisión sigue habiendo trabajo.** El piloto que habló suelta el PTT, escucha la respuesta y verifica si el controlador corrigió un dato o transfirió la aeronave. El otro piloto coteja lo oído con la trayectoria y los selectores que correspondan; quién ejecuta cada acción depende de los procedimientos de la compañía. Si la frecuencia quedó bloqueada por un micrófono trabado, o si se perdió el inicio de la llamada, la solución no es seguir adelante suponiendo que ATC comprendió: hay que restablecer la comunicación por el medio disponible y dejar explícito qué autorización se recibió realmente. Esa disciplina conecta técnica de transmisión, gestión de carga de trabajo y toma de decisiones.",
       },
       { kind: "sub", text: "Fraseología OACI" },
       {
@@ -667,7 +703,7 @@ export const NIVEL_1: DocScreen[] = [
         ],
       },
       fuentes(
-        "Doc 9432 (4.ª ed.) 2.2.1 a) a k), 2.2.2, 2.6 (STANDBY), 2.8.1.4 a 2.8.1.8, 2.8.3.2, 2.8.4.1 a 2.8.4.3, 3.1.3, 3.1.4, 3.1.5, 3.2.4, 4.1.2, 6.3.2 (REPORT HEADING / HEADING 050 / ROGER CONTINUE HEADING 050).",
+        "Doc 9432 (4.ª ed.) 2.2.1 a) a k), 2.2.2, 2.6 (STANDBY), 2.8.1.4 a 2.8.1.8, 2.8.3.2, 2.8.4.1 a 2.8.4.3, 3.1.3, 3.1.4, 3.1.5, 3.2.4, 4.1.2, 6.3.2 (REPORT HEADING / HEADING 050 / ROGER CONTINUE HEADING 050). Caso US Airways 1549: NTSB AAR-10/03, §1.1 (https://www.ntsb.gov/investigations/accidentreports/reports/aar1003.pdf).",
         [
           "«AVIATE, NAVIGATE, COMMUNICATE» no está en los documentos cargados; citar su fuente en el manual de operaciones o FCTM del operador, o en material de instrucción de la autoridad (no cargado). No presentarlo como norma OACI.",
           "Que el piloto responda «STANDBY» a una solicitud del ATC como uso aceptado, contra Anexo 10 Vol. II cap. 5 (no cargado); el Doc 9432 2.6 define la palabra sin limitar quién la usa.",
@@ -685,7 +721,7 @@ export const NIVEL_1: DocScreen[] = [
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "Es el conjunto de 26 palabras con las que se deletrea por radio, una por letra, para que una letra no se confunda con otra de sonido parecido (B, D, E, G, P, T, V suenan casi igual en una radio con ruido).",
+        text: "El alfabeto de la Organización de Aviación Civil Internacional (OACI; International Civil Aviation Organization, ICAO) es el conjunto de 26 palabras con las que se deletrea por radio, una por letra, para que una letra no se confunda con otra de sonido parecido (B, D, E, G, P, T, V suenan casi igual en una radio con ruido). Para un piloto de aerolínea, el objetivo no es recitarlo como una lista: es **reconocer una secuencia al oído, asociarla con la autorización y verificar lo que entró en el sistema de navegación** antes de colacionar.",
       },
       { kind: "sub", text: "Lo que debe saber un piloto" },
       { kind: "p", text: "**Cuándo se usa:**" },
@@ -755,16 +791,24 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "La edición en español escribe algunas palabras con grafía española (Julieta, Papá, Québec, Víctor). La grafía de la palabra en la edición inglesa y en el Anexo 10 es la que se usa en inglés; va en el aviso «Verificar».",
+        text: "La edición en español escribe algunas palabras con grafía española (Julieta, Papá, Québec, Víctor). La lámina ampliable muestra la grafía internacional que presenta la OACI, incluida «Juliett» con doble t. Para la pronunciación aproximada en inglés usa la tabla oficial de la FAA; esta escribe «Whiskey», mientras la grafía que aparece en la referencia OACI es «Whisky». Las diferencias de grafía no autorizan a cambiar la palabra que se transmite.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-04-01 · Esquema · 3:4 · 1200×1600",
-        descripcion:
-          "Tabla limpia de 26 filas en dos columnas de 13 (A a M, N a Z), fondo papel del lector. Cada celda: letra grande en Archivo, palabra en inglés debajo y pronunciación en mono pequeña, con la sílaba de énfasis resaltada en el acento del módulo (tomada del PDF original del Doc 9432, no de este texto). Sin ilustraciones decorativas. Objetivo: que el piloto tenga una referencia de consulta rápida y vea de un vistazo qué sílaba se acentúa.",
-        alto: 480,
-        ratio: "3 / 4",
-        anchoMax: 420,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-04-01.svg",
+        alt: "Tabla ampliable de las veintiséis letras del alfabeto de deletreo, de Alfa a Zulu, con palabra internacional y guía aproximada de pronunciación en inglés.",
+        ancho: 1200,
+        alto: 1600,
+        pie: "Referencia para escuchar y transcribir, no sustituto de la colación de una autorización completa. La grafía internacional sigue a la OACI; la guía aproximada de pronunciación inglesa sigue la tabla 2-3-2, §2-3-3, de la Administración Federal de Aviación de Estados Unidos (FAA, Federal Aviation Administration). La FAA escribe «Whiskey»; la grafía OACI es «Whisky». Amplíe la tabla para leer cada fila. Fuentes: https://www.icao.int/sites/default/files/postalhistory/annex_10_aeronautical_telecommunications.htm y https://www.faa.gov/air_traffic/publications/atpubs/fs_html/chap2_section_3.html.",
+      },
+      { kind: "sub", text: "Del deletreo a una decisión de cabina" },
+      {
+        kind: "p",
+        text: "**Escuchar una palabra deletreada no termina el trabajo.** Si una dependencia transmite o aclara un punto de ruta, el piloto que comunica debe distinguir primero si se trata de una instrucción dirigida a su vuelo. Luego retiene o anota la secuencia de letras completa, verifica que el punto seleccionado en el sistema de gestión de vuelo coincide con lo recibido y confirma que ese cambio encaja con la autorización vigente. El otro piloto comprueba la modificación según el procedimiento del operador. Solo entonces la colación expresa lo que la tripulación entendió y está preparada para ejecutar. Recitar «Golf India Kilo…» perfectamente mientras se selecciona otro punto no evita una desviación de trayectoria.",
+      },
+      {
+        kind: "p",
+        text: "**Si falta una letra, se detiene la suposición.** Una frecuencia ocupada, un acento desconocido o un nombre muy parecido a otro punto pueden dejar la secuencia incompleta. En ese momento corresponde pedir repetición o deletreo de la parte dudosa, escuchar la respuesta y verificar de nuevo el dato antes de modificar la ruta. No basta con reconocer las primeras sílabas ni con aceptar la opción que aparece primero en la pantalla. El mismo criterio se aplica a calles de rodaje, letras de la información automática y matrículas de otras aeronaves: el alfabeto es una herramienta para eliminar una ambigüedad operacional, no una prueba de memoria desconectada de la tarea.",
       },
       { kind: "sub", text: "Fraseología OACI" },
       {
@@ -813,7 +857,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "callout",
         tone: "verificar",
         title: "Verificar",
-        text: "La tabla todavía no marca la sílaba de énfasis de cada palabra (subrayada en el original, perdida en la extracción): tomarla del **PDF del Doc 9432 (4.ª ed.), 2.3.3**. La grafía inglesa de las palabras que la edición en español escribe a la española (Alfa, Juliett, Papa, Quebec, Victor, Whiskey, X-ray) se confirma en el **Anexo 10 Vol. II, cap. 5 (alfabeto de deletreo)** y en la **edición inglesa del Doc 9432, 2.3.3**; mientras tanto, los ejercicios en inglés usan «Juliett». Las matrículas colombianas (HK-) y mexicanas (XA-) de los ejercicios son ficticias: su formato real lo fija la **autoridad de cada Estado**.",
+        text: "La tabla de la edición española todavía no marca la sílaba de énfasis de cada palabra (subrayada en el original, perdida en la extracción): tomarla del **PDF del Doc 9432 (4.ª ed.), 2.3.3**. La lámina no inventa ese énfasis: ofrece la palabra internacional y una guía aproximada de pronunciación de la tabla FAA 2-3-2. Para una referencia normativa de pronunciación en un Estado concreto, comprobar el **Anexo 10, Vol. II, cap. 5**, la edición vigente del manual aplicable y la publicación de su autoridad. Las matrículas colombianas (HK-) y mexicanas (XA-) de los ejercicios son ficticias: su formato real lo fija la **autoridad de cada Estado**.",
       },
       {
         kind: "enLaOperacion",
@@ -903,10 +947,10 @@ export const NIVEL_1: DocScreen[] = [
       },
       { kind: "p", text: "Casos de la parte C: Doc 9432, 1.2, nota, y 3.1.2." },
       fuentes(
-        "Doc 9432 (4.ª ed.) 1.2 (nota y asteriscos), 2.3.1, 2.3.2, 2.3.3, 2.7.2.1 b), 2.8.1.1, 3.1.2, 4.4.2, 4.4.3, 2.6 (SAY AGAIN, I SAY AGAIN).",
+        "Doc 9432 (4.ª ed.) 1.2 (nota y asteriscos), 2.3.1, 2.3.2, 2.3.3, 2.7.2.1 b), 2.8.1.1, 3.1.2, 4.4.2, 4.4.3, 2.6 (SAY AGAIN, I SAY AGAIN). Grafía internacional: OACI (https://www.icao.int/sites/default/files/postalhistory/annex_10_aeronautical_telecommunications.htm). Guía aproximada inglesa: FAA, §2-3-3, tabla 2-3-2 (https://www.faa.gov/air_traffic/publications/atpubs/fs_html/chap2_section_3.html).",
         [
           "La sílaba de énfasis de cada palabra (subrayada en el original; perdida en la extracción) contra el PDF del Doc 9432 (4.ª ed.) 2.3.3.",
-          "La grafía inglesa de las palabras que la edición en español escribe a la española (Alfa, Juliett, Papa, Quebec, Victor, Whiskey, X-ray) contra Anexo 10 Vol. II cap. 5 (alfabeto de deletreo) y Doc 9432 edición inglesa 2.3.3 (no cargados). En esta lección se usa «Juliett» en los ejercicios en inglés a la espera de esa verificación.",
+          "La pronunciación normativa y el énfasis de cada palabra contra Anexo 10 Vol. II cap. 5 y Doc 9432 edición inglesa 2.3.3 (no cargados); la lámina solo usa una guía aproximada publicada por la FAA.",
           "Formato real de matrículas colombianas (HK-) y mexicanas (XA-) contra la autoridad de cada Estado; en los ejercicios son ficticias.",
         ],
       ),
@@ -922,7 +966,7 @@ export const NIVEL_1: DocScreen[] = [
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "Es la forma normalizada de pronunciar y agrupar números en radiotelefonía: niveles, rumbos, pistas, frecuencias, códigos SSR, viento, QNH, hora, altitudes. Casi todo lo que se colaciona tiene un número.",
+        text: "Es la forma normalizada de pronunciar y agrupar números en radiotelefonía: niveles, rumbos, pistas, frecuencias, códigos del radar secundario de vigilancia (SSR, Secondary Surveillance Radar), viento, reglaje QNH, hora y altitudes. Casi todo lo que se colaciona tiene un número. **El objetivo para una tripulación de línea no es repetir cifras aisladas:** es recibir una autorización completa, distinguir qué elementos cambian, colacionar los que corresponden y comprobar que la aeronave quedó configurada de acuerdo con lo recibido.",
       },
       { kind: "sub", text: "Lo que debe saber un piloto" },
       {
@@ -1021,13 +1065,25 @@ export const NIVEL_1: DocScreen[] = [
         text: "**Hora** (Doc 9432, 2.5.1). Normalmente bastan los minutos, dígito por dígito; si hay riesgo de confusión, se incluye la hora. 0920 → «two zero» o «zero nine two zero»; 1643 → «four three» o «one six four three». La dependencia ATS da la verificación de hora redondeada al medio minuto más próximo (2.5.2).",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-05-01 · Esquema · 9:16 · 1080×1920",
-        descripcion:
-          "Tarjeta vertical en dos bloques. Arriba: los diez dígitos 0 a 9 grandes, cada uno con su transcripción del Doc 9432 2.4.1 debajo (SI-RO, UAN, TU, TRI, FO-ar, FA-IF, SIKS, SEV'N, EIT, NAI-na), resaltando 3, 5 y 9 con un borde del acento del módulo. Abajo: dos columnas «DÍGITO POR DÍGITO» (FL, rumbo, pista, SSR, QNH, frecuencia) y «HUNDRED / THOUSAND» (altitud, nubes, visibilidad, RVR), cada una con un ejemplo. Objetivo: que el piloto sepa de un vistazo cómo suena cada dígito y cuándo se agrupa en centenas y millares.",
-        alto: 560,
-        ratio: "9 / 16",
-        anchoMax: 360,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-05-01.svg",
+        alt: "Guía ampliable de pronunciación de los diez dígitos, distinción entre cifras dígito por dígito y millares, y tres pasos de comprobación tras una autorización.",
+        ancho: 1080,
+        alto: 1920,
+        pie: "La lámina es una referencia de pronunciación, no un ejercicio de colacionar solo el QNH. En una autorización, escuche todos los elementos modificados; colacione lo exigido, atienda la respuesta del controlador y coteje selectores y trayectoria en cabina. Amplíe para leer las formas del Doc 9432, §§2.4.1–2.4.3. «RVR» significa alcance visual en pista (Runway Visual Range).",
+      },
+      { kind: "sub", text: "Una autorización se procesa como conjunto" },
+      {
+        kind: "p",
+        text: "**Piense en una llegada, no en una ficha de vocabulario.** Aproximación puede cambiar el límite vertical, el rumbo o la velocidad y, además, transmitir el reglaje QNH o información sobre la pista prevista. El piloto que comunica escucha primero el distintivo y la instrucción entera; si una parte se superpone con otra transmisión, solicita repetición de esa parte. El piloto que vuela conserva la trayectoria mientras ambos identifican qué cambió respecto de la autorización anterior. La colación de nivel o altitud, rumbo, velocidad, pista y reglaje se hace según corresponda al mensaje recibido; no se extrae el QNH y se repite como si eso, por sí solo, demostrara comprensión de la autorización.",
+      },
+      {
+        kind: "p",
+        text: "**El número se verifica en dos lugares: en la radio y en el avión.** Al pronunciar la colación, la tripulación distingue «FLIGHT LEVEL» de una altitud en pies, dice las cifras con la agrupación correcta y permite que el controlador detecte una discrepancia. Después confirma que el selector de altitud, rumbo, velocidad o radio que corresponda coincide con lo autorizado y que el modo de guiado hará lo esperado. El reparto exacto de tareas depende de los procedimientos del operador. Un «four thousand feet» correcto, mientras queda seleccionado otro límite vertical, no es una buena comunicación operacional. Tampoco lo es seleccionar el valor que uno esperaba oír antes de confirmar la instrucción.",
+      },
+      {
+        kind: "p",
+        text: "**Si la nueva instrucción parece incompatible con una restricción, una carta o el rendimiento disponible, no se resuelve adivinando.** Se solicita aclaración, se declara que no se puede cumplir cuando corresponda y se mantiene explícita la última autorización comprendida. En entrevista o simulador, esa secuencia —escucha, colación, hearback, configuración y cotejo cruzado— muestra más competencia que recitar «QNH one zero one two» sin contexto. Los microejercicios numéricos de abajo sirven para automatizar la pronunciación; no sustituyen el manejo completo de una autorización.",
       },
       { kind: "sub", text: "Fraseología OACI" },
       {
@@ -1272,12 +1328,18 @@ export const NIVEL_1: DocScreen[] = [
     n: 6,
     title: "Distintivos de llamada",
     kicker: "Matrículas, designadores y distintivos parecidos",
-    minutes: 10,
+    minutes: 13,
     blocks: [
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Caso documentado y práctica, sin mezclarlos",
+        text: "El episodio de TWA 843, TWA 834 y Pan Am 537 que aparece abajo procede de las recomendaciones A-89-83 a A-89-90 de la Junta Nacional de Seguridad del Transporte de Estados Unidos (NTSB, National Transportation Safety Board). La lámina y el relato resumen hechos; no son una transcripción de radio. AIR CHINA 238 y FASTAIR 345 son ejemplos impresos en el Manual de Radiotelefonía OACI, Doc 9432; FASTAIR es un designador didáctico del manual, no una aerolínea ni una ruta operativa. Los intercambios de práctica marcados como simulados enseñan una decisión, no representan un vuelo o una autorización vigente.",
+      },
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "El distintivo de llamada (call sign) es el nombre de la aeronave en la radio. De él depende que la instrucción la ejecute el avión correcto y ningún otro.",
+        text: "El distintivo de llamada (call sign) identifica a qué aeronave se dirige una transmisión y cuál responde. No basta con reconocer la cifra que uno espera oír: en una frecuencia compartida, dos vuelos pueden tener números casi iguales, una sílaba puede perderse por interferencia y el controlador también puede equivocarse al decir el indicativo. La tripulación debe escuchar la identificación completa antes de actuar, leer de vuelta el contenido que corresponde con su propio distintivo y dar tiempo al controlador para detectar una respuesta del avión equivocado. El riesgo no es lingüístico en abstracto: una autorización de viraje, ascenso, descenso o ingreso a pista ejecutada por otra aeronave cambia la separación del tránsito.",
       },
       { kind: "sub", text: "Lo que debe saber un piloto" },
       { kind: "p", text: "**Tres tipos de distintivo de aeronave** (Doc 9432, 2.7.2.1):" },
@@ -1294,10 +1356,10 @@ export const NIVEL_1: DocScreen[] = [
           [
             "b)",
             "Designador telefónico del explotador + los cuatro últimos caracteres de la matrícula",
-            "AVIATORY DCAB",
-            "Designador + al menos los dos últimos: AVIATORY AB",
+            "FASTAIR DCAB (ejemplo didáctico)",
+            "Designador + al menos los dos últimos: FASTAIR AB",
           ],
-          ["c)", "Designador telefónico del explotador + identificación del vuelo", "AVIATORY 452", "**No se abrevia**"],
+          ["c)", "Designador telefónico del explotador + identificación del vuelo", "AIR CHINA 238 (ejemplo del Doc 9432)", "**No se abrevia**"],
         ],
       },
       {
@@ -1310,7 +1372,7 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             k: "Designador telefónico",
-            v: "(Radiotelefónico) la palabra con la que se nombra al explotador en la radio. En los ejemplos, AVIATORY (ficticio); en el Doc 9432, FASTAIR o AIR CHINA (2.4.2: «CCA 238» se transmite «AIR CHINA two three eight»).",
+            v: "La palabra autorizada para nombrar al explotador por radio. El Doc 9432 muestra AIR CHINA 238 frente a CCA238, su forma en el plan de vuelo. FASTAIR 345 es otro ejemplo del manual, expresamente didáctico.",
           },
           {
             k: "Designador de la empresa",
@@ -1336,83 +1398,86 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**Distintivos similares (SIMILAR CALL SIGNS).** Dos vuelos en la misma frecuencia con AVIATORY 452 y AVIATORY 542, o AVIATORY 452 y AVIATORY 425. Con ruido, prisa o expectativa, un piloto acepta la instrucción del otro. La defensa es triple: escuchar el distintivo completo antes de la instrucción, colacionar siempre con el distintivo completo (para que el controlador detecte quién respondió) y confirmar cuando hay duda. El ATC puede ordenar un cambio temporal del tipo de distintivo (2.7.2.3). El tema se amplía en el capítulo 56.",
+        text: "**Distintivos similares (SIMILAR CALL SIGNS).** El 9 de agosto de 1987, TWA 843 y TWA 834 llegaron a la misma área de control de Nueva York con distintivos fácilmente confundibles. El controlador pretendía dar un viraje a TWA 843, pero dijo TWA 834; la tripulación de TWA 834 ejecutó el viraje. TWA 843 continuó recto y se perdió la separación estándar con Pan Am 537. Minutos después, el mismo controlador confundió Clipper 568 y Clipper 558, sin pérdida de separación en ese segundo episodio. Son hechos del informe del NTSB, no un diálogo reconstruido. El caso muestra que la colación con distintivo completo permite detectar algunas equivocaciones, pero **no corrige por sí sola que ATC haya dicho el indicativo erróneo y ese avión haya obedecido**. La defensa exige atención de cabina al contexto y a la compatibilidad de la instrucción con la propia trayectoria; ante duda, confirmar antes de actuar. El tema se amplía en el capítulo 56.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-06-01 · Diagrama · 16:9 · 1600×900",
-        descripcion:
-          "Arriba, la anatomía de un distintivo tipo c): «AVIATORY» con la etiqueta DESIGNADOR TELEFÓNICO y «452» con la etiqueta IDENTIFICACIÓN DEL VUELO (se dice four five two, dígito por dígito); debajo, en gris, «AVY452» con la etiqueta PLAN DE VUELO (no se dice por radio) y la aclaración «designador ficticio». Abajo, dos siluetas de aeronaves en la misma frecuencia con los rótulos AVIATORY 452 y AVIATORY 542 y un signo de alerta neutro entre ellas (no rojo), con el texto DISTINTIVOS SIMILARES. Objetivo: que el piloto separe el designador telefónico, el número de vuelo y el designador del plan de vuelo, y reconozca de vista el riesgo de dos distintivos parecidos.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-06-01.svg",
+        alt: "Lámina ampliable: AIR CHINA 238 muestra las partes del distintivo; debajo, secuencia factual de la confusión entre TWA 843 y TWA 834 descrita por el NTSB.",
+        ancho: 1080,
+        alto: 1560,
+        pie: "Arriba: el designador radiotelefónico se dice por radio; CCA238 es la identificación del plan de vuelo del ejemplo del Doc 9432, no la frase que pronuncia la tripulación. Abajo: hechos del informe NTSB A-89-83 a A-89-90, pp. 1–2, sin diálogo inventado. Amplíe para seguir a qué avión iba dirigido el viraje, cuál lo ejecutó y por qué la tripulación debe confirmar ante una duda de identidad.",
+      },
+      { kind: "sub", text: "Qué comprueba una tripulación de aerolínea" },
+      {
+        kind: "p",
+        text: "**Antes de transmitir**, quien lleva la radio verifica que el indicativo usado coincide con la identificación de vuelo prevista para ese tramo y escucha la frecuencia antes de ocuparla. Al hacer contacto inicial dice completo el indicativo de la estación y el propio. Si otro vuelo con cifras parecidas está en la frecuencia, ambos pilotos mantienen esa diferencia en mente: se escucha la palabra del explotador y todas las cifras, no solo la terminación. La comunicación de control debe evaluarse contra la fase del vuelo, el nivel autorizado y la situación de tránsito. Esa evaluación no autoriza a ignorar una instrucción válida porque sorprenda, pero sí obliga a pedir aclaración cuando la identidad o el contenido no son inequívocos.",
+      },
+      {
+        kind: "p",
+        text: "**Al recibir una autorización**, el piloto que comunica no empieza a mover selectores por haber oído un número familiar. Espera el mensaje entero, identifica el destinatario, separa los elementos que cambian la trayectoria y hace la colación con su indicativo completo al final. El piloto que vuela conserva la trayectoria autorizada mientras se resuelve una incertidumbre, según los procedimientos de la compañía. Si la respuesta de ATC corrige el indicativo o el contenido, la tripulación actualiza la autorización y coteja los selectores. Si la frecuencia se bloqueó o se cortó una sílaba crítica, la acción segura es confirmar la autorización para el propio vuelo; el manual de la FAA propone expresamente «VERIFY CLEARANCE FOR [indicativo completo]» como defensa ante duda de identidad en su espacio aéreo, no como sustituto universal de la fraseología OACI.",
+      },
+      {
+        kind: "p",
+        text: "**Después de la colación**, el controlador debe escuchar qué aeronave respondió y corregir discrepancias. La tripulación, por su parte, escucha el hearback; no trata el silencio como garantía de que se leyó bien. En el caso de 1987, el error nació también en la emisión del controlador: pronunció TWA 834 para una instrucción pensada para TWA 843. Por eso la barrera no puede reducirse a «colacionar bien». La gestión de distintivos similares empieza además antes del vuelo: EUROCONTROL mantiene un servicio para detectar y reducir coincidencias de indicativos en los horarios de las aerolíneas, pero en la frecuencia cada autorización sigue exigiendo atención individual.",
       },
       { kind: "sub", text: "Fraseología OACI" },
       {
         kind: "pasos",
         items: [
           {
-            rotulo: "Primer contacto con HEAVY",
+            rotulo: "Primer contacto con HEAVY: ejemplo del Doc 9432",
             codigo: tx(
-              "PILOT: BOGOTA GROUND, AVIATORY 452 HEAVY, REQUEST TAXI, INFORMATION CHARLIE.",
-              "ATC:   AVIATORY 452, TAXI TO HOLDING POINT RUNWAY 13L, GIVE WAY TO B787 PASSING LEFT TO RIGHT, QNH 1019.",
-              "PILOT: HOLDING POINT RUNWAY 13L, QNH 1019, GIVING WAY TO B787, AVIATORY 452.",
+              "PILOT: STEPHENVILLE TOWER, FASTAIR 345 HEAVY.",
+              "ATC:   FASTAIR 345, REPORT OUTER MARKER.",
+              "PILOT: WILCO, FASTAIR 345.",
             ),
             texto:
-              "**Significado:** HEAVY solo en el primer contacto; el controlador ya no lo repite. Modelo del Doc 9432, 4.4.3.",
+              "**Significado:** la categoría HEAVY acompaña el primer contacto con la dependencia. El ejemplo de STEPHENVILLE y FASTAIR está impreso en el Doc 9432, cap. 7; es una escena normativa didáctica, no un aeropuerto o vuelo operativo que deba buscarse en una carta vigente. En esta lección importa que el indicativo sea íntegro y que el controlador sepa qué aeronave responde.",
           },
           {
-            rotulo: "Distintivo tipo a) abreviado por la estación",
+            rotulo: "Distintivo tipo a) abreviado por la estación · simulación",
             codigo: tx(
-              "PILOT: BOGOTA TOWER, GOLF ALFA BRAVO CHARLIE DELTA.",
-              "ATC:   GOLF CHARLIE DELTA, BOGOTA TOWER.",
+              "PILOT: TOWER, GOLF ALFA BRAVO CHARLIE DELTA.",
+              "ATC:   GOLF CHARLIE DELTA, TOWER.",
               "PILOT: GOLF CHARLIE DELTA, …",
             ),
             texto:
-              "**Significado:** la estación abrevió primero; desde entonces la aeronave puede abreviar (Doc 9432, 2.7.2.2 a) y 2.7.2.2.1). Con un distintivo tipo c) esto no aplica.",
+              "**Significado:** la estación abrevió primero; desde entonces la aeronave puede abreviar si no existe riesgo de confusión (Doc 9432, 2.7.2.2 a) y 2.7.2.2.1). Con un distintivo tipo c) de aerolínea esto no aplica. «TOWER» reemplaza el nombre de una dependencia concreta para no fingir una autorización local.",
           },
           {
-            rotulo: "Llamada con el distintivo incompleto",
+            rotulo: "Llamada con el distintivo incompleto · simulación",
             codigo: tx(
-              "PILOT: BOGOTA GROUND, 452, REQUEST PUSH-BACK.",
-              "ATC:   STATION CALLING BOGOTA GROUND, SAY AGAIN YOUR CALL SIGN.",
-              "PILOT: BOGOTA GROUND, AVIATORY 452, STAND 12, REQUEST PUSH-BACK.",
+              "PILOT: GROUND, 345, REQUEST PUSH-BACK.",
+              "ATC:   STATION CALLING GROUND, SAY AGAIN YOUR CALL SIGN.",
+              "PILOT: GROUND, FASTAIR 345, REQUEST PUSH-BACK.",
             ),
-            texto: "**Significado:** «452» solo no identifica a nadie. Doc 9432, 2.8.1.5.",
-          },
-          {
-            rotulo: "El ATC ordena cambiar el distintivo",
-            codigo: tx(
-              "ATC:   AVIATORY 452, CHANGE YOUR CALL SIGN TO AVIATORY DCAB UNTIL FURTHER ADVISED.",
-              "PILOT: CHANGING CALL SIGN TO AVIATORY DCAB, AVIATORY 452.",
-            ),
-            texto:
-              "**Significado:** cambio temporal del tipo de distintivo por riesgo de confusión (Doc 9432, 2.7.2.3). La frase exacta está en el aviso «Verificar».",
-            etiqueta: "«CHANGE YOUR CALL SIGN TO…»: " + POR_VERIFICAR,
+            texto: "**Significado:** «345» solo no identifica a nadie. El intercambio es una simulación de la corrección, no una transcripción del Doc 9432; la regla de iniciar con identificaciones completas está en 2.8.1.1 y la petición de repetir un indicativo poco claro, en 2.8.1.5.",
           },
         ],
       },
       {
         kind: "escenario",
-        titulo: "Distintivo similar: la colación lo delata",
+        titulo: "Distintivo similar: la colación revela quién contestó · simulación",
         situacion:
-          "En la frecuencia están AVIATORY 452 y AVIATORY 542. El controlador transmite: «AVIATORY 542, CLIMB TO FL 350.» El piloto de AVIATORY 452, por error, colaciona: «CLIMBING TO FL 350, AVIATORY 452.»",
+          "En una frecuencia de práctica están FASTAIR 345 y FASTAIR 354. El controlador transmite: «FASTAIR 354, CLIMB TO FL 350.» El piloto de FASTAIR 345, por error, colaciona: «CLIMBING TO FL 350, FASTAIR 345.» No son vuelos reales ni una autorización histórica.",
         preguntas: [
           {
             q: "¿Qué hace el controlador y qué le permitió detectar el error?",
-            a: "ATC: «AVIATORY 452, NEGATIVE, MAINTAIN FL 310. INSTRUCTION WAS FOR AVIATORY 542.» PILOT: «MAINTAINING FL 310, AVIATORY 452.» La colación con el distintivo completo permitió que el controlador viera quién respondió y lo corrigiera (Doc 9432, 2.8.3.4, 2.8.3.7, 2.8.3.8). **PLAIN LANGUAGE**: «INSTRUCTION WAS FOR…» es lenguaje claro.",
+            a: "ATC puede detener la ejecución y aclarar que la instrucción era para FASTAIR 354; la tripulación de FASTAIR 345 conserva el nivel que tenía autorizado y lo confirma. El indicativo completo al final de la colación permite identificar quién respondió (Doc 9432, 2.8.3.7–2.8.3.8). La cifra del nivel anterior se omite deliberadamente: no se ha establecido una autorización previa para estos vuelos simulados. **La limitación:** si ATC pronuncia de entrada el distintivo incorrecto, como ocurrió en el caso TWA de 1987, una colación perfecta de ese mismo indicativo no revela por sí sola la intención original del controlador.",
           },
         ],
-        concepto: "Colacionar siempre con el distintivo completo.",
+        concepto: "Colacionar con el distintivo completo y contrastar la instrucción con el contexto de vuelo.",
       },
       {
         kind: "escenario",
-        titulo: "Duda sobre a quién iba la instrucción",
+        titulo: "Duda sobre a quién iba la instrucción · simulación",
         situacion:
-          "Usted es AVIATORY 452 y en la frecuencia de Bogota Approach también está AVIATORY 542. Oye, con el distintivo cortado: «AVIATORY … 2, TURN RIGHT HEADING 270.»",
+          "Usted es FASTAIR 345 y en la misma frecuencia también está FASTAIR 354. Una transmisión se corta justo en las cifras del indicativo y solo alcanza a oír «FASTAIR …, TURN RIGHT HEADING…». Tampoco se recibe completo el rumbo.",
         preguntas: [
           {
             q: "¿Ejecuta el viraje?",
-            a: "No: se confirma. PILOT: «BOGOTA APPROACH, AVIATORY 452, CONFIRM INSTRUCTION WAS FOR AVIATORY 452?» ATC: «AVIATORY 452, NEGATIVE. AVIATORY 542, TURN RIGHT HEADING 270.» Con un distintivo cortado y otro parecido en la frecuencia, no se ejecuta: se confirma. CONFIRM es normalizada (Doc 9432, 2.6); la construcción completa es **PLAIN LANGUAGE**.",
+            a: "No se adivina el destinatario ni el rumbo. Se conserva la autorización vigente y se pide a ATC que confirme si la instrucción era para FASTAIR 345 y que repita el rumbo completo. «CONFIRM» figura en el Doc 9432, 2.6; la frase completa con esos números es lenguaje claro de un escenario educativo, no una cita del manual. Solo después de una aclaración inequívoca se modifica la trayectoria.",
           },
         ],
         concepto: "Si duda de a quién iba la instrucción: no ejecute, confirme.",
@@ -1438,7 +1503,7 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "list",
         items: [
-          "**Recortar el distintivo** («452», «Aviatory») en una frecuencia con varios vuelos de la misma empresa.",
+          "**Recortar el distintivo** a unas cifras sueltas en una frecuencia con varios vuelos de la misma empresa.",
           "**Abreviar un distintivo tipo c)** o abreviar antes de que lo haga la estación.",
           "**Colacionar sin distintivo** o poniéndolo al principio y omitiéndolo al final: el controlador no sabe quién respondió.",
           "**Aceptar una autorización pensada para el otro** porque «era la que esperaba» (expectation bias, capítulo 55).",
@@ -1458,7 +1523,7 @@ export const NIVEL_1: DocScreen[] = [
         ],
       },
       fuentes(
-        "Doc 9432 (4.ª ed.) 2.3.2, 2.4.2, 2.6 (CONFIRM), 2.7.2.1, 2.7.2.2, 2.7.2.2.1, 2.7.2.3, 2.7.2.4, 2.8.1.1, 2.8.1.5, 2.8.3.4, 2.8.3.7, 2.8.3.8, 4.4.3; Doc 4444 (15.ª ed., Enm. 4) 4.9.1.1, 4.9.2.",
+        "Doc 9432 (4.ª ed.) 2.3.2, 2.4.2, 2.6 (CONFIRM), 2.7.2.1, 2.7.2.2, 2.7.2.2.1, 2.7.2.3, 2.7.2.4, 2.8.1.1, 2.8.1.5, 2.8.3.4, 2.8.3.7, 2.8.3.8 y ejemplo FASTAIR 345 HEAVY del cap. 7; Doc 4444 (15.ª ed., Enm. 4) 4.9.1.1, 4.9.2. Caso real: NTSB, recomendaciones A-89-83 a A-89-90, 11 de agosto de 1989, pp. 1–2, https://www.ntsb.gov/safety/safety-recs/recletters/A89_83_90.pdf. Defensa ante duda: FAA AIM 4-2-4, https://www.faa.gov/air_traffic/publications/aim_html/chap4_section_2.html. Gestión preventiva de indicativos: EUROCONTROL Call Sign Similarity Service, https://www.eurocontrol.int/service/call-sign-similarity-service.",
         [
           "«CHANGE YOUR CALL SIGN TO … [UNTIL FURTHER ADVISED]» y «REVERT TO FLIGHT PLAN CALL SIGN» contra Doc 4444 vigente cap. 12 (cambio de distintivo de llamada) (no cargado).",
           "Categorías de estela turbulenta vigentes (la 16.ª ed. del Doc 4444 añadió la categoría SUPER y su palabra en radio) contra Doc 4444 vigente 4.9 (no cargado).",
@@ -1473,8 +1538,14 @@ export const NIVEL_1: DocScreen[] = [
     n: 7,
     title: "Cómo se arma una transmisión",
     kicker: "A quién llamas, quién eres y qué quieres",
-    minutes: 9,
+    minutes: 13,
     blocks: [
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Dos clases de ejemplo",
+        text: "La estructura de las bandas es una ayuda pedagógica, no una autorización operativa. El caso de Avianca 052 que se analiza abajo sí corresponde al vuelo Bogotá, Medellín y Nueva York del 25 de enero de 1990 y procede del informe de la Junta Nacional de Seguridad del Transporte de Estados Unidos (NTSB, National Transportation Safety Board) AAR-91/04. Los modelos de llamada del manual de la Administración Federal de Aviación (FAA, Federal Aviation Administration) son ejemplos publicados por esa autoridad, no grabaciones de vuelos reales. No se inventan frecuencias, puntos ni instrucciones locales.",
+      },
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
@@ -1498,10 +1569,10 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "kv",
         items: [
-          { k: "Piloto que llama", v: "Estación, distintivo propio, mensaje. `BOGOTA GROUND, AVIATORY 452, …`" },
+          { k: "Piloto que llama", v: "Estación, distintivo propio completo y mensaje. En superficie, añada la posición antes de la solicitud. Es el orden del Manual de Información Aeronáutica (AIM, Aeronautical Information Manual) de la FAA, 4-2-3, y del Doc 9432, 2.8.1.1." },
           {
             k: "ATC que llama o instruye",
-            v: "Distintivo de la aeronave, (estación, si hace falta), mensaje. `AVIATORY 452, CLIMB TO FL 240.`",
+            v: "Distintivo de la aeronave, estación si hace falta, e instrucción. La tripulación comprueba que el mensaje sea para su vuelo antes de actuar.",
           },
           { k: "Colación", v: "El contenido primero y **el distintivo al final** (Doc 9432, 2.8.3.7)." },
         ],
@@ -1510,15 +1581,15 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "list",
         items: [
-          "En dos pasos: el piloto llama con los distintivos y espera. Que la estación conteste con los distintivos ya es la invitación a seguir: el Doc 9432 omitió «GO AHEAD» por esa razón (nota al final de 2.6). Se usa cuando la estación puede no estar lista para anotar o en un primer contacto con una dependencia que necesita prepararse (por ejemplo, para presentar un plan de vuelo: Doc 9432, 3.5.1, «READY TO COPY»).",
-          "En un paso: estación, distintivo y mensaje de corrido. Es lo normal en frecuencias VHF ocupadas y en mensajes cortos y esperados.",
+          "En dos pasos: el piloto llama con los distintivos y espera una respuesta antes de dar un mensaje extenso. El Doc 9432, edición de 2007, explica que la respuesta de la estación permite continuar sin añadir una invitación verbal; antes de usar esa práctica en un Estado concreto hay que comprobar la fraseología vigente y las instrucciones locales.",
+          "En un paso: estación, distintivo y mensaje de corrido. Puede reducir ocupación de una frecuencia de muy alta frecuencia (VHF, Very High Frequency) cuando la recepción es fiable y la solicitud es corta y esperada; no es excusa para omitir datos críticos.",
         ],
       },
       { kind: "p", text: "**Qué va en el mensaje, según la situación** (ejemplos del Doc 9432):" },
       {
         kind: "list",
         items: [
-          "**Puesta en marcha**: ubicación (puesto) y acuse del ATIS junto con la solicitud (Doc 9432, 4.2.2).",
+          "**Puesta en marcha**: ubicación (puesto) y acuse del servicio automático de información terminal (ATIS, Automatic Terminal Information Service) junto con la solicitud (Doc 9432, 4.2.2).",
           "**Rodaje**: con el acuse del ATIS, el controlador no necesita repetir la información de salida (Doc 9432, 4.4.3).",
           "**Contacto inicial con aproximación**: nivel, estimado a un punto e información ATIS (Doc 9432, 7.3.1).",
           "**Notificación de posición**: identificación, posición, hora, nivel, próxima posición y hora, punto significativo siguiente (Doc 9432, 3.4.1).",
@@ -1526,99 +1597,61 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Algunos Estados fijan en su AIP qué debe incluir el primer contacto al entrar o salir de su espacio aéreo (Doc 9432, Preámbulo). **La estructura de esta lección es educativa; lo que manda en cada aeropuerto es el procedimiento local publicado.**",
+        text: "Algunos Estados fijan en su publicación de información aeronáutica (AIP, Aeronautical Information Publication) qué debe incluir el primer contacto al entrar o salir de su espacio aéreo (Doc 9432, Preámbulo). **La estructura de esta lección es educativa; lo que manda en cada aeropuerto es el procedimiento local publicado.**",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-07-01 · Diagrama · 16:9 · 1600×900",
-        descripcion:
-          "Una transmisión escrita en una sola línea y dividida en bloques de colores del módulo: [BOGOTA GROUND] [AVIATORY 452] [STAND 12] [INFORMATION ALFA] [REQUEST START-UP AND PUSH-BACK]. Encima de cada bloque, la pregunta que responde: WHO ARE YOU CALLING? · WHO ARE YOU? · WHERE ARE YOU? · WHAT DO YOU HAVE? · WHAT DO YOU WANT? Debajo, en una segunda línea, la respuesta del ATC y la colación, con el distintivo resaltado al principio (ATC) y al final (colación). Rótulo al pie: «Ejemplo educativo, se ajusta al procedimiento local». Objetivo: que el piloto vea el orden de los bloques y dónde va el distintivo en cada tipo de transmisión.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-07-01.svg",
+        alt: "Diagrama de tres transmisiones: llamada inicial del piloto con estación, distintivo y posición o solicitud; respuesta de control con distintivo al principio; colación del piloto con distintivo al final.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Identifica a quién se llama y quién habla antes de transmitir el mensaje; en la respuesta, verifica que el distintivo sea el tuyo y colaciona los elementos obligatorios con tu distintivo al final. Amplía la lámina para seguir las tres bandas. Esquema basado en Doc 9432, 2.8.1 y 2.8.3, y AIM FAA, 4-2-3; no representa una autorización real.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
+      { kind: "sub", text: "Del modelo oficial a una operación real" },
       {
         kind: "pasos",
         items: [
           {
-            rotulo: "Puesta en marcha y retroceso",
-            codigo: tx(
-              "PILOT: BOGOTA GROUND, AVIATORY 452, STAND 12, INFORMATION ALFA, REQUEST START-UP AND PUSH-BACK.",
-              "ATC:   AVIATORY 452, START-UP AND PUSH-BACK APPROVED, QNH 1019.",
-              "PILOT: START-UP AND PUSH-BACK APPROVED, QNH 1019, AVIATORY 452.",
-            ),
-            texto:
-              "**Significado:** a quién (Bogota Ground), quién (Aviatory 452), dónde (puesto 12), qué tiene (ATIS Alfa), qué quiere (puesta en marcha y retroceso). El Doc 9432 muestra la puesta en marcha («STAND 24 REQUEST START UP, INFORMATION BRAVO» / «START UP APPROVED QNH 1009», 4.2.2) y el retroceso («STAND 27 REQUEST PUSH-BACK» / «PUSH-BACK APPROVED», 4.3.1) como solicitudes separadas; en muchos aeropuertos se piden juntas y en otros el retroceso se pide a APRON. **Ejemplo educativo**: siga el procedimiento local.",
-            etiqueta: "Forma combinada «START-UP AND PUSH-BACK»: " + POR_VERIFICAR,
+            rotulo: "El orden en una llamada inicial",
+            codigo: "FAA AIM 4-2-3 (ejemplo publicado): Columbia Ground, Cessna Three One Six Zero Foxtrot, south ramp, I-F-R Memphis.",
+            texto: "Este es un **modelo publicado en el AIM de la FAA**, no una transmisión grabada. Columbia Ground identifica a la estación; el distintivo completo evita que otro avión se atribuya la llamada; south ramp sitúa la aeronave en superficie; I-F-R anuncia una solicitud bajo reglas de vuelo instrumental (IFR, Instrument Flight Rules) hacia Memphis. La estructura es transferible a la aviación de línea, pero los datos del ejemplo pertenecen al manual estadounidense, no a un procedimiento de Colombia. En una operación real se usarían la estación, posición, autorización y publicación local correspondientes.",
           },
           {
-            rotulo: "Puesta en marcha con demora",
-            codigo: tx(
-              "PILOT: BOGOTA GROUND, AVIATORY 452, STAND 12, REQUEST START-UP, INFORMATION ALFA.",
-              "ATC:   AVIATORY 452, EXPECT START-UP AT 35, QNH 1019.",
-              "PILOT: EXPECT START-UP AT 35, QNH 1019, AVIATORY 452.",
-            ),
-            texto:
-              "**Significado:** todavía no está aprobada; prevea encender a los 35 (minutos de la hora). Doc 9432, 4.2.2. «EXPECT» no es una aprobación.",
+            rotulo: "La situación determina cuánto hay que decir",
+            texto: "El AIM 4-2-3 permite incluir la solicitud, posición o altitud y la información ATIS recibida si la recepción es fiable y eso reduce congestión. También advierte que no se debe saturar al controlador con datos superfluos. Antes de pulsar el transmisor, la tripulación decide qué información necesita esa dependencia *ahora*: en superficie importan ubicación y petición; tras una transferencia, la altitud y el contexto de la autorización; ante una condición anormal, la naturaleza de la situación y lo que la aeronave puede hacer. No existe una frase universal de cinco casillas que sirva igual en todas las fases.",
           },
           {
-            rotulo: "Llamada en dos pasos",
-            codigo: tx(
-              "PILOT: BOGOTA INFORMATION, AVIATORY 452.",
-              "ATC:   AVIATORY 452, BOGOTA INFORMATION.",
-              "PILOT: AVIATORY 452, … (mensaje)",
-            ),
-            texto:
-              "**Significado:** el piloto llamó y esperó; la estación contestó con los distintivos, que es la invitación a seguir (Doc 9432, 2.6, nota sobre GO AHEAD; 2.8.1.1).",
-            etiqueta: "Vigencia de «GO AHEAD»: " + POR_VERIFICAR,
-          },
-          {
-            rotulo: "Primer contacto con aproximación",
-            codigo: tx(
-              "PILOT: BOGOTA APPROACH, AVIATORY 452 HEAVY, FL 80, ESTIMATING GIKOS 46, INFORMATION DELTA.",
-              "ATC:   AVIATORY 452, DESCEND TO 4 000 FEET, QNH 1005, TRANSITION LEVEL 50, EXPECT ILS APPROACH RUNWAY 13R.",
-              "PILOT: DESCENDING TO 4 000 FEET, QNH 1005, TRANSITION LEVEL 50, EXPECTING ILS APPROACH RUNWAY 13R, AVIATORY 452.",
-            ),
-            texto:
-              "**Significado:** quién, a quién, nivel, estimado e información ATIS. Modelo del Doc 9432, 7.3.1.",
-          },
-          {
-            rotulo: "Notificación de posición",
-            codigo: tx(
-              "PILOT: BOGOTA CONTROL, AVIATORY 452, GIKOS 47, FL 330, RUTAM 57, KOLOX NEXT.",
-              "ATC:   AVIATORY 452, ROGER.",
-            ),
-            texto:
-              "**Significado:** identificación, posición (GIKOS), hora (47), nivel (FL 330), próxima posición y hora (RUTAM a los 57), punto siguiente (KOLOX). Puntos ficticios. Doc 9432, 3.4.1.",
-          },
-          {
-            rotulo: "Listo en el punto de espera",
-            codigo: tx(
-              "ATC:   AVIATORY 452, REPORT WHEN READY FOR DEPARTURE.",
-              "PILOT: WILCO, AVIATORY 452.",
-              "PILOT: AVIATORY 452, READY.",
-            ),
-            texto:
-              "**Significado:** con torre ya en contacto, basta el distintivo y «READY». No se dice «ready for take-off» de forma que suene a autorización (Doc 9432, 4.5.3 y 2.8.3.3).",
-          },
-          {
-            rotulo: "Colación que termina con el distintivo",
-            codigo: tx("ATC:   AVIATORY 452, CROSS GIKOS FL 70.", "PILOT: CROSS GIKOS FL 70, AVIATORY 452."),
-            texto: "**Significado:** contenido primero, distintivo al final (Doc 9432, 2.8.3.7, adaptado).",
+            rotulo: "Respuesta y colación: cerrar el ciclo",
+            texto: "Al oír el distintivo en la respuesta de control, el piloto verifica que la instrucción está dirigida a su vuelo. Después identifica qué partes requieren colación, las contrasta con el plan y las indicaciones de cabina, y cierra con su distintivo. El controlador debe escuchar esa respuesta y corregir una discrepancia. La colación no es eco mecánico: una autorización entendida pero incompatible con el estado de la aeronave exige aclaración o una respuesta de imposibilidad, no aceptación automática (Doc 9432, 2.8.3).",
           },
         ],
+      },
+      {
+        kind: "casoReal",
+        titulo: "Avianca 052: un mensaje de combustible no establece por sí solo una emergencia compartida",
+        fecha: "25 de enero de 1990",
+        lugar: "Aproximación al aeropuerto John F. Kennedy, Nueva York",
+        aeronave: "Boeing 707-321B, matrícula HK 2016",
+        queOcurrio: [
+          "El vuelo regular Avianca 052 salió de Bogotá, hizo escala en el aeropuerto José María Córdova cerca de Medellín y continuó a Nueva York. El informe NTSB AAR-91/04 documenta esperas, una aproximación frustrada y el agotamiento de combustible antes de llegar a JFK.",
+          "Tras la aproximación frustrada, la tripulación contactó de nuevo a aproximación. El primer oficial informó sobre el combustible con la expresión «we're running out of fuel sir». El informe recoge que en cabina se hablaba de la urgencia, pero el mensaje radiado no declaró inequívocamente una emergencia. El controlador preguntó después si el tramo adicional era aceptable dadas las condiciones de combustible, y la respuesta no transmitió una imposibilidad clara.",
+          "La lección de estructura no consiste en memorizar una línea de ese accidente ni en reconstruir una autorización nueva. Consiste en separar destinatario, identidad, condición, intención y necesidad de asistencia, y comprobar que el controlador entendió la gravedad. Si la seguridad exige prioridad de emergencia, se comunica como tal mediante la fraseología aplicable; una expresión vaga no sustituye esa declaración.",
+        ],
+        consecuencia: "La aeronave se accidentó por agotamiento de combustible. La NTSB identificó tanto la gestión de combustible como la falta de comunicación oportuna de la emergencia entre las causas probables; no atribuyó el resultado a una sola frase aislada.",
+        leccion: "En un vuelo de línea, una comunicación eficaz no solo contiene datos verdaderos: deja explícitos la gravedad, la capacidad de la aeronave y la respuesta que se necesita de ATC. El piloto verifica la comprensión recibida y, si la situación evoluciona, actualiza el mensaje sin esperar a la siguiente fase de vuelo.",
+        fuente: "NTSB, AAR-91/04, §§1.1 y 2.6: https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR9104.pdf",
       },
       {
         kind: "callout",
         tone: "verificar",
         title: "Verificar",
-        text: "La forma combinada «REQUEST START-UP AND PUSH-BACK» / «START-UP AND PUSH-BACK APPROVED» se confirma en el **Doc 4444 vigente, cap. 12 (puesta en marcha y retroceso)** y en el **AIP del aeródromo (AD 2.20, reglamentos locales de tránsito)**; el Doc 9432 cargado las muestra por separado. La vigencia de «GO AHEAD» (el Doc 9432, 4.ª ed., nota en 2.6, dice que se omitió): **Anexo 10 Vol. II, cap. 5, y Doc 4444 vigente, cap. 12**. Los requisitos de primer contacto en Colombia: **AIP Colombia (ENR 1.1 / GEN 3.4)**.",
+        text: "Antes de convertir este esquema en una llamada real, consulte el **AIP/eAIP vigente del aeródromo y del espacio aéreo** para identificar dependencia, frecuencia, posición que debe notificarse y procedimiento local de primer contacto. El modelo del AIM citado pertenece a Estados Unidos; el Doc 9432 cargado es la 4.ª edición de 2007 y no sustituye publicaciones locales. La condición de emergencia se rige por la fraseología vigente y la situación real de la aeronave; el caso histórico de Avianca 052 no es una plantilla de radio.",
       },
       {
         kind: "enLaOperacion",
         momento: "En la preparación de salida",
         texto:
-          "Antes de oprimir el PTT, el piloto que comunica arma el mensaje en la cabeza (o lo lee de lo que ya tiene anotado: puesto, ATIS, lo que va a pedir). En la preparación de salida muchas tripulaciones anotan el puesto, la letra del ATIS y el QNH antes de llamar a Delivery o a Ground, para que la primera llamada salga completa y sin pausas. Qué se anota y quién llama lo define el SOP del operador.\n\nLlamar con toda la información de una vez evita que el controlador tenga que preguntar «say position» o «confirm information». Cada pregunta evitada es tiempo de frecuencia para otros.",
+          "Antes de pulsar el botón de transmisión (PTT, Push To Talk), el piloto que comunica arma el mensaje en la cabeza o lo lee de lo que ya tiene anotado: puesto, información ATIS y solicitud. En la preparación de salida muchas tripulaciones anotan el puesto, la letra del ATIS y el ajuste altimétrico QNH antes de llamar a la dependencia que corresponda. Qué se anota y quién llama lo define el procedimiento operativo estándar (SOP, Standard Operating Procedures) del explotador.\n\nUna llamada completa evita que el controlador tenga que preguntar por posición o confirmar la información recibida. Completa no significa saturada: en el caso del vuelo Avianca 052, la decisión importante es poner por delante la condición crítica y la asistencia necesaria, no recitar todos los datos de la aeronave. Cada pregunta evitable ocupa una frecuencia que comparte el resto del tránsito.",
       },
       {
         kind: "callout",
@@ -1633,7 +1666,7 @@ export const NIVEL_1: DocScreen[] = [
           "**Omitir la letra del ATIS** o decir una que ya cambió.",
           "**Colacionar sin distintivo al final.**",
           "**Pedir cosas que no van con esa dependencia** (pedir rodaje a Delivery, pedir nivel a Ground).",
-          "**Meter todo en una sola transmisión larga** cuando la estación no está lista para anotar: mejor en dos pasos.",
+          "**Ocultar la condición crítica entre datos secundarios.** Si la situación exige prioridad de emergencia, la gravedad y la ayuda requerida tienen que quedar inequívocas para ATC.",
         ],
       },
       {
@@ -1643,17 +1676,16 @@ export const NIVEL_1: DocScreen[] = [
           "Piloto que llama: estación, distintivo, mensaje.",
           "ATC: distintivo de la aeronave primero.",
           "Colación: contenido primero, distintivo al final.",
-          "En el mensaje: dónde está, qué tiene (ATIS), qué quiere o qué informa.",
-          "La respuesta de la estación con los distintivos es la invitación a hablar.",
-          "El ejemplo es educativo: manda el procedimiento local publicado en el AIP.",
+          "En el mensaje: posición, información recibida, solicitud o condición, según la fase y el procedimiento aplicable.",
+          "Avianca 052 muestra que decir algo sobre combustible no garantiza que ATC entienda una emergencia.",
+          "El modelo es educativo: manda el procedimiento local publicado en el AIP/eAIP vigente.",
         ],
       },
       fuentes(
-        "Doc 9432 (4.ª ed.) Preámbulo, 2.6 (nota sobre GO AHEAD), 2.8.1.1, 2.8.3.3, 2.8.3.7, 3.4.1, 3.5.1, 4.2.2, 4.3.1, 4.4.3, 4.5.3, 7.3.1.",
+        "Doc 9432 (4.ª ed.) Preámbulo, 2.8.1.1, 2.8.3 y 3.4.1. FAA AIM vigente, 4-2-1 a 4-2-3 (https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap4_section_2.html). NTSB AAR-91/04, §§1.1 y 2.6 (https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR9104.pdf).",
         [
-          "La forma combinada «REQUEST START-UP AND PUSH-BACK» / «START-UP AND PUSH-BACK APPROVED» contra Doc 4444 vigente cap. 12 (puesta en marcha y retroceso) y el AIP del aeródromo (AD 2.20, reglamentos locales de tránsito) (no cargados); el Doc 9432 cargado las muestra por separado.",
-          "La vigencia de «GO AHEAD» (el Doc 9432 4.ª ed., nota en 2.6, dice que se omitió) contra Anexo 10 Vol. II cap. 5 y Doc 4444 vigente cap. 12 (no cargados).",
-          "Requisitos de primer contacto en Colombia contra AIP Colombia (ENR 1.1 / GEN 3.4) (no cargado).",
+          "Dependencia, frecuencia y contenido exigido en el primer contacto para un vuelo colombiano concreto contra el AIP/eAIP vigente del Estado y aeródromo. Esta lección no publica valores locales.",
+          "Comparar la edición vigente del Doc 4444 y el Anexo 10, Vol. II con el Doc 9432 de 2007 antes de trasladar una frase del manual a la operación.",
         ],
       ),
     ],

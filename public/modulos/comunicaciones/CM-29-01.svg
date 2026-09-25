@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Continuar aproximación frente a autorización de aterrizaje</title>
+  <desc id="desc">Tarjeta conceptual que compara CONTINUE APPROACH con RUNWAY CLEARED TO LAND, la colación y la decisión si no llega autorización.</desc>
+  <rect width="1600" height="900" rx="30" fill="#101e2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="75" y="96" fill="#f2f9f7" font-size="43" font-weight="700">En la final, escuchar el verbo exacto</text>
+    <text x="78" y="142" fill="#a5babc" font-size="22">Comparación didáctica · No fija una distancia de decisión ni representa una pista real.</text>
+    <rect x="76" y="220" width="695" height="338" rx="25" fill="#25313d" stroke="#74858c" stroke-width="2"/>
+    <text x="111" y="285" fill="#a6b8ba" font-size="28" font-weight="700">CONTINUE APPROACH</text>
+    <text x="111" y="350" fill="#f2f9f7" font-size="32" font-weight="700">Seguir aproximándose</text>
+    <text x="111" y="405" fill="#f2f9f7" font-size="26">No autoriza a aterrizar.</text>
+    <text x="111" y="468" fill="#c7d4d3" font-size="23">PM mantiene pendiente la autorización;</text>
+    <text x="111" y="507" fill="#c7d4d3" font-size="23">PF conserva una trayectoria segura.</text>
+    <rect x="830" y="220" width="694" height="338" rx="25" fill="#19383a" stroke="#98e8c9" stroke-width="3"/>
+    <text x="866" y="285" fill="#98e8c9" font-size="28" font-weight="700">RUNWAY · CLEARED TO LAND</text>
+    <text x="866" y="350" fill="#f2f9f7" font-size="32" font-weight="700">Autorización de aterrizaje</text>
+    <text x="866" y="405" fill="#f2f9f7" font-size="26">Confirmar pista y distintivo.</text>
+    <text x="866" y="468" fill="#c7d4d3" font-size="23">Colacionar pista y autorización;</text>
+    <text x="866" y="507" fill="#c7d4d3" font-size="23">comprobarlas dentro de la cabina.</text>
+    <rect x="76" y="608" width="1448" height="153" rx="23" fill="#1f2c39" stroke="#74858c" stroke-width="2"/>
+    <text x="111" y="661" fill="#98e8c9" font-size="27" font-weight="700">SI NO LLEGA LA AUTORIZACIÓN</text>
+    <text x="111" y="710" fill="#f2f9f7" font-size="25">Preguntar con tiempo; aplicar la decisión de motor y al aire del operador si sigue ausente.</text>
+    <text x="80" y="823" fill="#a5babc" font-size="21">Fraseología: EASA AMC1 SERA.14001 · Colación: OACI Doc 4444. Confirmar publicación y SOP aplicables.</text>
+  </g>
+</svg>

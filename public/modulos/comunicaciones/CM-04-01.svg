@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Alfabeto internacional de deletreo de veintiséis letras</title>
+  <desc id="desc">Tabla de A a Z en dos columnas. Cada fila muestra la letra, su palabra internacional y una guía aproximada de pronunciación en inglés. Para la W se usa la grafía OACI Whisky; la guía de pronunciación corresponde a la publicación de la FAA.</desc>
+  <defs>
+    <style>
+      .eyebrow{font:700 25px Arial,sans-serif;letter-spacing:4px;fill:#805c88}
+      .title{font:700 58px Arial,sans-serif;fill:#261d2a}
+      .sub{font:500 27px Arial,sans-serif;fill:#534b57}
+      .letter{font:700 39px Arial,sans-serif;fill:#6a3f77}
+      .word{font:700 30px Arial,sans-serif;fill:#2e2732}
+      .sound{font:500 22px Arial,sans-serif;fill:#675d6d}
+      .note{font:500 22px Arial,sans-serif;fill:#655c66}
+    </style>
+  </defs>
+  <rect width="1200" height="1600" rx="28" fill="#faf8fa"/>
+  <text x="54" y="78" class="eyebrow">REFERENCIA DE ESCUCHA</text>
+  <text x="54" y="151" class="title">Alfabeto de deletreo</text>
+  <text x="54" y="200" class="sub">Letra · palabra internacional · pronunciación aproximada en inglés</text>
+  <rect x="48" y="232" width="532" height="1190" rx="20" fill="#fff" stroke="#e5dce7" stroke-width="2"/>
+  <rect x="620" y="232" width="532" height="1190" rx="20" fill="#fff" stroke="#e5dce7" stroke-width="2"/>
+
+  <g transform="translate(66 254)">
+    <text x="14" y="53" class="letter">A</text><text x="90" y="51" class="word">Alfa</text><text x="295" y="50" class="sound">ALFAH</text>
+    <text x="14" y="142" class="letter">B</text><text x="90" y="140" class="word">Bravo</text><text x="295" y="139" class="sound">BRAHVOH</text>
+    <text x="14" y="231" class="letter">C</text><text x="90" y="229" class="word">Charlie</text><text x="295" y="228" class="sound">CHARLEE</text>
+    <text x="14" y="320" class="letter">D</text><text x="90" y="318" class="word">Delta</text><text x="295" y="317" class="sound">DELLTAH</text>
+    <text x="14" y="409" class="letter">E</text><text x="90" y="407" class="word">Echo</text><text x="295" y="406" class="sound">ECKOH</text>
+    <text x="14" y="498" class="letter">F</text><text x="90" y="496" class="word">Foxtrot</text><text x="295" y="495" class="sound">FOKSTROT</text>
+    <text x="14" y="587" class="letter">G</text><text x="90" y="585" class="word">Golf</text><text x="295" y="584" class="sound">GOLF</text>
+    <text x="14" y="676" class="letter">H</text><text x="90" y="674" class="word">Hotel</text><text x="295" y="673" class="sound">HOHTELL</text>
+    <text x="14" y="765" class="letter">I</text><text x="90" y="763" class="word">India</text><text x="295" y="762" class="sound">INDEE AH</text>
+    <text x="14" y="854" class="letter">J</text><text x="90" y="852" class="word">Juliett</text><text x="295" y="851" class="sound">JEWLEE ETT</text>
+    <text x="14" y="943" class="letter">K</text><text x="90" y="941" class="word">Kilo</text><text x="295" y="940" class="sound">KEYLOH</text>
+    <text x="14" y="1032" class="letter">L</text><text x="90" y="1030" class="word">Lima</text><text x="295" y="1029" class="sound">LEEMAH</text>
+    <text x="14" y="1121" class="letter">M</text><text x="90" y="1119" class="word">Mike</text><text x="295" y="1118" class="sound">MIKE</text>
+  </g>
+  <g transform="translate(638 254)">
+    <text x="14" y="53" class="letter">N</text><text x="90" y="51" class="word">November</text><text x="295" y="50" class="sound">NOVEMBER</text>
+    <text x="14" y="142" class="letter">O</text><text x="90" y="140" class="word">Oscar</text><text x="295" y="139" class="sound">OSSCAH</text>
+    <text x="14" y="231" class="letter">P</text><text x="90" y="229" class="word">Papa</text><text x="295" y="228" class="sound">PAHPAH</text>
+    <text x="14" y="320" class="letter">Q</text><text x="90" y="318" class="word">Quebec</text><text x="295" y="317" class="sound">KEHBECK</text>
+    <text x="14" y="409" class="letter">R</text><text x="90" y="407" class="word">Romeo</text><text x="295" y="406" class="sound">ROWME OH</text>
+    <text x="14" y="498" class="letter">S</text><text x="90" y="496" class="word">Sierra</text><text x="295" y="495" class="sound">SEEAIRAH</text>
+    <text x="14" y="587" class="letter">T</text><text x="90" y="585" class="word">Tango</text><text x="295" y="584" class="sound">TANGGO</text>
+    <text x="14" y="676" class="letter">U</text><text x="90" y="674" class="word">Uniform</text><text x="295" y="673" class="sound">YOUNEE FORM</text>
+    <text x="14" y="765" class="letter">V</text><text x="90" y="763" class="word">Victor</text><text x="295" y="762" class="sound">VIKTAH</text>
+    <text x="14" y="854" class="letter">W</text><text x="90" y="852" class="word">Whisky</text><text x="295" y="851" class="sound">WISSKEY</text>
+    <text x="14" y="943" class="letter">X</text><text x="90" y="941" class="word">X-ray</text><text x="295" y="940" class="sound">ECKSRAY</text>
+    <text x="14" y="1032" class="letter">Y</text><text x="90" y="1030" class="word">Yankee</text><text x="295" y="1029" class="sound">YANGKEY</text>
+    <text x="14" y="1121" class="letter">Z</text><text x="90" y="1119" class="word">Zulu</text><text x="295" y="1118" class="sound">ZOOLOO</text>
+  </g>
+  <text x="54" y="1480" class="note">La guía es aproximada: escuche la palabra completa, no traduzca letra por letra.</text>
+  <text x="54" y="1522" class="note">Grafía OACI; guía de pronunciación: FAA, §2-3-3, tabla 2-3-2.</text>
+</svg>

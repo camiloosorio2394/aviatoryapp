@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Qué información conserva una colación íntegra</title>
+  <desc id="desc">Matriz didáctica que compara cuatro componentes: destinatario, acción, valor y condición. La colación íntegra los conserva; si falta la condición, cambia el momento de actuar aunque los otros datos parezcan correctos.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#1b2534"/><stop offset="1" stop-color="#36273d"/></linearGradient>
+    <style>.ey{font:700 21px Arial,sans-serif;letter-spacing:4px;fill:#a8e7c7}.h{font:700 44px Arial,sans-serif;fill:#fff}.sub{font:500 24px Arial,sans-serif;fill:#e4dfe9}.th{font:700 24px Arial,sans-serif;fill:#fff}.cell{font:500 23px Arial,sans-serif;fill:#eee9f0}.bad{font:700 24px Arial,sans-serif;fill:#ffe0aa}.good{font:700 24px Arial,sans-serif;fill:#bdffd9}.foot{font:500 21px Arial,sans-serif;fill:#e6e1e8}</style>
+  </defs>
+  <rect width="1600" height="900" rx="28" fill="url(#bg)"/>
+  <text class="ey" x="76" y="73">COMUNICACIONES · LECCIÓN 12</text>
+  <text class="h" x="76" y="136">Lo que una colación no puede perder</text>
+  <text class="sub" x="76" y="181">La tripulación repite el mensaje recibido, no una versión abreviada por memoria.</text>
+  <rect x="76" y="226" width="1448" height="80" rx="18" fill="#4f5368"/>
+  <text class="th" x="108" y="277">ELEMENTO</text><text class="th" x="505" y="277">COLACIÓN ÍNTEGRA</text><text class="th" x="1030" y="277">OMISIÓN PELIGROSA</text>
+  <rect x="76" y="318" width="1448" height="95" rx="15" fill="#344e60"/>
+  <text class="th" x="108" y="375">Destinatario</text><text class="good" x="505" y="375">Distintivo propio al final</text><text class="cell" x="1030" y="375">No se sabe quién respondió</text>
+  <rect x="76" y="425" width="1448" height="95" rx="15" fill="#45465f"/>
+  <text class="th" x="108" y="482">Acción</text><text class="good" x="505" y="482">Verbo e instrucción exactos</text><text class="cell" x="1030" y="482">Se confunde pedir con recibir</text>
+  <rect x="76" y="532" width="1448" height="95" rx="15" fill="#344e60"/>
+  <text class="th" x="108" y="589">Valor</text><text class="good" x="505" y="589">Pista, nivel, rumbo o código</text><text class="cell" x="1030" y="589">No se detecta cifra errónea</text>
+  <rect x="76" y="639" width="1448" height="95" rx="15" fill="#5f475c"/>
+  <text class="th" x="108" y="696">Condición</text><text class="good" x="505" y="696">Cuándo y dónde actuar</text><text class="bad" x="1030" y="696">La acción puede adelantarse</text>
+  <rect x="76" y="766" width="1448" height="67" rx="17" fill="#2a635b"/>
+  <text class="th" x="107" y="809">Si algo falta o no coincide, pide aclaración y no ejecutes la versión supuesta.</text>
+  <text class="foot" x="77" y="872">Matriz conceptual; no contiene rutas, pistas ni autorizaciones reales o simuladas.</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">El inglés usado en la radio es una parte concreta del inglés aeronáutico</title>
+  <desc id="desc">Tres marcos anidados muestran el inglés general, el inglés aeronáutico y la radiotelefonía; esta última se divide en fraseología normalizada y lenguaje común.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#1b1e2e"/><stop offset="1" stop-color="#35213d"/></linearGradient>
+    <style>
+      .k{font:700 19px Arial,sans-serif;letter-spacing:3px;fill:#ceb9d3}.h{font:700 38px Arial,sans-serif;fill:#fff}.lab{font:700 30px Arial,sans-serif;fill:#fff}.body{font:500 21px Arial,sans-serif;fill:#e8e0ea}.small{font:500 18px Arial,sans-serif;fill:#e8e0ea}
+    </style>
+  </defs>
+  <rect width="1200" height="900" rx="24" fill="url(#bg)"/>
+  <text class="k" x="64" y="78">AVIATION ENGLISH · USO OPERACIONAL</text>
+  <text class="h" x="64" y="131">¿Qué inglés se usa en frecuencia?</text>
+  <rect x="64" y="178" width="1072" height="655" rx="24" fill="#413449" stroke="#9b86a0" stroke-width="3"/>
+  <text class="lab" x="94" y="227">INGLÉS GENERAL</text>
+  <text class="body" x="94" y="260">Conversación y escritura cotidiana</text>
+  <rect x="94" y="293" width="1012" height="505" rx="22" fill="#51415b" stroke="#b299bc" stroke-width="3"/>
+  <text class="lab" x="124" y="344">INGLÉS AERONÁUTICO</text>
+  <text class="body" x="124" y="376">Operaciones, mantenimiento, despacho y cabina</text>
+  <rect x="124" y="410" width="952" height="352" rx="20" fill="#243848" stroke="#a3c3cb" stroke-width="4"/>
+  <text class="lab" x="154" y="462">RADIOTELEFONÍA: PILOTO + ATC</text>
+  <text class="body" x="154" y="496">El intercambio que exige comprensión operacional en frecuencia</text>
+  <rect x="154" y="535" width="430" height="177" rx="16" fill="#695674"/>
+  <rect x="598" y="535" width="448" height="177" rx="16" fill="#40566a"/>
+  <text class="lab" x="179" y="586">FRASEOLOGÍA</text>
+  <text class="small" x="179" y="620">Expresiones normalizadas para</text>
+  <text class="small" x="179" y="646">situaciones previstas.</text>
+  <text class="lab" x="623" y="586">LENGUAJE COMÚN</text>
+  <text class="small" x="623" y="620">Mensaje directo cuando la fraseología</text>
+  <text class="small" x="623" y="646">no cubre la situación.</text>
+  <text class="small" x="64" y="870">Identifica el registro, expresa la necesidad y confirma que el otro entendió.</text>
+</svg>

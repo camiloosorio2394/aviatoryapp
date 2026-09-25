@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Números en la radio: pronunciación, agrupación y comprobación en cabina</title>
+  <desc id="desc">Diez dígitos con la transcripción de la edición española del Doc 9432. La mayoría de cifras se dice dígito por dígito; las centenas y millares enteros de altitud, nubes, visibilidad y alcance visual en pista usan hundred o thousand. Después de la colación, la tripulación coteja la autorización con lo seleccionado y escucha la corrección del controlador.</desc>
+  <defs>
+    <style>
+      .eyebrow{font:700 24px Arial,sans-serif;letter-spacing:4px;fill:#7e5a88}
+      .title{font:700 55px Arial,sans-serif;fill:#291f2e}
+      .subtitle{font:500 28px Arial,sans-serif;fill:#5a5260}
+      .digit{font:700 62px Arial,sans-serif;fill:#6b4078}
+      .sound{font:700 26px Arial,sans-serif;fill:#423249}
+      .boxTitle{font:700 30px Arial,sans-serif;fill:#fff}
+      .boxText{font:500 25px Arial,sans-serif;fill:#fff}
+      .flow{font:700 25px Arial,sans-serif;fill:#382d40}
+      .note{font:500 23px Arial,sans-serif;fill:#645a68}
+    </style>
+  </defs>
+  <rect width="1080" height="1920" rx="28" fill="#faf8fb"/>
+  <text x="52" y="82" class="eyebrow">ESCUCHE EL NÚMERO COMPLETO</text>
+  <text x="52" y="156" class="title">Números en la radio</text>
+  <text x="52" y="207" class="subtitle">Pronunciación de la edición española del Doc 9432, §2.4.1</text>
+
+  <g transform="translate(52 250)">
+    <rect width="179" height="174" rx="18" fill="#f0e9f3"/><text x="19" y="75" class="digit">0</text><text x="19" y="125" class="sound">SI-RO</text>
+    <rect x="200" width="179" height="174" rx="18" fill="#f0e9f3"/><text x="219" y="75" class="digit">1</text><text x="219" y="125" class="sound">UAN</text>
+    <rect x="400" width="179" height="174" rx="18" fill="#f0e9f3"/><text x="419" y="75" class="digit">2</text><text x="419" y="125" class="sound">TU</text>
+    <rect x="600" width="179" height="174" rx="18" fill="#e7d9eb" stroke="#8a6293" stroke-width="3"/><text x="619" y="75" class="digit">3</text><text x="619" y="125" class="sound">TRI</text>
+    <rect x="800" width="179" height="174" rx="18" fill="#f0e9f3"/><text x="819" y="75" class="digit">4</text><text x="819" y="125" class="sound">FO-ar</text>
+
+    <rect y="195" width="179" height="174" rx="18" fill="#e7d9eb" stroke="#8a6293" stroke-width="3"/><text x="19" y="270" class="digit">5</text><text x="19" y="320" class="sound">FA-IF</text>
+    <rect x="200" y="195" width="179" height="174" rx="18" fill="#f0e9f3"/><text x="219" y="270" class="digit">6</text><text x="219" y="320" class="sound">SIKS</text>
+    <rect x="400" y="195" width="179" height="174" rx="18" fill="#f0e9f3"/><text x="419" y="270" class="digit">7</text><text x="419" y="320" class="sound">SEV'N</text>
+    <rect x="600" y="195" width="179" height="174" rx="18" fill="#f0e9f3"/><text x="619" y="270" class="digit">8</text><text x="619" y="320" class="sound">EIT</text>
+    <rect x="800" y="195" width="179" height="174" rx="18" fill="#e7d9eb" stroke="#8a6293" stroke-width="3"/><text x="819" y="270" class="digit">9</text><text x="819" y="320" class="sound">NAI-na</text>
+  </g>
+
+  <text x="52" y="702" class="eyebrow">DOS REGLAS QUE NO SE INTERCAMBIAN</text>
+  <g transform="translate(52 738)">
+    <rect width="475" height="380" rx="21" fill="#684071"/>
+    <text x="28" y="55" class="boxTitle">DÍGITO POR DÍGITO</text>
+    <text x="28" y="112" class="boxText">Nivel de vuelo · rumbo</text>
+    <text x="28" y="154" class="boxText">Pista · código SSR</text>
+    <text x="28" y="196" class="boxText">QNH · frecuencia</text>
+    <path d="M28 233H447" stroke="#b895c0" stroke-width="2"/>
+    <text x="28" y="284" class="boxText">FL 350</text>
+    <text x="28" y="326" class="boxText">«three five zero»</text>
+  </g>
+  <g transform="translate(553 738)">
+    <rect width="475" height="380" rx="21" fill="#896195"/>
+    <text x="28" y="55" class="boxTitle">HUNDRED / THOUSAND</text>
+    <text x="28" y="112" class="boxText">Altitud · altura de nubes</text>
+    <text x="28" y="154" class="boxText">Visibilidad · RVR</text>
+    <text x="28" y="196" class="boxText">Centenas o millares enteros</text>
+    <path d="M28 233H447" stroke="#cdb8d1" stroke-width="2"/>
+    <text x="28" y="284" class="boxText">4 000 ft</text>
+    <text x="28" y="326" class="boxText">«four thousand feet»</text>
+  </g>
+
+  <text x="52" y="1212" class="eyebrow">AL PROCESAR UNA AUTORIZACIÓN</text>
+  <text x="52" y="1268" class="subtitle">No basta con pronunciar bien un dato aislado.</text>
+  <g transform="translate(52 1312)">
+    <rect width="976" height="344" rx="22" fill="#fff" stroke="#e3d9e6" stroke-width="3"/>
+    <circle cx="74" cy="74" r="36" fill="#70497d"/><text x="74" y="84" text-anchor="middle" class="boxTitle">1</text>
+    <text x="130" y="84" class="flow">Escuche y anote todos los elementos modificados.</text>
+    <circle cx="74" cy="166" r="36" fill="#70497d"/><text x="74" y="176" text-anchor="middle" class="boxTitle">2</text>
+    <text x="130" y="176" class="flow">Colacione lo exigido y escuche el hearback.</text>
+    <circle cx="74" cy="258" r="36" fill="#70497d"/><text x="74" y="268" text-anchor="middle" class="boxTitle">3</text>
+    <text x="130" y="268" class="flow">Coteje los selectores y la trayectoria en cabina.</text>
+  </g>
+  <text x="52" y="1740" class="note">Nivel de vuelo no es altitud; QNH no sustituye una autorización de descenso.</text>
+  <text x="52" y="1790" class="note">Una cifra bien dicha pero mal seleccionada sigue siendo un error.</text>
+  <text x="52" y="1860" class="note">Fuente de pronunciación y agrupación: Doc 9432, §§2.4.1–2.4.3.</text>
+</svg>

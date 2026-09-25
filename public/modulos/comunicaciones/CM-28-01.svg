@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Qué comprobar en una autorización de espera</title>
+  <desc id="desc">Tarjeta conceptual que separa el punto y el nivel, los elementos de una espera publicada o detallada, la hora prevista de aproximación y la decisión de combustible.</desc>
+  <rect width="1600" height="900" rx="32" fill="#101e2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="76" y="95" fill="#f1f8f6" font-size="42" font-weight="700">La espera: autorización, tiempo y salida</text>
+    <text x="78" y="140" fill="#a6b9bb" font-size="22">Tarjeta de comprobación · No dibuja un circuito ni sustituye una carta publicada.</text>
+    <rect x="76" y="204" width="692" height="261" rx="24" fill="#1b343a" stroke="#98e8ca" stroke-width="2"/>
+    <text x="109" y="258" fill="#98e8ca" font-size="26" font-weight="700">1 · AUTORIZACIÓN DE ESPERA</text>
+    <text x="109" y="307" fill="#f2f8f7" font-size="27">Punto o referencia · nivel · dirección</text>
+    <text x="109" y="351" fill="#f2f8f7" font-size="27">Si es publicada: comprobar la carta.</text>
+    <text x="109" y="397" fill="#c6d4d4" font-size="22">Si es detallada: acercamiento, sentido</text>
+    <text x="109" y="429" fill="#c6d4d4" font-size="22">de virajes y alejamiento cuando apliquen.</text>
+    <rect x="818" y="204" width="706" height="261" rx="24" fill="#24323e" stroke="#6a8288" stroke-width="2"/>
+    <text x="851" y="258" fill="#98e8ca" font-size="26" font-weight="700">2 · TIEMPO PREVISTO</text>
+    <text x="851" y="307" fill="#f2f8f7" font-size="27">EAT orienta la planificación.</text>
+    <text x="851" y="351" fill="#f2f8f7" font-size="27">No es una autorización para salir.</text>
+    <text x="851" y="397" fill="#c6d4d4" font-size="22">Una revisión o demora indeterminada cambia</text>
+    <text x="851" y="429" fill="#c6d4d4" font-size="22">el cálculo operativo, no la ruta por sí sola.</text>
+    <rect x="76" y="510" width="692" height="227" rx="24" fill="#24323e" stroke="#6a8288" stroke-width="2"/>
+    <text x="109" y="564" fill="#98e8ca" font-size="26" font-weight="700">3 · COMBUSTIBLE Y MARGEN</text>
+    <text x="109" y="615" fill="#f2f8f7" font-size="26">Actualizar tiempo viable de espera.</text>
+    <text x="109" y="657" fill="#c6d4d4" font-size="22">Comunicar limitación antes de agotarlo.</text>
+    <text x="109" y="696" fill="#c6d4d4" font-size="22">Aplicar criterios del operador y del Estado.</text>
+    <rect x="818" y="510" width="706" height="227" rx="24" fill="#1b343a" stroke="#98e8ca" stroke-width="2"/>
+    <text x="851" y="564" fill="#98e8ca" font-size="26" font-weight="700">4 · SALIDA DE LA ESPERA</text>
+    <text x="851" y="615" fill="#f2f8f7" font-size="26">Esperar la autorización pertinente.</text>
+    <text x="851" y="657" fill="#c6d4d4" font-size="22">No abandonar por llegar la hora prevista.</text>
+    <text x="851" y="696" fill="#c6d4d4" font-size="22">Confirmar la ruta siguiente si hay duda.</text>
+    <text x="78" y="817" fill="#a6b9bb" font-size="21">Basado en OACI Doc 4444 y EASA AMC1 SERA.14001; verificar carta, Estado y operador vigentes.</text>
+  </g>
+</svg>

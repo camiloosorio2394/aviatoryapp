@@ -1775,6 +1775,19 @@
 .lector-notam.lector-cm .doc-sheet {
   --doc-accent: var(--ln-primary);
 }
+/* En este módulo la portada y las historietas siguen el ancho de lectura,
+   incluso cuando el lector común ensancha las láminas en monitores grandes. */
+.lector-notam.lector-cm .ln-medio {
+  margin-inline: 0;
+}
+/* El diálogo de radio es contenido para leer, no un rótulo técnico minúsculo.
+   Conserva el espaciado de las estaciones, con un cuerpo legible en portátil. */
+.lector-notam.lector-cm .doc-sheet pre code.mono {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.7;
+  letter-spacing: 0;
+}
 /* En el índice navy el foco oscuro no se vería (3,2:1): ahí va una ciruela
    clara, #D9B6E1, que da 9,2:1 sobre el navy y 4,5:1 sobre la pastilla. */
 .lector-notam.lector-cm .ln-side :where(a, button, [role="button"]):focus-visible {

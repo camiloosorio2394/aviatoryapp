@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
+  <title id="t">Secuencia conceptual ante pérdida de contacto por voz</title>
+  <desc id="d">Cuatro etapas: mantener el vuelo, revisar radios, intentar otros medios y aplicar el procedimiento del espacio aéreo si persiste la falla.</desc>
+  <rect width="1600" height="900" fill="#0c1724"/>
+  <g font-family="Arial, sans-serif">
+    <text x="76" y="103" fill="#e9f7f3" font-size="47" font-weight="700">Cuando la frecuencia queda en silencio</text>
+    <text x="78" y="155" fill="#a7c5c1" font-size="25">No toda pérdida de contacto es una falla total de radio</text>
+    <g fill="#172b3d" stroke="#6edac0" stroke-width="3">
+      <rect x="76" y="226" width="330" height="377" rx="30"/>
+      <rect x="449" y="226" width="330" height="377" rx="30"/>
+      <rect x="822" y="226" width="330" height="377" rx="30"/>
+      <rect x="1195" y="226" width="330" height="377" rx="30"/>
+    </g>
+    <g fill="#6edac0" font-size="27" font-weight="700">
+      <text x="108" y="282">01</text><text x="481" y="282">02</text><text x="854" y="282">03</text><text x="1227" y="282">04</text>
+    </g>
+    <g fill="#e9f7f3" font-size="30" font-weight="700">
+      <text x="108" y="337">Volar y escuchar</text>
+      <text x="481" y="337">Revisar cabina</text>
+      <text x="854" y="337">Buscar contacto</text>
+      <text x="1227" y="337">Si persiste</text>
+    </g>
+    <g fill="#a7c5c1" font-size="23">
+      <text x="108" y="402">Mantener control y</text><text x="108" y="435">última autorización</text><text x="108" y="488">¿Solo silencio tras</text><text x="108" y="521">una transferencia?</text>
+      <text x="481" y="402">Frecuencia activa</text><text x="481" y="435">Audio · volumen · PTT</text><text x="481" y="488">Otra radio y otro</text><text x="481" y="521">puesto, según SOP</text>
+      <text x="854" y="402">Canal anterior</text><text x="854" y="435">ATS y aeronaves</text><text x="854" y="488">Otros medios disponibles</text><text x="854" y="521">121,5 MHz si procede</text>
+      <text x="1227" y="402">Señalizar con 7600</text><text x="1227" y="435">si corresponde</text><text x="1227" y="488">Aplicar regla y carta</text><text x="1227" y="521">vigentes del Estado</text>
+    </g>
+    <g stroke="#6edac0" stroke-width="5" stroke-linecap="round" fill="none">
+      <path d="M414 415h26m-13-13 13 13-13 13"/>
+      <path d="M787 415h26m-13-13 13 13-13 13"/>
+      <path d="M1160 415h26m-13-13 13 13-13 13"/>
+    </g>
+    <rect x="76" y="672" width="1449" height="140" rx="28" fill="#203648"/>
+    <text x="113" y="730" fill="#e9f7f3" font-size="27" font-weight="700">Si ATS pide una respuesta observable</text>
+    <text x="113" y="776" fill="#a7c5c1" font-size="24">Si recibe una instrucción condicional de viraje o IDENT, ejecútela solo cuando la entienda y sea segura.</text>
+  </g>
+</svg>

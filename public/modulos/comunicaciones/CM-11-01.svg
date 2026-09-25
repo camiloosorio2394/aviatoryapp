@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Tres pares de palabras radiotelefónicas que no son equivalentes</title>
+  <desc id="desc">Roger confirma recepción; Wilco compromete cumplimiento. Standby ordena esperar, no aprueba una medida; Approved la concede. Contact pide establecer comunicación; Monitor pide escuchar.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#1b2230"/><stop offset="1" stop-color="#38263f"/></linearGradient>
+    <style>
+      .ey{font:700 20px Arial,sans-serif;letter-spacing:3px;fill:#d4bed7}.h{font:700 43px Arial,sans-serif;fill:#fff}.term{font:700 34px Arial,sans-serif;fill:#fff}.meaning{font:500 25px Arial,sans-serif;fill:#eae2ed}.note{font:700 22px Arial,sans-serif;fill:#e5ffed}.small{font:500 20px Arial,sans-serif;fill:#eae2ed}
+    </style>
+  </defs>
+  <rect width="1600" height="900" rx="26" fill="url(#bg)"/>
+  <text class="ey" x="65" y="75">RADIOTELEFONÍA · SENTIDO Y COMPROMISO</text>
+  <text class="h" x="65" y="136">Una palabra cambia la acción esperada</text>
+  <g>
+    <rect x="65" y="204" width="470" height="545" rx="23" fill="#354a5b" stroke="#9dc6d0" stroke-width="3"/>
+    <rect x="565" y="204" width="470" height="545" rx="23" fill="#554461" stroke="#d0b6d2" stroke-width="3"/>
+    <rect x="1065" y="204" width="470" height="545" rx="23" fill="#365a57" stroke="#a9dfc4" stroke-width="3"/>
+    <rect x="93" y="275" width="414" height="177" rx="17" fill="#476479"/>
+    <rect x="93" y="481" width="414" height="177" rx="17" fill="#476479"/>
+    <rect x="593" y="275" width="414" height="177" rx="17" fill="#705878"/>
+    <rect x="593" y="481" width="414" height="177" rx="17" fill="#705878"/>
+    <rect x="1093" y="275" width="414" height="177" rx="17" fill="#4a746b"/>
+    <rect x="1093" y="481" width="414" height="177" rx="17" fill="#4a746b"/>
+  </g>
+  <text class="note" x="92" y="247">RECEPCIÓN ≠ CUMPLIMIENTO</text>
+  <text class="term" x="120" y="334">ROGER</text><text class="meaning" x="120" y="378">Recibí toda tu</text><text class="meaning" x="120" y="410">transmisión anterior.</text>
+  <text class="term" x="120" y="540">WILCO</text><text class="meaning" x="120" y="584">Entendí y procederé</text><text class="meaning" x="120" y="616">de acuerdo.</text>
+  <text class="note" x="592" y="247">ESPERA ≠ APROBACIÓN</text>
+  <text class="term" x="620" y="334">STANDBY</text><text class="meaning" x="620" y="378">Espera: yo te llamaré.</text><text class="meaning" x="620" y="410">No es sí ni no.</text>
+  <text class="term" x="620" y="540">APPROVED</text><text class="meaning" x="620" y="584">Medida propuesta:</text><text class="meaning" x="620" y="616">autorización concedida.</text>
+  <text class="note" x="1092" y="247">LLAMAR ≠ ESCUCHAR</text>
+  <text class="term" x="1120" y="334">CONTACT</text><text class="meaning" x="1120" y="378">Establece comunicación</text><text class="meaning" x="1120" y="410">con la dependencia.</text>
+  <text class="term" x="1120" y="540">MONITOR</text><text class="meaning" x="1120" y="584">Escucha la frecuencia</text><text class="meaning" x="1120" y="616">indicada.</text>
+  <rect x="65" y="787" width="1470" height="68" rx="16" fill="#25554f"/>
+  <text class="small" x="95" y="830">Ni ROGER ni WILCO reemplazan la colación exigida de pista, nivel, ruta o autorización.</text>
+</svg>
