@@ -8,6 +8,7 @@ import { AP_LECCIONES } from "@/lib/aeropuertosLeccion"
 import { MP_LECCIONES } from "@/lib/mercanciasLeccion"
 import { METAR_LESSON } from "@/lib/metarLesson"
 import { LESSON_SCREENS } from "@/lib/notamLesson"
+import { PB_LECCIONES } from "@/lib/pbnLeccion"
 
 /**
  * Cada foto de una lección declara la medida de su archivo, y tiene que ser la
@@ -18,7 +19,8 @@ import { LESSON_SCREENS } from "@/lib/notamLesson"
  * roto.
  *
  * Se lee solo la cabecera del WebP, que trae el tamaño: son ciento y pico
- * archivos y no hace falta decodificar ninguno.
+ * archivos y no hace falta decodificar ninguno. Las figuras dibujadas (las de
+ * PBN) son SVG, y su medida es la de la etiqueta raíz.
  */
 
 const PUBLICO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../public")
@@ -45,12 +47,21 @@ function medirWebp(buf: Buffer): { ancho: number; alto: number } | null {
   return null
 }
 
+/** Ancho y alto de un SVG, de los atributos de su etiqueta raíz. */
+function medirSvg(buf: Buffer): { ancho: number; alto: number } | null {
+  const raiz = /<svg\b[^>]*>/.exec(buf.toString("utf8", 0, 600))?.[0] ?? ""
+  const ancho = /\swidth="(\d+)"/.exec(raiz)
+  const alto = /\sheight="(\d+)"/.exec(raiz)
+  return ancho && alto ? { ancho: Number(ancho[1]), alto: Number(alto[1]) } : null
+}
+
 const MODULOS: [string, { blocks: unknown[] }[]][] = [
   ["NOTAM", LESSON_SCREENS],
   ["Meteorología", METAR_LESSON],
   ["Mercancías", MP_LECCIONES],
   ["Aeropuertos", AP_LECCIONES],
   ["Aerodinámica", AERO_LECCIONES],
+  ["PBN", PB_LECCIONES],
 ]
 
 const fotos: Foto[] = []
@@ -82,8 +93,9 @@ describe("las fotos de las lecciones declaran su medida real", () => {
   it.each(fotos.map((f) => [`${f.modulo} · ${f.src.split("/").pop()}`, f] as const))("%s", (_nombre, foto) => {
     const ruta = path.join(PUBLICO, foto.src)
     expect(fs.existsSync(ruta), `falta el archivo ${foto.src}`).toBe(true)
-    const medida = medirWebp(fs.readFileSync(ruta))
-    expect(medida, `${foto.src} no es un WebP legible`).not.toBeNull()
+    const buf = fs.readFileSync(ruta)
+    const medida = foto.src.endsWith(".svg") ? medirSvg(buf) : medirWebp(buf)
+    expect(medida, `${foto.src} no se puede medir`).not.toBeNull()
     expect([medida!.ancho, medida!.alto], `${foto.src} declara otra medida`).toEqual([foto.ancho, foto.alto])
   })
 })

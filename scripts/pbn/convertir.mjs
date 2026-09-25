@@ -15,6 +15,12 @@
  *   #### X                                   subtítulo dentro de un apartado
  *   [ESPACIO PARA IMAGEN]                    hueco, con IMAGEN SUGERIDA: y OBJETIVO:
  *   [ESPACIO PARA IMAGEN ANOTADA]            hueco, con IMAGEN BASE:, ANOTACIONES: y OBJETIVO PEDAGÓGICO:
+ *
+ * Cada hueco lleva un código por orden de aparición (PB-01, PB-02…). Si la
+ * figura de ese código ya está dibujada (scripts/pbn/figuras y su SVG en
+ * public/modulos/pbn/), sale la figura; si no, el hueco rotulado. En las
+ * anotadas, debajo de la figura va la lista de lo que señala cada número, con
+ * el texto de ANOTACIONES tal cual.
  *   ### Quiz · Capítulo N                    NO entra en la lección: va a la práctica
  *   ### Escenario N · Título                 (capítulo 52) un piensaComoPiloto
  *   # BLOQUE N · TÍTULO                      abre un nivel del índice lateral
@@ -35,15 +41,18 @@
 import fs from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import { FIGURAS } from "./figuras/index.mjs"
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const FUENTE = path.join(RAIZ, "docs/contenido/pbn.md")
 const DESTINO_LECCION = path.join(RAIZ, "src/lib/pbnLeccion.ts")
 const DESTINO_PRACTICA = path.join(RAIZ, "src/lib/pbnPractica.ts")
 const DESTINO_BANCO = path.join(RAIZ, "contenido/bancos/pbn_evaluacion.json")
+const DIR_FIGURAS = path.join(RAIZ, "public/modulos/pbn")
+const FIGURA_POR_CODIGO = new Map(FIGURAS.map((f) => [f.codigo, f]))
 
 /** Lo que el documento promete en su ficha. Si no cuadra, el script para. */
-const ESPERADO = { capitulos: 48, huecos: 29, escenarios: 12, porCapitulo: 3, practica: 144, banco: 66 }
+const ESPERADO = { capitulos: 48, imagenes: 29, escenarios: 12, porCapitulo: 3, practica: 144, banco: 66 }
 
 const FIGURA = { medida: "Figura · 16:9 · 1600×900", ratio: "16 / 9", alto: 260 }
 
@@ -167,23 +176,72 @@ function leerHueco(cuerpo, i, ctx) {
 
   if (!descripcion || !pie || (anotada && !anotaciones)) {
     fallos.push(`hueco de imagen incompleto cerca de la línea «${cuerpo[i + 1] ?? ""}»`)
-    return { bloque: null, siguiente: j }
+    return { bloques: [], siguiente: j }
   }
 
-  const codigo = `PB-${String(ctx.huecos.length + 1).padStart(2, "0")}`
-  ctx.huecos.push(codigo)
+  const codigo = `PB-${String(ctx.huecos.length + ctx.figuras.length + 1).padStart(2, "0")}`
+  const figura = figuraDibujada(codigo)
+  if (!figura) {
+    ctx.huecos.push(codigo)
+    return {
+      bloques: [
+        {
+          kind: "hueco",
+          rotulo: `${codigo} · ${FIGURA.medida}${anotada ? " · anotada" : ""}`,
+          descripcion: anotada ? `${descripcion} ANOTACIONES: ${anotaciones}` : descripcion,
+          pie,
+          alto: FIGURA.alto,
+          ratio: FIGURA.ratio,
+        },
+      ],
+      siguiente: j,
+    }
+  }
 
-  return {
-    bloque: {
-      kind: "hueco",
-      rotulo: `${codigo} · ${FIGURA.medida}${anotada ? " · anotada" : ""}`,
-      descripcion: anotada ? `${descripcion} ANOTACIONES: ${anotaciones}` : descripcion,
-      pie,
-      alto: FIGURA.alto,
-      ratio: FIGURA.ratio,
+  ctx.figuras.push(codigo)
+  const bloques = [
+    {
+      kind: "figura",
+      src: `/modulos/pbn/${codigo}.svg`,
+      alt: figura.alt,
+      ancho: 1600,
+      alto: figura.alto,
+      ...(figura.pie ? { pie: figura.pie } : {}),
     },
-    siguiente: j,
+  ]
+  if (anotada) {
+    // «→ FLECHA 1: al recuadro PBN. EXPLICACIÓN: aquí está…»: lo que se lee
+    // es la explicación, en el mismo orden que los números de la figura.
+    const items = anotaciones
+      .split(/→ FLECHA \d+:/)
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((s) => s.replace(/^.*?EXPLICACIÓN:\s*/, "").trim())
+      .map((s) => s.charAt(0).toLocaleUpperCase("es") + s.slice(1))
+    comprobar(items.length === figura.anotaciones, `${codigo}: el documento trae ${items.length} anotaciones y la figura numera ${figura.anotaciones}`)
+    bloques.push({ kind: "list", ordered: true, items })
+  } else {
+    comprobar(!figura.anotaciones, `${codigo}: la figura está numerada pero el hueco no es anotado`)
   }
+  return { bloques, siguiente: j }
+}
+
+/**
+ * La figura de un código, si está dibujada: tiene que estar en
+ * scripts/pbn/figuras y tener su SVG, con la medida que declara.
+ */
+function figuraDibujada(codigo) {
+  const figura = FIGURA_POR_CODIGO.get(codigo)
+  const archivo = path.join(DIR_FIGURAS, `${codigo}.svg`)
+  if (!figura) return null
+  if (!fs.existsSync(archivo)) {
+    fallos.push(`${codigo}: está en scripts/pbn/figuras pero falta el SVG; corre node scripts/pbn/dibujar-figuras.mjs`)
+    return null
+  }
+  const cabecera = fs.readFileSync(archivo, "utf8").slice(0, 300)
+  const medida = /width="(\d+)" height="(\d+)"/.exec(cabecera)
+  comprobar(medida && Number(medida[1]) === 1600 && Number(medida[2]) === figura.alto, `${codigo}: el SVG no mide 1600 × ${figura.alto}; vuelve a dibujarlo`)
+  return figura
 }
 
 // ─── Preguntas ──────────────────────────────────────────────────────────────
@@ -262,8 +320,8 @@ function bloquesDe(cuerpo, ctx) {
     }
 
     if (l === "[ESPACIO PARA IMAGEN]" || l === "[ESPACIO PARA IMAGEN ANOTADA]") {
-      const { bloque, siguiente } = leerHueco(cuerpo, i, ctx)
-      if (bloque) bloques.push(bloque)
+      const { bloques: deLaFigura, siguiente } = leerHueco(cuerpo, i, ctx)
+      bloques.push(...deLaFigura)
       i = siguiente
       continue
     }
@@ -417,7 +475,7 @@ function capitalizar(texto) {
 
 // ─── Recorrido del documento ────────────────────────────────────────────────
 
-const ctx = { huecos: [], escenarios: [] }
+const ctx = { huecos: [], figuras: [], escenarios: [] }
 const niveles = []
 const capitulos = []
 let bancoCrudo = []
@@ -514,7 +572,9 @@ for (const [idx, cap] of capitulos.entries()) {
 // ─── Comprobaciones ─────────────────────────────────────────────────────────
 
 comprobar(capitulos.length === ESPERADO.capitulos, `esperaba ${ESPERADO.capitulos} capítulos y encontré ${capitulos.length}`)
-comprobar(ctx.huecos.length === ESPERADO.huecos, `esperaba ${ESPERADO.huecos} huecos y encontré ${ctx.huecos.length}`)
+comprobar(ctx.huecos.length + ctx.figuras.length === ESPERADO.imagenes, `esperaba ${ESPERADO.imagenes} imágenes y encontré ${ctx.huecos.length + ctx.figuras.length}`)
+const sinHueco = FIGURAS.filter((f) => !ctx.figuras.includes(f.codigo)).map((f) => f.codigo)
+comprobar(sinHueco.length === 0, `figuras dibujadas sin hueco en el documento: ${sinHueco.join(", ")}`)
 comprobar(ctx.escenarios.length === ESPERADO.escenarios, `esperaba ${ESPERADO.escenarios} escenarios y encontré ${ctx.escenarios.length}`)
 comprobar(bancoCrudo.length === ESPERADO.banco, `esperaba ${ESPERADO.banco} preguntas de banco y encontré ${bancoCrudo.length}`)
 
@@ -568,8 +628,8 @@ fs.writeFileSync(
  * Los ${lecciones.length} capítulos de PBN, en el formato del lector de lecciones.
  *
  * El contenido es el del documento, sin tocar: este archivo lo traduce a
- * bloques. Las ${ctx.huecos.length} imágenes entran como huecos rotulados, cada uno con lo que
- * hay que dibujar y para qué, así que el módulo se lee completo desde hoy.
+ * bloques. ${ctx.figuras.length} de las ${ctx.figuras.length + ctx.huecos.length} imágenes son figuras SVG de public/modulos/pbn/,
+ * dibujadas con scripts/pbn/dibujar-figuras.mjs; ${ctx.huecos.length ? `las otras ${ctx.huecos.length} entran como huecos rotulados.` : "no queda ningún hueco."}
  *
  * Las preguntas de cada capítulo NO están aquí: viven en pbnPractica.ts,
  * porque en la lectura no se pregunta nada.
@@ -590,7 +650,7 @@ export const PB_LECCION_TOTAL = ${lecciones.length}
 export const PB_PRACTICA_CLAVES = ${j(practica.flatMap((g) => g.preguntas.map((q) => q.id)))}
 
 /** Los huecos de figura que quedan por llenar, para el inventario de imágenes. */
-export const PB_FIGURAS_PENDIENTES = ${j(ctx.huecos)}
+export const PB_FIGURAS_PENDIENTES: string[] = ${j(ctx.huecos)}
 `),
 )
 
@@ -638,4 +698,4 @@ fs.writeFileSync(
 console.log(`${DESTINO_LECCION}: ${lecciones.length} capítulos, ${niveles.length} bloques`)
 console.log(`${DESTINO_PRACTICA}: ${totalPractica} preguntas en ${practica.length} grupos`)
 console.log(`${DESTINO_BANCO}: ${bancoCrudo.length} preguntas`)
-console.log(`huecos de imagen: ${ctx.huecos.length} · escenarios: ${ctx.escenarios.length}`)
+console.log(`figuras: ${ctx.figuras.length} · huecos de imagen: ${ctx.huecos.length} · escenarios: ${ctx.escenarios.length}`)
