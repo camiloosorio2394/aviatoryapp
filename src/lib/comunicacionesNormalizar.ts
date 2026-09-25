@@ -260,8 +260,8 @@ function letras(entrada: string[]): string[] {
  * Normaliza una transmisión dicha o escrita a una cadena comparable:
  * minúsculas, números en cifras, deletreo en letras, espacios simples.
  *
- *   «Flight level two four zero, Aviatory four five two» → «fl 240 aviatory 452»
- *   «FL240 AVIATORY 452»                                 → «fl 240 aviatory 452»
+ *   «Flight level two four zero, Avianca four five two» → «fl 240 avianca 452»
+ *   «FL240 AVIANCA 452»                                 → «fl 240 avianca 452»
  */
 export function normalizarHablado(texto: string): string {
   return letras(unirNumeros(fichas(texto))).join(" ")

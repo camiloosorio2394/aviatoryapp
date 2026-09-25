@@ -15,157 +15,157 @@
   "transmisiones": [
     {
       "id": "cm-ej-aut-ruta-kennington",
-      "texto": "Aviatory four five two, cleared to Kennington via Alfa one, flight level two eight zero, Wicken three Delta departure, squawk five five zero one.",
+      "texto": "Avianca four five two, cleared to Kennington via Alfa one, flight level two eight zero, Wicken three Delta departure, squawk five five zero one.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-salida-rumbo-040",
-      "texto": "Aviatory four five two, turn right heading zero four zero until passing flight level seven zero, then direct Wicken VOR.",
+      "texto": "Avianca four five two, turn right heading zero four zero until passing flight level seven zero, then direct Wicken VOR.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-llegada-descenso-4000",
-      "texto": "Aviatory four five two, descend to four thousand feet, QNH one zero zero five, transition level five zero, expect ILS approach runway two four.",
+      "texto": "Avianca four five two, descend to four thousand feet, QNH one zero zero five, transition level five zero, expect ILS approach runway two four.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-squawk-6402",
-      "texto": "Aviatory four five two, squawk six four zero two.",
+      "texto": "Avianca four five two, squawk six four zero two.",
       "voz": "atc_latam",
       "perfil": "limpia"
     },
     {
       "id": "cm-ej-rodaje-27",
-      "texto": "Aviatory four five two, taxi to holding point runway two seven, give way to B seven four seven passing left to right, QNH one zero one niner.",
+      "texto": "Avianca four five two, taxi to holding point runway two seven, give way to B seven four seven passing left to right, QNH one zero one niner.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-epm-425-contacto",
-      "texto": "Aviatory four two five, contact Alexander Control one two niner decimal one.",
+      "texto": "Avianca four two five, contact Alexander Control one two niner decimal one.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-epm-452-squawk",
-      "texto": "Aviatory four five two, squawk six four one one.",
+      "texto": "Avianca four five two, squawk six four one one.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-epm-542-rumbo",
-      "texto": "Aviatory five four two, turn left heading zero five zero for separation.",
+      "texto": "Avianca five four two, turn left heading zero five zero for separation.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-epm-452-rumbo",
-      "texto": "Aviatory four five two, fly heading zero five zero.",
+      "texto": "Avianca four five two, fly heading zero five zero.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-epm-425-detenga",
-      "texto": "Aviatory four two five, stop descent at flight level one five zero.",
+      "texto": "Avianca four two five, stop descent at flight level one five zero.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-epm-452-ascenso",
-      "texto": "Aviatory four five two, continue climb to flight level three three zero.",
+      "texto": "Avianca four five two, continue climb to flight level three three zero.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-epm-542-apresure",
-      "texto": "Aviatory five four two, expedite descent to flight level eight zero.",
+      "texto": "Avianca five four two, expedite descent to flight level eight zero.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-ej-epm-452-notifique-rumbo",
-      "texto": "Aviatory four five two, report heading.",
+      "texto": "Avianca four five two, report heading.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-ej-epm-425-reactive",
-      "texto": "Aviatory four two five, reset squawk six four one one.",
+      "texto": "Avianca four two five, reset squawk six four one one.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-ej-epm-452-nueva-aut",
-      "texto": "Aviatory four five two, recleared flight level three three zero.",
+      "texto": "Avianca four five two, recleared flight level three three zero.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-ej-hb-ascenso-240",
-      "texto": "Aviatory four five two, climb to flight level two four zero, expedite until passing flight level one eight zero.",
+      "texto": "Avianca four five two, climb to flight level two four zero, expedite until passing flight level one eight zero.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-hb-ascenso-240-pm",
-      "texto": "Climbing to flight level two four zero, expediting until passing flight level one eight zero, Aviatory four five two.",
+      "texto": "Climbing to flight level two four zero, expediting until passing flight level one eight zero, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-hb-qnh-1003",
-      "texto": "Aviatory four five two, QNH one zero zero three.",
+      "texto": "Avianca four five two, QNH one zero zero three.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-hb-qnh-1003-pm",
-      "texto": "QNH one zero one three, Aviatory four five two.",
+      "texto": "QNH one zero one three, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-hb-rumbo-050",
-      "texto": "Aviatory four five two, turn left heading zero five zero for separation.",
+      "texto": "Avianca four five two, turn left heading zero five zero for separation.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-hb-rumbo-050-pm",
-      "texto": "Heading left one five zero, Aviatory four five two.",
+      "texto": "Heading left one five zero, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-qr-salida-inmediata",
-      "texto": "Aviatory four five two, are you ready for immediate departure?",
+      "texto": "Avianca four five two, are you ready for immediate departure?",
       "voz": "atc_uk",
       "perfil": "limpia"
     },
     {
       "id": "cm-ej-des-north-cross",
-      "texto": "Aviatory four five two, after passing North Cross NDB descend to flight level eight zero.",
+      "texto": "Avianca four five two, after passing North Cross NDB descend to flight level eight zero.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-des-despegue-24",
-      "texto": "Aviatory four five two, runway two four, cleared for take-off, report airborne.",
+      "texto": "Avianca four five two, runway two four, cleared for take-off, report airborne.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-raf-salida-121750",
-      "texto": "Aviatory four five two, contact Departure one two one decimal seven five zero.",
+      "texto": "Avianca four five two, contact Departure one two one decimal seven five zero.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-raf-puesta-marcha-1009",
-      "texto": "Aviatory four five two, start up approved, QNH one zero zero niner.",
+      "texto": "Avianca four five two, start up approved, QNH one zero zero niner.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
@@ -177,505 +177,505 @@
     },
     {
       "id": "cm-ej-raf-torre-1187",
-      "texto": "Aviatory four five two, contact Tower one one eight decimal seven.",
+      "texto": "Avianca four five two, contact Tower one one eight decimal seven.",
       "voz": "atc_us",
       "perfil": "sucia"
     },
     {
       "id": "cm-ej-raf-reset-6411",
-      "texto": "Aviatory four five two, reset squawk six four one one.",
+      "texto": "Avianca four five two, reset squawk six four one one.",
       "voz": "atc_uk",
       "perfil": "sucia"
     },
     {
       "id": "cm-ej-raf-aterrizaje-24",
-      "texto": "Aviatory four five two, runway two four, cleared to land, wind two seven zero degrees two zero knots.",
+      "texto": "Avianca four five two, runway two four, cleared to land, wind two seven zero degrees two zero knots.",
       "voz": "atc_uk",
       "perfil": "sucia"
     },
     {
       "id": "cm-ej-eop-cruce-wicken",
-      "texto": "Aviatory four five two, Georgetown Departure, cleared to Colinton flight level two niner zero, cross Wicken flight level one five zero or above, if unable, maintain flight level one three zero.",
+      "texto": "Avianca four five two, Georgetown Departure, cleared to Colinton flight level two niner zero, cross Wicken flight level one five zero or above, if unable, maintain flight level one three zero.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-vc-despegue-27",
-      "texto": "Aviatory four five two, runway two seven, cleared for take-off, report airborne.",
+      "texto": "Avianca four five two, runway two seven, cleared for take-off, report airborne.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-ej-vc-ils-directa-24",
-      "texto": "Aviatory four five two, cleared straight-in ILS approach runway two four, report established.",
+      "texto": "Avianca four five two, cleared straight-in ILS approach runway two four, report established.",
       "voz": "atc_us",
       "perfil": "sucia"
     },
     {
       "id": "cm-ej-vc-primera-derecha",
-      "texto": "Aviatory four five two, take first right, when vacated contact Ground one one eight decimal three five zero.",
+      "texto": "Avianca four five two, take first right, when vacated contact Ground one one eight decimal three five zero.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-cp-contacto-alexander-1263",
-      "texto": "Aviatory four five two, contact Alexander Control one two six decimal three.",
+      "texto": "Avianca four five two, contact Alexander Control one two six decimal three.",
       "voz": "atc_us",
       "perfil": "limpia"
     },
     {
       "id": "cm-cp-prevea-ils-14",
-      "texto": "Aviatory four five two, expect ILS approach runway one four, QNH one zero one eight.",
+      "texto": "Avianca four five two, expect ILS approach runway one four, QNH one zero one eight.",
       "voz": "atc_uk",
       "perfil": "limpia"
     },
     {
       "id": "cm-cp-info-salida-19",
-      "texto": "Aviatory four five two, departure runway one niner, wind one seven zero degrees six knots, QNH one zero one two, temperature one eight, dewpoint one two, time four one.",
+      "texto": "Avianca four five two, departure runway one niner, wind one seven zero degrees six knots, QNH one zero one two, temperature one eight, dewpoint one two, time four one.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-cp-rodaje-09-alfa",
-      "texto": "Aviatory four five two, taxi to holding point runway zero niner via taxiway Alfa, hold short of runway one four, QNH one zero one five.",
+      "texto": "Avianca four five two, taxi to holding point runway zero niner via taxiway Alfa, hold short of runway one four, QNH one zero one five.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-cp-aut-colinton",
-      "texto": "Aviatory four five two, cleared to Colinton via Bravo two, flight level three three zero, TOLEX two Bravo departure, squawk four six two one.",
+      "texto": "Avianca four five two, cleared to Colinton via Bravo two, flight level three three zero, TOLEX two Bravo departure, squawk four six two one.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-cp-despegue-09-recto",
-      "texto": "Aviatory four five two, climb straight ahead until four thousand feet before turning left, runway zero niner, cleared for take-off.",
+      "texto": "Avianca four five two, climb straight ahead until four thousand feet before turning left, runway zero niner, cleared for take-off.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-cp-detenga-rumbo-squawk",
-      "texto": "Aviatory four five two, stop descent at flight level one three zero, turn right heading one niner zero, squawk three four seven one.",
+      "texto": "Avianca four five two, stop descent at flight level one three zero, turn right heading one niner zero, squawk three four seven one.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-rb-torre-1189",
-      "texto": "Aviatory four five two, contact Georgetown Tower one one eight decimal niner.",
+      "texto": "Avianca four five two, contact Georgetown Tower one one eight decimal niner.",
       "voz": "atc_us",
       "perfil": "limpia"
     },
     {
       "id": "cm-rb-ascenso-110",
-      "texto": "Aviatory four five two, climb to flight level one one zero.",
+      "texto": "Avianca four five two, climb to flight level one one zero.",
       "voz": "atc_uk",
       "perfil": "limpia"
     },
     {
       "id": "cm-rb-rumbo-160",
-      "texto": "Aviatory four five two, fly heading one six zero.",
+      "texto": "Avianca four five two, fly heading one six zero.",
       "voz": "atc_latam",
       "perfil": "limpia"
     },
     {
       "id": "cm-rb-reset-4215",
-      "texto": "Aviatory four five two, reset squawk four two one five.",
+      "texto": "Avianca four five two, reset squawk four two one five.",
       "voz": "atc_us",
       "perfil": "limpia"
     },
     {
       "id": "cm-rb-descenso-3000",
-      "texto": "Aviatory four five two, descend to three thousand feet, QNH one zero one seven, transition level six zero, expect ILS approach runway three two.",
+      "texto": "Avianca four five two, descend to three thousand feet, QNH one zero one seven, transition level six zero, expect ILS approach runway three two.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-rb-cuando-pase-080",
-      "texto": "Aviatory four five two, when passing flight level eight zero contact Alexander Control one two four decimal three five zero.",
+      "texto": "Avianca four five two, when passing flight level eight zero contact Alexander Control one two four decimal three five zero.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-rb-apresure-descenso-120",
-      "texto": "Aviatory four five two, expedite descent to flight level one two zero.",
+      "texto": "Avianca four five two, expedite descent to flight level one two zero.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-rb-tras-marlo-260",
-      "texto": "Aviatory four five two, after passing Marlo climb to flight level two six zero.",
+      "texto": "Avianca four five two, after passing Marlo climb to flight level two six zero.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-rb-cruce-11",
-      "texto": "Aviatory four five two, cross runway one one, report vacated.",
+      "texto": "Avianca four five two, cross runway one one, report vacated.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-rb-salida-inmediata",
-      "texto": "Aviatory four five two, line up. Be ready for immediate departure.",
+      "texto": "Avianca four five two, line up. Be ready for immediate departure.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-rb-despegue-34-viraje",
-      "texto": "Aviatory four five two, right turn approved, runway three four, cleared for take-off.",
+      "texto": "Avianca four five two, right turn approved, runway three four, cleared for take-off.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-rb-condicional-atr",
-      "texto": "Aviatory four five two, behind the landing ATR, line up and wait behind.",
+      "texto": "Avianca four five two, behind the landing ATR, line up and wait behind.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-rb-regreso-plataforma",
-      "texto": "Aviatory four five two, take next right, return to ramp, contact Ground one two one decimal six.",
+      "texto": "Avianca four five two, take next right, return to ramp, contact Ground one two one decimal six.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-rb-puesto-14",
-      "texto": "Aviatory four five two, taxi to stand one four via taxiway Delta.",
+      "texto": "Avianca four five two, taxi to stand one four via taxiway Delta.",
       "voz": "atc_us",
       "perfil": "sucia"
     },
     {
       "id": "cm-rb-tres-sesenta-derecha",
-      "texto": "Aviatory four five two, make a three sixty turn right for sequencing.",
+      "texto": "Avianca four five two, make a three sixty turn right for sequencing.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-epm3-542-ascenso",
-      "texto": "Aviatory five four two, climb to flight level one niner zero.",
+      "texto": "Avianca five four two, climb to flight level one niner zero.",
       "voz": "atc_uk",
       "perfil": "limpia"
     },
     {
       "id": "cm-epm3-452-squawk",
-      "texto": "Aviatory four five two, squawk two six one three.",
+      "texto": "Avianca four five two, squawk two six one three.",
       "voz": "atc_uk",
       "perfil": "limpia"
     },
     {
       "id": "cm-epm3-542-contacto",
-      "texto": "Aviatory five four two, contact Alexander Control one two eight decimal seven.",
+      "texto": "Avianca five four two, contact Alexander Control one two eight decimal seven.",
       "voz": "atc_uk",
       "perfil": "limpia"
     },
     {
       "id": "cm-epm3-452-rumbo",
-      "texto": "Aviatory four five two, turn right heading one four zero.",
+      "texto": "Avianca four five two, turn right heading one four zero.",
       "voz": "atc_uk",
       "perfil": "limpia"
     },
     {
       "id": "cm-epm4-425-descenso",
-      "texto": "Aviatory four two five, descend to flight level one two zero.",
+      "texto": "Avianca four two five, descend to flight level one two zero.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-epm4-452-notifique-nivel",
-      "texto": "Aviatory four five two, report level.",
+      "texto": "Avianca four five two, report level.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-epm4-425-rumbo",
-      "texto": "Aviatory four two five, turn left heading two niner zero.",
+      "texto": "Avianca four two five, turn left heading two niner zero.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-epm4-452-mantenga",
-      "texto": "Aviatory four five two, maintain flight level one four zero.",
+      "texto": "Avianca four five two, maintain flight level one four zero.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-epm4-425-squawk",
-      "texto": "Aviatory four two five, squawk four seven zero one.",
+      "texto": "Avianca four two five, squawk four seven zero one.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-epm5-452-rumbo",
-      "texto": "Aviatory four five two, turn left heading zero six zero.",
+      "texto": "Avianca four five two, turn left heading zero six zero.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-epm5-45-ascenso",
-      "texto": "Aviatory four five, climb to flight level one five zero.",
+      "texto": "Avianca four five, climb to flight level one five zero.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-epm5-542-contacto",
-      "texto": "Aviatory five four two, contact Alexander Control one two seven decimal niner.",
+      "texto": "Avianca five four two, contact Alexander Control one two seven decimal niner.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-epm5-452-ascenso",
-      "texto": "Aviatory four five two, climb to flight level one three zero.",
+      "texto": "Avianca four five two, climb to flight level one three zero.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-epm5-425-apresure",
-      "texto": "Aviatory four two five, expedite climb to flight level one one zero.",
+      "texto": "Avianca four two five, expedite climb to flight level one one zero.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-epm6-452-espere-fuera",
-      "texto": "Aviatory four five two, hold short of runway two seven.",
+      "texto": "Avianca four five two, hold short of runway two seven.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-epm6-425-aterrizaje",
-      "texto": "Aviatory four two five, runway two seven, cleared to land, wind two five zero degrees one two knots.",
+      "texto": "Avianca four two five, runway two seven, cleared to land, wind two five zero degrees one two knots.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-epm6-542-rodaje",
-      "texto": "Aviatory five four two, taxi to holding point runway two seven via taxiway Bravo.",
+      "texto": "Avianca five four two, taxi to holding point runway two seven via taxiway Bravo.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-epm6-425-salida-pista",
-      "texto": "Aviatory four two five, take first left, when vacated contact Ground one two one decimal eight.",
+      "texto": "Avianca four two five, take first left, when vacated contact Ground one two one decimal eight.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-epm6-452-alineese",
-      "texto": "Aviatory four five two, line up and wait.",
+      "texto": "Avianca four five two, line up and wait.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-epm7-45-descenso",
-      "texto": "Aviatory four five, descend to flight level eight zero.",
+      "texto": "Avianca four five, descend to flight level eight zero.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-epm7-452-detenga",
-      "texto": "Aviatory four five two, stop descent at flight level one one zero.",
+      "texto": "Avianca four five two, stop descent at flight level one one zero.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-epm7-542-rumbo",
-      "texto": "Aviatory five four two, turn right heading three three zero.",
+      "texto": "Avianca five four two, turn right heading three three zero.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-epm7-452-contacto",
-      "texto": "Aviatory four five two, contact Georgetown Approach one one niner decimal five.",
+      "texto": "Avianca four five two, contact Georgetown Approach one one niner decimal five.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-epm7-425-apresure",
-      "texto": "Aviatory four two five, expedite descent to flight level niner zero.",
+      "texto": "Avianca four two five, expedite descent to flight level niner zero.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-epm8-542-descenso",
-      "texto": "Aviatory five four two, descend to four thousand feet, QNH one zero zero eight.",
+      "texto": "Avianca five four two, descend to four thousand feet, QNH one zero zero eight.",
       "voz": "atc_us",
       "perfil": "sucia"
     },
     {
       "id": "cm-epm8-452-rumbo",
-      "texto": "Aviatory four five two, turn left heading one niner zero.",
+      "texto": "Avianca four five two, turn left heading one niner zero.",
       "voz": "atc_us",
       "perfil": "sucia"
     },
     {
       "id": "cm-epm8-425-rumbo",
-      "texto": "Aviatory four two five, turn left heading one niner zero.",
+      "texto": "Avianca four two five, turn left heading one niner zero.",
       "voz": "atc_us",
       "perfil": "sucia"
     },
     {
       "id": "cm-epm8-45-contacto",
-      "texto": "Aviatory four five, contact Tower one one eight decimal three.",
+      "texto": "Avianca four five, contact Tower one one eight decimal three.",
       "voz": "atc_us",
       "perfil": "sucia"
     },
     {
       "id": "cm-epm8-452-descenso",
-      "texto": "Aviatory four five two, descend to five thousand feet, QNH one zero zero eight.",
+      "texto": "Avianca four five two, descend to five thousand feet, QNH one zero zero eight.",
       "voz": "atc_us",
       "perfil": "sucia"
     },
     {
       "id": "cm-epm8-542-reactive",
-      "texto": "Aviatory five four two, reset squawk one four three two.",
+      "texto": "Avianca five four two, reset squawk one four three two.",
       "voz": "atc_us",
       "perfil": "sucia"
     },
     {
       "id": "cm-hb-squawk-5236",
-      "texto": "Aviatory four five two, squawk five two three six.",
+      "texto": "Avianca four five two, squawk five two three six.",
       "voz": "atc_latam",
       "perfil": "limpia"
     },
     {
       "id": "cm-hb-squawk-5236-pm",
-      "texto": "Five two three six, Aviatory four five two.",
+      "texto": "Five two three six, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "limpia"
     },
     {
       "id": "cm-hb-contacto-1321",
-      "texto": "Aviatory four five two, contact Alexander Control one three two decimal one.",
+      "texto": "Avianca four five two, contact Alexander Control one three two decimal one.",
       "voz": "atc_us",
       "perfil": "limpia"
     },
     {
       "id": "cm-hb-contacto-1321-pm",
-      "texto": "One three two decimal seven, Aviatory four five two.",
+      "texto": "One three two decimal seven, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "limpia"
     },
     {
       "id": "cm-hb-derecha-220",
-      "texto": "Aviatory four five two, turn right heading two two zero.",
+      "texto": "Avianca four five two, turn right heading two two zero.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-derecha-220-pm",
-      "texto": "Left heading two two zero, Aviatory four five two.",
+      "texto": "Left heading two two zero, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-espere-fuera-29",
-      "texto": "Aviatory four five two, hold short of runway two niner.",
+      "texto": "Avianca four five two, hold short of runway two niner.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-espere-fuera-29-pm",
-      "texto": "Crossing runway two niner, Aviatory four five two.",
+      "texto": "Crossing runway two niner, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-descenso-6000",
-      "texto": "Aviatory four five two, descend to six thousand feet, QNH one zero two one.",
+      "texto": "Avianca four five two, descend to six thousand feet, QNH one zero two one.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-descenso-6000-pm",
-      "texto": "Descending to flight level six zero, QNH one zero two one, Aviatory four five two.",
+      "texto": "Descending to flight level six zero, QNH one zero two one, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-tras-walden-090",
-      "texto": "Aviatory four five two, after passing Walden descend to flight level niner zero.",
+      "texto": "Avianca four five two, after passing Walden descend to flight level niner zero.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-tras-walden-090-pm",
-      "texto": "Descending to flight level niner zero, Aviatory four five two.",
+      "texto": "Descending to flight level niner zero, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-nueva-aut-290",
-      "texto": "Aviatory four five two, recleared flight level two niner zero.",
+      "texto": "Avianca four five two, recleared flight level two niner zero.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-nueva-aut-290-pm",
-      "texto": "Recleared flight level two eight zero, Aviatory four five two.",
+      "texto": "Recleared flight level two eight zero, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-aut-kennington",
-      "texto": "Aviatory four five two, cleared to Kennington via Alfa two, flight level two six zero, Walden one Charlie departure, squawk three three zero four.",
+      "texto": "Avianca four five two, cleared to Kennington via Alfa two, flight level two six zero, Walden one Charlie departure, squawk three three zero four.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-aut-kennington-pm",
-      "texto": "Cleared to Kennington via Alfa two, flight level two six zero, Walden one Charlie departure, squawk three three four zero, Aviatory four five two.",
+      "texto": "Cleared to Kennington via Alfa two, flight level two six zero, Walden one Charlie departure, squawk three three four zero, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-aterrizaje-14",
-      "texto": "Aviatory four five two, runway one four, cleared to land, wind one two zero degrees one zero knots.",
+      "texto": "Avianca four five two, runway one four, cleared to land, wind one two zero degrees one zero knots.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-aterrizaje-14-pm",
-      "texto": "Runway one four, cleared to land, Aviatory four five two.",
+      "texto": "Runway one four, cleared to land, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "normal"
     },
     {
       "id": "cm-hb-despegue-09",
-      "texto": "Aviatory four five two, runway zero niner, cleared for take-off.",
+      "texto": "Avianca four five two, runway zero niner, cleared for take-off.",
       "voz": "atc_uk",
       "perfil": "sucia"
     },
     {
       "id": "cm-hb-despegue-09-pm",
-      "texto": "Cleared for take-off runway two seven, Aviatory four five two.",
+      "texto": "Cleared for take-off runway two seven, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "sucia"
     },
     {
       "id": "cm-hb-cuando-pase-1279",
-      "texto": "Aviatory four five two, when passing flight level eight zero contact Alexander Control one two seven decimal niner.",
+      "texto": "Avianca four five two, when passing flight level eight zero contact Alexander Control one two seven decimal niner.",
       "voz": "atc_latam",
       "perfil": "sucia"
     },
     {
       "id": "cm-hb-cuando-pase-1279-pm",
-      "texto": "When passing flight level eight zero, one two seven decimal niner, Aviatory four two five.",
+      "texto": "When passing flight level eight zero, one two seven decimal niner, Avianca four two five.",
       "voz": "piloto_pm",
       "perfil": "sucia"
     },
     {
       "id": "cm-hb-correccion-340",
-      "texto": "Aviatory four five two, turn left heading three one zero, correction, turn left heading three four zero.",
+      "texto": "Avianca four five two, turn left heading three one zero, correction, turn left heading three four zero.",
       "voz": "atc_us",
       "perfil": "sucia"
     },
     {
       "id": "cm-hb-correccion-340-pm",
-      "texto": "Left heading three one zero, Aviatory four five two.",
+      "texto": "Left heading three one zero, Avianca four five two.",
       "voz": "piloto_pm",
       "perfil": "sucia"
     },
     {
       "id": "cm-qr-rumbo-y-nivel",
-      "texto": "Aviatory four five two, report heading and level.",
+      "texto": "Avianca four five two, report heading and level.",
       "voz": "atc_us",
       "perfil": "limpia"
     },
@@ -687,13 +687,13 @@
     },
     {
       "id": "cm-qr-obras-puerta-12",
-      "texto": "Aviatory four five two, caution construction work adjacent to gate one two.",
+      "texto": "Avianca four five two, caution construction work adjacent to gate one two.",
       "voz": "atc_uk",
       "perfil": "limpia"
     },
     {
       "id": "cm-qr-capacidad-transponder",
-      "texto": "Aviatory four five two, advise type of transponder capability.",
+      "texto": "Avianca four five two, advise type of transponder capability.",
       "voz": "atc_us",
       "perfil": "limpia"
     },
@@ -705,121 +705,121 @@
     },
     {
       "id": "cm-qr-atr-a-la-vista",
-      "texto": "Aviatory four five two, report the ATR on final in sight.",
+      "texto": "Avianca four five two, report the ATR on final in sight.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-cancele-despegue",
-      "texto": "Aviatory four five two, hold position, cancel take-off, I say again, cancel take-off, vehicle on runway.",
+      "texto": "Avianca four five two, hold position, cancel take-off, I say again, cancel take-off, vehicle on runway.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-pare-inmediatamente",
-      "texto": "Aviatory four five two, stop immediately, Aviatory four five two, stop immediately.",
+      "texto": "Avianca four five two, stop immediately, Avianca four five two, stop immediately.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-apresure-rodaje",
-      "texto": "Aviatory four five two, expedite taxi, traffic on final runway three two, report runway three two vacated.",
+      "texto": "Avianca four five two, expedite taxi, traffic on final runway three two, report runway three two vacated.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-continue-aproximacion",
-      "texto": "Aviatory four five two, continue approach, wind one six zero degrees one four knots.",
+      "texto": "Avianca four five two, continue approach, wind one six zero degrees one four knots.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-omita-notificaciones",
-      "texto": "Aviatory four five two, omit position reports until FIR boundary, next report Colin.",
+      "texto": "Avianca four five two, omit position reports until FIR boundary, next report Colin.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-identificacion-perdida",
-      "texto": "Aviatory four five two, identification lost due radar failure, contact Alexander Control on one three two decimal three five zero.",
+      "texto": "Avianca four five two, identification lost due radar failure, contact Alexander Control on one three two decimal three five zero.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-orbita-izquierda",
-      "texto": "Aviatory four five two, orbit left for delay.",
+      "texto": "Avianca four five two, orbit left for delay.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-compruebe-altimetro",
-      "texto": "Aviatory four five two, check altimeter setting and confirm level.",
+      "texto": "Avianca four five two, check altimeter setting and confirm level.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-confirme-transponder",
-      "texto": "Aviatory four five two, confirm transponder operating.",
+      "texto": "Avianca four five two, confirm transponder operating.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-transito-desconocido",
-      "texto": "Aviatory four five two, unknown traffic two o'clock, four miles, opposite direction, fast moving.",
+      "texto": "Avianca four five two, unknown traffic two o'clock, four miles, opposite direction, fast moving.",
       "voz": "atc_uk",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-contacto-aproximacion",
-      "texto": "Aviatory four five two, contact Georgetown Approach one two zero decimal four.",
+      "texto": "Avianca four five two, contact Georgetown Approach one two zero decimal four.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-prevea-ils-32",
-      "texto": "Aviatory four five two, expect ILS approach runway three two, QNH one zero one seven.",
+      "texto": "Avianca four five two, expect ILS approach runway three two, QNH one zero one seven.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-qr-quede-en-escucha-torre",
-      "texto": "Aviatory four five two, stand by for Georgetown Tower one one eight decimal niner.",
+      "texto": "Avianca four five two, stand by for Georgetown Tower one one eight decimal niner.",
       "voz": "atc_us",
       "perfil": "sucia"
     },
     {
       "id": "cm-ds-ascenso-210-apresure",
-      "texto": "Aviatory four five two, climb to flight level two one zero, expedite until passing flight level one five zero.",
+      "texto": "Avianca four five two, climb to flight level two one zero, expedite until passing flight level one five zero.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-ds-pasada-baja-14",
-      "texto": "Aviatory four five two, cleared low pass runway one four, not below five hundred feet, report final.",
+      "texto": "Avianca four five two, cleared low pass runway one four, not below five hundred feet, report final.",
       "voz": "atc_uk",
       "perfil": "sucia"
     },
     {
       "id": "cm-pn-ascenso-5000",
-      "texto": "Aviatory four five two, climb to five thousand feet.",
+      "texto": "Avianca four five two, climb to five thousand feet.",
       "voz": "atc_latam",
       "perfil": "limpia"
     },
     {
       "id": "cm-pn-alerta-terreno",
-      "texto": "Aviatory four five two, terrain alert, climb to three thousand feet, QNH one zero zero eight.",
+      "texto": "Avianca four five two, terrain alert, climb to three thousand feet, QNH one zero zero eight.",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-pn-identificacion-120",
-      "texto": "Aviatory four five two, for identification turn left heading one two zero.",
+      "texto": "Avianca four five two, for identification turn left heading one two zero.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-pn-evitar-transito",
-      "texto": "Aviatory four five two, turn left immediately heading two zero zero to avoid traffic one o'clock five miles.",
+      "texto": "Avianca four five two, turn left immediately heading two zero zero to avoid traffic one o'clock five miles.",
       "voz": "atc_uk",
       "perfil": "sucia"
     },
@@ -831,55 +831,55 @@
     },
     {
       "id": "cm-eop-desea-vectores",
-      "texto": "Aviatory four five two, do you want vectors?",
+      "texto": "Avianca four five two, do you want vectors?",
       "voz": "atc_us",
       "perfil": "normal"
     },
     {
       "id": "cm-v2-puesta-en-marcha",
-      "texto": "Aviatory four five two, start up approved, QNH one zero one two.",
+      "texto": "Avianca four five two, start up approved, QNH one zero one two.",
       "voz": "atc_latam",
       "perfil": "limpia"
     },
     {
       "id": "cm-v2-rodaje-19",
-      "texto": "Aviatory four five two, taxi to holding point runway one niner via taxiway Charlie.",
+      "texto": "Avianca four five two, taxi to holding point runway one niner via taxiway Charlie.",
       "voz": "atc_latam",
       "perfil": "limpia"
     },
     {
       "id": "cm-v2-despegue-19",
-      "texto": "Aviatory four five two, runway one niner, cleared for take-off.",
+      "texto": "Avianca four five two, runway one niner, cleared for take-off.",
       "voz": "atc_uk",
       "perfil": "limpia"
     },
     {
       "id": "cm-v2-contacto-salida",
-      "texto": "Aviatory four five two, contact Georgetown Departure one two four decimal eight.",
+      "texto": "Avianca four five two, contact Georgetown Departure one two four decimal eight.",
       "voz": "atc_uk",
       "perfil": "limpia"
     },
     {
       "id": "cm-v2-ils-directa-14",
-      "texto": "Aviatory four five two, cleared straight-in ILS approach runway one four, report established.",
+      "texto": "Avianca four five two, cleared straight-in ILS approach runway one four, report established.",
       "voz": "atc_us",
       "perfil": "limpia"
     },
     {
       "id": "cm-v2-contacto-torre",
-      "texto": "Aviatory four five two, contact Tower one one niner decimal seven.",
+      "texto": "Avianca four five two, contact Tower one one niner decimal seven.",
       "voz": "atc_us",
       "perfil": "limpia"
     },
     {
       "id": "cm-v3-cruce-14",
-      "texto": "Aviatory four five two, cross runway one four, report vacated.",
+      "texto": "Avianca four five two, cross runway one four, report vacated.",
       "voz": "atc_latam",
       "perfil": "normal"
     },
     {
       "id": "cm-v3-aterrizaje-32",
-      "texto": "Aviatory four five two, runway three two, cleared to land, wind three zero zero degrees one five knots.",
+      "texto": "Avianca four five two, runway three two, cleared to land, wind three zero zero degrees one five knots.",
       "voz": "atc_us",
       "perfil": "sucia"
     }

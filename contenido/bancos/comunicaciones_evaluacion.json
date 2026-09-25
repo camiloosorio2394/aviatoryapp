@@ -18,10 +18,10 @@
     },
     {
       "id": "cm-ev-002",
-      "enunciado": "Tu distintivo es AVIATORY 452 (designador telefónico más número de vuelo). Llevas un rato en la frecuencia de Bogota Approach con buena comunicación. ¿Puedes abreviarlo?",
+      "enunciado": "Tu distintivo es AVIANCA 452 (designador telefónico más número de vuelo). Llevas un rato en la frecuencia de Bogota Approach con buena comunicación. ¿Puedes abreviarlo?",
       "opciones": [
         "Sí, a «452», después de una comunicación satisfactoria",
-        "Sí, a «AVIATORY 52», si no hay distintivos parecidos",
+        "Sí, a «AVIANCA 52», si no hay distintivos parecidos",
         "Solo si el controlador lo abrevia primero",
         "No: ese tipo de distintivo no se abrevia"
       ],
@@ -130,7 +130,7 @@
     },
     {
       "id": "cm-ev-010",
-      "enunciado": "Llamas: «Bogota Tower, AVIATORY 452». La torre contesta: «AVIATORY 452, Bogota Tower». ¿Qué te está diciendo?",
+      "enunciado": "Llamas: «Bogota Tower, AVIANCA 452». La torre contesta: «AVIANCA 452, Bogota Tower». ¿Qué te está diciendo?",
       "opciones": [
         "Que esperes: te llamará cuando tenga tiempo",
         "Que tu transmisión llegó ilegible y repitas",
@@ -158,7 +158,7 @@
     },
     {
       "id": "cm-ev-012",
-      "enunciado": "El controlador te dice «AVIATORY 452, report passing FL 150» y respondes «WILCO, AVIATORY 452». ¿Qué le comunicaste?",
+      "enunciado": "El controlador te dice «AVIANCA 452, report passing FL 150» y respondes «WILCO, AVIANCA 452». ¿Qué le comunicaste?",
       "opciones": [
         "Que entendiste y vas a cumplir",
         "Que recibiste la transmisión, sin más",
@@ -186,7 +186,7 @@
     },
     {
       "id": "cm-ev-014",
-      "enunciado": "Pides ascenso a FL 360 y el controlador responde «AVIATORY 452, standby». ¿Qué significa?",
+      "enunciado": "Pides ascenso a FL 360 y el controlador responde «AVIANCA 452, standby». ¿Qué significa?",
       "opciones": [
         "Que el ascenso está aprobado y puedes iniciarlo",
         "Que te lo niega por tránsito y debes mantener nivel",
@@ -200,7 +200,7 @@
     },
     {
       "id": "cm-ev-015",
-      "enunciado": "Vas autorizado a FL 280 y oyes: «AVIATORY 452, recleared FL 330». ¿Qué pasa con la autorización a FL 280?",
+      "enunciado": "Vas autorizado a FL 280 y oyes: «AVIANCA 452, recleared FL 330». ¿Qué pasa con la autorización a FL 280?",
       "opciones": [
         "Sigue vigente: FL 330 es solo un nivel que puedes esperar más adelante",
         "Queda reemplazada: la nueva invalida la anterior o parte de ella",
@@ -242,7 +242,7 @@
     },
     {
       "id": "cm-ev-018",
-      "enunciado": "El controlador dice «AVIATORY 452, monitor ATIS 127.650». ¿Qué haces?",
+      "enunciado": "El controlador dice «AVIANCA 452, monitor ATIS 127.650». ¿Qué haces?",
       "opciones": [
         "Llamas al ATIS para acusar recibo de la letra",
         "Estableces comunicación con esa dependencia",
@@ -312,7 +312,7 @@
     },
     {
       "id": "cm-ev-023",
-      "enunciado": "Ground te avisa que la pista en uso pasa a ser la 31 y te da QNH 1018. Respondes «ROGER, AVIATORY 452». ¿Cómo quedó esa respuesta?",
+      "enunciado": "Ground te avisa que la pista en uso pasa a ser la 31 y te da QNH 1018. Respondes «ROGER, AVIANCA 452». ¿Cómo quedó esa respuesta?",
       "opciones": [
         "Incompleta: pista en uso y QNH se colacionan",
         "Correcta: ROGER dice que recibiste todo",
@@ -320,13 +320,13 @@
         "Incompleta: faltó el WILCO antes del distintivo"
       ],
       "correcta": 0,
-      "explicacion": "Pista en uso y reglaje de altímetro están en la lista de colación obligatoria, «ya sea que sean expedidos por el controlador ya sea que estén incluidos en las radiodifusiones» ATIS (Doc 4444, 4.5.7.5.1 c). ROGER solo significa «he recibido toda su transmisión anterior» y no sustituye una colación (Doc 9432, 2.6). Lo correcto: «Runway 31, QNH 1018, AVIATORY 452».",
+      "explicacion": "Pista en uso y reglaje de altímetro están en la lista de colación obligatoria, «ya sea que sean expedidos por el controlador ya sea que estén incluidos en las radiodifusiones» ATIS (Doc 4444, 4.5.7.5.1 c). ROGER solo significa «he recibido toda su transmisión anterior» y no sustituye una colación (Doc 9432, 2.6). Lo correcto: «Runway 31, QNH 1018, AVIANCA 452».",
       "referencia": "Doc 4444 (15.ª ed.) 4.5.7.5.1 c); Doc 9432 (4.ª ed.) 2.6",
       "metadatos": { "nivel": 3, "leccion": 12 }
     },
     {
       "id": "cm-ev-024",
-      "enunciado": "Colacionas «QNH 1012, AVIATORY 452» y el controlador responde: «AVIATORY 452, negative, I say again, QNH 1021». ¿Qué haces?",
+      "enunciado": "Colacionas «QNH 1012, AVIANCA 452» y el controlador responde: «AVIANCA 452, negative, I say again, QNH 1021». ¿Qué haces?",
       "opciones": [
         "Mantienes 1012: el controlador solo repitió",
         "Ajustas 1021 y respondes «ROGER»",
@@ -354,7 +354,7 @@
     },
     {
       "id": "cm-ev-026",
-      "enunciado": "Departure te dice «AVIATORY 452, cross GIKOS FL 170 or above». Con el peso de hoy sabes que no llegas. ¿Qué haces?",
+      "enunciado": "Departure te dice «AVIANCA 452, cross GIKOS FL 170 or above». Con el peso de hoy sabes que no llegas. ¿Qué haces?",
       "opciones": [
         "Colacionas y ajustas el ascenso lo mejor que puedas",
         "Respondes ROGER y avisas si ves que no llegas",
@@ -396,7 +396,7 @@
     },
     {
       "id": "cm-ev-029",
-      "enunciado": "Ground te responde: «AVIATORY 452, expect start up at 45, QNH 1016». Son las 32. ¿Puedes poner en marcha ya?",
+      "enunciado": "Ground te responde: «AVIANCA 452, expect start up at 45, QNH 1016». Son las 32. ¿Puedes poner en marcha ya?",
       "opciones": [
         "Sí: es una aprobación con una hora solo sugerida",
         "No: es una hora prevista, no una aprobación",
@@ -410,7 +410,7 @@
     },
     {
       "id": "cm-ev-030",
-      "enunciado": "Ground: «AVIATORY 452, taxi to holding point runway 13 via taxiway Alfa». ¿Qué es el punto de espera de la pista 13 en esa instrucción?",
+      "enunciado": "Ground: «AVIANCA 452, taxi to holding point runway 13 via taxiway Alfa». ¿Qué es el punto de espera de la pista 13 en esa instrucción?",
       "opciones": [
         "Una referencia: sigues hasta la cabecera y te alineas",
         "El sitio donde debes pasar a la frecuencia de Departure",
@@ -438,12 +438,12 @@
     },
     {
       "id": "cm-ev-032",
-      "enunciado": "Ground: «AVIATORY 452, hold short runway 22». ¿Qué colacionas?",
+      "enunciado": "Ground: «AVIANCA 452, hold short runway 22». ¿Qué colacionas?",
       "opciones": [
-        "«Roger, runway 22 in sight, AVIATORY 452»",
-        "«Wilco, will hold, AVIATORY 452»",
-        "«Crossing runway 22, AVIATORY 452»",
-        "«Holding short runway 22, AVIATORY 452»"
+        "«Roger, runway 22 in sight, AVIANCA 452»",
+        "«Wilco, will hold, AVIANCA 452»",
+        "«Crossing runway 22, AVIANCA 452»",
+        "«Holding short runway 22, AVIANCA 452»"
       ],
       "correcta": 3,
       "explicacion": "Las instrucciones de mantenerse fuera de una pista se colacionan siempre (Doc 4444, 4.5.7.5.1 b), repitiendo la acción y la pista y cerrando con el distintivo (Doc 9432, 2.8.3.7; ejemplos de 4.4.2). ROGER o WILCO no muestran qué entendiste, y el controlador no tiene nada que verificar.",
@@ -480,7 +480,7 @@
     },
     {
       "id": "cm-ev-035",
-      "enunciado": "Tower: «AVIATORY 452, behind the landing Boeing 737, line up and wait behind». No tienes a la vista ningún 737. ¿Qué haces?",
+      "enunciado": "Tower: «AVIANCA 452, behind the landing Boeing 737, line up and wait behind». No tienes a la vista ningún 737. ¿Qué haces?",
       "opciones": [
         "Te alineas cuando aterrice el primer avión que veas",
         "Te alineas ya: esa condición la vigila la torre",
@@ -522,7 +522,7 @@
     },
     {
       "id": "cm-ev-038",
-      "enunciado": "Tower: «AVIATORY 452, climb straight ahead until 3 000 feet before turning left, runway 13 cleared for take-off». ¿Qué debe llevar tu colación?",
+      "enunciado": "Tower: «AVIANCA 452, climb straight ahead until 3 000 feet before turning left, runway 13 cleared for take-off». ¿Qué debe llevar tu colación?",
       "opciones": [
         "Solo «cleared for take-off» y tu distintivo",
         "Instrucción de salida, pista y autorización de despegue",
@@ -536,12 +536,12 @@
     },
     {
       "id": "cm-ev-039",
-      "enunciado": "Llegas al punto de espera sin haber terminado la lista y la torre dice: «AVIATORY 452, take off immediately or hold short of runway». ¿Qué respondes?",
+      "enunciado": "Llegas al punto de espera sin haber terminado la lista y la torre dice: «AVIANCA 452, take off immediately or hold short of runway». ¿Qué respondes?",
       "opciones": [
-        "«Taking off immediately, AVIATORY 452»",
-        "«Standby, AVIATORY 452»",
-        "«Roger, AVIATORY 452»",
-        "«Holding short, AVIATORY 452»"
+        "«Taking off immediately, AVIANCA 452»",
+        "«Standby, AVIANCA 452»",
+        "«Roger, AVIANCA 452»",
+        "«Holding short, AVIANCA 452»"
       ],
       "correcta": 3,
       "explicacion": "Doc 9432 (4.5.10): el ATC da esa opción cuando necesita la pista; si no puedes salir de inmediato, respondes «HOLDING SHORT», como en el ejemplo. El mismo manual reconoce que algunas aeronaves requieren verificaciones antes de la salida y no siempre están listas al llegar al punto de espera (4.5.3).",
@@ -578,7 +578,7 @@
     },
     {
       "id": "cm-ev-042",
-      "enunciado": "Departure: «AVIATORY 452, turn right heading 310 until passing FL 90, then direct RUMAK» (RUMAK es un punto ficticio). ¿Cuándo pones rumbo directo a RUMAK?",
+      "enunciado": "Departure: «AVIANCA 452, turn right heading 310 until passing FL 90, then direct RUMAK» (RUMAK es un punto ficticio). ¿Cuándo pones rumbo directo a RUMAK?",
       "opciones": [
         "En cuanto terminas de colacionar la instrucción",
         "Al pasar FL 90; antes mantienes rumbo 310",
@@ -586,18 +586,18 @@
         "Cuando el controlador te lo confirme de nuevo"
       ],
       "correcta": 1,
-      "explicacion": "«Until passing FL 90» limita el rumbo y «then» dice qué sigue (estructura del Doc 9432, 7.1.2). La colación repite rumbo, condición y siguiente acción: «Right heading 310 until passing FL 90, then direct RUMAK, AVIATORY 452». Las instrucciones de rumbo y de nivel se colacionan siempre (Doc 4444, 4.5.7.5.1 c).",
+      "explicacion": "«Until passing FL 90» limita el rumbo y «then» dice qué sigue (estructura del Doc 9432, 7.1.2). La colación repite rumbo, condición y siguiente acción: «Right heading 310 until passing FL 90, then direct RUMAK, AVIANCA 452». Las instrucciones de rumbo y de nivel se colacionan siempre (Doc 4444, 4.5.7.5.1 c).",
       "referencia": "Doc 9432 (4.ª ed.) 7.1.2; Doc 4444 (15.ª ed.) 4.5.7.5.1 c)",
       "metadatos": { "nivel": 4, "leccion": 19 }
     },
     {
       "id": "cm-ev-043",
-      "enunciado": "Approach: «AVIATORY 452, descend to 5 000 feet, QNH 1015». ¿Cuál colación es la correcta?",
+      "enunciado": "Approach: «AVIANCA 452, descend to 5 000 feet, QNH 1015». ¿Cuál colación es la correcta?",
       "opciones": [
-        "«Descending to 5 000, AVIATORY 452»",
-        "«Descending FL 50, QNH 1015, AVIATORY 452»",
-        "«Roger, descending 5 000 feet with the new QNH, AVIATORY 452»",
-        "«Descending to 5 000 feet, QNH 1015, AVIATORY 452»"
+        "«Descending to 5 000, AVIANCA 452»",
+        "«Descending FL 50, QNH 1015, AVIANCA 452»",
+        "«Roger, descending 5 000 feet with the new QNH, AVIANCA 452»",
+        "«Descending to 5 000 feet, QNH 1015, AVIANCA 452»"
       ],
       "correcta": 3,
       "explicacion": "Nivel y reglaje de altímetro se colacionan siempre (Doc 4444, 4.5.7.5.1 c). La Nota del mismo párrafo pide que las cifras referidas a QNH o QFE vayan seguidas de «FEET» (o metros) y que las referidas a 1 013,2 hPa vayan precedidas de «FLIGHT LEVEL». Sin la unidad, o con la referencia cambiada, el controlador no puede verificar lo que entendiste; y «with the new QNH» no dice qué valor pusiste.",
@@ -648,7 +648,7 @@
     },
     {
       "id": "cm-ev-047",
-      "enunciado": "Desciendes autorizado a FL 100 y, pasando FL 185, oyes: «AVIATORY 452, stop descent at FL 170». ¿Qué haces?",
+      "enunciado": "Desciendes autorizado a FL 100 y, pasando FL 185, oyes: «AVIANCA 452, stop descent at FL 170». ¿Qué haces?",
       "opciones": [
         "Sigues a FL 100 y solo reduces el régimen",
         "Sigues a FL 100: FL 170 es un nivel de paso",
@@ -676,12 +676,12 @@
     },
     {
       "id": "cm-ev-049",
-      "enunciado": "Approach: «AVIATORY 452, unknown traffic 11 o'clock, 5 miles, crossing left to right, fast moving». Lo buscas, no lo ves y prefieres que te separen. ¿Qué respondes?",
+      "enunciado": "Approach: «AVIANCA 452, unknown traffic 11 o'clock, 5 miles, crossing left to right, fast moving». Lo buscas, no lo ves y prefieres que te separen. ¿Qué respondes?",
       "opciones": [
-        "«Traffic in sight, AVIATORY 452»",
-        "«Unable, AVIATORY 452»",
-        "«Negative contact, request vectors, AVIATORY 452»",
-        "«Negative, say again the traffic position please, AVIATORY 452»"
+        "«Traffic in sight, AVIANCA 452»",
+        "«Unable, AVIANCA 452»",
+        "«Negative contact, request vectors, AVIANCA 452»",
+        "«Negative, say again the traffic position please, AVIANCA 452»"
       ],
       "correcta": 2,
       "explicacion": "La respuesta modelo es del Doc 9432 (6.4.2): «NEGATIVE CONTACT, REQUEST VECTORS». Los vectores los puede ofrecer el controlador o pedirlos el piloto, y el controlador avisa cuando cesa el conflicto. Decir «traffic in sight» sin verlo es falso y quita la protección. La información de tránsito ya trae marcación en la esfera del reloj, distancia y dirección de vuelo (6.4.1), y «please» sobra (3.1.4).",
@@ -732,7 +732,7 @@
     },
     {
       "id": "cm-ev-053",
-      "enunciado": "En el primer contacto, Approach te dice: «AVIATORY 452, descend to 6 000 feet, QNH 1011, expect ILS approach runway 13», sin nivel de transición. ¿Por qué puede omitirlo?",
+      "enunciado": "En el primer contacto, Approach te dice: «AVIANCA 452, descend to 6 000 feet, QNH 1011, expect ILS approach runway 13», sin nivel de transición. ¿Por qué puede omitirlo?",
       "opciones": [
         "Porque por debajo de FL 100 no se usa nivel de transición",
         "Porque el QNH ya reemplaza al nivel de transición",
@@ -760,12 +760,12 @@
     },
     {
       "id": "cm-ev-055",
-      "enunciado": "Tower: «AVIATORY 452, runway 31 cleared to land, wind 290 degrees 12 knots». ¿Qué colacionas?",
+      "enunciado": "Tower: «AVIANCA 452, runway 31 cleared to land, wind 290 degrees 12 knots». ¿Qué colacionas?",
       "opciones": [
-        "«Runway 31 cleared to land, AVIATORY 452»",
-        "«Cleared to land, wind 290 at 12, AVIATORY 452»",
-        "«Roger, cleared to land, AVIATORY 452»",
-        "«Landing, wind copied, AVIATORY 452»"
+        "«Runway 31 cleared to land, AVIANCA 452»",
+        "«Cleared to land, wind 290 at 12, AVIANCA 452»",
+        "«Roger, cleared to land, AVIANCA 452»",
+        "«Landing, wind copied, AVIANCA 452»"
       ],
       "correcta": 0,
       "explicacion": "La autorización de aterrizaje y la pista se colacionan siempre (Doc 4444, 4.5.7.5.1 b); el viento no está en esa lista. Es el modelo del Doc 9432 (4.7.1): el piloto responde pista, «CLEARED TO LAND» y su distintivo. Sin el número de pista, el controlador no puede detectar que entendiste otra.",
@@ -774,12 +774,12 @@
     },
     {
       "id": "cm-ev-056",
-      "enunciado": "En corto final escuchas: «AVIATORY 452, go around, aircraft on the runway». ¿Qué respondes mientras ejecutas la maniobra?",
+      "enunciado": "En corto final escuchas: «AVIANCA 452, go around, aircraft on the runway». ¿Qué respondes mientras ejecutas la maniobra?",
       "opciones": [
-        "«Roger, go around, AVIATORY 452»",
-        "«Missed approach, AVIATORY 452»",
-        "«Going around, AVIATORY 452»",
-        "«Wilco, AVIATORY 452»"
+        "«Roger, go around, AVIANCA 452»",
+        "«Missed approach, AVIANCA 452»",
+        "«Going around, AVIANCA 452»",
+        "«Wilco, AVIANCA 452»"
       ],
       "correcta": 2,
       "explicacion": "Doc 9432 (4.8.1 y 4.8.3): la respuesta a la orden es «GOING AROUND» con el distintivo, y es la misma frase cuando el piloto inicia la maniobra por su cuenta. En motor y al aire la carga de trabajo es alta y las transmisiones deben ser breves. En una aproximación por instrumentos, sin otra instrucción, se vuela el procedimiento de aproximación frustrada (4.8.2).",
@@ -788,7 +788,7 @@
     },
     {
       "id": "cm-ev-057",
-      "enunciado": "Approach: «AVIATORY 452, low altitude warning, check your altitude immediately, QNH is 1009, the minimum flight altitude is 2 800 feet». ¿Qué te está diciendo?",
+      "enunciado": "Approach: «AVIANCA 452, low altitude warning, check your altitude immediately, QNH is 1009, the minimum flight altitude is 2 800 feet». ¿Qué te está diciendo?",
       "opciones": [
         "Que tu transpondedor dejó de transmitir la altitud",
         "Que tienes un tránsito por debajo a 2 800 pies",
@@ -802,12 +802,12 @@
     },
     {
       "id": "cm-ev-058",
-      "enunciado": "Tienes seleccionado el código 4617 y el controlador dice: «AVIATORY 452, confirm squawk». ¿Qué respondes?",
+      "enunciado": "Tienes seleccionado el código 4617 y el controlador dice: «AVIANCA 452, confirm squawk». ¿Qué respondes?",
       "opciones": [
-        "«Affirm, AVIATORY 452»",
-        "«AVIATORY 452, squawking 4617»",
-        "«Squawk ident, AVIATORY 452»",
-        "«Roger, squawk confirmed, AVIATORY 452»"
+        "«Affirm, AVIANCA 452»",
+        "«AVIANCA 452, squawking 4617»",
+        "«Squawk ident, AVIANCA 452»",
+        "«Roger, squawk confirmed, AVIANCA 452»"
       ],
       "correcta": 1,
       "explicacion": "CONFIRM SQUAWK pide confirmar el modo y el código seleccionados en el transpondedor (Doc 9432, 6.5.1), y en el ejemplo el piloto responde con el código: «SQUAWKING (código)» (6.5.2). AFFIRM o ROGER no le dan al controlador el dato que necesita comparar.",
@@ -830,7 +830,7 @@
     },
     {
       "id": "cm-ev-060",
-      "enunciado": "Recibes al ATC pero él no te oye. Escuchas: «AVIATORY 452, reply not received, if you read Bogota Control turn left heading 250». ¿Qué haces?",
+      "enunciado": "Recibes al ATC pero él no te oye. Escuchas: «AVIANCA 452, reply not received, if you read Bogota Control turn left heading 250». ¿Qué haces?",
       "opciones": [
         "Viras al 250: así el radar confirma que recibes",
         "Repites la colación más fuerte hasta que te conteste",
@@ -844,7 +844,7 @@
     },
     {
       "id": "cm-ev-061",
-      "enunciado": "Haces una prueba de radio y la torre te contesta: «AVIATORY 452, reading you three». ¿Qué significa?",
+      "enunciado": "Haces una prueba de radio y la torre te contesta: «AVIANCA 452, reading you three». ¿Qué significa?",
       "opciones": [
         "Perfectamente inteligible",
         "Inteligible por momentos",
@@ -970,7 +970,7 @@
     },
     {
       "id": "cm-ev-070",
-      "enunciado": "Oyes «AVIATORY 452, descend to FL 200, ...» y el resto llega tapado por un ruido. Lo recibido hasta «FL 200» está claro. ¿Qué pides?",
+      "enunciado": "Oyes «AVIANCA 452, descend to FL 200, ...» y el resto llega tapado por un ruido. Lo recibido hasta «FL 200» está claro. ¿Qué pides?",
       "opciones": [
         "«Say again all before FL 200»",
         "«Confirm FL 200»",
@@ -1012,7 +1012,7 @@
     },
     {
       "id": "cm-ev-073",
-      "enunciado": "En la misma frecuencia vuelan AVIATORY 452 y AVIATORY 425. Según el Doc 9432, ¿qué puede hacer el ATC para evitar confusiones?",
+      "enunciado": "En la misma frecuencia vuelan AVIANCA 452 y AVIANCA 425. Según el Doc 9432, ¿qué puede hacer el ATC para evitar confusiones?",
       "opciones": [
         "Pasar a uno de los dos a otra frecuencia hasta aterrizar",
         "Asignarles el mismo código SSR para identificarlos",
@@ -1096,7 +1096,7 @@
     },
     {
       "id": "cm-ev-079",
-      "enunciado": "Delivery: «AVIATORY 452, cleared to Medellin via W5, FL 190, RUMAK 1B departure, squawk 3321» (ruta y salida ficticias). ¿Qué colacionas?",
+      "enunciado": "Delivery: «AVIANCA 452, cleared to Medellin via W5, FL 190, RUMAK 1B departure, squawk 3321» (ruta y salida ficticias). ¿Qué colacionas?",
       "opciones": [
         "Solo el nivel y el código: la ruta ya está en el plan de vuelo",
         "Solo el código SSR: lo demás ya está cargado en el FMS",
@@ -1110,12 +1110,12 @@
     },
     {
       "id": "cm-ev-080",
-      "enunciado": "Approach: «AVIATORY 452, turn left heading 270, descend to FL 140, squawk 5207». ¿Cuál colación está bien construida?",
+      "enunciado": "Approach: «AVIANCA 452, turn left heading 270, descend to FL 140, squawk 5207». ¿Cuál colación está bien construida?",
       "opciones": [
-        "«Roger, heading 270, 140, AVIATORY 452»",
-        "«Left heading 270, descending to FL 140, squawk 5207, AVIATORY 452»",
-        "«AVIATORY 452, left 270, descending 140, 5207»",
-        "«Left heading 270, descending to 14 000 feet, squawk 5207, AVIATORY 452»"
+        "«Roger, heading 270, 140, AVIANCA 452»",
+        "«Left heading 270, descending to FL 140, squawk 5207, AVIANCA 452»",
+        "«AVIANCA 452, left 270, descending 140, 5207»",
+        "«Left heading 270, descending to 14 000 feet, squawk 5207, AVIANCA 452»"
       ],
       "correcta": 1,
       "explicacion": "Rumbo, nivel y código SSR están en la lista de colación obligatoria (Doc 4444, 4.5.7.5.1 c). Un nivel de vuelo va precedido de «FLIGHT LEVEL» y una altitud va seguida de «FEET» (Nota del mismo párrafo), así que cambiar FL 140 por 14 000 ft es otro valor. La colación termina con el distintivo (Doc 9432, 2.8.3.7), y ROGER no reemplaza la colación (2.6).",
