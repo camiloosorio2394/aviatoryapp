@@ -39,4 +39,12 @@ describe("revisión editorial de psicotécnicas", () => {
       expect(ejercicio.explicacion.length).toBeGreaterThan(55)
     }
   })
+
+  it("todo el banco activo evita el desglose literal de la fuente", () => {
+    expect(BANCO).toHaveLength(224)
+    for (const ejercicio of BANCO) {
+      expect(ejercicio.explicacion.length).toBeGreaterThan(55)
+      expect(ejercicio.explicacion).not.toMatch(/El documento lo desglosa|La fuente lo desglosa|según el PDF|según el cuadernillo/i)
+    }
+  })
 })
