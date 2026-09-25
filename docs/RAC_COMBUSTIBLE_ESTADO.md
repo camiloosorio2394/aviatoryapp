@@ -14,7 +14,7 @@ banco en el servidor.
 | | RAC | Gestión del combustible |
 |---|---|---|
 | Ruta | `/app/aerolinea/rac` | `/app/aerolinea/combustible` |
-| Lección | 19 unidades en 5 bloques, 140 min | 23 capítulos en 3 partes, 151 min |
+| Lección | 19 unidades en 5 bloques, 120 min | 23 capítulos en 3 partes, 151 min |
 | Práctica | 54 preguntas (`u05-q2`) | 66 preguntas (`c06-q1`) y 10 escenarios (`esc-03`) |
 | Evaluación | 20 al azar de 50, aprueba con 80 | 20 al azar de 40, aprueba con 80 |
 | Acento | grafito pizarra `#3D4958` (`--av-rac-*`, `.lector-rac`) | azul queroseno `#005071` (`--av-cb-*`, `.lector-cb`) |
@@ -150,13 +150,34 @@ comprueba las dos cosas.
       esté, el resultado de la evaluación de RAC, Combustible, Aerodinámica y
       Performance dice qué unidades repasar, sin tocar la app.
 
-## Lo que el convertidor simplifica
+## La lectura de RAC: de 3 a 8 minutos por unidad
 
-Para revisar si alguna vez se nota en pantalla:
+El encargo pedía **3 a 8 minutos de lectura por RAC**, y seis unidades se
+pasaban: RAC 2 (~13), RAC 121 (~12), RAC 91 (~12), RAC 1 (~10), RAC 61 y RAC 67
+(~9). Partirlas en dos no cumplía el encargo, que es por RAC, y habría cambiado
+el catálogo de la base. Se hizo lo que pide la casa (CLAUDE.md, «Cómo se enseña
+aquí»): **el detalle de la norma baja a un bloque plegado**, que no compite con
+lo que el piloto tiene que saber y se abre a demanda. No se borró nada.
 
-- `renderInline` no tiene itálicas: las del documento se quitan.
-- Las referencias al «Anexo B» del documento quedan como texto; el anexo de
-  fuentes no está en la app.
-- Las sublistas se aplanan en una sola lista.
-- Las unidades largas (RAC 121, RAC 91) van en una sola lección; no se
-  partieron en dos.
+- En `docs/contenido/rac.md`, `#### Detalle · …` pliega lo que sigue hasta el
+  próximo apartado (`detalleTecnico` en la app). Hay 35 pliegues.
+- Lo que se pliega es lo que un piloto de línea consulta y no memoriza: el
+  reparto de horas por fase, los formatos de chequeo, las tablas por sector del
+  Apéndice 18, los documentos a bordo, lo de alumno y piloto privado, la
+  convalidación. **No se plegó nada que pregunten la práctica o la
+  evaluación**: el numeral que cita cada una de las 104 preguntas de RAC está
+  en el texto visible de su unidad (se comprobó con un cruce automático).
+  Por eso siguen a la vista, por ejemplo, la recencia del PTL, el
+  emparejamiento de tripulaciones nuevas, el descanso controlado y las
+  categorías de aproximación del RAC 1.
+- `scripts/rac/convertir.mjs` calcula los minutos con el texto visible (230
+  palabras por minuto, el ritmo con el que se habían estimado las fichas) y
+  **falla** si la ficha dice otra cosa o si una unidad sale de 3 a 8. La única
+  excepción es el RAC 210, una ficha de ~2 min: rellenarla sería meter lo que
+  al piloto no le toca.
+- El módulo pasa de 140 a 120 minutos.
+
+Lo demás que se había anotado como simplificación del convertidor ya estaba
+resuelto: la cursiva del documento pasa a negrita (no se pierde), las sublistas
+se unen a su ítem con punto y coma, y los «Anexo» que aparecen en las lecciones
+son los de la OACI, no referencias al anexo del documento.

@@ -16,7 +16,7 @@
 | Ruta en la app | Ingreso a aerolínea → RAC |
 | Clave de módulo sugerida | `rac` |
 | Unidades | 19, una por RAC (U01 a U19), agrupadas en 5 bloques |
-| Lectura | 2 a 9 min por unidad; RAC 2, 91 y 121 son más largas y van en dos partes de 5 a 7 min (corte sugerido en el mapa); el RAC 1 es un glosario de consulta |
+| Lectura | 3 a 8 min por unidad, contando lo que se lee sin abrir nada, a 230 palabras por minuto. En las unidades largas (RAC 2, 61, 67, 91, 121 y 1) el detalle de la norma va plegado bajo «#### Detalle · …»: no se borra, se abre a demanda. El RAC 210 es una ficha de ~2 min. El conversor comprueba los minutos y el rango |
 | Estructura de cada unidad | ¿De qué trata? · Lo que debe saber un piloto · Datos importantes · En pocas palabras · Quiz de la unidad |
 | Quiz de lección | 2 a 4 preguntas al final de cada unidad (54 en total, `u01-q1` a `u19-q2`), corrección inmediata |
 | Quiz final | Banco de 50 preguntas (`ev-01` a `ev-50`) en `contenido/bancos/rac_evaluacion.json`, 20 al azar por intento, aprobación 80 %, corrección al final |
@@ -59,27 +59,27 @@ Tres niveles de desarrollo:
 | Unidad | RAC | Nombre | Versión usada | Por qué le importa al piloto | Tipo | Lectura |
 |---|---|---|---|---|---|---|
 | | | **Bloque 1 · Tu licencia y tu aptitud** | | | | |
-| U01 | 2 | Personal aeronáutico | Enmienda 17 (2019) + Res. 02543 de 2026 | Licencias vigentes hoy: horas, atribuciones, chequeos, recencia, inglés | Completa, dos partes (corte antes de «Habilitación de tipo») | ~13 min |
-| U02 | 61 | Licencias para pilotos y sus habilitaciones | Enmienda 8 (2022) + Res. 02543 de 2026 | La norma de licencias desde el 31/08/2027 | Completa | ~9 min |
-| U03 | 67 | Certificado médico | Enmienda 4 (2025) | Clase 1, vigencias, obligaciones del titular | Completa | ~9 min |
+| U01 | 2 | Personal aeronáutico | Enmienda 17 (2019) + Res. 02543 de 2026 | Licencias vigentes hoy: horas, atribuciones, chequeos, recencia, inglés | Completa, con detalle plegado | ~8 min |
+| U02 | 61 | Licencias para pilotos y sus habilitaciones | Enmienda 8 (2022) + Res. 02543 de 2026 | La norma de licencias desde el 31/08/2027 | Completa, con detalle plegado | ~8 min |
+| U03 | 67 | Certificado médico | Enmienda 4 (2025) | Clase 1, vigencias, obligaciones del titular | Completa, con detalle plegado | ~8 min |
 | U04 | 120 | Sustancias psicoactivas | Enmienda 2 (2025) | Alcohol, pruebas y consecuencias sobre la licencia | Completa | ~8 min |
 | | | **Bloque 2 · Cómo se vuela** | | | | |
-| U05 | 91 | Reglas generales de vuelo y de operación | Enmienda 12 (julio de 2026) | Reglas del aire, VFR e IFR, combustible, falla de comunicaciones, interceptación | Completa, dos partes (corte antes de «Plan de vuelo y ATC») | ~11 min |
-| U06 | 211 | Gestión del tránsito aéreo | Enmienda 6 (2025) | Espacios aéreos, colación, códigos, fases de alerta, RVSM | Corta | ~8 min |
+| U05 | 91 | Reglas generales de vuelo y de operación | Enmienda 12 (julio de 2026) | Reglas del aire, VFR e IFR, combustible, falla de comunicaciones, interceptación | Completa, con detalle plegado | ~8 min |
+| U06 | 211 | Gestión del tránsito aéreo | Enmienda 6 (2025) | Espacios aéreos, colación, códigos, fases de alerta, RVSM | Corta | ~7 min |
 | U07 | 212 | Búsqueda y salvamento | Enmienda 2 (2026) | Qué haces si ves o escuchas una emergencia; señales | Corta | ~7 min |
-| U08 | 203 | Servicio meteorológico | Enmienda 2 (2026) | Aeronotificaciones (AIREP) y lo que te deben entregar | Corta | ~7 min |
+| U08 | 203 | Servicio meteorológico | Enmienda 2 (2026) | Aeronotificaciones (AIREP) y lo que te deben entregar | Corta | ~6 min |
 | | | **Bloque 3 · La aerolínea** | | | | |
 | U09 | 119 | Certificación de explotadores | Enmienda 4 (2026) | CDO, especificaciones de operación, 121 frente a 135 | Corta | ~4 min |
-| U10 | 121 | Operación de aerolíneas | Enmienda 10 (2025) | Tripulación, entrenamiento, autoridad del PIC, tiempos de vuelo y descanso, despacho | Completa, dos partes (corte antes de «Tiempos de vuelo, servicio y descanso») | ~12 min |
+| U10 | 121 | Operación de aerolíneas | Enmienda 10 (2025) | Tripulación, entrenamiento, autoridad del PIC, tiempos de vuelo y descanso, despacho | Completa, con detalle plegado | ~8 min |
 | U11 | 135 | Operaciones de transporte menores | Enmienda 8 (2026) | Si vienes de taxi aéreo: experiencia, chequeos, tiempos | Corta | ~5 min |
 | | | **Bloque 4 · Seguridad y consecuencias** | | | | |
 | U12 | 175 | Mercancías peligrosas | Edición de 2016 | Lo que el RAC le pide al PIC | Completa | ~6 min |
-| U13 | 160 | Seguridad de la aviación (AVSEC) | Enmienda 8 (2025) | Autoridad del PIC, pasajeros perturbadores, armas, amenaza | Corta | ~7 min |
+| U13 | 160 | Seguridad de la aviación (AVSEC) | Enmienda 8 (2025) | Autoridad del PIC, pasajeros perturbadores, armas, amenaza | Corta | ~6 min |
 | U14 | 219 | Gestión de la seguridad operacional (SMS) | Enmienda 2 (2024) | Peligro, riesgo, reportes y su protección | Corta | ~4 min |
-| U15 | 114 | Investigación de accidentes e incidentes | Enmienda 3 (2022) | Qué reportas, en cuánto tiempo, qué no tocas | Completa | ~7 min |
+| U15 | 114 | Investigación de accidentes e incidentes | Enmienda 3 (2022) | Qué reportas, en cuánto tiempo, qué no tocas | Completa | ~6 min |
 | U16 | 13 | Régimen sancionatorio | Enmienda 7 (2020) | Qué le puede pasar a tu licencia | Completa | ~8 min |
 | | | **Bloque 5 · Referencia** | | | | |
-| U17 | 1 | Definiciones | Enmienda 18 (2026) | Las definiciones que usa el resto | Glosario de consulta | ~10 min |
+| U17 | 1 | Definiciones | Enmienda 18 (2026) | Las definiciones que usa el resto | Glosario de consulta, con detalle plegado | ~8 min |
 | U18 | 210 | Telecomunicaciones aeronáuticas | Enmienda 3 (2025) | Frecuencias de emergencia y ELT | Ficha | ~2 min |
 | U19 | 4 | Normas de aeronavegabilidad y operación | Enmienda 32 (2026) | Por qué ya no se cita para operación de aerolínea | Ficha | ~3 min |
 
@@ -91,7 +91,7 @@ Tres niveles de desarrollo:
 
 ## RAC 2 · Personal aeronáutico (licencias de piloto vigentes hasta el 31/08/2027)
 *Enmienda 17, octubre de 2019 (Resolución 03044 del 30 de septiembre de 2019), con notas y normas transitorias posteriores incorporadas en el texto.*
-**Unidad:** U01 · **Lectura:** ~13 min · **Tipo:** unidad completa; en la app, dos partes (corte antes de «Habilitación de tipo»)
+**Unidad:** U01 · **Lectura:** ~8 min · **Tipo:** unidad completa; el detalle de la norma va plegado
 
 > **Transición al RAC 61.** La Resolución 02543 del 6 de agosto de 2026 (Diario Oficial 53.586) amplió la transición: las licencias y habilitaciones de piloto que se expidan **antes del 31 de agosto de 2027** siguen sujetas al RAC 2, Capítulos I y II, y las ya expedidas siguen válidas hasta esa fecha mientras mantengas sus requisitos. A más tardar el 31/08/2027 la Aerocivil las reemplaza de oficio por las del RAC 61, en formato digital y sin costo. Si hoy sacas o tienes licencia, esta es tu norma.
 
@@ -104,28 +104,32 @@ Es el reglamento de licencias del personal aeronáutico. Para un piloto de avió
 - Nadie actúa como personal aeronáutico sin una **licencia válida** expedida o convalidada por la Aerocivil y que corresponda a la función (2.1.2).
 - La licencia tiene **vigencia indefinida** mientras mantengas los requisitos y no esté suspendida o cancelada; si exige certificado médico, vale lo que vale ese certificado (2.1.4). No ejerces atribuciones si no mantienes la competencia y la experiencia reciente (2.1.4.1).
 - Solo ejerces las atribuciones de tu licencia, cumples los entrenamientos periódicos y **debes portarla** mientras trabajas (2.1.10).
-- La **licencia provisional** dura máximo **180 días**; la puede expedir el inspector o el examinador designado (ED) al terminar el chequeo final, si tu médico está vigente (2.1.13.2).
 - La Aerocivil puede **suspender, cancelar o limitar** una licencia cuando dejas de reunir los requisitos o como sanción; y suspenderla provisionalmente en caso de infracción en flagrancia o riesgo inminente (2.1.16.1). Con sanciones pendientes no te renuevan ni te otorgan licencias (2.1.16.3). Las sanciones se imponen con el régimen sancionatorio; este tema se complementa con el RAC 13.
+
+#### Detalle · Licencia provisional y programas de entrenamiento aprobados
+- La **licencia provisional** dura máximo **180 días**; la puede expedir el inspector o el examinador designado (ED) al terminar el chequeo final, si tu médico está vigente (2.1.13.2).
 - Si trabajas para una empresa con programa de entrenamiento aprobado, tus habilitaciones se rigen por ese programa (2.1.16.7).
 
 #### Aptitud psicofísica
 - Sin **certificado médico vigente** no ejerces las atribuciones (2.1.5.5). La validez puede ampliarse a discreción de medicina aeronáutica hasta **45 días** (2.1.5.4).
-- Clase exigida: alumno piloto y piloto privado, **Clase 2** (2.2.2.3, 2.2.3.6); piloto comercial y de transporte de línea, **Clase 1** (2.2.5.6, 2.2.7.8). Para la habilitación de instrumentos del piloto privado, la vista y el oído deben cumplir los de Clase 1 (2.2.3.7.2.6).
 - Dejas de volar apenas sepas de una **disminución de tu aptitud** que pueda afectar la seguridad (2.1.5.20.1). Debes informar a medicina aeronáutica cualquier disminución de **más de 20 días**, que exija medicamentos recetados de forma continua o que haya requerido hospitalización (2.1.5.20.4).
+- Los periodos de validez del médico se rigen hoy por el **RAC 67** (67.025); el RAC 2 conserva una tabla anterior, con valores distintos (2.1.5.19). Este tema se complementa con el RAC 67.
+
+#### Detalle · Aptitud psicofísica: clase exigida, sustancias y declaraciones
+- Clase exigida: alumno piloto y piloto privado, **Clase 2** (2.2.2.3, 2.2.3.6); piloto comercial y de transporte de línea, **Clase 1** (2.2.5.6, 2.2.7.8). Para la habilitación de instrumentos del piloto privado, la vista y el oído deben cumplir los de Clase 1 (2.2.3.7.2.6).
 - **Sustancias psicoactivas**: no ejerces bajo sus efectos, te abstienes de todo abuso, y el uso problemático te retira de funciones críticas hasta rehabilitación y nueva valoración (2.1.5.21.1 a 2.1.5.21.3).
 - Una declaración falsa ante el médico examinador se reporta a medicina aeronáutica (2.1.5.10.1).
-- Los periodos de validez del médico se rigen hoy por el **RAC 67** (67.025); el RAC 2 conserva una tabla anterior, con valores distintos (2.1.5.19). Este tema se complementa con el RAC 67.
 
 #### Edad
 - Mínimos: **17** años alumno piloto (con permiso de los padres si es menor de 18), **18** piloto privado y comercial, **21** piloto de transporte de línea (2.1.6, 2.2.1.11, 2.2.2.4(b)).
 - Máximo: en servicios aéreos comerciales de transporte público nadie actúa como piloto al mando (PIC) ni como copiloto una vez cumplidos los **65 años**, y en tripulaciones de más de un piloto **solo uno puede tener más de 60** (2.2.1.11). Coincide con 121.1410(c) y (d).
 - Excepción: el piloto comercial con habilitación de trabajos aéreos especiales o licencia de instructor puede seguir, limitado a esa actividad, hasta los **68 años**, si acredita 500 horas en esa actividad y mantiene médico Clase 1 (2.2.1.11.1).
 
-#### Exámenes
+#### Detalle · Exámenes para la licencia (2.1.3)
 - Los teóricos valen **1 año** y los prácticos **6 meses** para expedir la licencia (2.1.3.1.1). Nota mínima **70 %**, con reintentos a los 7, 15 y 30 días (2.1.3.1.4(e) y (f)).
 - Un chequeo práctico fallado se repite cuando lo fije el inspector o ED, en máximo **6 meses**. Fraude: se anula y esperas **6 meses** (2.1.3.1.4(g) y (h)). Los chequeos para expedir una licencia o habilitación se presentan ante inspector de la Aerocivil o ED (2.1.16.2).
 
-#### Bitácora de vuelo
+#### Detalle · Bitácora de vuelo (2.1.14)
 Cada piloto, copiloto e ingeniero de vuelo lleva su **bitácora personal**: fechas, aeronave y matrícula, trayectos, simulador, tiempo como alumno, copiloto y piloto autónomo (día, noche, instrumentos), totales y firmas. Mantenerla al día y veraz es tu responsabilidad, y se presenta a la Aerocivil cada vez que acreditas experiencia, con certificaciones del explotador (2.1.14). Las certificaciones de experiencia que emite la empresa deben estar respaldadas en sus archivos (2.2.1.1.7(c)).
 
 #### Cómo se cuenta tu tiempo de vuelo (2.2.1.4)
@@ -134,11 +138,16 @@ Cada piloto, copiloto e ingeniero de vuelo lleva su **bitácora personal**: fech
 - Copiloto en avión certificado **con copiloto** y PIC bajo supervisión: se acredita completo (2.2.1.4.3, 2.2.1.4.4).
 - Tiempo en helicóptero cuenta al **50 %** para la licencia de transporte de línea de avión (2.2.1.4.5). Las horas en Fuerzas Militares o Policía son válidas (2.2.1.4.7).
 
-#### Alumno piloto y piloto privado
+#### Detalle · Alumno piloto y piloto privado
 Son la base de la carrera, no las licencias con las que entras a una aerolínea. El alumno piloto necesita 17 años, matrícula en un centro de instrucción y médico Clase 2 (2.2.2.3, 2.2.2.4). El piloto privado avión (PPA) necesita mínimo **50 horas** de vuelo más 10 h de simulador (2.2.3.3) y vuela como PIC o copiloto **sin remuneración** (2.2.3.9).
 
 #### Piloto comercial avión (PCA)
-- **Experiencia**: mínimo **200 horas** (2.2.5.3):
+- **Experiencia**: mínimo **200 horas** de vuelo, más **30 horas** en dispositivo de instrucción o entrenador por instrumentos (2.2.5.3).
+- La instrucción incluye gestión de amenazas y errores (TEM) y vuelo con potencia asimétrica para multimotores (2.2.5.2.2). El PCA y el PTL llevan la habilitación **IFR incorporada** a la licencia (2.2.1.2.2.5).
+- **Atribuciones** (2.2.5.9): las del privado; PIC de cualquier avión en vuelos que **no** sean de transporte aéreo comercial regular; PIC en transporte comercial **no regular** en un avión con habilitación de tipo vigente; y **copiloto** en transporte comercial regular y no regular en aviones que requieren copiloto. Todo condicionado a tus habilitaciones y al médico vigente.
+
+#### Detalle · Las 200 horas del PCA por fase, y sus habilitaciones
+Las 200 horas se reparten así (2.2.5.3):
 
 | Fase | Horas |
 |---|---|
@@ -149,9 +158,8 @@ Son la base de la carrera, no las licencias con las que entras a una aerolínea.
 | Crucero doble comando (un crucero de 540 km / 300 NM y dos aterrizajes fuera de la base) | 40 |
 | Crucero solo (un crucero de 540 km / 300 NM con aterrizajes fuera de la base) | 40 |
 
-  Además, **30 horas** en dispositivo de instrucción o entrenador por instrumentos; hasta 10 h de las de doble comando pueden ser en planeador, si el programa lo aprueba (2.2.5.3).
-- La instrucción incluye gestión de amenazas y errores (TEM) y vuelo con potencia asimétrica para multimotores (2.2.5.2.2). El PCA y el PTL llevan la habilitación **IFR incorporada** a la licencia (2.2.1.2.2.5).
-- **Atribuciones** (2.2.5.9): las del privado; PIC de cualquier avión en vuelos que **no** sean de transporte aéreo comercial regular; PIC en transporte comercial **no regular** en un avión con habilitación de tipo vigente; y **copiloto** en transporte comercial regular y no regular en aviones que requieren copiloto. Todo condicionado a tus habilitaciones y al médico vigente.
+Hasta 10 h de las de doble comando pueden ser en planeador, si el programa lo aprueba (2.2.5.3).
+
 - **Habilitaciones hasta 5.700 kg**: no hay habilitación de tipo; son por clase (monomotor, piloto multimotor, copiloto multimotor), pistón o turbohélice, con chequeo anual vigente (2.2.5.7.1). Entrenamiento mínimo: 3 h en monomotor y 6 h en multimotor; para **piloto** de multimotor, **300 horas** totales (2.2.5.7.1.1.1).
 - **Copiloto de más de 5.700 kg**: habilitación **por tipo**, según el programa del operador, con chequeo ante inspector o ED (2.2.5.7.1.1.2, 2.2.5.7.2.4).
 - **Piloto de relevo en crucero** (vuelos de **más de 6 horas** de cuña a cuña): entrenamiento en silla izquierda, mínimo 2 periodos de 2 h en simulador, chequeo y recurrente anual, anotado en la licencia (2.2.5.7.5).
@@ -163,17 +171,21 @@ Son la base de la carrera, no las licencias con las que entras a una aerolínea.
   - 200 h de crucero, de ellas al menos 100 como piloto o copiloto.
   - 75 h de instrumentos, máximo 30 en simulador o dispositivo aprobado.
   - 100 h de vuelo **nocturno** como PIC o copiloto.
-  
-  **Ojo:** el RAC 2 trae dos redacciones. La de 2019 (2.2.7(b)) es la de arriba; la de 2008 (2.2.7.3) pide «500 horas como piloto al mando bajo supervisión» y 100 h de crucero bajo supervisión. Si te lo preguntan, cita la de 2019 y confirma con la Aerocivil cuál aplica a tu trámite.
+- **Atribuciones**: las del privado y el comercial, más PIC o copiloto en transporte aéreo comercial **regular** (2.2.7.10).
+
+#### Detalle · PTL: las dos redacciones, LOFT, experiencia operacional y relevo
+**Ojo:** el RAC 2 trae dos redacciones. La de 2019 (2.2.7(b)) es la de arriba; la de 2008 (2.2.7.3) pide «500 horas como piloto al mando bajo supervisión» y 100 h de crucero bajo supervisión. Si te lo preguntan, cita la de 2019 y confirma con la Aerocivil cuál aplica a tu trámite.
+
 - Pericia en multimotor con copiloto: procedimientos IFR con falla simulada de motor, anormales y emergencias, coordinación de tripulación e incapacitación, y comunicación eficaz con la tripulación, es decir, gestión de recursos de tripulación (CRM) (2.2.7.2, 2.2.7.4.1).
 - **Entrenamiento orientado a la línea (LOFT)**: dos trayectos representativos del operador en tiempo real, uno normal y otro con anormalidad o emergencia, con tripulación completa (2.2.7.5).
 - **Experiencia operacional y chequeos de ruta**: las primeras **5 horas**, con al menos **3 despegues y 3 aterrizajes**, bajo instructor; el resto con piloto chequeador; el último trayecto ante inspector o ED (2.2.7.6).
 - **Habilitaciones por tipo**, con entrenamiento y chequeo **en simulador** salvo que no exista para el tipo (2.2.7.7, 2.2.7.7.1).
-- **Atribuciones**: las del privado y el comercial, más PIC o copiloto en transporte aéreo comercial **regular** (2.2.7.10).
 - Piloto de relevo en crucero: igual que el PCA, pero en **silla derecha** (2.2.7.7.3).
 
 #### Habilitación de tipo
 - Se exige tipo en aviones de **más de 5.700 kg**, en todo avión certificado para **dos pilotos** y cuando la Aerocivil lo decida (2.2.1.2.2.4).
+
+#### Detalle · Habilitación de tipo: entrenamiento, tipo sin experiencia operacional y MCC
 - El entrenamiento cubre procedimientos normales, anormales y de emergencia, IFR, cortante de viento a baja altura, incapacitación y coordinación de la tripulación, y **prevención y recuperación de la pérdida de control** (2.2.1.3.2(a)).
 - **Tipo sin experiencia operacional** en simulador nivel D o superior: escuela de tierra con examen, los periodos de simulador del fabricante, un chequeo LOFT y la prueba de pericia. La licencia queda anotada, por ejemplo «/A320 sin experiencia operacional/», y solo vuelas en línea mientras haces o después de hacer la experiencia operacional con el explotador (2.2.1.3.2(b), 2.2.5.11, 2.2.7.7.1.1).
 - **Curso de cooperación de tripulación múltiple (MCC)**: obligatorio antes de empezar un tipo multipiloto; **25 h** de teoría y **20 h** prácticas (15 en curso integrado PTL; pueden bajar a no menos de 10 si se combina con el tipo en el mismo simulador), terminado en **6 meses** (Apéndice D del Capítulo II).
@@ -181,6 +193,8 @@ Son la base de la carrera, no las licencias con las que entras a una aerolínea.
 #### Chequeos y entrenamiento periódico
 - **Definiciones** (2.2.1.1.4(a)): el **chequeador (CHK)** es el instructor designado por el explotador y autorizado por la Aerocivil (equivale al inspector del explotador de los LAR); el **mes base** es el mes en que te toca el entrenamiento o chequeo; el **periodo de elegibilidad** son 3 meses (el anterior, el mes base y el siguiente) y lo hecho en él cuenta como hecho en el mes base.
 - PTL, pilotos y copilotos PCA: **dos veces cada 12 meses calendario**, con intervalos de **5 a 7 meses**, repaso de tierra, entrenamiento de vuelo y **verificación de competencia** (chequeo de proeficiencia) ante inspector, ED o CHK (2.2.1.1.4(b), 2.2.5.10, 2.2.7.11).
+
+#### Detalle · Formato de los chequeos y entrenamientos especiales
 - Formato en aviones (2.2.1.1.4.1):
   - Más de 19 sillas y más de 5.700 kg, con simulador: ambos entrenamientos en **simulador**, cada uno con **2 periodos de al menos 2 horas** (entrenamiento y chequeo).
   - 19 sillas o menos o 5.700 kg o menos, con simulador: el primero en avión, simulador o dispositivo y el segundo en simulador, también 2 periodos de 2 horas.
@@ -212,12 +226,12 @@ Son la base de la carrera, no las licencias con las que entras a una aerolínea.
 - Reevaluación: Nivel IV cada **3 años**, Nivel V cada **6 años**, Nivel VI no se reevalúa (2.1.9.1.4; Apéndice C, 2.3.1 a 2.3.3). Si no alcanzas el Nivel IV, repites la prueba tras **2 meses** (Apéndice C, 2.3.4).
 - Para obtener cualquier licencia debes hablar y entender español (2.1.9).
 
-#### Convalidación y licencias extranjeras
+#### Detalle · Convalidación y licencias extranjeras (2.1.7)
 - La Aerocivil convalida licencias de Estados de la Organización de Aviación Civil Internacional (OACI) mediante una autorización en licencia provisional, sin exceder la validez de la extranjera (2.1.7).
 - Tres vías (2.1.7.1): personal extranjero transitorio que viene a instruir; quien se establece en Colombia (pilotos: examen teórico ante la Aerocivil y práctico ante inspector o ED); y tripulantes no residentes de empresas colombianas fuera del país (licencia provisional limitada a tipo, explotador y fecha).
 - Los cursos hechos en el exterior solo sirven para habilitaciones de tipo; para una licencia se exige también la licencia extranjera y su convalidación (2.1.16.5).
 
-#### Otras reglas de cabina
+#### Detalle · Otras reglas de cabina (2.2.1.6, 2.2.1.8)
 - El PIC no ocupa el asiento del copiloto ni al revés, salvo chequeador, instructor del equipo o piloto de relevo en crucero (2.2.1.6).
 - Tu licencia de piloto te habilita como radiotelefonista, navegante y despachador de la aeronave en que estás habilitado (2.2.1.8).
 
@@ -293,7 +307,7 @@ Son la base de la carrera, no las licencias con las que entras a una aerolínea.
 
 ## RAC 61 · Licencias para pilotos y sus habilitaciones
 *Enmienda 8, septiembre de 2022 (Resolución 01884 del 30 de agosto de 2022; texto base: Resolución 02819 del 31 de diciembre de 2020). Transición ampliada al 31 de agosto de 2027 por la Resolución 02543 del 6 de agosto de 2026.*
-**Unidad:** U02 · **Lectura:** ~9 min · **Tipo:** unidad completa
+**Unidad:** U02 · **Lectura:** ~8 min · **Tipo:** unidad completa
 
 ### ¿De qué trata?
 Define las licencias de piloto en Colombia, qué necesitas para obtener cada una (edad, médico, horas, exámenes), qué te permite hacer y qué debes cumplir para seguir ejerciéndola: habilitaciones, chequeos, experiencia reciente, inglés y límites de edad. También regula la bitácora y la convalidación de licencias extranjeras. De aquí salen las preguntas de entrevista del tipo «¿cuántas horas?», «¿cada cuánto?» y «¿hasta qué edad?».
@@ -356,7 +370,7 @@ Necesitas como mínimo PCA con el tipo, IR para vuelos IFR, experiencia supervis
 - Reevaluación: nivel 4 cada **3 años**, nivel 5 cada **6 años**, nivel 6 nunca (61.165(c)).
 - El nivel 4 se exige en los seis descriptores: pronunciación, estructura, vocabulario, fluidez, comprensión e interacciones (Apéndice 2, (b)). PCA y PTL deben demostrarlo (61.605(c); 61.805(c)).
 
-#### La bitácora
+#### Detalle · La bitácora
 Tu experiencia se prueba con la bitácora y las certificaciones del explotador o del centro de instrucción (61.120(a)).
 - **Tiempo de vuelo** en avión: desde que se mueve para despegar hasta que se detiene al final con motores apagados; no cuenta la APU (61.001).
 - **PIC**: el PPA o PCA lo anota solo cuando es el único a los mandos o el único ocupante; el PTL, todo el tiempo en que actúa como PIC (61.120(c)(2)).
@@ -364,10 +378,10 @@ Tu experiencia se prueba con la bitácora y las certificaciones del explotador o
 - **Para una licencia superior**: copiloto en aeronave certificada con copiloto y piloto al mando bajo supervisión cuentan al 100 %; copiloto en aeronave de un piloto a la que la UAEAC exige copiloto, máximo 50 % (61.120(c)(6)).
 - Falsear la bitácora es causal de suspensión o cancelación de la licencia (61.150).
 
-#### Exámenes
+#### Detalle · Exámenes
 El teórico se aprueba con **75 %** (85 % para instructor) y se repite a los 30 días (61.085). Debe estar aprobado dentro de los 12 meses anteriores a la prueba de pericia (61.095(a)). Una pericia reprobada no se repite antes de 30 días (61.115).
 
-#### Licencias extranjeras
+#### Detalle · Licencias extranjeras
 La UAEAC puede convalidar una licencia de otro Estado OACI, limitada en tiempo y atribuciones, nunca por más tiempo que la extranjera (61.025(c) y (d)). Pide bitácora con experiencia reciente, examen de diferencias con los RAC, español e inglés, y prueba de pericia (61.025(f)). El médico extranjero solo sirve para convalidaciones de hasta 3 meses (61.025(i), Nota).
 
 #### Médico, sustancias y suspensión
@@ -441,7 +455,7 @@ Los tiempos de vuelo, servicio y descanso de las tripulaciones de aerolínea no 
 
 ## RAC 67 · Normas para el otorgamiento del certificado médico aeronáutico
 *Enmienda 4, mayo de 2025 (Resolución 00995 del 08 de mayo de 2025, publicada y en vigor desde el 09 de mayo de 2025).*
-**Unidad:** U03 · **Lectura:** ~9 min · **Tipo:** unidad completa
+**Unidad:** U03 · **Lectura:** ~8 min · **Tipo:** unidad completa
 
 ### ¿De qué trata?
 El RAC 67 define qué aptitud psicofísica necesitas para volar, cómo se certifica y qué haces cuando tu salud cambia. Fija las clases de certificado médico, cuánto dura cada una según tu licencia y tu edad, los requisitos físicos, mentales, visuales y auditivos, y tus obligaciones como titular. Para un piloto que va a una aerolínea lo central es tener un certificado Clase 1 vigente y cumplir las condiciones que figuren en él y en la licencia (67.015(c), 67.075(h)(3)).
@@ -499,7 +513,7 @@ Si hay dudas sobre tu aptitud, Medicina Aeronáutica puede pedirte exámenes y s
 
 Este tema se complementa con el RAC 120 (exámenes toxicológicos y sus consecuencias).
 
-#### Embarazo
+#### Detalle · Embarazo
 La piloto embarazada es **no apta temporal**. Con embarazo de bajo riesgo y controlado puede declararse apta desde el final de la **semana 12** hasta el final de la **semana 26**. Después del parto o del fin del embarazo no vuelve a volar hasta una nueva evaluación ginecológica y la decisión de Medicina Aeronáutica (67.205(n)).
 
 #### Visión, lentes y cirugía de ojos (Clase 1)
@@ -510,12 +524,12 @@ La piloto embarazada es **no apta temporal**. Con embarazo de bajo riesgo y cont
 - Visión de colores: si fallas las tablas pseudoisocromáticas y no distingues con rapidez los colores de la aviación, eres no apto. El que tiene una anomalía estudiada solo puede llegar a un certificado **Clase 2** con la restricción «Válido solo para operaciones diurnas» (67.090(b)(6) a (b)(8)).
 - Las gafas de sol en vuelo deben ser **no polarizadas y de gris neutro** (67.090(b)(9)).
 
-#### Oído y exámenes periódicos (Clase 1)
+#### Detalle · Oído y exámenes periódicos (Clase 1)
 - En audiometría de tono puro, sin audífonos, ningún oído puede perder más de **30 dB en 500, 1.000 o 2.000 Hz**, ni más de **50 dB en 3.000 Hz** (67.215(b)(1)).
 - La audiometría se hace en el examen inicial y, si fue normal, al menos cada 2 años hasta los 40 y luego cada año (67.215(b)(1)). Si no alcanzas esos valores, aún puedes ser apto con una prueba de discriminación del lenguaje o una prueba en vuelo (67.215(b)(2) a (b)(4)).
 - Electrocardiograma de reposo en el primer examen, cada 2 años entre los 30 y los 40 años y cada año después de los 40 (67.205(d)(4) a (d)(6)). Radiografía de tórax en el primer reconocimiento (67.205(e)(2)).
 
-#### El examen: lo que declaras
+#### Detalle · El examen: lo que declaras
 - Presentas una **declaración jurada** con tu historia médica, medicamentos, tratamientos alternativos y exámenes anteriores, y dices si alguna vez te negaron, revocaron o suspendieron un certificado (67.075(a) y (b)). **Toda declaración falsa u omisión se informa a la Aerocivil** (67.075(c)).
 - Te examina un **médico examinador autorizado por la Aerocivil** (67.055(a)). Después de un incidente o accidente puede haber una certificación **extraordinaria** y una evaluación de tu aptitud psicológica (67.075(n); 67.100(a)(3)). Tu historial médico es confidencial (67.075(l)).
 
@@ -726,14 +740,14 @@ La empresa no te deja cumplir funciones sensibles hasta que la Aerocivil decida 
 
 ## RAC 91 · Reglas Generales de Vuelo y de Operación
 *Enmienda 12, julio de 2026 (adoptado por la Resolución 01594 de 2018; última modificación: Resolución 2297 del 17 de julio de 2026).*
-**Unidad:** U05 · **Lectura:** ~11 min · **Tipo:** unidad completa; en la app, dos partes (corte antes de «Plan de vuelo y ATC»)
+**Unidad:** U05 · **Lectura:** ~8 min · **Tipo:** unidad completa; el detalle de la norma va plegado
 
 ### ¿De qué trata?
 Es el reglamento del aire y de la operación general en Colombia: cómo se vuela bajo reglas de vuelo visual (VFR) y por instrumentos (IFR), derecho de paso, plan de vuelo, falla de comunicaciones e interceptación, y qué debe cumplir una aeronave civil en preparación, combustible, alternos, oxígeno, equipos y documentos. Es la base de todo lo demás: una aerolínea opera bajo el RAC 121 o el RAC 135 **además** del RAC 91, no en lugar de él (91.005(a)(3)). Los capítulos A a C de la Parte 1 también aplican a esos explotadores; los capítulos D a M ceden cuando la norma especial establece su propia regla (91.005(a) y (b)). La Parte 2 suma reglas para aviones grandes y turborreactores de aviación general.
 
 ### Lo que debe saber un piloto
 
-#### Dónde encaja
+#### Detalle · Dónde encaja: capítulos y Parte 2 (91.005, 91.1805)
 - Los capítulos A a C (generalidades y reglas de vuelo) aplican a toda aeronave civil en Colombia; los capítulos D a M ceden ante el RAC 121, 135, 137 o 138 cuando esas normas traen su propia regla (91.005(a) y (b)).
 - La Parte 2 cubre turborreactores, y multimotores con **más de 19 asientos** de pasajeros o **más de 5.700 kg** de peso máximo de despegue, cuando no operan bajo RAC 121 o 135 (91.1805).
 
@@ -743,7 +757,7 @@ Es el reglamento del aire y de la operación general en Colombia: cómo se vuela
 - No inicia un vuelo con un tripulante de vuelo incapacitado por lesión, enfermedad, fatiga o sustancias psicoactivas, ni sigue más allá del **aeródromo adecuado más próximo** si la capacidad de la tripulación cae significativamente (91.120(b)).
 - Si en una emergencia se aparta de reglamentos o procedimientos, avisa sin demora a los servicios de tránsito aéreo (ATS) y entrega informe a la Aerocivil (UAEAC) en **no más de 10 días calendario** (91.520).
 
-#### Aptitud y sustancias psicoactivas
+#### Detalle · Aptitud y sustancias psicoactivas (91.010, 91.1310)
 - Quien cumple funciones críticas para la seguridad no las ejerce bajo sustancias psicoactivas que perjudiquen su actuación, prescritas o no (91.010). En el RAC 91 el **alcohol** cuenta como sustancia psicoactiva (91.001). Tasas y pruebas no están aquí: este tema se complementa con el RAC 120.
 - El PIC verifica que cada tripulante de vuelo **porte** licencia, habilitaciones y certificado médico válidos (91.1310(a)), y si tu médico lo exige, llevas **lentes de repuesto** (91.545(c)(7)).
 
@@ -793,24 +807,24 @@ Es el reglamento del aire y de la operación general en Colombia: cómo se vuela
 - **En vuelo**: nunca por debajo del combustible para llegar a un aeródromo con la reserva final intacta. **COMBUSTIBLE MÍNIMO** avisa que cualquier cambio puede hacerte aterrizar con menos de la reserva final (no es emergencia); **MAYDAY MAYDAY MAYDAY COMBUSTIBLE** declara que aterrizarás con menos (91.637).
 - En la Parte 2 el cálculo va por componentes: rodaje, trayecto, contingencias (**mínimo 5 %** del trayecto), alterno, reserva final (**30 min en espera a 1.500 ft** para turbina), adicional y discrecional (91.2012(c)).
 
-#### Oxígeno
+#### Detalle · Oxígeno (Apéndice 4, 91.595)
 Sin presurización, entre **10.000 y 13.000 ft** de altitud de cabina se lleva oxígeno para toda la tripulación y al menos el 10 % de los pasajeros durante todo período que pase de **30 min**, y sobre **13.000 ft** para todos. Quien cumple funciones esenciales lo usa de forma continua (Apéndice 4(b)(1) y (c)(1), 91.595).
 
-#### Equipos que te afectan
+#### Detalle · Equipos que te afectan: MEL, transpondedor, ADS-B y ELT
 - Con equipo inoperativo despegas solo con una lista de equipo mínimo (MEL) aprobada y cumpliendo sus condiciones (91.817(a)); sin MEL, solo ciertas aeronaves pequeñas no turbina y con el equipo desactivado y rotulado (91.817(c)).
 - Transpondedor modo C o S en todas las aeronaves, salvo excepciones que autorice la Aerocivil (91.845). El ADS-B Out (vigilancia dependiente automática, radiodifusión) es obligatorio desde el **1 de enero de 2025** donde haya cobertura y se opera siempre transmitiendo (91.847(a)(3) y (d)).
 - Todo avión lleva transmisor de localización de emergencia (ELT) (91.830).
 
-#### Documentos a bordo
+#### Detalle · Documentos a bordo (91.1420)
 - Entre otros: certificado de matrícula, certificado de aeronavegabilidad, licencias de cada tripulante, libro de a bordo, licencia de estación de radio, lista de pasajeros, manifiesto de carga, cartas de la ruta y desvíos, procedimientos de interceptación y aprobaciones específicas (91.1420(a)). Los siete primeros van **en original** (91.1420(b)).
 - El libro de a bordo va al día y en tinta; el PIC responde por su veracidad y se conserva **3 años** (91.1410(c)). Toda falla o daño va al registro técnico de vuelo (91.1425).
 
-#### Tiempos de vuelo y experiencia reciente
+#### Detalle · Tiempos de vuelo y experiencia reciente (91.696, 91.2640)
 - **Aviación general**: máximo **9 h** por día y **85 h** por mes (91.696(a)).
 - **Aerolíneas**: el RAC 91 no fija sus límites. Este tema se complementa con el RAC 121 (121.1910 y Apéndice 18) y el RAC 135 (Apéndice 15).
 - Parte 2: PIC y copiloto necesitan **3 despegues y 3 aterrizajes en 90 días** en el tipo o en simulador (91.2640, 91.2645), y el explotador lleva un programa de gestión de riesgos por fatiga (FRMS) (91.1985). La recencia general de tu licencia está en el RAC 61, pero hasta el 31/08/2027 rige la del RAC 2 (nota 3 de 91.005).
 
-#### Lo que tienes que reportar
+#### Detalle · Lo que tienes que reportar
 | Qué | A quién | Numeral |
 |---|---|---|
 | Accidente con muertos, lesiones graves o daños importantes | Autoridad más próxima, por el medio más rápido | 91.120(c) |
@@ -843,17 +857,22 @@ En clase A los valores son solo orientación: no se aceptan vuelos VFR. En F y G
 | Techo del VFR | FL 200 (sin autorización); nunca sobre FL 290 en RVSM | 91.305, 91.310 |
 | Altura mínima VFR | 1.000 ft (poblado, radio 600 m) / 500 ft | 91.315 |
 | Altitud mínima IFR | 2.000 ft (montaña) / 1.000 ft, radio 8 km | 91.340 |
-| Niveles de crucero | 000° a 179°: IFR impares, VFR impares + 500 ft. 180° a 359°: IFR pares, VFR pares + 500 ft | Apéndice 7, Tabla 7-1 |
-| VFR nocturno | 5 km bajo FL 100 y 8 km entre FL 100 y FL 175. Clase B: libre de nubes. Clases C a G: superficie a la vista, 1.500 m horizontal, libre de nubes por debajo y 1.000 ft por encima | Apéndice 19(a)(3) |
-| Verificación del VOR | 30 días; ±4° en tierra, ±6° en vuelo | 91.365 |
-| Categoría I (CAT I) | DH 200 ft o más; visibilidad 800 m o RVR 550 m | 91.540(a)(2)(i) |
-| Categoría II (CAT II) | DH menor de 200 ft y no menor de 100 ft; RVR 300 m | 91.540(a)(2)(ii) |
 | Prohibición de aproximación | 1.000 ft sobre la elevación del aeródromo | 91.585(b) |
 | Falla de comunicaciones | 7600; 20 min (sin radar) o 7 min (con radar); aterrizar en 30 min | 91.265(b)(2) |
 | Códigos | 7500 interferencia; 7600 falla de comunicaciones; 7700 interceptación | Apéndice 8; 91.265; Apéndice 9(g) |
 | Reserva final (Parte 1) | IFR 45 min; VFR diurno 30 min; VFR nocturno 45 min | 91.610(a) |
 | Reserva final (Parte 2) | Recíproco 45 min; turbina 30 min a 1.500 ft; contingencias 5 % | 91.2012(c) |
 | Alterno de despegue | 1 h (bimotor) / 2 h (tres o más motores) | 91.600(a) |
+
+#### Detalle · Más datos del RAC 91
+
+| Tema | Valor | Numeral |
+|---|---|---|
+| Niveles de crucero | 000° a 179°: IFR impares, VFR impares + 500 ft. 180° a 359°: IFR pares, VFR pares + 500 ft | Apéndice 7, Tabla 7-1 |
+| VFR nocturno | 5 km bajo FL 100 y 8 km entre FL 100 y FL 175. Clase B: libre de nubes. Clases C a G: superficie a la vista, 1.500 m horizontal, libre de nubes por debajo y 1.000 ft por encima | Apéndice 19(a)(3) |
+| Verificación del VOR | 30 días; ±4° en tierra, ±6° en vuelo | 91.365 |
+| Categoría I (CAT I) | DH 200 ft o más; visibilidad 800 m o RVR 550 m | 91.540(a)(2)(i) |
+| Categoría II (CAT II) | DH menor de 200 ft y no menor de 100 ft; RVR 300 m | 91.540(a)(2)(ii) |
 | Oxígeno presurizados | Sobre 25.000 ft: 10 min para pasajeros y máscara rápida para la tripulación | Apéndice 4(b)(2), (c)(2) |
 | Libro de a bordo | Se conserva 3 años | 91.1410(c) |
 | Tiempo de vuelo (aviación general) | 9 h/día, 85 h/mes | 91.696(a) |
@@ -906,7 +925,7 @@ En clase A los valores son solo orientación: no se aceptan vuelos VFR. En F y G
 
 ## RAC 211 · Gestión del tránsito aéreo
 *Enmienda 6, noviembre de 2025 (Resolución 03590 del 31 de octubre de 2025).*
-**Unidad:** U06 · **Lectura:** ~8 min · **Tipo:** unidad corta
+**Unidad:** U06 · **Lectura:** ~7 min · **Tipo:** unidad corta
 
 ### ¿De qué trata?
 Organiza el espacio aéreo colombiano y fija cómo se prestan los servicios de tránsito aéreo (ATS): control, información de vuelo y alerta. Aplica al ATSP, a los aeródromos y a los explotadores de aeronaves en lo que les toque (211.005(c)).
@@ -1188,7 +1207,7 @@ Los símbolos miden **al menos 2,5 m (8 ft)** (Apéndice 1, 2.3).
 
 ## RAC 203 · Servicio meteorológico para la navegación aérea
 *Enmienda 2, marzo de 2026 (Resolución 00686 del 02-mar-2026, Diario Oficial 53.422 del 09-mar-2026; modificó el RAC integralmente para adoptar la Enmienda 82 del Anexo 3 y los PANS-MET, Doc. 10157).*
-**Unidad:** U08 · **Lectura:** ~7 min · **Tipo:** unidad corta
+**Unidad:** U08 · **Lectura:** ~6 min · **Tipo:** unidad corta
 
 ### ¿De qué trata?
 El RAC 203 regula al **proveedor** del servicio meteorológico (METP): cómo observa, pronostica, emite avisos y entrega la información a tránsito aéreo, a los explotadores y a las tripulaciones. Casi todo va dirigido a ese proveedor, pero el RAC aplica también a los explotadores de aeronaves «según la materia que les corresponde» (203.005 (c)). Para el piloto hay dos cosas: **lo que tú le reportas al servicio** (observaciones de aeronave, AIREP) y **lo que el servicio te debe entregar** (exposición verbal, documentación de vuelo, información en vuelo). La lectura e interpretación de METAR y TAF está en el módulo de Meteorología de Aviatory y no se repite aquí.
@@ -1374,7 +1393,7 @@ Si un inspector acreditado de la Aerocivil se presenta ante el PIC para inspecci
 
 ## RAC 121 · Requisitos de operación: operaciones domésticas e internacionales, regulares y no regulares
 *Enmienda 10, julio de 2025 (Resolución 01983 del 31 de julio de 2025, surte efecto el 4 de agosto de 2025).*
-**Unidad:** U10 · **Lectura:** ~12 min · **Tipo:** unidad completa; en la app, dos partes (corte antes de «Tiempos de vuelo, servicio y descanso»)
+**Unidad:** U10 · **Lectura:** ~8 min · **Tipo:** unidad completa; el detalle de la norma va plegado
 
 ### ¿De qué trata?
 Es el reglamento de la aerolínea. Aplica a quien tiene un certificado de operación (CDO) del RAC 119 y vuela transporte regular en turborreactores, o en turbohélices y recíprocos de más de 19 asientos o más de 5.700 kg; también a los no regulares con aviones de más de 19 asientos o más de 5.700 kg, o de carga con más de 3.400 kg de carga paga (121.005). Se suma al RAC 91 (121.2205) y define quién puede ser tripulante, cómo se entrena, cuánto vuela, cómo se despacha y qué responde el piloto al mando (PIC).
@@ -1391,8 +1410,10 @@ Es el reglamento de la aerolínea. Aplica a quien tiene un certificado de operac
 El RAC distingue instrucción inicial, de transición (otro avión del mismo grupo), de promoción (de copiloto a PIC), de diferencias, periódica y de recalificación (121.1515). Grupo I son los aviones de hélice y Grupo II los turborreactores (121.1510).
 - Empiezas con una inducción básica (reglamentos, manual de operaciones o MO, mercancías peligrosas, sistema de gestión de la seguridad operacional o SMS, seguridad de la aviación o AVSEC, factores humanos) y sigues con tierra y vuelo iniciales (121.1595 (a)(1); 121.1610; 121.1630). Las horas están en la tabla.
 - El vuelo inicial se hace con tripulación completa e incluye un entrenamiento orientado a la línea de vuelo (LOFT) de al menos 2 h en simulador: un trayecto normal y otro con una anormalidad (121.1630 (a)(3)).
-- La instrucción en envolventes extendidas (prevención y recuperación de la pérdida de control, UPRT) va en simulador de vuelo (FFS) nivel C o D: vuelo lento, pérdida completa, salidas y llegadas manuales, actitudes anormales y aterrizaje con rebote (121.1627).
 - Para servir, el periódico de tierra y vuelo y la verificación de la competencia deben estar hechos en los 6 meses calendario anteriores (121.1720 (c)). Si se hacen un mes antes o después del mes requerido, cuentan como hechos a tiempo (121.1520 (e)).
+
+#### Detalle · UPRT y cambio de empresa en el mismo tipo
+- La instrucción en envolventes extendidas (prevención y recuperación de la pérdida de control, UPRT) va en simulador de vuelo (FFS) nivel C o D: vuelo lento, pérdida completa, salidas y llegadas manuales, actitudes anormales y aterrizaje con rebote (121.1627).
 - Si ya volaste el mismo tipo en otra empresa, recibes la instrucción de procedimientos del nuevo explotador, más corta que la inicial (121.1720 (a)).
 
 #### Experiencia operacional y consolidación
@@ -1406,6 +1427,8 @@ Después del curso vuelas en línea supervisado (en la industria, IOE). El PIC e
 #### Mantenerte vigente
 - Si pasas de 90 días sin 3 despegues y 3 aterrizajes, el restablecimiento crece con la inactividad: con CHK hasta 180 días; periódico y verificación hasta 12 meses; repaso de 16 h, cuatro sesiones y verificación ante inspector o ED hasta 60 meses; y curso inicial más allá (121.1745 (a)).
 - La verificación de la competencia es semestral; dos hechas en 4 meses consecutivos no bastan por sí solas. Una maniobra fallada se repite una sola vez, y si no apruebas no vuelas (121.1760 (a)(d)).
+
+#### Detalle · Calificación de ruta y aeródromo, y operación desde ambos puestos
 - Como PIC necesitas verificación en línea anual y calificación de ruta y aeródromo: terreno, altitudes mínimas, meteorología, servicios de tránsito aéreo (ATS), avisos a los aviadores (NOTAM), obstáculos y procedimientos (121.1755; 121.1765). Los aeródromos especiales y las rutas con navegación especial (como la navegación basada en la performance, PBN) exigen práctica en los 12 meses previos (121.1770).
 - Quien opera desde ambos puestos recibe instrucción extra en falla de motor al despegue y en aproximación, sobrepaso y aterrizaje con un motor inoperativo (121.1785).
 
@@ -1420,14 +1443,18 @@ Después del curso vuelas en línea supervisado (en la industria, IOE). El PIC e
 #### En la cabina de mando
 - **Cabina estéril**: en rodaje, despegue, aterrizaje y todo lo que se vuele bajo 10.000 ft (salvo crucero) solo se hace lo necesario para operar: nada de llamadas de catering, anuncios promocionales, formularios, comer, conversar ni leer (121.2255 (a)-(c)).
 - Arnés en despegue y aterrizaje; cinturón siempre en tu puesto; en ruta solo sales por funciones, necesidad fisiológica o relevo (121.2260). El piloto que no vuela actúa como piloto monitoreando (PM) (121.2262).
+
+#### Detalle · Puerta de la cabina y simulacros con pasajeros
 - La puerta de cabina se asegura desde que cierran las puertas exteriores hasta el desembarque, salvo para personas autorizadas (121.6110 (a)).
 - Con pasajeros o carga a bordo no se simulan anormales, emergencias ni condiciones de vuelo por instrumentos (IMC) (121.2425).
 
 #### Tiempos de vuelo, servicio y descanso (Apéndice 18)
 El explotador cumple el Apéndice 18 o usa un sistema de gestión de riesgos asociados a la fatiga (FRMS) aprobado (121.1910 (b)). El tiempo de vuelo se cuenta «cuña a cuña» y el servicio empieza 1:30 h antes de un vuelo internacional y 1 h antes de uno doméstico; la reserva y los traslados como tripulante adicional también son servicio (Ap. 18, 1.1 (c)(1), (d)(1)). Grupo A son los reactores de transporte y turbohélices cuatrimotores; Grupo B, los demás.
-- Máximo 5 asignaciones seguidas. Si la asignación empieza entre las 15:00 y las 03:00, el servicio máximo baja 1 h (Ap. 18, 1.1 (e)(2)(ix)(x)).
 - Por fuerza mayor se puede terminar el vuelo excediendo el servicio hasta 2 h en internacional o 1 h en nacional; la empresa lo informa a la UAEAC en 48 h (Ap. 18, 1.1 (e)(2)(xi)).
 - Nadie inicia servicio sin su descanso, y la empresa y el comandante responden por los límites (Ap. 18, 1.1 (e)(2)(xvi), (h)(3)).
+
+#### Detalle · Asignaciones seguidas y horario nocturno (Ap. 18, 1.1 (e)(2)(ix)(x))
+- Máximo 5 asignaciones seguidas. Si la asignación empieza entre las 15:00 y las 03:00, el servicio máximo baja 1 h (Ap. 18, 1.1 (e)(2)(ix)(x)).
 
 #### Fatiga y descanso controlado
 Con FRMS, tus reportes de fatiga son parte del proceso proactivo y reactivo (Ap. 16 (b)(1)). Si la empresa adopta el descanso controlado en el puesto (121.1916), se usa en vuelos de 3 h o más, un piloto a la vez, máximo 40 minutos más 20 para reasumir, solo en crucero y hasta 30 min antes del tope de descenso, con piloto automático operativo y un medio para despertar. El que queda a los mandos no deja el asiento, y al terminar informa posición, combustible y meteorología. No sustituye el sueño previo ni se usa durante la experiencia operacional inicial (Ap. 19).
@@ -1435,6 +1462,8 @@ Con FRMS, tus reportes de fatiga son parte del proceso proactivo y reactivo (Ap.
 #### Despacho: lo que firmas
 - Ningún vuelo sale sin autorización de un DV, y el PIC y el DV firman el despacho solo si ambos creen que el vuelo es seguro (121.2510 (a); 121.2705). El despacho lleva tripulación, aeródromos, alternos, combustible mínimo requerido y la meteorología anexa (121.2825).
 - El PIC prepara, aprueba y firma el plan operacional de vuelo, y prepara el plan de vuelo ATS (121.2555; 121.2715 (a)).
+
+#### Detalle · Equipo inoperativo y contaminación antes del despegue
 - Con equipo inoperativo solo se sale con MEL aprobada. No se despega con nieve, escarcha o hielo adherido a superficies críticas, y la verificación de contaminación se hace desde afuera en los 5 min previos al despegue (121.2615 (c); 121.2620 (d)-(f)).
 
 #### Alternos, mínimos y combustible
@@ -1443,10 +1472,10 @@ Con FRMS, tus reportes de fatiga son parte del proceso proactivo y reactivo (Ap.
 - **Prohibición de aproximación**: sin visibilidad o RVR en mínimos no se continúa por debajo de 1.000 ft sobre el aeródromo; si el informe malo llega después, puedes seguir hasta la altitud o altura de decisión (DA/H) o la mínima de descenso (MDA/H) y aterrizar solo con la referencia visual requerida (121.2680 (c)(d)). Bajo 1.000 ft continúas solo si el estado de la pista y la performance aseguran el aterrizaje (121.2327).
 - **Combustible**: se planifica por componentes (rodaje, trayecto, contingencia, alterno, reserva final, adicional y discrecional) y en vuelo la reserva final se protege con «combustible mínimo» y «MAYDAY, MAYDAY, MAYDAY, COMBUSTIBLE» (121.2645; 121.2553). Se estudia a fondo en Gestión del combustible.
 
-#### Documentos a bordo
+#### Detalle · Documentos a bordo (121.2810)
 Son 23, entre ellos matrícula, aeronavegabilidad, licencias y médicos de la tripulación, libro de vuelo, copia del CDO y las especificaciones de operación (OpSpecs), plan operacional, registro técnico, plan ATS, NOTAM, meteorología, peso y balance y la notificación de mercancías peligrosas (121.2810 (a)). El libro de a bordo se lleva al día, en tinta seca, y el PIC responde por su veracidad (121.2870 (b)).
 
-#### Mercancías peligrosas y sustancias psicoactivas
+#### Detalle · Mercancías peligrosas y sustancias psicoactivas
 - Las mercancías peligrosas se estudian en la inducción y en cada periódico (121.1595 (a)(1)(v); 121.1645 (b)(3)). Si la empresa las lleva como carga, te debe entregar información escrita, exacta y legible sobre lo que va a bordo (121.5110 (a)(3)(v)). Lo demás vive en el RAC 175.
 - Nadie con funciones críticas para la seguridad las ejerce bajo el efecto de sustancias psicoactivas (121.025). El programa de prevención y control está en el RAC 120.
 
@@ -1457,20 +1486,36 @@ Son 23, entre ellos matrícula, aeronavegabilidad, licencias y médicos de la tr
 | Tema | Valor | Numeral |
 |---|---|---|
 | Edad máxima de PIC o copiloto | 65 años; solo uno mayor de 60 por tripulación | 121.1410 (c)(d) |
-| Inducción básica | 40 h | 121.1595 (a)(1) |
-| Tierra inicial (recíproco / turbohélice / reactor) | 64 / 80 / 120 h | 121.1610 (b) |
-| Vuelo inicial (mismo orden) | 10 / 15 / 20 h | 121.1630 (c) |
-| Periódico en tierra (mismo orden) | 16 / 20 / 25 h | 121.1645 (c)(1) |
 | Verificación de la competencia | 2 al año | 121.1760 (a) |
 | Verificación en línea del PIC | cada 12 meses calendario | 121.1755 (a) |
-| UPRT | cada 12 meses calendario | 121.1627 (d) |
-| LOFT periódico | 1 de cada 3 repasos, máximo cada 2 años | 121.1645 (d)(1)(iii) |
-| Gestión de recursos de la tripulación (CRM), periódico | cada 2 años | 121.1535 (b) |
-| Ejercicios de emergencia | cada 24 meses calendario | 121.1600 (c)(2) |
 | Experiencia operacional | 50 h sin experiencia en el grupo, 30 h con ella; 4 ciclos, 2 como piloto que vuela (PF) | 121.1725 (c)(3) |
 | Consolidación | 100 h en línea en 120 días, ampliable a 150 | 121.1725 (g)(h) |
 | PIC con menos de 100 h como PIC en el tipo | +100 ft y +900 m a los mínimos; nunca bajo 300 ft y 1,8 km | 121.2685 (a) |
 | Experiencia reciente | 3 despegues y 3 aterrizajes en 90 días | 121.1745 (a) |
+
+**Acumulados y descansos** (Apéndice 18)
+
+| Límite | Valor | Numeral |
+|---|---|---|
+| Vuelo | 50 h en la quincena, 90 en el mes, 270 en el trimestre, 1.000 en el año | 1.1 (c)(2)(iv) |
+| Servicio en el mes | 190 h Grupo A, 200 h Grupo B | 1.1 (d)(2) |
+| Descanso en la base | vuelo de hasta 4 h: 10 h; hasta 8 h: 12 h; más de 8 h: el doble de lo volado, máximo 24 h | 1.1 (h)(2)(i) |
+| Descanso fuera de la base | vuelo de hasta 4 h: 10 h; hasta 9 h: 12 h; más de 9 h y hasta 12 h: 18 h | 1.1 (h)(2)(ii) |
+| Días libres | 9 al mes en la base | 1.1 (i)(1)(i) |
+| No regulares | hasta 15 h de servicio con 4 h de vuelo y 4 trayectos o menos | 1.3 (a) |
+
+#### Detalle · Horas de cada curso, límites por día y reportes del RAC 121
+
+| Tema | Valor | Numeral |
+|---|---|---|
+| Inducción básica | 40 h | 121.1595 (a)(1) |
+| Tierra inicial (recíproco / turbohélice / reactor) | 64 / 80 / 120 h | 121.1610 (b) |
+| Vuelo inicial (mismo orden) | 10 / 15 / 20 h | 121.1630 (c) |
+| Periódico en tierra (mismo orden) | 16 / 20 / 25 h | 121.1645 (c)(1) |
+| UPRT | cada 12 meses calendario | 121.1627 (d) |
+| LOFT periódico | 1 de cada 3 repasos, máximo cada 2 años | 121.1645 (d)(1)(iii) |
+| Gestión de recursos de la tripulación (CRM), periódico | cada 2 años | 121.1535 (b) |
+| Ejercicios de emergencia | cada 24 meses calendario | 121.1600 (c)(2) |
 | Relevo en crucero de largo alcance | 1.500 h totales y 10 trayectos de largo alcance en el tipo; releva al PIC solo sobre FL 200 | 121.1750 (c); 121.1795 (d) |
 | Oxígeno de la tripulación | cabina sobre 10.000 ft más de 30 min, y siempre sobre 13.000 ft | 121.2405 |
 | Piloto automático | no bajo 500 ft en despegue ni en ruta (o el doble de la pérdida de altitud del AFM, si es mayor); en aproximación, no más de 50 ft bajo la DA(H) o MDA, salvo las excepciones de la norma (por ejemplo, aterrizaje automático aprobado) | 121.2375 |
@@ -1497,17 +1542,6 @@ Más de 10 sectores: 7:00 en Grupo B.
 | 8 | no / 12:30 | 14:00 / 14:00 | 19:00 / 19:00 |
 | 9 | no / 12:30 | 12:00 / 12:00 | 18:00 / 18:00 |
 | 10 | no / 12:30 | | |
-
-**Acumulados y descansos** (Apéndice 18)
-
-| Límite | Valor | Numeral |
-|---|---|---|
-| Vuelo | 50 h en la quincena, 90 en el mes, 270 en el trimestre, 1.000 en el año | 1.1 (c)(2)(iv) |
-| Servicio en el mes | 190 h Grupo A, 200 h Grupo B | 1.1 (d)(2) |
-| Descanso en la base | vuelo de hasta 4 h: 10 h; hasta 8 h: 12 h; más de 8 h: el doble de lo volado, máximo 24 h | 1.1 (h)(2)(i) |
-| Descanso fuera de la base | vuelo de hasta 4 h: 10 h; hasta 9 h: 12 h; más de 9 h y hasta 12 h: 18 h | 1.1 (h)(2)(ii) |
-| Días libres | 9 al mes en la base | 1.1 (i)(1)(i) |
-| No regulares | hasta 15 h de servicio con 4 h de vuelo y 4 trayectos o menos | 1.3 (a) |
 
 **Reportes que hace el piloto**
 
@@ -1799,7 +1833,7 @@ La Aerocivil las investiga según el RAC de investigación de accidentes (175.62
 
 ## RAC 160 · Seguridad de la aviación civil
 *Enmienda 8, julio de 2025 (Resolución 01761 del 15 de julio de 2025).*
-**Unidad:** U13 · **Lectura:** ~7 min · **Tipo:** unidad corta
+**Unidad:** U13 · **Lectura:** ~6 min · **Tipo:** unidad corta
 
 ### ¿De qué trata?
 Es la norma colombiana de seguridad de la aviación (AVSEC), basada en el Anexo 17 de la OACI: protección contra **actos de interferencia ilícita**. Reparte responsabilidades entre la Aerocivil, los aeropuertos, los explotadores y las demás autoridades.
@@ -1988,7 +2022,7 @@ Entre otros: explotadores **RAC 121** y **RAC 135**, operadores de aviación gen
 
 ## RAC 114 · Investigación de accidentes e incidentes de aviación
 *Enmienda 3, abril de 2022 (Resolución 00696 del 5 de abril de 2022). Reemplazó al antiguo RAC 8.*
-**Unidad:** U15 · **Lectura:** ~7 min · **Tipo:** unidad completa
+**Unidad:** U15 · **Lectura:** ~6 min · **Tipo:** unidad completa
 
 ### ¿De qué trata?
 Desarrolla en Colombia el Anexo 13 de la OACI: cómo se notifica, se protege y se investiga un accidente o incidente de aviación. La investigación la hace la Dirección Técnica de Investigación de Accidentes (DIACC), que es la autoridad de investigación de accidentes (AIG) del país (114.001). Para ti, como tripulante, deja cuatro cosas claras: qué evento es cuál, a quién avisas y en cuánto tiempo, qué no puedes tocar después y cómo se protege lo que dices y lo que grabó la cabina.
@@ -2239,7 +2273,7 @@ Si acumulas **más de un período de vacaciones** sin disfrutar, quedas **suspen
 
 ## RAC 1 · Cuestiones preliminares, disposiciones iniciales, definiciones y abreviaturas
 *Enmienda 18, febrero de 2026 (Resolución 00513 del 16-feb-2026, publicada en el Diario Oficial 53.401 del 17-feb-2026).*
-**Unidad:** U17 · **Lectura:** ~10 min · **Tipo:** glosario de consulta
+**Unidad:** U17 · **Lectura:** ~8 min · **Tipo:** glosario de consulta
 
 ### ¿De qué trata?
 El RAC 1 es el diccionario oficial de todos los RAC: fija el significado de los términos que usan las demás normas y unas reglas generales (a quién aplican los RAC, que su cumplimiento es obligatorio y que nadie puede alegar que no los conocía). No es una norma para memorizar entera: tiene cientos de definiciones, la mayoría para talleres, aeropuertos o fabricantes. Aquí están las que un piloto de aerolínea usa en entrevista, en el examen técnico y en el manual de operaciones.
@@ -2281,15 +2315,15 @@ El RAC 1 es el diccionario oficial de todos los RAC: fija el significado de los 
 - **Aproximación que no es de precisión**: sin guía electrónica de trayectoria de planeo. **De precisión**: con guía en azimut y en trayectoria de planeo (1.2.1, «Operación de aproximación y aterrizaje por instrumentos»).
 - **CDFA** (aproximación final en descenso continuo): técnica para aproximaciones que no son de precisión, en descenso continuo y sin nivelar, desde el punto de referencia de aproximación final hasta unos 15 m (50 ft) sobre el umbral o hasta el inicio del enderezamiento; es congruente con la aproximación estabilizada (1.2.1).
 - **IMC / VMC**: las VMC son visibilidad, distancia de nubes y base de nubes **iguales o mejores** que los mínimos del Reglamento del Aire; las IMC, **inferiores** a esos mínimos (1.2.1).
-- El RAC 1 **no define «aproximación estabilizada»**. Lo más cercano es «Aproximación satisfactoria», que es un criterio para las demostraciones de operaciones CAT II (ver Datos importantes). Los criterios de aproximación estabilizada que aplica una aerolínea van en su manual de operaciones (RAC 121, Apéndice 9, A9.3.14).
+- El RAC 1 **no define «aproximación estabilizada»**. Lo más cercano es «Aproximación satisfactoria», que es un criterio para las demostraciones de operaciones CAT II (en Datos importantes, en el detalle plegado). Los criterios de aproximación estabilizada que aplica una aerolínea van en su manual de operaciones (RAC 121, Apéndice 9, A9.3.14).
 
 #### 4. Alternos, combustible y rutas largas
 - **Aeródromo de alternativa (alterno)**: aquel al que podría dirigirse una aeronave cuando es imposible o no es aconsejable ir al de aterrizaje previsto o aterrizar en él (1.2.1). **Los tipos** (de despegue, en ruta, de destino) **no están en el RAC 1**: los define el RAC 121 (121.001), que además aclara que en Colombia **no se usa el concepto de aeródromo aislado** y todo vuelo debe tener al menos un alterno.
 - **Punto de no retorno**: último punto geográfico desde el que la aeronave puede seguir tanto al destino como a un alterno en ruta disponible (1.2.1).
 - **EDTO** (operación con tiempo de desviación extendido): vuelo de avión con dos o más motores de turbina en el que el tiempo de desviación a un alterno en ruta supera el **umbral de tiempo** fijado por la UAEAC. Con dos motores equivale a ETOPS (1.2.1). **Combustible crítico para EDTO**: el suficiente para llegar a un alterno en ruta considerando, en el punto más crítico, la falla de sistema más limitante (1.2.1).
-- **Definiciones de combustible del RAC 1** (básico, contingencia, reserva, sostenimiento, mínimo): ver Datos importantes. Son de 2004; **para aerolínea mandan las del RAC 121**, que usan otros términos (combustible para contingencias, reserva final, 121.2645).
+- **Definiciones de combustible del RAC 1** (básico, contingencia, reserva, sostenimiento, mínimo): en Datos importantes, en el detalle plegado. Son de 2004; **para aerolínea mandan las del RAC 121**, que usan otros términos (combustible para contingencias, reserva final, 121.2645).
 
-#### 5. Sucesos y emergencias
+#### Detalle · 5. Sucesos y emergencias
 - **Accidente**: suceso ligado a la utilización de una aeronave tripulada, entre el embarque con intención de volar y el desembarque de todos, en el que (i) alguien sufre lesiones mortales o graves por estar en la aeronave, por contacto directo con ella (incluso partes desprendidas) o por el chorro de un reactor; o (ii) la aeronave sufre daños estructurales que afectan su resistencia, performance o características de vuelo y exigen reparación importante; o (iii) la aeronave desaparece o queda inaccesible (1.2.1). Hay excepciones (por ejemplo, daño limitado a un solo motor, hélices, puntas de ala, neumáticos, frenos, o daños por granizo o aves).
 - **Incidente**: suceso que no llega a accidente y que afecta o puede afectar la seguridad de las operaciones (1.2.1).
 - **Incidente grave**: no está en el RAC 1. Lo define el RAC 114 (114.001): incidente con **alta probabilidad de que ocurriera un accidente**.
@@ -2318,14 +2352,19 @@ El RAC 1 es el diccionario oficial de todos los RAC: fija el significado de los 
 | CAT IIIB | DH inferior a 15 m (50 ft) o sin DH; RVR inferior a 200 m y no inferior a 50 m | 1.2.1 |
 | CAT IIIC | sin DH ni limitación de RVR | 1.2.1 |
 | CDFA | descenso continuo hasta unos 15 m (50 ft) sobre el umbral | 1.2.1 |
+| Sustancias psicoactivas | tabaco y cafeína excluidos | 1.2.1 |
+| Prelación de definiciones | la del RAC particular prevalece sobre la del RAC 1 en su materia | 1.2 |
+
+#### Detalle · Combustible del RAC 1 (2004), aproximación satisfactoria y operación sobre agua
+
+| Término | Dato clave | Fuente |
+|---|---|---|
 | Aproximación satisfactoria (demostración CAT II) | de 500 ft a la DH: IAS dentro de ±5 kt de la programada; desviación máxima de ½ punto en la senda del ILS; sin fallas de sistema desde 300 ft hasta el flare | 1.2.1 |
 | Combustible de contingencia (internacional) | 10 % del tiempo total en ruta de origen a destino | 1.2.1 |
 | Combustible de sostenimiento (nacional) | 45 min a altura normal de crucero sobre el alterno | 1.2.1 |
 | Combustible de sostenimiento (internacional) | 30 min a 1.500 ft sobre la altura del alterno | 1.2.1 |
 | Combustible mínimo | suma de básico + reserva + contingencia + sostenimiento aplicables | 1.2.1 |
 | Operación extendida sobre agua (avión) | más de 50 NM de la costa más cercana | 1.2.1 |
-| Sustancias psicoactivas | tabaco y cafeína excluidos | 1.2.1 |
-| Prelación de definiciones | la del RAC particular prevalece sobre la del RAC 1 en su materia | 1.2 |
 
 ### En pocas palabras
 - El RAC 1 es el diccionario de los RAC; si otro RAC define distinto, manda el otro en su materia (el RAC 121 para aerolínea).
