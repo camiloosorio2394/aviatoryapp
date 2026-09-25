@@ -6,7 +6,7 @@
  *
  * El contenido es el del documento, sin tocar: este archivo lo traduce a
  * bloques. 29 de las 29 imágenes son figuras SVG de public/modulos/pbn/,
- * dibujadas con scripts/pbn/dibujar-figuras.mjs; no queda ningún hueco.
+ * dibujadas con scripts/figuras/dibujar.mjs pbn; no queda ningún hueco.
  *
  * Las preguntas de cada capítulo NO están aquí: viven en pbnPractica.ts,
  * porque en la lectura no se pregunta nada.

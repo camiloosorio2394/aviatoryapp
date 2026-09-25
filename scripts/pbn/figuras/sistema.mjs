@@ -5,8 +5,7 @@
  * ninguna disposición de un fabricante. Lo que se enseña es qué dato mirar, no
  * dónde lo pone un avión concreto.
  */
-import { leyenda } from "./cartas.mjs"
-import { C, avion, caja, cota, flyBy, linea, lienzo, parrafo, pantalla, pildora, senal, t, tl, tp } from "./lib.mjs"
+import { C, avion, caja, cota, flyBy, leyenda, linea, lienzo, parrafo, pantalla, pildora, senal, t, tl, tp } from "../../figuras/lib.mjs"
 
 const GENERICA = "Pantalla genérica · no imita a ningún fabricante"
 

@@ -1,7 +1,7 @@
 /**
  * PB-01 a PB-07: qué es PBN, sus piezas y el catálogo de especificaciones.
  */
-import { C, avion, caja, cerro, cota, flyBy, linea, lienzo, parrafo, pildora, pista, t, tl, vor } from "./lib.mjs"
+import { C, avion, caja, cerro, cota, flyBy, linea, lienzo, parrafo, pildora, pista, t, tl, vor } from "../../figuras/lib.mjs"
 
 const P = (pts) => pts.map(([x, y], i) => `${i ? "L" : "M"}${x} ${y}`).join("")
 

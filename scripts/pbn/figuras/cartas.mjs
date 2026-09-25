@@ -5,28 +5,7 @@
  * un proveedor concreto. Los nombres de punto son inventados y las cifras son
  * ilustrativas, y así lo dice el rótulo de cada figura.
  */
-import { C, caja, flyBy, linea, lienzo, num, partir, pista, senal, t, tl } from "./lib.mjs"
-
-export const RECREACION = "Recreación educativa · no es una carta real"
-
-/** La columna de la derecha: qué señala cada número, en pocas palabras. */
-export function leyenda(x, y, items, ancho = 384) {
-  const g = [t(x, y, "QUÉ SEÑALA CADA NÚMERO", { size: 20, peso: 700, color: C.suave, espaciado: 1.5 })]
-  let yy = y + 44
-  for (const [k, titulo, texto] of items) {
-    g.push(num(x + 20, yy + 2, k, { r: 20 }))
-    const lt = partir(titulo, ancho - 56, 24, 700)
-    g.push(tl(x + 56, yy + 10, lt, { size: 24, peso: 700, lh: 29 }))
-    let h = lt.length * 29
-    if (texto) {
-      const lx = partir(texto, ancho - 56, 22)
-      g.push(tl(x + 56, yy + 10 + h, lx, { size: 22, color: C.suave, lh: 27 }))
-      h += lx.length * 27
-    }
-    yy += Math.max(h, 44) + 20
-  }
-  return g.join("")
-}
+import { C, RECREACION, caja, flyBy, leyenda, linea, lienzo, num, pista, senal, t, tl } from "../../figuras/lib.mjs"
 
 /** El papel de la carta: esquinas rectas y filete fino, como una carta impresa. */
 const papel = (x, y, w, h) => caja(x, y, w, h, { fill: C.papel, stroke: C.tinta, sw: 2, rx: 3 })
