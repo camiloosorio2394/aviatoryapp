@@ -4,6 +4,7 @@ import { ArrowLeft, BookOpen, GraduationCap, Target } from "lucide-react"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { FilaAvance } from "@/components/modulo/FilaAvance"
+import { EspacioVideo } from "@/components/modulo/EspacioVideo"
 import { useSession } from "@/hooks/useSession"
 import {
   RAC_APRENDE,
@@ -174,6 +175,22 @@ export function Rac() {
             <p className="mt-3 text-[12px] text-white/55">{RAC_VIGENCIA}</p>
 
             <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
+              {/* Encima de los botones, como en NOTAM: el video es el primer
+                  paso del módulo, no un extra al final del hero. El día que
+                  existan el mp4 y su cartel, el reproductor sale solo. */}
+              <EspacioVideo
+                src="/modulos/rac/intro.mp4"
+                portada="/modulos/rac/intro-poster.webp"
+                duracion="1 min"
+                titulo="Los reglamentos que te van a preguntar"
+                continuarA={RAC_APRENDE}
+                continuarTexto="Empezar la lección"
+                claveVisto="aviatory.rac.video"
+                acento="#A9BBD4"
+                rotulo="RAC-VID-01 · Video de apertura · 16:9 · 60 s"
+                descripcion="El video del módulo, con la misma serie que NOTAM y Mercancías: ocho escenas, un minuto, con el avatar y la voz propios del curso. Recorre qué RAC te toca a ti como piloto y por qué el numeral importa. Se guarda como intro.mp4 y su primer cuadro como intro-poster.webp; en cuanto estén, el reproductor aparece aquí solo."
+              />
+
               <div className="flex flex-wrap gap-3">
                 <Link
                   to={RAC_APRENDE}

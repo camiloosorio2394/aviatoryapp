@@ -10,6 +10,7 @@ import {
   Fuel,
   Gauge,
   Headset,
+  Play,
   Scale,
   Wind,
   TowerControl,
@@ -18,7 +19,6 @@ import { AerodromeIcon } from "@/components/icons/aero"
 import { fechaDeUltimaActividad } from "@/lib/activity"
 import { TarjetaModulo } from "@/components/aerolinea/TarjetaModulo"
 import { TEMAS_EN_CAMINO } from "@/components/aerolinea/carasDeModulo"
-import { HuecoDeVideo } from "@/components/modulo/HuecoDeVideo"
 import type { TarjetaModuloProps } from "@/components/aerolinea/TarjetaModulo"
 import { appButtonClass } from "@/lib/buttonStyles"
 import { traerMejoresPuntajesDeExamen } from "@/services/aerolineas"
@@ -685,8 +685,22 @@ export function AirlinePrep() {
                   Aquí había un botón de «Seguir con …». No se reemplaza por
                   otro: la acción de retomar vive en la tarjeta del tema, que ya
                   va marcada «En curso» y es la primera de la rejilla. */}
-              <div className="mt-5">
-                <HuecoDeVideo especificacion="IA-VID-01 · Presentación del módulo · ~60 s · con su cartel 16:9" />
+              {/* Aquí no va un `EspacioVideo`: ese es el video de apertura de un
+                  módulo y lleva su «continuar» a la lección. Este es el de la
+                  sección entera, que todavía no existe, así que se queda el
+                  hueco rotulado con lo que hay que producir. */}
+              <div className="mt-5 flex w-full max-w-[380px] items-center gap-3.5 rounded-[12px] border border-dashed border-white/20 bg-white/[0.05] p-2 pr-4 text-left">
+                <span className="grid h-[52px] w-[92px] shrink-0 place-items-center rounded-[8px] border border-dashed border-white/20 bg-white/[0.06]">
+                  <Play className="h-4 w-4 text-white/35" aria-hidden />
+                </span>
+                <span className="min-w-0">
+                  <span className="nh-display block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                    Espacio reservado
+                  </span>
+                  <span className="mt-1 block text-[13px] font-medium leading-[1.4] text-white/78">
+                    IA-VID-01 · Presentación del módulo · ~60 s · con su cartel 16:9
+                  </span>
+                </span>
               </div>
             </div>
 
