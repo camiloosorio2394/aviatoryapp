@@ -69,60 +69,63 @@ export const NIVEL_3: DocScreen[] = [
     n: 12,
     title: "Readback y hearback",
     kicker: "Lo que se colaciona y quién lo verifica",
-    minutes: 10,
+    minutes: 18,
     blocks: [
       {
         kind: "p",
-        text: "Capítulos 12 a 18. Este nivel lleva al piloto desde la autorización IFR en el puesto de estacionamiento hasta el despegue: qué escucha, qué significa, qué colaciona y qué no puede dar por supuesto.",
+        text: "Antes de hablar de autorizaciones o movimientos en superficie, la tripulación debe cerrar el circuito de cada instrucción crítica. Escuchar, repetir y comprobar no son tres formalidades independientes: si se pierde una condición o responde otra aeronave, la colación debe permitir detectarlo antes de actuar. Esta lección explica cómo proteger esa secuencia sin inventar pistas, rutas ni autorizaciones locales.",
       },
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "**Readback (colación)**: la tripulación repite al controlador las partes de una autorización o instrucción que tienen que ver con la seguridad (Doc 4444, 4.5.7.5.1). La palabra normalizada READ BACK significa «repítame todo este mensaje, o la parte especificada del mismo, exactamente como la haya recibido» (Doc 9432, 2.6).",
+        text: "**Readback (colación)**: la tripulación repite al controlador los elementos críticos de una autorización o instrucción que recibió. La palabra normalizada READ BACK pide repetir el mensaje, o la parte indicada, tal como se recibió (Manual de radiotelefonía de la Organización de Aviación Civil Internacional, OACI, International Civil Aviation Organization, Doc 9432, 2.6). La lista de elementos de seguridad está en el Doc 4444, 4.5.7.5.1, de la edición consultada; antes de usarla en vuelo se confirma la edición y publicación aplicables.",
       },
       {
         kind: "p",
-        text: "**Hearback**: el controlador escucha esa colación para comprobar que la tripulación recibió bien la autorización y corrige de inmediato cualquier discrepancia (Doc 4444, 4.5.7.5.2; Doc 9432, 2.8.3.8). «Hearback» es un término de uso común en la industria; en los textos cargados de la OACI la función aparece descrita, no con ese nombre.",
+        text: "**Hearback (verificación de la colación)**: el controlador escucha lo que repitió la tripulación, lo compara con lo transmitido y corrige de inmediato cualquier discrepancia (Doc 4444, 4.5.7.5.2; Doc 9432, 2.8.3.8). Es una función del controlador, no una frase que el piloto pronuncia. El nombre inglés es corriente en la industria; los textos de la OACI consultados describen la acción sin depender de ese nombre.",
       },
       {
         kind: "definicion",
-        text: "Los dos forman un circuito cerrado: ATC transmite, el piloto colaciona, ATC verifica y, si hay error, corrige. Si falta un eslabón, el error pasa sin que nadie lo vea.",
+        text: "Circuito cerrado: control de tránsito aéreo (ATC, air traffic control) transmite; el piloto colaciona con su distintivo; el controlador verifica; si hay discrepancia, la corrige y el piloto vuelve a colacionar. El silencio después de la primera colación no es una autorización nueva ni prueba absoluta de que alguien la oyó.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-12-01 · Diagrama · 16:9 · 1600×900 px",
-        descripcion:
-          "Imagen sugerida: circuito cerrado en cuatro pasos, dibujado como un anillo con flechas en sentido horario. 1) Torre (icono de torre) emite: «AVIATORY 452, hold short of runway 18». 2) Cabina (icono de auriculares) colaciona: «Hold short of runway 18, AVIATORY 452». 3) Torre con un oído resaltado: «hearback: ¿coincide?». 4) Dos salidas desde el paso 3: verde «coincide: autorización confirmada» y ámbar «no coincide: NEGATIVE, I SAY AGAIN + versión correcta», que vuelve al paso 2. Rótulos en mono, mayúsculas. Objetivo: que el piloto vea que la colación no es un trámite: es la mitad de un circuito de verificación que solo funciona si ambos lados escuchan.",
-        alto: 300,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-12-01.svg",
+        alt: "Circuito de cuatro pasos: control transmite, cabina colaciona con distintivo, control compara, y una discrepancia exige corrección y nueva colación.",
+        ancho: 1600,
+        alto: 900,
+        pie: "La colación solo cierra el circuito si el controlador escucha y compara. Si corrige un dato, la tripulación lo repite otra vez antes de actuar. Amplía el diagrama para seguir el ciclo; no representa una autorización real.",
       },
 
       { kind: "sub", text: "Lo que debe saber un piloto" },
-      { kind: "p", text: "**Qué se colaciona siempre.** Lista textual del Doc 4444, 4.5.7.5.1:" },
+      { kind: "p", text: "**Qué se colaciona siempre.** La edición consultada del Doc 4444, 4.5.7.5.1, agrupa los elementos críticos así:" },
       {
-        kind: "quote",
-        text: "a) autorizaciones de ruta ATC;\nb) autorizaciones e instrucciones para entrar, aterrizar, despegar, mantenerse fuera de, cruzar, rodar y retroceder en cualquier pista; y\nc) pista en uso, reglajes de altímetro, códigos SSR, instrucciones de nivel, instrucciones de rumbo y de velocidad y niveles de transición, ya sea que sean expedidos por el controlador ya sea que estén incluidos en las radiodifusiones del servicio automático de información terminal (ATIS).",
-        source: "Doc 4444, 4.5.7.5.1",
+        kind: "list",
+        items: [
+          "Autorizaciones de ruta del control de tránsito aéreo.",
+          "Autorizaciones e instrucciones para entrar, aterrizar, despegar, mantenerse fuera, cruzar, rodar o retroceder en una pista.",
+          "Pista en uso, reglajes de altímetro, códigos del radar secundario de vigilancia (SSR, secondary surveillance radar), niveles, rumbos, velocidades y niveles de transición; la disposición consultada también menciona los datos difundidos por el servicio automático de información terminal (ATIS, Automatic Terminal Information Service).",
+        ],
       },
-      { kind: "p", text: "Traducido a cabina:" },
+      { kind: "p", text: "En cabina, la verificación no se hace por el número de palabras repetidas sino por la información que permite detectar un cambio de instrucción. Esta tabla reúne los grupos de la edición consultada del Doc 4444, sin construir una autorización local:" },
       {
         kind: "table",
-        head: ["Grupo", "Lo que escuchó", "Ejemplo de lo que repite"],
+        head: ["Grupo", "Qué debe conservar la colación", "Qué se pierde si se omite"],
         rows: [
           [
             "Autorización de ruta",
-            "Límite, ruta, salida, nivel, código",
-            "«Cleared to Cali, GIKOS 1A departure, FL 240, squawk 4521»",
+            "El límite de autorización, los tramos e instrucciones efectivamente transmitidos y cualquier condición asociada.",
+            "El controlador no puede comprobar si la tripulación entendió la ruta autorizada, y una salida publicada no reemplaza el texto realmente emitido.",
           ],
           [
-            "Todo lo que toca una pista",
-            "Entrar, alinearse, despegar, aterrizar, esperar fuera, cruzar, rodar o retroceder sobre ella",
-            "«Hold short of runway 18», «Runway 13 cleared for take-off»",
+            "Instrucción relativa a una pista",
+            "La acción exacta —entrar, despegar, aterrizar, mantenerse fuera, cruzar, rodar o retroceder— y el identificador de pista recibido.",
+            "Una autorización de rodaje puede confundirse con permiso para cruzar o entrar en pista; son decisiones diferentes.",
           ],
           [
-            "Valores",
-            "Pista en uso, QNH, código SSR, nivel, rumbo, velocidad, nivel de transición",
-            "«QNH 1022», «Squawk 4521», «Heading 040»",
+            "Valores y restricciones",
+            "Pista en uso, reglaje altimétrico, código SSR, nivel, rumbo, velocidad, nivel de transición y condiciones explícitas.",
+            "Una cifra aparentemente menor puede cambiar la altitud indicada, el perfil, la separación o la identificación radar.",
           ],
         ],
       },
@@ -130,9 +133,9 @@ export const NIVEL_3: DocScreen[] = [
       {
         kind: "list",
         items: [
-          "El Doc 9432 (2.8.3.5 b) trae la misma lista pero sin «rodar» sobre la pista. El Doc 4444 con la Enmienda 4 sí lo incluye. Manda el más reciente: si le dicen que ruede por una pista (por ejemplo, un retroceso o *backtrack*), lo colaciona.",
-          "**Lo demás también se responde.** Otras autorizaciones o instrucciones, incluidas las condicionales, «se colacionarán o se acusará recibo de las mismas indicándose claramente que han sido comprendidas y que se cumplirán» (Doc 4444, 4.5.7.5.1.1).",
-          "**CPDLC**: salvo que la autoridad ATS lo prescriba, no se requiere colación oral de mensajes CPDLC (Doc 4444, 4.5.7.5.2.1). Se ve en el Nivel 6.",
+          "El Doc 9432, 2.8.3.5 b), y la edición consultada del Doc 4444 no enumeran exactamente igual las acciones sobre una pista. No resuelvas una diferencia documental suponiendo que una frase es opcional: colaciona la instrucción relativa a pista y confirma la norma vigente de la jurisdicción.",
+          "**Lo demás también requiere respuesta inteligible.** Las demás autorizaciones e instrucciones, incluidas las condicionales, se colacionan o se acusan de forma que quede claro que se entendieron y se cumplirán (Doc 4444, 4.5.7.5.1.1, edición consultada).",
+          "**Enlace de datos.** La comunicación controlador-piloto por enlace de datos (CPDLC, Controller–Pilot Data Link Communications) sigue reglas distintas de la radiotelefonía. La edición consultada del Doc 4444, 4.5.7.5.2.1, no exige colación oral de sus mensajes salvo prescripción de la autoridad de servicios de tránsito aéreo (ATS, air traffic services). El Nivel 6 estudia sus respuestas y límites.",
         ],
       },
       { kind: "p", text: "**Cómo se colaciona.**" },
@@ -140,9 +143,9 @@ export const NIVEL_3: DocScreen[] = [
         kind: "list",
         items: [
           "Termine la colación con su distintivo de llamada (Doc 9432, 2.8.3.7). Así el controlador sabe quién colacionó, y eso protege contra distintivos parecidos.",
-          "Repita los valores y las palabras que condicionan la acción: el número de pista, «hold short», «behind», «until», «after passing». Sin la condición, la colación está incompleta.",
+          "Repita los valores y las condiciones que gobiernan cuándo o dónde actuar. Una condición como «hasta pasar» o «después de» no es decoración: omitirla convierte una autorización condicionada en una acción prematura. La frase concreta depende de lo que realmente transmitió control.",
           "ROGER no sirve como colación. ROGER significa «he recibido toda su transmisión anterior» y la OACI aclara que no se usa para responder cuando se exige colacionar o dar una respuesta directa AFFIRM o NEGATIVE (Doc 9432, 2.6).",
-          "Si el controlador detecta un error, responde «NEGATIVE, I SAY AGAIN» y la versión correcta (Doc 9432, 2.8.3.9). Usted vuelve a colacionar la versión correcta.",
+          "Cuando el controlador detecta una discrepancia, la corrige y solicita o espera una nueva colación; el Doc 9432, 2.8.3.9, ilustra la corrección con NEGATIVE e I SAY AGAIN. La tripulación no actúa sobre la cifra anterior mientras se aclara cuál es válida.",
         ],
       },
       {
@@ -151,123 +154,78 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**Hearback desde cabina.** El hearback es función del controlador, pero la tripulación también escucha la respuesta: si ATC corrige, esa corrección es una nueva instrucción que hay que colacionar. Que el controlador no diga nada después de su colación no prueba que la haya escuchado bien (pudo haber una transmisión bloqueada o el controlador estar atendiendo a otro). Esto último es buena práctica de cabina, no texto OACI.",
+        text: "**Hearback desde cabina.** La comparación formal corresponde al controlador, pero la tripulación también permanece en la frecuencia para oír una corrección y resolver cualquier duda. Si la transmisión quedó bloqueada, no hubo respuesta cuando era necesaria o la instrucción parece incompatible con la posición o autorización anterior, se solicita aclaración antes de ejecutar. Esta cautela operacional no convierte el silencio del controlador en una nueva autorización. La guía vigente de la Administración Federal de Aviación de Estados Unidos (FAA, Federal Aviation Administration), AIM 4-4-7, insiste en incluir el distintivo y colacionar valores, restricciones y pista para permitir la verificación mutua; sus ejemplos pertenecen al entorno estadounidense, no a un aeropuerto colombiano.",
       },
 
-      { kind: "sub", text: "Fraseología OACI" },
+      { kind: "sub", text: "Cómo se verifica sin inventar una autorización" },
       {
-        kind: "callout",
-        tone: "info",
-        title: "Cómo leer los ejemplos de este nivel",
-        text: "Son educativos. Distintivos (AVIATORY 452, 425, 542), estaciones, pistas, calles, puestos, frecuencias, rutas y puntos (GIKOS y los demás) son ficticios y no describen el aeropuerto real. Cuando un ejemplo se adapta del Doc 9432 se indica el párrafo. Los números van en cifras y se pronuncian como enseña el capítulo 5.",
+        kind: "p",
+        text: "**Escuche la instrucción completa.** Antes de transmitir, el piloto que monitorea identifica destinatario, acción, límite, valores y condiciones. El otro piloto comprueba qué se seleccionará o anotará. Si la instrucción altera lo esperado, esa diferencia se discute en cabina, no se borra mentalmente para acomodarla al plan.",
+      },
+      {
+        kind: "p",
+        text: "**Colacione lo que recibió, no lo que esperaba.** Una autorización de ruta no se reduce al destino; una instrucción que toca una pista no se reduce a «rodar»; y un nivel condicionado no autoriza a iniciar un descenso antes de que se cumpla la condición. En cada caso se repite lo exigido por la regla aplicable con el distintivo propio. Así el controlador puede detectar una pista, valor o restricción distintos de los que emitió.",
+      },
+      {
+        kind: "p",
+        text: "**Espere la corrección y resuelva discrepancias.** El Doc 9432, 2.8.3.8–2.8.3.9, presenta la responsabilidad del controlador de escuchar la colación y corregir si no coincide. No se publica aquí un intercambio «Bogotá–Cali» con ruta, punto, pista o código fabricados: una transmisión que parece real debe salir de una grabación o publicación auténtica y comprobada, no de una composición editorial.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-12-02.svg",
+        alt: "Comparación entre colación íntegra y colación incompleta: se conservan destinatario, acción, valor y condición; omitir la condición cambia cuándo es segura la acción.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Antes de mover la aeronave o ajustar un selector, verifica que la colación preserve la condición y el identificador. La matriz es una herramienta didáctica: no muestra una autorización ATC real ni reemplaza la fraseología vigente.",
       },
       {
         kind: "callout",
         tone: "verificar",
-        title: "Verificar",
-        text: "Hay tres puntos de esta lección sin comprobar contra la fuente vigente. La lista de 4.5.7.5.1 sale de la 15.ª ed. del Doc 4444: confirmarla en la edición vigente (16.ª ed. con enmiendas), cap. 4. Cómo aplica cada Estado la colación de lo recibido por ATIS (por ejemplo, confirmar el QNH en el primer contacto): AIP del Estado, GEN 3.4 (en Colombia, AIP Colombia y RAC). La estructura de colación de la SID «GIKOS 1A departure»: Doc 4444 cap. 12 (fraseología de autorizaciones de salida), no cargado.",
+        title: "Aplicación local y edición vigente",
+        text: "La lista detallada citada procede de una edición consultada del Doc 4444, no se presenta como actualización automática de todas las jurisdicciones. Antes de enseñar una frase concreta de salida, pista o frecuencia en Colombia, contrástala con el Doc 4444 vigente, la publicación de información aeronáutica (AIP, Aeronautical Information Publication) de Aerocivil y el procedimiento del operador. La colación oral de datos difundidos por ATIS también depende del procedimiento local.",
       },
-      ...entrada(
-        "Ejemplo 1. Autorización de ruta completa (estructura de Doc 9432, 2.8.3.6)",
-        [
-          `ATC:   "AVIATORY 452, cleared to Cali, via A1, FL 240, GIKOS 1A departure, squawk 4521."`,
-          `PILOT: "Cleared to Cali, via A1, FL 240, GIKOS 1A departure, squawk 4521, AVIATORY 452."`,
-        ],
-        "Significado: autorización de ruta: se repite completa (grupo a) y el código SSR (grupo c). El distintivo va al final.",
-      ),
-      ...entrada(
-        "Ejemplo 2. Código SSR (Doc 9432, 2.8.3.7)",
-        [`ATC:   "AVIATORY 452, squawk 6402."`, `PILOT: "6402, AVIATORY 452."`],
-        "Significado: un código SSR siempre se colaciona, aunque la instrucción sea de una sola palabra.",
-      ),
-      ...entrada(
-        "Ejemplo 3. Colación errada y corrección (Doc 9432, 2.8.3.9)",
-        [
-          `ATC:   "AVIATORY 452, QNH 1003."`,
-          `PILOT: "QNH 1013, AVIATORY 452."`,
-          `ATC:   "AVIATORY 452, negative, I say again, QNH 1003."`,
-          `PILOT: "QNH 1003, AVIATORY 452."`,
-        ],
-        "Significado: el piloto repitió lo que esperaba oír (1013 es la presión normalizada redondeada). El hearback lo detectó. Un QNH mal ajustado es un error de altitud.",
-      ),
-      ...entrada(
-        "Ejemplo 4. Instrucción de pista con condición (estructura de Doc 9432, 4.4.2)",
-        [
-          `ATC:   "AVIATORY 452, taxi to holding point runway 13 via B, hold short of runway 18."`,
-          `PILOT: "Taxi to holding point runway 13 via B, hold short of runway 18, AVIATORY 452."`,
-        ],
-        "Significado: «Hold short of runway 18» es una instrucción de mantenerse fuera de una pista: grupo b, siempre se colaciona.",
-      ),
-      {
-        kind: "escenario",
-        titulo: "Ejemplo 5. Colación incompleta",
-        situacion:
-          "Escenario de práctica; corrección según Doc 9432, 2.8.3.9. ATC: `AVIATORY 452, taxi to holding point runway 13 via B, hold short of runway 18.` PILOT: `Holding point runway 13 via B, AVIATORY 452.`",
-        preguntas: [
-          {
-            q: "¿Qué omitió la colación y cómo se corrige?",
-            a: "ATC: `AVIATORY 452, negative, I say again, hold short of runway 18.` PILOT: `Hold short of runway 18, AVIATORY 452.` El piloto se quedó con la parte que esperaba y omitió la que protege una pista. El controlador lo detectó; en una frecuencia saturada podría no haberlo hecho.",
-          },
-        ],
-        concepto: "«Hold short of runway 18» protege una pista: grupo b, siempre se colaciona.",
-      },
-      ...entrada(
-        "Ejemplo 6. Instrucción con condición de nivel (Doc 9432, 3.3.3.1)",
-        [
-          `ATC:   "AVIATORY 452, after passing GIKOS descend to FL 80."`,
-          `PILOT: "After GIKOS descend to FL 80, AVIATORY 452."`,
-        ],
-        "Significado: si colaciona solo «descend FL 80», el controlador no sabe si usted entendió que debe esperar a pasar GIKOS.",
-      ),
-      ...entrada(
-        "Ejemplo 7. Rumbo con condición (estructura de Doc 9432, 7.1.2)",
-        [
-          `ATC:   "AVIATORY 452, turn right heading 040 until passing FL 70, then direct GIKOS."`,
-          `PILOT: "Right heading 040 until passing FL 70, then direct GIKOS, AVIATORY 452."`,
-        ],
-        "Significado: rumbo (grupo c), sentido del viraje y la condición «until passing».",
-      ),
-      ...entrada(
-        "Ejemplo 8. Acuse de recibo que muestra que cumplirá (Doc 9432, 2.8.3.7)",
-        [`ATC:   "AVIATORY 452, hold position."`, `PILOT: "Holding, AVIATORY 452."`],
-        "Significado: instrucción corta: el acuse deja claro que la entendió y la cumple (Doc 4444, 4.5.7.5.1.1).",
-      ),
 
       { kind: "sub", text: "Aplicación en aerolínea" },
       {
         kind: "enLaOperacion",
         momento: "Quién colaciona y qué se colaciona",
         texto:
-          "En la mayoría de operadores el piloto que no vuela (PM) colaciona y el que vuela (PF) escucha y verifica; los dos confirman lo que se selecciona en el panel (altitud, rumbo, código). Cómo se reparte exactamente depende del SOP de cada operador. Lo común a todos: se anota o se selecciona lo que se escuchó **antes** de colacionar, y se colaciona lo que se seleccionó, no lo que se recuerda.",
+          "En una cabina de dos pilotos, el piloto que monitorea (PM, pilot monitoring) normalmente maneja la radio mientras el piloto que vuela (PF, pilot flying) también escucha y comprueba la instrucción que afecta a la trayectoria. Ambos contrastan nivel, rumbo, velocidad, pista y código con lo seleccionado o anotado. El reparto exacto y los llamados cruzados dependen de los procedimientos operacionales estándar (SOP, standard operating procedures) del explotador. Una defensa útil es anotar o seleccionar el dato realmente oído y comprobarlo antes de transmitir, sin colacionar desde el recuerdo de lo que se esperaba escuchar.",
       },
 
       { kind: "sub", text: "Error frecuente" },
-      error("Colacionar con ROGER o WILCO una instrucción que exige colación («Roger, AVIATORY 452» a un «hold short»)."),
-      error("Colacionar lo esperado en vez de lo escuchado (QNH, pista, nivel)."),
-      error("Omitir la condición («until», «after passing», «behind»)."),
-      error("Omitir el distintivo al final, que es lo que permite descubrir que la colación la hizo otro."),
-      error("No escuchar la corrección del controlador porque la tripulación ya pasó a otra tarea."),
+      error("Responder ROGER o WILCO a una instrucción relativa a pista, nivel o rumbo que requiere colación: ninguna de esas palabras permite comparar el dato crítico."),
+      error("Colacionar el valor esperado en vez del oído: la tripulación quizá cambie el altímetro, el nivel o la pista a algo que control nunca transmitió."),
+      error("Omitir una condición temporal o espacial; la acción puede ejecutarse antes del punto autorizado."),
+      error("Omitir el distintivo propio: con dos aeronaves de llamadas similares, el controlador pierde una defensa para saber quién respondió."),
+      error("Pasar a la siguiente tarea inmediatamente después de colacionar e ignorar una corrección posterior."),
 
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
           "Readback: la tripulación repite lo crítico. Hearback: el controlador verifica esa repetición.",
-          "Siempre: autorización de ruta, todo lo que toca una pista, pista en uso, QNH, código SSR, nivel, rumbo, velocidad y nivel de transición (Doc 4444, 4.5.7.5.1).",
+          "La edición consultada del Doc 4444 exige colación de ruta, instrucciones relativas a pista y valores como reglaje, código SSR, nivel, rumbo y velocidad; confirma la edición local vigente.",
           "Lo demás se colaciona o se acusa de forma que se vea que se entendió y se cumplirá.",
           "ROGER no es colación.",
-          "Si ATC dice NEGATIVE, I SAY AGAIN: colacione de nuevo la versión correcta.",
+          "Si control corrige una discrepancia, escucha la versión válida y vuelve a colacionarla antes de actuar.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432",
-        "Doc 4444 (15.ª ed., Enm. 4) 4.5.7.5.1, 4.5.7.5.1.1, 4.5.7.5.2, 4.5.7.5.2.1; Doc 9432 (4.ª ed.) 2.6 (READ BACK, ROGER, WILCO), 2.8.3.4 a 2.8.3.9, 3.3.3.1, 4.4.2, 7.1.2.",
-        [
-          "VERIFICAR: que la lista de 4.5.7.5.1 siga igual en la edición vigente del Doc 4444 (16.ª ed. con enmiendas), cap. 4 (no cargada).",
-          "VERIFICAR: cómo aplica cada Estado la colación de elementos recibidos por ATIS (por ejemplo, confirmar el QNH en el primer contacto): AIP del Estado, GEN 3.4 (en Colombia, AIP Colombia y RAC).",
-          "VERIFICAR: estructura de colación de SID «GIKOS 1A departure» contra Doc 4444 cap. 12 (fraseología de autorizaciones de salida), no cargado.",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes",
+        cita: "Doc 4444 · Doc 9432 · FAA AIM 4-4-7",
+        bloques: [
+          { kind: "sub", text: "Base contrastada" },
+          { kind: "p", text: "Doc 4444, 15.ª edición con Enmienda 4, apartados 4.5.7.5.1–4.5.7.5.2.1 (edición histórica consultada); Doc 9432, 4.ª edición, apartados 2.6 y 2.8.3.4–2.8.3.9. Guía de la FAA, Aeronautical Information Manual, 4-4-7, para responsabilidad del piloto en la colación, inclusión del distintivo y repetición de pista, altitudes y restricciones. Esta guía es estadounidense; no sustituye el procedimiento colombiano." },
+          { kind: "sub", text: "Pendiente antes de uso operacional" },
+          { kind: "list", items: [
+            "Confirmar la lista de colación y cualquier cambio de redacción en la edición vigente del Doc 4444 y en las disposiciones del Estado de operación.",
+            "Comprobar en la AIP vigente de Aerocivil y el procedimiento del operador cómo se transmite o confirma cada dato de ATIS, sin inventar frases o frecuencias.",
+            "Para ejemplos concretos de rutas, salidas, cruces o pistas colombianas, usar únicamente una carta vigente y una transmisión auténtica verificada; esta lección no las incluye.",
+          ] },
         ],
-      ),
+      },
     ],
   },
 
