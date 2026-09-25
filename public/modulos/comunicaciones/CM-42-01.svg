@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Vías de recepción de VOLMET y uso operacional</title>
+  <desc id="desc">VOLMET por voz continua, por voz programada y D-VOLMET por datos entregan meteorología en vuelo. La tripulación verifica aeródromo, hora, validez y relevancia antes de decidir; ninguna de estas vías da autorización ATC.</desc>
+  <rect width="1600" height="900" fill="#101d2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="93" y="104" fill="#f3f9fb" font-size="50" font-weight="700">VOLMET: meteorología en vuelo, no control</text>
+    <text x="95" y="158" fill="#b9cad3" font-size="27">El medio cambia; la comprobación en cabina sigue siendo necesaria</text>
+    <rect x="92" y="232" width="438" height="335" rx="26" fill="#203947" stroke="#84ddcf" stroke-width="4"/>
+    <text x="128" y="295" fill="#84ddcf" font-size="30" font-weight="700">VOZ CONTINUA</text>
+    <text x="128" y="357" fill="#f3f9fb" font-size="27">Normalmente VHF.</text>
+    <text x="128" y="411" fill="#d1dfe3" font-size="25">Reportes vigentes y,</text>
+    <text x="128" y="446" fill="#d1dfe3" font-size="25">si están disponibles,</text>
+    <text x="128" y="481" fill="#d1dfe3" font-size="25">pronósticos de tendencia.</text>
+    <rect x="581" y="232" width="438" height="335" rx="26" fill="#273b4b" stroke="#9eafbb" stroke-width="3"/>
+    <text x="617" y="295" fill="#84ddcf" font-size="30" font-weight="700">VOZ PROGRAMADA</text>
+    <text x="617" y="357" fill="#f3f9fb" font-size="27">Normalmente HF.</text>
+    <text x="617" y="411" fill="#d1dfe3" font-size="25">Incluye reportes; TAF</text>
+    <text x="617" y="446" fill="#d1dfe3" font-size="25">y SIGMET según acuerdo</text>
+    <text x="617" y="481" fill="#d1dfe3" font-size="25">regional aplicable.</text>
+    <rect x="1070" y="232" width="438" height="335" rx="26" fill="#203947" stroke="#84ddcf" stroke-width="4"/>
+    <text x="1106" y="295" fill="#84ddcf" font-size="30" font-weight="700">D-VOLMET</text>
+    <text x="1106" y="357" fill="#f3f9fb" font-size="27">Enlace de datos.</text>
+    <text x="1106" y="411" fill="#d1dfe3" font-size="25">Información meteorológica</text>
+    <text x="1106" y="446" fill="#d1dfe3" font-size="25">solicitada y recibida</text>
+    <text x="1106" y="481" fill="#d1dfe3" font-size="25">como mensaje.</text>
+    <rect x="92" y="637" width="1416" height="177" rx="27" fill="#203947"/>
+    <text x="128" y="702" fill="#84ddcf" font-size="29" font-weight="700">Comprueba lugar, hora, validez y fuente de la emisión.</text>
+    <text x="128" y="752" fill="#f3f9fb" font-size="26">Evalúa destino y alternativas; solicita a ATC cualquier cambio de autorización.</text>
+  </g>
+</svg>
