@@ -174,6 +174,26 @@ la última migración que publica cada función conoce todos los módulos del
 catálogo, y que no hay archivos pendientes con versión anterior a la marca de
 arriba. Al aplicar una tanda, se actualiza esa marca.
 
+### La excepción: lo que ya se aplicó por debajo de la marca
+
+<!-- APLICADAS_BAJO_LA_MARCA: 20260925152412 20260925152815 -->
+
+El peligro de arriba es de las migraciones **pendientes**: la base las correría
+después de las que ya tiene. Una que ya está aplicada no se vuelve a correr
+nunca, así que no puede quedar encima de nada.
+
+Y eso pasa cada vez que se aplica por el conector, porque **el conector registra
+la versión con la fecha real** y las migraciones de módulo de este repo van
+numeradas con fechas adelantadas. Una aplicada hoy queda por debajo de la marca
+sin que nada esté mal.
+
+Las versiones de esa lista quedan fuera de la comprobación. Para entrar ahí,
+una versión tiene que estar **de verdad aplicada** en
+`supabase_migrations.schema_migrations` y tener su archivo en el repo: la prueba
+exige el archivo, y quien la agregue se compromete a lo primero. Si una
+migración sigue pendiente, **no va en esta lista**: se renombra con una versión
+posterior a la marca, que es lo que pide el mensaje de la prueba.
+
 ## 25 de septiembre: Comunicaciones, RAC y Combustible, y la marca al día
 
 La marca se había quedado en `20260926010000` mientras la base ya iba por
@@ -289,6 +309,58 @@ huella md5 de siempre: `a2ed9531…` en la base y en el archivo.
 
 `supabase/tests/pbn.sql` se corrió contra la base ya migrada y pasó:
 `PRUEBA_DESHECHA` con los veintiún puntos, y nada quedó escrito.
+
+## 25 de septiembre, después: PBN queda en 48 capítulos
+
+La auditoría del módulo encontró cinco pares de capítulos que enseñaban lo
+mismo, un tema que faltaba y un banco que solo examinaba 35 de los 52. Se
+fusionaron los cinco pares, entró un capítulo nuevo sobre cómo se vuela a una
+MDA y el banco pasó de 50 a 66 preguntas, con al menos una por capítulo. El
+módulo queda en **48 capítulos, 144 preguntas de práctica y banco de 66**.
+
+Eso movió cuatro cosas en la base, en cinco filas del historial:
+
+| Fila | Archivo | Qué hizo |
+| --- | --- | --- |
+| `20260925152412_catalogo_pbn_48_lecciones` | sí | la fila del catálogo: 48 lecciones y las 144 claves |
+| `20260925152549_banco_pbn_1_remapear_tema_a_48_capitulos` | no, es siembra | el `tema` de las 50 preguntas que ya estaban, a la numeración nueva |
+| `20260925152651_banco_pbn_2_nuevas_ev51_a_ev58` | no, es siembra | ocho preguntas nuevas |
+| `20260925152737_banco_pbn_3_nuevas_ev59_a_ev66` | no, es siembra | las otras ocho |
+| `20260925152815_umbral_leccion_pbn_48` | sí | `module_thresholds.pbn_lesson`, de 52 a 48 |
+
+**El umbral es la mitad que se olvida.** `evaluacion_iniciar` compara las
+secciones leídas contra `pbn_lesson`. Con el catálogo en 48 y el umbral en 52 la
+evaluación no habría abierto nunca, porque el piloto puede leer 48 como máximo.
+
+**Las tres filas de banco no llevan archivo**, como las demás siembras: las
+preguntas traen su respuesta y el contenido se edita en `contenido/bancos/` y se
+carga con `node scripts/bancos/sembrar.mjs`. Aquí se aplicaron por el conector,
+que registra fila, y por eso quedan anotadas.
+
+**No se tocó ninguna función compartida**, así que la regla del orden no aplica y
+la marca se queda en `20260929120000`: estas cinco versiones son **anteriores**
+a la marca y ya están aplicadas, que es la situación válida. La que sigue
+pendiente sigue siendo `20260930000000`.
+
+Antes de aplicar se comprobó que **nadie tenía progreso de PBN**: cero filas en
+`user_pbn_progress`, cero en `user_pbn_exam_attempts` y cero sesiones de
+`pbn_evaluacion`. Renumerar capítulos con progreso guardado habría dejado a cada
+piloto apuntando a otro capítulo; hoy no costó nada y después del despliegue sí.
+
+Comprobado contra la base:
+
+- Las 50 preguntas que ya estaban **no cambiaron de texto**: se comparó la huella
+  md5 de enunciado, opciones, correcta, explicación y referencia antes de
+  remapear el tema, y daba lo mismo en la base y en el repo
+  (`2fa59b1c…`). Solo cambió a qué capítulo apuntan.
+- Con las 66 sembradas, las dos huellas coinciden con el archivo: texto
+  `0b091807…` y temas `0b0d8774…`. 66 activas, 0 inactivas, los 48 capítulos
+  cubiertos.
+- `supabase/tests/pbn.sql` se actualizó a 48, 144 y 66. Además se corrió una
+  prueba del delta contra la base, que terminó en `PRUEBA_DESHECHA` con sus
+  cinco puntos y sin dejar una fila: catálogo y umbral, banco de 66 cubriendo los
+  48, la RPC aceptando la lección 48 y rechazando la 49 y `p49-q1`, la puerta
+  cerrada con 47, y el panel informando 48.
 
 **El PR #277 se mergeó con una migración en la misma versión que RVSM**
 (`20260929000000_evaluacion_entrega_el_tema_del_banco`), escrita sin saber que

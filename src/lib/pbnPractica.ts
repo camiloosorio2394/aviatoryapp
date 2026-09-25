@@ -660,7 +660,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
   {
     "tema": "P15",
     "n": 15,
-    "titulo": "RNP 2 y RNP 4",
+    "titulo": "RNP 2, RNP 4, RNAV 10 y A-RNP",
     "preguntas": [
       {
         "id": "p15-q1",
@@ -677,39 +677,6 @@ export const PB_PRACTICA: GrupoPractica[] = [
       },
       {
         "id": "p15-q2",
-        "enunciado": "¿Qué elegibilidad confiere automáticamente la elegibilidad RNP 4?",
-        "opciones": [
-          "RNP 2.",
-          "RNP 1.",
-          "RNP 10.",
-          "Ninguna."
-        ],
-        "correcta": 2,
-        "explicacion": "El AIM lo dice expresamente: la elegibilidad RNP 4 confiere automáticamente la RNP 10, y toda aeronave elegible para RNP 10 se considera elegible para RNAV 10. Es la excepción a la regla general de que las elegibilidades no se heredan.",
-        "referencia": "FAA AIM 1-2-1, apartados RNP 4 y RNP 10"
-      },
-      {
-        "id": "p15-q3",
-        "enunciado": "¿Qué obligación de comunicación fija la circular de la FAA para las operaciones RNP 2 y RNP 4?",
-        "opciones": [
-          "Reportar la posición cada 30 minutos.",
-          "Avisar al ATC de cualquier deterioro o falla del equipo de navegación y de las desviaciones que exija una contingencia.",
-          "Confirmar la especificación en el contacto inicial de cada frecuencia.",
-          "Ninguna: se comunica solo al aterrizar."
-        ],
-        "correcta": 1,
-        "explicacion": "La obligación es doble y está en los apéndices de las dos especificaciones: se avisa el deterioro o la falla del equipo, y se avisa cualquier desviación que imponga una contingencia. Lo que no se hace es guardarlo para el reporte de aterrizaje.",
-        "referencia": "FAA AC 90-105A, apéndices de RNP 2 y RNP 4"
-      }
-    ]
-  },
-  {
-    "tema": "P16",
-    "n": 16,
-    "titulo": "RNAV 10 y A-RNP",
-    "preguntas": [
-      {
-        "id": "p16-q1",
         "enunciado": "¿Por qué RNP 10 pasó a llamarse RNAV 10?",
         "opciones": [
           "Porque su precisión lateral cambió de 10 a otro valor.",
@@ -722,20 +689,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "RAC 91, nota 2 a la definición de especificación para la navegación; FAA AIM 1-2-1, apartado RNP 10"
       },
       {
-        "id": "p16-q2",
-        "enunciado": "¿Cuáles son las funciones mínimas obligatorias de A-RNP en el marco de la FAA?",
-        "opciones": [
-          "Guía vertical barométrica y compensación de temperatura.",
-          "Tramos RF, RNP escalable y generación de trayectoria paralela desplazada.",
-          "Doble GNSS y doble FMS.",
-          "Control de hora de llegada y transiciones de radio fijo."
-        ],
-        "correcta": 1,
-        "explicacion": "Son las tres que el AIM enumera como mínimas en el marco estadounidense. Otras funciones avanzadas de ruta, como las transiciones de radio fijo y el control de hora de llegada, quedan opcionales allí, y la mayor continuidad con sistemas duales puede exigirse para cierto espacio oceánico y remoto.",
-        "referencia": "FAA AIM 1-2-1, apartado A-RNP"
-      },
-      {
-        "id": "p16-q3",
+        "id": "p15-q3",
         "enunciado": "Tu flota es elegible para A-RNP. ¿Puedes volar una RNP AR APCH?",
         "opciones": [
           "Sí: A-RNP incluye RNP AR.",
@@ -750,12 +704,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P17",
-    "n": 17,
+    "tema": "P16",
+    "n": 16,
     "titulo": "RNP APCH",
     "preguntas": [
       {
-        "id": "p17-q1",
+        "id": "p16-q1",
         "enunciado": "¿Cuándo hay que confirmar que el sistema pasó de modo terminal a modo aproximación?",
         "opciones": [
           "Al recibir la autorización de aproximación.",
@@ -768,7 +722,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.7.2.1"
       },
       {
-        "id": "p17-q2",
+        "id": "p16-q2",
         "enunciado": "¿Cómo define la FAA la pérdida de capacidad RNP APCH?",
         "opciones": [
           "La pérdida total del GNSS.",
@@ -781,7 +735,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.7.1.8"
       },
       {
-        "id": "p17-q3",
+        "id": "p16-q3",
         "enunciado": "Una carta se titula «RNAV (GPS) RWY 13». ¿Qué especificación se está volando en el marco de la FAA?",
         "opciones": [
           "RNAV 1.",
@@ -796,12 +750,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P18",
-    "n": 18,
+    "tema": "P17",
+    "n": 17,
     "titulo": "Las líneas de mínimos",
     "preguntas": [
       {
-        "id": "p18-q1",
+        "id": "p17-q1",
         "enunciado": "¿Qué línea de mínimos exige aumentación satelital?",
         "opciones": [
           "LNAV.",
@@ -814,7 +768,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 1-2-1, apartado RNP APCH; FAA AIM 5-4-5"
       },
       {
-        "id": "p18-q2",
+        "id": "p17-q2",
         "enunciado": "¿Es LP un modo degradado de LPV?",
         "opciones": [
           "Sí: cuando LPV no está disponible, el sistema revierte a LP.",
@@ -827,7 +781,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 5-4-5, apartado LP"
       },
       {
-        "id": "p18-q3",
+        "id": "p17-q3",
         "enunciado": "La carta publica LPV, pero el AFM de tu avión no menciona esa capacidad. Estás autorizado al procedimiento por el ATC. ¿A qué línea puedes volar?",
         "opciones": [
           "A LPV: la autorización del ATC habilita cualquier línea publicada.",
@@ -842,12 +796,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P19",
-    "n": 19,
-    "titulo": "BARO-VNAV",
+    "tema": "P18",
+    "n": 18,
+    "titulo": "BARO-VNAV y el ajuste altimétrico",
     "preguntas": [
       {
-        "id": "p19-q1",
+        "id": "p18-q1",
         "enunciado": "¿Se puede volar a la DA de LNAV/VNAV con un ajuste altimétrico remoto?",
         "opciones": [
           "Sí, aumentando los mínimos.",
@@ -860,7 +814,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice B, numeral B.4.4"
       },
       {
-        "id": "p19-q2",
+        "id": "p18-q2",
         "enunciado": "¿Cuándo debe estar puesto el altímetro local del aeropuerto de aterrizaje?",
         "opciones": [
           "Antes de iniciar el descenso.",
@@ -873,7 +827,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice B, numeral B.4.5.1"
       },
       {
-        "id": "p19-q3",
+        "id": "p18-q3",
         "enunciado": "¿Es aceptable usar el modo de velocidad vertical para seguir la senda en una aproximación Baro-VNAV?",
         "opciones": [
           "Sí, si se ajusta la velocidad vertical al gradiente publicado.",
@@ -888,12 +842,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P20",
-    "n": 20,
+    "tema": "P19",
+    "n": 19,
     "titulo": "Temperatura y la trayectoria barométrica",
     "preguntas": [
       {
-        "id": "p20-q1",
+        "id": "p19-q1",
         "enunciado": "La temperatura está por debajo del límite publicado para la línea LNAV/VNAV y tu avión no tiene compensación automática. ¿Qué haces?",
         "opciones": [
           "Vuelas a la DA de LNAV/VNAV: la limitación es orientativa.",
@@ -906,7 +860,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice B, numeral B.4.2; FAA AIM 5-4-5"
       },
       {
-        "id": "p20-q2",
+        "id": "p19-q2",
         "enunciado": "¿A quién no aplica la limitación de temperatura publicada para Baro-VNAV?",
         "opciones": [
           "A ninguna aeronave: aplica siempre.",
@@ -919,7 +873,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 5-4-5, nota sobre la limitación de temperatura Baro-VNAV"
       },
       {
-        "id": "p20-q3",
+        "id": "p19-q3",
         "enunciado": "¿Dónde está el valor concreto de la limitación de temperatura de una aproximación?",
         "opciones": [
           "En el AFM del avión.",
@@ -934,58 +888,58 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P21",
-    "n": 21,
-    "titulo": "El QNH en una aproximación PBN",
+    "tema": "P20",
+    "n": 20,
+    "titulo": "Volar a una MDA: el descenso continuo",
     "preguntas": [
       {
-        "id": "p21-q1",
-        "enunciado": "¿Qué ocurre si el ajuste altimétrico en que se basa la aproximación no está disponible?",
+        "id": "p20-q1",
+        "enunciado": "Según el RAC, ¿qué es la técnica de aproximación final en descenso continuo (CDFA)?",
         "opciones": [
-          "Se usa el del aeródromo más cercano y se aumentan los mínimos 100 ft.",
-          "La aproximación no está autorizada.",
-          "Se vuela a la MDA de LNAV.",
-          "Se solicita al ATC una autorización especial."
+          "Un procedimiento de aproximación con guía vertical que sustituye a la línea LNAV.",
+          "Una técnica de vuelo para el tramo de aproximación final de un procedimiento que no es de precisión, en descenso continuo y sin nivelaciones de altura.",
+          "Una autorización específica del explotador para descender por debajo de la MDA.",
+          "El método de cálculo del ángulo de descenso que publica la carta."
         ],
         "correcta": 1,
-        "explicacion": "Cuando el ajuste altimétrico en que se basa la aproximación no está disponible, la aproximación no está autorizada. Las alternativas con fuente no local existen solo si la carta las publica, y entonces los mínimos pueden ser más altos.",
-        "referencia": "FAA AIM 5-4-5, apartado de fuentes de ajuste altimétrico"
+        "explicacion": "La definición es literal: técnica de vuelo congruente con los procedimientos de aproximación estabilizada, para el tramo de aproximación final siguiendo un NPA en descenso continuo, sin nivelaciones de altura, desde una altitud igual o superior a la del FAF hasta unos 15 m (50 ft) sobre el umbral o el inicio de la nivelada. Es una técnica, no un procedimiento ni una autorización.",
+        "referencia": "RAC 91 y RAC 121, definición de aproximación final en descenso continuo (CDFA)"
       },
       {
-        "id": "p21-q2",
-        "enunciado": "Por qué el QNH es un dato de trayectoria en una aproximación LNAV/VNAV con Baro-VNAV?",
+        "id": "p20-q2",
+        "enunciado": "Vuelas una CDFA con guía VNAV de asesoramiento calculada por el equipo de a bordo. ¿Cómo se clasifica la operación y a qué mínimo se vuela?",
         "opciones": [
-          "Porque el FMS lo usa para calcular la distancia al FAF.",
-          "Porque la senda vertical se construye con información barométrica y el ajuste es su referencia.",
-          "Porque determina la sensibilidad de la desviación lateral.",
-          "Porque fija el valor RNP del segmento final."
+          "Operación 2D, y se vuela a la MDA.",
+          "Operación 3D, y el procedimiento pasa a ser una APV con DA.",
+          "Operación 3D, pero el procedimiento sigue siendo un NPA y se vuela a la MDA.",
+          "Depende de que el operador tenga aprobación específica."
         ],
-        "correcta": 1,
-        "explicacion": "La guía vertical barométrica depende de la presión medida, así que el ajuste altimétrico desplaza la senda entera. Por eso la circular exige ajuste local y actual y fija el FAF como límite para tenerlo puesto.",
-        "referencia": "FAA AC 90-105A, Apéndice B, numerales B.4.4 y B.4.5.1"
+        "correcta": 2,
+        "explicacion": "La nota del RAC es exacta: las CDFA con guía VNAV de asesoramiento calculada por el equipo de a bordo se consideran operaciones 3D, y con cálculo manual de la velocidad vertical, 2D. Pero la clasificación de la operación no cambia el procedimiento: sigue siendo un NPA y el mínimo sigue siendo la MDA.",
+        "referencia": "RAC 91 y RAC 121, nota a la definición de procedimiento de aproximación que no es de precisión (NPA)"
       },
       {
-        "id": "p21-q3",
-        "enunciado": "La carta publica mínimos con una fuente de ajuste altimétrico distinta de la local. ¿Qué implica?",
+        "id": "p20-q3",
+        "enunciado": "Una carta de NPA lleva la nota «Visual Segment – Obstacles» en el perfil. ¿Qué significa?",
         "opciones": [
-          "Que los mínimos son los mismos con cualquiera de las dos fuentes.",
-          "Que los mínimos pueden ser más altos con la fuente no local, y la carta lo indica con renglones separados o con una nota.",
-          "Que la aproximación solo puede volarse a circling.",
-          "Que Baro-VNAV puede usarse hasta la DA con cualquiera de las dos."
+          "Que el segmento visual está balizado con luces de aproximación.",
+          "Que el VDA se retiró porque hay una penetración de obstáculo que obligaría a desviarse de él entre la MDA y la toma.",
+          "Que la aproximación solo puede volarse de día.",
+          "Que el procedimiento exige guía vertical barométrica."
         ],
         "correcta": 1,
-        "explicacion": "Los mínimos pueden ser más altos con una fuente no local y la carta lo publica. Y hay un límite adicional: con ajuste remoto, Baro-VNAV no puede usarse hasta la DA, solo hasta la MDA de LNAV.",
-        "referencia": "FAA AIM 5-4-5, apartado de fuentes de ajuste altimétrico; FAA AC 90-105A, Apéndice B, numeral B.4.4"
+        "explicacion": "Cuando el VDA/TCH no está autorizado por una penetración de obstáculo que obligaría al piloto a desviarse del VDA entre la MDA y la toma, se sustituye por esa nota. Quien siga bajando por el ángulo que le dibuja el sistema de navegación, por debajo de la MDA, puede encontrarse obstáculos en el segmento visual.",
+        "referencia": "FAA AIM 5-4-5, apartado de ángulo de descenso vertical (VDA)"
       }
     ]
   },
   {
-    "tema": "P22",
-    "n": 22,
+    "tema": "P21",
+    "n": 21,
     "titulo": "RNP AR APCH",
     "preguntas": [
       {
-        "id": "p22-q1",
+        "id": "p21-q1",
         "enunciado": "¿Qué área lateral de evaluación de obstáculos usan los procedimientos RNP AR?",
         "opciones": [
           "El valor RNP más una zona secundaria estándar.",
@@ -998,7 +952,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 5-4-18, apartado de valor RNP"
       },
       {
-        "id": "p22-q2",
+        "id": "p21-q2",
         "enunciado": "La carta de una RNP AR publica una línea de mínimos con RNP 0.15. ¿Puedes volarla?",
         "opciones": [
           "Sí, si el avión es elegible para RNP AR.",
@@ -1011,7 +965,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 5-4-18; FAA AC 90-101A, Apéndice, numeral 2, apartado a"
       },
       {
-        "id": "p22-q3",
+        "id": "p21-q3",
         "enunciado": "¿Qué hay que confirmar antes de iniciar una aproximación RNP AR con gradiente de frustrada no estándar?",
         "opciones": [
           "Nada especial: el gradiente lo calcula el FMS.",
@@ -1026,12 +980,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P23",
-    "n": 23,
+    "tema": "P22",
+    "n": 22,
     "titulo": "RNP APCH frente a RNP AR APCH",
     "preguntas": [
       {
-        "id": "p23-q1",
+        "id": "p22-q1",
         "enunciado": "¿Cuál es la diferencia de fondo entre RNP APCH y RNP AR APCH?",
         "opciones": [
           "Que RNP AR usa un valor RNP más bajo.",
@@ -1044,7 +998,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 5-4-18; FAA AC 90-101A, numeral 1"
       },
       {
-        "id": "p23-q2",
+        "id": "p22-q2",
         "enunciado": "¿Cómo se trata la elegibilidad de tramo RF en cada especificación?",
         "opciones": [
           "Obligatoria en las dos.",
@@ -1057,7 +1011,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 1-2-1, apartado RNP APCH; FAA AIM 5-4-18, apartado de tramos RF"
       },
       {
-        "id": "p23-q3",
+        "id": "p22-q3",
         "enunciado": "¿En qué se basa la performance de navegación vertical de una RNP AR APCH?",
         "opciones": [
           "Solo en guía vertical satelital.",
@@ -1072,12 +1026,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P24",
-    "n": 24,
+    "tema": "P23",
+    "n": 23,
     "titulo": "El tramo RF",
     "preguntas": [
       {
-        "id": "p24-q1",
+        "id": "p23-q1",
         "enunciado": "¿Qué es un tramo RF?",
         "opciones": [
           "Un giro cerrado que el FMS ejecuta al anticipar un waypoint.",
@@ -1090,7 +1044,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-101A, numeral 3, apartado g; FAA AIM 1-2-1"
       },
       {
-        "id": "p24-q2",
+        "id": "p23-q2",
         "enunciado": "¿Por qué importa la velocidad en un tramo RF?",
         "opciones": [
           "Porque afecta el consumo de combustible.",
@@ -1103,7 +1057,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, numeral 8.4.3, apartado 14"
       },
       {
-        "id": "p24-q3",
+        "id": "p23-q3",
         "enunciado": "Tu avión es elegible para RNP APCH. ¿Puedes volar una aproximación RNP APCH con un tramo RF?",
         "opciones": [
           "Sí: la elegibilidad RNP APCH incluye los tramos RF.",
@@ -1118,12 +1072,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P25",
-    "n": 25,
+    "tema": "P24",
+    "n": 24,
     "titulo": "Fly-by y fly-over",
     "preguntas": [
       {
-        "id": "p25-q1",
+        "id": "p24-q1",
         "enunciado": "¿Qué diferencia hay entre un waypoint fly-by y uno fly-over?",
         "opciones": [
           "El fly-by se sobrevuela y el fly-over se anticipa.",
@@ -1136,7 +1090,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 1-2-2, apartados de waypoints"
       },
       {
-        "id": "p25-q2",
+        "id": "p24-q2",
         "enunciado": "El sistema de navegación no proporciona guía de anticipación de giro para un punto fly-by. ¿Qué corresponde?",
         "opciones": [
           "Tratar el punto como fly-over.",
@@ -1149,7 +1103,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 5-4-5, apartado de waypoints"
       },
       {
-        "id": "p25-q3",
+        "id": "p24-q3",
         "enunciado": "¿De qué depende la anticipación del giro en un punto fly-by?",
         "opciones": [
           "Solo del ángulo entre las dos derrotas.",
@@ -1164,12 +1118,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P26",
-    "n": 26,
+    "tema": "P25",
+    "n": 25,
     "titulo": "Los terminadores de tramo",
     "preguntas": [
       {
-        "id": "p26-q1",
+        "id": "p25-q1",
         "enunciado": "¿Qué define un terminador de tramo TF?",
         "opciones": [
           "Un rumbo determinado hasta un punto.",
@@ -1182,7 +1136,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.3.8, apartado 10; especificación ARINC 424"
       },
       {
-        "id": "p26-q2",
+        "id": "p25-q2",
         "enunciado": "¿Por qué le interesa a un piloto saber que existen los terminadores de tramo?",
         "opciones": [
           "Para poder codificar procedimientos en el FMS.",
@@ -1195,7 +1149,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, numeral 8.4.3, apartado 15"
       },
       {
-        "id": "p26-q3",
+        "id": "p25-q3",
         "enunciado": "¿Qué dice la norma sobre la sustitución de terminadores de tramo por parte del proveedor de la base de datos?",
         "opciones": [
           "Que puede sustituirlos si mejora la codificación.",
@@ -1210,12 +1164,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P27",
-    "n": 27,
+    "tema": "P26",
+    "n": 26,
     "titulo": "La desviación lateral",
     "preguntas": [
       {
-        "id": "p27-q1",
+        "id": "p26-q1",
         "enunciado": "¿Para qué exige la norma tener presentada la desviación lateral en una RNP APCH?",
         "opciones": [
           "Para calcular el tiempo al punto siguiente.",
@@ -1228,7 +1182,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.7.2.2"
       },
       {
-        "id": "p27-q2",
+        "id": "p26-q2",
         "enunciado": "Estás perfectamente centrado en la presentación de desviación lateral. ¿Qué garantiza eso?",
         "opciones": [
           "Que el avión está sobre la trayectoria publicada, en el mundo real.",
@@ -1241,7 +1195,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, numerales 4.3.1 a 4.3.4"
       },
       {
-        "id": "p27-q3",
+        "id": "p26-q3",
         "enunciado": "¿Qué ocurre con la sensibilidad de la presentación de desviación lateral?",
         "opciones": [
           "Es fija para todas las fases de vuelo.",
@@ -1256,12 +1210,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P28",
-    "n": 28,
+    "tema": "P27",
+    "n": 27,
     "titulo": "PDE, NSE y TSE",
     "preguntas": [
       {
-        "id": "p28-q1",
+        "id": "p27-q1",
         "enunciado": "¿Qué es el error total del sistema (TSE)?",
         "opciones": [
           "El mayor de los tres errores componentes.",
@@ -1274,7 +1228,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, numeral 4.3.4"
       },
       {
-        "id": "p28-q2",
+        "id": "p27-q2",
         "enunciado": "¿Qué vigila la función de control y alerta a bordo?",
         "opciones": [
           "El error técnico de vuelo.",
@@ -1287,7 +1241,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, nota al numeral 4.2"
       },
       {
-        "id": "p28-q3",
+        "id": "p27-q3",
         "enunciado": "¿Por qué se considera despreciable el error de definición de la trayectoria (PDE)?",
         "opciones": [
           "Porque es imposible de medir.",
@@ -1302,12 +1256,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P29",
-    "n": 29,
+    "tema": "P28",
+    "n": 28,
     "titulo": "La frustrada en PBN",
     "preguntas": [
       {
-        "id": "p29-q1",
+        "id": "p28-q1",
         "enunciado": "En RNP APCH, ¿en qué puede basarse el segmento de frustrada?",
         "opciones": [
           "Solo en GNSS.",
@@ -1320,7 +1274,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.5.1"
       },
       {
-        "id": "p29-q2",
+        "id": "p28-q2",
         "enunciado": "¿Qué valor RNP aplica al segmento de frustrada en RNP APCH?",
         "opciones": [
           "0.3",
@@ -1333,7 +1287,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, numeral 5.1 y Tabla 5-1"
       },
       {
-        "id": "p29-q3",
+        "id": "p28-q3",
         "enunciado": "Una RNP AR exige una frustrada con valor menor de 1.00 NM. ¿Qué implica?",
         "opciones": [
           "Nada especial: cualquier avión RNP AR puede volarla.",
@@ -1348,12 +1302,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P30",
-    "n": 30,
+    "tema": "P29",
+    "n": 29,
     "titulo": "El FMS en PBN",
     "preguntas": [
       {
-        "id": "p30-q1",
+        "id": "p29-q1",
         "enunciado": "¿Qué es un FMS según la definición de la circular de la FAA?",
         "opciones": [
           "Un receptor GNSS con pantalla.",
@@ -1366,7 +1320,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-101A, numeral 3, apartado c"
       },
       {
-        "id": "p30-q2",
+        "id": "p29-q2",
         "enunciado": "¿Qué añade el FMS en una operación con especificación RNP que no necesita en una RNAV?",
         "opciones": [
           "El cálculo de la posición.",
@@ -1379,7 +1333,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "RAC 91, definición de especificación RNP; FAA AC 90-105A, numeral 4.2"
       },
       {
-        "id": "p30-q3",
+        "id": "p29-q3",
         "enunciado": "«El FMS reemplaza la carta.» ¿Por qué es falso?",
         "opciones": [
           "Porque la carta tiene información que el FMS no puede mostrar.",
@@ -1394,12 +1348,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P31",
-    "n": 31,
+    "tema": "P30",
+    "n": 30,
     "titulo": "RNP frente a ANP y EPU",
     "preguntas": [
       {
-        "id": "p31-q1",
+        "id": "p30-q1",
         "enunciado": "¿Qué expresa el EPU?",
         "opciones": [
           "El error real de posición del avión.",
@@ -1412,7 +1366,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice J, definición de EPU; FAA AC 90-101A, numeral 3, apartado b"
       },
       {
-        "id": "p31-q2",
+        "id": "p30-q2",
         "enunciado": "¿Es obligatorio que el PFD muestre un valor de ANP o EPE?",
         "opciones": [
           "Sí, en todas las operaciones RNP.",
@@ -1425,7 +1379,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.3.8, apartado 6"
       },
       {
-        "id": "p31-q3",
+        "id": "p30-q3",
         "enunciado": "Tu FMS muestra «RNP 1.0» y «ANP 0.08». ¿Qué está diciendo?",
         "opciones": [
           "Que el avión está a 0,08 NM de su posición verdadera.",
@@ -1440,12 +1394,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P32",
-    "n": 32,
+    "tema": "P31",
+    "n": 31,
     "titulo": "Cuando la performance estimada ya no alcanza",
     "preguntas": [
       {
-        "id": "p32-q1",
+        "id": "p31-q1",
         "enunciado": "Recibes una alerta de performance de navegación durante una aproximación PBN. ¿Cuál es el orden correcto?",
         "opciones": [
           "Informar al ATC, identificar la falla, volar el avión y consultar el QRH.",
@@ -1458,7 +1412,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.7.1.8 y numeral 8.4.3, apartado 23"
       },
       {
-        "id": "p32-q2",
+        "id": "p31-q2",
         "enunciado": "¿Dónde se busca el significado exacto del mensaje que muestra el avión y la acción asociada?",
         "opciones": [
           "En la circular de la autoridad.",
@@ -1471,7 +1425,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, nota al numeral 8.4.3; práctica estándar de documentación de fabricante"
       },
       {
-        "id": "p32-q3",
+        "id": "p31-q3",
         "enunciado": "¿Qué es lo que distingue a una tripulación preparada en este escenario?",
         "opciones": [
           "Reconocer el mensaje más rápido.",
@@ -1486,12 +1440,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P33",
-    "n": 33,
+    "tema": "P32",
+    "n": 32,
     "titulo": "La base de datos de navegación",
     "preguntas": [
       {
-        "id": "p33-q1",
+        "id": "p32-q1",
         "enunciado": "Se publica una carta enmendada y la enmienda no está en la base de datos. ¿Qué corresponde?",
         "opciones": [
           "Volar el procedimiento de la base, que es lo que el avión puede seguir.",
@@ -1504,7 +1458,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, nota al numeral 10.4"
       },
       {
-        "id": "p33-q2",
+        "id": "p32-q2",
         "enunciado": "¿Qué debe confirmar el piloto de un operador de transporte en la inicialización del sistema?",
         "opciones": [
           "Que el procedimiento de destino está cargado.",
@@ -1517,7 +1471,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, numeral 10.7, apartado 4"
       },
       {
-        "id": "p33-q3",
+        "id": "p32-q3",
         "enunciado": "Encuentras un error en la codificación de un procedimiento. ¿Qué exige la norma?",
         "opciones": [
           "Corregirlo en el FMS y continuar.",
@@ -1532,12 +1486,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P34",
-    "n": 34,
+    "tema": "P33",
+    "n": 33,
     "titulo": "El ciclo AIRAC",
     "preguntas": [
       {
-        "id": "p34-q1",
+        "id": "p33-q1",
         "enunciado": "El ciclo AIRAC va a cambiar durante el vuelo. ¿Qué exige la norma?",
         "opciones": [
           "Cancelar el vuelo.",
@@ -1550,7 +1504,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, nota al numeral 10.4"
       },
       {
-        "id": "p34-q2",
+        "id": "p33-q2",
         "enunciado": "La base de datos no está dentro del ciclo esperado. ¿Cuál es la respuesta profesional?",
         "opciones": [
           "«No go», siempre.",
@@ -1563,7 +1517,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, numerales 10.4, 10.6 y 10.7"
       },
       {
-        "id": "p34-q3",
+        "id": "p33-q3",
         "enunciado": "¿Qué tres datos de la base verifica la tripulación?",
         "opciones": [
           "El proveedor, el número de serie y la fecha de carga.",
@@ -1578,12 +1532,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P35",
-    "n": 35,
-    "titulo": "Validar el procedimiento en cabina",
+    "tema": "P34",
+    "n": 34,
+    "titulo": "Validar: autorización, carta y FMS",
     "preguntas": [
       {
-        "id": "p35-q1",
+        "id": "p34-q1",
         "enunciado": "¿Qué pide el AIM después de cargar un procedimiento desde la base de datos?",
         "opciones": [
           "Ejecutarlo de inmediato para que el sistema lo secuencie.",
@@ -1596,40 +1550,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 1-2-1, apartado general de RNP"
       },
       {
-        "id": "p35-q2",
-        "enunciado": "¿Cuál es el elemento de la validación que más se escapa?",
-        "opciones": [
-          "El nombre del procedimiento.",
-          "La transición.",
-          "La DA o MDA.",
-          "La frecuencia de la torre."
-        ],
-        "correcta": 1,
-        "explicacion": "El nombre correcto con la transición equivocada produce una trayectoria distinta, y el nombre se lee de un vistazo mientras la transición exige mirar el detalle. Por eso aparece como escenario propio en el capítulo 52.",
-        "referencia": "FAA AC 90-105A, numeral 8.4.4; FAA AIM 1-2-1"
-      },
-      {
-        "id": "p35-q3",
-        "enunciado": "¿Por qué no hay una lista universal de quién carga y quién verifica?",
-        "opciones": [
-          "Porque la norma no lo contempla.",
-          "Porque depende del SOP del operador, y lo común es qué se verifica, no quién.",
-          "Porque depende del fabricante del FMS.",
-          "Porque lo decide el comandante en cada vuelo."
-        ],
-        "correcta": 1,
-        "explicacion": "La norma exige que el explotador establezca y documente procedimientos normales y anormales, así que el reparto de tareas es del operador. Lo que la norma fija es el contenido de la verificación y la competencia exigida a la tripulación.",
-        "referencia": "RAC 121, numeral 121.995, apartado (b)(2)(i); FAA AC 90-105A, capítulo 8"
-      }
-    ]
-  },
-  {
-    "tema": "P36",
-    "n": 36,
-    "titulo": "Carta, FMS y autorización",
-    "preguntas": [
-      {
-        "id": "p36-q1",
+        "id": "p34-q2",
         "enunciado": "¿Qué significa que el FMS muestre una ruta completa y sin discontinuidades?",
         "opciones": [
           "Que la ruta está autorizada.",
@@ -1642,40 +1563,27 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 1-2-1; FAA AC 90-105A, numeral 8.4.4"
       },
       {
-        "id": "p36-q2",
-        "enunciado": "¿En qué tres momentos se hace el contraste entre autorización, carta y FMS?",
+        "id": "p34-q3",
+        "enunciado": "¿Cuál es el elemento de la validación que más se escapa?",
         "opciones": [
-          "Al despegar, en crucero y al aterrizar.",
-          "Al recibir la autorización, al cargar el procedimiento y antes de ejecutar.",
-          "En el briefing, al alcanzar la altitud de transición y en el FAF.",
-          "Solo antes de ejecutar."
+          "El nombre del procedimiento.",
+          "La transición.",
+          "La DA o MDA.",
+          "La frecuencia de la torre."
         ],
         "correcta": 1,
-        "explicacion": "Son los tres momentos en que la información llega o cambia, y se repiten cada vez que el ATC modifica algo. Dejarlo todo para el último instante convierte la verificación en una formalidad.",
+        "explicacion": "El nombre correcto con la transición equivocada produce una trayectoria distinta, y el nombre se lee de un vistazo mientras la transición exige mirar el detalle. Por eso aparece como escenario propio en el capítulo 48.",
         "referencia": "FAA AC 90-105A, numeral 8.4.4; FAA AIM 1-2-1"
-      },
-      {
-        "id": "p36-q3",
-        "enunciado": "La autorización del ATC no coincide con lo que esperabas según el plan. ¿Qué haces?",
-        "opciones": [
-          "Vuelas lo que dice el plan, que es lo coordinado.",
-          "Vuelas lo autorizado y, si no encaja con la carta o con lo previsto, lo confirmas con el ATC antes de ejecutar.",
-          "Programas las dos opciones y decides en el aire.",
-          "Pides vectores."
-        ],
-        "correcta": 1,
-        "explicacion": "Lo que se vuela es lo autorizado, y si no encaja con la carta o con lo previsto hay que resolverlo antes de ejecutar. Preguntar es barato; descubrir la discrepancia volando la trayectoria, no.",
-        "referencia": "FAA AC 90-105A, numeral 8.4.3, apartado 22; práctica estándar de colación"
       }
     ]
   },
   {
-    "tema": "P37",
-    "n": 37,
+    "tema": "P35",
+    "n": 35,
     "titulo": "Los sensores de navegación",
     "preguntas": [
       {
-        "id": "p37-q1",
+        "id": "p35-q1",
         "enunciado": "En RNP APCH, ¿se aceptan sistemas basados en DME/DME como fuente de posición?",
         "opciones": [
           "Sí, si hay dos instalaciones DME en cobertura.",
@@ -1688,7 +1596,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.5.1"
       },
       {
-        "id": "p37-q2",
+        "id": "p35-q2",
         "enunciado": "¿Qué papel cumple el inercial en una solución DME/DME/IRU?",
         "opciones": [
           "Sustituir al DME durante todo el vuelo.",
@@ -1701,7 +1609,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice J, definición de DME/DME/IRU"
       },
       {
-        "id": "p37-q3",
+        "id": "p35-q3",
         "enunciado": "«Si pierdo GNSS pierdo automáticamente toda capacidad RNAV.» ¿Por qué es incorrecto?",
         "opciones": [
           "Porque el GNSS nunca se pierde por completo.",
@@ -1716,12 +1624,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P38",
-    "n": 38,
+    "tema": "P36",
+    "n": 36,
     "titulo": "GNSS en PBN",
     "preguntas": [
       {
-        "id": "p38-q1",
+        "id": "p36-q1",
         "enunciado": "¿Qué entra bajo el nombre GNSS?",
         "opciones": [
           "Solo el GPS.",
@@ -1734,7 +1642,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-101A, numeral 3, apartado e"
       },
       {
-        "id": "p38-q2",
+        "id": "p36-q2",
         "enunciado": "¿Qué hay que confirmar sobre la infraestructura antes de una operación RNP?",
         "opciones": [
           "Que el GNSS está operativo en el momento del despegue.",
@@ -1747,7 +1655,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.7.1.7"
       },
       {
-        "id": "p38-q3",
+        "id": "p36-q3",
         "enunciado": "¿Por qué una degradación de GNSS puede producir una indicación errónea de combustible insuficiente?",
         "opciones": [
           "Porque el GNSS mide el consumo.",
@@ -1762,12 +1670,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P39",
-    "n": 39,
+    "tema": "P37",
+    "n": 37,
     "titulo": "RAIM y la predicción de disponibilidad",
     "preguntas": [
       {
-        "id": "p39-q1",
+        "id": "p37-q1",
         "enunciado": "¿Qué es RAIM?",
         "opciones": [
           "Un sistema de aumentación satelital.",
@@ -1780,7 +1688,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-101A, numeral 3, apartado h"
       },
       {
-        "id": "p39-q2",
+        "id": "p37-q2",
         "enunciado": "¿Es obligatoria la predicción RAIM en toda operación RNP?",
         "opciones": [
           "Sí, en todas.",
@@ -1793,7 +1701,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, numeral 8.4.4, apartado 2; FAA AIM 5-1-16"
       },
       {
-        "id": "p39-q3",
+        "id": "p37-q3",
         "enunciado": "¿Qué añade FDE sobre RAIM?",
         "opciones": [
           "Mejora la precisión de la posición.",
@@ -1808,12 +1716,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P40",
-    "n": 40,
-    "titulo": "Interrupción e interferencia de GNSS",
+    "tema": "P38",
+    "n": 38,
+    "titulo": "GNSS degradado: interrupción, interferencia y suplantación",
     "preguntas": [
       {
-        "id": "p40-q1",
+        "id": "p38-q1",
         "enunciado": "¿Cuál es la primera acción recomendada al sospechar una perturbación del GPS en vuelo?",
         "opciones": [
           "Declarar emergencia.",
@@ -1826,20 +1734,20 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 1-2-4, recomendaciones durante el vuelo"
       },
       {
-        "id": "p40-q2",
-        "enunciado": "¿Cuándo no hay que informar al ATC de interferencia o suplantación de GPS?",
+        "id": "p38-q2",
+        "enunciado": "¿Por qué el piloto puede no advertir una suplantación de señal?",
         "opciones": [
-          "Nunca hay que informar.",
-          "Cuando se vuela por zonas de pruebas conocidas y publicadas por NOTAM, salvo que se necesite asistencia del ATC.",
-          "Cuando la interferencia dura menos de un minuto.",
-          "Cuando el ADS-B sigue funcionando."
+          "Porque el sistema desconecta las alertas.",
+          "Porque el RAIM es solo parcialmente efectivo frente a ese tipo de disrupción, de modo que puede no haber indicación de navegación errónea.",
+          "Porque el corrimiento de posición es siempre pequeño.",
+          "Porque el ATC no informa."
         ],
         "correcta": 1,
-        "explicacion": "La excepción es para no saturar la frecuencia con lo que ya está publicado. Fuera de esas zonas, o si se necesita asistencia, la recomendación es notificar con prontitud.",
-        "referencia": "FAA AIM 1-2-4, recomendaciones durante el vuelo"
+        "explicacion": "La FAA advierte que el RAIM es solo parcialmente efectivo frente a una disrupción que actúa como suplantación, que el piloto puede no advertir ninguna indicación errónea y que el ATC puede ser el único medio disponible para identificarla.",
+        "referencia": "FAA AIM 1-1-19, apartado sobre disrupciones de GPS"
       },
       {
-        "id": "p40-q3",
+        "id": "p38-q3",
         "enunciado": "¿Qué recomendación de planificación previa al vuelo se relaciona con el combustible?",
         "opciones": [
           "Ninguna: el combustible no se ve afectado.",
@@ -1854,58 +1762,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P41",
-    "n": 41,
-    "titulo": "Suplantación, corrimiento del mapa y la pregunta que salva",
-    "preguntas": [
-      {
-        "id": "p41-q1",
-        "enunciado": "¿Por qué el piloto puede no advertir una suplantación de señal?",
-        "opciones": [
-          "Porque el sistema desconecta las alertas.",
-          "Porque el RAIM es solo parcialmente efectivo frente a ese tipo de disrupción, de modo que puede no haber indicación de navegación errónea.",
-          "Porque el corrimiento de posición es siempre pequeño.",
-          "Porque el ATC no informa."
-        ],
-        "correcta": 1,
-        "explicacion": "La FAA advierte que el RAIM es solo parcialmente efectivo frente a una disrupción que actúa como suplantación, que el piloto puede no advertir ninguna indicación errónea y que el ATC puede ser el único medio disponible para identificarla.",
-        "referencia": "FAA AIM 1-1-19, apartado sobre disrupciones de GPS"
-      },
-      {
-        "id": "p41-q2",
-        "enunciado": "¿Cuál de estos es un indicio reconocido de interferencia o suplantación de GPS?",
-        "opciones": [
-          "Que el piloto automático se desacople.",
-          "Que la sintonización automática no seleccione la radioayuda cercana, porque el avión cree estar en otro sitio.",
-          "Que aumente el consumo de combustible.",
-          "Que el ATC asigne un nivel distinto."
-        ],
-        "correcta": 1,
-        "explicacion": "Es uno de los efectos que la FAA enumera: efectos inesperados al navegar con radioayudas convencionales, con el ejemplo de que si la aeronave es desplazada de la trayectoria prevista, la sintonización automática no seleccionará la radioayuda cercana.",
-        "referencia": "FAA AIM 1-2-4, lista de indicios de interferencia y suplantación"
-      },
-      {
-        "id": "p41-q3",
-        "enunciado": "Sospechas que la posición presentada no es correcta. ¿Con qué la contrastas?",
-        "opciones": [
-          "Con el mapa móvil, que se construye con la misma posición.",
-          "Con datos crudos, distancia y marcación a una radioayuda, el terreno, la pista o la posición que reporta el ATC.",
-          "Con la predicción RAIM hecha antes del vuelo.",
-          "Con el plan operacional de vuelo."
-        ],
-        "correcta": 1,
-        "explicacion": "Hay que contrastar con una fuente independiente. El mapa móvil se construye con la posición sospechosa, así que no la valida. La FAA recomienda comprobaciones rutinarias de posición contra VOR o DME precisamente por eso.",
-        "referencia": "FAA AIM 1-2-4, recomendaciones durante el vuelo; FAA AIM 1-1-19"
-      }
-    ]
-  },
-  {
-    "tema": "P42",
-    "n": 42,
+    "tema": "P39",
+    "n": 39,
     "titulo": "La SID PBN",
     "preguntas": [
       {
-        "id": "p42-q1",
+        "id": "p39-q1",
         "enunciado": "En el marco de la FAA, ¿qué exige una autorización «climb via SID»?",
         "opciones": [
           "Solo seguir la trayectoria lateral publicada.",
@@ -1918,7 +1780,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 5-2-9, apartado de autorización «climb via»"
       },
       {
-        "id": "p42-q2",
+        "id": "p39-q2",
         "enunciado": "¿Qué se verifica en una SID PBN que no se verificaría en una SID convencional?",
         "opciones": [
           "La frecuencia de la torre.",
@@ -1931,7 +1793,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 1-2-3; FAA AC 90-100A, numeral 10"
       },
       {
-        "id": "p42-q3",
+        "id": "p39-q3",
         "enunciado": "¿Cuál es el error más frecuente en la preparación de una SID PBN?",
         "opciones": [
           "Calcular mal el gradiente.",
@@ -1946,12 +1808,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P43",
-    "n": 43,
+    "tema": "P40",
+    "n": 40,
     "titulo": "La STAR PBN",
     "preguntas": [
       {
-        "id": "p43-q1",
+        "id": "p40-q1",
         "enunciado": "El ATC te vectorea fuera de una STAR con restricciones de altitud publicadas. ¿Qué ocurre con esas restricciones?",
         "opciones": [
           "Siguen vigentes: la STAR no se cancela con unos vectores.",
@@ -1964,7 +1826,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 5-4-1, apartado de rutas con STAR"
       },
       {
-        "id": "p43-q2",
+        "id": "p40-q2",
         "enunciado": "¿Cómo se sabe que el ATC pretende volver a meter al avión en la STAR?",
         "opciones": [
           "Se asume siempre.",
@@ -1977,7 +1839,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 5-4-1, apartado de rutas con STAR"
       },
       {
-        "id": "p43-q3",
+        "id": "p40-q3",
         "enunciado": "En el marco de la FAA, ¿qué altitud se mantiene cuando la ruta autorizada incluye una STAR?",
         "opciones": [
           "La primera altitud publicada en la STAR.",
@@ -1992,12 +1854,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P44",
-    "n": 44,
+    "tema": "P41",
+    "n": 41,
     "titulo": "Vectores y directos",
     "preguntas": [
       {
-        "id": "p44-q1",
+        "id": "p41-q1",
         "enunciado": "¿Qué hay que verificar siempre ante una autorización de directo a un punto?",
         "opciones": [
           "La distancia al punto.",
@@ -2010,7 +1872,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, numeral 8.4.3, apartado 22; práctica estándar de colación"
       },
       {
-        "id": "p44-q2",
+        "id": "p41-q2",
         "enunciado": "¿Qué efecto puede tener seleccionar la opción de «vectores a final» en una aproximación?",
         "opciones": [
           "Ninguno: solo cambia la presentación.",
@@ -2023,7 +1885,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 5-4-6, nota sobre la selección de vectores a final"
       },
       {
-        "id": "p44-q3",
+        "id": "p41-q3",
         "enunciado": "El ATC te pide un desplazamiento lateral paralelo y tu sistema no tiene esa funcionalidad. ¿Qué haces?",
         "opciones": [
           "Vuelas un rumbo aproximado para conseguir el desplazamiento.",
@@ -2038,12 +1900,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P45",
-    "n": 45,
+    "tema": "P42",
+    "n": 42,
     "titulo": "La capacidad en el plan de vuelo",
     "preguntas": [
       {
-        "id": "p45-q1",
+        "id": "p42-q1",
         "enunciado": "¿Qué significa la letra R en la casilla 10 del plan de vuelo OACI?",
         "opciones": [
           "Radar de meteorología a bordo.",
@@ -2056,7 +1918,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "OACI PANS-ATM, Apéndice 2, casilla 10, código R"
       },
       {
-        "id": "p45-q2",
+        "id": "p42-q2",
         "enunciado": "¿Qué diferencia hay entre los códigos `S1` y `S2`?",
         "opciones": [
           "`S1` es RNP APCH y `S2` es RNP AR APCH.",
@@ -2069,7 +1931,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "OACI PANS-ATM, Apéndice 2, códigos `PBN/` S1 y S2"
       },
       {
-        "id": "p45-q3",
+        "id": "p42-q3",
         "enunciado": "¿Cuántos descriptores admite el indicador `PBN/`?",
         "opciones": [
           "Los que hagan falta.",
@@ -2084,12 +1946,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P46",
-    "n": 46,
+    "tema": "P43",
+    "n": 43,
     "titulo": "La MEL y la capacidad PBN",
     "preguntas": [
       {
-        "id": "p46-q1",
+        "id": "p43-q1",
         "enunciado": "¿Por qué exige la norma que la MEL incluya información sobre las capacidades de especificación de navegación?",
         "opciones": [
           "Para facilitar el trabajo de mantenimiento.",
@@ -2102,7 +1964,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "RAC 91, numeral 91.1015, apartado (a)(3); RAC 121, numeral 121.995, apartado (b)(1)(iii)"
       },
       {
-        "id": "p46-q2",
+        "id": "p43-q2",
         "enunciado": "¿Cuándo pasa a ser obligatorio el acoplamiento del piloto automático o del director de vuelo en RNP APCH?",
         "opciones": [
           "Siempre.",
@@ -2115,7 +1977,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.3.9"
       },
       {
-        "id": "p46-q3",
+        "id": "p43-q3",
         "enunciado": "Hay dos ítems de MEL abiertos, cada uno aceptable por separado. ¿Cómo se evalúa el efecto conjunto sobre PBN?",
         "opciones": [
           "Sumando las restricciones de cada uno.",
@@ -2130,58 +1992,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P47",
-    "n": 47,
-    "titulo": "Automatización, PF y PM",
+    "tema": "P44",
+    "n": 44,
+    "titulo": "El reparto en cabina: seleccionar, verificar, ejecutar, vigilar",
     "preguntas": [
       {
-        "id": "p47-q1",
-        "enunciado": "¿Por qué el que programa el FMS no debería ser el que verifica?",
-        "opciones": [
-          "Porque el SOP lo prohíbe en todas las aerolíneas.",
-          "Porque si una sola persona hace las dos cosas no hay verificación, hay repetición.",
-          "Porque el piloto a los mandos no puede tocar el FMS.",
-          "Porque el sistema registra quién programó."
-        ],
-        "correcta": 1,
-        "explicacion": "La verificación tiene valor porque la hace otro par de ojos. El reparto concreto lo fija el SOP del operador, que la norma le exige documentar, pero el principio es el mismo en todos.",
-        "referencia": "RAC 121, numeral 121.995, apartado (b)(2); FAA AC 90-105A, capítulo 8"
-      },
-      {
-        "id": "p47-q2",
-        "enunciado": "¿Qué riesgo señala la norma al pasar de una trayectoria PBN a la captura de un ILS?",
-        "opciones": [
-          "La pérdida de la capacidad RNP.",
-          "Posibles capturas laterales y verticales falsas durante la transición.",
-          "El secuenciamiento prematuro de la frustrada.",
-          "La desconexión del piloto automático."
-        ],
-        "correcta": 1,
-        "explicacion": "Entre los conocimientos requeridos está la conciencia de posibles capturas laterales y verticales falsas durante una transición en la captura de un ILS. Es un riesgo específico de ese enganche y por eso aparece en la lista.",
-        "referencia": "FAA AC 90-105A, numeral 8.4.3, apartado 19"
-      },
-      {
-        "id": "p47-q3",
-        "enunciado": "¿Qué desaparece primero cuando sube la carga de trabajo?",
-        "opciones": [
-          "La comunicación con el ATC.",
-          "La verificación, porque es lo único que no produce un efecto visible cuando se hace bien.",
-          "El uso del piloto automático.",
-          "El briefing de aproximación."
-        ],
-        "correcta": 1,
-        "explicacion": "La norma responde a ese riesgo pidiendo procedimientos de vigilancia por fase de vuelo y un uso de la automatización adecuado a la carga de trabajo. La verificación no da retroalimentación inmediata, y por eso es lo primero que se omite si no es obligatoria.",
-        "referencia": "FAA AC 90-105A, numeral 8.4.3, apartados 16 y 21"
-      }
-    ]
-  },
-  {
-    "tema": "P48",
-    "n": 48,
-    "titulo": "Seleccionar, verificar, ejecutar, vigilar",
-    "preguntas": [
-      {
-        "id": "p48-q1",
+        "id": "p44-q1",
         "enunciado": "¿Cuál es el orden correcto para gestionar un cambio de trayectoria en el FMS?",
         "opciones": [
           "Ejecutar, verificar, vigilar, seleccionar.",
@@ -2194,40 +2010,40 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 1-2-1; FAA AC 90-105A, numeral 8.4.3, apartado 16"
       },
       {
-        "id": "p48-q2",
-        "enunciado": "¿Cuándo hay que repetir los cuatro pasos?",
+        "id": "p44-q2",
+        "enunciado": "¿Por qué el que programa el FMS no debería ser el que verifica?",
         "opciones": [
-          "Una vez por vuelo, en el briefing.",
-          "Cada vez que la trayectoria cambia: autorización inicial, vectores, directos, cambio de pista.",
-          "Solo al cargar la aproximación.",
-          "Solo si el ATC lo pide."
+          "Porque el SOP lo prohíbe en todas las aerolíneas.",
+          "Porque si una sola persona hace las dos cosas no hay verificación, hay repetición.",
+          "Porque el piloto a los mandos no puede tocar el FMS.",
+          "Porque el sistema registra quién programó."
         ],
         "correcta": 1,
-        "explicacion": "Cada cambio de autorización reinicia el ciclo, y son más de los que se espera. Un cambio de pista de última hora es el caso que más veces produce un procedimiento cargado que no corresponde.",
-        "referencia": "FAA AC 90-105A, numeral 8.4.4; FAA AIM 5-4-1"
+        "explicacion": "La verificación tiene valor porque la hace otro par de ojos. El reparto concreto lo fija el SOP del operador, que la norma le exige documentar, pero el principio es el mismo en todos.",
+        "referencia": "RAC 121, numeral 121.995, apartado (b)(2); FAA AC 90-105A, capítulo 8"
       },
       {
-        "id": "p48-q3",
-        "enunciado": "¿Por qué se marca la frontera entre verificar y ejecutar?",
+        "id": "p44-q3",
+        "enunciado": "¿Qué riesgo señala la norma al pasar de una trayectoria PBN a la captura de un ILS?",
         "opciones": [
-          "Porque ejecutar requiere autorización del ATC.",
-          "Porque a partir de ejecutar el avión va a volar lo que está cargado, verificado o no.",
-          "Porque después de ejecutar no se puede modificar el plan.",
-          "Porque el sistema bloquea la edición."
+          "La pérdida de la capacidad RNP.",
+          "Posibles capturas laterales y verticales falsas durante la transición.",
+          "El secuenciamiento prematuro de la frustrada.",
+          "La desconexión del piloto automático."
         ],
         "correcta": 1,
-        "explicacion": "Ejecutar es el punto sin retorno operacional: el avión empieza a seguir lo cargado. Se puede seguir modificando después, pero ya con el avión volando la trayectoria, que es exactamente lo que se quería evitar.",
-        "referencia": "FAA AC 90-105A, numeral 8.4.4; FAA AIM 1-2-1"
+        "explicacion": "Entre los conocimientos requeridos está la conciencia de posibles capturas laterales y verticales falsas durante una transición en la captura de un ILS. Es un riesgo específico de ese enganche y por eso aparece en la lista.",
+        "referencia": "FAA AC 90-105A, numeral 8.4.3, apartado 19"
       }
     ]
   },
   {
-    "tema": "P49",
-    "n": 49,
+    "tema": "P45",
+    "n": 45,
     "titulo": "Perder la capacidad PBN",
     "preguntas": [
       {
-        "id": "p49-q1",
+        "id": "p45-q1",
         "enunciado": "¿Cuenta como pérdida de capacidad RNP la falla del piloto automático?",
         "opciones": [
           "Nunca: el piloto automático no forma parte de la capacidad de navegación.",
@@ -2240,7 +2056,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-100A, numeral 10, apartado d; FAA AC 90-105A, Apéndice A, numeral A.3.9"
       },
       {
-        "id": "p49-q2",
+        "id": "p45-q2",
         "enunciado": "¿Qué debe contener el aviso al ATC por pérdida de capacidad?",
         "opciones": [
           "Solo la falla.",
@@ -2253,7 +2069,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.7.1.8 y Apéndice H, numeral H.8.5"
       },
       {
-        "id": "p49-q3",
+        "id": "p45-q3",
         "enunciado": "¿Cuál es el paso que decide en el flujo de pérdida de capacidad?",
         "opciones": [
           "Identificar el mensaje.",
@@ -2268,12 +2084,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P50",
-    "n": 50,
+    "tema": "P46",
+    "n": 46,
     "titulo": "«Unable RNAV», «unable RNP» y las contingencias",
     "preguntas": [
       {
-        "id": "p50-q1",
+        "id": "p46-q1",
         "enunciado": "¿Cuáles son las tres piezas de una comunicación de pérdida de capacidad?",
         "opciones": [
           "Posición, combustible y personas a bordo.",
@@ -2286,7 +2102,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-100A, numeral 10, apartado d"
       },
       {
-        "id": "p50-q2",
+        "id": "p46-q2",
         "enunciado": "¿Cuándo se comunica la pérdida de capacidad?",
         "opciones": [
           "Al aterrizar, en el reporte de vuelo.",
@@ -2299,7 +2115,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AC 90-105A, Apéndice A, numeral A.7.1.8"
       },
       {
-        "id": "p50-q3",
+        "id": "p46-q3",
         "enunciado": "Dices al ATC «tengo un problema con el GPS» y nada más. ¿Qué falta?",
         "opciones": [
           "Nada: el controlador deducirá las consecuencias.",
@@ -2314,12 +2130,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P51",
-    "n": 51,
+    "tema": "P47",
+    "n": 47,
     "titulo": "PBN en Colombia",
     "preguntas": [
       {
-        "id": "p51-q1",
+        "id": "p47-q1",
         "enunciado": "¿Cuál es el numeral del RAC 91 que trata el equipo de navegación para operaciones PBN?",
         "opciones": [
           "91.305",
@@ -2332,7 +2148,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "RAC 91, numeral 91.1015"
       },
       {
-        "id": "p51-q2",
+        "id": "p47-q2",
         "enunciado": "Según el RAC 121, además de tener el avión equipado, ¿qué debe ocurrir?",
         "opciones": [
           "Que el ATC confirme la capacidad en frecuencia.",
@@ -2345,7 +2161,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "RAC 121, numeral 121.995, apartado (b)(3)"
       },
       {
-        "id": "p51-q3",
+        "id": "p47-q3",
         "enunciado": "¿Qué dice la nota del RAC 121 sobre los datos de navegación?",
         "opciones": [
           "Que son responsabilidad exclusiva del proveedor.",
@@ -2360,12 +2176,12 @@ export const PB_PRACTICA: GrupoPractica[] = [
     ]
   },
   {
-    "tema": "P52",
-    "n": 52,
+    "tema": "P48",
+    "n": 48,
     "titulo": "Cómo se lee una carta PBN y un vuelo completo",
     "preguntas": [
       {
-        "id": "p52-q1",
+        "id": "p48-q1",
         "enunciado": "¿Cuál es el primer sitio de la carta donde se busca lo que el procedimiento exige?",
         "opciones": [
           "El título del procedimiento.",
@@ -2378,7 +2194,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "FAA AIM 1-2-3, representación de los requisitos PBN"
       },
       {
-        "id": "p52-q2",
+        "id": "p48-q2",
         "enunciado": "En el vuelo completo, ¿en qué fase se resuelve una contradicción entre la MEL y la capacidad declarada en el plan de vuelo?",
         "opciones": [
           "En vuelo, explicándola al ATC.",
@@ -2391,7 +2207,7 @@ export const PB_PRACTICA: GrupoPractica[] = [
         "referencia": "RAC 121, numeral 121.995, apartado (b)(1)(iii); OACI PANS-ATM, Apéndice 2"
       },
       {
-        "id": "p52-q3",
+        "id": "p48-q3",
         "enunciado": "¿Qué indica un valor RNP publicado con dos decimales, del tipo 0.15?",
         "opciones": [
           "Que se trata de la especificación RNP 0.3 para helicópteros.",

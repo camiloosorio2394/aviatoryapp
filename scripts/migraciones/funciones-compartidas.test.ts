@@ -176,6 +176,16 @@ describe("las funciones que cada módulo republica enteras", () => {
 
     const ultima = marca[1]
 
+    // Las que ya están aplicadas por debajo de la marca no son un peligro: la
+    // base no las vuelve a correr. Pasa siempre que se aplica por el conector,
+    // que registra la versión con la fecha real mientras las migraciones de
+    // módulo van con fechas adelantadas. El historial las declara una por una.
+    const aplicadasBajoLaMarca = new Set(
+      (historial.match(/<!--\s*APLICADAS_BAJO_LA_MARCA:\s*([\d\s]*?)\s*-->/)?.[1] ?? "")
+        .split(/\s+/)
+        .filter(Boolean),
+    )
+
     // Qué es «nueva»: lo que esta rama añade y la base de comparación no tiene.
     // Se le pregunta a git y no al historial, porque el historial no lista una
     // por una las cien migraciones viejas. Si no hay con qué comparar —un
@@ -199,9 +209,20 @@ describe("las funciones que cada módulo republica enteras", () => {
         .filter(Boolean),
     )
 
+    // Una versión declarada como aplicada tiene que tener su archivo: si no,
+    // la lista se quedó con una entrada vieja y deja de proteger.
+    const versionesConArchivo = new Set(ARCHIVOS.map((f) => f.split("_")[0]))
+    const declaradasSinArchivo = [...aplicadasBajoLaMarca].filter((v) => !versionesConArchivo.has(v))
+    expect(
+      declaradasSinArchivo,
+      `APLICADAS_BAJO_LA_MARCA nombra versiones que no tienen archivo en ` +
+        `supabase/migrations: ${declaradasSinArchivo.join(", ")}. Quita la entrada o ` +
+        `agrega el archivo.`,
+    ).toEqual([])
+
     const coladas = ARCHIVOS.filter((f) => !yaEstaban.has(f))
       .map((f) => f.split("_")[0])
-      .filter((v) => v < ultima)
+      .filter((v) => v < ultima && !aplicadasBajoLaMarca.has(v))
 
     expect(
       coladas,
