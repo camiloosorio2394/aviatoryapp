@@ -721,7 +721,7 @@ export const NIVEL_1: DocScreen[] = [
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "Es el conjunto de 26 palabras con las que se deletrea por radio, una por letra, para que una letra no se confunda con otra de sonido parecido (B, D, E, G, P, T, V suenan casi igual en una radio con ruido).",
+        text: "El alfabeto de la Organización de Aviación Civil Internacional (OACI; International Civil Aviation Organization, ICAO) es el conjunto de 26 palabras con las que se deletrea por radio, una por letra, para que una letra no se confunda con otra de sonido parecido (B, D, E, G, P, T, V suenan casi igual en una radio con ruido). Para un piloto de aerolínea, el objetivo no es recitarlo como una lista: es **reconocer una secuencia al oído, asociarla con la autorización y verificar lo que entró en el sistema de navegación** antes de colacionar.",
       },
       { kind: "sub", text: "Lo que debe saber un piloto" },
       { kind: "p", text: "**Cuándo se usa:**" },
@@ -791,16 +791,24 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "La edición en español escribe algunas palabras con grafía española (Julieta, Papá, Québec, Víctor). La grafía de la palabra en la edición inglesa y en el Anexo 10 es la que se usa en inglés; va en el aviso «Verificar».",
+        text: "La edición en español escribe algunas palabras con grafía española (Julieta, Papá, Québec, Víctor). La lámina ampliable muestra la grafía internacional que presenta la OACI, incluida «Juliett» con doble t. Para la pronunciación aproximada en inglés usa la tabla oficial de la FAA; esta escribe «Whiskey», mientras la grafía que aparece en la referencia OACI es «Whisky». Las diferencias de grafía no autorizan a cambiar la palabra que se transmite.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-04-01 · Esquema · 3:4 · 1200×1600",
-        descripcion:
-          "Tabla limpia de 26 filas en dos columnas de 13 (A a M, N a Z), fondo papel del lector. Cada celda: letra grande en Archivo, palabra en inglés debajo y pronunciación en mono pequeña, con la sílaba de énfasis resaltada en el acento del módulo (tomada del PDF original del Doc 9432, no de este texto). Sin ilustraciones decorativas. Objetivo: que el piloto tenga una referencia de consulta rápida y vea de un vistazo qué sílaba se acentúa.",
-        alto: 480,
-        ratio: "3 / 4",
-        anchoMax: 420,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-04-01.svg",
+        alt: "Tabla ampliable de las veintiséis letras del alfabeto de deletreo, de Alfa a Zulu, con palabra internacional y guía aproximada de pronunciación en inglés.",
+        ancho: 1200,
+        alto: 1600,
+        pie: "Referencia para escuchar y transcribir, no sustituto de la colación de una autorización completa. La grafía internacional sigue a la OACI; la guía aproximada de pronunciación inglesa sigue la tabla 2-3-2, §2-3-3, de la Administración Federal de Aviación de Estados Unidos (FAA, Federal Aviation Administration). La FAA escribe «Whiskey»; la grafía OACI es «Whisky». Amplíe la tabla para leer cada fila. Fuentes: https://www.icao.int/sites/default/files/postalhistory/annex_10_aeronautical_telecommunications.htm y https://www.faa.gov/air_traffic/publications/atpubs/fs_html/chap2_section_3.html.",
+      },
+      { kind: "sub", text: "Del deletreo a una decisión de cabina" },
+      {
+        kind: "p",
+        text: "**Escuchar una palabra deletreada no termina el trabajo.** Si una dependencia transmite o aclara un punto de ruta, el piloto que comunica debe distinguir primero si se trata de una instrucción dirigida a su vuelo. Luego retiene o anota la secuencia de letras completa, verifica que el punto seleccionado en el sistema de gestión de vuelo coincide con lo recibido y confirma que ese cambio encaja con la autorización vigente. El otro piloto comprueba la modificación según el procedimiento del operador. Solo entonces la colación expresa lo que la tripulación entendió y está preparada para ejecutar. Recitar «Golf India Kilo…» perfectamente mientras se selecciona otro punto no evita una desviación de trayectoria.",
+      },
+      {
+        kind: "p",
+        text: "**Si falta una letra, se detiene la suposición.** Una frecuencia ocupada, un acento desconocido o un nombre muy parecido a otro punto pueden dejar la secuencia incompleta. En ese momento corresponde pedir repetición o deletreo de la parte dudosa, escuchar la respuesta y verificar de nuevo el dato antes de modificar la ruta. No basta con reconocer las primeras sílabas ni con aceptar la opción que aparece primero en la pantalla. El mismo criterio se aplica a calles de rodaje, letras de la información automática y matrículas de otras aeronaves: el alfabeto es una herramienta para eliminar una ambigüedad operacional, no una prueba de memoria desconectada de la tarea.",
       },
       { kind: "sub", text: "Fraseología OACI" },
       {
@@ -849,7 +857,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "callout",
         tone: "verificar",
         title: "Verificar",
-        text: "La tabla todavía no marca la sílaba de énfasis de cada palabra (subrayada en el original, perdida en la extracción): tomarla del **PDF del Doc 9432 (4.ª ed.), 2.3.3**. La grafía inglesa de las palabras que la edición en español escribe a la española (Alfa, Juliett, Papa, Quebec, Victor, Whiskey, X-ray) se confirma en el **Anexo 10 Vol. II, cap. 5 (alfabeto de deletreo)** y en la **edición inglesa del Doc 9432, 2.3.3**; mientras tanto, los ejercicios en inglés usan «Juliett». Las matrículas colombianas (HK-) y mexicanas (XA-) de los ejercicios son ficticias: su formato real lo fija la **autoridad de cada Estado**.",
+        text: "La tabla de la edición española todavía no marca la sílaba de énfasis de cada palabra (subrayada en el original, perdida en la extracción): tomarla del **PDF del Doc 9432 (4.ª ed.), 2.3.3**. La lámina no inventa ese énfasis: ofrece la palabra internacional y una guía aproximada de pronunciación de la tabla FAA 2-3-2. Para una referencia normativa de pronunciación en un Estado concreto, comprobar el **Anexo 10, Vol. II, cap. 5**, la edición vigente del manual aplicable y la publicación de su autoridad. Las matrículas colombianas (HK-) y mexicanas (XA-) de los ejercicios son ficticias: su formato real lo fija la **autoridad de cada Estado**.",
       },
       {
         kind: "enLaOperacion",
@@ -939,10 +947,10 @@ export const NIVEL_1: DocScreen[] = [
       },
       { kind: "p", text: "Casos de la parte C: Doc 9432, 1.2, nota, y 3.1.2." },
       fuentes(
-        "Doc 9432 (4.ª ed.) 1.2 (nota y asteriscos), 2.3.1, 2.3.2, 2.3.3, 2.7.2.1 b), 2.8.1.1, 3.1.2, 4.4.2, 4.4.3, 2.6 (SAY AGAIN, I SAY AGAIN).",
+        "Doc 9432 (4.ª ed.) 1.2 (nota y asteriscos), 2.3.1, 2.3.2, 2.3.3, 2.7.2.1 b), 2.8.1.1, 3.1.2, 4.4.2, 4.4.3, 2.6 (SAY AGAIN, I SAY AGAIN). Grafía internacional: OACI (https://www.icao.int/sites/default/files/postalhistory/annex_10_aeronautical_telecommunications.htm). Guía aproximada inglesa: FAA, §2-3-3, tabla 2-3-2 (https://www.faa.gov/air_traffic/publications/atpubs/fs_html/chap2_section_3.html).",
         [
           "La sílaba de énfasis de cada palabra (subrayada en el original; perdida en la extracción) contra el PDF del Doc 9432 (4.ª ed.) 2.3.3.",
-          "La grafía inglesa de las palabras que la edición en español escribe a la española (Alfa, Juliett, Papa, Quebec, Victor, Whiskey, X-ray) contra Anexo 10 Vol. II cap. 5 (alfabeto de deletreo) y Doc 9432 edición inglesa 2.3.3 (no cargados). En esta lección se usa «Juliett» en los ejercicios en inglés a la espera de esa verificación.",
+          "La pronunciación normativa y el énfasis de cada palabra contra Anexo 10 Vol. II cap. 5 y Doc 9432 edición inglesa 2.3.3 (no cargados); la lámina solo usa una guía aproximada publicada por la FAA.",
           "Formato real de matrículas colombianas (HK-) y mexicanas (XA-) contra la autoridad de cada Estado; en los ejercicios son ficticias.",
         ],
       ),
