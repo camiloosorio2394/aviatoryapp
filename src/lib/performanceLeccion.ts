@@ -110,12 +110,11 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-01 · Figura · 16:9 · 1600×900",
-        "descripcion": "una aeronave de transporte en el umbral de una pista, vista desde arriba en tres cuartos, rodeada por ocho etiquetas que apuntan hacia ella: *Weight*, *Temperature*, *Pressure Altitude*, *Wind*, *Runway*, *Slope*, *Obstacles* y *Aircraft Configuration*. Cada etiqueta con su traducción pequeña debajo.",
-        "pie": "que el alumno vea de entrada que la performance sale de muchas variables a la vez, y no de la potencia de los motores.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-01.svg",
+        "alt": "Un avión de transporte visto desde arriba en el umbral de una pista, rodeado por ocho etiquetas que apuntan hacia él: weight, temperature, pressure altitude, wind, runway, slope, obstacles y aircraft configuration, cada una con su traducción debajo.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "p",
@@ -345,12 +344,12 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-02 · Figura · 16:9 · 1600×900",
-        "descripcion": "cuatro viñetas en fila con la misma aeronave despegando, y bajo cada una el punto donde levanta: (1) aeropuerto al nivel del mar, día frío, despegue corto; (2) aeropuerto alto y caliente, despegue claramente más largo; (3) con viento de frente, más corto; (4) con viento de cola, el más largo de los cuatro. Una regla horizontal común debajo para comparar las cuatro distancias.",
-        "pie": "que se vea de un golpe cuánto mueven las condiciones del día una misma operación.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-02.svg",
+        "alt": "Cuatro franjas con el mismo avión despegando y el punto donde levanta, sobre una regla común: al nivel del mar en día frío, despegue corto; en aeropuerto alto y caliente, claramente más largo; con viento de frente, más corto; con viento de cola, el más largo de los cuatro.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Esquema comparativo, sin escala: las distancias reales salen del cálculo de cada día."
       }
     ],
     "minutes": 4
@@ -435,12 +434,11 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-03 · Figura · 16:9 · 1600×900",
-        "descripcion": "vista lateral esquemática de una pista con su stopway a la derecha y su clearway sobre ella. Debajo, cuatro barras horizontales apiladas y acotadas, una por distancia (TORA, TODA, ASDA, LDA), cada una empezando y terminando exactamente donde le corresponde, con el umbral marcado.",
-        "pie": "que el alumno distinga de un vistazo dónde empieza y dónde acaba cada una de las cuatro distancias declaradas.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-03.svg",
+        "alt": "Vista lateral de una pista con un umbral desplazado al comienzo, la zona de parada a continuación del extremo y la zona libre de obstáculos por encima y más allá. Debajo, cuatro barras: TORA, la pista; TODA, la pista más la zona libre; ASDA, la pista más la zona de parada; y LDA, desde el umbral hasta el extremo.",
+        "ancho": 1600,
+        "alto": 900
       }
     ],
     "minutes": 3
@@ -681,15 +679,14 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-04 · Figura · 16:9 · 1600×900",
-        "descripcion": "línea de tiempo horizontal sobre el perfil de una pista, de izquierda a derecha, con cinco marcas acotadas en orden: VMCG, VEF, V₁, VR, VLOF, y a 35 ft de altura V₂. Entre VEF y V₁, una banda sombreada rotulada «tiempo de reconocimiento». Silueta del avión en cada punto: en el suelo, en rotación y ya en el aire.",
-        "pie": "que se vea el orden real de las velocidades y, sobre todo, que VEF y V₁ no son el mismo punto.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-04.svg",
+        "alt": "Línea de tiempo sobre el perfil de una pista con las marcas en orden: VMCG, VEF, V1, VR, VLOF y, a 35 ft de altura, V2. Entre VEF y V1, una banda sombreada: tiempo de reconocimiento. El avión aparece en el suelo, en rotación y ya en el aire.",
+        "ancho": 1600,
+        "alto": 900
       }
     ],
-    "minutes": 5
+    "minutes": 4
   },
   {
     "n": 6,
@@ -765,12 +762,11 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-05 · Figura · 16:9 · 1600×900",
-        "descripcion": "secuencia lateral de cinco siluetas del mismo avión sobre una pista con su stopway al final: (1) suelta de frenos, (2) acelerando, (3) falla del motor marcada con un icono y rótulo VEF, (4) rechazo iniciado en V₁ con spoilers desplegados, (5) detenido. Debajo, una barra acotada «Accelerate-Stop Distance» y otra «ASDA», la primera cabiendo dentro de la segunda.",
-        "pie": "mostrar que la distancia de parada se compara contra la ASDA y que la falla ocurre antes del punto de decisión.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-05.svg",
+        "alt": "Cinco posiciones del mismo avión sobre una pista con zona de parada: suelta de frenos, acelerando, falla del motor en VEF, rechazo iniciado en V1 con los spoilers desplegados, y detenido. Debajo, la barra de la distancia de aceleración y parada, que cabe dentro de la barra de la ASDA.",
+        "ancho": 1600,
+        "alto": 900
       }
     ],
     "minutes": 3
@@ -813,12 +809,11 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-06 · Figura · 16:9 · 1600×900",
-        "descripcion": "el mismo encuadre lateral de la figura anterior, para que se puedan comparar: (1) suelta de frenos, (2) acelerando, (3) falla en VEF, (4) rotación en VR, (5) VLOF, (6) el avión a 35 ft sobre el final de la pista con el rótulo V₂. Debajo, barra «Accelerate-Go Distance» contra barra «TODA», con la clearway sombreada al final.",
-        "pie": "contrastar visualmente continuar contra detenerse, usando el mismo punto de falla.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-06.svg",
+        "alt": "El mismo encuadre que la figura anterior: suelta de frenos, acelerando, falla en VEF, rotación en VR, despegue en VLOF, y el avión a 35 ft sobre el final con V2. Debajo, la barra de la distancia de aceleración y continuación contra la barra de la TODA, con la clearway sombreada al final.",
+        "ancho": 1600,
+        "alto": 900
       }
     ],
     "minutes": 3
@@ -869,12 +864,11 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-07 · Figura · 16:9 · 1600×900",
-        "descripcion": "gráfico de ejes limpios: eje horizontal V₁, eje vertical distancia. Dos curvas: *Accelerate-Stop Distance* ascendente y *Accelerate-Go Distance* descendente, cruzándose. En el cruce, líneas punteadas hasta los dos ejes rotuladas «V₁ equilibrada» y «Balanced Field Length».",
-        "pie": "explicar por qué existe un punto en el que las dos distancias se equilibran y por qué ese punto da la pista mínima.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-07.svg",
+        "alt": "Gráfico con V1 en el eje horizontal y distancia en el vertical. La distancia de aceleración y parada sube con V1; la de aceleración y continuación baja. Se cruzan: desde el cruce, líneas de puntos a los ejes rotuladas V1 equilibrada y balanced field length.",
+        "ancho": 1600,
+        "alto": 900
       }
     ],
     "minutes": 3
@@ -1035,12 +1029,11 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-08 · Figura · 16:9 · 1600×900",
-        "descripcion": "perfil lateral desde el final de la pista. Dos curvas de ascenso partiendo del mismo punto a 35 ft: la superior rotulada *Gross Flight Path*, la inferior *Net Flight Path*, con la separación creciente entre ambas sombreada y rotulada «margen de la norma». Un obstáculo dibujado abajo, librado por la curva neta.",
-        "pie": "que se entienda que el margen regulatorio se aplica bajando la trayectoria, no subiendo el obstáculo.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-08.svg",
+        "alt": "Perfil lateral desde el final de la pista. Dos trayectorias de ascenso salen del mismo punto a 35 ft: la superior, gross flight path, y la inferior, net flight path. La separación entre las dos crece y va sombreada: el margen de la norma. Abajo, un obstáculo que la trayectoria neta libra.",
+        "ancho": 1600,
+        "alto": 900
       }
     ],
     "minutes": 3
@@ -1116,12 +1109,12 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-09 · Figura · 16:9 · 1600×900",
-        "descripcion": "perfil lateral del despegue con un motor apagado (marcado con un icono discreto), dividido en cuatro tramos de distinto sombreado y rotulados *First Segment*, *Second Segment*, *Acceleration Segment* y *Final Segment*. En cada tramo, una etiqueta pequeña con la configuración (tren, flaps, empuje) y la velocidad de referencia. Marcas de altura en 35 ft, altura de aceleración y 1 500 ft.",
-        "pie": "que el alumno ubique dónde empieza y termina cada segmento y qué cambia en cada uno.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-09.svg",
+        "alt": "Perfil lateral del despegue con un motor inoperativo, en cuatro tramos. Primero, desde 35 ft hasta el tren arriba: tren bajando, flaps de despegue, empuje de despegue, a VLOF, gradiente positivo en bimotor. Segundo, hasta la altura de aceleración: tren arriba, flaps de despegue, empuje de despegue, a V2, 2,4 % en bimotor. Aceleración: se acelera y se retraen flaps, sin gradiente exigido. Final: limpio, empuje máximo continuo, a VFTO, 1,2 % en bimotor, hasta al menos 1 500 ft.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Gradientes de certificación en bimotor (14 CFR 25.121), con el motor crítico inoperativo."
       }
     ],
     "minutes": 3
@@ -1198,12 +1191,12 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-10 · Figura · 16:9 · 1600×900",
-        "descripcion": "un triángulo rectángulo grande con la trayectoria de ascenso como hipotenusa, la distancia horizontal acotada en la base y la altura ganada acotada en el lado vertical, con la fórmula del gradiente al lado. Al costado, dos siluetas de avión con la misma flecha vertical de régimen pero distinta velocidad horizontal, mostrando dos pendientes distintas.",
-        "pie": "separar visualmente gradiente de régimen de ascenso.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-10.svg",
+        "alt": "Un triángulo rectángulo con la trayectoria de ascenso como hipotenusa, la distancia horizontal en la base y la altura ganada en el lado vertical, con la fórmula: gradiente igual a altura ganada sobre distancia recorrida por cien. Al lado, dos aviones con el mismo régimen de 1 500 ft/min, uno a 160 kt y otro a 280 kt: el lento sube con un gradiente de cerca del 9 % y el rápido, de cerca del 5 %.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Gradientes calculados con los números del tema: 1 500 ft/min a 160 kt y a 280 kt, sin viento."
       }
     ],
     "minutes": 3
@@ -1259,12 +1252,11 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-11 · Figura · 16:9 · 1600×900",
-        "descripcion": "acercamiento al segundo segmento: avión con un motor apagado, tren arriba y flaps de despegue visibles, subiendo por una pendiente acotada «2,4 % · bimotor». Alrededor, cuatro etiquetas de lo que juega en contra —peso máximo, V₂ baja, flaps extendidos, medio empuje— y una a favor, el tren retraído.",
-        "pie": "explicar por qué justo este tramo es el que limita el peso en tantos aeropuertos.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-11.svg",
+        "alt": "Un avión con un motor inoperativo, tren arriba y flaps de despegue, subiendo por una pendiente rotulada 2,4 % en bimotor. Alrededor, lo que juega en contra: peso máximo, V2 baja, flaps extendidos y medio empuje. Y a favor, el tren retraído.",
+        "ancho": 1600,
+        "alto": 900
       }
     ],
     "minutes": 3
@@ -1316,12 +1308,12 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-12 · Figura · 16:9 · 1600×900",
-        "descripcion": "perfil de salida con la pista a la izquierda, la trayectoria neta ascendiendo y un obstáculo crítico —una colina con una antena encima— a la derecha. Cota vertical de 35 ft entre la cima del obstáculo y la trayectoria neta. En gris claro y por encima, la trayectoria real, para que se vea el margen extra.",
-        "pie": "mostrar cómo un obstáculo se convierte en el factor que limita el peso de despegue.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-12.svg",
+        "alt": "Perfil de salida con la pista a la izquierda, la trayectoria neta ascendiendo y, a la derecha, una colina con una antena encima. Entre la punta de la antena y la trayectoria neta, una cota de 35 ft. Por encima, en gris claro, la trayectoria real, con el margen extra.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Los 35 ft son la regla de la FAA (14 CFR 121.189); cada Estado publica la suya."
       }
     ],
     "minutes": 3
@@ -1466,12 +1458,12 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-13 · Figura · 16:9 · 1600×900",
-        "descripcion": "seis cajas en columna a la izquierda —*Runway Limit*, *Climb Limit*, *Obstacle Limit*, *Brake Energy Limit*, *Tire Speed Limit*, *Structural Limit*— cada una con un peso ficticio distinto, y flechas convergiendo hacia una caja final a la derecha rotulada *Maximum Allowed Takeoff Weight*. La caja del valor más bajo, resaltada, es la única cuya flecha llega gruesa.",
-        "pie": "mostrar que el peso permitido lo decide el límite más restrictivo.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-13.svg",
+        "alt": "Seis cajas en columna con un peso ficticio cada una: runway limit, climb limit, obstacle limit, brake energy limit, tire speed limit y structural limit. Todas apuntan a una caja final, maximum allowed takeoff weight. La del valor más bajo, obstacle limit con 74 200 kg, va resaltada y es la única cuya flecha llega gruesa.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Pesos ficticios, para mostrar la lógica."
       }
     ],
     "minutes": 3
@@ -1572,12 +1564,12 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-19 · Figura · 16:9 · 1600×900",
-        "descripcion": "gráfico sencillo de dos líneas. Eje horizontal, peso; eje vertical, gradiente de ascenso en el segundo segmento. Una línea horizontal fija rotulada «gradiente exigido · 2,4 %» y tres líneas descendentes de «gradiente disponible», una por cada condición: día fresco a nivel del mar, día caliente a nivel del mar y día caliente en altura. Marcado con un punto dónde cada una cruza la línea del exigido: ese cruce es el peso máximo.",
-        "pie": "mostrar por qué la temperatura y la altitud recortan el peso sin que la pista tenga nada que ver.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-19.svg",
+        "alt": "Gráfico con el peso en el eje horizontal y el gradiente del segundo segmento en el vertical. Una línea horizontal fija: gradiente exigido, 2,4 %. Tres líneas descendentes de gradiente disponible: día fresco al nivel del mar, día caliente al nivel del mar y día caliente en altura. Donde cada una cruza la línea exigida hay un punto: ese es el peso máximo para esa condición.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Esquema cualitativo: las curvas reales salen del AFM de cada avión."
       }
     ],
     "minutes": 3
@@ -1679,12 +1671,11 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-14 · Figura · 16:9 · 1600×900",
-        "descripcion": "dos barras verticales de empuje lado a lado. La izquierda, llena hasta arriba, *Maximum Takeoff Thrust*. La derecha, llena hasta unos tres cuartos, *Reduced Takeoff Thrust*, con la parte vacía sombreada y rotulada «margen que no se usa». Debajo de las dos, una pista con el punto de 35 ft alcanzado en ambos casos, más adelante en la derecha pero todavía dentro de la pista.",
-        "pie": "mostrar que se reduce el empuje porque sobra performance, no porque se acepte menos seguridad.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-14.svg",
+        "alt": "Dos barras verticales de empuje. La izquierda, llena hasta arriba: maximum takeoff thrust. La derecha, llena hasta unos tres cuartos: reduced takeoff thrust, con la parte vacía sombreada como margen que no se usa. Debajo, una pista con el punto de 35 ft alcanzado en los dos casos, más adelante con empuje reducido pero todavía dentro de la pista.",
+        "ancho": 1600,
+        "alto": 900
       }
     ],
     "minutes": 3
@@ -2094,12 +2085,12 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-15 · Figura · 16:9 · 1600×900",
-        "descripcion": "perfil vertical de una ruta sobre una cordillera. El avión en crucero a la izquierda, un icono de falla de motor, y a partir de ahí una trayectoria descendente suave rotulada *Drift Down* que se aplana en una altitud rotulada «nivelación». Cota vertical entre esa altitud y la cima más alta. Al fondo a la derecha, un aeródromo adecuado.",
-        "pie": "explicar visualmente el *drift down* y por qué el terreno decide la planificación de la ruta.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-15.svg",
+        "alt": "Perfil de una ruta sobre una cordillera. El avión en crucero a la izquierda, un símbolo de falla de motor, y desde ahí una trayectoria descendente suave, drift down, que se aplana en la altitud de nivelación. Una cota entre esa altitud y la cima más alta. A la derecha, un aeródromo adecuado.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "La FAA da dos opciones (14 CFR 121.191): pendiente positiva a 1 000 ft sobre el terreno, o librarlo por 2 000 ft en el descenso hasta un aeródromo adecuado."
       }
     ],
     "minutes": 3
@@ -2256,12 +2247,12 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-16 · Figura · 16:9 · 1600×900",
-        "descripcion": "perfil lateral de aproximación y aterrizaje. El avión cruzando el umbral a 50 ft con cota, el punto de toma de contacto, el recorrido hasta detenerse. Debajo, tres barras acotadas: *Actual Landing Distance*, *Landing Distance Required* (la anterior más un bloque sombreado de margen) y *LDA*, esta última la más larga.",
-        "pie": "que se vea físicamente qué mide cada distancia y dónde está el margen.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-16.svg",
+        "alt": "Perfil de aproximación y aterrizaje: el avión cruza el umbral a 50 ft, toca en el punto de contacto y recorre la pista hasta detenerse. Debajo, tres barras: la distancia real de aterrizaje; la distancia de aterrizaje requerida, que es la anterior más un bloque sombreado de margen; y la LDA, la más larga.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "En despacho, la FAA pide detenerse dentro del 60 % de la longitud efectiva (14 CFR 121.195); el margen exacto depende de la norma que aplique."
       }
     ],
     "minutes": 3
@@ -2408,12 +2399,11 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-17 · Figura · 16:9 · 1600×900",
-        "descripcion": "dos perfiles de aterrizaje superpuestos sobre la misma pista. Arriba, en verde menta, la aproximación en senda y a VREF, con la toma dentro de la zona de contacto y el avión detenido con pista de sobra. Abajo, en tono de aviso, la misma aproximación con exceso de velocidad y altura: flotación marcada, toma pasada la zona de contacto y el avión deteniéndose muy cerca del extremo. Ambas con la distancia recorrida acotada.",
-        "pie": "mostrar cuánta pista se pierde por técnica, con el mismo avión y el mismo peso.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-17.svg",
+        "alt": "Dos aterrizajes sobre la misma pista. Arriba, en senda y a VREF: la toma cae dentro de la zona de contacto y el avión se detiene con pista de sobra. Abajo, con exceso de velocidad y altura: flota, toca pasada la zona de contacto y se detiene muy cerca del extremo. Las dos con la distancia recorrida acotada.",
+        "ancho": 1600,
+        "alto": 900
       }
     ],
     "minutes": 3
@@ -2592,12 +2582,11 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-20 · Figura · 16:9 · 1600×900",
-        "descripcion": "curva creciente de energía absorbida por los frenos contra velocidad de rechazo, claramente cuadrática, con dos puntos marcados y acotados —uno a velocidad baja y otro a velocidad alta— para que se vea que al doble de velocidad la energía es cuatro veces mayor. Una línea horizontal de trazos rotulada «capacidad certificada» cortando la curva, y el punto de corte rotulado VMBE.",
-        "pie": "explicar por qué un rechazo a alta velocidad es crítico y de dónde sale VMBE.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-20.svg",
+        "alt": "Curva creciente de la energía que absorben los frenos contra la velocidad de rechazo, cuadrática. Dos puntos marcados: a una velocidad V la energía es E; al doble de velocidad, 2V, la energía es cuatro veces mayor, 4E. Una línea horizontal de trazos, capacidad certificada, corta la curva; el punto de corte es VMBE.",
+        "ancho": 1600,
+        "alto": 900
       }
     ],
     "minutes": 3
@@ -2751,12 +2740,12 @@ export const PERF_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "PERF-18 · Figura · 16:9 · 1600×900",
-        "descripcion": "pantalla genérica de una aplicación de performance, sin parecerse a la de ningún fabricante ni aerolínea, en tres bloques de izquierda a derecha: *INPUTS* (lista de campos con valores ficticios), una flecha con *PERFORMANCE CALCULATION*, y *OUTPUTS* (peso máximo, V₁, VR, V₂, empuje y una línea destacada *LIMIT*).",
-        "pie": "mostrar el flujo entradas → cálculo → velocidades, empuje y factor limitante.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/performance/PERF-18.svg",
+        "alt": "Pantalla genérica de una aplicación de performance en tres bloques. A la izquierda, las entradas con valores ficticios: pista, viento, temperatura, QNH, estado de la pista, configuración y peso. En el centro, una flecha: performance calculation. A la derecha, los resultados: peso máximo, V1, VR, V2, el empuje y, destacada, la línea LIMIT con el factor limitante.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Pantalla genérica y valores ficticios."
       }
     ],
     "minutes": 3
@@ -3592,29 +3581,12 @@ PERF_LECCIONES.forEach((s, i) => {
 export const PERF_LECCION_TOTAL = PERF_LECCIONES.length
 export const PERF_MINUTOS = PERF_LECCIONES.reduce((t, s) => t + s.minutes, 0)
 
-/** Los huecos de figura que quedan por llenar, para el inventario de imágenes. */
-export const PERF_FIGURAS_PENDIENTES = [
-  "PERF-02",
-  "PERF-03",
-  "PERF-04",
-  "PERF-05",
-  "PERF-06",
-  "PERF-07",
-  "PERF-08",
-  "PERF-09",
-  "PERF-10",
-  "PERF-11",
-  "PERF-12",
-  "PERF-13",
-  "PERF-19",
-  "PERF-14",
-  "PERF-15",
-  "PERF-16",
-  "PERF-17",
-  "PERF-20",
-  "PERF-18",
-  "PERF-01"
-]
+/**
+ * Los huecos de figura que quedan por llenar, para el inventario de imágenes.
+ * Las figuras dibujadas son SVG de public/modulos/performance/ (node
+ * scripts/figuras/dibujar.mjs performance).
+ */
+export const PERF_FIGURAS_PENDIENTES: string[] = []
 
 /**
  * Las claves de práctica del módulo: los dieciocho ejercicios resueltos del

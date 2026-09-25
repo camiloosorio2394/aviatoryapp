@@ -99,19 +99,24 @@ describe("Gestión del combustible: la lección", () => {
     }
   })
 
-  it("los quince huecos de figura van rotulados por capítulo y sin repetir", () => {
+  it("las quince figuras van rotuladas por capítulo, sin repetir, y ya dibujadas", () => {
+    // Cada imagen del documento sale como figura SVG o, si falta, como hueco;
+    // el código es el del capítulo en que está (IMG-C01, IMG-C11…).
     const porCapitulo = CB_LECCIONES.flatMap((l) =>
-      todosLosBloques(l.blocks).flatMap((b) => (b.kind === "hueco" ? [{ n: l.n, hueco: b }] : [])),
+      todosLosBloques(l.blocks).flatMap((b) => {
+        if (b.kind === "figura") return [{ n: l.n, codigo: b.src.match(/IMG-C\d\d/)?.[0] ?? "" }]
+        if (b.kind === "hueco") return [{ n: l.n, codigo: b.rotulo.match(/^IMG-C\d\d/)?.[0] ?? "" }]
+        return []
+      }),
     )
     expect(porCapitulo).toHaveLength(15)
-    expect(porCapitulo.map((h) => h.hueco.rotulo)).toEqual(CB_FIGURAS_PENDIENTES)
-    expect(new Set(CB_FIGURAS_PENDIENTES).size).toBe(15)
-    for (const { n, hueco } of porCapitulo) {
-      expect(hueco.rotulo).toMatch(/^IMG-C\d\d · Figura · \d+:\d+ · \d+×\d+$/)
-      expect(hueco.rotulo.startsWith(`IMG-C${String(n).padStart(2, "0")} `), hueco.rotulo).toBe(true)
-      expect(hueco.ratio, hueco.rotulo).toMatch(/^\d+ \/ \d+$/)
-      expect(hueco.descripcion.trim(), hueco.rotulo).not.toBe("")
-      expect(hueco.pie?.trim(), hueco.rotulo).toBeTruthy()
+    expect(new Set(porCapitulo.map((f) => f.codigo)).size).toBe(15)
+    for (const { n, codigo } of porCapitulo) expect(codigo).toBe(`IMG-C${String(n).padStart(2, "0")}`)
+    expect(CB_FIGURAS_PENDIENTES).toEqual([])
+    // Las verticales no pasan de 400 px de ancho: a todo el ancho de lectura
+    // se saldrían de la pantalla.
+    for (const b of BLOQUES) {
+      if (b.kind === "figura" && b.alto > b.ancho) expect(b.anchoMax, b.src).toBe(400)
     }
   })
 

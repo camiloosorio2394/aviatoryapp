@@ -34,8 +34,12 @@ export const PERF_EVALUACION = `${PERF_HUB}/evaluacion`
 /** Cuántos temas tiene el módulo (PERF_LECCION_TOTAL). Denominador de la lectura. */
 export const PERF_LECTURA_TOTAL = 40
 
-/** Lectura estimada de los cuarenta temas, en minutos (PERF_MINUTOS). */
-export const PERF_LECTURA_MINUTOS = 131
+/**
+ * Lectura estimada de los cuarenta temas, en minutos (PERF_MINUTOS). Bajó de
+ * 131 a 130 cuando los huecos de figura, con su descripción larga, pasaron a
+ * ser figuras con un texto alternativo más corto.
+ */
+export const PERF_LECTURA_MINUTOS = 130
 
 /**
  * La práctica de este módulo no tiene pantalla propia: los dieciocho

@@ -15,6 +15,11 @@
  *   #### X                                   subtítulo dentro de un apartado
  *   [ESPACIO PARA IMAGEN]                    hueco, con IMAGEN SUGERIDA: y OBJETIVO:
  *   [ESPACIO PARA IMAGEN ANOTADA]            hueco, con IMAGEN BASE:, ANOTACIONES: y OBJETIVO PEDAGÓGICO:
+ *
+ * Cada hueco lleva un código por orden de aparición (RV-01, RV-02…). Si la
+ * figura de ese código ya está dibujada (scripts/rvsm/figuras y su SVG en
+ * public/modulos/rvsm/), sale la figura; si no, el hueco rotulado. Ver
+ * scripts/figuras/enLeccion.mjs.
  *   ### Quiz · Capítulo N                    NO entra en la lección: va a la práctica
  *   ### Escenario N · Título                 (capítulo 32) un piensaComoPiloto
  *   # BLOQUE N · TÍTULO                      abre un nivel del índice lateral
@@ -35,15 +40,19 @@
 import fs from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import { bloquesDeFigura, figuraDibujada } from "../figuras/enLeccion.mjs"
+import { FIGURAS } from "./figuras/index.mjs"
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const FUENTE = path.join(RAIZ, "docs/contenido/rvsm.md")
 const DESTINO_LECCION = path.join(RAIZ, "src/lib/rvsmLeccion.ts")
 const DESTINO_PRACTICA = path.join(RAIZ, "src/lib/rvsmPractica.ts")
 const DESTINO_BANCO = path.join(RAIZ, "contenido/bancos/rvsm_evaluacion.json")
+const DIR_FIGURAS = path.join(RAIZ, "public/modulos/rvsm")
+const FIGURA_POR_CODIGO = new Map(FIGURAS.map((f) => [f.codigo, f]))
 
 /** Lo que el documento promete en su ficha. Si no cuadra, el script para. */
-const ESPERADO = { capitulos: 32, huecos: 20, escenarios: 10, porCapitulo: 3, practica: 96, banco: 40 }
+const ESPERADO = { capitulos: 32, imagenes: 20, escenarios: 10, porCapitulo: 3, practica: 96, banco: 40 }
 
 const FIGURA = { medida: "Figura · 16:9 · 1600×900", ratio: "16 / 9", alto: 260 }
 
@@ -167,23 +176,30 @@ function leerHueco(cuerpo, i, ctx) {
 
   if (!descripcion || !pie || (anotada && !anotaciones)) {
     fallos.push(`hueco de imagen incompleto cerca de la línea «${cuerpo[i + 1] ?? ""}»`)
-    return { bloque: null, siguiente: j }
+    return { bloques: [], siguiente: j }
   }
 
-  const codigo = `RV-${String(ctx.huecos.length + 1).padStart(2, "0")}`
-  ctx.huecos.push(codigo)
-
-  return {
-    bloque: {
-      kind: "hueco",
-      rotulo: `${codigo} · ${FIGURA.medida}${anotada ? " · anotada" : ""}`,
-      descripcion: anotada ? `${descripcion} ANOTACIONES: ${anotaciones}` : descripcion,
-      pie,
-      alto: FIGURA.alto,
-      ratio: FIGURA.ratio,
-    },
-    siguiente: j,
+  const codigo = `RV-${String(ctx.huecos.length + ctx.figuras.length + 1).padStart(2, "0")}`
+  const figura = figuraDibujada({ porCodigo: FIGURA_POR_CODIGO, codigo, dirPublico: DIR_FIGURAS, modulo: "rvsm", fallos })
+  if (!figura) {
+    ctx.huecos.push(codigo)
+    return {
+      bloques: [
+        {
+          kind: "hueco",
+          rotulo: `${codigo} · ${FIGURA.medida}${anotada ? " · anotada" : ""}`,
+          descripcion: anotada ? `${descripcion} ANOTACIONES: ${anotaciones}` : descripcion,
+          pie,
+          alto: FIGURA.alto,
+          ratio: FIGURA.ratio,
+        },
+      ],
+      siguiente: j,
+    }
   }
+
+  ctx.figuras.push(codigo)
+  return { bloques: bloquesDeFigura({ figura, codigo, src: `/modulos/rvsm/${codigo}.svg`, anotaciones, fallos }), siguiente: j }
 }
 
 // ─── Preguntas ──────────────────────────────────────────────────────────────
@@ -262,8 +278,8 @@ function bloquesDe(cuerpo, ctx) {
     }
 
     if (l === "[ESPACIO PARA IMAGEN]" || l === "[ESPACIO PARA IMAGEN ANOTADA]") {
-      const { bloque, siguiente } = leerHueco(cuerpo, i, ctx)
-      if (bloque) bloques.push(bloque)
+      const { bloques: deLaFigura, siguiente } = leerHueco(cuerpo, i, ctx)
+      bloques.push(...deLaFigura)
       i = siguiente
       continue
     }
@@ -417,7 +433,7 @@ function capitalizar(texto) {
 
 // ─── Recorrido del documento ────────────────────────────────────────────────
 
-const ctx = { huecos: [], escenarios: [] }
+const ctx = { huecos: [], figuras: [], escenarios: [] }
 const niveles = []
 const capitulos = []
 let bancoCrudo = []
@@ -514,7 +530,9 @@ for (const [idx, cap] of capitulos.entries()) {
 // ─── Comprobaciones ─────────────────────────────────────────────────────────
 
 comprobar(capitulos.length === ESPERADO.capitulos, `esperaba ${ESPERADO.capitulos} capítulos y encontré ${capitulos.length}`)
-comprobar(ctx.huecos.length === ESPERADO.huecos, `esperaba ${ESPERADO.huecos} huecos y encontré ${ctx.huecos.length}`)
+comprobar(ctx.huecos.length + ctx.figuras.length === ESPERADO.imagenes, `esperaba ${ESPERADO.imagenes} imágenes y encontré ${ctx.huecos.length + ctx.figuras.length}`)
+const sinHueco = FIGURAS.filter((f) => !ctx.figuras.includes(f.codigo)).map((f) => f.codigo)
+comprobar(sinHueco.length === 0, `figuras dibujadas sin hueco en el documento: ${sinHueco.join(", ")}`)
 comprobar(ctx.escenarios.length === ESPERADO.escenarios, `esperaba ${ESPERADO.escenarios} escenarios y encontré ${ctx.escenarios.length}`)
 comprobar(bancoCrudo.length === ESPERADO.banco, `esperaba ${ESPERADO.banco} preguntas de banco y encontré ${bancoCrudo.length}`)
 
@@ -568,8 +586,8 @@ fs.writeFileSync(
  * Los ${lecciones.length} capítulos de RVSM, en el formato del lector de lecciones.
  *
  * El contenido es el del documento, sin tocar: este archivo lo traduce a
- * bloques. Las ${ctx.huecos.length} imágenes entran como huecos rotulados, cada uno con lo que
- * hay que dibujar y para qué, así que el módulo se lee completo desde hoy.
+ * bloques. ${ctx.figuras.length} de las ${ctx.figuras.length + ctx.huecos.length} imágenes son figuras SVG de public/modulos/rvsm/,
+ * dibujadas con scripts/figuras/dibujar.mjs rvsm; ${ctx.huecos.length ? `las otras ${ctx.huecos.length} entran como huecos rotulados.` : "no queda ningún hueco."}
  *
  * Las preguntas de cada capítulo NO están aquí: viven en rvsmPractica.ts,
  * porque en la lectura no se pregunta nada.
@@ -590,7 +608,7 @@ export const RV_LECCION_TOTAL = ${lecciones.length}
 export const RV_PRACTICA_CLAVES = ${j(practica.flatMap((g) => g.preguntas.map((q) => q.id)))}
 
 /** Los huecos de figura que quedan por llenar, para el inventario de imágenes. */
-export const RV_FIGURAS_PENDIENTES = ${j(ctx.huecos)}
+export const RV_FIGURAS_PENDIENTES: string[] = ${j(ctx.huecos)}
 `),
 )
 
@@ -638,4 +656,4 @@ fs.writeFileSync(
 console.log(`${DESTINO_LECCION}: ${lecciones.length} capítulos, ${niveles.length} bloques`)
 console.log(`${DESTINO_PRACTICA}: ${totalPractica} preguntas en ${practica.length} grupos`)
 console.log(`${DESTINO_BANCO}: ${bancoCrudo.length} preguntas`)
-console.log(`huecos de imagen: ${ctx.huecos.length} · escenarios: ${ctx.escenarios.length}`)
+console.log(`figuras: ${ctx.figuras.length} · huecos de imagen: ${ctx.huecos.length} · escenarios: ${ctx.escenarios.length}`)

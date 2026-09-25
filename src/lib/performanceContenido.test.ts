@@ -52,9 +52,14 @@ describe("contenido de Performance", () => {
     }
   })
 
-  it("los veinte huecos de figura van numerados y sin repetir", () => {
-    const codigos = PERF_FIGURAS_PENDIENTES.map((f) => f.match(/^PERF-\d\d/)?.[0])
+  it("las veinte figuras van numeradas, sin repetir, y ya dibujadas", () => {
+    // Cada imagen del documento es una figura SVG o, si falta, su hueco: entre
+    // las dos tienen que salir los veinte códigos, cada uno una vez.
+    const codigos = BLOQUES.flatMap((b) =>
+      b.kind === "figura" ? [b.src.match(/PERF-\d\d/)?.[0]] : b.kind === "hueco" ? [b.rotulo.match(/^PERF-\d\d/)?.[0]] : [],
+    )
     expect(codigos.filter(Boolean)).toHaveLength(20)
     expect(new Set(codigos).size).toBe(20)
+    expect(PERF_FIGURAS_PENDIENTES).toEqual([])
   })
 })

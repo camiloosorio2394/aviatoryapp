@@ -599,8 +599,7 @@ export function AirlinePrep() {
           titulo: RVSM_TITULO,
           meta: `${RVSM_LECTURA_TOTAL} capítulos · 10 escenarios`,
           descripcion: "Mil pies entre FL 290 y FL 410: equipo, chequeos, fraseología y qué hacer si se pierde.",
-          fotoHueco:
-            "RVSM-TEMA · 3:2 · 1200×800 · Dos aeronaves en crucero en niveles adyacentes, vistas de costado, con la separación acotada",
+          foto: "/modulos/rvsm/tema-rvsm.svg",
           cta: ctaDeTema(rvsm.overall),
           avance: rvsm.overall,
           completo: rvsm.overall >= 100,
@@ -624,8 +623,7 @@ export function AirlinePrep() {
           titulo: PBN_TITULO,
           meta: `${PBN_LECTURA_TOTAL} capítulos · 12 escenarios`,
           descripcion: "RNAV y RNP, el número, la carta, el FMS y qué decir cuando se pierde la capacidad.",
-          fotoHueco:
-            "PBN-TEMA · 3:2 · 1200×800 · Carta de llegada con la trayectoria definida por waypoints y la especificación rotulada sobre un segmento",
+          foto: "/modulos/pbn/tema-pbn.svg",
           cta: ctaDeTema(pbn.overall),
           avance: pbn.overall,
           completo: pbn.overall >= 100,
