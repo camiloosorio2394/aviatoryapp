@@ -21,7 +21,7 @@ import heroPhoto from "@/assets/photos/meteorologia-hero.webp"
 import aprendePhoto from "@/assets/photos/metar-leccion-nubes.webp"
 import decodificadorPhoto from "@/assets/photos/metar-decodificador-manga.webp"
 import practicaPhoto from "@/assets/photos/metar-practica-cabina-nubes.webp"
-import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.webp"
+import evaluacionPhoto from "@/assets/photos/metar-evaluacion-briefing-meteorologico.webp"
 
 /**
  * Hub del módulo Meteorología (dentro de Ingreso a aerolínea).
@@ -103,7 +103,7 @@ export function Metar() {
       meta: `${METAR_LECCION.secciones} secciones de lectura`,
       title: "1. Aprende",
       blurb:
-        "De la atmósfera al informe: por qué se mueve el aire, qué nube tienes delante, qué hace un frente cuando lo cruzas, y después el METAR y el TAF grupo por grupo.",
+        "De la atmósfera a la decisión: viento, nubes, frentes y tormentas; después, METAR, TAF e información en ruta, con ejemplos paso a paso.",
       cta: "Abrir la lección",
       photo: aprendePhoto,
       photoAspect: "5/2" as const,
@@ -124,7 +124,7 @@ export function Metar() {
       meta: `${METAR_LEGEND_TOTAL} claves y ${METAR_EXAMPLES.length} informes de ejemplo`,
       title: "2. Decodificador",
       blurb:
-        "Pega cualquier METAR y te lo desarma grupo por grupo. Trae las tablas de fenómenos, descriptores, nubes y tendencias con buscador.",
+        "Pega un METAR para explorar sus grupos. Consulta tablas de fenómenos, descriptores, nubes y tendencias con buscador.",
       cta: "Abrir el decodificador",
       photo: decodificadorPhoto,
       photoAspect: "5/2" as const,
@@ -135,10 +135,10 @@ export function Metar() {
       to: "/app/aerolinea/meteorologia/practica",
       icon: Target,
       color: "var(--av-mt-700)",
-      meta: `${METAR_PRACTICE_TOTAL} informes con respuesta modelo`,
+      meta: `${METAR_PRACTICE_TOTAL} casos simulados con respuesta modelo`,
       title: "3. Práctica",
       blurb:
-        "Lees el informe, lo interpretas con tus palabras y solo después comparas con la respuesta modelo. Con los errores típicos de cada caso.",
+        "Interpretas observaciones, pronósticos y escenarios en ruta con tus palabras. Después comparas tu criterio con la respuesta modelo.",
       cta: "Iniciar práctica",
       photo: practicaPhoto,
       photoAspect: "5/2" as const,
@@ -226,10 +226,10 @@ export function Metar() {
               </h1>
 
               <p className="mt-4 max-w-[56ch] text-[16px] leading-[1.55] text-white/80">
-                Por qué se mueve el aire, qué nube tienes delante y qué te hace un frente cuando lo
-                cruzas. Y después el informe: el METAR dice lo que hay, el TAF lo que se espera y
-                con qué alterno sales. Es la lectura obligada del briefing y lo que te preguntan en
-                la entrevista técnica.
+                Entiende el viento, las nubes, los frentes y las tormentas que pueden cambiar un
+                vuelo. Aprende a leer METAR, TAF e información en ruta, y a contrastar cada dato
+                con los mínimos y procedimientos de tu operación. Practica el criterio que necesitas
+                en un briefing y en una entrevista técnica.
               </p>
 
               <div className="mt-5 flex w-fit max-w-full flex-col gap-3">

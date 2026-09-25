@@ -13,7 +13,7 @@
       ],
       "correcta": 0,
       "explicacion": "Son dos dígitos de día y cuatro de hora y minuto, siempre en UTC. La Z es de zulu. En Colombia hay que restar cinco horas: son las 08:00 locales.",
-      "referencia": "Lección METAR, sección 2",
+      "referencia": "Lección 14 · La plantilla completa",
       "metadatos": {
         "nivel": "basico"
       }
@@ -29,7 +29,7 @@
       ],
       "correcta": 1,
       "explicacion": "`9999` es el mejor valor que admite la clave y significa 10 km o más. No es un valor exacto ni implica ausencia total de restricción.",
-      "referencia": "Lección METAR, sección 4",
+      "referencia": "Lección 16 · Visibilidad y alcance de pista",
       "metadatos": {
         "nivel": "basico"
       }
@@ -44,8 +44,8 @@
         "El rumbo de la pista en uso"
       ],
       "correcta": 1,
-      "explicacion": "El viento se reporta siempre **desde** donde sopla y en grados verdaderos, redondeado a decenas. El control de tránsito lo canta en magnéticos, que es otra cosa.",
-      "referencia": "Lección METAR, sección 3",
+      "explicacion": "El viento del METAR se reporta desde la dirección de origen, en grados verdaderos y redondeado a decenas. Para contrastarlo con el rumbo magnético de una pista hay que tener en cuenta la referencia usada.",
+      "referencia": "Lección 15 · El viento",
       "metadatos": {
         "nivel": "basico"
       }
@@ -61,7 +61,7 @@
       ],
       "correcta": 1,
       "explicacion": "La altura va en centenares de pies sobre el aeródromo: 010 son 1000 ft. Leerlo como 10 000 ft es el error más repetido de todo el módulo.",
-      "referencia": "Lección METAR, sección 6",
+      "referencia": "Lección 18 · Nubes y CAVOK",
       "metadatos": {
         "nivel": "basico"
       }
@@ -77,7 +77,7 @@
       ],
       "correcta": 2,
       "explicacion": "El techo es la base de la primera capa que cubra más de la mitad del cielo, o sea la primera `BKN` u `OVC`. Aquí es `BKN030`: 3000 ft. Las `FEW` y `SCT` de abajo no cuentan.",
-      "referencia": "Lección METAR, sección 6",
+      "referencia": "Lección 18 · Nubes y CAVOK",
       "metadatos": {
         "nivel": "intermedio"
       }
@@ -92,8 +92,8 @@
         "Viento en grados en vez de en nudos"
       ],
       "correcta": 1,
-      "explicacion": "`G` es de gust, ráfaga. El número que sigue es el pico, y es el que se compara contra los límites del avión: el promedio no es el problema.",
-      "referencia": "Lección METAR, sección 3",
+      "explicacion": "`G` viene de gust, ráfaga: 10 kt de viento medio y ráfagas hasta 25 kt. Para decidir se evalúan viento medio, ráfagas y componente cruzada frente a las limitaciones y procedimientos aplicables.",
+      "referencia": "Lección 15 · El viento",
       "metadatos": {
         "nivel": "intermedio"
       }
@@ -109,7 +109,7 @@
       ],
       "correcta": 1,
       "explicacion": "Se arma en tres piezas: calificador `+` (fuerte), descriptor `TS` (tormenta eléctrica) y fenómeno `RA` (lluvia). Reciente sería `RE`.",
-      "referencia": "Lección METAR, sección 5",
+      "referencia": "Lección 17 · El tiempo presente",
       "metadatos": {
         "nivel": "intermedio"
       }
@@ -125,7 +125,7 @@
       ],
       "correcta": 1,
       "explicacion": "`VC` es el calificador de posición, in the vicinity. La tormenta está cerca pero no encima del campo, y eso cambia la decisión operacional.",
-      "referencia": "Lección METAR, sección 5",
+      "referencia": "Lección 17 · El tiempo presente",
       "metadatos": {
         "nivel": "intermedio"
       }
@@ -140,8 +140,8 @@
         "La temperatura del punto de rocío"
       ],
       "correcta": 1,
-      "explicacion": "Niebla cuando la visibilidad cae por debajo de 1000 m; neblina por encima. El umbral viene de la clave OACI.",
-      "referencia": "Lección METAR, sección 5",
+      "explicacion": "La niebla reduce la visibilidad a menos de 1000 m; la neblina corresponde al intervalo de 1000 a 5000 m. Hay que comprobar la visibilidad reportada, no inferirla solo del código.",
+      "referencia": "Lección 17 · El tiempo presente",
       "metadatos": {
         "nivel": "basico"
       }
@@ -157,7 +157,7 @@
       ],
       "correcta": 1,
       "explicacion": "`VV` aparece cuando el cielo está oscurecido (niebla, humo) y no hay base de nube que medir. Los 002 van en centenares de pies: 200 ft.",
-      "referencia": "Lección METAR, sección 6",
+      "referencia": "Lección 18 · Nubes y CAVOK",
       "metadatos": {
         "nivel": "intermedio"
       }
@@ -167,13 +167,13 @@
       "enunciado": "Un METAR de Bogotá al amanecer trae `08/08` con viento en calma. ¿Qué esperas?",
       "opciones": [
         "Turbulencia térmica",
-        "Niebla de radiación, con visibilidad muy reducida",
+        "Mayor riesgo de niebla o nubes bajas; hay que comprobar visibilidad y evolución observadas",
         "Vientos catabáticos del este",
         "Nada especial: 8 °C es una temperatura normal"
       ],
       "correcta": 1,
-      "explicacion": "Temperatura igual al punto de rocío significa aire saturado. Sin viento que mezcle la capa baja, el vapor condensa a ras de suelo: niebla de radiación.",
-      "referencia": "Lección METAR, sección 7",
+      "explicacion": "La pequeña separación entre temperatura y rocío y la calma favorecen saturación, pero no demuestran que ya exista niebla ni permiten diagnosticar su mecanismo solo con un METAR parcial.",
+      "referencia": "Lección 19 · Temperatura, rocío y QNH",
       "metadatos": {
         "nivel": "avanzado"
       }
@@ -189,7 +189,7 @@
       ],
       "correcta": 1,
       "explicacion": "Es el mismo reglaje de altímetro en dos unidades. Estados Unidos usa pulgadas de mercurio: 29.92 inHg equivalen a unos 1013 hPa. Meter 2992 en el altímetro creyendo que son hectopascales es un error clásico.",
-      "referencia": "Lección METAR, sección 7",
+      "referencia": "Lección 19 · Temperatura, rocío y QNH",
       "metadatos": {
         "nivel": "intermedio"
       }
@@ -199,13 +199,13 @@
       "enunciado": "¿Qué añade el `CB` en `BKN015CB`?",
       "opciones": [
         "Que la capa está formada por cirros bajos",
-        "Que son cumulonimbos: convección con turbulencia, granizo y posible cizalladura",
+        "Que son cumulonimbos: convección con riesgo de turbulencia, granizo y cizalladura",
         "Que la base es calculada, no medida",
         "Que la capa está por debajo del nivel de congelación"
       ],
       "correcta": 1,
-      "explicacion": "`CB` y `TCU` son los dos únicos tipos de nube que el METAR anota aparte, y justamente porque cambian la decisión: no es solo un techo de 1500 ft, es convección sobre el aeródromo.",
-      "referencia": "Lección METAR, sección 6",
+      "explicacion": "`CB` indica cumulonimbos. Además del techo de 1500 ft, hay que considerar los peligros convectivos posibles y contrastar ubicación y evolución con radar, avisos y observaciones vigentes.",
+      "referencia": "Lección 18 · Nubes y CAVOK",
       "metadatos": {
         "nivel": "intermedio"
       }
@@ -215,13 +215,13 @@
       "enunciado": "El informe trae visibilidad `0800` y `R25/1400`. Vas a la pista 25. ¿Con qué número decides?",
       "opciones": [
         "Con los 800 m, que es la visibilidad oficial",
-        "Con los 1400 m del RVR, que manda para esa pista",
+        "Revisas el RVR de la pista 25 junto con los mínimos y reglas aplicables a esa operación",
         "Con el promedio de los dos",
         "Con el menor de los dos, siempre"
       ],
       "correcta": 1,
-      "explicacion": "El RVR es el alcance visual medido en esa pista concreta y es el que define si puedes iniciar la aproximación. Cuando difiere de la visibilidad general, manda el RVR.",
-      "referencia": "Lección METAR, sección 4",
+      "explicacion": "El RVR se refiere a una pista concreta y puede ser el dato controlador según el procedimiento y la normativa. No sustituye revisar mínimos, segmento reportado y reglas de inicio o continuación de aproximación.",
+      "referencia": "Lección 16 · Visibilidad y alcance de pista",
       "metadatos": {
         "nivel": "avanzado"
       }
@@ -237,23 +237,23 @@
       ],
       "correcta": 1,
       "explicacion": "`BECMG` describe una transición: en algún momento de la ventana la condición cambia y se mantiene. `TEMPO` son ratos dentro de la ventana, y entre ellos se vuelve a lo anterior. Para elegir alterno no da lo mismo.",
-      "referencia": "Lección METAR, sección 8",
+      "referencia": "Lección 20 · Tendencias y comentarios",
       "metadatos": {
         "nivel": "avanzado"
       }
     },
     {
       "id": "16",
-      "enunciado": "¿Qué garantiza `CAVOK` además de la visibilidad?",
+      "enunciado": "¿Qué indica `CAVOK` además de la visibilidad?",
       "opciones": [
         "Que no hay viento cruzado",
-        "Que no hay nubes por debajo de 5000 ft ni cumulonimbos o torrecúmulos a ninguna altura",
+        "Que se cumplen los criterios de nubes y tiempo significativo del código, sin que eso autorice por sí solo la operación",
         "Que el aeródromo está abierto",
         "Que el informe es automático"
       ],
       "correcta": 1,
-      "explicacion": "`CAVOK` reemplaza a visibilidad, tiempo presente y nubes. Promete 10 km o más, nada significativo, nada por debajo de 5000 ft y, sobre todo, ningún CB ni TCU.",
-      "referencia": "Lección METAR, sección 6",
+      "explicacion": "CAVOK requiere 10 km o más de visibilidad, ausencia de tiempo significativo y de CB/TCU, y ausencia de nubes por debajo del umbral aplicable: 5000 ft sobre el aeródromo o la altitud mínima de sector más alta, lo que sea mayor. No informa viento ni estado de pista.",
+      "referencia": "Lección 18 · Nubes y CAVOK",
       "metadatos": {
         "nivel": "intermedio"
       }
@@ -263,13 +263,13 @@
       "enunciado": "¿Qué significa `WS R28` y por qué importa?",
       "opciones": [
         "Viento del oeste sur en la pista 28",
-        "Cizalladura reportada en la pista 28: cambio súbito de viento que puede quitarte velocidad aerodinámica en final",
+        "Cizalladura reportada para la pista 28: cambio de viento peligroso en despegue o aproximación",
         "Pista 28 mojada (wet surface)",
         "Advertencia de viento superior a 28 nudos"
       ],
       "correcta": 1,
-      "explicacion": "`WS` es wind shear. Es el aviso más peligroso que puede traer un METAR porque actúa en despegue y aterrizaje, donde no hay altura para recuperar.",
-      "referencia": "Lección METAR, sección 3",
+      "explicacion": "`WS` viene de wind shear (cizalladura del viento). Una alerta para la pista 28 exige revisar el peligro en despegue o aproximación y aplicar los procedimientos de la aeronave y del operador; no se deduce una pérdida de velocidad concreta solo del código.",
+      "referencia": "Lección 15 · El viento",
       "metadatos": {
         "nivel": "avanzado"
       }
@@ -285,7 +285,7 @@
       ],
       "correcta": 2,
       "explicacion": "`NCD` es no cloud detected: el sensor no vio nada, que no es lo mismo que que no haya nada. En un informe `AUTO`, la ausencia de dato no es ausencia de fenómeno.",
-      "referencia": "Lección METAR, sección 8",
+      "referencia": "Lección 20 · Tendencias y comentarios",
       "metadatos": {
         "nivel": "avanzado"
       }
@@ -301,7 +301,7 @@
       ],
       "correcta": 1,
       "explicacion": "`VA` es volcanic ash, el mismo código del ASHTAM. La ceniza erosiona y funde dentro de la turbina. Hay que cruzar el METAR con el ASHTAM y los avisos del VAAC y replanear.",
-      "referencia": "Lección METAR, sección 5, y lección NOTAM, sección 12",
+      "referencia": "Lección 17 · El tiempo presente",
       "metadatos": {
         "nivel": "avanzado"
       }
@@ -317,7 +317,7 @@
       ],
       "correcta": 1,
       "explicacion": "Ambos son observaciones. El `METAR` es de rutina, a intervalos regulares; el `SPECI` se emite fuera de esos intervalos porque la condición cambió lo bastante como para no poder esperar.",
-      "referencia": "Lección METAR, sección 1",
+      "referencia": "Lección 13 · ¿Qué es un METAR?",
       "metadatos": {
         "nivel": "intermedio"
       }
@@ -341,15 +341,15 @@
     },
     {
       "id": "22",
-      "enunciado": "En la tropósfera, ¿cuánto bajan aproximadamente la temperatura y la presión al subir?",
+      "enunciado": "Al ascender por la tropósfera, ¿qué afirmación distingue la atmósfera estándar del tiempo real?",
       "opciones": [
-        "Unos 6 °C por cada 1.000 ft, y alrededor de 1 mb cada 300 ft",
-        "Unos 3 °C por cada 1.000 ft, y alrededor de 1 mb por cada 1.000 ft",
-        "Unos 2 °C por cada 1.000 ft, y alrededor de 1 \"Hg por cada 1.000 ft",
-        "Unos 2 °C por cada 1.000 ft, y alrededor de 1 \"Hg por cada 100 ft"
+        "La presión y la temperatura siempre descienden a tasas fijas en cualquier condición",
+        "La presión aumenta con la altura y la temperatura no cambia",
+        "La atmósfera estándar usa una variación térmica de referencia; la presión cae de forma no lineal y el perfil real debe consultarse",
+        "La presión disminuye exactamente una pulgada de mercurio por cada 1000 ft a cualquier altura"
       ],
       "correcta": 2,
-      "explicacion": "Unos 2 °C por cada 1.000 ft de temperatura y alrededor de una pulgada de mercurio por cada 1.000 ft de presión, que es lo mismo que un milibar cada 30 ft.",
+      "explicacion": "La atmósfera estándar usa cerca de 2 °C por 1000 ft en la troposfera baja como referencia térmica; el perfil real puede tener inversiones. La presión decrece de manera no lineal, por lo que 1 inHg por 1000 ft no es una regla universal.",
       "referencia": "Lección 1 · La atmósfera en la que vuelas",
       "metadatos": {
         "nivel": "intermedio",
@@ -366,7 +366,7 @@
         "Que solo cambia con la estación del año, pero no con la latitud"
       ],
       "correcta": 0,
-      "explicacion": "Va de unos 26.000 ft en los polos a unos 48.000 ft sobre las regiones ecuatoriales, y por eso su forma es elíptica. En una ruta larga norte a sur la vas cruzando de altura sin cambiar de nivel.",
+      "explicacion": "Suele estar más baja en latitudes altas y más alta en los trópicos, pero su altura varía con estación y situación meteorológica. Consulte los productos de tropopausa vigentes para la ruta.",
       "referencia": "Lección 1 · La atmósfera en la que vuelas",
       "metadatos": {
         "nivel": "avanzado",
@@ -409,15 +409,15 @@
     },
     {
       "id": "26",
-      "enunciado": "Una estación a 4.000 ft de elevación mide 25,92 \"Hg. ¿Qué presión informa y por qué?",
+      "enunciado": "Una estación en un aeródromo elevado mide presión local. ¿Cómo obtiene el reglaje que transmite al piloto?",
       "opciones": [
-        "29,92 \"Hg, porque convierte a presión al nivel del mar sumando aproximadamente 1 \"Hg por cada 1.000 ft de elevación",
-        "21,92 \"Hg, porque resta 1 \"Hg por cada 1.000 ft de elevación",
-        "29,92 \"Hg, porque toda estación por encima de 3.000 ft informa el valor estándar",
-        "25,92 \"Hg, porque informa siempre la presión medida en la estación"
+        "Aplica el procedimiento de reducción a partir de presión y datos de la estación; no suma una pulgada fija por cada 1000 ft",
+        "Resta una pulgada por cada 1000 ft sin atender temperatura",
+        "Transmite siempre 29,92 inHg por estar elevada",
+        "Transmite siempre la presión medida sin preparar reglaje altimétrico"
       ],
       "correcta": 0,
-      "explicacion": "Se convierte a presión al nivel del mar para que todas las estaciones den una referencia comparable y los altímetros de todos los aviones queden bien ajustados.",
+      "explicacion": "El reglaje altimétrico se obtiene con un procedimiento meteorológico establecido; una suma fija por altura es solo una aproximación grosera y puede inducir errores peligrosos.",
       "referencia": "Lección 2 · La presión y lo que le hace a tu altímetro",
       "metadatos": {
         "nivel": "avanzado",
@@ -482,10 +482,10 @@
         "En las dos el aire desciende; lo que cambia es solo la dirección del viento",
         "En la alta, aire ascendente y nuboso; en la baja, aire descendente y despejado",
         "Depende únicamente del hemisferio, no del tipo de sistema",
-        "En la alta, aire descendente, seco y estable, con buen tiempo; en la baja, aire ascendente e inestable, con nubosidad y precipitación"
+        "En general, una alta favorece subsidencia y una baja convergencia y ascenso, pero el tiempo concreto depende de la masa de aire y otros factores"
       ],
       "correcta": 3,
-      "explicacion": "El aire que baja se comprime y se calienta, así que se seca y estabiliza. El que sube se enfría, se satura y forma nubes.",
+      "explicacion": "Es una tendencia sinóptica, no garantía de cielo despejado en una alta ni de precipitación en toda baja. Humedad, estabilidad local y topografía pueden cambiar el resultado.",
       "referencia": "Lección 3 · Por qué se mueve el aire",
       "metadatos": {
         "nivel": "basico",
@@ -494,15 +494,15 @@
     },
     {
       "id": "31",
-      "enunciado": "Compare el viento en superficie con el de 3.000 ft. ¿Por qué no coinciden en dirección?",
+      "enunciado": "¿Por qué no debe extrapolar el viento de superficie a 3000 ft?",
       "opciones": [
         "Porque la presión al nivel del mar siempre es mayor y empuja el aire en otra dirección",
         "Porque a 3.000 ft ya no hay gradiente de presión que mueva el aire",
         "Porque la temperatura en superficie invierte el sentido del gradiente",
-        "Porque en los primeros 2.000 ft la fricción frena el aire, y al frenarlo reduce la fuerza de Coriolis, así que hay menos desviación"
+        "Porque fricción, estabilidad, relieve y circulaciones locales modifican el perfil; no hay un giro fijo aplicable a todo lugar y hora"
       ],
       "correcta": 3,
-      "explicacion": "Menos velocidad significa menos Coriolis, y con menos desviación el viento de superficie queda girado respecto del de arriba.",
+      "explicacion": "La capa límite y sus condiciones cambian mucho. La fricción importa, pero a 3000 ft el viento no puede inferirse con seguridad del METAR; consulte datos al nivel y tiempo requeridos.",
       "referencia": "Lección 3 · Por qué se mueve el aire",
       "metadatos": {
         "nivel": "avanzado",
@@ -545,15 +545,15 @@
     },
     {
       "id": "34",
-      "enunciado": "Va en final y cruza primero un lago y después terreno pelado. ¿Qué le hace cada superficie?",
+      "enunciado": "En final cruza superficies que se calientan de forma distinta. ¿Qué conclusión es segura?",
       "opciones": [
         "Las dos superficies producen descendentes, así que siempre queda corto",
         "Ninguna de las dos afecta a la senda si el viento está en calma",
-        "Sobre el agua predominan las descendentes y tiende a quedarse corto; sobre el terreno pelado predominan las ascendentes y tiende a pasarse largo",
+        "El calentamiento desigual puede generar movimientos locales, pero no predice por sí solo si quedará corto o largo; vigila la senda y aplica el procedimiento",
         "Sobre el agua predominan las ascendentes y tiende a pasarse largo; sobre el terreno pelado, lo contrario"
       ],
       "correcta": 2,
-      "explicacion": "El agua no calienta, así que el aire baja. El terreno pelado calienta, así que el aire sube y da efecto de globo.",
+      "explicacion": "La superficie influye en térmicas y turbulencia local, pero la hora, viento y estabilidad importan. No se atribuye una desviación de senda inevitable a cruzar agua o terreno desnudo.",
       "referencia": "Lección 4 · El viento cerca del suelo",
       "metadatos": {
         "nivel": "avanzado",
@@ -565,12 +565,12 @@
       "enunciado": "Cruza una cadena montañosa con viento fuerte. ¿Qué ladera presenta más riesgo y por qué?",
       "opciones": [
         "Porque a barlovento la presión es menor y el altímetro sobrelee",
-        "Porque a sotavento el aire sigue el contorno del terreno, se vuelve turbulento y empuja la aeronave hacia la ladera, con descendentes que pueden ser severas",
+        "A sotavento pueden aparecer ondas, rotores y descendentes intensas; hay que considerar viento, relieve y márgenes de franqueamiento",
         "Porque a sotavento el viento siempre es más débil y deja de haber sustentación",
         "Porque a sotavento se acumula la humedad y se forma engelamiento"
       ],
       "correcta": 1,
-      "explicacion": "A barlovento el viento sube la ladera de forma suave y las ascendentes incluso ayudan. La presión hacia abajo a sotavento crece con la fuerza del viento, y en valles y cañones las descendentes pueden ser severas.",
+      "explicacion": "El riesgo de onda de montaña y rotores suele ser importante a sotavento, pero también puede haber turbulencia y otros peligros a barlovento. No use las ascendentes como margen garantizado para franquear terreno.",
       "referencia": "Lección 4 · El viento cerca del suelo",
       "metadatos": {
         "nivel": "intermedio",
@@ -601,10 +601,10 @@
         "La diferencia entre el viento informado y el real, que solo afecta al cálculo de combustible",
         "Una variación lenta y previsible del viento con la altura, peligrosa solo en crucero",
         "El giro del viento por Coriolis, que es máximo cerca del suelo",
-        "Un cambio repentino y drástico de velocidad y/o dirección en un área muy pequeña; la de bajo nivel es peligrosa porque no queda altura para recuperar"
+        "Un cambio del viento con distancia o altura; cerca del suelo puede alterar rápidamente la trayectoria y deja poco margen de recuperación"
       ],
       "correcta": 3,
-      "explicacion": "Se le asocian cambios de dirección de hasta 180° y de velocidad de 50 nudos o más. La proximidad al suelo es lo que la hace mortal.",
+      "explicacion": "La cizalladura no exige un umbral fijo de 50 kt o 180°. Su efecto sobre velocidad indicada y senda cerca del terreno requiere reconocerla y seguir el procedimiento aprobado.",
       "referencia": "Lección 5 · Cizalladura a bajo nivel",
       "metadatos": {
         "nivel": "basico",
@@ -615,13 +615,13 @@
       "id": "38",
       "enunciado": "¿En qué situaciones meteorológicas hay que esperar cizalladura a bajo nivel?",
       "opciones": [
-        "Paso de sistemas frontales, tormentas eléctricas e inversiones térmicas con viento fuerte arriba, por encima de 25 nudos",
+        "Cerca de convección, frentes, ráfagas o inversiones con fuerte gradiente de viento; no hay un umbral universal de 25 kt",
         "Únicamente con niebla de advección",
         "Vuelo nocturno sobre agua con temperatura y rocío separados",
         "Cielo despejado, viento en calma y presión estable"
       ],
       "correcta": 0,
-      "explicacion": "La más severa es la asociada a precipitación convectiva.",
+      "explicacion": "La convección es una fuente importante de cizalladura peligrosa, incluso con precipitación poco visible; frentes y gradientes de viento también pueden producirla.",
       "referencia": "Lección 5 · Cizalladura a bajo nivel",
       "metadatos": {
         "nivel": "intermedio",
@@ -633,12 +633,12 @@
       "enunciado": "Describa la secuencia que encuentra una aeronave al atravesar una microrráfaga en el despegue.",
       "opciones": [
         "Corriente ascendente sostenida durante todo el cruce",
-        "Viento de frente que aumenta la performance, después corriente descendente, después viento de cola y caída de velocidad",
+        "Puede haber aumento transitorio de viento de frente, seguido de descendente y viento de cola con pérdida de margen de energía",
         "Viento de cola desde el principio, y después viento de frente que la recupera",
         "Turbulencia sin cambio neto de viento, porque el fenómeno es simétrico"
       ],
       "correcta": 1,
-      "explicacion": "El primer tramo engaña: la aeronave sube y parece que todo va bien. La microrráfaga típica ocupa menos de una milla horizontal y menos de 1.000 ft vertical, dura unos 15 minutos y puede dar descendentes de hasta 6.000 ft por minuto.",
+      "explicacion": "La secuencia clásica puede variar con trayectoria y posición. El aumento inicial de viento de frente no mejora de forma fiable la performance ni autoriza penetrar la microrráfaga; siga las alertas y procedimientos de evitación o escape.",
       "referencia": "Lección 5 · Cizalladura a bajo nivel",
       "metadatos": {
         "nivel": "avanzado",
@@ -647,15 +647,15 @@
     },
     {
       "id": "40",
-      "enunciado": "¿Qué magnitud pueden alcanzar las corrientes descendentes de una microrráfaga típica?",
+      "enunciado": "Ante una alerta de microrráfaga en la trayectoria de despegue, ¿qué criterio prevalece?",
       "opciones": [
-        "Hasta 1.500 ft por minuto",
-        "Hasta 6.000 ft por minuto",
-        "Hasta 600 ft por minuto",
-        "Hasta 20.000 ft por minuto"
+        "Despegar si el viento de frente inicial mejora la velocidad indicada",
+        "Evitar la trayectoria afectada y aplicar el procedimiento aprobado; no planificar atravesarla por un valor promedio de descenso",
+        "Despegar si no se observa granizo",
+        "Compensar siempre con más velocidad de rotación"
       ],
       "correcta": 1,
-      "explicacion": "Ocupa menos de una milla horizontal y menos de 1.000 ft vertical, y dura unos 15 minutos. Ningún avión ligero tiene régimen de ascenso para compensar 6.000 ft por minuto hacia abajo.",
+      "explicacion": "La intensidad y duración varían. Una microrráfaga puede superar el margen de recuperación cerca del suelo; no se decide por una cifra «típica», sino por alertas, observaciones y procedimiento aprobado.",
       "referencia": "Lección 5 · Cizalladura a bajo nivel",
       "metadatos": {
         "nivel": "intermedio",
@@ -669,10 +669,10 @@
         "La capacidad del aire de retener humedad sin condensarla",
         "La constancia de la presión con el tiempo: estable significa presión fija",
         "La ausencia de viento en superficie, que garantiza cielo despejado",
-        "La capacidad de resistir el movimiento vertical: estable da tiempo bueno y claro; inestable da turbulencia, convección y nubes de gran desarrollo vertical"
+        "La respuesta a desplazamientos verticales: la estabilidad inhibe convección, pero puede coexistir con estratos, niebla o mala visibilidad"
       ],
       "correcta": 3,
-      "explicacion": "En una atmósfera estable las perturbaciones verticales se amortiguan; en una inestable crecen, y eso puede acabar en tiempo severo.",
+      "explicacion": "Estable no significa despejado: puede favorecer estratos, niebla o contaminantes atrapados. Inestabilidad favorece movimientos verticales, pero el resultado depende también de humedad y forzamiento.",
       "referencia": "Lección 6 · Estabilidad: cuándo el aire sube solo",
       "metadatos": {
         "nivel": "basico",
@@ -681,15 +681,15 @@
     },
     {
       "id": "42",
-      "enunciado": "¿Por qué el aire húmedo es menos estable que el seco?",
+      "enunciado": "¿Qué efecto tiene la condensación en una parcela de aire que asciende?",
       "opciones": [
-        "Porque se enfría más despacio al ascender (de 1,1 a 2,8 °C por 1.000 ft frente a 3 °C del seco), así que sigue subiendo más",
-        "Porque pesa más y por eso tiende a hundirse y remover la capa",
-        "Porque el vapor de agua absorbe calor del sol y calienta la capa desde arriba",
-        "Porque la humedad aumenta la fricción con la superficie"
+        "La liberación de calor latente reduce el enfriamiento de una parcela saturada; su flotabilidad aún depende del ambiente",
+        "La condensación obliga siempre a la parcela a descender",
+        "Elimina cualquier posibilidad de turbulencia",
+        "Fija una tasa de 1,1 °C por 1000 ft en todas las alturas"
       ],
       "correcta": 0,
-      "explicacion": "Al enfriarse más despacio tiene que subir más antes de igualar la temperatura del aire circundante. Además el vapor de agua es más liviano que el aire, con lo que baja la densidad y favorece el ascenso.",
+      "explicacion": "El calor latente cambia la tasa de enfriamiento de una parcela saturada. No convierte por sí solo toda masa húmeda en inestable: compare el perfil de la parcela con el del entorno.",
       "referencia": "Lección 6 · Estabilidad: cuándo el aire sube solo",
       "metadatos": {
         "nivel": "avanzado",
@@ -749,15 +749,15 @@
     },
     {
       "id": "46",
-      "enunciado": "Temperatura 24 °C y punto de rocío 12 °C. ¿A qué altura espera la base de las nubes?",
+      "enunciado": "Temperatura 24 °C y punto de rocío 12 °C. ¿Qué permite estimar una regla simple de base convectiva?",
       "opciones": [
-        "Unos 4.900 ft AGL",
+        "Una base convectiva aproximada de unos 4900 ft AGL, que debe comprobarse con observaciones",
         "Unos 1.200 ft AGL",
         "Unos 12.000 ft AGL",
         "Unos 2.400 ft AGL"
       ],
       "correcta": 0,
-      "explicacion": "La separación es de 12 °C. Dividida entre la tasa de convergencia de 2,45 °C da 4,9, y por mil, unos 4.900 ft AGL.",
+      "explicacion": "Una regla aproximada de 2,5 °C por 1000 ft da cerca de 4800–4900 ft AGL para una parcela convectiva. No predice el techo real del aeródromo ni reemplaza METAR, nubes observadas o pronósticos.",
       "referencia": "Lección 7 · Humedad y punto de rocío",
       "metadatos": {
         "nivel": "avanzado",
@@ -820,12 +820,12 @@
       "enunciado": "¿Qué familias de nubes preocupan más por engelamiento y por qué?",
       "opciones": [
         "Solo las de desarrollo vertical; las estratiformes nunca engelan",
-        "Las bajas y las medias, porque llevan agua líquida y gotas superenfriadas; las altas, al ser de cristales de hielo, no suponen amenaza real",
+        "Las capas con agua líquida superenfriada, incluidas nubes estratiformes o convectivas; el riesgo depende de temperatura y contenido de agua",
         "Las altas, porque están formadas por cristales de hielo",
         "Todas por igual, porque el engelamiento depende solo de la temperatura"
       ],
       "correcta": 1,
-      "explicacion": "Las bajas son sobre todo gotitas de agua pero pueden traer agua superenfriada. Las medias llevan agua, cristales y gotas superenfriadas, con engelamiento moderado en altoestratos y ligero en altocúmulos.",
+      "explicacion": "El engelamiento depende de gotas superenfriadas y de la temperatura de la aeronave, no de una familia de nubes por sí sola. Revise avisos, temperatura, nubosidad y capacidad de protección de la aeronave.",
       "referencia": "Lección 8 · Nubes: reconocer lo que tienes delante",
       "metadatos": {
         "nivel": "avanzado",
@@ -871,12 +871,12 @@
       "enunciado": "¿Qué distingue a la niebla de una nube baja?",
       "opciones": [
         "Que la niebla no reduce la visibilidad vertical",
-        "Dónde empieza su base: la niebla empieza dentro de los primeros 50 ft de la superficie",
+        "La niebla es una nube en contacto con el suelo que reduce la visibilidad horizontal; una nube baja puede tener su base por encima",
         "Que la niebla está formada por cristales de hielo y la nube baja por gotitas",
         "Que la niebla solo se forma de noche"
       ],
       "correcta": 1,
-      "explicacion": "Se forma cuando la temperatura del aire cerca del suelo se enfría hasta el punto de rocío y el vapor se condensa y se hace visible. La diferencia con una nube baja es exactamente esa: dónde empieza su base.",
+      "explicacion": "No existe una frontera universal de 50 ft para la base. La niebla afecta la visibilidad en superficie y puede formarse por mecanismos distintos, no solo enfriamiento nocturno.",
       "referencia": "Lección 9 · Niebla, techo y visibilidad",
       "metadatos": {
         "nivel": "basico",
@@ -888,12 +888,12 @@
       "enunciado": "¿En qué se diferencian operativamente la niebla de radiación y la de advección?",
       "opciones": [
         "La de advección se disipa con el sol; la de radiación persiste días",
-        "La de radiación se disipa con el sol o con el aumento del viento; la de advección no se quema con el sol y puede persistir días",
+        "La de radiación suele mejorar con calentamiento o mezcla; la de advección depende del flujo sobre una superficie más fría y puede persistir pese al amanecer",
         "Las dos se disipan igual en cuanto sale el sol",
         "La de radiación necesita viento para formarse; la de advección solo se forma en calma"
       ],
       "correcta": 1,
-      "explicacion": "La de radiación se forma en noches claras con poco o ningún viento, típica de zonas bajas y valles. La de advección necesita viento: hasta unos 15 kt se forma e intensifica, y por encima suele elevarse formando estratos bajos.",
+      "explicacion": "Son tendencias, no relojes ni umbrales fijos de disipación. Para operar importa la observación y tendencia vigentes, no dar por despejada una niebla al salir el sol.",
       "referencia": "Lección 9 · Niebla, techo y visibilidad",
       "metadatos": {
         "nivel": "avanzado",
@@ -902,15 +902,15 @@
     },
     {
       "id": "55",
-      "enunciado": "¿Qué tipo de niebla preocupa además por engelamiento?",
+      "enunciado": "¿Cuándo puede asociarse la niebla con riesgo de engelamiento?",
       "opciones": [
         "La niebla de radiación, por formarse en noches frías",
         "La niebla de ladera, por la altura a la que aparece",
         "La niebla de advección, por el viento que la acompaña",
-        "La niebla de vapor o humo de mar, que se forma cuando aire frío y seco se mueve sobre aguas cálidas"
+        "Cuando contiene gotas superenfriadas y las condiciones de temperatura permiten su acumulación en la aeronave"
       ],
       "correcta": 3,
-      "explicacion": "Se le asocian turbulencia de bajo nivel y engelamiento, así que no es solo un problema de visibilidad.",
+      "explicacion": "El riesgo no pertenece exclusivamente a un tipo de niebla. Verifique temperatura, presencia de gotas superenfriadas, avisos y protección de la aeronave, además de visibilidad.",
       "referencia": "Lección 9 · Niebla, techo y visibilidad",
       "metadatos": {
         "nivel": "intermedio",
@@ -955,13 +955,13 @@
       "id": "58",
       "enunciado": "Una masa de aire cálida avanza sobre un mar más frío que ella. ¿Cómo se comporta y qué tiempo trae?",
       "opciones": [
-        "Se hace estable: estratos bajos, niebla y mala visibilidad en superficie por humo y polvo atrapados",
+        "El enfriamiento desde abajo favorece estabilidad y puede propiciar estratos o niebla si hay humedad suficiente; no garantiza esos fenómenos",
         "No cambia de comportamiento, porque la masa conserva su origen",
         "Se disipa rápidamente y deja cielo despejado",
         "Se hace inestable: cúmulos de desarrollo vertical y chubascos"
       ],
       "correcta": 0,
-      "explicacion": "Al enfriarse por abajo no se forman corrientes de convección. Sin ascenso, el humo, el polvo y las partículas no pueden subir y quedan atrapados cerca del suelo.",
+      "explicacion": "El aire cálido sobre una superficie fría suele estabilizarse por abajo. El resultado concreto depende de humedad, mezcla y evolución; no se puede asegurar niebla ni mala visibilidad solo por el contraste térmico.",
       "referencia": "Lección 10 · Masas de aire y frentes",
       "metadatos": {
         "nivel": "avanzado",
@@ -974,11 +974,11 @@
       "opciones": [
         "La de frente frío ocurre solo en el hemisferio sur y la de frente cálido solo en el norte",
         "Son el mismo fenómeno con distinto nombre según el país",
-        "En la de frente frío, el aire que llega es más frío que el de delante y lo reemplaza; en la de frente cálido, el de delante es más frío y el frío que llega sube por encima",
+        "En la oclusión fría, el aire detrás del frente frío es el más frío y desplaza al que está delante; en la cálida, el aire delante del frente cálido es el más frío y el aire que llega asciende sobre él",
         "En la de frente cálido nunca hay precipitación"
       ],
       "correcta": 2,
-      "explicacion": "La de frente frío suele dar una mezcla del tiempo de los dos si el aire es relativamente estable. En la de frente cálido, si el aire forzado a ascender es inestable, el tiempo es más severo, con tormentas, lluvia y niebla.",
+      "explicacion": "La clasificación depende de cuál de las dos masas frías es más fría. En la oclusión fría, la de atrás avanza por debajo de la de delante; en la cálida, la de delante permanece en superficie y la de atrás asciende. Ningún tipo determina por sí solo la intensidad del tiempo: revise humedad, estabilidad y productos meteorológicos vigentes.",
       "referencia": "Lección 10 · Masas de aire y frentes",
       "metadatos": {
         "nivel": "avanzado",
@@ -1004,15 +1004,15 @@
     },
     {
       "id": "61",
-      "enunciado": "Vuela de Junín a Formosa contra un frente cálido que avanza hacia el sur. ¿Cómo evoluciona el tiempo a lo largo del tramo?",
+      "enunciado": "Un pronóstico muestra un frente cálido acercándose a la ruta. ¿Qué evolución es posible y qué debe verificar?",
       "opciones": [
         "No cambia: el frente cálido no afecta a techo ni a visibilidad",
         "Empeora de golpe al llegar al frente y mejora inmediatamente al cruzarlo",
-        "Empeora de forma gradual: de cirros a 15.000 ft, a techo de 6.000 ft, a 2.000 ft con lluvia, y cubierto bajo con 1 km en destino",
+        "Puede aumentar gradualmente la nubosidad estratiforme y precipitación; la hora y condiciones concretas se verifican en productos vigentes",
         "Mejora a lo largo de la ruta, porque el frente cálido seca el aire"
       ],
       "correcta": 2,
-      "explicacion": "La pendiente tendida del frente cálido hace que el deterioro se anuncie con horas de antelación. Más allá de Reconquista el techo y la visibilidad ya serían demasiado bajos para continuar VFR.",
+      "explicacion": "Un frente cálido puede generar nubosidad extensa, pero no determina por sí solo techos, visibilidad ni duración. Compare pronósticos, observaciones, mínimos y hora de paso.",
       "referencia": "Lección 11 · Cruzar un frente",
       "metadatos": {
         "nivel": "intermedio",
@@ -1021,15 +1021,15 @@
     },
     {
       "id": "62",
-      "enunciado": "El mismo tramo, ahora contra un frente frío. ¿Qué diferencia operativa hay respecto del cálido?",
+      "enunciado": "Una ruta puede cruzar un frente frío. ¿Qué peligro debe considerar especialmente?",
       "opciones": [
         "El frío avisa con días de antelación y deja techos bajos persistentes",
-        "El frío avisa poco o nada y trae tormentas repentinas, viento racheado y turbulencia, pero después mejora rápido con aire seco",
+        "Puede haber cambios de viento, convección y turbulencia cerca del frente; la intensidad y evolución se verifican con datos vigentes",
         "El frío no produce precipitación, solo turbulencia",
         "Los dos se comportan igual; solo cambia la temperatura resultante"
       ],
       "correcta": 1,
-      "explicacion": "El cálido avisa con antelación y tarda días en pasar, con techos bajos, poca visibilidad y lluvia, y mejora lentamente. El frío da poca o ninguna advertencia, con tormentas, granizo a veces y tornados, y después mejora rápido con visibilidad ilimitada.",
+      "explicacion": "No todos los frentes fríos producen tormentas ni mejoran inmediatamente después del paso. Su ubicación, intensidad y hora prevista deben verificarse, y la ruta puede requerir ajustes.",
       "referencia": "Lección 11 · Cruzar un frente",
       "metadatos": {
         "nivel": "avanzado",
@@ -1038,15 +1038,15 @@
     },
     {
       "id": "63",
-      "enunciado": "En el vuelo contra el frente cálido, al acercarse a Reconquista la temperatura ha igualado al punto de rocío. ¿Qué anticipa?",
+      "enunciado": "En ruta, la temperatura se aproxima al punto de rocío. ¿Qué anticipa para la planificación?",
       "opciones": [
         "Turbulencia severa en superficie",
-        "Niebla probable",
+        "Mayor posibilidad de saturación, nubes bajas o niebla, que debe confirmarse con observaciones y pronósticos",
         "Mejora inminente de la visibilidad",
         "Aumento de la presión y cielo despejado"
       ],
       "correcta": 1,
-      "explicacion": "Con temperatura y rocío iguales el aire está saturado. Junto a nubes con pocos claros a 2.000 ft y 5 km con lluvia, es el aviso de que el tramo siguiente ya no es VFR.",
+      "explicacion": "Una separación pequeña señala aire húmedo, pero no demuestra que exista niebla ni determina mínimos. Revise visibilidad, techo y evolución en el tramo y destino.",
       "referencia": "Lección 11 · Cruzar un frente",
       "metadatos": {
         "nivel": "intermedio",
@@ -1055,15 +1055,15 @@
     },
     {
       "id": "64",
-      "enunciado": "Ante ese frente cálido, ¿cuál es la decisión prudente y cuánto puede durar?",
+      "enunciado": "El pronóstico de un tramo indica techo y visibilidad por debajo de los mínimos aplicables. ¿Qué decide?",
       "opciones": [
         "Continuar en VFR especial hasta Formosa, que está a menos de una hora",
-        "Quedarse en Reconquista hasta que pase el frente, lo que puede llevar un día o dos",
+        "No iniciar ni continuar ese tramo bajo el plan actual; evaluar demora, cambio de ruta o alterno con información y reservas vigentes",
         "Ascender por encima de la capa y seguir, porque el frente es tendido",
         "Esperar treinta minutos, que es lo que tarda en pasar un frente cálido"
       ],
       "correcta": 1,
-      "explicacion": "Más allá de Reconquista el techo y la visibilidad ya serían demasiado bajos para continuar VFR, y el frente cálido se mueve despacio.",
+      "explicacion": "El peligro se compara con los mínimos y la habilitación de la operación. No hay una duración fija para esperar un frente; la decisión se actualiza con pronósticos y observaciones.",
       "referencia": "Lección 11 · Cruzar un frente",
       "metadatos": {
         "nivel": "intermedio",
@@ -1093,11 +1093,11 @@
       "opciones": [
         "Todas tienen la misma intensidad; lo que cambia es la duración",
         "La de cúmulo, cuando la nube crece más deprisa",
-        "La de madurez, hacia los quince minutos: ascendentes y descendentes conviviendo, con precipitación cayendo",
+        "La de madurez, con corrientes ascendentes y descendentes y precipitación; no tiene una duración fija de quince minutos",
         "La de disipación, cuando aparece el yunque"
       ],
       "correcta": 2,
-      "explicacion": "En la etapa cúmulo solo hay ascendentes. En la de disipación las descendentes se generalizan y reemplazan a las ascendentes. Un yunque a la vista no quiere decir que la tormenta esté en disipación: se rodea igual.",
+      "explicacion": "La etapa madura combina ascendentes, descendentes y precipitación, pero el ciclo varía mucho entre células. Un yunque visible no demuestra que el peligro haya terminado.",
       "referencia": "Lección 12 · Tormentas y sus peligros",
       "metadatos": {
         "nivel": "intermedio",
@@ -1106,15 +1106,15 @@
     },
     {
       "id": "67",
-      "enunciado": "¿A qué distancia rodearía una tormenta severa y por qué?",
+      "enunciado": "Al planificar un desvío alrededor de una tormenta severa, ¿qué criterio es correcto?",
       "opciones": [
         "A 2 millas náuticas, si se mantiene por encima del yunque",
         "No hace falta distancia si el radar meteorológico no muestra eco",
-        "A por lo menos 20 millas náuticas, porque el granizo puede caer varios kilómetros fuera de la nube",
+        "Aplicar la separación indicada por procedimientos y situación, considerando granizo, turbulencia, movimiento y crecimiento fuera del eco visible",
         "A 5 millas náuticas, que es el límite del eco de radar"
       ],
       "correcta": 2,
-      "explicacion": "Además hay que contar con que la turbulencia de cizalladura se encuentra hasta 30 km lateralmente de una tormenta fuerte y que el frente de ráfaga puede ir 25 km por delante de la precipitación.",
+      "explicacion": "Una cifra aislada no garantiza separación segura. Revise radar, avisos, movimiento y márgenes aprobados, y coordine una ruta que evite el sistema convectivo.",
       "referencia": "Lección 12 · Tormentas y sus peligros",
       "metadatos": {
         "nivel": "avanzado",
@@ -1123,15 +1123,15 @@
     },
     {
       "id": "68",
-      "enunciado": "¿Por qué el altímetro es un problema al pasar una tormenta?",
+      "enunciado": "¿Qué hace si un área convectiva altera bruscamente la trayectoria y la información de presión local?",
       "opciones": [
-        "Porque dentro de la nube el altímetro deja de recibir presión estática",
-        "Porque la presión cae al llegar, sube abruptamente con la primera ráfaga y vuelve a caer al pasar: el error puede superar los 100 ft",
-        "Porque la turbulencia desajusta mecánicamente el instrumento",
-        "Porque el granizo obstruye la toma estática de forma permanente"
+        "Seguir cruzando el núcleo hasta confirmar un error fijo del altímetro",
+        "Evita la convección y sigue las indicaciones y procedimientos aprobados; no supone una secuencia fija de presión ni un error universal de altímetro",
+        "Usar el último QNH como prueba de que no habrá cizalladura",
+        "Compensar con una corrección de altura de 100 ft en todas las tormentas"
       ],
       "correcta": 1,
-      "explicacion": "Ese ciclo completo puede ocurrir en quince minutos, y si no se recibe un ajuste de altímetro correcto el error supera los 100 ft.",
+      "explicacion": "Una tormenta puede asociarse con cambios locales de presión y viento, pero no hay un patrón temporal ni error fijo que sirva para operar. La prioridad es evitarla y mantener los ajustes y procedimientos vigentes.",
       "referencia": "Lección 12 · Tormentas y sus peligros",
       "metadatos": {
         "nivel": "avanzado",
@@ -1140,7 +1140,7 @@
     },
     {
       "id": "69",
-      "enunciado": "¿Cuáles son las cuatro formas de observar la atmósfera de las que salen todos los pronósticos y avisos?",
+      "enunciado": "¿Qué conjunto reúne cuatro fuentes importantes de observación meteorológica?",
       "opciones": [
         "Carta de superficie, carta de altura, imagen visible e imagen infrarroja",
         "METAR, TAF, SIGMET y AIRMET",
@@ -1148,7 +1148,7 @@
         "Observación en superficie, en altura (radiosonda), por radar y por satélite"
       ],
       "correcta": 3,
-      "explicacion": "Los datos de observaciones en superficie y en altura son la base de todo. METAR, TAF y los avisos son productos que salen de esas observaciones, no observaciones en sí.",
+      "explicacion": "Superficie, perfiles verticales, radar y satélite son fuentes importantes, pero no las únicas: también aportan datos aeronaves y otros sensores. Hay que distinguir observaciones de pronósticos y avisos.",
       "referencia": "Lección 26 · De dónde sale el dato",
       "metadatos": {
         "nivel": "basico",
@@ -1157,15 +1157,15 @@
     },
     {
       "id": "70",
-      "enunciado": "El radar meteorológico no muestra eco sobre su ruta. ¿Qué puede concluir?",
+      "enunciado": "La reflectividad del radar no muestra eco en una parte de la ruta. ¿Qué puede concluir?",
       "opciones": [
         "Que no hay nubes por debajo de FL100",
-        "Que no hay precipitación lo bastante grande para ser detectada; no que el cielo esté despejado ni que haya condiciones VFR",
+        "Que el radar no detectó un eco significativo dentro de su cobertura; debe revisar alcance, hora y otras fuentes antes de concluir sobre la ruta",
         "Que la visibilidad en superficie es de 10 km o más",
         "Que el cielo está despejado y el vuelo VFR está garantizado"
       ],
       "correcta": 1,
-      "explicacion": "El radar solo detecta objetos lo bastante grandes como para considerarse precipitación. No detecta bases ni topes de nubes, ni techos, ni visibilidad. Una pantalla limpia no significa cielo limpio.",
+      "explicacion": "Una imagen sin eco no descarta precipitación débil, sombra por relieve, falta de cobertura o fenómenos fuera del haz. Tampoco establece techo ni visibilidad. Compruebe hora, cobertura y otros productos vigentes.",
       "referencia": "Lección 26 · De dónde sale el dato",
       "metadatos": {
         "nivel": "avanzado",
@@ -1178,11 +1178,11 @@
       "opciones": [
         "No informa viento ni visibilidad, solo presión",
         "Se actualiza una vez al día",
-        "Cubre poco radio: describe su punto, no lo que pasa diez millas más allá",
+        "Describe las condiciones en el aeródromo y momento observados; no toda la ruta ni aeródromos vecinos",
         "Solo mide de noche, cuando la atmósfera está estable"
       ],
       "correcta": 2,
-      "explicacion": "Cubren poco radio cada una, pero mirando muchas estaciones a la vez se arma la imagen de una zona amplia. Esa es también la razón de que el METAR de un aeródromo no valga para el de al lado.",
+      "explicacion": "Una estación aporta una observación localizada. Para la ruta hacen falta otras estaciones, imágenes y pronósticos válidos en espacio y tiempo.",
       "referencia": "Lección 26 · De dónde sale el dato",
       "metadatos": {
         "nivel": "intermedio",
@@ -1194,12 +1194,12 @@
       "enunciado": "¿Qué aporta la radiosonda que no aporta ninguna observación de superficie?",
       "opciones": [
         "La precipitación en tiempo real sobre una región amplia",
-        "El perfil vertical completo de la atmósfera, aunque solo dos veces al día",
+        "Un perfil vertical observado en una columna y una hora concretas",
         "El techo y la visibilidad en cada aeródromo",
         "La imagen de conjunto del movimiento de los sistemas"
       ],
       "correcta": 1,
-      "explicacion": "Junto con el PIREP es una de las dos únicas formas de observar el tiempo en altura. Su límite es la frecuencia: dos veces al día, y ya.",
+      "explicacion": "La radiosonda observa temperatura, humedad y viento con la altura en una columna. La frecuencia y disponibilidad varían; el perfil no representa automáticamente toda la ruta ni horas posteriores.",
       "referencia": "Lección 26 · De dónde sale el dato",
       "metadatos": {
         "nivel": "intermedio",
@@ -1208,16 +1208,16 @@
     },
     {
       "id": "73",
-      "enunciado": "De todo lo que llega al briefing, ¿qué dato solo puede venir de un PIREP?",
+      "enunciado": "¿Qué aporta un informe de piloto a un briefing meteorológico?",
       "opciones": [
         "La imagen de satélite de la cobertura nubosa",
-        "Las condiciones reales en el aire: confirmación de techos y topes, y ubicación de cizalladura, turbulencia y engelamiento",
+        "Una observación directa de la condición experimentada, identificada por posición, hora y nivel, que se contrasta con otras fuentes",
         "La presión al nivel del mar corregida de toda la región",
         "El pronóstico de la evolución en las próximas seis horas"
       ],
       "correcta": 1,
-      "explicacion": "Solo existen dos maneras de observar el aire en altura, y la otra sube dos veces al día. Para saber qué turbulencia, qué engelamiento y qué altura de nubes hay ahora mismo, no hay más fuente que el piloto que está ahí arriba.",
-      "referencia": "Lección 27 · El PIREP y el RAREP",
+      "explicacion": "El reporte de una aeronave confirma condiciones encontradas en un punto y momento; no demuestra que toda la ruta o todos los niveles compartan esas condiciones.",
+      "referencia": "Lección 27 · El informe del piloto en ruta",
       "metadatos": {
         "nivel": "basico",
         "leccion": 27
@@ -1225,16 +1225,16 @@
     },
     {
       "id": "74",
-      "enunciado": "¿Cuándo suelen solicitar los controladores un PIREP?",
+      "enunciado": "Una tripulación encuentra engelamiento no pronosticado en ruta. ¿Qué debe priorizar al comunicarlo?",
       "opciones": [
-        "Cuando el techo está por debajo de 10.000 ft, sin importar la visibilidad",
-        "Solo cuando hay un SIGMET vigente en la zona",
-        "Cuando el techo está por debajo de 5.000 ft o la visibilidad es de cinco millas o menos",
-        "Una vez por hora, de forma rutinaria, a toda aeronave en ruta"
+        "Esperar a que el siguiente TAF incluya la condición",
+        "Comunicar posición, hora, nivel y fenómeno por el procedimiento aplicable, sin esperar una solicitud",
+        "Aplicar el umbral estadounidense de cinco millas como requisito universal",
+        "Omitir el nivel si la aeronave está ascendiendo"
       ],
-      "correcta": 2,
-      "explicacion": "Y sin que lo pidan, hay que mandarlo siempre que se encuentren condiciones inesperadas: ese informe se incorpora a la red y sirve para avisar a otros pilotos.",
-      "referencia": "Lección 27 · El PIREP y el RAREP",
+      "correcta": 1,
+      "explicacion": "Una condición peligrosa o inesperada debe comunicarse oportunamente según el procedimiento local. Un umbral de solicitud de otro Estado no sustituye esa decisión.",
+      "referencia": "Lección 27 · El informe del piloto en ruta",
       "metadatos": {
         "nivel": "intermedio",
         "leccion": 27
@@ -1242,16 +1242,16 @@
     },
     {
       "id": "75",
-      "enunciado": "En el formato de PIREP, ¿cuáles son los campos obligatorios?",
+      "enunciado": "¿Qué información permite utilizar operativamente un reporte de piloto?",
       "opciones": [
-        "Todos los campos del formulario, sin excepción",
-        "Solo el tipo y el lugar",
-        "Los cinco primeros: tipo (UA/UUA), lugar (/OV), hora zulú (/TM), nivel (/FL) y tipo de aeronave (/TP)",
-        "Los que describen el fenómeno: /SK, /TA, /WV, /TB e /IC"
+        "Solo el tipo de aeronave",
+        "Solo la intensidad, sin ubicación ni hora",
+        "Posición, hora, nivel y fenómeno observado, con el tipo de aeronave cuando corresponda al formato",
+        "Únicamente el METAR más cercano"
       ],
       "correcta": 2,
-      "explicacion": "Los campos del fenómeno (/SK cielo, /TA temperatura, /WV viento, /TB turbulencia, /IC engelamiento, /RM observaciones) son los que dan el contenido, pero el informe se identifica con los cinco primeros.",
-      "referencia": "Lección 27 · El PIREP y el RAREP",
+      "explicacion": "Sin posición, hora y nivel, una observación de turbulencia o engelamiento puede interpretarse fuera de contexto. Use el formato que corresponda al servicio y región.",
+      "referencia": "Lección 27 · El informe del piloto en ruta",
       "metadatos": {
         "nivel": "avanzado",
         "leccion": 27
@@ -1268,7 +1268,7 @@
       ],
       "correcta": 0,
       "explicacion": "El primer campo del informe es precisamente el que marca esa distinción.",
-      "referencia": "Lección 27 · El PIREP y el RAREP",
+      "referencia": "Lección 27 · El informe del piloto en ruta",
       "metadatos": {
         "nivel": "intermedio",
         "leccion": 27
@@ -1276,15 +1276,15 @@
     },
     {
       "id": "77",
-      "enunciado": "Según la OACI, ¿a quién avisa un SIGMET y a quién un AIRMET?",
+      "enunciado": "¿Cómo se distinguen SIGMET y AIRMET en el marco OACI?",
       "opciones": [
         "Los dos avisan a todas las aeronaves; cambia solo la duración",
         "El SIGMET es solo para aeronaves de transporte y el AIRMET solo para aviación general",
         "El SIGMET es para vuelos bajos y el AIRMET para todas las aeronaves",
-        "El SIGMET avisa de fenómenos peligrosos para todas las aeronaves; el AIRMET es para vuelos a baja altura, por debajo de FL100 o FL150 en zonas montañosas"
+        "El SIGMET informa fenómenos significativos en ruta; el AIRMET, donde se emite, informa fenómenos relevantes para vuelos a baja altura"
       ],
       "correcta": 3,
-      "explicacion": "El SIGMET cubre tormentas oscurecidas, incrustadas, frecuentes o en línea, turbulencia severa, engelamiento severo, onda de montaña severa, tempestades de polvo o arena y nube radiactiva. La ceniza volcánica y los ciclones tropicales tienen su propio SIGMET.",
+      "explicacion": "No son una escala de gravedad para todas las operaciones. La disponibilidad de AIRMET depende del acuerdo regional; consulte el servicio oficial del área y los niveles publicados.",
       "referencia": "Lección 28 · Los avisos en vuelo",
       "metadatos": {
         "nivel": "basico",
@@ -1293,15 +1293,15 @@
     },
     {
       "id": "78",
-      "enunciado": "¿Existe el SIGMET convectivo como producto aparte en la región?",
+      "enunciado": "Un piloto busca «Convective SIGMET» en una región OACI fuera de Estados Unidos. ¿Qué debe hacer?",
       "opciones": [
-        "No: es del sistema de Estados Unidos. Con OACI las tormentas van dentro del SIGMET normal, como OBSC, EMBD, FRQ o SQL TS",
+        "Comprobar los SIGMET y productos oficiales disponibles para esa región; no exigir el nombre estadounidense para encontrar convección",
         "No existe ningún aviso de tormentas en el sistema OACI",
         "Sí, se emite igual que en Estados Unidos y con el mismo código",
         "Sí, pero solo durante la temporada de lluvias"
       ],
       "correcta": 0,
-      "explicacion": "En el sistema de Estados Unidos el SIGMET normal cubre solo lo no convectivo. Leer un aviso de la región buscando un «convectivo» aparte es perderse las tormentas. Con GR si hay granizo.",
+      "explicacion": "«Convective SIGMET» es una categoría estadounidense. En el marco OACI las tormentas pueden figurar en un SIGMET con calificadores como EMBD, OBSC, FRQ o SQL; confirme la nomenclatura y disponibilidad locales.",
       "referencia": "Lección 28 · Los avisos en vuelo",
       "metadatos": {
         "nivel": "avanzado",
@@ -1318,7 +1318,7 @@
         "Hasta doce horas, como el TAF corto"
       ],
       "correcta": 2,
-      "explicacion": "Los SIGMET convectivos de Estados Unidos valen dos horas, que es otra de las diferencias entre los dos sistemas.",
+      "explicacion": "Son máximos, no duraciones fijas: lea el inicio y fin de cada aviso y compruebe actualización o cancelación antes de usarlo.",
       "referencia": "Lección 28 · Los avisos en vuelo",
       "metadatos": {
         "nivel": "intermedio",
@@ -1327,7 +1327,7 @@
     },
     {
       "id": "80",
-      "enunciado": "En un SIGMET de la región lee `EMBD TS`. ¿Qué significa y por qué importa?",
+      "enunciado": "En un SIGMET lee `EMBD TS`. ¿Qué significa y por qué importa?",
       "opciones": [
         "Tormentas en disipación, que ya no representan peligro",
         "Tormentas incrustadas dentro de otras nubes: no se ven, así que la evitación no puede apoyarse en la vista",
@@ -1335,7 +1335,7 @@
         "Tormentas en línea a lo largo de un frente"
       ],
       "correcta": 1,
-      "explicacion": "OBSC es oscurecida, EMBD incrustada, FRQ frecuente y SQL en línea. La incrustada es la que no se ve ni desde tierra ni en vuelo.",
+      "explicacion": "EMBD indica tormentas incrustadas en otra nubosidad, difíciles de reconocer visualmente. Revise ubicación, niveles, movimiento y vigencia; no confíe solo en la vista para evitarlas.",
       "referencia": "Lección 28 · Los avisos en vuelo",
       "metadatos": {
         "nivel": "intermedio",
@@ -1344,15 +1344,15 @@
     },
     {
       "id": "81",
-      "enunciado": "¿Qué cubre un pronóstico de área que no cubre un TAF?",
+      "enunciado": "¿Qué aporta un producto meteorológico regional que no aporta el TAF del destino?",
       "opciones": [
         "El detalle de pista y de RVR de cada aeródromo",
         "La posición de las aeronaves que han reportado turbulencia",
         "Las observaciones de las últimas seis horas",
-        "Una región entera, que es lo que hace falta para la parte de la ruta que no tiene aeropuerto cerca"
+        "Contexto espacial y temporal para tramos en ruta fuera del entorno de un aeródromo"
       ],
       "correcta": 3,
-      "explicacion": "El METAR y el TAF hablan de un aeródromo. El pronóstico de área trae una sinopsis con la localización y el movimiento de los sistemas de presión, los frentes y los patrones de circulación.",
+      "explicacion": "El TAF se refiere a un aeródromo. Para el tramo en ruta se consulta el producto regional disponible, su validez, niveles y leyenda; el formato no es idéntico en todos los Estados.",
       "referencia": "Lección 29 · Pronóstico de área y vientos en altura",
       "metadatos": {
         "nivel": "intermedio",
@@ -1361,15 +1361,15 @@
     },
     {
       "id": "82",
-      "enunciado": "En un pronóstico de vientos y temperaturas en altura, ¿qué son las alturas por debajo de 12.000 ft y qué son por encima de 18.000 ft?",
+      "enunciado": "Antes de comparar vientos y temperaturas pronosticados en dos niveles, ¿qué datos del producto debe verificar?",
       "opciones": [
-        "En los dos casos son alturas sobre el terreno (AGL)",
-        "En los dos casos son altitudes de densidad",
-        "Hasta 12.000 ft son altitudes de presión; por encima de 18.000 ft son alturas verdaderas",
-        "Hasta 12.000 ft son alturas verdaderas; por encima de 18.000 ft son altitudes de presión"
+        "Solo el nombre del aeródromo de salida",
+        "Solo la velocidad máxima indicada en la tabla",
+        "La dirección del viento de superficie, sin mirar los niveles",
+        "Hora válida, posición o tramo, niveles, unidades y referencia vertical del producto"
       ],
       "correcta": 3,
-      "explicacion": "La dirección va siempre referida al norte verdadero, la velocidad en nudos y la temperatura en grados Celsius.",
+      "explicacion": "No traslade convenciones de una tabla nacional a todos los productos. Interprete la referencia vertical, unidades, posición y hora de la fuente vigente antes de calcular componentes o rendimiento.",
       "referencia": "Lección 29 · Pronóstico de área y vientos en altura",
       "metadatos": {
         "nivel": "avanzado",
@@ -1378,15 +1378,15 @@
     },
     {
       "id": "83",
-      "enunciado": "¿Cuándo NO se pronostica el viento para un nivel en una estación?",
+      "enunciado": "La herramienta no ofrece viento para el nivel exacto de crucero. ¿Qué hace?",
       "opciones": [
-        "Cuando la visibilidad en la estación es menor de 5 km",
-        "Cuando el nivel está dentro de 1.500 ft de la elevación de la estación",
-        "Cuando el nivel está por encima de FL340",
-        "Cuando la estación es automática"
+        "Usar el METAR de superficie como viento de crucero",
+        "Consultar niveles adyacentes y el método de interpolación de la herramienta aprobada, verificando hora y ruta",
+        "Elegir el nivel superior sin considerar rendimiento",
+        "Inventar una velocidad a partir de la elevación del aeródromo"
       ],
       "correcta": 1,
-      "explicacion": "Y la temperatura no se pronostica para estaciones dentro de 2.500 ft del nivel. Son dos umbrales distintos y se confunden con facilidad.",
+      "explicacion": "La ausencia de un nivel no autoriza una regla universal de 1500 ft. Compruebe el producto y use la interpolación permitida por la herramienta aprobada, sin extrapolar viento de superficie.",
       "referencia": "Lección 29 · Pronóstico de área y vientos en altura",
       "metadatos": {
         "nivel": "avanzado",
@@ -1403,7 +1403,7 @@
         "Usa siempre el nivel superior, donde el viento es más fuerte"
       ],
       "correcta": 2,
-      "explicacion": "El pronóstico da niveles discretos; el nivel real de vuelo casi nunca coincide con uno de ellos.",
+      "explicacion": "Una interpolación entre niveles puede ser útil cuando el producto y la herramienta lo permiten; no sustituye verificar hora, tramo, unidades y rendimiento.",
       "referencia": "Lección 29 · Pronóstico de área y vientos en altura",
       "metadatos": {
         "nivel": "intermedio",
@@ -1412,15 +1412,15 @@
     },
     {
       "id": "85",
-      "enunciado": "Empieza a planificar un vuelo largo. ¿Qué documento meteorológico mira primero y por qué?",
+      "enunciado": "¿Cuándo conviene revisar el panorama meteorológico regional al planificar un vuelo largo?",
       "opciones": [
         "Solo en vuelo, cuando hay que desviarse",
         "Solo cuando no hay TAF disponible para el destino",
         "Al final, para confirmar lo que ya dijeron el METAR y el TAF",
-        "En las etapas iniciales, porque dan la imagen global de frentes y sistemas antes de bajar al detalle del aeródromo"
+        "Desde las etapas iniciales, para ubicar peligros y su evolución en la ruta antes de completar el detalle de cada aeródromo"
       ],
       "correcta": 3,
-      "explicacion": "Con esa imagen ya sabes si tu ruta va a cruzarlos y cuándo. Al revés no funciona: un METAR bueno no te dice que dentro de dos horas te va a cruzar un frente.",
+      "explicacion": "El contexto regional orienta la búsqueda de peligros y desvíos, pero no determina solo la trayectoria; crúcelo con TAF, observaciones, avisos, hora de paso y procedimientos.",
       "referencia": "Lección 30 · Las cartas del tiempo",
       "metadatos": {
         "nivel": "basico",
@@ -1429,15 +1429,15 @@
     },
     {
       "id": "86",
-      "enunciado": "En una carta de superficie, una zona tiene las isobaras muy juntas y otra muy separadas. ¿Qué diferencia de viento espera?",
+      "enunciado": "En una carta con el mismo intervalo de presión entre isobaras, una zona las muestra más juntas. ¿Qué sugiere?",
       "opciones": [
         "Precipitación continua, con independencia del viento",
         "Una inversión térmica en superficie",
-        "Gradiente de presión fuerte y, por tanto, vientos fuertes en esa zona",
+        "Mayor gradiente horizontal; debe comprobar el viento previsto al nivel y hora de vuelo",
         "Gradiente débil y vientos suaves"
       ],
       "correcta": 2,
-      "explicacion": "Las isobaras muy separadas indican gradiente pequeño y vientos suaves. Es la lectura más rápida y más útil de una carta de superficie.",
+      "explicacion": "A igual intervalo, menor distancia implica mayor gradiente. La carta de superficie no da por sí sola el viento exacto a nivel de vuelo ni garantiza turbulencia.",
       "referencia": "Lección 30 · Las cartas del tiempo",
       "metadatos": {
         "nivel": "intermedio",
@@ -1446,15 +1446,15 @@
     },
     {
       "id": "87",
-      "enunciado": "No tiene información de vientos en altura. ¿Cómo estima el viento a 2.000 ft AGL a partir del de superficie?",
+      "enunciado": "No hay viento observado ni pronosticado al nivel requerido. ¿Qué hace con el dato de superficie?",
       "opciones": [
-        "Girado 90° respecto del de superficie en los dos hemisferios",
-        "De 20° a 40° a la izquierda en el norte y a la derecha en el sur",
-        "De 20° a 40° a la derecha del de superficie en el hemisferio norte y a la izquierda en el sur, y con más velocidad",
-        "En la misma dirección que el de superficie y con la misma velocidad"
+        "Asumir un giro fijo de 90°",
+        "Asumir una velocidad idéntica a la de superficie",
+        "Reconocer que no fija el viento en altura; buscar información vigente y manejar la incertidumbre con procedimientos aprobados",
+        "Suponer un giro fijo de 20–40° en cualquier terreno"
       ],
       "correcta": 2,
-      "explicacion": "Arriba la fricción ya no lo frena ni reduce el efecto de Coriolis. El cambio de dirección es mayor sobre terreno rugoso y menor sobre superficies planas como agua abierta.",
+      "explicacion": "Fricción, estabilidad, relieve, brisas y convección modifican el perfil. Un giro fijo no es un pronóstico operacional válido para una altura y lugar concretos.",
       "referencia": "Lección 30 · Las cartas del tiempo",
       "metadatos": {
         "nivel": "avanzado",
@@ -1463,15 +1463,15 @@
     },
     {
       "id": "88",
-      "enunciado": "En el modelo de estación de una carta, la presión aparece como `027`. ¿Cómo se lee?",
+      "enunciado": "Recibe una carta meteorológica con símbolos que no reconoce. ¿Qué debe hacer antes de interpretarla?",
       "opciones": [
-        "Como 27 hPa exactos",
-        "Como 1002,7 hPa: se antepone 9 o 10 según cuál dé el valor más cercano a 1000",
-        "Como 0,27 pulgadas de mercurio",
-        "Como 1027 hPa, añadiendo siempre un 1 delante"
+        "Asignar a los símbolos el significado de otra carta conocida",
+        "Identificar emisor, validez, área, unidades y leyenda oficial del producto",
+        "Inferir la tendencia de toda la ruta a partir de un solo modelo de estación",
+        "Elegir el significado que resulte más conservador sin consultar la fuente"
       ],
       "correcta": 1,
-      "explicacion": "Son los tres últimos dígitos con un decimal implícito. Al lado van la temperatura y el punto de rocío, y el relleno del círculo da los octavos de cielo.",
+      "explicacion": "La simbología depende del producto. Sin su leyenda y metadatos no conviene decodificar abreviaturas o números de memoria ni convertir una carta ilustrativa en información oficial.",
       "referencia": "Lección 30 · Las cartas del tiempo",
       "metadatos": {
         "nivel": "intermedio",
@@ -1500,12 +1500,12 @@
       "enunciado": "¿Para qué se usa el TAF y para qué el METAR?",
       "opciones": [
         "Los dos para lo mismo; el TAF es solo la versión larga",
-        "El TAF para planificar (si el destino estará utilizable, alterno y combustible); el METAR para decidir en el momento si se inicia la aproximación",
+        "El TAF anticipa condiciones para planificar; el METAR aporta observación actual que se combina con mínimos, avisos y procedimientos",
         "El TAF solo se usa cuando no hay METAR disponible",
         "El TAF para decidir en el momento y el METAR para planificar"
       ],
       "correcta": 1,
-      "explicacion": "En ruta se pide METAR actualizado, pero la decisión de con cuánto combustible y con qué alterno se salió se tomó con el TAF.",
+      "explicacion": "Ni TAF ni METAR autorizan solos una aproximación. El despacho y las decisiones en ruta requieren información actualizada, mínimos, combustible y procedimientos aplicables.",
       "referencia": "Lección 22 · Qué es un TAF",
       "metadatos": {
         "nivel": "intermedio",
@@ -1519,10 +1519,10 @@
         "Que se pronostican condiciones sin cambios significativos",
         "Que el pronóstico se emitirá más tarde y puede esperarse sin más",
         "Que el aeródromo está cerrado durante el periodo",
-        "Que no hay pronóstico disponible, que no es lo mismo que buen tiempo: es ausencia de información y normalmente obliga a llevar alterno"
+        "Que no hay pronóstico disponible; debe aplicar las reglas de planificación y alternos de su operación, sin asumir buen tiempo"
       ],
       "correcta": 3,
-      "explicacion": "Sin TAF no se puede justificar que el destino vaya a estar utilizable a la llegada. La planificación se apoya en lo que sí hay (METAR reciente, tendencia, pronósticos de área) y, según el manual del explotador y la norma nacional, normalmente obliga a alterno.",
+      "explicacion": "NIL significa ausencia del producto, no condiciones favorables. Consulte las fuentes disponibles y aplique la normativa y el manual de operaciones para determinar si puede despachar, qué alterno requiere y con qué combustible.",
       "referencia": "Lección 22 · Qué es un TAF",
       "metadatos": {
         "nivel": "avanzado",
@@ -1584,13 +1584,13 @@
       "id": "95",
       "enunciado": "¿Por qué no existe un `PROB50`?",
       "opciones": [
-        "Porque a partir de esa probabilidad el pronosticador ya no expresa una posibilidad sino una expectativa, y para eso tiene BECMG o TEMPO",
+        "Porque la clave TAF usa PROB30 y PROB40 para esos grupos; otros cambios se expresan con los grupos previstos por la clave",
         "Porque el código solo admite dos dígitos y 50 está reservado",
         "Porque sí existe, pero solo en el sistema de Estados Unidos",
         "Porque el 50 % se considera equivalente a la certeza"
       ],
       "correcta": 0,
-      "explicacion": "PROB30 y PROB40 sirven para avisar de algo que puede pasar sin comprometerse a que pase. Por encima del 40 %, la herramienta correcta es el grupo de cambio.",
+      "explicacion": "En la clave TAF los grupos de probabilidad permitidos son PROB30 y PROB40. No convierta esa convención en una regla para decidir alterno o combustible sin revisar la operación aprobada.",
       "referencia": "Lección 23 · Los grupos de cambio",
       "metadatos": {
         "nivel": "avanzado",
@@ -1599,15 +1599,15 @@
     },
     {
       "id": "96",
-      "enunciado": "Su llegada cae dentro de un `PROB40 TEMPO 0600/0800 0400 FG`. ¿Cómo lo trata?",
+      "enunciado": "Su llegada cae dentro de un `PROB40 TEMPO 0606/0608 0400 FG` simulado. ¿Cómo lo trata?",
       "opciones": [
-        "Como una posibilidad real que hay que cubrir: alterno con condiciones holgadas y combustible para esperar",
+        "Como una posibilidad relevante: evalúa mínimos, reglas de alterno y combustible de la operación y opciones de contingencia",
         "Como poco probable: un 40 % no justifica cambiar la planificación",
         "Como información solo para el despacho, no para la decisión en cabina",
         "Como una certeza: se cancela el vuelo"
       ],
       "correcta": 0,
-      "explicacion": "Son 400 metros de visibilidad con niebla, por debajo de casi cualquier mínimo. No se planifica contando con que no ocurra: si ocurre no va a haber margen para improvisar.",
+      "explicacion": "0400 FG pronostica 400 m con niebla durante fluctuaciones posibles. Su efecto en despacho y alternos depende de los mínimos y reglas aprobados; no se ignora ni se traduce automáticamente en cancelar.",
       "referencia": "Lección 23 · Los grupos de cambio",
       "metadatos": {
         "nivel": "avanzado",
@@ -1624,7 +1624,7 @@
         "Buscando primero el peor momento del periodo y planificando para él"
       ],
       "correcta": 0,
-      "explicacion": "Lo que importa al final son las condiciones que le tocan a uno, no las mejores ni las peores del periodo. El TAF no se lee de corrido: se lee buscando la hora a la que toca aterrizar.",
+      "explicacion": "La hora prevista de llegada es central, pero también importan la ventana reglamentaria, las tendencias, contingencias y las condiciones de alternos según la operación.",
       "referencia": "Lección 24 · Leer un TAF completo",
       "metadatos": {
         "nivel": "intermedio",
@@ -1692,7 +1692,7 @@
         "Qué pista se va a usar, qué SID se vuela y a qué nivel se cruza"
       ],
       "correcta": 2,
-      "explicacion": "Son las tres decisiones que hay que poder justificar con un documento, y ese documento es el TAF. De ahí que lo primero al abrirlo sea marcar en qué punto de su periodo cae la hora estimada de llegada.",
+      "explicacion": "El TAF apoya esas decisiones, pero debe contrastarse con otros productos y con las reglas de despacho, mínimos y combustible de la operación.",
       "referencia": "Lección 25 · El TAF y tu alterno",
       "metadatos": {
         "nivel": "basico",
@@ -1706,10 +1706,10 @@
         "Que sea el aeródromo más cercano al destino, para gastar menos combustible",
         "Que tenga la misma pista y los mismos procedimientos que el destino",
         "Que esté en el mismo pronóstico de área, para poder seguirlo con un solo documento",
-        "Que su pronóstico esté holgadamente sobre mínimos en la ventana, que tenga la aproximación y los servicios necesarios, y sobre todo que NO comparta el fenómeno del destino"
+        "Que cumpla los mínimos y servicios requeridos en la ventana, sea alcanzable con reservas y no tenga un riesgo meteorológico correlacionado sin evaluar"
       ],
       "correcta": 3,
-      "explicacion": "Compartir el fenómeno lo invalida: si el mismo frente o la misma niebla de área tapan destino y alterno, no se ha ganado seguridad, solo kilómetros. Por eso el alterno correcto es a veces el que queda más lejos.",
+      "explicacion": "Compartir un fenómeno puede reducir la independencia del alterno; evalúe su pronóstico, mínimos, servicios, distancia, combustible y políticas del explotador. No hay una regla universal de escoger siempre el más lejano.",
       "referencia": "Lección 25 · El TAF y tu alterno",
       "metadatos": {
         "nivel": "avanzado",
@@ -1743,7 +1743,7 @@
         "La de las últimas horas de validez, que son las más fiables"
       ],
       "correcta": 2,
-      "explicacion": "Al terminar el módulo un pronóstico no se lee entero: se busca la ventana en la que uno aterriza. Ni las mejores condiciones del periodo ni las peores sirven para decidir.",
+      "explicacion": "Ubique la llegada y la ventana exigida por la operación, sin ignorar deterioros relevantes antes o después que afecten espera, desvío o alternos.",
       "referencia": "Lección 25 · El TAF y tu alterno",
       "metadatos": {
         "nivel": "intermedio",
