@@ -29,8 +29,10 @@ function ejemplo(titulo: string, turnos: string[], significado: string): DocBloc
 }
 
 /** Un error frecuente: el nombre del error como título y la explicación. */
-function error(titulo: string, text: string): DocBlockData {
-  return { kind: "callout", tone: "warn", title: titulo, text }
+function error(titulo: string, text?: string): DocBlockData {
+  return text === undefined
+    ? { kind: "callout", tone: "warn", text: titulo }
+    : { kind: "callout", tone: "warn", title: titulo, text }
 }
 
 /** Cómo leer los ejemplos: va al empezar la fraseología de cada lección. */
@@ -59,151 +61,114 @@ export const NIVEL_4: DocScreen[] = [
   {
     n: 19,
     title: "SID y salida",
-    kicker: "La autorización de salida y las restricciones publicadas",
-    minutes: 9,
+    kicker: "La ruta publicada, sus restricciones y lo que cambia con ATC",
+    minutes: 21,
     blocks: [
       {
         kind: "p",
-        text: "Capítulos 19 a 30. Del despegue ya autorizado hasta la plataforma de llegada: salida, cambios de nivel, vectores, velocidad, crucero, reportes de posición, desvíos por meteorología, llegada, aproximación, espera, aterrizaje y motor y al aire.",
+        text: "Una salida normalizada por instrumentos (SID, Standard Instrument Departure) es una trayectoria publicada que permite pasar del aeródromo a la fase en ruta dentro de la autorización recibida. En cabina se cruzan tres fuentes que no son intercambiables: el procedimiento vigente, la autorización del control de tránsito aéreo (ATC, air traffic control) y la capacidad real del avión. El error peligroso no suele ser olvidar que existe una SID, sino asumir qué parte sigue vigente después de un directo, un rumbo o un nuevo nivel.",
       },
-      { kind: "sub", text: "¿Qué es?" },
-      {
-        kind: "p",
-        text: "La **SID** (salida normalizada por instrumentos) es una ruta de salida IFR publicada que une el aeródromo o una pista con un punto significativo, normalmente en una ruta ATS, donde empieza la fase en ruta (Doc 4444, cap. 1). **Departure** es la dependencia de control que recibe al avión después del despegue. En aeropuertos pequeños el mismo Approach hace de Departure; en los de más tráfico están separados (Doc 9432, 7.1.1).",
-      },
-      {
-        kind: "p",
-        text: "Las instrucciones de salida pueden llegar como una SID o en lenguaje claro: un rumbo, un nivel, un punto (Doc 9432, 7.1.2).",
-      },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      { kind: "sub", text: "Antes de despegar: leer lo autorizado, no lo cargado por costumbre" },
       {
         kind: "list",
+        ordered: true,
         items: [
-          "La SID normalmente viene dentro de la autorización de ruta, nombrada por su designador («cleared … via (designación)», Doc 4444, 4.5.7.2.1). Se colaciona completa: es autorización de ruta e incluye nivel y código SSR (Doc 4444, 4.5.7.5.1).",
-          "Después del despegue, ATC puede cambiar parte de la SID con una instrucción: un rumbo, un nivel, un directo, una velocidad. **La instrucción específica manda sobre lo publicado en lo que modifica.** Lo que no está claro es qué pasa con el resto (las restricciones de nivel y de velocidad publicadas). Para eso se creó la fraseología `CLIMB VIA SID` en la 16.ª ed. del Doc 4444 (VERIFICAR). Si hay duda, se pregunta con `CONFIRM`.",
-          "ATC evita transmitir durante el despegue y el ascenso inicial, salvo por seguridad (Doc 9432, 4.1.2 y 4.5.4). Por eso la primera llamada a Departure se hace cuando la cabina está estable, según el SOP.",
-          "En la primera llamada tras un cambio de frecuencia, cuando la autoridad ATS lo disponga, se dice: estación, distintivo (y `HEAVY` si es de estela pesada), nivel (incluido el de paso y el autorizado si no se mantiene el autorizado), velocidad si ATC la asignó (Doc 4444, 4.11.3 y 4.9.2). Qué exige cada Estado está en su AIP.",
-          "Después de la autorización de despegue, la palabra `TAKEOFF` desaparece: se habla de `DEPARTURE` o `AIRBORNE` (Doc 9432, 2.8.3.3).",
+          "**Identificar la salida.** El piloto que atiende la radio (PM, pilot monitoring) copia designador, transición, nivel inicial y restricciones expresas. El piloto que vuela (PF, pilot flying) contrasta lo recibido con el plan de vuelo, la publicación de información aeronáutica (AIP, Aeronautical Information Publication) vigente y lo cargado en el sistema de gestión de vuelo (FMS, Flight Management System). Un procedimiento seleccionado en el FMS no equivale a autorización.",
+          "**Leer límites laterales, verticales y de velocidad.** La trayectoria publicada puede llevar restricciones que continúan siendo pertinentes incluso cuando ATC cambia otra parte. Se revisan también datos de performance y obstáculos según el manual y el SOP del operador. Si no es posible cumplir una restricción, se comunica antes de llegar a ella.",
+          "**Confirmar lo que no coincide.** Una pista o designador distinto, una transición inesperada o un nivel inicial incompatible con lo preparado no se corrige silenciosamente en el FMS. La tripulación detiene la secuencia de decisión que depende del dato y solicita aclaración a ATC.",
         ],
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
       {
-        kind: "callout",
-        tone: "verificar",
-        title: "Verificar",
-        text: "Esta lección usa fraseología que no está en las fuentes cargadas. «CLIMB VIA SID TO (nivel)» (ejemplo 6) y qué restricciones publicadas cancela o mantiene una instrucción de nivel sin «VIA»: consultar el Doc 4444 16.ª ed., caps. 6 (salidas) y 12 (fraseología de SID y STAR). Las frases de cancelación de restricciones de SID («LEVEL RESTRICTION(S) CANCELLED», «SPEED RESTRICTION(S) CANCELLED», «CLIMB UNRESTRICTED») no se usan en los ejemplos por no estar confirmadas: Doc 4444 16.ª ed., cap. 12. Lo que exige cada Estado en la primera llamada a Departure: su AIP (en Colombia, AIP Colombia ENR y AD 2 del aeródromo).",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-19-01.svg",
+        alt: "Matriz conceptual que separa trayectoria lateral, nivel y velocidad de una SID publicada y los cambios explícitos de ATC.",
+        ancho: 1600,
+        alto: 850,
+        pie: "Esta matriz no es una carta ni representa una salida real. Cada nueva instrucción se compara por separado con el componente lateral, vertical y de velocidad publicado. Un directo a un punto de la SID evita los puntos intermedios, pero no borra automáticamente todas las restricciones futuras. Un vector fuera de la SID exige entender si y dónde se espera reingresar.",
       },
-      ...ejemplo(
-        "Ejemplo 1 · La SID dentro de la autorización de ruta",
-        [
-          `ATC:   "Aviatory 452, cleared to Cali, via Alpha one, flight level two eight zero, GIKOS three Delta departure, squawk five five zero one."`,
-          `PILOT: "Cleared to Cali, via Alpha one, flight level two eight zero, GIKOS three Delta departure, squawk five five zero one, Aviatory 452."`,
-        ],
-        "Significado: autorizado hasta Cali por la aerovía A1, nivel de vuelo 280, saliendo por la SID GIKOS 3D, código 5501. Se colaciona todo y se cierra con el distintivo.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Primera llamada a Departure",
-        [
-          `PILOT: "Bogota Departure, Aviatory 452, passing six thousand feet climbing to flight level one two zero."`,
-          `ATC:   "Aviatory 452, identified, climb to flight level two four zero."`,
-          `PILOT: "Climbing to flight level two four zero, Aviatory 452."`,
-        ],
-        "Significado: el piloto dice nivel de paso y nivel autorizado. ATC confirma identificación radar y da un nivel nuevo, que se colaciona con «flight level».",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · ATC modifica la SID con un rumbo",
-        [
-          `ATC:   "Aviatory 452, turn right heading zero four zero until passing flight level seven zero, then direct GIKOS."`,
-          `PILOT: "Right heading zero four zero until passing flight level seven zero, then direct GIKOS, Aviatory 452."`,
-          `ATC:   "Aviatory 452, report passing flight level seven zero."`,
-          `PILOT: "Wilco, Aviatory 452."`,
-          `PILOT: "Aviatory 452, passing flight level seven zero."`,
-        ],
-        "Significado: se abandona la trayectoria lateral de la SID. Rumbo 040 a la derecha hasta cruzar FL 70, luego directo a GIKOS. `WILCO` porque es una instrucción de notificar, no un valor que colacionar.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Restricción de la SID y «si es imposible»",
-        [
-          `ATC:   "Aviatory 452, Bogota Departure, cleared to Cali flight level two nine zero, cross GIKOS flight level one five zero or above, if unable, maintain flight level one three zero."`,
-          `PILOT: "Bogota Departure, unable to cross GIKOS flight level one five zero due weight, maintaining flight level one three zero, Aviatory 452."`,
-        ],
-        "Significado: ATC anticipa que quizá no se pueda cumplir la restricción y da la alternativa. El piloto calcula, dice `UNABLE` con el motivo y confirma la alternativa.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Cambio de frecuencia condicionado a un nivel",
-        [
-          `ATC:   "Aviatory 452, when passing flight level eight zero, contact Bogota Control one two eight decimal seven five."`,
-          `PILOT: "When passing flight level eight zero, one two eight decimal seven five, Aviatory 452."`,
-        ],
-        "Significado: no se cambia de frecuencia ya. Se cambia al cruzar FL 80. La condición se colaciona.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · Ascenso por la SID (VERIFICAR)",
-        [
-          `ATC:   "Aviatory 452, climb via SID to flight level two four zero."`,
-          `PILOT: "Climb via SID to flight level two four zero, Aviatory 452."`,
-        ],
-        "Significado: ascender hasta FL 240 cumpliendo las restricciones de nivel y velocidad publicadas en la SID. Frase de la 16.ª ed. del Doc 4444 que no está en lo cargado: su uso y lo que cancela se confirman en el Doc 4444 vigente y en la AIP del Estado.",
-      ),
-      ...ejemplo(
-        "Ejemplo 7 · Duda sobre las restricciones después de un rumbo (PLAIN LANGUAGE con palabra normalizada)",
-        [
-          `ATC:   "Aviatory 452, climb to flight level two four zero."`,
-          `PILOT: "Aviatory 452, confirm SID speed restrictions still apply?"`,
-          `ATC:   "Aviatory 452, affirm."`,
-        ],
-        "Significado: la tripulación ya va en rumbo y recibe un nivel sin la palabra `VIA`. En vez de suponer, pregunta con `CONFIRM`. La respuesta `AFFIRM` quiere decir que sí se mantienen.",
-      ),
+      { kind: "sub", text: "Después del despegue: tres modificaciones diferentes" },
       {
-        kind: "hueco",
-        rotulo: "CM-19-01 · Diagrama · 16:9 · 1600×900 px",
-        descripcion: "Imagen sugerida: Vista en planta y perfil vertical de una SID ficticia «GIKOS 3D» desde una pista genérica. En el perfil, restricciones publicadas: «A o por encima de 5000 ft» en un punto intermedio, «FL 150 o superior» en GIKOS y «250 kt máx.» hasta un punto. Superpuesta en otro color, la trayectoria real cuando ATC da «turn right heading 040 until passing FL 70, then direct GIKOS»: se ve cómo el tramo lateral publicado queda abandonado. Etiquetas cortas: «Publicado», «Instrucción ATC», «¿Sigue vigente?». Objetivo: Que el piloto vea que una instrucción ATC reemplaza la parte de la SID que modifica, y que la duda sobre las demás restricciones se resuelve preguntando, no suponiendo.",
-        alto: 280,
+        kind: "table",
+        head: ["Lo que dice ATC", "Efecto sobre la SID", "Comprobación en cabina"],
+        rows: [
+          ["CLIMB VIA SID TO (level), fraseología OACI", "Autoriza ascenso al nivel explícito siguiendo las restricciones aplicables de la SID.", "Colacionar la frase completa y el nivel; sin nivel la frase está incompleta en la formulación OACI."],
+          ["CLEARED DIRECT a un punto que pertenece a la SID", "Se omiten los puntos sobrevolados; al llegar al punto autorizado se retoma la navegación propia de la SID.", "Distinguir restricciones omitidas de las que aún quedan después del punto de reingreso."],
+          ["Vector o directo a un punto ajeno a la SID", "La aeronave sale temporalmente del procedimiento publicado.", "Confirmar trayectoria, nivel, restricciones y expectativa de reingreso; no asumir retorno automático."],
+          ["Cancelación explícita de restricciones", "Cambia solo las restricciones que ATC identifica como canceladas.", "Mantener el nivel autorizado y las demás restricciones que sigan vigentes."],
+        ],
       },
-      { kind: "sub", text: "Aplicación en aerolínea" },
+      {
+        kind: "p",
+        text: "La Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization) explica que **CLIMB VIA SID** sin un nivel asignado es una frase incompleta bajo su procedimiento: debe decir CLIMB VIA SID TO (level). También advierte que Estados que no aplican exactamente ese esquema —cita expresamente a Estados Unidos— pueden usar CLIMB VIA SID sin nivel en una autorización específica. No se mezclan ambas prácticas. Para Colombia, la fuente del procedimiento vigente es la eAIP de Aerocivil y la autorización real, no un diálogo de entrenamiento.",
+      },
+      {
+        kind: "p",
+        text: "La misma guía OACI distingue un directo a un punto **de la propia SID** de un directo a un punto que **no pertenece** a ella. En el primer caso, los puntos intermedios evitados dejan de obligar, pero las restricciones futuras no desaparecen por eso. En el segundo, el avión sale del procedimiento y la tripulación necesita saber cómo continúa la ruta y si control prevé reingreso. Un cambio de nivel tampoco autoriza a ignorar límites laterales o de velocidad por intuición. El PM colaciona cada cambio, el PF revisa el modo de guiado y ambos verifican el efecto en el FMS.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-19-02.webp",
+        alt: "Historieta fotográfica de cuatro paneles: briefing de salida, controlador de salida, escucha en vuelo y verificación cruzada en cabina.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no transcripción: 1) la tripulación revisa la salida antes de partir; 2) el controlador gestiona el tránsito; 3) el PM escucha una modificación tras el despegue; 4) PF y PM comprueban juntos qué parte de la autorización cambia. Las pantallas son intencionalmente ilegibles: no representan una carta, SID, ruta ni dato local inventado.",
+      },
+      { kind: "sub", text: "La primera llamada a Salida" },
+      {
+        kind: "p",
+        text: "Al transferirse de torre a Salida, el PM contacta a la dependencia indicada con el distintivo completo y la información de nivel que exijan el procedimiento y la instrucción. Es esencial que el controlador pueda comparar el nivel que la tripulación está dejando y el que cree autorizado. Si se asignó velocidad o hay una restricción significativa, la tripulación no la omite cuando deba notificarse. El orden exacto de la primera llamada y la frecuencia se toman de la publicación y de la transferencia recibida; no existe en esta lección un «Bogotá Salida» o una frecuencia de ejemplo que deba memorizarse.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Directo a un punto de la SID después del despegue",
+        situacion: "Caso didáctico sin pista, ruta, nivel o indicativo fabricado. La tripulación vuela una SID publicada y ya recibió un nivel autorizado. Salida instruye un directo a un punto que sí aparece más adelante en esa misma SID. Entre la posición actual y ese punto hay dos puntos publicados; después de él hay una restricción de velocidad. Uno de los pilotos supone que el directo eliminó todas las restricciones.",
+        preguntas: [
+          {
+            q: "¿Qué cambia y qué no se debe asumir?",
+            a: "El directo permite evitar los puntos intermedios según la autorización; la restricción que queda después del punto de reingreso no se borra por inferencia. Ambos pilotos verifican el tramo resultante y el nivel autorizado. Si la frase o una restricción suscita duda, piden confirmación antes de configurar o volar una interpretación distinta.",
+          },
+          {
+            q: "¿Qué harían si el directo fuera a un punto ajeno a la SID?",
+            a: "Lo tratan como salida de la trayectoria publicada, no como un reingreso implícito. Colacionan el punto y solicitan aclaración sobre nivel, restricciones restantes y expectativa de volver a la SID si control no lo ha indicado. No dejan que el FMS seleccione automáticamente una trayectoria que ATC no autorizó.",
+          },
+        ],
+        concepto: "Modificar la trayectoria lateral no equivale a cancelar por completo límites verticales y de velocidad.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Antes y después del despegue",
-        texto: "Antes del despegue, la tripulación compara la SID cargada en el FMS con la autorización: designador, transición, nivel inicial y restricciones. Después del despegue, cada instrucción de Departure se colaciona y se introduce en el FCU o MCP (nivel, rumbo, velocidad) según el SOP del operador. Quién habla y quién vuela lo define cada operador: casi siempre el PM gestiona la radio y el PF la trayectoria, pero no es una regla universal. Lo que es universal es que los dos escuchan y verifican lo que se seleccionó.",
+        momento: "Cada vez que Salida cambia la autorización",
+        texto: "El PM escucha y anota qué dimensión cambia —ruta, nivel o velocidad—, colaciona la instrucción completa y confirma cualquier ambigüedad. El PF mantiene la trayectoria segura mientras verifica el modo lateral y vertical seleccionado. Una restricción que el avión no puede cumplir se comunica a tiempo con UNABLE y una explicación breve; no se espera a sobrevolar el punto. El operador define sus procedimientos operacionales normalizados (SOP, standard operating procedures) y sus llamadas cruzadas, pero ninguna automatización exime de cotejar la autorización con lo que realmente volará el avión.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error("Suponer qué restricciones quedan vigentes", "**Suponer qué restricciones quedan vigentes** tras un rumbo o un nivel sin `VIA`. Un avión que se salta una restricción de altitud de la SID puede quedar en conflicto con una llegada que cruza por debajo."),
-      error("Volar la SID de ayer", "Designadores parecidos (GIKOS 3D, GIKOS 3C) y la costumbre producen sesgo de expectativa: se lee lo que se esperaba."),
-      error("Cambiar de frecuencia antes de la condición", "**Cambiar de frecuencia antes de la condición** («when passing flight level eight zero») o sin instrucción. Sin instrucción, el piloto informa antes de cambiar (Doc 9432, 2.8.2.1)."),
-      error("Primera llamada incompleta", "**Primera llamada incompleta**: sin nivel autorizado, ATC no puede comprobar lo que el avión cree que tiene."),
+      { kind: "sub", text: "Errores que importan" },
+      error("Confundir una SID cargada en el FMS con una SID autorizada, o volar una versión antigua sin contrastarla con la publicación vigente."),
+      error("Tratar un directo a un punto de la SID como cancelación automática de todas las restricciones futuras."),
+      error("Suponer reingreso a la SID después de un vector o directo fuera de ella sin una instrucción clara."),
+      error("Interpretar CLIMB VIA SID sin nivel como una autorización OACI completa cuando se necesita un nivel explícito."),
+      error("Aceptar una restricción que el avión no puede cumplir y comunicar UNABLE demasiado tarde."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "La SID viene en la autorización de ruta y se colaciona completa.",
-          "Una instrucción ATC manda sobre la parte de la SID que modifica.",
-          "Si no sabes qué restricciones siguen vigentes, `CONFIRM`.",
-          "Primera llamada a Departure: estación, distintivo, nivel de paso y autorizado, velocidad si fue asignada.",
-          "`UNABLE` con motivo, a tiempo, es una respuesta profesional.",
+          "La SID publicada, la autorización ATC y lo cargado en el FMS se comparan; no son la misma cosa.",
+          "CLIMB VIA SID TO (level) incluye nivel explícito en la formulación OACI; no trasladar otras variantes de Estado sin verificar.",
+          "Un directo a un punto de la SID omite los puntos intermedios, no todas las restricciones posteriores.",
+          "Un vector fuera de la SID exige confirmar cómo sigue la trayectoria y si se espera reingreso.",
+          "Si una restricción no es posible, se comunica UNABLE antes de llegar a ella.",
         ],
       },
       {
         kind: "detalleTecnico",
-        etiqueta: "Fuentes",
-        cita: "Doc 4444 · Doc 9432",
+        etiqueta: "Fuentes y alcance",
+        cita: "OACI · Cambios SID/STAR y preguntas para tripulaciones",
         bloques: [
-          { kind: "sub", text: "Verificado" },
-          {
-            kind: "p",
-            text: "Doc 4444 (15.ª ed., Enm. 4) cap. 1 «Salida normalizada por instrumentos (SID)»; 4.5.7.2.1; 4.5.7.5.1; 4.9.2; 4.11.3. Doc 9432 (4.ª ed.) 2.8.2.1; 2.8.3.3; 2.8.3.5 (ejemplo «WICKEN 3 DELTA DEPARTURE»); 2.8.3.10 (ejemplo «IF UNABLE, MAINTAIN»); 4.1.2; 4.5.4; 6.2.1 («IDENTIFIED»); 7.1.1; 7.1.2; 7.1 (ejemplo «TURN RIGHT HEADING 040 UNTIL PASSING FL 70 THEN DIRECT WICKEN VOR», «REPORT PASSING FL 70»); 3.3 («CLIMBING TO FL»).",
-          },
-          { kind: "sub", text: "Por verificar" },
-          {
-            kind: "list",
-            items: [
-              "VERIFICAR: «CLIMB VIA SID TO (nivel)» y qué restricciones publicadas cancela o mantiene una instrucción de nivel sin «VIA», contra Doc 4444 16.ª ed. cap. 6 (salidas) y cap. 12 (fraseología de SID/STAR) (no cargado).",
-              "VERIFICAR: frases de cancelación de restricciones de SID (del tipo «LEVEL RESTRICTION(S) CANCELLED», «SPEED RESTRICTION(S) CANCELLED», «CLIMB UNRESTRICTED») contra Doc 4444 16.ª ed. cap. 12 (no cargado). No se usan en los ejemplos por no estar confirmadas.",
-              "VERIFICAR: qué debe decir exactamente la primera llamada a Departure en cada Estado, contra la AIP (en Colombia, AIP Colombia ENR y AD 2 del aeródromo).",
-            ],
-          },
-          { kind: "sub", text: "Convenciones de los ejemplos" },
-          CONVENCIONES,
+          { kind: "sub", text: "Documentos oficiales" },
+          { kind: "p", text: "OACI, Changes to SID & STAR Phraseologies (https://www.icao.int/airnavigation/changes-to-sid_star-phra-seologies) y Flight Crews FAQ, preguntas 2, 5–8 (https://www.icao.int/airnavigation/faq-flight-crews). Esas páginas explican el alcance de CLIMB VIA SID TO (level), directos a puntos de la SID, restricciones remanentes y reingreso. La comparación se refiere a la fraseología OACI y reconoce expresamente diferencias de Estados Unidos." },
+          { kind: "sub", text: "Límite de aplicación" },
+          { kind: "list", items: [
+            "La matriz y el escenario no son una SID, una carta ni una transcripción real.",
+            "No se usan designadores, niveles, velocidades, frecuencias ni puntos inventados como si fueran datos operativos.",
+            "Para una operación colombiana, comprobar la eAIP de Aerocivil vigente, la autorización efectivamente recibida y el SOP del operador.",
+          ] },
         ],
       },
     ],
