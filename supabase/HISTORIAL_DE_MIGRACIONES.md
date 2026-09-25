@@ -156,9 +156,9 @@ archivo, insertada después para que `db push` no las vea pendientes.
 
 ### La regla del orden, que es la que muerde
 
-<!-- ULTIMA_APLICADA: 20260926010000 -->
+<!-- ULTIMA_APLICADA: 20260928000000 -->
 
-**Toda migración nueva lleva una versión posterior a `20260926010000`.**
+**Toda migración nueva lleva una versión posterior a `20260928000000`.**
 
 No es burocracia. Seis funciones se republican enteras en cada migración de
 módulo —`private.secciones_leidas`, `private.practicas_hechas`,
@@ -173,3 +173,36 @@ progreso cuenta cero y su tarjeta desaparece del panel.
 la última migración que publica cada función conoce todos los módulos del
 catálogo, y que no hay archivos pendientes con versión anterior a la marca de
 arriba. Al aplicar una tanda, se actualiza esa marca.
+
+## 25 de septiembre: Comunicaciones, RAC y Combustible, y la marca al día
+
+La marca se había quedado en `20260926010000` mientras la base ya iba por
+`20260928000000`. Lo que pasó en medio:
+
+- Las tres de Comunicaciones ATC (`20260927000000`, `20260927010000` y
+  `20260927020000`) se aplicaron y nadie movió la marca.
+- `20260928000000_modulos_rac_y_combustible.sql` se aplicó por el conector, en
+  cuatro tramos (`modulos_rac_y_combustible_1` a `_4`), y después se insertó la
+  fila de la versión de archivo para que la carpeta y el historial coincidan.
+
+**Dos sesiones montaron RAC y Combustible a la vez**, cada una con su migración
+y el mismo nombre de archivo. La que quedó en el repo es la del PR #274. La que
+se había aplicado era la otra. Se compararon antes de tocar nada: las seis
+funciones compartidas resultaron idénticas una vez quitados comentarios y
+espacios, y el catálogo también (rac 19 lecciones y 54 prácticas, combustible
+23 y 66, con las mismas claves). Solo faltaban dos umbrales de lección
+(`rac_lesson`, `combustible_lesson`) y los textos de los ocho logros, que se
+aplicaron aparte (`alinear_rac_y_combustible_con_el_pr_274`).
+
+Comprobado contra la base ya migrada: las seis funciones nombran los nueve
+módulos, `panel_tarjetas` conserva `plan`, `postulaciones`, `licencias` y
+`preparacion`, y umbrales, logros y evaluaciones coinciden con el repo.
+
+`supabase db push` sigue sin servir: el conector registró sus migraciones con la
+hora a la que las corrió, así que el CLI ve versiones remotas que no existen en
+la carpeta y se niega a seguir. Se aplica por el editor de SQL o por el
+conector.
+
+**Queda por sembrar**: los bancos `rac_evaluacion` (50 preguntas) y
+`combustible_evaluacion` (40). Hasta que se corran, las dos evaluaciones no
+tienen de dónde sortear las preguntas.
