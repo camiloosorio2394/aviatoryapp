@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Qué autoriza cada mensaje en la aproximación</title>
+  <desc id="desc">Comparación conceptual entre vector, aproximación prevista, autorización de aproximación, reporte de establecido y aterrizaje.</desc>
+  <rect width="1600" height="900" rx="30" fill="#101e2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="72" y="98" fill="#f0f8f6" font-size="43" font-weight="700">Una aproximación no nace de una expectativa</text>
+    <text x="74" y="141" fill="#a8bec0" font-size="22">Flujo conceptual · No es carta, procedimiento, vector ni secuencia ATC real.</text>
+    <rect x="74" y="219" width="454" height="237" rx="23" fill="#20313e" stroke="#657b84" stroke-width="2"/>
+    <text x="106" y="275" fill="#96e6c8" font-size="26" font-weight="700">VECTOR O EXPECT</text>
+    <text x="106" y="328" fill="#f1f8f6" font-size="29" font-weight="700">Orientar / preparar</text>
+    <text x="106" y="372" fill="#c7d2d2" font-size="22">El rumbo recibido se vuela.</text>
+    <text x="106" y="405" fill="#c7d2d2" font-size="22">EXPECT no autoriza la aproximación.</text>
+    <path d="M534 334h42" stroke="#95e5c8" stroke-width="5" stroke-linecap="round"/><path d="m566 324 18 10-18 10" fill="none" stroke="#95e5c8" stroke-width="5"/>
+    <rect x="601" y="219" width="455" height="237" rx="23" fill="#19383b" stroke="#95e5c8" stroke-width="2"/>
+    <text x="633" y="275" fill="#96e6c8" font-size="26" font-weight="700">CLEARED APPROACH</text>
+    <text x="633" y="328" fill="#f1f8f6" font-size="29" font-weight="700">Autorizar el procedimiento</text>
+    <text x="633" y="372" fill="#c7d2d2" font-size="22">Confirmar tipo y pista.</text>
+    <text x="633" y="405" fill="#c7d2d2" font-size="22">Verificar modos y carta vigente.</text>
+    <path d="M1064 334h42" stroke="#95e5c8" stroke-width="5" stroke-linecap="round"/><path d="m1096 324 18 10-18 10" fill="none" stroke="#95e5c8" stroke-width="5"/>
+    <rect x="1130" y="219" width="396" height="237" rx="23" fill="#20313e" stroke="#657b84" stroke-width="2"/>
+    <text x="1162" y="275" fill="#96e6c8" font-size="26" font-weight="700">REPORT ESTABLISHED</text>
+    <text x="1162" y="328" fill="#f1f8f6" font-size="26" font-weight="700">Notificar el hecho</text>
+    <text x="1162" y="372" fill="#c7d2d2" font-size="22">Reportar solo cuando</text>
+    <text x="1162" y="405" fill="#c7d2d2" font-size="22">esté efectivamente establecido.</text>
+    <rect x="74" y="522" width="695" height="210" rx="23" fill="#20313e" stroke="#657b84" stroke-width="2"/>
+    <text x="106" y="577" fill="#96e6c8" font-size="25" font-weight="700">CAMBIO O CAPACIDAD INSUFICIENTE</text>
+    <text x="106" y="626" fill="#f1f8f6" font-size="25">UNABLE y solicitud alternativa a tiempo.</text>
+    <text x="106" y="672" fill="#c7d2d2" font-size="22">No cargar ni ejecutar un procedimiento no apto.</text>
+    <rect x="817" y="522" width="709" height="210" rx="23" fill="#20313e" stroke="#657b84" stroke-width="2"/>
+    <text x="849" y="577" fill="#96e6c8" font-size="25" font-weight="700">ATERRIZAJE ES OTRA AUTORIZACIÓN</text>
+    <text x="849" y="626" fill="#f1f8f6" font-size="25">Aproximación autorizada ≠ aterrizaje autorizado.</text>
+    <text x="849" y="672" fill="#c7d2d2" font-size="22">Se mantiene la escucha y la trayectoria segura.</text>
+    <text x="76" y="814" fill="#a8bec0" font-size="21">Basado en la distinción de autorizaciones de OACI Doc 4444 y EASA AMC1 SERA.14001. Verificar reglas locales.</text>
+  </g>
+</svg>
