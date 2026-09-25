@@ -796,140 +796,108 @@ export const NIVEL_5: DocScreen[] = [
   {
     n: 37,
     title: "MINIMUM FUEL y emergencia de combustible",
-    kicker: "Qué comunica cada una y qué no",
-    minutes: 9,
+    kicker: "Del aviso preventivo al socorro",
+    minutes: 20,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "Dos comunicaciones distintas sobre combustible. Este capítulo trata solo cómo se comunican; el cálculo y la gestión del combustible están en otro módulo.",
+        text: "La gestión del combustible se decide con pronósticos de llegada, opciones de aterrizaje y la reserva final planificada; la radio comunica esa decisión a tiempo al servicio de tránsito aéreo (ATS, Air Traffic Services). MINIMUM FUEL informa que la tripulación ya se comprometió con un aeródromo específico y que un cambio a la autorización vigente puede hacer que aterrice por debajo de la reserva final. No es una declaración de emergencia y no concede prioridad automática. Si el combustible utilizable calculado al aterrizar en el aeródromo más cercano donde pueda aterrizarse con seguridad es menor que la reserva final planificada, la llamada de socorro es MAYDAY MAYDAY MAYDAY FUEL.",
       },
       {
-        kind: "glosario",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-37-01.svg",
+        alt: "Comparación de MINIMUM FUEL con MAYDAY FUEL según la reserva final calculada al aterrizar.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Comparación basada en EASA CAT.OP.MPA.185 y SERA.11012. MINIMUM FUEL advierte que un cambio o demora puede comprometer la reserva final; MAYDAY FUEL se declara al calcular menos reserva final en el aeródromo seguro más cercano. La tripulación usa sus datos reales y recalcula tras cualquier demora.",
+      },
+      { kind: "sub", text: "La secuencia operacional antes de hablar" },
+      {
+        kind: "list",
+        ordered: true,
         items: [
+          "**Actualizar el cálculo:** contrastar combustible utilizable a bordo con consumo real, tiempo de vuelo, demoras conocidas, meteorología, condiciones de llegada y reservas del plan. El pronóstico al aterrizaje importa más que una cifra de combustible aislada.",
+          "**Revisar opciones seguras:** antes de comprometerse con un aeródromo, comprobar que sigue siendo una opción de aterrizaje segura según los datos disponibles. Un desvío no se anuncia como decidido si aún no lo está; una opción que desaparece exige recalcular.",
+          "**Solicitar información de demora:** si circunstancias no previstas pueden reducir el margen, pedir a ATS demora esperada y vigilar el combustible durante todo el proceso. La respuesta «sin demora prevista» describe un pronóstico, no una garantía.",
+          "**Emitir la señal correcta:** MINIMUM FUEL cuando se cumplen el compromiso con aeródromo y el riesgo de comprometer la reserva por un cambio de autorización; MAYDAY MAYDAY MAYDAY FUEL cuando el cálculo en el aeródromo seguro más cercano cae por debajo de la reserva final.",
+          "**Continuar la coordinación:** tras la declaración, comunicar intención, restricciones y asistencia requerida con datos reales; colacionar autorizaciones nuevas, recalcular y actualizar a ATS si cambia la condición.",
+        ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-37-02.webp",
+        alt: "Historieta de tres paneles: pilotos verifican cálculo de combustible, PM informa por radio y ATS coordina.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no una transmisión real: 1) el piloto que vuela (PF, pilot flying) y el piloto que monitorea (PM, pilot monitoring) comparan opciones y reserva; 2) PM informa mientras PF sigue volando; 3) ATS comunica demora y coordina. Ninguna pantalla, hoja o imagen contiene una cifra, ruta, frecuencia o autorización para uso operacional.",
+      },
+      { kind: "sub", text: "Qué oye ATS y qué devuelve" },
+      {
+        kind: "p",
+        text: "Según EASA SERA.11012, al recibir MINIMUM FUEL el controlador informa tan pronto como sea practicable si se prevé demora o si no se espera ninguna. Esa respuesta permite a la tripulación revisar su cálculo, pero no le asigna prioridad. Si la espera propuesta no es aceptable, la tripulación debe decirlo claramente y transmitir su intención; repetir MINIMUM FUEL sin analizar el efecto de la demora no protege el combustible.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Plantillas, no autorizaciones ni un vuelo ficticio",
+        text: "[Dependencia ATS] — [identificación real] — MINIMUM FUEL. ATS informa [demora prevista o ninguna]; la tripulación recalcula. Para socorro: MAYDAY × 3 — FUEL — [dependencia e identificación reales] — [situación, intención, posición/nivel/rumbo y ayuda necesaria]. Los corchetes solo indican campos; no son una transcripción ni contienen una ruta, pista, frecuencia o demora inventada.",
+      },
+      {
+        kind: "p",
+        text: "En una emergencia de combustible no se espera a consumir físicamente la reserva final para transmitir. El criterio de EASA CAT.OP.MPA.185(d) es el combustible utilizable calculado al aterrizar en el aeródromo seguro más cercano, comparado con la reserva final prevista. La señal MAYDAY va al comienzo de la primera llamada y FUEL identifica la naturaleza del socorro. La información complementaria, incluida la autonomía si se solicita, se comunica con unidades y referencia claras; no se enseña que siempre deba darse solo en tiempo o solo en masa.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Una demora cambia el pronóstico de llegada",
+        situacion: "Caso didáctico sin aeródromo, indicativo, ruta, tiempo ni cantidad inventados. Durante la llegada, la tripulación ya se comprometió con un aeródromo porque las demás opciones planificadas dejaron de ser viables. El pronóstico protege la reserva final solo si no cambia la autorización. PM declara MINIMUM FUEL. ATS informa que ahora se prevé una demora, y el nuevo cálculo muestra que incluso el aeródromo seguro más cercano quedaría por debajo de la reserva final planificada.",
+        preguntas: [
           {
-            k: "MINIMUM FUEL",
-            v: "El Doc 4444 (15.ª ed., Enm. 4) lo define como «situación en que el combustible restante de la aeronave es tal que el vuelo debe aterrizar en un aeródromo específico y no puede aceptarse ninguna demora adicional».",
+            q: "¿Qué aporta la primera llamada y qué no obtiene?",
+            a: "MINIMUM FUEL hace explícitos el compromiso y la vulnerabilidad ante un cambio o demora. ATS debe informar la demora prevista o su ausencia. No equivale a socorro ni concede prioridad automática; PF y PM mantienen el monitoreo y preparan una nueva decisión."
           },
-          { k: "MAYDAY FUEL", v: "Declaración de socorro por combustible." },
+          {
+            q: "Con el cálculo revisado bajo la reserva final, ¿basta con repetir MINIMUM FUEL?",
+            a: "No. El comandante declara MAYDAY MAYDAY MAYDAY FUEL y PM comunica la condición, intención y ayuda requerida con la información disponible. ATS puede coordinar prioridad y opciones, pero cada autorización concreta se recibe y verifica."
+          },
+          {
+            q: "ATS ofrece una ruta que el avión no puede cumplir; ¿qué se transmite?",
+            a: "PM dice UNABLE, explica brevemente la limitación y propone una intención ejecutable. No colaciona como aceptada una autorización incompatible con combustible, rendimiento u otra restricción. El cálculo se actualiza otra vez si ATS ofrece una alternativa."
+          },
         ],
+        concepto: "El umbral es prospectivo: el pronóstico en una opción segura de aterrizaje, no el instante en que el indicador alcanza la reserva final.",
       },
-      {
-        kind: "p",
-        text: "La Enmienda 4 de la 15.ª edición del Doc 4444 (aplicable desde el 15 de noviembre de 2012) armonizó la fraseología y los procedimientos ATC de combustible con el Anexo 6 (Tabla A del preámbulo). Por eso lo que aprendió antes de 2012 puede estar desactualizado.",
-      },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
-      { kind: "p", text: "**Qué comunica MINIMUM FUEL:**" },
-      {
-        kind: "list",
-        items: [
-          "Que usted está comprometido a aterrizar en un aeródromo específico.",
-          "Que cualquier demora adicional puede llevarlo a aterrizar con menos de la reserva final.",
-          "Según el Anexo 6, se informa cuando un cambio en la autorización vigente puede hacer que aterrice con menos que la reserva final de combustible prevista (VERIFICAR).",
-        ],
-      },
-      { kind: "p", text: "**Qué NO significa MINIMUM FUEL:**" },
-      {
-        kind: "list",
-        items: [
-          "**No es una emergencia** ni da prioridad automática. Es un aviso de que una emergencia es posible si hay más demora (VERIFICAR la nota a la definición en la edición vigente del Doc 4444).",
-          "No se usa para «combustible más bajo de lo que me gustaría».",
-        ],
-      },
-      {
-        kind: "p",
-        text: "**Cuándo evoluciona a emergencia:** según el Anexo 6, el piloto al mando declara emergencia de combustible cuando el combustible utilizable que calcula tener al aterrizar en el aeródromo más cercano donde puede aterrizar con seguridad es menor que la reserva final prevista (VERIFICAR). Se dice **MAYDAY, MAYDAY, MAYDAY, FUEL**.",
-      },
-      {
-        kind: "p",
-        text: "**Lo que hace el ATC con MINIMUM FUEL (VERIFICAR):** acusa recibo e informa la demora prevista, o que no hay demora. Usted usa esa información para decidir.",
-      },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología y criterios que no están en las fuentes cargadas. Criterios de MINIMUM FUEL y de emergencia de combustible: **Anexo 6 Parte I**, gestión del combustible en vuelo. «MAYDAY, MAYDAY, MAYDAY, FUEL»: **Anexo 6 Parte I** y **Doc 4444 cap. 15**. Las respuestas ATC «ROGER, NO DELAY EXPECTED» / «EXPECT (delay information)» y «HOLD AT (fix) AS PUBLISHED, EXPECT APPROACH CLEARANCE AT (time)»: **Doc 4444 cap. 12**. La nota de la definición («no es una situación de emergencia…»): **Doc 4444 cap. 1 vigente**. Diferencias de Estados Unidos: **AIM / FAA Order JO 7110.65**.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · MINIMUM FUEL sin demora (VERIFICAR la respuesta del ATC)",
-        [`PILOT: "BOGOTA APPROACH, AVIATORY 452, MINIMUM FUEL."`, `ATC:   "AVIATORY 452, ROGER, NO DELAY EXPECTED."`],
-        "Significado: usted avisa que ya no acepta más demora. El ATC confirma que no se espera ninguna.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · MINIMUM FUEL con demora (VERIFICAR la respuesta del ATC)",
-        [`PILOT: "BOGOTA APPROACH, AVIATORY 452, MINIMUM FUEL."`, `ATC:   "AVIATORY 452, ROGER, EXPECT 10 MINUTES DELAY."`],
-        "Significado: el ATC informa demora. Usted calcula: si con 10 minutos aterriza por encima de la reserva final, continúa; si no, declara.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · No acepta la espera (PLAIN LANGUAGE; VERIFICAR «HOLD AT … AS PUBLISHED»)",
-        [
-          `ATC:   "AVIATORY 452, HOLD AT GIKOS AS PUBLISHED, EXPECT APPROACH CLEARANCE AT 1545."`,
-          `PILOT: "AVIATORY 452, UNABLE TO ACCEPT DELAY, MINIMUM FUEL."`,
-        ],
-        "Significado: usted ya no puede aceptar la espera. UNABLE es palabra normalizada; la combinación con la razón es **PLAIN LANGUAGE**.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Emergencia de combustible (VERIFICAR)",
-        [
-          `PILOT: "MAYDAY, MAYDAY, MAYDAY, FUEL, BOGOTA APPROACH, AVIATORY 452, CALCULATED FUEL AT LANDING BELOW FINAL RESERVE, REQUEST PRIORITY APPROACH RUNWAY 13, POSITION GIKOS, 9000 FEET, HEADING 310."`,
-          `ATC:   "AVIATORY 452, ROGER MAYDAY, CLEARED DIRECT TO ILS RUNWAY 13, DESCEND TO 7000 FEET, QNH 1026."`,
-        ],
-        "Significado: emergencia de combustible: señal de socorro con la palabra FUEL, y el mismo orden de mensaje del cap. 34.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Autonomía en tiempo (PLAIN LANGUAGE en la forma)",
-        [`ATC:   "AVIATORY 452, REPORT FUEL ENDURANCE."`, `PILOT: "AVIATORY 452, ENDURANCE 35 MINUTES."`],
-        "Significado: **PLAIN LANGUAGE** en la forma. El combustible se da en tiempo: el controlador piensa en minutos, no en kilos ni libras.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
       {
         kind: "enLaOperacion",
-        momento: "Esperas largas cerca del destino",
-        texto: "En línea aérea, MINIMUM FUEL aparece con esperas largas, cambios de pista o cierres de aeródromo cerca del destino y alterno. La tripulación ya lleva cálculos de combustible al aterrizaje (en el FMS y a mano); la comunicación con el ATC sale de esos números. Informar con tiempo ayuda al controlador a planificar; no hacerlo lo deja sin información. Varios Estados tienen procedimientos propios (por ejemplo, los Estados Unidos no usan la definición OACI de la misma forma; VERIFICAR). En Colombia: AIP y RAC.",
+        momento: "PF vuela; PM informa con cálculo trazable",
+        texto: "PF mantiene trayectoria y conciencia de energía; PM registra combustible y pronóstico, escucha información de demora, compara opciones seguras y comunica la decisión del comandante. El procedimiento normalizado de operación (SOP, Standard Operating Procedures) del explotador define comprobaciones y reparto de tareas. Una llamada temprana y precisa ayuda a ATS a coordinar, pero la gestión de combustible y la elección de una opción segura continúan en la cabina. En Colombia se deben verificar procedimientos locales en la publicación oficial vigente de Aerocivil antes de aplicarlos.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Creer que MINIMUM FUEL da prioridad",
-        "Decir MINIMUM FUEL creyendo que da prioridad y quedarse esperando.",
-      ),
-      error(
-        "MINIMUM FUEL cuando es MAYDAY FUEL",
-        "Declarar MINIMUM FUEL cuando lo que corresponde es MAYDAY FUEL.",
-      ),
-      error(
-        "«Low fuel» y parecidos",
-        "Decir «low fuel», «fuel critical» o «short of fuel»: no son la fraseología; el controlador puede no entender el grado (Doc 9835 3.4.14 muestra un mensaje de «poco combustible» mezclado con otra información).",
-      ),
-      error(
-        "Combustible en masa",
-        "Dar combustible en kilos o libras cuando el ATC lo necesita en tiempo.",
-      ),
-      error(
-        "Avisar tarde",
-        "Esperar a estar por debajo de la reserva final para decir algo.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Esperar prioridad automática", text: "MINIMUM FUEL no es socorro. Si el combustible calculado exige ayuda inmediata, debe declararse MAYDAY FUEL; una frase ambigua como «low fuel» no expresa el umbral reglamentario." },
+      { kind: "callout", tone: "warn", title: "Esperar al indicador de reserva", text: "La comparación se hace con el combustible utilizable previsto al aterrizar en el aeródromo seguro más cercano, no con lo que quedará cuando sea demasiado tarde para cambiar el plan." },
+      { kind: "callout", tone: "warn", title: "Tomar una demora estimada como compromiso", text: "La demora comunicada por ATS es información para recalcular. Las condiciones pueden cambiar; se monitorea y se actualiza la declaración si el margen desaparece." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "MINIMUM FUEL: comprometido a un aeródromo, sin aceptar más demora. No es emergencia.",
-          "El ATC responde con la demora prevista o «no delay expected».",
-          "MAYDAY, MAYDAY, MAYDAY, FUEL: combustible al aterrizar por debajo de la reserva final.",
-          "Combustible en tiempo, no en masa.",
-          "Desde 2012 la fraseología está armonizada con el Anexo 6.",
+          "MINIMUM FUEL informa compromiso con un aeródromo y vulnerabilidad a cambios; no da prioridad automática.",
+          "ATS comunica demora esperada o que no la prevé.",
+          "MAYDAY MAYDAY MAYDAY FUEL es socorro cuando el cálculo al aterrizaje seguro más cercano cae bajo la reserva final.",
+          "No se espera a consumir la reserva final para declarar.",
+          "Después de cada demora o nueva opción se recalcula y se informa la intención real.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432 · Doc 9835 · Anexo 6",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1, definición «Combustible mínimo»; preámbulo, Tabla A, Enmienda 4 de la 15.ª edición (fraseología y procedimientos ATC de combustible armonizados con el Anexo 6; aprobada el 16 de marzo de 2012, aplicable el 15 de noviembre de 2012). Doc 9432 (4.ª ed.) 2.6 (UNABLE). Doc 9835 (2.ª ed.) 3.4.14.",
-        [
-          "VERIFICAR: criterios de MINIMUM FUEL y de emergencia de combustible contra Anexo 6 Parte I, sección de gestión del combustible en vuelo (no cargado).",
-          "VERIFICAR: «MAYDAY, MAYDAY, MAYDAY, FUEL» contra Anexo 6 Parte I y Doc 4444 cap. 15 (no cargados).",
-          "VERIFICAR: respuestas ATC «ROGER, NO DELAY EXPECTED» / «EXPECT (delay information)» contra Doc 4444 cap. 12 (no cargado).",
-          "VERIFICAR: nota de la definición («no es una situación de emergencia…») en la edición vigente del Doc 4444 cap. 1.",
-          "VERIFICAR: diferencias de Estados Unidos (FAA) sobre minimum fuel, contra AIM/FAA Order JO 7110.65.",
-          "VERIFICAR: «HOLD AT (fix) AS PUBLISHED, EXPECT APPROACH CLEARANCE AT (time)» contra Doc 4444 cap. 12 (espera) (no cargado; ver Nivel 4, cap. 28).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA CAT.OP.MPA.185 · SERA.11012 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Air Operations, revisión marzo de 2026, CAT.OP.MPA.185(c)–(d): criterios de MINIMUM FUEL y MAYDAY FUEL para aviones de transporte comercial: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-air-operations?erules-id=ERULES-1963177438-12803" },
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.11012 y GM1: información de demora del controlador y naturaleza no urgente de MINIMUM FUEL: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9921" },
+          { kind: "p", text: "OACI, Doc 4444 PANS-ATM, edición alojada en ATMiKIT, sección 15.5.4; verificar siempre la edición operativamente aplicable: https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/DOC%204444_PANS%20ATM_en.pdf" },
+          { kind: "p", text: "Aerocivil, portal oficial de AIP Colombia y eAIP para datos y procedimientos colombianos vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "El escenario y la historieta son didácticos, no transcripciones. Los criterios europeos citados no sustituyen RAC, AIP ni manual del explotador aplicables al vuelo real." },
         ],
-      ),
+      },
     ],
   },
   // ── 38 ──────────────────────────────────────────────────────────────────
