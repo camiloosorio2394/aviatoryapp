@@ -37,9 +37,13 @@ export interface CaraDeModulo {
  * como /app/match ("Para cuál calificas"), que consulta aerolíneas, horas y
  * perfil y calcula exactamente eso. Anunciarlo como futuro y enlazarlo cuarenta
  * píxeles más abajo era la contradicción del hallazgo C5.
+ *
+ * "Performance y planificación" salió por lo mismo: el módulo está completo y
+ * tiene su hub, su lección y su evaluación desde el 24 de septiembre. Mientras
+ * siguió aquí, la portada lo anunciaba como futuro y no lo enlazaba, así que
+ * desde la app no había forma de llegar a él.
  */
 export const TEMAS_EN_CAMINO: readonly string[] = [
-  "Performance y planificación",
   "Sistemas y motor a reacción",
   "Entrevista técnica",
   "Entrevista HR y CRM",

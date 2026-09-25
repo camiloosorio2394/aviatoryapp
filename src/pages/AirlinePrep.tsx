@@ -8,8 +8,8 @@ import {
   ClipboardList,
   CloudSun,
   Fuel,
+  Gauge,
   Headset,
-  Play,
   Scale,
   Wind,
   TowerControl,
@@ -18,6 +18,7 @@ import { AerodromeIcon } from "@/components/icons/aero"
 import { fechaDeUltimaActividad } from "@/lib/activity"
 import { TarjetaModulo } from "@/components/aerolinea/TarjetaModulo"
 import { TEMAS_EN_CAMINO } from "@/components/aerolinea/carasDeModulo"
+import { HuecoDeVideo } from "@/components/modulo/HuecoDeVideo"
 import type { TarjetaModuloProps } from "@/components/aerolinea/TarjetaModulo"
 import { appButtonClass } from "@/lib/buttonStyles"
 import { traerMejoresPuntajesDeExamen } from "@/services/aerolineas"
@@ -72,6 +73,16 @@ import {
   readComunicacionesLocal,
   resumirComunicaciones,
 } from "@/lib/comunicaciones"
+// Los números, no la lección: `performanceLeccion` pesa tres mil líneas y esta
+// pantalla solo necesita los totales, igual que con los demás módulos.
+import {
+  PERF_HUB,
+  PERF_LECTURA_MINUTOS,
+  PERF_LECTURA_TOTAL,
+  PERF_PRACTICA_TOTAL,
+  resumirPerformance,
+} from "@/lib/performance"
+import { fetchPerformanceProgress, readPerformanceLocal } from "@/lib/performanceProgress"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
 import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
@@ -177,6 +188,7 @@ export function AirlinePrep() {
   const [aeroProgreso, setAeroProgreso] = useState(() => readAerodinamicaLocal())
   const [aeropuertosProgreso, setAeropuertosProgreso] = useState(() => readAeropuertosLocal())
   const [comunicacionesProgreso, setComunicacionesProgreso] = useState(() => readComunicacionesLocal())
+  const [performanceProgreso, setPerformanceProgreso] = useState(() => readPerformanceLocal())
   const [racProgreso, setRacProgreso] = useState(() => readRacLocal())
   const [combustibleProgreso, setCombustibleProgreso] = useState(() => readCombustibleLocal())
   const [mejorPsico, setMejorPsico] = useState<number | null>(
@@ -199,7 +211,7 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, racRes, cbRes, psicoRes] =
+      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, pfRes, racRes, cbRes, psicoRes] =
         await Promise.all([
           fetchNotamProgress(user.id),
           fetchMetarProgress(user.id),
@@ -209,6 +221,7 @@ export function AirlinePrep() {
           fetchAerodinamicaProgress(user.id),
           fetchAeropuertosProgress(user.id),
           fetchComunicacionesProgress(user.id),
+          fetchPerformanceProgress(user.id),
           fetchRacProgress(user.id),
           fetchCombustibleProgress(user.id),
           mejorSimulacroRemoto(user.id),
@@ -244,6 +257,7 @@ export function AirlinePrep() {
       if (aeRes) setAeroProgreso(aeRes)
       if (apRes) setAeropuertosProgreso(apRes)
       if (cmRes) setComunicacionesProgreso(cmRes)
+      if (pfRes) setPerformanceProgreso(pfRes)
       if (racRes) setRacProgreso(racRes)
       if (cbRes) setCombustibleProgreso(cbRes)
 
@@ -258,6 +272,7 @@ export function AirlinePrep() {
         aeRes?.remoto.actualizado,
         apRes?.remoto.actualizado,
         cmRes?.remoto.actualizado,
+        pfRes?.remoto.actualizado,
         racRes?.remoto.actualizado,
         cbRes?.remoto.actualizado,
       ].filter((f): f is string => typeof f === "string" && f.length > 0)
@@ -285,6 +300,7 @@ export function AirlinePrep() {
   const aero = useMemo(() => resumirAerodinamica(aeroProgreso), [aeroProgreso])
   const aeropuertos = useMemo(() => resumirAeropuertos(aeropuertosProgreso), [aeropuertosProgreso])
   const comunicaciones = useMemo(() => resumirComunicaciones(comunicacionesProgreso), [comunicacionesProgreso])
+  const performance = useMemo(() => resumirPerformance(performanceProgreso), [performanceProgreso])
   const rac = useMemo(() => resumirRac(racProgreso), [racProgreso])
   const combustible = useMemo(() => resumirCombustible(combustibleProgreso), [combustibleProgreso])
 
@@ -411,6 +427,33 @@ export function AirlinePrep() {
             : aeropuertos.overall >= 100
               ? "Tema completo"
               : `${aeropuertos.lessonRead}/${AP_LECTURA_TOTAL} lecciones · ${aeropuertos.practiceDone}/${AP_PRACTICA_CONTEO} ejercicios`,
+        },
+      },
+      // Performance: el módulo existía completo y esta lista no lo nombraba, así
+      // que desde la portada no había manera de llegar a él. Su práctica no
+      // tiene pantalla aparte (vive en los temas 38 y 40), y por eso el estado
+      // cuenta temas y ejercicios y no "lecciones y prácticas".
+      {
+        nombre: "Performance",
+        to: PERF_HUB,
+        pct: performance.overall,
+        card: {
+          to: PERF_HUB,
+          icon: Gauge,
+          color: "var(--av-pf-700)",
+          titulo: "Performance",
+          meta: `${PERF_LECTURA_TOTAL} temas · ${PERF_LECTURA_MINUTOS} min de lectura`,
+          descripcion: "V₁, campo equilibrado, segundo segmento y peso máximo del día.",
+          fotoHueco:
+            "PERF-TEM-01 · 2:1 · 1200×600 · Avión de transporte iniciando la carrera de despegue, visto desde el costado de la pista",
+          cta: ctaDeTema(performance.overall),
+          avance: performance.overall,
+          completo: performance.overall >= 100,
+          estado: performance.empty
+            ? "Sin empezar"
+            : performance.overall >= 100
+              ? "Tema completo"
+              : `${performance.lessonRead}/${PERF_LECTURA_TOTAL} temas · ${performance.practiceDone}/${PERF_PRACTICA_TOTAL} ejercicios`,
         },
       },
       // Comunicaciones ATC: lección, práctica con audio y evaluación, como
@@ -564,7 +607,7 @@ export function AirlinePrep() {
       .map((t, i) => ({ t, i }))
       .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
       .map(({ t }) => t)
-  }, [notam, metar, mercancias, aero, aeropuertos, comunicaciones, rac, combustible, mejorSimulacro, mejorPsico])
+  }, [notam, metar, mercancias, aero, aeropuertos, performance, comunicaciones, rac, combustible, mejorSimulacro, mejorPsico])
 
   const cursables = temas.filter((t) => !t.herramienta)
   const herramientas = temas.filter((t) => t.herramienta)
@@ -642,18 +685,8 @@ export function AirlinePrep() {
                   Aquí había un botón de «Seguir con …». No se reemplaza por
                   otro: la acción de retomar vive en la tarjeta del tema, que ya
                   va marcada «En curso» y es la primera de la rejilla. */}
-              <div className="mt-5 flex w-full max-w-[380px] items-center gap-3.5 rounded-[12px] border border-dashed border-white/20 bg-white/[0.05] p-2 pr-4 text-left">
-                <span className="grid h-[52px] w-[92px] shrink-0 place-items-center rounded-[8px] border border-dashed border-white/20 bg-white/[0.06]">
-                  <Play className="h-4 w-4 text-white/35" aria-hidden />
-                </span>
-                <span className="min-w-0">
-                  <span className="nh-display block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">
-                    Espacio reservado
-                  </span>
-                  <span className="mt-1 block text-[13px] font-medium leading-[1.4] text-white/78">
-                    IA-VID-01 · Presentación del módulo · ~60 s · con su cartel 16:9
-                  </span>
-                </span>
+              <div className="mt-5">
+                <HuecoDeVideo especificacion="IA-VID-01 · Presentación del módulo · ~60 s · con su cartel 16:9" />
               </div>
             </div>
 

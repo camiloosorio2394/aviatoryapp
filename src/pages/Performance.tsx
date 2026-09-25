@@ -4,6 +4,7 @@ import { ArrowLeft, BookOpen, GraduationCap } from "lucide-react"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { FilaAvance } from "@/components/modulo/FilaAvance"
+import { HuecoDeVideo } from "@/components/modulo/HuecoDeVideo"
 import { useSession } from "@/hooks/useSession"
 import {
   PERF_APRENDE,
@@ -156,6 +157,10 @@ export function Performance() {
             </p>
 
             <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
+              {/* Encima de los botones y no debajo, como en NOTAM: el video es
+                  el primer paso del módulo, no un extra al final del hero. */}
+              <HuecoDeVideo especificacion="PERF-VID-01 · Presentación del módulo · ~60 s · con su cartel 16:9" />
+
               <div className="flex flex-wrap gap-3">
                 <Link
                   to={PERF_APRENDE}
