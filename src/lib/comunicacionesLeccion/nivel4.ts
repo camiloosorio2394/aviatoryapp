@@ -5,55 +5,18 @@
  * desvíos por meteorología, llegada, aproximación, espera, aterrizaje y motor
  * y al aire.
  *
- * Fuente: docs/comunicaciones/nivel-4.md, entero. Cada intercambio del
- * Markdown es un bloque `code` con su significado debajo (`ejemplo`); los
- * rótulos (VERIFICAR) y PLAIN LANGUAGE de cada ejemplo se conservan en su
- * título. Lo que el Markdown marca VERIFICAR sale en un callout «Verificar»
- * visible al empezar la fraseología y, completo, en el detalle técnico de
- * FUENTES. El formato de los bloques y de los huecos está documentado al
- * inicio de index.ts.
+ * Revisión editorial de los capítulos 19 a 30: cada caso didáctico distingue
+ * la autorización real del material de estudio. Las figuras conceptuales no
+ * sustituyen cartas ni procedimientos estatales vigentes.
  */
 
 import type { DocBlockData, DocScreen } from "@/lib/docBlocks"
-
-/**
- * Un intercambio: el título en negrita, la transmisión literal (una línea por
- * turno de palabra) y el significado en español.
- */
-function ejemplo(titulo: string, turnos: string[], significado: string): DocBlockData[] {
-  return [
-    { kind: "p", text: `**${titulo}**` },
-    { kind: "code", text: turnos.join("\n") },
-    { kind: "p", text: significado },
-  ]
-}
 
 /** Un error frecuente: el nombre del error como título y la explicación. */
 function error(titulo: string, text?: string): DocBlockData {
   return text === undefined
     ? { kind: "callout", tone: "warn", text: titulo }
     : { kind: "callout", tone: "warn", title: titulo, text }
-}
-
-/** Cómo leer los ejemplos: va al empezar la fraseología de cada lección. */
-const COMO_LEER: DocBlockData = {
-  kind: "callout",
-  tone: "info",
-  title: "Cómo leer los ejemplos",
-  text: "`AVIATORY 452`, las estaciones, pistas, frecuencias, SID, STAR y waypoints son **ficticios**. Frase **sin etiqueta**: su estructura está en el Doc 9432 o el Doc 4444 cargados (el párrafo exacto va en Fuentes). **(VERIFICAR)**: fraseología OACI conocida que no está en las fuentes cargadas. **PLAIN LANGUAGE**: lenguaje claro, no fraseología estandarizada.",
-}
-
-/** Las convenciones de los ejemplos de todo el nivel (cabecera de nivel-4.md). */
-const CONVENCIONES: DocBlockData = {
-  kind: "list",
-  items: [
-    "`AVIATORY 452` es un distintivo ficticio. «Bogota Departure», «Bogota Control», «Bogota Approach», «Bogota Tower» y «Bogota Ground» son estaciones de ejemplo educativo. Pistas, frecuencias, niveles de transición, designadores de SID y STAR y waypoints (GIKOS, PAXUM, RODEL, KUBIN, LOSAM, TOMUR, VATIX) son **ficticios**: no corresponden a la carta real de ningún aeródromo.",
-    "Los números van con su ortografía inglesa normal para que se lean fácil. La pronunciación OACI de cada dígito está en el capítulo 5.",
-    "Frase **sin etiqueta**: su estructura está en el Doc 9432 o el Doc 4444 cargados (se cambiaron distintivo, lugares y valores). El párrafo exacto va en FUENTES.",
-    "**(VERIFICAR)**: fraseología OACI conocida que no está en las fuentes cargadas. Confirmarla en el documento indicado antes de publicarla como norma.",
-    "**PLAIN LANGUAGE**: lenguaje claro, no fraseología estandarizada.",
-    "Fuentes cargadas: Doc 9432, Manual de radiotelefonía, 4.ª ed. 2007 (caps. 1 a 7.3) y Doc 4444, PANS-ATM, 15.ª ed. con Enm. 4 (caps. 1 a 4 y comienzo del 5). El cap. 12 del Doc 4444 (fraseología), el cap. 8 del Doc 9432 (control de área) y la sección 7.4 en adelante del Doc 9432 **no están cargados**. La 15.ª ed. del Doc 4444 no es la vigente: existe la 16.ª ed. (2016) con enmiendas.",
-  ],
 }
 
 export const NIVEL_4: DocScreen[] = [
@@ -1328,169 +1291,106 @@ export const NIVEL_4: DocScreen[] = [
   {
     n: 30,
     title: "Motor y al aire",
-    kicker: "Go-around ordenado o iniciado por la tripulación",
-    minutes: 7,
+    kicker: "GO AROUND, trayectoria y primera comunicación",
+    minutes: 19,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "**Motor y al aire** (go-around) es interrumpir la aproximación y subir. El **procedimiento de aproximación frustrada** es lo que hay que volar si no se puede seguir la aproximación (Doc 4444, cap. 1). Puede ordenarlo ATC o decidirlo la tripulación.",
+        text: "Motor y al aire interrumpe el aterrizaje o la aproximación para volver a una trayectoria segura. Puede ordenarlo el control de tránsito aéreo (ATC, air traffic control) o decidirlo la tripulación. En los primeros segundos importan el control del avión, la navegación aplicable y la coordinación interna; la comunicación por radio es breve y llega cuando la carga de trabajo lo permite. No se improvisa un rumbo o una altitud con base en una historieta: se vuela el procedimiento publicado o la instrucción válida para ese caso.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-30-01.svg",
+        alt: "Secuencia conceptual de motor y al aire: orden o decisión, volar, navegar y comunicar GOING AROUND.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Esquema didáctico: tanto una orden GO AROUND como una decisión de la tripulación llevan primero a controlar y estabilizar el avión; después se verifica la trayectoria aplicable y se informa GOING AROUND. Las instrucciones nuevas de nivel y rumbo se colacionan. No representa una aproximación frustrada publicada.",
+      },
+      { kind: "sub", text: "Dos maneras de iniciar la maniobra" },
       {
         kind: "list",
         items: [
-          "**Aviate, Navigate, Communicate.** Primero se vuela el avión (potencia, actitud, configuración), luego se navega (la frustrada publicada o la instrucción de ATC), y después se habla. Nadie espera una transmisión en los primeros segundos.",
-          "En la maniobra la carga de trabajo es alta, y ATC debe dar transmisiones breves y reducidas al mínimo (Doc 9432, 4.8.1).",
-          "**Sin instrucciones en contrario, un avión IFR vuela el procedimiento de aproximación frustrada publicado**; uno VFR sigue en el circuito de tránsito (Doc 9432, 4.8.2).",
-          "Si la tripulación lo inicia, dice `GOING AROUND` (Doc 9432, 4.8.3). La razón se puede dar después, cuando el avión esté estable y si ATC la necesita.",
-          "Situaciones que llevan a un motor y al aire:",
+          "**Orden de ATC:** GO AROUND exige actuar sin demora. La frase GO AROUND para el controlador y GOING AROUND para el piloto figuran en EASA AMC1 SERA.14001. La respuesta no debe retrasar la acción física ni una corrección urgente de trayectoria.",
+          "**Decisión de la tripulación:** puede deberse a falta de referencias visuales requeridas, aproximación no estabilizada, ausencia de autorización de aterrizaje según el procedimiento del operador, pista insegura, cizalladura u otra condición que impida continuar con seguridad. El piloto que vuela (PF, pilot flying) anuncia la maniobra en cabina y la ejecuta; el piloto que monitorea (PM, pilot monitoring) apoya y transmite GOING AROUND cuando es oportuno.",
+          "**Razón después de estabilizar:** si ATC necesita conocerla, el PM la comunica en lenguaje claro y breve una vez atendidas las tareas inmediatas. No se consume la radio con una explicación larga mientras se configura el avión o se resuelve una trayectoria crítica.",
         ],
       },
       {
-        kind: "list",
-        items: [
-          "**Ordenado por ATC**: pista ocupada, tráfico, separación.",
-          "**Pista no disponible**: vehículo, animal, obstáculo.",
-          "**Aproximación no estabilizada**: el Doc 4444 recuerda que la tripulación debe estabilizarse, típicamente a 3 NM del umbral (Nota a 4.6.3.7, que remite al Doc 8168). Los criterios exactos son del operador.",
-          "**Sin referencia visual en la DA/DH** (definición del Doc 4444, cap. 1).",
-          "**Sin autorización de aterrizaje** en el punto que fija el SOP (capítulo 29).",
-          "Cizalladura, meteorología u otra razón técnica.",
-        ],
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-30-02.webp",
+        alt: "Historieta fotográfica de tres paneles: torre observa un conflicto, PF aplica potencia de motor y al aire y PM informa después de estabilizar el ascenso.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no registro de un suceso: 1) torre detecta una condición que impide continuar; 2) PF inicia motor y al aire y mantiene control; 3) PM informa por radio cuando la aeronave está estabilizada. La pista, la cabina y los instrumentos son genéricos.",
       },
+      { kind: "sub", text: "Secuencia PF–PM y ATC" },
       {
         kind: "list",
+        ordered: true,
         items: [
-          "Las nuevas instrucciones de rumbo y nivel después del motor y al aire **se colacionan** como siempre.",
+          "**Acción inmediata:** PF aplica la técnica de motor y al aire de la aeronave, controla actitud y trayectoria, y hace los llamados de cabina previstos por su procedimiento normalizado de operación (SOP, Standard Operating Procedures). PM verifica el estado de vuelo y apoya la configuración. Ninguna llamada externa sustituye estas acciones.",
+          "**Navegación posterior:** ambos identifican si rige la aproximación frustrada publicada o si ATC ha dado una instrucción distinta válida. Se confirman nivel, rumbo y cualquier limitación que requiera colación. La trayectoria no se deduce de una frase vaga ni de un ejemplo inventado.",
+          "**Primera comunicación:** si la tripulación inició la maniobra, el PM comunica GOING AROUND con su distintivo cuando la carga lo permite. Si ATC la ordenó, acusa la instrucción de forma breve. Una respuesta corta no significa que pueda omitirse la colación de un nuevo rumbo o nivel posterior.",
+          "**Nuevo sector o nueva tentativa:** al transferirse, el PM prepara un primer contacto con nivel actual, nivel autorizado, rumbo o procedimiento seguido y necesidad operativa relevante. PF mantiene el avión estabilizado; la elección de volver a intentar, esperar o desviarse se hace con combustible, meteorología, causa de la frustrada y autorizaciones reales.",
         ],
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
       {
         kind: "callout",
         tone: "verificar",
-        title: "Verificar",
-        text: "«SAY REASON FOR GO-AROUND» (ejemplo 5), u otra forma en que ATC pida el motivo, no está en las fuentes cargadas: consultar el Doc 4444 16.ª ed., cap. 12; si no existe, es PLAIN LANGUAGE. La fraseología específica de cizalladura (ejemplo 8): Doc 4444 16.ª ed. cap. 12 y AIP del Estado. Los criterios de aproximación estabilizada: Doc 8168 PANS-OPS Vol. I y SOP del operador.",
+        title: "La frustrada concreta no se inventa",
+        text: "Para Colombia, la trayectoria, altitudes, restricciones y comunicaciones se verifican exclusivamente en la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica —eAIP— oficial de Aerocivil, la carta vigente y la autorización real. Esta lección no asigna una pista, una ruta frustrada, una frecuencia o un nivel de seguridad. Los criterios de aproximación estabilizada y configuración proceden además del SOP del explotador.",
       },
-      ...ejemplo(
-        "Ejemplo 1 · Ordenado por ATC",
-        [
-          `ATC:   "Aviatory 452, go around, aircraft on the runway."`,
-          `PILOT: "Going around, Aviatory 452."`,
-        ],
-        "Significado: la orden se ejecuta de inmediato. La respuesta es corta.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Iniciado por la tripulación, ATC solo acusa recibo",
-        [
-          `PILOT: "Aviatory 452, going around."`,
-          `ATC:   "Aviatory 452, roger."`,
-        ],
-        "Significado: sin otra instrucción, el avión IFR vuela la frustrada publicada (Doc 9432, 4.8.2).",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · ATC da otras instrucciones después",
-        [
-          `PILOT: "Aviatory 452, going around."`,
-          `ATC:   "Aviatory 452, roger, climb to five thousand feet, turn right heading zero four zero."`,
-          `PILOT: "Climbing to five thousand feet, right heading zero four zero, Aviatory 452."`,
-        ],
-        "Significado: ATC reemplaza la frustrada publicada con una altitud y un rumbo. Estructura de los ejemplos de nivel (3.3) y rumbo (6.3) del Doc 9432.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Cambio a Approach después de la frustrada",
-        [
-          `ATC:   "Aviatory 452, contact Bogota Approach one two zero decimal four."`,
-          `PILOT: "One two zero decimal four, Aviatory 452."`,
-          `PILOT: "Bogota Approach, Aviatory 452, passing three thousand five hundred feet climbing to five thousand feet, heading zero four zero."`,
-        ],
-        "Significado: primera llamada con nivel de paso, nivel autorizado y rumbo asignado para que Approach sepa dónde está y qué tiene.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Explicar el motivo y pedir lo siguiente (PLAIN LANGUAGE)",
-        [
-          `ATC:   "Aviatory 452, say reason for go-around."`,
-          `PILOT: "Aviatory 452, unstable approach. Request vectors for another ILS approach runway three one."`,
-          `ATC:   "Aviatory 452, fly heading zero four zero, expect vectors for ILS approach runway three one."`,
-          `PILOT: "Heading zero four zero, Aviatory 452."`,
-        ],
-        "Significado: motivo en dos palabras y lo que se necesita. Nadie pide detalles técnicos por radio en ese momento.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · Sin referencia visual en los mínimos (PLAIN LANGUAGE)",
-        [
-          `PILOT: "Aviatory 452, going around."`,
-          `ATC:   "Aviatory 452, roger."`,
-          `PILOT: "Aviatory 452, no visual reference at minimums. Request holding to wait for weather improvement, endurance four zero minutes."`,
-        ],
-        "Significado: primero `GOING AROUND`. Una vez estable, el motivo, la intención y el dato que ATC necesita para planear (cuánto puede esperar).",
-      ),
-      ...ejemplo(
-        "Ejemplo 7 · Motor y al aire con tráfico: se repite la orden",
-        [
-          `ATC:   "Aviatory 452, go around, I say again, go around, aircraft on the runway."`,
-          `PILOT: "Going around, Aviatory 452."`,
-        ],
-        "Significado: `I SAY AGAIN` para recalcar. El piloto no discute ni pregunta: ejecuta.",
-      ),
-      ...ejemplo(
-        "Ejemplo 8 · Frustrada por cizalladura (PLAIN LANGUAGE)",
-        [
-          `PILOT: "Aviatory 452, going around, windshear."`,
-          `ATC:   "Aviatory 452, roger."`,
-        ],
-        "Significado: la palabra «windshear» avisa a Torre de algo que afecta también al avión de atrás. Si el Estado tiene fraseología específica para esto, se usa esa (VERIFICAR).",
-      ),
       {
-        kind: "hueco",
-        rotulo: "CM-30-01 · Esquema · 16:9 · 1600×900 px",
-        descripcion: "Imagen sugerida: Tres bloques horizontales en secuencia sobre una trayectoria de motor y al aire que sube desde cerca de la pista. Bloque 1 «AVIATE» sobre el inicio de la subida: potencia, actitud, configuración. Bloque 2 «NAVIGATE» en el tramo siguiente: frustrada publicada o instrucción ATC. Bloque 3 «COMMUNICATE» más adelante: globo «Going around, Aviatory 452». Abajo, una franja pequeña con las causas (ATC, pista no disponible, no estabilizada, sin referencia visual en DA/DH, sin autorización de aterrizaje, cizalladura). Estilo limpio, color de acento del módulo; sin ámbar ni rojo decorativos. Objetivo: Que el piloto vea que la comunicación va después de volar y navegar, y que la frase inicial es corta.",
-        alto: 280,
+        kind: "escenario",
+        titulo: "Orden de torre en una final estabilizada",
+        situacion: "Caso didáctico sin aeródromo, pista, indicativo, frecuencia ni altitud inventados. En final, la tripulación recibe GO AROUND porque la pista deja de estar disponible. PF inicia la maniobra; PM observa el estado del avión y la trayectoria de la aproximación frustrada publicada. Tras el ascenso inicial, ATC transmite una instrucción diferente de rumbo y nivel.",
+        preguntas: [
+          {
+            q: "¿Qué tiene prioridad y cuándo se responde por radio?",
+            a: "PF ejecuta y controla la maniobra con el procedimiento del avión; PM respalda y transmite una respuesta breve tan pronto como la carga de trabajo lo permite. No se retrasa el motor y al aire para explicar el motivo o completar una comunicación larga.",
+          },
+          {
+            q: "¿Qué hacen con el nuevo rumbo y nivel?",
+            a: "PM los escucha y colaciona; PF confirma que la instrucción es coherente con la situación y selecciona la trayectoria aplicable. Ambos distinguen lo que cambió respecto de la frustrada publicada y piden aclaración si hay una ambigüedad que afecte la seguridad. En el cambio de dependencia, se informa el estado vigente, no el plan anterior.",
+          },
+        ],
+        concepto: "Primero vuelo seguro; luego navegación aplicable y comunicación clara, sin perder las nuevas autorizaciones.",
       },
-      { kind: "sub", text: "Aplicación en aerolínea" },
       {
         kind: "enLaOperacion",
-        momento: "En el motor y al aire",
-        texto: "Los SOP definen quién anuncia el motor y al aire en cabina, quién hace la llamada a Torre y cuándo. Lo habitual es que el PM transmita «going around» cuando el PF ya tiene el avión subiendo y la frustrada en curso, pero no hay regla universal. La tripulación revisa antes de la aproximación la frustrada publicada y cualquier instrucción distinta que ATC haya anticipado, para no tener que leerla en el peor momento.",
+        momento: "Después del ascenso inicial",
+        texto: "Una vez estabilizado el avión, PF y PM confirman juntos configuración, trayectoria, altitud o nivel y tareas pendientes. PM comunica si el motor y al aire fue iniciado por la tripulación, colaciona instrucciones nuevas y prepara el primer contacto con la dependencia siguiente. El briefing de otra aproximación o desvío se realiza con carga de trabajo controlada; la tripulación no da por hecho que una autorización anterior sigue vigente después de una instrucción nueva.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error("Hablar antes de volar", "**Hablar antes de volar**: soltar la radio antes de tener el avión estable."),
-      error("Esperar la autorización para hacer motor y al aire", "No hace falta: se hace y se informa."),
-      error("Volar la frustrada publicada cuando ATC dio otra", "**Volar la frustrada publicada cuando ATC dio otra** o al revés, por no colacionar bien."),
-      error("Explicaciones largas", "**Explicaciones largas** en la frecuencia de Torre, bloqueando al avión que viene atrás."),
-      error("Olvidar que el siguiente puede tener lo mismo", "**Olvidar que el siguiente puede tener lo mismo**: la razón (cizalladura, pista, meteorología) le sirve a ATC y a los demás."),
+      { kind: "sub", text: "Errores que importan" },
+      error("Retrasar la maniobra para explicar por radio por qué se frustró."),
+      error("Suponer que ATC siempre dará rumbo y nivel antes de que haya que volar la trayectoria aplicable."),
+      error("Ignorar un rumbo o nivel nuevo al seguir ciegamente el FMS."),
+      error("No colacionar la instrucción posterior porque ya se respondió GOING AROUND."),
+      error("Iniciar una segunda aproximación sin revisar causa, combustible y nueva autorización."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Aviate, Navigate, Communicate.",
-          "Iniciado por la tripulación: `GOING AROUND`.",
-          "Sin otra instrucción, IFR vuela la frustrada publicada.",
-          "Nuevas instrucciones de rumbo y nivel se colacionan.",
-          "El motivo, corto y cuando el avión esté estable.",
+          "GO AROUND es instrucción ATC; GOING AROUND informa la acción del piloto.",
+          "La tripulación también puede decidir motor y al aire por seguridad.",
+          "Se prioriza volar y navegar; la radio sigue cuando es seguro.",
+          "La trayectoria concreta sale de carta e instrucciones aplicables, no de este dibujo.",
+          "Nuevos rumbos, niveles y transferencias se verifican y colacionan.",
         ],
       },
       {
         kind: "detalleTecnico",
-        etiqueta: "Fuentes",
-        cita: "Doc 4444 · Doc 9432",
+        etiqueta: "Fuentes y alcance",
+        cita: "EASA · AMC1 SERA.14001; OACI · Doc 4444",
         bloques: [
-          { kind: "sub", text: "Verificado" },
-          {
-            kind: "p",
-            text: "Doc 4444 (15.ª ed., Enm. 4) cap. 1 («Procedimiento de aproximación frustrada», «Altitud de decisión (DA) o altura de decisión (DH)»); 4.5.7.5.1; 4.6.3.7 y su Nota (aproximación estabilizada, típicamente 3 NM, remite al Doc 8168). Doc 9432 (4.ª ed.) 2.6 («I SAY AGAIN», «ROGER», «CONTACT»); 3.3 (niveles); 6.3 (rumbos); 4.8.1 («GO AROUND AIRCRAFT ON THE RUNWAY», «GOING AROUND»); 4.8.2; 4.8.3; 6.4.2 («REQUEST VECTORS»).",
-          },
-          { kind: "sub", text: "Por verificar" },
-          {
-            kind: "list",
-            items: [
-              "VERIFICAR: «SAY REASON FOR GO-AROUND» (u otra forma en que ATC pida el motivo), contra Doc 4444 16.ª ed. cap. 12 (no cargado). Si no existe, es PLAIN LANGUAGE.",
-              "VERIFICAR: fraseología específica de cizalladura en la aproximación, contra Doc 4444 16.ª ed. cap. 12 y la AIP del Estado (no cargados).",
-              "VERIFICAR: criterios de aproximación estabilizada, contra Doc 8168 PANS-OPS Vol. I (no cargado) y el SOP del operador.",
-            ],
-          },
-          { kind: "sub", text: "Convenciones de los ejemplos" },
-          CONVENCIONES,
+          { kind: "sub", text: "Documentos oficiales" },
+          { kind: "p", text: "Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency), Easy Access Rules for SERA, Appendix 1 to AMC1 SERA.14001, § 1.4.18, GO AROUND y GOING AROUND (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). Organización de Aviación Civil Internacional (OACI; ICAO, International Civil Aviation Organization), Doc 4444 PANS-ATM, edición 16 disponible en portal oficial, definición y disposiciones de aproximación frustrada (https://www.icao.int/ESAF/Documents/meetings/2021/AFI%20ATM%20Coordination%20Meeting%202021/Presentations/4444_16ed_amend_10_highlighted.pdf). Verificar edición, aplicación estatal y carta vigentes." },
+          { kind: "sub", text: "Límites del material" },
+          { kind: "list", items: [
+            "La figura expresa prioridades de trabajo, no una trayectoria de vuelo.",
+            "La historieta y el escenario son didácticos, no transcripciones.",
+            "No se prescribe técnica específica de aeronave, pista, altitud ni criterio universal de estabilización.",
+          ] },
         ],
       },
     ],
