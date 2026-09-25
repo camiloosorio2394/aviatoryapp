@@ -43,11 +43,6 @@ function ejemplo(titulo: string, turnos: string[], significado?: string): DocBlo
   return out
 }
 
-/** Un error frecuente: alerta semántica, no error. */
-function error(titulo: string, text: string): DocBlockData {
-  return { kind: "callout", tone: "warn", title: titulo, text }
-}
-
 /** El aviso visible de lo que no está en las fuentes cargadas. */
 function verificar(text: string): DocBlockData {
   return { kind: "callout", tone: "verificar", title: "Verificar", text }
@@ -114,27 +109,6 @@ function escenario65(c: {
         { q: "¿Cómo lo razonas en voz alta ante el evaluador?", a: c.razonamiento },
       ],
     },
-  ]
-  if (c.verificar) out.push(verificar(c.verificar))
-  return out
-}
-
-/** Un error del capítulo 66: lo que se oye, lo correcto y por qué importa. */
-function error66(c: {
-  titulo: string
-  seOye: string
-  correcto: string
-  correctoEsFrase?: boolean
-  porQue: string
-  verificar?: string
-}): DocBlockData[] {
-  const out: DocBlockData[] = [
-    { kind: "sub", text: c.titulo },
-    error("Lo que se oye", c.seOye),
-    ...(c.correctoEsFrase === false
-      ? [{ kind: "p", text: `**LO CORRECTO:** ${c.correcto}` } as DocBlockData]
-      : ejemplo("LO CORRECTO", [c.correcto])),
-    { kind: "p", text: `**POR QUÉ IMPORTA:** ${c.porQue}` },
   ]
   if (c.verificar) out.push(verificar(c.verificar))
   return out
@@ -876,124 +850,92 @@ export const NIVEL_8: DocScreen[] = [
   {
     n: 66,
     title: "Errores frecuentes de hispanohablantes",
-    kicker: "Los que tienen consecuencia operacional",
-    minutes: 10,
+    kicker: "No se evalúa el acento: se protege el significado",
+    minutes: 20,
     blocks: [
       {
         kind: "p",
-        text: "Este capítulo no trata del acento. Un acento hispano es normal en la radio y no es un error: el Doc 9835 evalúa la pronunciación por si **interfiere con la comprensión**, no por si suena nativa. Aquí solo entran errores que pueden cambiar lo que el controlador entiende o hacer más lenta la comunicación. Casi todos vienen de lo mismo: pensar la frase en español y traducirla.",
+        text: "Un acento latinoamericano no es un error. La escala de competencia lingüística de la Organización de Aviación Civil Internacional (OACI; International Civil Aviation Organization, ICAO), reproducida en el Doc 9835, admite influencia de la lengua materna mientras la comprensión operacional se conserve. Lo que sí importa es que una palabra, cifra o respuesta **cambie el significado de la instrucción**. Esta lección compara calcos habituales del español con la decisión de radio que necesita claridad; las frases de ejemplo son didácticas y no transcripciones de vuelos.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-66-01.svg",
+        alt: "Cuatro contrastes esenciales: recibido frente a sí, frase de cortesía frente a solicitud directa, expectativa frente a autorización y número oído frente a número confirmado.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Contrastes de sentido, no un examen de acento. La defensa es escoger la palabra que expresa la acción exacta, colacionar el dato crítico y preguntar cuando falta información.",
+      },
+      { kind: "sub", text: "Doce contrastes que cambian la operación" },
+      {
+        kind: "table",
+        head: ["Calco o hábito", "Por qué puede fallar", "Defensa"],
+        rows: [
+          ["ROGER para decir «sí»", "Acusa recepción; no responde una pregunta de capacidad o disponibilidad.", "Responder afirmativa o negativamente con la palabra prevista en la fraseología aplicable."],
+          ["ROGER para un nivel", "No permite saber qué nivel oyó el piloto.", "Colacionar el nivel completo y confirmar que se seleccionó el mismo valor."],
+          ["«Affirmative» en contexto OACI", "La palabra normalizada OACI es AFFIRM; la FAA permite «Affirmative» en su práctica.", "Usar el término del Estado/entorno donde se opera; no enseñar una variante estadounidense como si fuera regla OACI."],
+          ["«Repeat» por «repita»", "No es la petición normalizada de repetición.", "SAY AGAIN, especificando el elemento si solo una parte quedó cubierta."],
+          ["«Okay», «copy» o «no problem»", "No distinguen recibir, aceptar, cumplir o colacionar.", "Usar la palabra normalizada apropiada o repetir el dato crítico."],
+          ["«Ready for take-off» antes del permiso", "La palabra TAKEOFF puede escucharse fuera de una autorización real.", "Informar listo para salida según fraseología local; reservar TAKEOFF para autorización o cancelación."],
+          ["Números como inglés cotidiano", "Agrupar dígitos puede confundir pista, rumbo o nivel.", "Pronunciar cada dígito según la regla aplicable y ritmo que permita verificarlo."],
+          ["«Point» o «comma» en una frecuencia", "El separador radiofónico en inglés se expresa DECIMAL.", "Usar DECIMAL y colacionar la frecuencia recibida, sin crear una de ejemplo."],
+          ["«Course» cuando se pide rumbo", "Heading, track y course no describen exactamente la misma referencia.", "Pedir o colacionar el parámetro que ATC realmente asignó; aclarar si hay duda."],
+          ["«Ascend» o «go down»", "Se aparta de CLIMB y DESCEND, las palabras reconocibles de la instrucción.", "Usar el verbo normalizado para una autorización de nivel."],
+          ["Traducción de «actualmente» como actually", "En inglés actually suele introducir una corrección, no solo tiempo presente.", "Decir now si importa el estado actual; separar hechos de correcciones."],
+          ["Cortesía extensa antes del pedido", "Retrasa la información útil y ocupa la frecuencia.", "Dependencia, indicativo, petición y motivo breve cuando sea necesario."],
+        ],
+      },
+      { kind: "sub", text: "La diferencia importante entre sistemas" },
+      {
+        kind: "p",
+        text: "No se deben mezclar variantes sin aviso. La guía de fraseología de OACI usa AFFIRM como respuesta afirmativa normalizada; la Aeronautical Information Manual de la Administración Federal de Aviación de Estados Unidos (FAA; Federal Aviation Administration) admite «Affirmative» entre las respuestas de acuse en su sistema. La enseñanza para un candidato colombiano es **verificar la fraseología vigente del Estado y el procedimiento del explotador**, no memorizar una corrección universal basada en una sola jurisdicción.",
       },
       {
         kind: "p",
-        text: "El Doc 9835 (2.3.4.2, Cuadro 2-1) da el mapa: **errores de codificación** (mala elección de vocabulario o sintaxis, mensaje poco directo por cortesía, giros informales, jerga) y **errores de enunciación** (velocidad, pausas, pronunciación, acentuación). Los que siguen son de esos dos tipos.",
+        text: "ROGER, WILCO, AFFIRM, NEGATIVE y SAY AGAIN tienen funciones distintas. La selección depende de si la transmisión contenía información, una pregunta, una instrucción simple o un dato que exige colación. Si la instrucción incluye pista, nivel, rumbo u otro número crítico, una palabra de acuse puede ser insuficiente. La FAA AIM §4-4-7 recomienda repetir las cifras pertinentes con el indicativo para que el controlador detecte una discrepancia.",
       },
-      COMO_LEER,
-      verificar(
-        "Tres puntos de este capítulo no están en las fuentes cargadas: las grafías inglesas «TREE», «FIFE» y «NINER» y la tabla de pronunciación en inglés (Anexo 10 Vol. II cap. 5 y la versión en inglés del Doc 9432, 2.4); el motivo por el que la OACI eligió AFFIRM y no «affirmative»; y el descriptor de pronunciación de la escala de la OACI (Doc 9835, Apéndice A).",
-      ),
-      ...error66({
-        titulo: "66.1 «Affirmative» en lugar de AFFIRM",
-        seOye: `"Affirmative, Aviatory 452."`,
-        correcto: `"Affirm, Aviatory 452."`,
-        porQue:
-          "En la tabla de palabras normalizadas del Doc 9432 (2.6), la columna en español trae «AFIRMO/AFIRMATIVO» y la columna en inglés trae solo **AFFIRM**, con el significado «Sí». El ejemplo de 4.5.5 lo confirma: «G-CD AFIRMATIVO (G-CD AFFIRM)». En español las dos formas son válidas; en inglés, no. El hispanohablante traduce «afirmativo» y dice «affirmative». Lo que el texto cargado no da es el motivo de la elección; la explicación habitual (que «affirmative» y «negative» terminan igual y se confunden con mala recepción) no está en las fuentes cargadas y no se presenta aquí como norma.",
-      }),
-      ...error66({
-        titulo: "66.2 ROGER para contestar una pregunta",
-        seOye: `ATC: "Aviatory 452, are you ready for immediate departure?" PILOT: "Roger."`,
-        correcto: `"Affirm, Aviatory 452."  o  "Negative, Aviatory 452."`,
-        porQue:
-          "ROGER significa «he recibido toda su transmisión» y en ningún caso se usa para contestar una pregunta que exige un sí o un no (Doc 9432, 2.6, nota a RECIBIDO). «Roger» no dice si estás listo.",
-      }),
-      ...error66({
-        titulo: "66.3 ROGER en lugar de colacionar o de WILCO",
-        seOye: `ATC: "Aviatory 452, climb to flight level two four zero." PILOT: "Roger, Aviatory 452."`,
-        correcto: `"Climbing to flight level two four zero, Aviatory 452."`,
-        porQue:
-          "Las instrucciones de nivel se colacionan siempre (Doc 4444, 4.5.7.5.1 c). ROGER solo dice que recibiste; WILCO dice que comprendiste y cumplirás (Doc 9432, 2.6). Ninguno de los dos le muestra al controlador **qué** entendiste.",
-      }),
-      ...error66({
-        titulo: "66.4 Números: dígitos, no cifras en inglés corriente",
-        seOye: `"Runway thirty", "flight level two forty", "heading one twenty".`,
-        correcto: `"Runway three zero", "flight level two four zero", "heading one two zero".`,
-        porQue:
-          "Todos los números se dicen dígito por dígito, salvo los millares y las centenas enteras de altitud, altura de nubes, visibilidad y RVR (Doc 9432, 2.4.2 y 2.4.3). «Thirty» y «thirteen» se confunden con facilidad; «three zero» y «one three», no. Lo mismo con «fifty» y «fifteen».",
-      }),
-      ...error66({
-        titulo: "66.5 La pronunciación de 3, 5 y 9",
-        seOye: "«three», «five» y «nine» dichos deprisa y a medias, como en una conversación, sin marcar cada sílaba.",
-        correcto: "La pronunciación que da el Doc 9432 (2.4.1): 3 = TRI, 5 = FA-IF, 9 = NAI-na, con el énfasis en la sílaba en mayúsculas.",
-        correctoEsFrase: false,
-        porQue:
-          "No hay que inventar reglas: el Doc 9432 da esa tabla en la edición en español, con una transcripción aproximada para hispanohablantes. La idea es que cada dígito suene inconfundible, no que suene británico o estadounidense. Las grafías inglesas «TREE», «FIFE» y «NINER» aparecen en otros documentos de la OACI que no están cargados.",
-        verificar: "Grafías «TREE», «FIFE» y «NINER» y la tabla de pronunciación en inglés: Anexo 10 Vol. II cap. 5 y la versión en inglés del Doc 9432, 2.4 (no cargados).",
-      }),
-      ...error66({
-        titulo: "66.6 «Coma» en las frecuencias",
-        seOye: `"One two one comma seven five" o "one two one point seven five".`,
-        correcto: `"One two one decimal seven five."`,
-        porQue:
-          "El elemento se llama «decimal» en la tabla de pronunciación (Doc 9432, 2.4.1). La versión en español del Doc 9432 dice «coma» (2.4.4), pero en inglés el separador es «decimal»: es un calco del español.",
-      }),
-      ...error66({
-        titulo: "66.7 Heading, track y course",
-        seOye: `"Request course two seven zero" cuando se quiere un rumbo.`,
-        correcto: `"Request heading two seven zero."`,
-        porQue:
-          "En español decimos «rumbo» para casi todo. En la radio no es lo mismo: **heading** es hacia dónde apunta la nariz (el Doc 9432, 6.1.2, dice que se expresan en grados magnéticos) y **track** es la trayectoria sobre el terreno (el Doc 9432 traduce «TRACK 070» como «DERROTA 070», 6.3.3). «Course» no aparece en la fraseología cargada. Pedir «course» cuando quieres «heading» deja al controlador sin saber qué vas a volar con viento cruzado.",
-      }),
-      ...error66({
-        titulo: "66.8 «Ascend» y «go down»",
-        seOye: `"Request to ascend to flight level three five zero", "we are going down to…".`,
-        correcto: `"Request climb to flight level three five zero."  /  "Leaving flight level two four zero, descending to flight level one two zero."`,
-        porQue:
-          "La fraseología usa **CLIMB** y **DESCEND** (Doc 9432, 3.3.3.1). En el texto cargado «ascend» no aparece en inglés; es un calco de «ascender». Las palabras normalizadas se reconocen aunque la recepción sea mala; las demás, no.",
-      }),
-      ...error66({
-        titulo: "66.9 Frases largas y cortesía",
-        seOye: `"Good morning Bogota, Aviatory 452, we would like to request, if it is possible, a descent to flight level two four zero, please, thank you very much."`,
-        correcto: `"Bogota Control, Aviatory 452, request descent to flight level two four zero."`,
-        porQue:
-          "El Doc 9432 (3.1.4) pide evitar las expresiones de cortesía. El Doc 9835 (Cuadro 2-1) cuenta como error de codificación el «mensaje poco directo por consideraciones de cortesía». En español la cortesía es respeto; en la frecuencia, cada segundo de más es un segundo que otro avión no puede transmitir.",
-      }),
-      ...error66({
-        titulo: "66.10 Palabras informales en lugar de las normalizadas",
-        seOye: `"Okay", "copy", "yes", "no", "no problem", "go ahead with that".`,
-        correcto: "ROGER, WILCO, AFFIRM, NEGATIVE, o la colación (Doc 9432, 2.6).",
-        correctoEsFrase: false,
-        porQue:
-          "«Okay» puede significar «recibido», «de acuerdo» o «lo haré», y el controlador no sabe cuál. El Doc 9835 (Cuadro 2-1) cuenta los giros informales y la jerga como error de codificación. Las palabras normalizadas tienen un solo significado.",
-      }),
-      ...error66({
-        titulo: "66.11 «Repeat» en lugar de SAY AGAIN",
-        seOye: `"Repeat, please."`,
-        correcto: `"Say again."  o  "Say again (el elemento)."`,
-        porQue:
-          "En español, REPITA es SAY AGAIN y REPITO es I SAY AGAIN (Doc 9432, 2.6). El piloto traduce «repita» como «repeat», que no está en la tabla. Además, SAY AGAIN permite pedir solo una parte: «say again all after…», «say again all before…» (Doc 9432, 2.8.1.4).",
-      }),
-      ...error66({
-        titulo: "66.12 «Take-off» fuera de su momento",
-        seOye: `"Aviatory 452, ready for take-off." (traducción de «listos para el despegue»)`,
-        correcto: `"Aviatory 452, ready."  o  "ready for departure".`,
-        porQue:
-          "La palabra TAKE-OFF solo se usa cuando se autoriza el despegue o cuando se cancela; en los demás casos se usa «departure» o «airborne» (Doc 9432, 2.8.3.3). Si la palabra aparece en otro contexto, alguien puede oír lo que esperaba oír.",
-      }),
-      ...error66({
-        titulo: "66.13 Falsos amigos en lenguaje claro",
-        seOye: `"We are actually at flight level two four zero" (queriendo decir «actualmente»). "We will eventually need to divert" (queriendo decir «posiblemente»).`,
-        correcto: `"We are now at flight level two four zero."  /  "We may need to divert."`,
-        porQue:
-          "«Actually» significa «en realidad» (suena a corrección) y «eventually» significa «al final», algo que sí va a pasar (suena a decisión tomada). En una situación anormal, el ATC puede empezar a preparar un desvío que todavía no pediste, o no prepararlo cuando sí lo necesitas.",
-      }),
-      fuentes(
-        "Doc 9432 · Doc 9835",
-        "Doc 9432 (4.ª ed.) 2.4.1, 2.4.2, 2.4.3, 2.4.4, 2.6 y notas, 2.8.1.4, 2.8.3.3, 3.1.4, 3.3.3.1, 4.5.5, 6.1.2, 6.3.3; Doc 4444 (15.ª ed., Enm. 4) 4.5.7.5.1; Doc 9835 (2.ª ed.) 2.3.4.2 y Cuadro 2-1.",
-        [
-          "VERIFICAR: grafías «TREE», «FIFE», «NINER» y la tabla de pronunciación en inglés contra Anexo 10 Vol. II cap. 5 y la versión en inglés del Doc 9432, 2.4 (no cargados).",
-          "VERIFICAR: el motivo por el que la OACI eligió AFFIRM y no «affirmative»; no figura en las fuentes cargadas.",
-          "VERIFICAR: el descriptor de pronunciación de la escala de la OACI contra Doc 9835 Apéndice A (no cargado).",
+      { kind: "sub", text: "Entrenamiento de escucha y respuesta" },
+      {
+        kind: "list",
+        ordered: true,
+        items: [
+          "Grabar una lectura breve de una instrucción sin datos inventados: usar campos entre corchetes o una autorización real debidamente anonimizada y autorizada para estudio.",
+          "Escuchar si el destinatario, la acción, las condiciones y las cifras se distinguen sin depender del contexto visual.",
+          "Reformular la respuesta de manera más breve **sin quitar un dato obligatorio**. No buscar acento nativo; buscar inteligibilidad.",
+          "Pedir a otra persona que identifique qué entendió. Si difiere, corregir el elemento que causa ambigüedad y repetir.",
         ],
-      ),
+      },
+      {
+        kind: "escenario",
+        titulo: "ROGER no contesta una capacidad",
+        situacion: "Ejercicio didáctico, no transmisión real. ATC pregunta si la tripulación puede aceptar una salida inmediata. El piloto responde «Roger» mientras la lista de antes del despegue sigue abierta.",
+        preguntas: [
+          { q: "¿Qué información falta para ATC?", a: "Si el avión está realmente listo para una salida inmediata. ROGER solo confirma recepción." },
+          { q: "¿Qué sería una respuesta segura?", a: "Responder negativamente y comunicar que necesita terminar la preparación; después avisar cuando esté listo conforme a fraseología local." },
+          { q: "¿Por qué no basta hablar con buen acento?", a: "El problema no es pronunciación: es que la palabra elegida expresa una función distinta." },
+        ],
+        concepto: "La precisión semántica importa más que sonar nativo.",
+      },
+      {
+        kind: "summary",
+        title: "En pocas palabras",
+        items: [
+          "La escala OACI permite acento si se mantiene la comprensión.",
+          "Una palabra de acuse no reemplaza respuesta sí/no ni colación de datos críticos.",
+          "Las variantes FAA y OACI se identifican, no se mezclan como regla universal.",
+          "Brevedad significa retirar cortesía redundante, no eliminar restricciones.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "OACI Doc 9835 · FAA AIM §§4-2 y 4-4",
+        bloques: [
+          { kind: "p", text: "OACI, Doc 9835, 2.ª edición, Apéndice A, escala de competencia lingüística y relación entre pronunciación y comprensión: https://www4.icao.int/aelts/uploads/icao%20doc9835%202nd%20edition.pdf" },
+          { kind: "p", text: "FAA, Aeronautical Information Manual §4-2, técnicas de radiotelefonía y palabras de acuse usadas en Estados Unidos: https://www.faa.gov/air_traffic/publications/aim_html/chap4_section_2.html" },
+          { kind: "p", text: "FAA, Aeronautical Information Manual §4-4-7, colación de elementos críticos: https://www.faa.gov/air_traffic/publications/aim_html/chap4_section_4.html" },
+          { kind: "p", text: "Para fraseología, frecuencias y procedimientos colombianos vigentes, consultar Aerocivil/eAIP y el manual del explotador. La foto, el esquema y el escenario son didácticos: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+        ],
+      },
     ],
   },
   // ── 67 ──────────────────────────────────────────────────────────────────
