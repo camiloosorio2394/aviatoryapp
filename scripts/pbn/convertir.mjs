@@ -536,6 +536,18 @@ for (const g of practica) {
 const ids = [...practica.flatMap((g) => g.preguntas.map((q) => q.id)), ...bancoCrudo.map((q) => q.id)]
 comprobar(new Set(ids).size === ids.length, "hay identificadores de pregunta repetidos")
 
+// CLAUDE.md: la raya larga no va en el contenido; van paréntesis o comillas
+// angulares. Se revisa el documento entero para que no llegue a la app.
+{
+  const conRaya = lineas
+    .map((l, i) => [i + 1, l])
+    .filter(([, l]) => l.includes("\u2014"))
+  for (const [n, l] of conRaya.slice(0, 5)) {
+    fallos.push(`raya larga en la línea ${n}: «${l.trim().slice(0, 60)}…»`)
+  }
+  if (conRaya.length > 5) fallos.push(`… y ${conRaya.length - 5} líneas más con raya larga`)
+}
+
 if (fallos.length > 0) {
   console.error("No se generó nada:")
   for (const f of fallos) console.error(`  · ${f}`)

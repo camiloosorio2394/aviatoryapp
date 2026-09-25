@@ -681,6 +681,18 @@ for (const s of textos([lecciones, practica, banco])) {
   comprobar(!sinNegrita.includes("*"), `asterisco suelto (marca sin cerrar) en «${s.slice(0, 60)}»`)
 }
 
+// CLAUDE.md: la raya larga no va en el contenido; van paréntesis o comillas
+// angulares. Se revisa el documento entero para que no llegue a la app.
+{
+  const conRaya = bruto.split("\n")
+    .map((l, i) => [i + 1, l])
+    .filter(([, l]) => l.includes("\u2014"))
+  for (const [n, l] of conRaya.slice(0, 5)) {
+    fallos.push(`raya larga en la línea ${n}: «${l.trim().slice(0, 60)}…»`)
+  }
+  if (conRaya.length > 5) fallos.push(`… y ${conRaya.length - 5} líneas más con raya larga`)
+}
+
 if (fallos.length) {
   console.error("No se escribió nada:")
   for (const f of fallos) console.error(`  · ${f}`)
