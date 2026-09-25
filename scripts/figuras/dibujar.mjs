@@ -19,6 +19,8 @@ const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const MODULOS = {
   pbn: { figuras: "../pbn/figuras/index.mjs", destino: "public/modulos/pbn" },
   rvsm: { figuras: "../rvsm/figuras/index.mjs", destino: "public/modulos/rvsm" },
+  performance: { figuras: "../performance/figuras/index.mjs", destino: "public/modulos/performance" },
+  combustible: { figuras: "../combustible/figuras/index.mjs", destino: "public/modulos/combustible" },
 }
 
 const modulo = process.argv[2]

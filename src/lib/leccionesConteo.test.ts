@@ -79,9 +79,9 @@ describe("conteos fijos de las lecciones", () => {
     // Los ejercicios y los escenarios no tienen pantalla propia, pero el
     // progreso los cuenta: el denominador tiene que ser el de las claves.
     expect(PERF_PRACTICA_TOTAL).toBe(PERF_PRACTICA_CLAVES.length)
-    // Veinte figuras sin generar. El día que existan, este número baja y la
-    // prueba avisa de que el inventario del documento cambió.
-    expect(PERF_FIGURAS_PENDIENTES).toHaveLength(20)
+    // Las veinte figuras están dibujadas en SVG: si vuelve a aparecer un
+    // hueco, es que el inventario del documento cambió.
+    expect(PERF_FIGURAS_PENDIENTES).toHaveLength(0)
   })
 
   it("RAC: unidades, minutos, claves de práctica y el reglamento de cada unidad", () => {
