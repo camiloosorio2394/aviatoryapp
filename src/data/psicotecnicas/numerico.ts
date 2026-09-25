@@ -1,19 +1,20 @@
 import type { EjercicioPsico } from "@/lib/psicotecnicas"
 
 /**
- * Razonamiento numérico — 38 ejercicios de opción múltiple.
+ * Razonamiento numérico — ejercicios de opción múltiple auditados.
  *
  * Fuente: «Razonamiento Numérico» (documento 256486461), 40 ejercicios sobre
  * sucesiones, conteo y combinatoria, razones y proporciones, ecuaciones
  * algebraicas y figuras geométricas.
  *
  * El documento no trae clave de respuestas, así que cada una está resuelta y la
- * explicación deja el procedimiento a la vista. Los enunciados, los valores y
- * las alternativas son los del original; lo único que se restituyó son las
- * unidades al cuadrado de los ejercicios 23 y 34, que el PDF pierde al
- * extraerse porque van como superíndice.
+ * explicación deja el procedimiento a la vista. Se conservaron las alternativas
+ * del original. En el 14 se corrigió B1 por B2: el patrón exige esa posición.
+ * En el 12 se pregunta por h(4), pues la función no describe una distancia
+ * acumulada si disminuye entre dos tiempos. También se restituyeron las
+ * unidades al cuadrado de los ejercicios 23 y 34, perdidas al extraer el PDF.
  *
- * Quedan fuera dos del original, anotados en FUENTES.md: el 11 y el 37. Ver ahí
+ * Quedan fuera cuatro del original, anotados en FUENTES.md: 4, 11, 15 y 37. Ver ahí
  * el detalle antes de darlos por perdidos.
  */
 export const NUMERICO: EjercicioPsico[] = [
@@ -60,19 +61,6 @@ export const NUMERICO: EjercicioPsico[] = [
       "La figura se separa en un cuadrado de lado 2 y un triángulo equilátero de lado 2 apoyado encima. El cuadrado aporta 2² = 4. El triángulo equilátero de lado L tiene área (√3/4)L², que para L = 2 da (√3/4)(4) = √3. Total: 4 + √3.",
     tiempo: 60,
     fuente: "Razonamiento Numérico (256486461), ej. 3",
-  },
-  {
-    id: "NU-N1-04",
-    categoria: "numerico",
-    subcategoria: "Permutación y combinación",
-    nivel: "intermedio",
-    enunciado: "¿Cuántos grupos de 5 letras se pueden formar de la palabra Matemáticas?",
-    opciones: ["120", "144", "462", "720"],
-    respuesta: 2,
-    explicacion:
-      "«Matemáticas» tiene 11 letras y un grupo no distingue el orden, así que es una combinación: C(11,5) = 11!/(5!·6!) = 462. Si el orden importara sería una permutación y el número sería mucho mayor.",
-    tiempo: 60,
-    fuente: "Razonamiento Numérico (256486461), ej. 4",
   },
   {
     id: "NU-N1-05",
@@ -124,7 +112,7 @@ export const NUMERICO: EjercicioPsico[] = [
     opciones: ["9", "12", "18", "24"],
     respuesta: 2,
     explicacion:
-      "Al llevar los cuatro vértices al centro, cada esquina doblada tapa exactamente un cuarto de la superficie que ocupaba, y la figura que queda es la mitad del cuadrado original. Área = 36/2 = 18 cm². La figura resultante es otro cuadrado, girado 45°.",
+      "Cada esquina plegada es un triángulo rectángulo de catetos 3 cm y área 4,5 cm². Los cuatro pliegues recortan 18 cm² del contorno original; el cuadrado visible que queda tiene área 36 − 18 = 18 cm² y está girado 45°.",
     tiempo: 60,
     fuente: "Razonamiento Numérico (256486461), ej. 8",
   },
@@ -134,7 +122,7 @@ export const NUMERICO: EjercicioPsico[] = [
     subcategoria: "Probabilidad de eventos",
     nivel: "basico",
     enunciado:
-      "Víctor lanza 3 monedas al aire y obtiene los siguientes posibles resultados: E = {ccc, ccs, csc, css, scc, scs, ssc, sss}, donde C es cara y S es sello. ¿Cuál es la probabilidad de que salgan por lo menos 2 caras?",
+      "Víctor lanza 3 monedas equilibradas. Si C es cara y S es sello, los resultados posibles son {CCC, CCS, CSC, CSS, SCC, SCS, SSC, SSS}. ¿Cuál es la probabilidad de obtener al menos 2 caras?",
     opciones: ["1/8", "1/4", "1/2", "3/2"],
     respuesta: 2,
     explicacion:
@@ -162,7 +150,7 @@ export const NUMERICO: EjercicioPsico[] = [
     subcategoria: "Relaciones numéricas",
     nivel: "intermedio",
     enunciado:
-      "El movimiento de una partícula se describe con la expresión h = −t² + 5t + c, donde h es la distancia recorrida en metros, t el tiempo en minutos y c una constante. Si una partícula recorrió 12 metros en 2 minutos, ¿cuántos metros recorrerá en 4 minutos?",
+      "Una magnitud h, en metros, depende del tiempo t, en minutos, según h(t) = −t² + 5t + c. Si h(2) = 12, ¿cuánto vale h(4)?",
     opciones: ["6", "10", "24", "42"],
     respuesta: 1,
     explicacion:
@@ -189,26 +177,13 @@ export const NUMERICO: EjercicioPsico[] = [
     categoria: "numerico",
     subcategoria: "Sucesiones alfanuméricas",
     nivel: "avanzado",
-    enunciado: "Identifique el elemento que completa la serie: A1, B1, C3, E5, H8, ___ , U21",
+    enunciado: "Identifique el elemento que completa la serie: A1, B2, C3, E5, H8, ___ , U21",
     opciones: ["I12", "L12", "M12", "M13"],
     respuesta: 3,
     explicacion:
-      "Hay que leer las dos series a la vez. Los números son Fibonacci: 1, 1, 3… en realidad 1, 1, 2, 3, 5, 8, 13, 21, y las letras ocupan exactamente esa posición en el alfabeto: A=1, B=2, C=3, E=5, H=8, ?=13, U=21. La posición 13 es la M, así que el término es M13. Las opciones con 12 rompen la serie numérica.",
+      "Usa el alfabeto latino de 26 letras, sin Ñ: A, B, C, E, H, M y U ocupan las posiciones 1, 2, 3, 5, 8, 13 y 21. El número escrito al lado repite esa posición. Cada posición resulta de sumar las dos anteriores; por eso entre H8 y U21 va M13. El original imprimía B1; aquí se corrigió a B2 para que letras y números sigan la misma regla.",
     tiempo: 75,
     fuente: "Razonamiento Numérico (256486461), ej. 14",
-  },
-  {
-    id: "NU-N1-15",
-    categoria: "numerico",
-    subcategoria: "Sucesiones alfanuméricas",
-    nivel: "intermedio",
-    enunciado: "Identifique el término que completa la sucesión: B, d, g, __, U",
-    opciones: ["J", "K", "L", "N"],
-    respuesta: 1,
-    explicacion:
-      "Se traducen las letras a su posición: B=2, d=4, g=7. Los saltos crecen de uno en uno: +2, +3, +4… El siguiente salto es +4 sobre 7, que da 11, y la undécima letra es la K.",
-    tiempo: 60,
-    fuente: "Razonamiento Numérico (256486461), ej. 15",
   },
   {
     id: "NU-N1-16",
@@ -220,7 +195,7 @@ export const NUMERICO: EjercicioPsico[] = [
     opciones: ["4", "6", "8", "12"],
     respuesta: 3,
     explicacion:
-      "El triángulo rectángulo de catetos 3 y 4 tiene área (3×4)/2 = 6 cm². El rectángulo mide 6 × 12 = 72 cm². Caben 72/6 = 12.",
+      "Cada triángulo tiene área (3 × 4)/2 = 6 cm²; el rectángulo tiene 6 × 12 = 72 cm². La división da 12 triángulos. Aquí también se pueden acomodar sin huecos: divide el rectángulo en seis piezas de 3 × 4 cm y corta cada una por su diagonal.",
     tiempo: 60,
     fuente: "Razonamiento Numérico (256486461), ej. 16",
   },
@@ -272,7 +247,7 @@ export const NUMERICO: EjercicioPsico[] = [
     subcategoria: "Probabilidad de eventos",
     nivel: "intermedio",
     enunciado:
-      "En una feria gastronómica se ofertan dos platos típicos —hornado y caldo de patas— y cuatro bebidas: jugo de tomate, chicha, limonada o gaseosa. Si quien compró un boleto debe tomar necesariamente un plato y una bebida, la probabilidad de que solicite hornado con limonada o con chicha es:",
+      "En una feria se ofrecen dos platos —hornado y caldo de patas— y cuatro bebidas: jugo de tomate, chicha, limonada o gaseosa. Cada cliente elige un plato y una bebida, y todas las combinaciones son igualmente probables. ¿Qué probabilidad hay de elegir hornado con limonada o con chicha?",
     opciones: ["0,125", "0,250", "0,375", "0,500"],
     respuesta: 1,
     explicacion:
@@ -342,7 +317,7 @@ export const NUMERICO: EjercicioPsico[] = [
     subcategoria: "Problemas lógico-matemáticos",
     nivel: "intermedio",
     enunciado:
-      "En un hotel existen lámparas de pared de 2 focos y lámparas de techo de 5 focos. El total de lámparas que posee el hotel es 108 y el total de focos es 348. ¿Cuántas lámparas de pared y de techo existen en cada planta si el hotel es de 4 pisos?",
+      "Un hotel tiene lámparas de pared con 2 focos y lámparas de techo con 5. En total hay 108 lámparas y 348 focos. Si las lámparas de cada tipo se reparten por igual entre los 4 pisos, ¿cuántas de pared y cuántas de techo hay en cada piso?",
     opciones: ["8 y 11", "16 y 11", "64 y 44", "128 y 220"],
     respuesta: 1,
     explicacion:
@@ -370,7 +345,7 @@ export const NUMERICO: EjercicioPsico[] = [
     subcategoria: "Probabilidad de eventos",
     nivel: "avanzado",
     enunciado:
-      "Tres caballos (A, B y C) participan en una carrera. El caballo C tiene el doble de probabilidad de ganar que B, y B el doble que A. Calcule la probabilidad de que gane B.",
+      "En una carrera participan tres caballos, A, B y C, sin posibilidad de empate. C tiene el doble de probabilidad de ganar que B, y B el doble que A. ¿Cuál es la probabilidad de que gane B?",
     opciones: ["1/8", "1/7", "2/7", "1/3"],
     respuesta: 2,
     explicacion:
@@ -412,7 +387,7 @@ export const NUMERICO: EjercicioPsico[] = [
     subcategoria: "Permutación y combinación",
     nivel: "intermedio",
     enunciado:
-      "En un campeonato de fútbol se juega todos contra todos. Si inicialmente son 10 equipos y luego se incluyen 2 más, el número de cotejos adicionales que deben jugarse es:",
+      "En un campeonato cada pareja de equipos juega un solo partido. Si primero participan 10 equipos y luego se agregan 2 más, ¿cuántos partidos adicionales deben programarse?",
     opciones: ["4", "20", "21", "44"],
     respuesta: 2,
     explicacion:

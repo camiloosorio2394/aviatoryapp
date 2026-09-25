@@ -46,7 +46,7 @@ function serie(
     subcategoria,
     nivel,
     enunciado: ENUNCIADO,
-    imagen: `/psicotecnicas/abstracto/${lamina}.webp`,
+    imagen: `/psicotecnicas/abstracto/${lamina}.${n === 14 || n === 16 ? "svg" : "webp"}`,
     imagenAlt,
     opciones: OPCIONES,
     ...(figura ? { figura } : { opcionesEnImagen: true }),
@@ -59,8 +59,7 @@ function serie(
 
 /** Cierre común: cómo se ataca una matriz de tres por tres. */
 const METODO =
-  "El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; " +
-  "la casilla que falta es la combinación que todavía no ha aparecido."
+  "Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir."
 
 export const ABSTRACTO: EjercicioPsico[] = [
   serie(
@@ -77,7 +76,7 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "basico",
     3,
     "Matriz de rombos inscritos en rectángulos, con líneas interiores que se añaden y se quitan.",
-    `El rombo es fijo; lo que se mueve son las líneas de dentro, que se van añadiendo en un orden constante y girando de lado. La D es la única que continúa las dos cosas a la vez. ${METODO}`
+    `El rombo no cambia. Cuenta sus brazos interiores en el orden de lectura: 1, 2, 3, 4, 3, 2, 1, 2 y luego deben ser 3. Solo la D tiene tres brazos; no hace falta suponer un giro que la matriz no demuestra. ${METODO}`
   ),
   serie(
     3,
@@ -93,7 +92,7 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "intermedio",
     0,
     "Matriz con una pieza alargada que gira y cambia de relleno: rayado, punteado o blanco.",
-    `Dos atributos a la vez: la orientación de la pieza —que gira un cuarto de vuelta cada paso— y su relleno, que rota entre rayado, punteado y blanco. La A es la que cierra las dos series. ${METODO}`
+    `La punta y el relleno avanzan juntos por un ciclo de tres estados: arriba con rayado, abajo con punteado y derecha en blanco. Cada fila empieza un estado más adelante. Tras derecha y arriba, falta abajo con punteado: la A. La orientación de la barra interior no determina la respuesta. ${METODO}`
   ),
   serie(
     5,
@@ -173,7 +172,7 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "intermedio",
     1,
     "Matriz de circunferencias divididas en sectores, con un número dentro y un sector negro que gira.",
-    `Aquí hay una pista numérica: los números avanzan de uno en uno leyendo la matriz en orden, y a la vez el sector negro gira una posición fija en cada paso. El número que toca y la posición del sector coinciden solo en la B. ${METODO}`
+    `Separa tres pistas. La última fila lleva 3, 6 y 9, así que falta el 9. La cuña negra avanza un cuadrante en sentido horario al recorrer cada fila: en la última toca el superior izquierdo. La línea diagonal sigue su propio recorrido y debe salir hacia abajo a la derecha. A y B tienen 9 y la cuña correcta, pero solo B coloca también la diagonal donde corresponde. ${METODO}`
   ),
   serie(
     15,
@@ -188,8 +187,8 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "Patrones",
     "intermedio",
     1,
-    "Matriz de rectángulos partidos en cuatro cuadrantes, rellenos con rayado diagonal, cuadrícula o blanco.",
-    `Cada casilla reparte tres rellenos —rayado, cuadrícula y blanco— entre los cuadrantes, y lo que rota es en qué cuadrante cae cada uno. Siguiendo la rotación, falta la B. ${METODO}`
+    "Matriz de rectángulos divididos en cuatro sectores; las rayas cambian de posición y dirección.",
+    `No basta con ver dos sectores sombreados: también importa la dirección de las rayas. En la última fila, los dos sectores rayados pasan de la mitad inferior a la superior. La pieza buscada debe conservar ambos sectores superiores con rayas diagonales opuestas, como la B. A, C y D usan rayas verticales; E no reúne los dos sectores arriba. ${METODO}`
   ),
   serie(
     17,

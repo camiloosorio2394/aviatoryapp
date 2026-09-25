@@ -262,7 +262,7 @@ export interface ResultadoPsico {
   velocidad: number
   /** Igual que `porcentaje`, con nombre de proceso de selección. */
   precision: number
-  /** Media de precisión y velocidad, que es lo que mide una psicotécnica. */
+  /** Combinación de 70% precisión y 30% velocidad, igual que el servidor. */
   global: number
   fortaleza: CategoriaPsico | null
   porMejorar: CategoriaPsico | null

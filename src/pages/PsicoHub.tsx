@@ -180,9 +180,9 @@ export function PsicoHub() {
     {
       parte: "Parte 1",
       titulo: "Aprende",
-      meta: `Lección · ${TEORIA_CUBO.length} reglas y ${EJEMPLOS_ESPACIAL.length} resueltos`,
+      meta: `3 métodos · ${TEORIA_CUBO.length} láminas y ${EJEMPLOS_ESPACIAL.length} resueltos`,
       descripcion:
-        "Las reglas del cubo y ejercicios ya resueltos paso a paso: te ahorran la mitad del trabajo en los espaciales.",
+        "Una ruta clara para leer patrones abstractos, plegar figuras y resolver series numéricas; después, ejemplos espaciales resueltos.",
       portada: PORTADA.aprende,
       to: `${PSICO_HUB}/aprende`,
       cta: "Ver la lección",

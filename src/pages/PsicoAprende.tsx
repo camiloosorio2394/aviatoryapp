@@ -6,6 +6,45 @@ import { PSICO_HUB } from "@/lib/psicotecnicas"
 import { EJEMPLOS_ESPACIAL, TEORIA_CUBO } from "@/data/psicotecnicas/aprende"
 import { ImagenPsicoAmpliable } from "@/components/psicotecnicas/ImagenPsicoAmpliable"
 
+const GUIAS = [
+  {
+    id: "abstracto",
+    numero: "01",
+    titulo: "Abstracto · separa los cambios",
+    pregunta: "¿Qué atributo cambia en cada casilla?",
+    pasos: [
+      "Cuenta elementos antes de mirar su orientación o color.",
+      "Sigue cada atributo por filas y columnas; busca una regla que explique todas las casillas conocidas.",
+      "Comprueba la opción elegida contra la última fila y la última columna, no solo contra la casilla vecina.",
+    ],
+    ejemplo: "Si los brazos de una figura siguen 1, 2, 3, 4, 3, 2, 1, 2, el siguiente debe tener 3. El giro no importa si la serie no lo justifica.",
+  },
+  {
+    id: "espacial",
+    numero: "02",
+    titulo: "Espacial · conserva las relaciones",
+    pregunta: "¿Qué caras o bordes siguen juntos al girar?",
+    pasos: [
+      "Marca primero las caras opuestas: nunca pueden verse juntas en una esquina del cubo.",
+      "Elige una cara como referencia y sigue el sentido de sus símbolos al plegar.",
+      "Descarta reflejos: un dibujo puede tener las caras correctas y estar invertido.",
+    ],
+    ejemplo: "Si dos caras son opuestas en el desarrollo, cualquier alternativa que las muestre como vecinas queda descartada sin plegar todo el sólido.",
+  },
+  {
+    id: "numerico",
+    numero: "03",
+    titulo: "Numérico · identifica la operación",
+    pregunta: "¿Se repite un salto, una proporción o dos recorridos?",
+    pasos: [
+      "Resta términos consecutivos. Si los saltos no explican la serie, prueba divisiones.",
+      "Si tampoco hay una regla única, separa posiciones impares y pares o agrupa en ternas.",
+      "Aplica la regla al menos dos veces antes de calcular el término que falta.",
+    ],
+    ejemplo: "En 3, 6, 10, 15 los saltos son +3, +4 y +5. Sigue +6, así que la respuesta es 21.",
+  },
+] as const
+
 /**
  * La lección del módulo: teoría del cubo y ejercicios ya resueltos.
  *
@@ -34,10 +73,40 @@ export function PsicoAprende() {
             </>
           }
           title="Antes de cronometrarte"
-          subtitle="El cubo es la figura que más aparece en razonamiento espacial. Estas dos reglas y ocho ejercicios resueltos te ahorran la mitad del trabajo."
+          subtitle="Tres formas de razonar, tres métodos distintos. Aprende a reconocer la regla antes de correr contra el reloj."
         />
 
+        <nav aria-label="Métodos por familia" className="mb-8 flex flex-wrap gap-2">
+          {GUIAS.map((guia) => (
+            <a key={guia.id} href={`#psico-${guia.id}`} className="rounded-full border border-border bg-card px-4 py-2 text-[13px] font-medium hover:bg-muted">
+              {guia.numero} · {guia.id === "numerico" ? "Numérico" : guia.id === "espacial" ? "Espacial" : "Abstracto"}
+            </a>
+          ))}
+        </nav>
+
+        <div className="space-y-4">
+          {GUIAS.map((guia) => (
+            <section id={`psico-${guia.id}`} key={guia.id} className="scroll-mt-6 rounded-2xl border border-border bg-card p-5 sm:p-7">
+              <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Método {guia.numero}</div>
+              <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">{guia.titulo}</h2>
+              <p className="mt-1 text-[14px] text-muted-foreground">{guia.pregunta}</p>
+              <ol className="mt-4 space-y-2 pl-5 text-[15px] leading-relaxed marker:font-semibold">
+                {guia.pasos.map((paso) => <li key={paso}>{paso}</li>)}
+              </ol>
+              <p className="mt-4 rounded-xl bg-muted/50 p-3 text-[14px] leading-relaxed"><strong>Así se aplica:</strong> {guia.ejemplo}</p>
+              <Link to={`${PSICO_HUB}/practica?categoria=${guia.id}`} className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-foreground hover:underline">
+                Practicar {guia.id === "numerico" ? "numérico" : guia.id} <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </section>
+          ))}
+        </div>
+
         {/* === TEORÍA === */}
+        <div className="mt-10 mb-4">
+          <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Profundiza · espacial</div>
+          <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">Plegado de cubos</h2>
+          <p className="mt-1 text-[15px] text-muted-foreground">Dos láminas para pasar del desarrollo plano al sólido y reconocer caras opuestas.</p>
+        </div>
         <div className="space-y-4">
           {TEORIA_CUBO.map((t) => (
             <section key={t.id} className="rounded-2xl surface p-5 sm:p-7">
@@ -51,10 +120,10 @@ export function PsicoAprende() {
         {/* === EJEMPLOS RESUELTOS === */}
         <div className="mt-10 mb-5">
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            Resueltos · {EJEMPLOS_ESPACIAL.length}
+            Espacial · {EJEMPLOS_ESPACIAL.length} resueltos
           </div>
           <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">
-            Ocho ejercicios con la respuesta a la vista
+            Comprueba el método con ejemplos
           </h2>
           <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[68ch]">
             La respuesta está señalada en cada figura recompuesta. Sirven para ver el

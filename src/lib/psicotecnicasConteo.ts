@@ -11,7 +11,7 @@ import type { CategoriaPsico, FiltroPsico, NivelPsico } from "@/lib/psicotecnica
 export const PSICO_DISPONIBLES: Record<CategoriaPsico, Record<NivelPsico, number>> = {
   abstracto: { basico: 3, intermedio: 9, avanzado: 8 },
   espacial: { basico: 2, intermedio: 11, avanzado: 5 },
-  numerico: { basico: 27, intermedio: 97, avanzado: 75 },
+  numerico: { basico: 27, intermedio: 91, avanzado: 68 },
 }
 
 const CATEGORIAS = Object.keys(PSICO_DISPONIBLES) as CategoriaPsico[]
