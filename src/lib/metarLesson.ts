@@ -1442,52 +1442,68 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
     blocks: [
       {
         kind: "p",
-        text: "Aquí es donde el TAF deja de ser lectura y se convierte en combustible. Todo lo anterior servía para llegar a esta pregunta: **¿necesito alterno, cuál, y con cuánto combustible salgo?**",
+        text: "**En la portada:** una aeronave rueda en un aeródromo de montaña con visibilidad local despejada y nubes bajas sobre parte del valle. **Cómo lo reconoces:** el entorno de la pista y el relieve no tienen las mismas condiciones en la foto; esto no representa un alterno publicado ni demuestra que sea utilizable. **Qué decides:** comprobar pronóstico, observaciones, aproximaciones, servicios y combustible del alterno con los criterios aprobados para tu operación.",
+      },
+      {
+        kind: "p",
+        text: "Aquí el TAF ayuda a responder tres preguntas de planificación: **si se requiere un alterno, cuál es elegible y qué combustible exige el plan**. El pronóstico es una fuente esencial, no la única: se cruza con horarios, mínimos, instalaciones, avisos y la política del operador.",
       },
       {
         kind: "callout",
         tone: "verificar",
         title: "Los números los pone tu operación, no este curso",
-        text: "Los mínimos que obligan a llevar alterno, los que hacen que un aeródromo sea utilizable como tal y los márgenes que hay que aplicar sobre el pronóstico **los fija la norma de tu Estado y el manual de operaciones de tu explotador**, y no son iguales en todas partes. Este módulo enseña a leer el pronóstico y a razonar la decisión; **las cifras concretas se buscan en tu manual**, y es exactamente lo que un evaluador espera oír.",
+        text: "La necesidad de alterno, los mínimos de planificación, los incrementos de visibilidad y base de nube, la ventana temporal de uso y los requisitos de combustible dependen de la **norma aplicable y del manual aprobado del explotador**. No copies una cifra genérica de otro operador ni interpretes un `TEMPO` o `PROB` con una regla universal. Este ejercicio enseña el orden de evaluación; las cifras se consultan en el procedimiento vigente.",
       },
-      { kind: "sub", text: "El razonamiento, que sí es universal" },
+      { kind: "sub", text: "Orden de evaluación para el briefing" },
       {
         kind: "vinetas",
         items: [
-          "**Sitúa tu hora estimada de llegada** en la línea de tiempo del TAF, con un margen razonable antes y después. No planificas para el periodo entero: planificas para tu ventana.",
-          "**Toma lo peor que el pronóstico admite en esa ventana**, incluidos TEMPO y PROB que la solapen. Si el pronóstico dice que puede ocurrir, para planificar ocurre.",
-          "**Compara con los mínimos** de la aproximación disponible y con lo que exija tu manual para prescindir de alterno.",
-          "**Elige un alterno que no comparta el problema.** Un alterno a 40 millas del destino con la misma niebla de radiación no es un alterno: es el mismo aeródromo con otro nombre.",
-          "**Traduce a combustible.** Espera, desvío y reserva. La decisión termina en un número de kilos, no en una impresión.",
+          "**Ubica la hora estimada de uso** del destino y del alterno dentro de la validez de cada TAF, con el margen temporal exigido por el operador; revisa enmiendas y observaciones recientes.",
+          "**Separa condición predominante, TEMPO y PROB.** Evalúa los escenarios que solapan esa ventana conforme a la regla de despacho aplicable; no conviertas toda probabilidad en certeza ni la ignores.",
+          "**Compara con mínimos de planificación y operación**, aproximaciones disponibles, pista, estado del aeródromo y servicios. El TAF no confirma por sí solo que una aproximación sea utilizable.",
+          "**Comprueba independencia meteorológica.** La cercanía puede correlacionar riesgos, pero dos aeródromos con niebla no son automáticamente equivalentes: estudia topografía, pronósticos y observaciones de cada uno.",
+          "**Cierra el plan de combustible** para ruta, contingencia, espera, desvío, reserva y demás partidas que exija el plan operacional. Revisa el margen disponible si el destino se deteriora en vuelo.",
         ],
       },
       {
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t25-01-seleccion-alterno.webp",
+        alt: "Cinco comprobaciones antes de seleccionar un aeródromo de alternativa: ventana temporal, TAF y observaciones, mínimos e instalaciones, independencia meteorológica y combustible",
+        ancho: 1600,
+        alto: 720,
+        pie: "Secuencia didáctica, sin mínimos ni valores de combustible: cada comprobación se resuelve con productos vigentes, norma aplicable y manual aprobado del operador.",
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** cinco comprobaciones enlazadas, desde la hora prevista de uso hasta el combustible. **Cómo lo reconoces:** cada etapa exige un dato externo; ninguna casilla da un número universal ni sustituye el plan del operador. **Qué decides:** aceptar o descartar un alterno solo tras contrastar pronóstico, mínimos, infraestructura, posible meteorología compartida y reservas requeridas.",
+      },
+      {
         kind: "piensaComoPiloto",
-        momento: "Despacho, vuelo nocturno",
+        momento: "Despacho ficticio, llegada el día 12 a las 05:00 UTC",
         situacion:
-          "Tu destino trae en la ventana de llegada: **`0800 FG BKN003`**, con **`BECMG`** a mejor una hora después de tu ETA. El alterno que te propone el despacho está a 35 millas y su TAF trae **`PROB40 TEMPO 0300/0700 0600 FG`**.",
-        pregunta: "¿Aceptas ese alterno?",
+          "Ejercicio ficticio con fragmentos de TAF, no pronósticos vigentes: el destino prevé **`0800 FG BKN003`** en tu ventana de llegada y mejora con **`BECMG 1206/1207 9999 NSW SCT020`**. Un alterno a 35 millas náuticas tiene **`PROB40 TEMPO 1203/1207 0600 FG`**.",
+        pregunta: "¿Qué debes comprobar antes de aceptar el alterno o planear una espera?",
         claves: [
-          "El destino está por debajo de casi cualquier mínimo: 800 metros con techo de 300 pies. Voy a necesitar el alterno de verdad, no de trámite.",
-          "El alterno trae **la misma niebla**, en la misma franja horaria, y está a 35 millas. La niebla de radiación nocturna es un fenómeno de área: si se forma en uno, es probable que se forme en el otro.",
-          "Un 40 % de probabilidad de 600 metros en mi ventana **no es un alterno holgado**. Es un segundo destino con el mismo problema.",
-          "Lo que planteo: un alterno más lejos pero fuera del sistema, aunque cueste combustible. Y el BECMG a mejor una hora después de mi ETA abre la otra opción, que es llevar combustible para esperar en vez de desviar.",
+          "En el destino, 800 m con niebla y techo `BKN003` a 300 ft requieren comparar mínimos de aproximación y planificación con la aeronave, pista y procedimiento disponibles; no presupongo una prohibición universal.",
+          "En el alterno, el `PROB40 TEMPO` cubre las 05:00 UTC y plantea episodios posibles de 600 m con niebla. Compruebo cómo trata ese grupo el manual del operador y si el aeródromo satisface sus mínimos e instalaciones.",
+          "La distancia de 35 millas náuticas sugiere investigar si ambos aeródromos comparten el mismo patrón de niebla, pero no lo demuestra. Verifico topografía, TAF, METAR/SPECI y avisos de cada uno.",
+          "La mejora `BECMG` del destino se completaría entre las 06:00 y las 07:00 UTC; no la cuento como disponible a las 05:00 ni garantizo que una espera sea viable. Comparo combustible, reserva y alternativas de desvío conforme al plan.",
         ],
         cierre:
-          "La pregunta del evaluador no es si sabes calcular. Es si te das cuenta de que dos aeródromos a 35 millas con la misma niebla son un solo aeródromo.",
+          "No acepto ni descarto ese alterno solo por la distancia o por el 40 %. Primero demuestro que cumple los criterios vigentes y que el plan conserva opciones y combustible suficientes.",
       },
       {
         kind: "check",
         question:
-          "El TAF del destino da condiciones buenas salvo un `TEMPO` bajo mínimos que solapa tu ETA. ¿Cómo lo tratas para decidir el alterno?",
+          "Un `TEMPO` con visibilidad inferior a los mínimos aplicables solapa tu llegada. ¿Cómo lo consideras para planificar el alterno?",
         options: [
-          "Como poco probable: lo predominante es lo que manda",
-          "Como condición esperable en mi ventana: planifico con ella",
-          "Depende de si el TEMPO trae PROB o no",
+          "Lo ignoro porque el tramo predominante tiene mejor visibilidad",
+          "Evalúo su ventana y aplico el criterio de alternos aprobado para mi operación",
+          "Cancelo el vuelo automáticamente, sin revisar mínimos ni alternativas",
         ],
         answer: 1,
         explain:
-          "Un TEMPO no es una posibilidad remota: es una fluctuación que el pronosticador espera dentro de esa ventana. Si solapa tu llegada, planificas con ella. Lo predominante describe la mayor parte del periodo, no necesariamente tu minuto.",
+          "El `TEMPO` describe fluctuaciones esperadas en esa ventana y puede coincidir con tu hora de uso. No lo ignores ni inventes una regla universal: compara los valores con tus mínimos y aplica la política de alternos, tiempo de uso y combustible aprobada para el operador.",
       },
       {
         kind: "entrevista",
@@ -1496,32 +1512,32 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
             nivel: "concepto",
             q: "¿Para qué sirve el TAF en la planificación de un vuelo?",
             respuesta:
-              "Para tres decisiones: si el destino va a estar utilizable a mi hora de llegada, si necesito alterno y cuál, y cuánto combustible llevo. El TAF es el documento con el que se justifica esa planificación, y por eso lo primero que se hace con él es situar la hora estimada de llegada dentro de su línea de tiempo.",
-            claves: ["Destino utilizable a la ETA", "Necesidad y elección de alterno", "Combustible"],
+              "El TAF permite anticipar condiciones en destino y alternos durante la hora estimada de uso. Lo comparo con observaciones, avisos, mínimos y disponibilidad del aeródromo para decidir elegibilidad, alternos y combustible conforme a la norma y al manual. No es el único documento que justifica el despacho.",
+            claves: ["Hora estimada de uso", "Destino y alternos", "Fuentes y reglas del operador"],
           },
           {
             nivel: "interpretacion",
             q: "¿Qué hace que un alterno sea un buen alterno?",
             respuesta:
-              "Que su pronóstico esté holgadamente por encima de los mínimos en mi ventana, que tenga la aproximación y los servicios que voy a necesitar, y sobre todo que **no comparta el fenómeno del destino**. Un alterno cercano con el mismo frente o la misma niebla de área no añade seguridad, solo distancia. A veces el alterno correcto es el que está más lejos.",
-            claves: ["Holgadamente sobre mínimos", "Aproximación y servicios disponibles", "Fuera del sistema meteorológico del destino"],
+              "Que cumpla los mínimos de planificación aprobados en su ventana de uso, disponga de aproximaciones, pista y servicios necesarios y sea alcanzable con el combustible previsto. Investigo si comparte un peligro meteorológico con el destino mediante pronósticos, observaciones y topografía; estar cerca no lo invalida automáticamente, pero una correlación real reduce la independencia del plan.",
+            claves: ["Mínimos aprobados", "Infraestructura disponible", "Combustible", "Independencia meteorológica comprobada"],
           },
           {
             nivel: "situacion",
             q: "Vas en ruta y el destino se deteriora por debajo de lo pronosticado. ¿Qué haces?",
             respuesta:
-              "Lo primero, actualizar la información: METAR más reciente y TAF enmendado si lo hay. Después comparar el combustible que me queda con lo que cuesta esperar y con lo que cuesta desviar, y decidir con margen, no en el último momento. Y decidirlo antes de llegar al punto en que el alterno deje de ser alcanzable con reservas: esa es la decisión que no se puede tomar tarde.",
-            claves: ["Actualizar METAR y TAF AMD", "Comparar esperar contra desviar", "Decidir antes de perder el alterno"],
+              "Actualizo METAR/SPECI, TAF enmendado y avisos; reviso el estado de destino y alternos. Recalculo opciones de esperar o desviar con combustible utilizable y reservas requeridas, siguiendo los puntos de decisión del operador y coordinando con control y despacho cuando proceda. Actúo antes de perder una alternativa segura.",
+            claves: ["Datos meteorológicos nuevos", "Opciones con combustible y reservas", "Decisión oportuna según procedimiento"],
           },
         ],
       },
       {
         kind: "summary",
         items: [
-          "Sitúa tu ETA en la línea de tiempo y planifica para lo peor que el pronóstico admite en esa ventana.",
-          "TEMPO y PROB que solapen tu llegada cuentan como condición esperable.",
-          "Un alterno que comparte el fenómeno del destino no es un alterno.",
-          "Los mínimos y los márgenes los fija tu norma nacional y tu manual de operaciones: búscalos ahí.",
+          "Sitúa la hora de uso de destino y alterno dentro de cada TAF y del margen temporal aprobado.",
+          "Evalúa grupos TEMPO y PROB que solapen esa ventana según el criterio específico del operador; probabilidad no es certeza.",
+          "Comprueba mínimos, infraestructura, independencia meteorológica y combustible antes de aceptar un alterno.",
+          "Los valores de planificación se toman de la norma aplicable y del manual aprobado, no de una regla genérica del curso.",
         ],
       },
     ],
@@ -1587,6 +1603,7 @@ export const METAR_SOURCES: string[] = [
   "Briefing para pilotos: METAR. Erick De Paz, Meteorólogo Clase III OMM (presentación de curso).",
   "Leyenda para lectura de METAR y TAF, Volar3.com (material de curso).",
   "Norma de referencia: OACI, Anexo 3 (Servicio meteorológico para la navegación aérea internacional) y OMM, Manual de claves No. 306. Confirma contra la edición vigente.",
+  "Para alternos y combustible: OACI, Anexo 6, Parte I (Operación de aeronaves); aplica la norma nacional y el manual aprobado del explotador en su versión vigente.",
 ]
 
 export type { LessonBlock }
