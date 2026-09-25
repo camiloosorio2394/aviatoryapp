@@ -1328,12 +1328,18 @@ export const NIVEL_1: DocScreen[] = [
     n: 6,
     title: "Distintivos de llamada",
     kicker: "Matrículas, designadores y distintivos parecidos",
-    minutes: 10,
+    minutes: 13,
     blocks: [
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Caso documentado y práctica, sin mezclarlos",
+        text: "El episodio de TWA 843, TWA 834 y Pan Am 537 que aparece abajo procede de las recomendaciones A-89-83 a A-89-90 de la Junta Nacional de Seguridad del Transporte de Estados Unidos (NTSB, National Transportation Safety Board). La lámina y el relato resumen hechos; no son una transcripción de radio. AIR CHINA 238 y FASTAIR 345 son ejemplos impresos en el Manual de Radiotelefonía OACI, Doc 9432; FASTAIR es un designador didáctico del manual, no una aerolínea ni una ruta operativa. Los intercambios de práctica marcados como simulados enseñan una decisión, no representan un vuelo o una autorización vigente.",
+      },
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "El distintivo de llamada (call sign) es el nombre de la aeronave en la radio. De él depende que la instrucción la ejecute el avión correcto y ningún otro.",
+        text: "El distintivo de llamada (call sign) identifica a qué aeronave se dirige una transmisión y cuál responde. No basta con reconocer la cifra que uno espera oír: en una frecuencia compartida, dos vuelos pueden tener números casi iguales, una sílaba puede perderse por interferencia y el controlador también puede equivocarse al decir el indicativo. La tripulación debe escuchar la identificación completa antes de actuar, leer de vuelta el contenido que corresponde con su propio distintivo y dar tiempo al controlador para detectar una respuesta del avión equivocado. El riesgo no es lingüístico en abstracto: una autorización de viraje, ascenso, descenso o ingreso a pista ejecutada por otra aeronave cambia la separación del tránsito.",
       },
       { kind: "sub", text: "Lo que debe saber un piloto" },
       { kind: "p", text: "**Tres tipos de distintivo de aeronave** (Doc 9432, 2.7.2.1):" },
@@ -1350,10 +1356,10 @@ export const NIVEL_1: DocScreen[] = [
           [
             "b)",
             "Designador telefónico del explotador + los cuatro últimos caracteres de la matrícula",
-            "AVIATORY DCAB",
-            "Designador + al menos los dos últimos: AVIATORY AB",
+            "FASTAIR DCAB (ejemplo didáctico)",
+            "Designador + al menos los dos últimos: FASTAIR AB",
           ],
-          ["c)", "Designador telefónico del explotador + identificación del vuelo", "AVIATORY 452", "**No se abrevia**"],
+          ["c)", "Designador telefónico del explotador + identificación del vuelo", "AIR CHINA 238 (ejemplo del Doc 9432)", "**No se abrevia**"],
         ],
       },
       {
@@ -1366,7 +1372,7 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             k: "Designador telefónico",
-            v: "(Radiotelefónico) la palabra con la que se nombra al explotador en la radio. En los ejemplos, AVIATORY (ficticio); en el Doc 9432, FASTAIR o AIR CHINA (2.4.2: «CCA 238» se transmite «AIR CHINA two three eight»).",
+            v: "La palabra autorizada para nombrar al explotador por radio. El Doc 9432 muestra AIR CHINA 238 frente a CCA238, su forma en el plan de vuelo. FASTAIR 345 es otro ejemplo del manual, expresamente didáctico.",
           },
           {
             k: "Designador de la empresa",
@@ -1392,83 +1398,86 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**Distintivos similares (SIMILAR CALL SIGNS).** Dos vuelos en la misma frecuencia con AVIATORY 452 y AVIATORY 542, o AVIATORY 452 y AVIATORY 425. Con ruido, prisa o expectativa, un piloto acepta la instrucción del otro. La defensa es triple: escuchar el distintivo completo antes de la instrucción, colacionar siempre con el distintivo completo (para que el controlador detecte quién respondió) y confirmar cuando hay duda. El ATC puede ordenar un cambio temporal del tipo de distintivo (2.7.2.3). El tema se amplía en el capítulo 56.",
+        text: "**Distintivos similares (SIMILAR CALL SIGNS).** El 9 de agosto de 1987, TWA 843 y TWA 834 llegaron a la misma área de control de Nueva York con distintivos fácilmente confundibles. El controlador pretendía dar un viraje a TWA 843, pero dijo TWA 834; la tripulación de TWA 834 ejecutó el viraje. TWA 843 continuó recto y se perdió la separación estándar con Pan Am 537. Minutos después, el mismo controlador confundió Clipper 568 y Clipper 558, sin pérdida de separación en ese segundo episodio. Son hechos del informe del NTSB, no un diálogo reconstruido. El caso muestra que la colación con distintivo completo permite detectar algunas equivocaciones, pero **no corrige por sí sola que ATC haya dicho el indicativo erróneo y ese avión haya obedecido**. La defensa exige atención de cabina al contexto y a la compatibilidad de la instrucción con la propia trayectoria; ante duda, confirmar antes de actuar. El tema se amplía en el capítulo 56.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-06-01 · Diagrama · 16:9 · 1600×900",
-        descripcion:
-          "Arriba, la anatomía de un distintivo tipo c): «AVIATORY» con la etiqueta DESIGNADOR TELEFÓNICO y «452» con la etiqueta IDENTIFICACIÓN DEL VUELO (se dice four five two, dígito por dígito); debajo, en gris, «AVY452» con la etiqueta PLAN DE VUELO (no se dice por radio) y la aclaración «designador ficticio». Abajo, dos siluetas de aeronaves en la misma frecuencia con los rótulos AVIATORY 452 y AVIATORY 542 y un signo de alerta neutro entre ellas (no rojo), con el texto DISTINTIVOS SIMILARES. Objetivo: que el piloto separe el designador telefónico, el número de vuelo y el designador del plan de vuelo, y reconozca de vista el riesgo de dos distintivos parecidos.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-06-01.svg",
+        alt: "Lámina ampliable: AIR CHINA 238 muestra las partes del distintivo; debajo, secuencia factual de la confusión entre TWA 843 y TWA 834 descrita por el NTSB.",
+        ancho: 1080,
+        alto: 1560,
+        pie: "Arriba: el designador radiotelefónico se dice por radio; CCA238 es la identificación del plan de vuelo del ejemplo del Doc 9432, no la frase que pronuncia la tripulación. Abajo: hechos del informe NTSB A-89-83 a A-89-90, pp. 1–2, sin diálogo inventado. Amplíe para seguir a qué avión iba dirigido el viraje, cuál lo ejecutó y por qué la tripulación debe confirmar ante una duda de identidad.",
+      },
+      { kind: "sub", text: "Qué comprueba una tripulación de aerolínea" },
+      {
+        kind: "p",
+        text: "**Antes de transmitir**, quien lleva la radio verifica que el indicativo usado coincide con la identificación de vuelo prevista para ese tramo y escucha la frecuencia antes de ocuparla. Al hacer contacto inicial dice completo el indicativo de la estación y el propio. Si otro vuelo con cifras parecidas está en la frecuencia, ambos pilotos mantienen esa diferencia en mente: se escucha la palabra del explotador y todas las cifras, no solo la terminación. La comunicación de control debe evaluarse contra la fase del vuelo, el nivel autorizado y la situación de tránsito. Esa evaluación no autoriza a ignorar una instrucción válida porque sorprenda, pero sí obliga a pedir aclaración cuando la identidad o el contenido no son inequívocos.",
+      },
+      {
+        kind: "p",
+        text: "**Al recibir una autorización**, el piloto que comunica no empieza a mover selectores por haber oído un número familiar. Espera el mensaje entero, identifica el destinatario, separa los elementos que cambian la trayectoria y hace la colación con su indicativo completo al final. El piloto que vuela conserva la trayectoria autorizada mientras se resuelve una incertidumbre, según los procedimientos de la compañía. Si la respuesta de ATC corrige el indicativo o el contenido, la tripulación actualiza la autorización y coteja los selectores. Si la frecuencia se bloqueó o se cortó una sílaba crítica, la acción segura es confirmar la autorización para el propio vuelo; el manual de la FAA propone expresamente «VERIFY CLEARANCE FOR [indicativo completo]» como defensa ante duda de identidad en su espacio aéreo, no como sustituto universal de la fraseología OACI.",
+      },
+      {
+        kind: "p",
+        text: "**Después de la colación**, el controlador debe escuchar qué aeronave respondió y corregir discrepancias. La tripulación, por su parte, escucha el hearback; no trata el silencio como garantía de que se leyó bien. En el caso de 1987, el error nació también en la emisión del controlador: pronunció TWA 834 para una instrucción pensada para TWA 843. Por eso la barrera no puede reducirse a «colacionar bien». La gestión de distintivos similares empieza además antes del vuelo: EUROCONTROL mantiene un servicio para detectar y reducir coincidencias de indicativos en los horarios de las aerolíneas, pero en la frecuencia cada autorización sigue exigiendo atención individual.",
       },
       { kind: "sub", text: "Fraseología OACI" },
       {
         kind: "pasos",
         items: [
           {
-            rotulo: "Primer contacto con HEAVY",
+            rotulo: "Primer contacto con HEAVY: ejemplo del Doc 9432",
             codigo: tx(
-              "PILOT: BOGOTA GROUND, AVIATORY 452 HEAVY, REQUEST TAXI, INFORMATION CHARLIE.",
-              "ATC:   AVIATORY 452, TAXI TO HOLDING POINT RUNWAY 13L, GIVE WAY TO B787 PASSING LEFT TO RIGHT, QNH 1019.",
-              "PILOT: HOLDING POINT RUNWAY 13L, QNH 1019, GIVING WAY TO B787, AVIATORY 452.",
+              "PILOT: STEPHENVILLE TOWER, FASTAIR 345 HEAVY.",
+              "ATC:   FASTAIR 345, REPORT OUTER MARKER.",
+              "PILOT: WILCO, FASTAIR 345.",
             ),
             texto:
-              "**Significado:** HEAVY solo en el primer contacto; el controlador ya no lo repite. Modelo del Doc 9432, 4.4.3.",
+              "**Significado:** la categoría HEAVY acompaña el primer contacto con la dependencia. El ejemplo de STEPHENVILLE y FASTAIR está impreso en el Doc 9432, cap. 7; es una escena normativa didáctica, no un aeropuerto o vuelo operativo que deba buscarse en una carta vigente. En esta lección importa que el indicativo sea íntegro y que el controlador sepa qué aeronave responde.",
           },
           {
-            rotulo: "Distintivo tipo a) abreviado por la estación",
+            rotulo: "Distintivo tipo a) abreviado por la estación · simulación",
             codigo: tx(
-              "PILOT: BOGOTA TOWER, GOLF ALFA BRAVO CHARLIE DELTA.",
-              "ATC:   GOLF CHARLIE DELTA, BOGOTA TOWER.",
+              "PILOT: TOWER, GOLF ALFA BRAVO CHARLIE DELTA.",
+              "ATC:   GOLF CHARLIE DELTA, TOWER.",
               "PILOT: GOLF CHARLIE DELTA, …",
             ),
             texto:
-              "**Significado:** la estación abrevió primero; desde entonces la aeronave puede abreviar (Doc 9432, 2.7.2.2 a) y 2.7.2.2.1). Con un distintivo tipo c) esto no aplica.",
+              "**Significado:** la estación abrevió primero; desde entonces la aeronave puede abreviar si no existe riesgo de confusión (Doc 9432, 2.7.2.2 a) y 2.7.2.2.1). Con un distintivo tipo c) de aerolínea esto no aplica. «TOWER» reemplaza el nombre de una dependencia concreta para no fingir una autorización local.",
           },
           {
-            rotulo: "Llamada con el distintivo incompleto",
+            rotulo: "Llamada con el distintivo incompleto · simulación",
             codigo: tx(
-              "PILOT: BOGOTA GROUND, 452, REQUEST PUSH-BACK.",
-              "ATC:   STATION CALLING BOGOTA GROUND, SAY AGAIN YOUR CALL SIGN.",
-              "PILOT: BOGOTA GROUND, AVIATORY 452, STAND 12, REQUEST PUSH-BACK.",
+              "PILOT: GROUND, 345, REQUEST PUSH-BACK.",
+              "ATC:   STATION CALLING GROUND, SAY AGAIN YOUR CALL SIGN.",
+              "PILOT: GROUND, FASTAIR 345, REQUEST PUSH-BACK.",
             ),
-            texto: "**Significado:** «452» solo no identifica a nadie. Doc 9432, 2.8.1.5.",
-          },
-          {
-            rotulo: "El ATC ordena cambiar el distintivo",
-            codigo: tx(
-              "ATC:   AVIATORY 452, CHANGE YOUR CALL SIGN TO AVIATORY DCAB UNTIL FURTHER ADVISED.",
-              "PILOT: CHANGING CALL SIGN TO AVIATORY DCAB, AVIATORY 452.",
-            ),
-            texto:
-              "**Significado:** cambio temporal del tipo de distintivo por riesgo de confusión (Doc 9432, 2.7.2.3). La frase exacta está en el aviso «Verificar».",
-            etiqueta: "«CHANGE YOUR CALL SIGN TO…»: " + POR_VERIFICAR,
+            texto: "**Significado:** «345» solo no identifica a nadie. El intercambio es una simulación de la corrección, no una transcripción del Doc 9432; la regla de iniciar con identificaciones completas está en 2.8.1.1 y la petición de repetir un indicativo poco claro, en 2.8.1.5.",
           },
         ],
       },
       {
         kind: "escenario",
-        titulo: "Distintivo similar: la colación lo delata",
+        titulo: "Distintivo similar: la colación revela quién contestó · simulación",
         situacion:
-          "En la frecuencia están AVIATORY 452 y AVIATORY 542. El controlador transmite: «AVIATORY 542, CLIMB TO FL 350.» El piloto de AVIATORY 452, por error, colaciona: «CLIMBING TO FL 350, AVIATORY 452.»",
+          "En una frecuencia de práctica están FASTAIR 345 y FASTAIR 354. El controlador transmite: «FASTAIR 354, CLIMB TO FL 350.» El piloto de FASTAIR 345, por error, colaciona: «CLIMBING TO FL 350, FASTAIR 345.» No son vuelos reales ni una autorización histórica.",
         preguntas: [
           {
             q: "¿Qué hace el controlador y qué le permitió detectar el error?",
-            a: "ATC: «AVIATORY 452, NEGATIVE, MAINTAIN FL 310. INSTRUCTION WAS FOR AVIATORY 542.» PILOT: «MAINTAINING FL 310, AVIATORY 452.» La colación con el distintivo completo permitió que el controlador viera quién respondió y lo corrigiera (Doc 9432, 2.8.3.4, 2.8.3.7, 2.8.3.8). **PLAIN LANGUAGE**: «INSTRUCTION WAS FOR…» es lenguaje claro.",
+            a: "ATC puede detener la ejecución y aclarar que la instrucción era para FASTAIR 354; la tripulación de FASTAIR 345 conserva el nivel que tenía autorizado y lo confirma. El indicativo completo al final de la colación permite identificar quién respondió (Doc 9432, 2.8.3.7–2.8.3.8). La cifra del nivel anterior se omite deliberadamente: no se ha establecido una autorización previa para estos vuelos simulados. **La limitación:** si ATC pronuncia de entrada el distintivo incorrecto, como ocurrió en el caso TWA de 1987, una colación perfecta de ese mismo indicativo no revela por sí sola la intención original del controlador.",
           },
         ],
-        concepto: "Colacionar siempre con el distintivo completo.",
+        concepto: "Colacionar con el distintivo completo y contrastar la instrucción con el contexto de vuelo.",
       },
       {
         kind: "escenario",
-        titulo: "Duda sobre a quién iba la instrucción",
+        titulo: "Duda sobre a quién iba la instrucción · simulación",
         situacion:
-          "Usted es AVIATORY 452 y en la frecuencia de Bogota Approach también está AVIATORY 542. Oye, con el distintivo cortado: «AVIATORY … 2, TURN RIGHT HEADING 270.»",
+          "Usted es FASTAIR 345 y en la misma frecuencia también está FASTAIR 354. Una transmisión se corta justo en las cifras del indicativo y solo alcanza a oír «FASTAIR …, TURN RIGHT HEADING…». Tampoco se recibe completo el rumbo.",
         preguntas: [
           {
             q: "¿Ejecuta el viraje?",
-            a: "No: se confirma. PILOT: «BOGOTA APPROACH, AVIATORY 452, CONFIRM INSTRUCTION WAS FOR AVIATORY 452?» ATC: «AVIATORY 452, NEGATIVE. AVIATORY 542, TURN RIGHT HEADING 270.» Con un distintivo cortado y otro parecido en la frecuencia, no se ejecuta: se confirma. CONFIRM es normalizada (Doc 9432, 2.6); la construcción completa es **PLAIN LANGUAGE**.",
+            a: "No se adivina el destinatario ni el rumbo. Se conserva la autorización vigente y se pide a ATC que confirme si la instrucción era para FASTAIR 345 y que repita el rumbo completo. «CONFIRM» figura en el Doc 9432, 2.6; la frase completa con esos números es lenguaje claro de un escenario educativo, no una cita del manual. Solo después de una aclaración inequívoca se modifica la trayectoria.",
           },
         ],
         concepto: "Si duda de a quién iba la instrucción: no ejecute, confirme.",
@@ -1494,7 +1503,7 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "list",
         items: [
-          "**Recortar el distintivo** («452», «Aviatory») en una frecuencia con varios vuelos de la misma empresa.",
+          "**Recortar el distintivo** a unas cifras sueltas en una frecuencia con varios vuelos de la misma empresa.",
           "**Abreviar un distintivo tipo c)** o abreviar antes de que lo haga la estación.",
           "**Colacionar sin distintivo** o poniéndolo al principio y omitiéndolo al final: el controlador no sabe quién respondió.",
           "**Aceptar una autorización pensada para el otro** porque «era la que esperaba» (expectation bias, capítulo 55).",
@@ -1514,7 +1523,7 @@ export const NIVEL_1: DocScreen[] = [
         ],
       },
       fuentes(
-        "Doc 9432 (4.ª ed.) 2.3.2, 2.4.2, 2.6 (CONFIRM), 2.7.2.1, 2.7.2.2, 2.7.2.2.1, 2.7.2.3, 2.7.2.4, 2.8.1.1, 2.8.1.5, 2.8.3.4, 2.8.3.7, 2.8.3.8, 4.4.3; Doc 4444 (15.ª ed., Enm. 4) 4.9.1.1, 4.9.2.",
+        "Doc 9432 (4.ª ed.) 2.3.2, 2.4.2, 2.6 (CONFIRM), 2.7.2.1, 2.7.2.2, 2.7.2.2.1, 2.7.2.3, 2.7.2.4, 2.8.1.1, 2.8.1.5, 2.8.3.4, 2.8.3.7, 2.8.3.8 y ejemplo FASTAIR 345 HEAVY del cap. 7; Doc 4444 (15.ª ed., Enm. 4) 4.9.1.1, 4.9.2. Caso real: NTSB, recomendaciones A-89-83 a A-89-90, 11 de agosto de 1989, pp. 1–2, https://www.ntsb.gov/safety/safety-recs/recletters/A89_83_90.pdf. Defensa ante duda: FAA AIM 4-2-4, https://www.faa.gov/air_traffic/publications/aim_html/chap4_section_2.html. Gestión preventiva de indicativos: EUROCONTROL Call Sign Similarity Service, https://www.eurocontrol.int/service/call-sign-similarity-service.",
         [
           "«CHANGE YOUR CALL SIGN TO … [UNTIL FURTHER ADVISED]» y «REVERT TO FLIGHT PLAN CALL SIGN» contra Doc 4444 vigente cap. 12 (cambio de distintivo de llamada) (no cargado).",
           "Categorías de estela turbulenta vigentes (la 16.ª ed. del Doc 4444 añadió la categoría SUPER y su palabra en radio) contra Doc 4444 vigente 4.9 (no cargado).",
