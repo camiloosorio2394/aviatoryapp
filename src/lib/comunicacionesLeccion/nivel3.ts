@@ -371,184 +371,120 @@ export const NIVEL_3: DocScreen[] = [
     n: 14,
     title: "La autorización IFR",
     kicker: "Sus componentes y cómo copiarla",
-    minutes: 10,
+    minutes: 18,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "La autorización de ruta que recibe un vuelo IFR antes de salir. Dice hasta dónde está autorizado, por dónde, a qué nivel y con qué código y frecuencia arranca. Puede ir desde una descripción detallada de ruta y niveles hasta algo muy corto (Doc 9432, 2.8.3.1).",
+        text: "La autorización para un vuelo bajo las reglas de vuelo por instrumentos (IFR, Instrument Flight Rules) no es una frase que se repite de memoria. Es el punto de partida del recorrido autorizado: límite, ruta, salida y niveles, más cualquier restricción o dato adicional transmitido. Para una tripulación de aerolínea, el trabajo no termina al colacionarla; ambos pilotos deben confrontarla con el plan, el desempeño y la preparación de la salida antes de moverse.",
       },
-
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      { kind: "sub", text: "Qué recibe realmente la tripulación" },
       {
         kind: "p",
-        text: "**Qué contiene.** El Doc 4444 remite a su capítulo 11 (11.4.2.6.2.1) para la lista de conceptos de una autorización (Doc 4444, 4.5.4.2), y ese capítulo no está cargado. Lo que sí está cargado:",
-      },
-      {
-        kind: "list",
-        items: [
-          "**Límite de la autorización**: se nombra con el punto significativo, el aeródromo o el límite del espacio aéreo controlado (Doc 4444, 4.5.7.1.1). Normalmente es el aeródromo de destino; si no se pudo coordinar, un punto intermedio, y luego ATC debe darle la autorización hasta destino lo antes posible (4.5.7.1.2 y 4.5.7.1.3). En vuelos con escalas, la autorización inicial llega solo hasta el primer destino (4.5.3.1).",
-          "**Ruta**: se detalla cuando es necesario. «Autorizado ruta plan de vuelo» se puede usar si la ruta es idéntica a la del plan; «autorizado salida vía (designación)» cuando hay una salida normalizada publicada en la AIP (4.5.7.2.1). «Ruta plan de vuelo» **no** se usa cuando se da una nueva autorización (4.5.7.2.2).",
-          "**Niveles**: los conceptos van en el capítulo 11 (4.5.7.3, no cargado).",
-          "**Cambios pedidos por usted**: si le autorizan un cambio de ruta o nivel que pidió, la autorización incluye el carácter exacto del cambio (4.5.7.4.1).",
-        ],
-      },
-      {
-        kind: "p",
-        text: "**Cuándo llega.** Siempre que sea posible, antes de la puesta en marcha; el controlador debe dictarla despacio y con claridad porque el piloto la anota; debe evitar darla durante un rodaje complicado y **nunca** durante la alineación o el despegue (Doc 9432, 2.8.3.2).",
-      },
-      {
-        kind: "p",
-        text: "**Qué NO es.** Una autorización de ruta no es una instrucción de despegue ni para entrar en una pista en servicio (Doc 9432, 2.8.3.3). «Cleared to Cali» no lo autoriza a rodar ni a entrar a la pista.",
-      },
-      {
-        kind: "p",
-        text: "**CRAFT: herramienta didáctica, no norma OACI.** Muchas escuelas enseñan a copiar la autorización en cinco casillas:",
+        text: "La autorización de ruta puede ser extensa o abreviada según el procedimiento aplicable y lo que control necesite modificar. El Manual de radiotelefonía de la Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization), Doc 9432, 2.8.3.1, muestra esa variación. El límite de autorización no siempre coincide con el destino: puede ser un punto intermedio. Si lo es, la tripulación identifica dónde termina el permiso actual y no presupone que puede continuar por el resto del plan presentado.",
       },
       {
         kind: "table",
-        head: ["Letra", "Casilla", "Qué anota"],
+        head: ["Componente", "Qué registrar", "Qué verificar antes de aceptar"],
         rows: [
-          ["**C**", "Clearance limit", "Destino o punto límite"],
-          ["**R**", "Route", "SID, aerovía, «flight planned route»"],
-          ["**A**", "Altitude", "Nivel o altitud inicial y, si lo dan, el esperado"],
-          ["**F**", "Frequency", "Frecuencia de salida"],
-          ["**T**", "Transponder", "Código SSR"],
+          ["Límite", "Aeródromo, punto significativo o límite indicado por control.", "No confundir el destino del plan con el último punto hasta el cual se autorizó."],
+          ["Ruta y salida", "Trayecto autorizado, salida normalizada si se asigna, transición y cualquier cambio explícito.", "Comparar con la ruta efectivamente presentada y la publicación vigente; no usar una salida solo porque estaba preparada."],
+          ["Nivel y restricciones", "Nivel o altitud asignados, condición de ascenso y restricciones expresas.", "Separar lo asignado de lo solicitado o previsto; evaluar si el avión puede cumplir cada restricción."],
+          ["Datos adicionales", "Código del radar secundario de vigilancia (SSR, secondary surveillance radar), dependencia o frecuencia y otras instrucciones, solo si se transmiten.", "Cotejar exactamente lo recibido. No completar un dato ausente con una cifra recordada o una plantilla."],
         ],
       },
       {
         kind: "p",
-        text: "Sirve para anotar en orden y detectar lo que faltó. No es una lista oficial: la OACI no la define, y una autorización real puede traer más (hora de expiración, restricción de ascenso, instrucciones de salida) o menos. Si una casilla queda vacía, **pregunte**: no la llene con lo del plan de vuelo.",
+        text: "Una salida normalizada por instrumentos (SID, Standard Instrument Departure) no es solo un nombre en la hoja de copiado: su designación, transición y restricciones deben coincidir con la autorización y con la publicación aplicable. Si el control de tránsito aéreo (ATC, air traffic control) cambia el procedimiento o la ruta, los pilotos verifican que el sistema de gestión de vuelo (FMS, Flight Management System) y el briefing representen la nueva autorización. Si la documentación vigente no está disponible o hay una discrepancia, no se inventa una equivalencia entre nombres parecidos.",
       },
-      { kind: "p", text: "**Cómo se copia y verifica.**" },
+      {
+        kind: "p",
+        text: "**Un nivel previsto no es un nivel autorizado.** La guía de la Administración Federal de Aviación de Estados Unidos (FAA, Federal Aviation Administration), Aeronautical Information Manual, 5-2-6, advierte que «as filed» no incorpora por sí sola el nivel en ruta presentado en el plan: el nivel autorizado se comunica aparte o se indica cuándo esperarlo. Es una regla estadounidense citada para enseñar la distinción, no un procedimiento colombiano. En la cabina, una expectativa de ascenso sirve para planificar, pero no habilita a abandonar el nivel inicial asignado.",
+      },
+      {
+        kind: "p",
+        text: "El Doc 9432, 2.8.3.2–2.8.3.3, de la edición consultada recomienda transmitir la autorización con tiempo para copiarla y no durante la alineación o el despegue; además distingue una autorización de ruta del permiso para entrar en una pista o despegar. Por eso se prepara la hoja antes de llamar, se copia sin improvisar y se resuelven dudas antes de que la carga de trabajo crezca en superficie.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-14-01.svg",
+        alt: "Hoja de copiado de autorización IFR sin datos inventados: límite, ruta y salida, nivel y restricciones, datos adicionales; al lado, preguntas de verificación de los dos pilotos.",
+        ancho: 1600,
+        alto: 1100,
+        pie: "Esta plantilla didáctica no es un formato obligatorio ni contiene una autorización real. Registra solo lo que ATC transmitió y deja visible lo pendiente; después comprueba límite, ruta, nivel y restricciones con el otro piloto antes de configurar o moverte. Amplíala para leer las preguntas de cada casilla.",
+      },
+      { kind: "sub", text: "Cómo copiar, colacionar y verificar" },
       {
         kind: "list",
         ordered: true,
         items: [
-          "Tenga la hoja lista con las casillas antes de llamar.",
-          "Anote mientras escucha, en abreviado; no intente memorizar.",
-          "Colacione leyendo lo anotado, en el orden en que llegó.",
-          "Contraste con lo que está cargado en el FMS y en el panel: SID, nivel inicial, código.",
-          "Si algo no cuadra con lo planeado, se aclara en tierra, no en el ascenso.",
+          "**Preparar la recepción.** Antes de llamar, disponga de un medio de anotación y la documentación de vuelo vigente. Ambos pilotos conocen la ruta presentada y las limitaciones relevantes, pero no la confunden con la futura autorización.",
+          "**Escuchar y escribir la transmisión completa.** El piloto que atiende la radio anota límite, ruta, salida, nivel y restricciones en el orden real en que llegan. Añade frecuencia o código solo cuando se transmiten. Una casilla vacía indica «no anotado», no «usar lo esperado».",
+          "**Aclarar antes de colacionar como cierto.** Si se perdió un tramo, pida repetición. Si oyó un dato pero no está seguro, confirme ese dato. No improvise una designación o cifra para ver si el controlador la corrige.",
+          "**Colacionar los elementos exigidos con el distintivo propio.** La autorización de ruta requiere colación según el Doc 4444, 4.5.7.5.1, de la edición consultada. El controlador compara esa lectura; cualquier corrección se registra y se vuelve a colacionar. La guía local vigente y los procedimientos del operador determinan la aplicación concreta.",
+          "**Verificar como tripulación.** El segundo piloto compara lo anotado con la ruta presentada y la publicación vigente; juntos revisan cambios en salida, transición, nivel inicial y restricciones, además de la capacidad de cumplir. La configuración del FMS y del panel se coteja con la autorización, no al revés.",
+          "**Conservar el límite del permiso.** Si la autorización termina antes del destino, se planifica cómo obtener la siguiente sin tratar el tramo restante del plan como autorizado. Si llega una enmienda, se identifica qué parte reemplaza y qué condiciones permanecen.",
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "CM-14-01 · Esquema · 3:4 · 1200×1600 px",
-        descripcion:
-          "Imagen sugerida: hoja de copiado de autorización como la que se lleva en un portapapeles de cabina, papel claro, cinco renglones rotulados C / R / A / F / T con la autorización del Ejemplo 2 escrita a mano en abreviado («CLO», «GIKOS 1A», «FL240», «119.1», «4521»). Al lado, una columna tachada con un error corregido (código 4251 tachado, 4521 encima). Rótulo arriba: «CRAFT: ayuda de memoria, no norma OACI». Objetivo: que el piloto aprenda a copiar en orden, a ver de inmediato qué casilla quedó vacía y a entender que CRAFT es una técnica, no un requisito.",
-        alto: 440,
-        ratio: "3 / 4",
-        anchoMax: 400,
+        kind: "p",
+        text: "La mnemotecnia CRAFT (clearance limit, route, altitude, frequency, transponder) puede servir como ayuda de copiado, pero no es una lista normativa OACI ni garantiza que contenga toda la autorización. Una restricción de cruce, una condición temporal o una modificación de salida no deben desaparecer porque no encajan en cinco letras. Tampoco debe convertirse en una excusa para atribuir frecuencia y código a toda autorización.",
       },
-
-      { kind: "sub", text: "Fraseología OACI" },
       {
-        kind: "callout",
-        tone: "verificar",
-        title: "Verificar",
-        text: "Varias frases de esta lección son de uso común pero no están comprobadas: «request clearance», «ready to copy», «flight planned route», «climb initially», «departure frequency» y «expect further clearance at (time)». Consultar Doc 4444 cap. 12 (fraseología de autorizaciones), no cargado. La lista completa de conceptos de una autorización se confirma en Doc 4444 11.4.2.6.2.1 y 11.4.2.6.2.2 (cap. 11, no cargado). CRAFT no aparece en ningún documento OACI cargado: es mnemotecnia de instrucción.",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-14-02.webp",
+        alt: "Historieta de cuatro viñetas: control transmite desde la torre, un piloto copia la autorización, ambos comparan con el plan y se pide aclaración antes de la salida.",
+        ancho: 1536,
+        alto: 1024,
+        pie: "Secuencia didáctica, no transcripción real: 1) control transmite; 2) un piloto anota; 3) ambos detectan una diferencia frente a lo preparado; 4) piden aclaración antes de seleccionar valores o mover el avión. Los papeles están deliberadamente en blanco: no representan una carta, ruta, nivel o frecuencia vigentes. Amplía la historieta.",
       },
-      ...entrada(
-        "Ejemplo 1. Solicitud de autorización (escenario de práctica)",
-        [
-          `PILOT: "Bogota Delivery, AVIATORY 452, stand 12, information Alpha, IFR to Cali, request clearance."`,
-          `ATC:   "AVIATORY 452, Bogota Delivery, ready to copy?"`,
-          `PILOT: "Ready to copy, AVIATORY 452."`,
-        ],
-        "Significado: quién llama, quién es, dónde está, qué ATIS tiene y qué pide. La forma exacta de pedir la autorización y si Delivery pregunta «ready to copy» varían; ver VERIFICAR.",
-      ),
-      ...entrada(
-        "Ejemplo 2. Autorización con SID (estructura de Doc 9432, 2.8.3.6)",
-        [
-          `ATC:   "AVIATORY 452, cleared to Cali via A1, FL 240, GIKOS 1A departure, squawk 4521."`,
-          `PILOT: "Cleared to Cali via A1, FL 240, GIKOS 1A departure, squawk 4521, AVIATORY 452."`,
-        ],
-        "Significado: límite (Cali), ruta (A1), nivel (FL 240), salida (GIKOS 1A), código (4521). Todo se colaciona: es una autorización de ruta.",
-      ),
-      ...entrada(
-        "Ejemplo 3. Autorización con frecuencia de salida (escenario de práctica)",
-        [
-          `ATC:   "AVIATORY 452, cleared to Cali, GIKOS 1A departure, flight planned route, climb initially FL 150, departure frequency 119.1, squawk 4521."`,
-          `PILOT: "Cleared to Cali, GIKOS 1A departure, flight planned route, initially FL 150, 119.1, squawk 4521, AVIATORY 452."`,
-        ],
-        "Significado: el nivel inicial (FL 150) no es el de crucero. Confundirlos es uno de los errores clásicos de nivel en la salida. Las frases «flight planned route», «climb initially» y «departure frequency» son de uso común; ver VERIFICAR.",
-      ),
-      ...entrada(
-        "Ejemplo 4. Código mal colacionado (corrección según Doc 9432, 2.8.3.9)",
-        [
-          `ATC:   "AVIATORY 452, cleared to Cali via A1, FL 240, GIKOS 1A departure, squawk 4521."`,
-          `PILOT: "Cleared to Cali via A1, FL 240, GIKOS 1A departure, squawk 4251, AVIATORY 452."`,
-          `ATC:   "AVIATORY 452, negative, I say again, squawk 4521."`,
-          `PILOT: "Squawk 4521, AVIATORY 452."`,
-        ],
-        "Significado: una inversión de dígitos es un error típico al copiar rápido. La colación la hizo visible.",
-      ),
-      ...entrada(
-        "Ejemplo 5. Parte que no se escuchó (Doc 9432, 2.8.1.4)",
-        [
-          `ATC:   "AVIATORY 452, cleared to Cali via A1, FL 240, [bloqueado] departure, squawk 4521."`,
-          `PILOT: "AVIATORY 452, say again departure."`,
-          `ATC:   "AVIATORY 452, GIKOS 1A departure."`,
-          `PILOT: "GIKOS 1A departure, AVIATORY 452."`,
-        ],
-        "Significado: pide solo el elemento que falta (SAY AGAIN (item)). No completa la casilla con la SID que esperaba.",
-      ),
-      ...entrada(
-        "Ejemplo 6. Autorización con restricción y alternativa (Doc 9432, 2.8.3.10)",
-        [
-          `ATC:   "AVIATORY 452, cleared to Cali FL 240, cross GIKOS FL 150 or above, if unable, maintain FL 130."`,
-          `PILOT: "Cleared to Cali FL 240, cross GIKOS FL 150 or above, AVIATORY 452."`,
-        ],
-        "Significado: si el piloto acepta la restricción, la colaciona. Si por peso o performance no puede, lo dice en ese momento, no al llegar a GIKOS.",
-      ),
-      ...entrada(
-        "Ejemplo 7. Límite antes del destino (concepto de Doc 4444, 4.5.7.1.2; frase: escenario de práctica)",
-        [
-          `ATC:   "AVIATORY 452, cleared to GIKOS via A1, FL 240, GIKOS 1A departure, squawk 4521, expect further clearance at 1520."`,
-          `PILOT: "Cleared to GIKOS via A1, FL 240, GIKOS 1A departure, squawk 4521, expect further clearance at 1520, AVIATORY 452."`,
-        ],
-        "Significado: el límite es GIKOS, no Cali. Si no recibe una nueva autorización, no está autorizado más allá de GIKOS. Qué hacer si pierde comunicaciones con un límite así se ve en el Nivel 5.",
-      ),
-
-      { kind: "sub", text: "Aplicación en aerolínea" },
+      { kind: "sub", text: "Caso de lectura documental: «as filed»" },
+      {
+        kind: "p",
+        text: "El FAA AIM vigente, 5-2-6, describe una autorización abreviada que remite a la ruta presentada. La publicación aclara que esa fórmula no añade automáticamente el nivel en ruta presentado. La decisión de cabina es concreta: registrar por separado el nivel asignado o la condición que indica cuándo se espera otro, y no programar un ascenso al crucero solo porque ese valor figura en el plan. Se trata de un ejemplo documental estadounidense, no de una grabación ATC ni de una autorización colombiana.",
+      },
+      {
+        kind: "p",
+        text: "Otro control útil surge cuando la ruta presentada cambió antes de la salida. La misma publicación estadounidense indica que, en ese supuesto, no se debe aceptar mecánicamente una autorización abreviada como si la ruta siguiera igual; se comunica la modificación y se solicita una autorización de ruta completa. La enseñanza transferible es detectar cuál versión del plan conocen la tripulación y control. La fraseología exacta, los requisitos y la publicación aplicable en Colombia se verifican por separado en Aerocivil y el procedimiento del operador.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Copiar y verificar la autorización",
-        texto:
-          "En muchos aeropuertos la autorización llega por data link (DCL o PDC, Nivel 6). Por voz, la tripulación típicamente la copia uno, la verifica el otro contra el FMS y el panel, y ambos confirman SID, nivel inicial y código antes de pedir puesta en marcha. Los detalles (quién copia, en qué momento del flujo) son del SOP de cada operador.",
+        momento: "Antes de solicitar puesta en marcha",
+        texto: "El piloto que copió la autorización lee su límite, ruta, salida, nivel y restricciones; el otro los confronta con la documentación y el FMS. Si una diferencia modifica el desempeño o la trayectoria, se actualizan briefing y configuración de acuerdo con el procedimiento del operador. Si algo no se entiende o no se puede cumplir, se resuelve con ATC antes de usarlo como base para el movimiento. Una autorización de ruta no concede por sí misma retroceso, rodaje, entrada en pista ni despegue.",
       },
-
-      { kind: "sub", text: "Error frecuente" },
-      error("Confundir nivel inicial con nivel de crucero."),
-      error("Cargar la SID del briefing en vez de la que dio ATC (la pista cambió y la SID también)."),
-      error("Colacionar de memoria y no desde lo anotado."),
-      error("Creer que la autorización de ruta autoriza a rodar o a entrar a la pista."),
-      error("Llenar una casilla vacía con el plan de vuelo en vez de preguntar."),
-
+      { kind: "sub", text: "Errores que cambian la salida" },
+      error("Programar el nivel de crucero solicitado como si fuera el nivel inicial autorizado."),
+      error("Cargar la salida del briefing sin confirmar que coincide con la autorización y la publicación vigente."),
+      error("Colacionar de memoria, ocultando una cifra o condición que se anotó mal."),
+      error("Rellenar una casilla vacía con el plan presentado en vez de confirmar qué transmitió control."),
+      error("Tratar la autorización IFR de ruta como permiso para mover el avión o ingresar a la pista."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "La autorización IFR dice hasta dónde, por dónde, a qué nivel, con qué código y frecuencia.",
-          "Se colaciona completa (es autorización de ruta).",
-          "CRAFT es una técnica de copiado, no una norma OACI.",
-          "Límite de autorización: el punto más allá del cual no está autorizado.",
-          "La autorización de ruta no autoriza despegue ni entrada a pista.",
+          "Copia el límite, la ruta/salida, el nivel y las restricciones; añade otros datos solo si se transmiten.",
+          "El nivel previsto y el solicitado no reemplazan al nivel asignado.",
+          "Colaciona lo exigido, registra correcciones y contrasta la autorización con documentación y FMS.",
+          "CRAFT es una ayuda de memoria, no norma OACI ni lista exhaustiva.",
+          "La autorización de ruta no concede retroceso, rodaje, entrada en pista ni despegue.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432",
-        "Doc 4444 (15.ª ed., Enm. 4) 4.5.3.1, 4.5.4.1, 4.5.4.2, 4.5.7.1.1 a 4.5.7.1.3, 4.5.7.2.1, 4.5.7.2.2, 4.5.7.3, 4.5.7.4.1, 4.5.7.5.1 a); Doc 9432 (4.ª ed.) 2.8.1.4, 2.8.3.1 a 2.8.3.3, 2.8.3.6, 2.8.3.9, 2.8.3.10.",
-        [
-          "VERIFICAR: lista de conceptos de una autorización (identificación, límite, ruta, niveles, otras instrucciones como maniobras de salida, comunicaciones y hora de expiración) contra Doc 4444 11.4.2.6.2.1 y 11.4.2.6.2.2 (cap. 11 no cargado).",
-          "VERIFICAR: «request clearance», «ready to copy», «flight planned route», «climb initially», «departure frequency» y «expect further clearance at (time)» contra Doc 4444 cap. 12 (fraseología de autorizaciones), no cargado.",
-          "VERIFICAR: CRAFT no aparece en ningún documento OACI cargado; es mnemotecnia de instrucción.",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "OACI Doc 4444 · Doc 9432 · FAA AIM 5-2-6",
+        bloques: [
+          { kind: "sub", text: "Base consultada" },
+          { kind: "p", text: "Doc 4444, 15.ª edición con Enmienda 4, apartados 4.5.3.1, 4.5.4.2 y 4.5.7.1–4.5.7.5 (edición histórica consultada); Doc 9432, 4.ª edición, apartados 2.8.3.1–2.8.3.3. Como contraste, FAA Aeronautical Information Manual vigente, sección 5-2-6 (https://www.faa.gov/air_traffic/publications/aim_html/chap5_section_2.html), sobre autorización abreviada, ruta presentada y nivel; es guía estadounidense, no regla colombiana." },
+          { kind: "sub", text: "Antes de uso operacional" },
+          { kind: "list", items: [
+            "Confirmar los componentes y la fraseología en las ediciones vigentes de los documentos OACI y en los procedimientos del Estado y del operador.",
+            "Para cualquier salida, ruta, nivel, frecuencia, código o carta de un aeródromo colombiano, usar exclusivamente la publicación de información aeronáutica (AIP, Aeronautical Information Publication) vigente de Aerocivil y la autorización efectivamente recibida.",
+            "La hoja y la historieta son didácticas; ningún papel ilustrado es una carta ni una transcripción. No se ha atribuido una autorización concreta a un vuelo real.",
+          ] },
         ],
-      ),
+      },
     ],
   },
-
   // ── 15 ──────────────────────────────────────────────────────────────────
   {
     n: 15,

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Hoja de copiado de una autorización IFR</title>
+  <desc id="desc">Plantilla sin datos de vuelo: límite, ruta y salida, nivel y restricciones y datos adicionales, con preguntas para la verificación cruzada en cabina.</desc>
+  <defs>
+    <style>
+      text{font-family:Inter,Arial,sans-serif;fill:#17313a} .eyebrow{font-size:23px;font-weight:800;letter-spacing:4px;fill:#2f766a} .heading{font-size:49px;font-weight:800} .sub{font-size:27px;fill:#52686b} .label{font-size:28px;font-weight:800} .prompt{font-size:23px;fill:#4a6366} .check{font-size:25px;font-weight:700;fill:#184a48} .foot{font-size:24px;fill:#40575e}
+    </style>
+  </defs>
+  <rect width="1600" height="1100" fill="#e9f3f0"/>
+  <rect x="48" y="40" width="1504" height="1020" rx="35" fill="#fcfcf8" stroke="#bad7d0" stroke-width="3"/>
+  <text x="96" y="106" class="eyebrow">AUTORIZACIÓN IFR · HOJA DE TRABAJO</text>
+  <text x="96" y="171" class="heading">Copia lo recibido. Verifica lo que cambia.</text>
+  <text x="96" y="217" class="sub">Plantilla didáctica, no formato obligatorio ni autorización real.</text>
+
+  <rect x="91" y="259" width="919" height="66" rx="14" fill="#dcece6"/>
+  <rect x="1032" y="259" width="472" height="66" rx="14" fill="#cfe5dc"/>
+  <text x="119" y="302" class="label">REGISTRO DE LO TRANSMITIDO</text>
+  <text x="1056" y="302" class="label">VERIFICACIÓN EN CABINA</text>
+
+  <rect x="91" y="346" width="919" height="120" rx="16" fill="#f6f9f5" stroke="#cad9d4" stroke-width="2"/>
+  <text x="119" y="395" class="label">01 · Límite de autorización</text>
+  <path d="M119 433H975" stroke="#aec8c0" stroke-width="2" stroke-dasharray="8 8"/>
+  <rect x="1032" y="346" width="472" height="120" rx="16" fill="#edf6f1"/>
+  <text x="1056" y="395" class="check">¿Dónde termina el permiso?</text>
+  <text x="1056" y="431" class="prompt">No supongas el destino del plan.</text>
+
+  <rect x="91" y="479" width="919" height="120" rx="16" fill="#f6f9f5" stroke="#cad9d4" stroke-width="2"/>
+  <text x="119" y="528" class="label">02 · Ruta, salida y transición</text>
+  <path d="M119 566H975" stroke="#aec8c0" stroke-width="2" stroke-dasharray="8 8"/>
+  <rect x="1032" y="479" width="472" height="120" rx="16" fill="#edf6f1"/>
+  <text x="1056" y="528" class="check">¿Coincide con lo presentado?</text>
+  <text x="1056" y="564" class="prompt">Si cambió, revisa la publicación.</text>
+
+  <rect x="91" y="612" width="919" height="120" rx="16" fill="#f6f9f5" stroke="#cad9d4" stroke-width="2"/>
+  <text x="119" y="661" class="label">03 · Nivel inicial y restricciones</text>
+  <path d="M119 699H975" stroke="#aec8c0" stroke-width="2" stroke-dasharray="8 8"/>
+  <rect x="1032" y="612" width="472" height="120" rx="16" fill="#edf6f1"/>
+  <text x="1056" y="661" class="check">¿Asignado o solo previsto?</text>
+  <text x="1056" y="697" class="prompt">Confirma que puedes cumplir.</text>
+
+  <rect x="91" y="745" width="919" height="120" rx="16" fill="#f6f9f5" stroke="#cad9d4" stroke-width="2"/>
+  <text x="119" y="794" class="label">04 · Datos adicionales, si se dan</text>
+  <path d="M119 832H975" stroke="#aec8c0" stroke-width="2" stroke-dasharray="8 8"/>
+  <rect x="1032" y="745" width="472" height="120" rx="16" fill="#edf6f1"/>
+  <text x="1056" y="794" class="check">¿Código, contacto, condición?</text>
+  <text x="1056" y="830" class="prompt">No rellenes casillas por memoria.</text>
+
+  <rect x="91" y="896" width="1413" height="95" rx="18" fill="#214b49"/>
+  <text x="119" y="943" style="font:700 29px Inter,Arial,sans-serif;fill:#e8f8f1">Escuchar → aclarar → colacionar → cotejar → configurar</text>
+  <text x="96" y="1035" class="foot">Una ruta autorizada no concede por sí sola movimiento, entrada a pista ni despegue.</text>
+</svg>
