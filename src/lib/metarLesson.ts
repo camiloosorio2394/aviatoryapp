@@ -1328,18 +1328,22 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
     blocks: [
       {
         kind: "p",
-        text: "Ya tienes las piezas. Ahora el ejercicio completo, que es el que te van a pedir en una entrevista técnica: te ponen un TAF delante y esperan que hables.",
+        text: "**En la portada:** desde una aeronave se ven un aeródromo distante, bruma baja y una franja de precipitación en otro sector. **Cómo lo reconoces:** son fenómenos separados en el espacio; la foto no muestra la hora ni los valores del TAF. **Qué decides:** antes de la llegada, leer el pronóstico completo por tramos y actualizarlo con observaciones y avisos; la imagen no sirve para estimar mínimos.",
+      },
+      {
+        kind: "p",
+        text: "Ahora une cabecera, condiciones predominantes y cambios para tres horas de llegada distintas. Un TAF se interpreta como una secuencia: primero confirmas emisión y validez, luego ubicas cada ventana de cambio y por último contrastas los escenarios que alcanzan tu vuelo con tus mínimos y el plan del operador.",
       },
       {
         kind: "callout",
         tone: "info",
         title: "Escenario de práctica",
-        text: "El TAF que sigue está construido para este curso. Es un pronóstico realista y bien formado, pero **no es un informe real** de ningún aeródromo.",
+        text: "El TAF siguiente está **inventado para practicar**. `YUDO` es un identificador de aeródromo ficticio utilizado en ejemplos de la OACI; el texto no representa una emisión vigente ni puede usarse en una operación.",
       },
       {
         kind: "code",
         tabular: true,
-        text: `TAF SKXX 151700Z 1518/1624 20008KT 9999 SCT025
+        text: `TAF YUDO 151700Z 1518/1624 20008KT 9999 SCT025
      BECMG 1520/1522 15012G22KT 6000 -RA BKN015
      TEMPO 1522/1602 3000 TSRA BKN010CB
      FM160300 09006KT 1200 BR OVC006
@@ -1349,29 +1353,41 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
       {
         kind: "kv",
         items: [
-          { k: "Cabecera", v: "Emitido el día 15 a las 17:00Z, válido desde el 15 a las 18Z hasta el 16 a las 24Z. Treinta horas de validez." },
-          { k: "Predominante inicial", v: "Viento del 200° a 8 nudos, visibilidad 10 km o más, nubes dispersas a 2.500 pies. Buen tiempo." },
-          { k: "BECMG 1520/1522", v: "Entre las 20Z y las 22Z se establece: viento del 150° a 12 con ráfagas de 22, visibilidad 6 km con lluvia ligera y techo a 1.500 pies. Empeora, y se queda." },
-          { k: "TEMPO 1522/1602", v: "Desde las 22Z hasta las 02Z puede caer a 3 km con tormenta y techo a 1.000 pies con cumulonimbos. Va y vuelve." },
-          { k: "FM160300", v: "A partir de las 03Z, línea nueva: viento flojo del este, 1.200 metros con bruma y cielo cubierto a 600 pies. Esto **sustituye** todo lo anterior." },
-          { k: "PROB30 1604/1608", v: "Entre las 04Z y las 08Z, un 30 % de probabilidad de 500 metros con niebla. El peor momento del periodo." },
-          { k: "BECMG 1612/1614", v: "Entre las 12Z y las 14Z mejora: 10 km, NSW (ningún fenómeno significativo) y dispersas a 3.000 pies." },
+          { k: "Cabecera", v: "Ejemplo ficticio emitido el día 15 a las 17:00 UTC; válido desde el día 15 a las 18:00 hasta el día 16 a las 24:00 UTC, es decir, el inicio del día 17. Son 30 horas." },
+          { k: "Predominante inicial", v: "Viento de 200° verdaderos a 8 kt, visibilidad de 10 km o más y `SCT025` a 2500 ft sobre el aeródromo. `SCT` no constituye techo; no juzgues el periodo sin tus mínimos." },
+          { k: "BECMG 1520/1522", v: "Entre las 20:00 y las 22:00 UTC del día 15 se establecerán los grupos nuevos: viento 150° a 12 kt con ráfagas de 22 kt, 6000 m, lluvia ligera y techo `BKN015` a 1500 ft." },
+          { k: "TEMPO 1522/1602", v: "Entre las 22:00 del día 15 y las 02:00 del 16 podrían darse episodios de 3000 m, tormenta con lluvia y techo `BKN010CB` a 1000 ft. Entre episodios permanece la condición predominante correspondiente." },
+          { k: "FM160300", v: "Desde las 03:00 UTC del día 16 comienza un tramo completo: viento 090° a 6 kt, 1200 m con neblina (`BR`) y techo `OVC006` a 600 ft. Sustituye la descripción predominante anterior." },
+          { k: "PROB30 1604/1608", v: "Entre las 04:00 y las 08:00 UTC del día 16 existe una probabilidad codificada del 30 % de 500 m con niebla. No es una observación ni certeza; compárala con los requisitos aplicables." },
+          { k: "BECMG 1612/1614", v: "Entre las 12:00 y las 14:00 UTC del día 16 se prevé 10 km o más, sin tiempo significativo (`NSW`) y `SCT030` a 3000 ft. El viento no cambia porque este grupo no lo menciona." },
         ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t24-01-tres-llegadas.webp",
+        alt: "Tres tarjetas muestran cómo el mismo TAF ficticio se interpreta para A el día 15 a las 19:00, B el día 15 a las 23:30 y C el día 16 a las 06:00 UTC",
+        ancho: 1600,
+        alto: 780,
+        pie: "Comparación didáctica del TAF ficticio: A cae en el tramo inicial; B, tras BECMG y dentro de TEMPO; C, tras FM y dentro de PROB30. No indica mínimos ni autoriza un vuelo.",
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** tres llegadas a horas distintas bajo el mismo pronóstico. **Cómo lo reconoces:** cada tarjeta separa la condición predominante de la condición temporal o probable que puede coincidir con esa llegada. **Qué decides:** evaluar ambos escenarios de tu ventana con mínimos, alternos, combustible y productos actualizados; no aplicar a B el tiempo de C ni tratar un PROB como certeza.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "Tres llegadas distintas al mismo aeródromo",
         situacion:
-          "El mismo TAF de arriba. Tres vuelos: el **A** llega a las 1900Z, el **B** a las 2330Z y el **C** a las 0600Z.",
-        pregunta: "¿Cuál de los tres tiene el problema serio?",
+          "Con el mismo TAF ficticio, el vuelo **A** llega el día 15 a las 19:00 UTC; **B**, el día 15 a las 23:30; y **C**, el día 16 a las 06:00.",
+        pregunta: "¿Qué tramo y qué riesgos debes evaluar para cada llegada?",
         claves: [
-          "**A, 1900Z:** cae en el bloque inicial. 10 km y dispersas a 2.500. Sin novedad, y el BECMG todavía no empezó.",
-          "**B, 2330Z:** está dentro del TEMPO 1522/1602. Puede encontrarse tormenta, 3 km y techo de 1.000 pies con CB. Necesita combustible para esperar, pero es manejable.",
-          "**C, 0600Z:** el peor. Después del FM160300 lo predominante ya es 1.200 m con techo de 600 pies, **y encima** cae dentro del PROB30 de 500 metros con niebla.",
-          "Para C la pregunta no es si aguanta el mínimo: es **qué alterno lleva y si ese alterno está fuera del mismo sistema**, porque la niebla de madrugada no suele ser local.",
+          "**A, día 15 a las 19:00:** está antes del primer `BECMG`. Se prevén 10 km o más y `SCT025`, sin techo en el ejemplo; confirma que el TAF esté vigente y compara los demás datos con tu operación.",
+          "**B, día 15 a las 23:30:** ya rigen los cambios de `BECMG` y cae dentro de `TEMPO`. Además del techo `BKN015`, 6000 m y lluvia ligera, podría encontrar tormenta, 3000 m y `BKN010CB`. Evalúa convección y opciones de espera o desvío.",
+          "**C, día 16 a las 06:00:** rige el tramo `FM160300`: predominan 1200 m y techo `OVC006`; además, `PROB30` contempla 500 m con niebla. Contrasta ambos escenarios con mínimos, alterno y combustible.",
+          "Ningún vuelo queda aprobado o descartado por esta lectura sola: faltan mínimos reales, pronóstico actualizado, observaciones, avisos y procedimientos del explotador.",
         ],
         cierre:
-          "El mismo TAF, tres respuestas distintas. Por eso el pronóstico no se lee entero de corrido: se lee buscando tu ventana.",
+          "El mismo TAF orienta tres briefings distintos. La prioridad es colocar la llegada en el tramo correcto, evaluar las condiciones predominantes y temporales pertinentes y actualizar los datos.",
       },
       {
         kind: "check",
@@ -1384,7 +1400,7 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
         ],
         answer: 1,
         explain:
-          "Un FM abre una línea nueva. Todo lo anterior, predominante y temporal, deja de aplicar, y a partir de esa hora las condiciones son exactamente las que el FM enumera hasta que otro grupo las modifique.",
+          "A las 03:00 UTC del día 16, `FM160300` abre un tramo nuevo con viento, visibilidad, tiempo y nubes completos. El `TEMPO` anterior ya terminó a las 02:00, y su techo de 1000 ft no se arrastra al nuevo tramo. Luego evalúa los grupos posteriores, como `PROB30`.",
       },
       {
         kind: "entrevista",
@@ -1393,25 +1409,25 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
             nivel: "situacion",
             q: "Te ponen un TAF delante y te dicen: interprétalo. ¿Cómo lo estructuras?",
             respuesta:
-              "Primero la cabecera: quién lo emite, cuándo y hasta cuándo vale. Después el bloque predominante. Luego recorro los grupos de cambio en orden, diciendo de cada uno si sustituye o si matiza y qué ventana cubre. Y termino por lo que de verdad importa: sitúo mi hora estimada de llegada dentro de esa línea de tiempo y digo qué condiciones me tocan a mí, no las mejores ni las peores del periodo.",
-            claves: ["Cabecera y validez", "Predominante", "Grupos de cambio en orden", "Situar la hora de llegada"],
+              "Empiezo por aeródromo, hora de emisión y validez. Leo el bloque inicial y recorro los grupos de cambio en orden, distinguiendo tramos nuevos de modificaciones parciales y episodios o probabilidades. Sitúo mi llegada en las ventanas pertinentes y comparo condiciones predominantes y posibles con mínimos, avisos, alternos y el producto actualizado. No elijo solo el mejor ni el peor grupo de todo el periodo.",
+            claves: ["Cabecera y validez", "Grupos en orden", "Llegada en su ventana", "Mínimos y datos actualizados"],
           },
           {
             nivel: "interpretacion",
             q: "¿Qué significa NSW y dónde aparece?",
             respuesta:
-              "No significant weather: ningún fenómeno significativo. Aparece en los grupos de cambio para decir que el fenómeno que había antes deja de esperarse. Es la forma que tiene el TAF de cancelar un tiempo presente sin tener que enumerar todo lo que ya no habrá.",
-            claves: ["Ningún fenómeno significativo", "Cancela el tiempo presente anterior", "Solo en grupos de cambio"],
+              "`NSW` (no significant weather) indica que deja de esperarse el tiempo significativo pronosticado previamente, dentro del grupo de cambio donde figura. No significa cielo despejado, visibilidad ilimitada ni ausencia absoluta de todo fenómeno; hay que leer también visibilidad y nubes.",
+            claves: ["No significant weather", "Termina el tiempo significativo anterior", "Leer también visibilidad y nubes"],
           },
         ],
       },
       {
         kind: "summary",
         items: [
-          "Se lee en orden: cabecera, predominante, grupos de cambio, y por último tu ventana de llegada.",
-          "FM abre línea nueva; BECMG cambia solo lo que nombra; TEMPO y PROB son posibilidades acotadas.",
-          "NSW cancela el fenómeno anterior.",
-          "El mismo TAF da respuestas distintas según a qué hora llegues.",
+          "Lee cabecera y periodo de validez antes de asociar grupos con tu hora de llegada.",
+          "FM abre un tramo completo; BECMG cambia solo lo indicado; TEMPO describe episodios y PROB una posibilidad codificada.",
+          "NSW indica fin del tiempo significativo anterior, no despeje total ni autorización operacional.",
+          "El mismo TAF plantea riesgos distintos para llegadas diferentes: comprueba el tramo, los mínimos y la información nueva.",
         ],
       },
     ],
