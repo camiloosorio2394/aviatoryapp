@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cuatro preguntas ante una instrucción ATC</title>
+  <desc id="desc">Identificar destinatario, acción, límite y respuesta antes de actuar.</desc>
+  <rect width="1600" height="900" fill="#112336"/>
+  <rect x="70" y="65" width="1460" height="770" rx="32" fill="#1a3448" stroke="#527282" stroke-width="2"/>
+  <text x="120" y="140" fill="#a7f3d0" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="4">FRASEOLOGÍA OPERACIONAL</text>
+  <text x="120" y="205" fill="#fff" font-family="Arial,sans-serif" font-size="52" font-weight="700">La frase no basta: cuatro preguntas</text>
+  <text x="120" y="250" fill="#c9d9e2" font-family="Arial,sans-serif" font-size="25">Cada instrucción se comprende antes de seleccionarla y ejecutarla.</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="120" y="320" width="310" height="295" rx="25" fill="#25475b" stroke="#6e9d9a"/>
+    <text x="150" y="380" fill="#a7f3d0" font-size="31" font-weight="700">01 · ¿QUIÉN?</text>
+    <text x="150" y="435" fill="#fff" font-size="30" font-weight="700">Destinatario</text>
+    <text x="150" y="495" fill="#d8e4e9" font-size="22">Indicativo completo.</text>
+    <text x="150" y="529" fill="#d8e4e9" font-size="22">¿Es para este vuelo?</text>
+    <text x="150" y="563" fill="#d8e4e9" font-size="22">Si no, no actuar.</text>
+    <rect x="470" y="320" width="310" height="295" rx="25" fill="#25475b" stroke="#6e9d9a"/>
+    <text x="500" y="380" fill="#a7f3d0" font-size="31" font-weight="700">02 · ¿QUÉ?</text>
+    <text x="500" y="435" fill="#fff" font-size="30" font-weight="700">Acción</text>
+    <text x="500" y="495" fill="#d8e4e9" font-size="22">Autorización, orden</text>
+    <text x="500" y="529" fill="#d8e4e9" font-size="22">o información.</text>
+    <text x="500" y="563" fill="#d8e4e9" font-size="22">No confundirlas.</text>
+    <rect x="820" y="320" width="310" height="295" rx="25" fill="#25475b" stroke="#6e9d9a"/>
+    <text x="850" y="380" fill="#a7f3d0" font-size="31" font-weight="700">03 · ¿CUÁNDO?</text>
+    <text x="850" y="435" fill="#fff" font-size="30" font-weight="700">Límite</text>
+    <text x="850" y="495" fill="#d8e4e9" font-size="22">Nivel, pista, punto,</text>
+    <text x="850" y="529" fill="#d8e4e9" font-size="22">condición o tiempo.</text>
+    <text x="850" y="563" fill="#d8e4e9" font-size="22">No anticipar acción.</text>
+    <rect x="1170" y="320" width="310" height="295" rx="25" fill="#205047" stroke="#8fd8ba"/>
+    <text x="1200" y="380" fill="#a7f3d0" font-size="31" font-weight="700">04 · ¿CÓMO?</text>
+    <text x="1200" y="435" fill="#fff" font-size="30" font-weight="700">Respuesta</text>
+    <text x="1200" y="495" fill="#d8e4e9" font-size="22">Colacionar, aclarar</text>
+    <text x="1200" y="529" fill="#d8e4e9" font-size="22">o avisar UNABLE.</text>
+    <text x="1200" y="563" fill="#d8e4e9" font-size="22">Luego, cotejar.</text>
+  </g>
+  <path d="M430 466h39m311 0h39m311 0h39" fill="none" stroke="#a7f3d0" stroke-width="5"/>
+  <text x="120" y="700" fill="#fff" font-family="Arial,sans-serif" font-size="31" font-weight="700">Después: autorización ↔ selección ↔ trayectoria real.</text>
+  <text x="120" y="778" fill="#afc3cf" font-family="Arial,sans-serif" font-size="21">Guía didáctica; la colación y las llamadas exactas dependen del procedimiento aplicable.</text>
+</svg>

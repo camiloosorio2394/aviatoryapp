@@ -53,26 +53,6 @@ function verificar(text: string): DocBlockData {
   return { kind: "callout", tone: "verificar", title: "Verificar", text }
 }
 
-/** Una situación del capítulo 62: situación, intercambio, significado y error común. */
-function caso62(c: {
-  titulo: string
-  situacion: string
-  turnos: string[]
-  significado: string
-  error: string
-  verificar?: string
-}): DocBlockData[] {
-  const out: DocBlockData[] = [
-    { kind: "sub", text: c.verificar ? `${c.titulo} (VERIFICAR)` : c.titulo },
-    { kind: "p", text: c.situacion },
-    { kind: "code", text: c.turnos.join("\n") },
-    { kind: "p", text: `**SIGNIFICADO:** ${c.significado}` },
-    error("Error común", c.error),
-  ]
-  if (c.verificar) out.push(verificar(c.verificar))
-  return out
-}
-
 /** Una situación del capítulo 63, con la respuesta tras el botón. */
 function practica63(c: {
   n: number
@@ -240,308 +220,120 @@ export const NIVEL_8: DocScreen[] = [
   {
     n: 62,
     title: "Fraseología que debes dominar",
-    kicker: "De la autorización IFR al CPDLC, frase por frase",
-    minutes: 16,
+    kicker: "No recitar frases: reconocer intención, límite y respuesta",
+    minutes: 24,
     blocks: [
       {
         kind: "p",
-        text: "Este nivel no enseña temas nuevos: los pone a trabajar. Cada capítulo toma lo visto en los niveles 1 a 7 y lo convierte en práctica de cabina y de entrevista: escuchar, entender qué quiere el ATC, responder y decidir.",
+        text: "Este repaso reúne veintidós momentos de una operación de línea, desde la autorización inicial hasta una contingencia. **No son transmisiones reales ni una ruta publicada**: cada fila es una situación de estudio sin indicativos, frecuencias, puntos o cifras inventadas. El objetivo no es memorizar un libreto, sino detectar el destinatario, la acción autorizada, sus condiciones, la colación necesaria y el instante en que la cabina debe pedir aclaración o declarar incapacidad.",
       },
       {
-        kind: "p",
-        text: "Veintidós situaciones que se repiten en cualquier vuelo de línea y en cualquier entrevista. Para cada una: qué pasa, qué dice el ATC, qué respondes, qué significa y dónde se equivoca la gente.",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-62-01.svg",
+        alt: "Secuencia de cuatro preguntas para responder una instrucción ATC: quién, qué, bajo qué límite y qué confirma o solicita la tripulación.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Guía didáctica, no fraseología prescrita. Antes de actuar, identificar destinatario, acción, límite y respuesta; luego comprobar que la selección y el movimiento del avión coincidan.",
       },
-      COMO_LEER,
-      verificar(
-        "Parte de la fraseología de este capítulo no está en las fuentes cargadas: control de velocidad, desvíos por meteorología, espera, TCAS RA, MINIMUM FUEL, MAYDAY y PAN PAN, falla de comunicaciones y CPDLC. Cada situación que la usa va marcada (VERIFICAR) con el documento que hay que consultar: Doc 4444 cap. 12, 14 y 15 (edición vigente), Doc 9432 cap. 7.3, 8.7, 9 y 11.6, Anexo 10 Vol. II cap. 5, Anexo 6 Parte I, Doc 8168 Vol. I, Doc 10037 (GOLD) y el AIP del Estado.",
-      ),
-      ...caso62({
-        titulo: "62.1 Autorización IFR",
-        situacion: "**SITUACIÓN:** En el puesto de estacionamiento, antes de la puesta en marcha. Llamas a Delivery para la autorización de ruta.",
-        turnos: [
-          `ATC:   "Aviatory 452, cleared to Cali via GIKOS One Alpha departure, flight level two eight zero, squawk five five zero one."`,
-          `PILOT: "Cleared to Cali via GIKOS One Alpha departure, flight level two eight zero, squawk five five zero one, Aviatory 452."`,
+      { kind: "sub", text: "Antes de que el avión se mueva" },
+      {
+        kind: "table",
+        head: ["Situación", "Dato que debes retener", "Respuesta y decisión"],
+        rows: [
+          ["1. Autorización de ruta", "Límite, ruta o salida publicada, nivel inicial, restricciones y código si se emite.", "Registrar y colacionar los elementos críticos; contrastar con la documentación vigente. La ruta no autoriza entrar en pista."],
+          ["2. Puesta en marcha", "Quién concede o coordina, condiciones y demora.", "Distinguir «espere» de aprobación; coordinar con personal de tierra según el procedimiento local."],
+          ["3. Retroceso", "Aprobación, dirección o condición aplicable.", "No iniciar con una expectativa ni con una solicitud propia. Confirmar la aprobación real."],
+          ["4. Rodaje", "Ruta, límite, pista asignada y cualquier instrucción de esperar fuera.", "Colacionar límites de pista y detenerse en el punto indicado. No inferir un cruce de una autorización de rodaje."],
+          ["5. Cruce de pista", "Pista específica y autorización expresa.", "Verificar pista, trayectoria y tráfico; colacionar el cruce antes de ingresar."],
+          ["6. Alinear y esperar", "Pista e instrucción de alineación sin permiso de despegue.", "Entrar solo cuando corresponda y permanecer a la espera de la autorización de despegue."],
+          ["7. Despegue", "Pista exacta y autorización inequívoca.", "Colacionar pista y despegue; verificar que la instrucción sea para el distintivo propio."],
         ],
-        significado:
-          "Autorizado hasta Cali por la salida GIKOS 1A, nivel autorizado FL 280, código SSR 5501. Es una autorización de ruta: se colaciona completa (Doc 9432, 2.8.3.5 a; Doc 4444, 4.5.7.5.1 a) y la colación termina con tu distintivo (Doc 9432, 2.8.3.7).",
-        error:
-          "Colacionar solo el código y el nivel, o creer que la autorización de ruta permite entrar a la pista. No lo permite: una autorización de ruta no es instrucción de despegue ni de entrada a pista (Doc 9432, 2.8.3.3).",
-      }),
-      ...caso62({
-        titulo: "62.2 Retroceso (pushback)",
-        situacion:
-          "**SITUACIÓN:** Listo en el puesto 24 con la información ATIS Bravo. Según el aeródromo, el retroceso se pide a Plataforma o a Superficie (Doc 9432, 4.3.1).",
-        turnos: [
-          `PILOT:           "Bogota Ground, Aviatory 452, stand two four, information Bravo, request push-back."`,
-          `ATC:             "Aviatory 452, stand by. Expect one minute delay due Airbus taxiing behind."`,
-          `ATC (después):   "Aviatory 452, push-back approved."`,
-          `PILOT:           "Push-back approved, Aviatory 452."`,
+      },
+      { kind: "sub", text: "Del ascenso al crucero" },
+      {
+        kind: "table",
+        head: ["Situación", "Dato que debes retener", "Respuesta y decisión"],
+        rows: [
+          ["8. Transferencia de frecuencia", "Dependencia a contactar y frecuencia recibida.", "Colacionar la frecuencia, ajustar el equipo y establecer el contacto; si falla, seguir el procedimiento publicado."],
+          ["9. Cambio de nivel", "Nuevo nivel y cualquier condición de inicio o límite.", "Colacionar completo, cotejar el selector y vigilar la captura. Una selección anticipada no permite ejecutar antes de la condición."],
+          ["10. Rumbo o vector", "Dirección del viraje, rumbo asignado y fin de la instrucción.", "Colacionar el rumbo y verificar que la trayectoria responda."],
+          ["11. Directo", "Punto autorizado y si modifica otras restricciones.", "Confirmar el punto en la fuente de navegación y resolver qué partes de la autorización anterior siguen vigentes."],
+          ["12. Velocidad", "Valor, unidad, condición y capacidad real.", "Colacionar y evaluar si es alcanzable sin comprometer la operación; comunicar UNABLE si no lo es."],
+          ["13. Reporte de posición", "Posición verificada, hora/nivel y siguiente dato requerido.", "Transmitir solo información comprobada, según el servicio y procedimiento aplicables."],
+          ["14. Desvío meteorológico", "Distancia, dirección y límite autorizado para apartarse de la ruta.", "Solicitar espacio y expresar necesidad concreta; no convertir una petición en aprobación."],
         ],
-        significado: "Primero: espera, hay un avión rodando detrás. Después: retroceso aprobado.",
-        error:
-          "Empezar a retroceder con el «stand by». STANDBY no es aprobación ni denegación (Doc 9432, 2.6, nota a ESPERE). La dirección del retroceso («facing east», «tail north») y la coordinación con el personal de tierra dependen del aeródromo y del SOP.",
-      }),
-      ...caso62({
-        titulo: "62.3 Rodaje",
-        situacion: "**SITUACIÓN:** Retroceso completo. Pides rodaje. La pista en uso es la 13L y la ruta cruza la 13R.",
-        turnos: [
-          `ATC:   "Aviatory 452, taxi to holding point runway one three left via Alpha, hold short of runway one three right."`,
-          `PILOT: "Taxi to holding point runway one three left via Alpha, hold short of runway one three right, Aviatory 452."`,
+      },
+      { kind: "sub", text: "Llegada y cierre" },
+      {
+        kind: "table",
+        head: ["Situación", "Dato que debes retener", "Respuesta y decisión"],
+        rows: [
+          ["15. Llegada publicada", "Transición, restricción y punto hasta donde existe autorización.", "Cotejar la publicación vigente y la instrucción nueva; la llegada no concede por sí sola aproximación ni aterrizaje."],
+          ["16. Espera", "Punto, dirección, tiempos o distancias y nivel autorizado.", "Copiar todos los elementos; pedir aclaración si alguno queda indeterminado."],
+          ["17. Aproximación", "Tipo, pista y límite de autorización.", "Verificar que la aproximación autorizada coincide con preparación y equipos; colacionar lo requerido."],
+          ["18. Motor y al aire", "Nueva trayectoria, nivel y dependencia.", "Volar el procedimiento o la instrucción aplicable, comunicar y cotejar sin sacrificar el control del avión."],
+          ["19. Aterrizaje", "Pista y permiso explícito para aterrizar.", "No confundir estar establecido o ser número uno con autorización. Colacionar la pista."],
+          ["20. Salida de pista", "Punto de salida, límite de rodaje y cambio de frecuencia.", "Confirmar que se ha liberado la pista; seguir la instrucción de superficie vigente."],
         ],
-        significado:
-          "Rueda por Alfa hasta el punto de espera de la 13L, pero detente antes de la 13R. Cuando el límite de rodaje queda más allá de una pista, la autorización trae un cruce explícito o una instrucción de esperar fuera (Doc 9432, 4.4.2).",
-        error:
-          "Pensar que «taxi to holding point runway one three left» incluye cruzar la 13R. No la incluye. Las instrucciones de esperar fuera y cruzar una pista se colacionan siempre (Doc 4444, 4.5.7.5.1 b).",
-      }),
-      ...caso62({
-        titulo: "62.4 Entrar a la pista y esperar",
-        situacion: "**SITUACIÓN:** En el punto de espera de la 13L. Torre te hace entrar a la pista sin autorizar todavía el despegue.",
-        turnos: [`ATC:   "Aviatory 452, runway one three left, line up and wait."`, `PILOT: "Runway one three left, line up and wait, Aviatory 452."`],
-        significado: "Entra a la pista 13L, alinéate y **espera**. No hay autorización de despegue.",
-        error:
-          "Despegar con LINE UP AND WAIT. El ejemplo del Doc 9432 (4.5.3) colaciona solo «lining up»; decir la pista en la colación ayuda donde hay pistas paralelas y es un elemento que se colaciona siempre (Doc 4444, 4.5.7.5.1 b y c).",
-      }),
-      ...caso62({
-        titulo: "62.5 Despegue",
-        situacion: "**SITUACIÓN:** Alineado en la 13L. Torre te autoriza.",
-        turnos: [
-          `ATC:   "Aviatory 452, runway one three left, cleared for take-off, wind one five zero degrees eight knots."`,
-          `PILOT: "Runway one three left, cleared for take-off, Aviatory 452."`,
+      },
+      { kind: "sub", text: "Cuando el plan deja de funcionar" },
+      {
+        kind: "table",
+        head: ["Situación", "Dato que debes retener", "Respuesta y decisión"],
+        rows: [
+          ["21. Incapacidad", "Qué instrucción no se puede cumplir y por qué afecta la trayectoria.", "Comunicar UNABLE temprano y solicitar una alternativa viable. No aceptar por cortesía."],
+          ["22. Socorro o urgencia", "Naturaleza, capacidad, ayuda requerida e intención actual.", "Priorizar el vuelo y emitir MAYDAY o PAN PAN cuando corresponda; actualizar a ATC al cambiar la capacidad."],
         ],
-        significado: "Autorizado a despegar de la 13L. Con varias pistas en uso, el número de pista va en la autorización (Doc 9432, 4.5.8).",
-        error:
-          "Decir «ready for take-off» en el punto de espera. La palabra TAKE-OFF solo se usa para autorizar el despegue o para cancelarlo; en los demás casos se dice «departure» o «airborne» (Doc 9432, 2.8.3.3). En el punto de espera se dice «ready» (Doc 9432, 4.5.3).",
-      }),
-      ...caso62({
-        titulo: "62.6 Contacto con Salida",
-        situacion: "**SITUACIÓN:** Recién despegado. Torre te transfiere.",
-        turnos: [
-          `ATC (Tower):          "Aviatory 452, contact Departure one two one decimal seven five."`,
-          `PILOT:                "One two one decimal seven five, Aviatory 452."`,
-          `PILOT (a Departure):  "Bogota Departure, Aviatory 452, passing one zero thousand feet, climbing to flight level one three zero."`,
-          `ATC:                  "Aviatory 452, turn right heading zero four zero until passing flight level one five zero, then direct GIKOS."`,
-          `PILOT:                "Right heading zero four zero until passing flight level one five zero, then direct GIKOS, Aviatory 452."`,
+      },
+      { kind: "sub", text: "Cómo practicar en voz alta" },
+      {
+        kind: "list",
+        ordered: true,
+        items: [
+          "Elegir una fila y describir sin números: «ATC me autorizó / instruyó / pidió…». Distinguir siempre petición de autorización.",
+          "Decir qué parte debería colacionarse en ese contexto y qué dato faltante obligaría a SAY AGAIN o CONFIRM. Las palabras exactas y el idioma aplicable se comprueban en la publicación correspondiente.",
+          "Explicar qué seleccionará y comprobará cada piloto según el procedimiento del operador; después, qué respuesta del avión confirmaría que se ejecuta lo autorizado.",
+          "Añadir una variación: instrucción imposible, transmisión cubierta o corrección de ATC. Responder antes de ver la respuesta.",
         ],
-        significado:
-          "Tras el cambio de frecuencia, el primer contacto informa el nivel (Doc 9432, 3.4.1; Doc 4444, 4.11.2.1.1). Luego: rumbo 040 hasta pasar FL 150 y después directo a GIKOS (modelo en Doc 9432, 7.1.2).",
-        error:
-          "Llamar a Salida sin decir nivel ni nivel autorizado, o colacionar el rumbo sin la condición («until passing flight level one five zero»). El rumbo y el nivel se colacionan siempre (Doc 4444, 4.5.7.5.1 c).",
-      }),
-      ...caso62({
-        titulo: "62.7 Ascenso",
-        situacion: "**SITUACIÓN:** En ascenso a FL 130. El ATC te da más.",
-        turnos: [
-          `ATC:   "Aviatory 452, climb to flight level two four zero."`,
-          `PILOT: "Leaving flight level one one zero, climbing to flight level two four zero, Aviatory 452."`,
+      },
+      {
+        kind: "escenario",
+        titulo: "Ensayo integral: instrucción condicionada",
+        situacion: "Ejercicio didáctico, no tráfico ni ruta reales. Una tripulación espera descender durante la llegada. ATC asigna un nivel inferior, pero especifica que el descenso comienza solo después de una condición. Mientras el piloto que monitorea colaciona, el piloto que vuela programa el nivel. El avión empieza a descender antes de que la condición se cumpla.",
+        preguntas: [
+          { q: "¿Qué debía incluir la colación?", a: "El nivel y la condición, con el indicativo. Si no se oyó completa, se pide repetición antes de actuar." },
+          { q: "¿Cuál es la diferencia entre preparar y ejecutar?", a: "Según el SOP puede prepararse la selección; la maniobra no se inicia hasta que la autorización sea efectiva. La cabina debe vigilar modo y trayectoria." },
+          { q: "¿Cómo se recupera?", a: "Se señala y corrige la desviación conforme al procedimiento, se informa a ATC si corresponde y se confirma cuál autorización sigue vigente." },
         ],
-        significado: "Asciende a FL 240. La colación con «leaving… climbing to…» sigue el modelo del Doc 9432 (3.3.3.1).",
-        error:
-          "Colacionar «two four zero» sin «flight level». Si la referencia es 1013,2 hPa, las palabras «flight level» preceden al número; si es QNH, el número va seguido de «feet» o «metres» (Doc 4444, 4.5.7.5.1, nota). Sin esa palabra, «two four zero» no le dice al ATC qué entendiste.",
-      }),
-      ...caso62({
-        titulo: "62.8 Cambio de nivel en curso",
-        situacion: "**SITUACIÓN:** Descendiendo a FL 120. Hay tránsito debajo.",
-        turnos: [
-          `ATC:                "Aviatory 452, stop descent at flight level one five zero."`,
-          `PILOT:              "Stop descent at flight level one five zero, Aviatory 452."`,
-          `ATC (más tarde):    "Aviatory 452, recleared flight level three three zero."  (en otro vuelo, en ascenso)`,
-          `PILOT:              "Recleared flight level three three zero, Aviatory 452."`,
+        concepto: "Fraseología, selección y trayectoria son tres verificaciones diferentes.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Alcance de las fuentes",
+        text: "Los ejemplos verbales publicados por FAA ilustran prácticas de Estados Unidos, no reemplazan fraseología, AIP/eAIP ni procedimientos colombianos vigentes. Aquí no se asigna una frecuencia ni se dibuja una carta ficticia.",
+      },
+      {
+        kind: "summary",
+        title: "En pocas palabras",
+        items: [
+          "Veintidós momentos, una disciplina: destinatario, acción, condición, respuesta y verificación.",
+          "Autorizaciones de ruta, rodaje, aproximación y aterrizaje tienen límites distintos.",
+          "Una colación no sustituye cotejar selector, modo y trayectoria.",
+          "La incapacidad y la duda se comunican temprano.",
         ],
-        significado:
-          "La nueva instrucción anula la anterior (Doc 9432, 3.3.3.2). RECLEARED significa que la nueva autorización invalida la anterior o parte de ella (Doc 9432, 2.6).",
-        error:
-          "Dejar seleccionado el nivel viejo en el MCP/FCU. Cuando cambia una parte de la autorización de nivel, se enuncia de nuevo toda la autorización de nivel (Doc 9432, 3.3.3): escúchala entera y selecciónala entera.",
-      }),
-      ...caso62({
-        titulo: "62.9 Rumbo",
-        situacion: "**SITUACIÓN:** Vectores para separación.",
-        turnos: [`ATC:   "Aviatory 452, turn left heading zero five zero for separation."`, `PILOT: "Left heading zero five zero, Aviatory 452."`],
-        significado:
-          "Vira **a la izquierda** hasta rumbo 050 (magnético, Doc 9432, 6.1.2). El motivo va en la instrucción cuando no es evidente (Doc 9432, 6.3.1).",
-        error: "Virar por el lado corto cuando el ATC dio el sentido de viraje, o colacionar solo el número. Si el ATC dijo «left», la colación dice «left».",
-      }),
-      ...caso62({
-        titulo: "62.10 Directo a un punto",
-        situacion: "**SITUACIÓN:** Fin de los vectores.",
-        turnos: [`ATC:   "Aviatory 452, resume own navigation direct GIKOS."`, `PILOT: "Direct GIKOS, Aviatory 452."`],
-        significado: "Se acabaron los vectores: navega tú, directo a GIKOS (Doc 9432, 6.3.3).",
-        error:
-          "Seguir en el último rumbo porque nadie dijo «turn», o seleccionar en el FMS un punto de nombre parecido. Antes de ejecutar el directo, los dos pilotos comprueban el punto en la pantalla.",
-      }),
-      ...caso62({
-        titulo: "62.11 Velocidad",
-        situacion: "**SITUACIÓN:** Llegada, por debajo de FL 150, con secuencia apretada.",
-        turnos: [
-          `ATC:                    "Aviatory 452, reduce speed to two two zero knots."`,
-          `PILOT:                  "Reduce speed to two two zero knots, Aviatory 452."`,
-          `PILOT (si no puedes):   "Unable two two zero knots, minimum clean speed two four zero knots, Aviatory 452."`,
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "FAA AIM §§4-3, 4-4 y 6-3 · Aerocivil/eAIP",
+        bloques: [
+          { kind: "p", text: "FAA, Aeronautical Information Manual §4-4-1, alcance de una autorización; §4-4-7, colación y responsabilidad del piloto: https://www.faa.gov/air_traffic/publications/aim_html/chap4_section_4.html" },
+          { kind: "p", text: "FAA, Aeronautical Information Manual §4-3, rodaje, pista y comunicaciones en aeródromo: https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap4_section_3.html" },
+          { kind: "p", text: "FAA, Aeronautical Information Manual §6-3-1, comunicaciones de socorro y urgencia: https://www.faa.gov/air_traffic/publications/aim_html/chap6_section_3.html" },
+          { kind: "p", text: "Para aplicar procedimientos, dependencias, cartas y fraseología colombianos vigentes, consultar exclusivamente la AIP/eAIP oficial de Aerocivil y el manual del explotador. Las veintidós situaciones son ejercicios de reconocimiento, no transmisiones reales: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
         ],
-        significado:
-          "Reduce a 220 kt IAS. Las instrucciones de velocidad se colacionan siempre (Doc 4444, 4.5.7.5.1 c). Si no puedes cumplir, lo dices (Doc 4444, 4.6.1.4). Por debajo de FL 150 las reducciones de reactores deberían quedar en no menos de 220 kt IAS (Doc 4444, 4.6.3.5).",
-        error:
-          "Aceptar una velocidad por debajo de tu velocidad mínima limpia sin decir nada y sacar flaps de sorpresa, o no avisar que no se puede.",
-        verificar: "«Reduce speed to» y «minimum clean speed» como frase del piloto: Doc 4444 cap. 12, fraseología de control de velocidad (no cargado).",
-      }),
-      ...caso62({
-        titulo: "62.12 Desvío por meteorología",
-        situacion: "**SITUACIÓN:** En crucero, una celda en la ruta en el radar meteorológico.",
-        turnos: [
-          `PILOT: "Control, Aviatory 452, request deviation up to two zero miles right of track due weather."`,
-          `ATC:   "Aviatory 452, deviation up to two zero miles right of track approved, report back on track."`,
-          `PILOT: "Up to two zero miles right of track, wilco, Aviatory 452."`,
-        ],
-        significado:
-          "Pides desviarte hasta 20 NM a la derecha de la derrota por meteorología. El ATC aprueba y pide que notifiques de nuevo en la derrota.",
-        error:
-          "Pedir «deviation» sin lado ni distancia («request deviation due weather»), o empezar a desviarte antes de la aprobación sin que exista una emergencia. Una solicitud clara lleva: qué pides, hacia qué lado, cuánto y por qué.",
-        verificar:
-          "«Request deviation up to (distancia) right of track due weather» y «deviation approved, report back on track»: Doc 4444 cap. 12 y cap. 15, desvíos por meteorología (no cargados).",
-      }),
-      ...caso62({
-        titulo: "62.13 Espera",
-        situacion: "**SITUACIÓN:** Llegada congestionada. El ATC te manda a esperar.",
-        turnos: [
-          `ATC:   "Aviatory 452, hold at GIKOS, flight level one five zero, inbound track two seven zero degrees, right hand pattern, expect approach clearance at four five."`,
-          `PILOT: "Hold at GIKOS, flight level one five zero, inbound track two seven zero, right hand, expect approach clearance at four five, Aviatory 452."`,
-        ],
-        significado:
-          "Espera sobre GIKOS a FL 150, derrota de acercamiento 270, virajes a la derecha, hora prevista de autorización de aproximación a los 45. La «hora prevista de aproximación» es la hora a la que el ATC prevé que abandonarás el fijo de espera (Doc 4444, cap. 1, definición).",
-        error:
-          "No preguntar cuánto durará la espera cuando el combustible lo exige, o tomar la hora prevista como autorización para abandonar la espera. La hora real depende de la autorización de aproximación (Doc 4444, cap. 1, nota a la definición).",
-        verificar:
-          "Fraseología de espera («hold at», «inbound track», «right hand pattern», «expect approach clearance at»): Doc 4444 cap. 12 y Doc 9432 7.3 y 8.7 (no cargados).",
-      }),
-      ...caso62({
-        titulo: "62.14 Aproximación",
-        situacion: "**SITUACIÓN:** Primer contacto con Aproximación.",
-        turnos: [
-          `PILOT:             "Approach, Aviatory 452, flight level eight zero, information Delta."`,
-          `ATC:               "Aviatory 452, descend to four thousand feet, QNH one zero zero five, transition level five zero, expect ILS approach runway two four."`,
-          `PILOT:             "Descending to four thousand feet, QNH one zero zero five, transition level five zero, expecting ILS approach runway two four, Aviatory 452."`,
-          `ATC (más tarde):   "Aviatory 452, cleared straight-in ILS approach runway two four, report established."`,
-          `PILOT:             "Cleared straight-in ILS approach runway two four, wilco, Aviatory 452."`,
-        ],
-        significado: "Modelo del Doc 9432 (7.3.1). Nivel de transición y reglaje de altímetro se colacionan siempre (Doc 4444, 4.5.7.5.1 c).",
-        error:
-          "Colacionar el QNH con una cifra equivocada y no escuchar la corrección. Si la colación está mal, el ATC dice «negative, I say again» y la versión correcta (Doc 9432, 2.8.3.9).",
-      }),
-      ...caso62({
-        titulo: "62.15 Aterrizaje",
-        situacion: "**SITUACIÓN:** En final. Hay un avión todavía en la pista.",
-        turnos: [
-          `ATC:             "Aviatory 452, continue approach, wind two six zero degrees one eight knots."`,
-          `PILOT:           "Aviatory 452."`,
-          `ATC (después):   "Aviatory 452, runway two seven, cleared to land, wind two seven zero degrees two zero knots."`,
-          `PILOT:           "Runway two seven, cleared to land, Aviatory 452."`,
-        ],
-        significado: "CONTINUE APPROACH: sigue la aproximación, **no** tienes autorización para aterrizar. Luego llega la autorización (Doc 9432, 4.7.1).",
-        error:
-          "Oír «continue» y creer que es «cleared to land». Si llegas a tu altura de decisión de autorización (según SOP) sin «cleared to land», preguntas o haces motor y al aire.",
-      }),
-      ...caso62({
-        titulo: "62.16 Motor y al aire",
-        situacion: "**SITUACIÓN A:** El ATC lo ordena. **SITUACIÓN B:** Lo decide la tripulación (aproximación inestable).",
-        turnos: [
-          `SITUACIÓN A`,
-          `ATC:   "Aviatory 452, go around, aircraft on the runway."`,
-          `PILOT: "Going around, Aviatory 452."`,
-          ``,
-          `SITUACIÓN B`,
-          `PILOT: "Aviatory 452, going around."`,
-        ],
-        significado:
-          "GO AROUND es la orden; GOING AROUND es la respuesta o el aviso del piloto (Doc 9432, 4.8.1 y 4.8.3). Salvo instrucción en contrario, un vuelo por instrumentos sigue el procedimiento de aproximación frustrada (Doc 9432, 4.8.2).",
-        error:
-          "Hablar antes de volar: primero la maniobra, después la radio. El Doc 9432 (4.8.1) pide transmisiones breves en esta fase porque la carga de trabajo es alta.",
-      }),
-      ...caso62({
-        titulo: "62.17 TCAS RA",
-        situacion: "**SITUACIÓN:** Descendiendo. El TCAS ordena «CLIMB, CLIMB». Cumples el RA.",
-        turnos: [
-          `PILOT:               "Aviatory 452, TCAS RA."`,
-          `ATC:                 "Aviatory 452, roger."`,
-          `PILOT (terminado):   "Aviatory 452, clear of conflict, returning to flight level one six zero."`,
-          `PILOT (de vuelta):   "Aviatory 452, clear of conflict, flight level one six zero resumed."`,
-        ],
-        significado: "Informas que te apartaste de la autorización por un RA, que terminó y que regresas a lo autorizado.",
-        error: "Llamar al ATC antes de iniciar la maniobra, o seguir una instrucción ATC contraria al RA. El RA manda sobre la instrucción en ese momento.",
-        verificar:
-          "«TCAS RA», «clear of conflict, returning to» y «resumed»: Doc 4444 cap. 12 (fraseología ACAS) y cap. 15; Doc 9432 11.6; Doc 8168 Vol. I (no cargados).",
-      }),
-      ...caso62({
-        titulo: "62.18 Combustible mínimo",
-        situacion:
-          "**SITUACIÓN:** Con demoras en llegada, el combustible ya no permite aceptar más retraso si quieres aterrizar en el destino.",
-        turnos: [`PILOT: "Approach, Aviatory 452, minimum fuel."`, `ATC:   "Aviatory 452, roger, no delay expected."`],
-        significado:
-          "Combustible mínimo: el vuelo debe aterrizar en un aeródromo específico y no puede aceptar ninguna demora adicional (Doc 4444, cap. 1, definición). No es una emergencia y no da prioridad.",
-        error: "Creer que MINIMUM FUEL da prioridad, o usarlo cuando lo que corresponde ya es una emergencia.",
-        verificar:
-          "«MINIMUM FUEL» y la respuesta «no delay expected»: Doc 4444 cap. 12 y cap. 15 (edición vigente) y Anexo 6 Parte I, 4.3.7 (no cargados).",
-      }),
-      ...caso62({
-        titulo: "62.19 Socorro (MAYDAY)",
-        situacion: "**SITUACIÓN:** Fuego en el motor 2 en ascenso. Lista de verificación en curso.",
-        turnos: [
-          `PILOT: "MAYDAY, MAYDAY, MAYDAY, Bogota Departure, Aviatory 452, engine fire number two, returning to Bogota, passing one two thousand feet, heading one three zero."`,
-          `ATC:   "Aviatory 452, roger MAYDAY, …"`,
-        ],
-        significado:
-          "Estás en peligro grave e inminente y necesitas ayuda inmediata. El mensaje dice a quién llamas, quién eres, qué pasa, qué vas a hacer, dónde estás, a qué nivel y con qué rumbo.",
-        error: "Omitir la intención («returning to Bogota»), que es lo que el ATC necesita para despejar el camino, o gastar tiempo explicando la falla.",
-        verificar: "Estructura y prefijo de MAYDAY: Anexo 10 Vol. II cap. 5 (socorro y urgencia), Doc 9432 9.2 y Doc 4444 cap. 15 (no cargados).",
-      }),
-      ...caso62({
-        titulo: "62.20 Urgencia (PAN PAN)",
-        situacion: "**SITUACIÓN:** Pasajero con dolor en el pecho. Quieres prioridad sin que haya peligro inmediato para el avión.",
-        turnos: [
-          `PILOT: "PAN PAN, PAN PAN, PAN PAN, Bogota Control, Aviatory 452, medical case on board, passenger with severe chest pain, request priority to Bogota, request medical services on arrival."`,
-        ],
-        significado: "Urgencia: la seguridad de una persona a bordo está comprometida, pero el avión no está en peligro inminente.",
-        error: "Declarar todo como MAYDAY o, al contrario, no declarar nada y pedir «priority» sin prefijo. Si la situación empeora, se escala a MAYDAY.",
-        verificar: "Estructura y prefijo de PAN PAN: Anexo 10 Vol. II cap. 5 y Doc 9432 9.3 (no cargados).",
-      }),
-      ...caso62({
-        titulo: "62.21 Falla de comunicaciones",
-        situacion: "**SITUACIÓN:** El ATC no te oye, pero tú sí lo oyes a él.",
-        turnos: [
-          `ATC:   "Aviatory 452, reply not received. If you read Bogota Control, squawk ident."`,
-          `Tú:    activas IDENT.`,
-          `ATC:   "Aviatory 452, squawk observed, will continue radar control."`,
-          ``,
-          `PILOT (si solo transmites):   "Aviatory 452, transmitting blind due to receiver failure, …"`,
-        ],
-        significado:
-          "El ATC usa el radar para confirmar que recibes (Doc 9432, 6.6). Se espera que una aeronave con problemas de radiocomunicaciones seleccione el código 7600 (Doc 9432, 6.6, nota).",
-        error:
-          "Concluir «falla de radio» sin revisar lo básico: frecuencia correcta, volumen y silenciador, panel de audio, frecuencia anterior, otra dependencia. Y aplicar un procedimiento de falla de comunicaciones sin saber si es el de la OACI o el del Estado.",
-        verificar:
-          "«Transmitting blind due to receiver failure» y el procedimiento de falla de comunicaciones: Anexo 10 Vol. II cap. 5, Doc 9432 9.5, Doc 4444 cap. 15 y el procedimiento nacional en el AIP (no cargados).",
-      }),
-      ...caso62({
-        titulo: "62.22 CPDLC",
-        situacion: "**SITUACIÓN:** En crucero, con CPDLC activo, llega un mensaje por enlace de datos.",
-        turnos: [`UPLINK (ATC):      CLIMB TO FL350`, `DOWNLINK (PILOT):  WILCO`],
-        significado:
-          "Autorización de ascenso por enlace de datos; WILCO significa que la entendiste y la cumplirás. A menos que lo prescriba la autoridad ATS, no se requiere colación oral de mensajes CPDLC (Doc 4444, 4.5.7.5.2.1).",
-        error:
-          "Enviar WILCO y no seleccionar el nivel; o enviar WILCO para «ganar tiempo» cuando lo correcto es STANDBY o UNABLE. Los dos pilotos leen el mensaje antes de responder.",
-        verificar: "Formato y respuestas CPDLC: Doc 4444 cap. 14 y Doc 10037 (GOLD), conjunto de mensajes (no cargados).",
-      }),
-      fuentes(
-        "Doc 9432 · Doc 4444",
-        "Doc 9432 (4.ª ed.) 2.4.1, 2.6, 2.8.3.3, 2.8.3.5, 2.8.3.7, 2.8.3.9, 3.3.3, 3.3.3.1, 3.3.3.2, 3.4.1, 4.3.1, 4.4.2, 4.5.3, 4.5.8, 4.7.1, 4.8.1 a 4.8.3, 6.1.2, 6.3.1, 6.3.3, 6.6 y nota, 7.1.2, 7.3.1; Doc 4444 (15.ª ed., Enm. 4) cap. 1 (definiciones de combustible mínimo y hora prevista de aproximación), 4.5.7.5.1, 4.5.7.5.2.1, 4.6.1.4, 4.6.3.5, 4.11.2.1.1.",
-        [
-          "VERIFICAR: «reduce speed to», «minimum clean speed» como frase del piloto, contra Doc 4444 cap. 12 (no cargado).",
-          "VERIFICAR: «request deviation up to (distancia) right of track due weather», «deviation approved, report back on track», contra Doc 4444 cap. 12 y 15 (no cargados).",
-          "VERIFICAR: fraseología de espera («hold at», «inbound track», «right hand pattern», «expect approach clearance at») contra Doc 4444 cap. 12 y Doc 9432 7.3 y 8.7 (no cargados).",
-          "VERIFICAR: «TCAS RA», «clear of conflict, returning to», «resumed», contra Doc 4444 cap. 12 y 15, Doc 9432 11.6 (no cargados).",
-          "VERIFICAR: «MINIMUM FUEL» y la respuesta «no delay expected» contra Doc 4444 cap. 12 y 15 (edición vigente) y Anexo 6 Parte I, 4.3.7 (no cargados).",
-          "VERIFICAR: estructura y prefijos de MAYDAY y PAN PAN contra Anexo 10 Vol. II cap. 5 y Doc 9432 9.2 y 9.3 (no cargados).",
-          "VERIFICAR: «transmitting blind due to receiver failure» contra Anexo 10 Vol. II cap. 5 y Doc 9432 9.5; procedimiento de falla de comunicaciones del Estado en AIP (no cargados).",
-          "VERIFICAR: formato y respuestas CPDLC contra Doc 4444 cap. 14 y Doc 10037 (no cargados).",
-        ],
-      ),
+      },
     ],
   },
   // ── 63 ──────────────────────────────────────────────────────────────────
