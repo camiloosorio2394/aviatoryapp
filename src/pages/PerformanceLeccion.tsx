@@ -23,8 +23,8 @@ import {
  * concepto que ponen a prueba.
  *
  * `portadaAuto` queda en false mientras no existan las portadas de tema: sin
- * esto el lector pintaría cuarenta huecos de portada encima de los veinte
- * huecos de figura que el módulo ya trae a propósito.
+ * esto el lector pintaría cuarenta huecos de portada encima de las veinte
+ * figuras SVG que ya trae el módulo.
  *
  * Ruta: /app/aerolinea/performance/aprende?l=1
  */

@@ -57,6 +57,8 @@ export const C = {
 export const TEMAS = {
   pbn: { acento: "#5C4520", acento2: "#8F7343", claro: "#D2BC93", tinte: "#F3EDE1", tinte2: "#E9DDC7" },
   rvsm: { acento: "#1C5750", acento2: "#4B9089", claro: "#9CC9C3", tinte: "#E5F3F1", tinte2: "#CDE5E1" },
+  performance: { acento: "#8A4B1F", acento2: "#C97B3C", claro: "#E6BB93", tinte: "#FBEFE4", tinte2: "#F3DCC6" },
+  combustible: { acento: "#005071", acento2: "#2F92B8", claro: "#9DCFE3", tinte: "#E8F6FD", tinte2: "#CDE9F5" },
 }
 
 /** Pone el acento de un módulo. Lo llama el índice de figuras de cada módulo al cargarse. */

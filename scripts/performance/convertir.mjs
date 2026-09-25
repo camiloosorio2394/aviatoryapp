@@ -24,10 +24,16 @@
 import fs from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import { bloquesDeFigura, figuraDibujada } from "../figuras/enLeccion.mjs"
+import { FIGURAS } from "./figuras/index.mjs"
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const FUENTE = path.join(RAIZ, "docs/contenido/performance.md")
 const DESTINO = path.join(RAIZ, "src/lib/performanceLeccion.ts")
+const DIR_FIGURAS = path.join(RAIZ, "public/modulos/performance")
+const FIGURA_POR_CODIGO = new Map(FIGURAS.map((f) => [f.codigo, f]))
+/** Lo que falle al buscar una figura; se suma a `fallos` antes de escribir. */
+const fallosFiguras = []
 
 /** Lo que el documento promete en su ficha. Si no cuadra, el script para. */
 const ESPERADO = { temas: 40, niveles: 7, imagenes: 20, escenarios: 10, ejercicios: 18 }
@@ -173,15 +179,22 @@ function bloquesDe(cuerpo, ctx = {}) {
       const sugerida = cuerpo[i + 1]?.match(/^\*\*IMAGEN SUGERIDA:\*\* (.+)$/)
       const objetivo = cuerpo[i + 2]?.match(/^\*\*OBJETIVO:\*\* (.+)$/)
       if (!sugerida || !objetivo) throw new Error(`${hueco[1]}: falta la imagen sugerida o el objetivo`)
-      bloques.push({
-        kind: "hueco",
-        rotulo: `${hueco[1]} · ${FIGURA.medida}`,
-        descripcion: sugerida[1].trim(),
-        pie: objetivo[1].trim(),
-        alto: FIGURA.alto,
-        ratio: FIGURA.ratio,
-      })
       ctx.imagenes?.push(hueco[1])
+      // Si la figura ya está dibujada (scripts/performance/figuras), sale ella.
+      const figura = figuraDibujada({ porCodigo: FIGURA_POR_CODIGO, codigo: hueco[1], dirPublico: DIR_FIGURAS, modulo: "performance", fallos: fallosFiguras })
+      if (figura) {
+        ctx.figuras?.push(hueco[1])
+        bloques.push(...bloquesDeFigura({ figura, codigo: hueco[1], src: `/modulos/performance/${hueco[1]}.svg`, anotaciones: null, fallos: fallosFiguras }))
+      } else {
+        bloques.push({
+          kind: "hueco",
+          rotulo: `${hueco[1]} · ${FIGURA.medida}`,
+          descripcion: sugerida[1].trim(),
+          pie: objetivo[1].trim(),
+          alto: FIGURA.alto,
+          ratio: FIGURA.ratio,
+        })
+      }
       i += 3
       continue
     }
@@ -358,7 +371,7 @@ function bloquesDeTema(cuerpo, ctx) {
 // ─── Lectura del documento ──────────────────────────────────────────────────
 
 const partes = tramos()
-const ctx = { imagenes: [], escenarios: [], ejercicios: [] }
+const ctx = { imagenes: [], figuras: [], escenarios: [], ejercicios: [] }
 
 const niveles = []
 const temas = []
@@ -448,6 +461,9 @@ comprobar(ctx.imagenes.length === ESPERADO.imagenes, `imágenes: ${ctx.imagenes.
 comprobar(ctx.escenarios.length === ESPERADO.escenarios, `escenarios: ${ctx.escenarios.length}, esperaba ${ESPERADO.escenarios}`)
 comprobar(ctx.ejercicios.length === ESPERADO.ejercicios, `ejercicios: ${ctx.ejercicios.length}, esperaba ${ESPERADO.ejercicios}`)
 comprobar(new Set(ctx.imagenes).size === ctx.imagenes.length, "hay códigos de imagen repetidos")
+fallos.push(...fallosFiguras)
+const sinHueco = FIGURAS.filter((f) => !ctx.figuras.includes(f.codigo)).map((f) => f.codigo)
+comprobar(sinHueco.length === 0, `figuras dibujadas sin hueco en el documento: ${sinHueco.join(", ")}`)
 lecciones.forEach((l, k) => {
   comprobar(l.n === k + 1, `la lección en la posición ${k + 1} dice ser la ${l.n}`)
   comprobar(l.blocks.length > 2, `la lección ${l.n} tiene ${l.blocks.length} bloques`)
@@ -500,8 +516,12 @@ PERF_LECCIONES.forEach((s, i) => {
 export const PERF_LECCION_TOTAL = PERF_LECCIONES.length
 export const PERF_MINUTOS = PERF_LECCIONES.reduce((t, s) => t + s.minutes, 0)
 
-/** Los huecos de figura que quedan por llenar, para el inventario de imágenes. */
-export const PERF_FIGURAS_PENDIENTES = ${j(ctx.imagenes)}
+/**
+ * Los huecos de figura que quedan por llenar, para el inventario de imágenes.
+ * Las figuras dibujadas son SVG de public/modulos/performance/ (node
+ * scripts/figuras/dibujar.mjs performance).
+ */
+export const PERF_FIGURAS_PENDIENTES: string[] = ${j(ctx.imagenes.filter((c) => !ctx.figuras.includes(c)))}
 
 /**
  * Las claves de práctica del módulo: los dieciocho ejercicios resueltos del
@@ -515,5 +535,5 @@ export const PERF_PRACTICA_CLAVES = ${j([...ctx.ejercicios, ...ctx.escenarios])}
 
 console.log(`temas: ${lecciones.length} · ${lecciones.reduce((t, l) => t + l.minutes, 0)} min`)
 console.log(`niveles: ${niveles.map((n) => `${n.titulo} (desde ${n.desde})`).join(" · ")}`)
-console.log(`huecos de imagen: ${ctx.imagenes.length} · escenarios: ${ctx.escenarios.length} · ejercicios: ${ctx.ejercicios.length}`)
+console.log(`figuras: ${ctx.figuras.length} · huecos de imagen: ${ctx.imagenes.length - ctx.figuras.length} · escenarios: ${ctx.escenarios.length} · ejercicios: ${ctx.ejercicios.length}`)
 console.log(`escrito ${path.relative(RAIZ, DESTINO)}`)
