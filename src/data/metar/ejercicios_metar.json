@@ -1,8 +1,8 @@
 {
   "meta": {
-    "proposito": "Modo práctica del módulo de Meteorología: el piloto lee el informe, lo interpreta con sus palabras y solo después compara con la respuesta modelo. Cubre los seis niveles, así que el informe puede ser un METAR, un TAF, un SIGMET o un AIRMET, un PIREP, un pronóstico de vientos en altura, un pronóstico de área o un modelo de estación. Misma mecánica que la práctica de NOTAM.",
-    "fuente": "Informes redactados para Aviatory con formato real de la clave OACI/OMM, sobre aeródromos colombianos. Verificados contra el Anexo 3 de la OACI y el Manual de claves No. 306 de la OMM.",
-    "aviso_obligatorio_en_pantalla": "Informes de práctica redactados para Aviatory con formato real: NO son observaciones vigentes y jamás deben usarse para operar. Consulta siempre el METAR oficial del servicio meteorológico.",
+    "proposito": "Práctica del módulo de Meteorología: el piloto interpreta observaciones y escenarios didácticos, escribe su razonamiento y después compara con una respuesta modelo. Abarca los seis niveles y entrena la decisión de consultar productos vigentes, procedimientos y mínimos aplicables.",
+    "fuente": "Casos didácticos redactados para Aviatory. Los ejemplos con identificadores de aeródromos son simulados; ningún aviso, pronóstico o briefing representa información vigente.",
+    "aviso_obligatorio_en_pantalla": "Casos simulados para aprender; no son observaciones, pronósticos ni avisos vigentes. Nunca los uses para operar: consulta las fuentes oficiales actuales, el manual de operaciones y los mínimos aplicables.",
     "criterios_rubrica_default": {
       "identificacion": {
         "peso": 20,
@@ -14,7 +14,7 @@
       },
       "impacto": {
         "peso": 40,
-        "descripcion": "Qué decide ese informe: si despegas, con qué mínimos y qué vigilas"
+        "descripcion": "Qué falta verificar y qué decisión corresponde según los procedimientos y mínimos aplicables"
       }
     }
   },
@@ -1022,76 +1022,76 @@
     {
       "id": 51,
       "nivel": "intermedio",
-      "titulo": "Un SIGMET de la región",
-      "metar": "SKED SIGMET 3 VALID 181200/181600 SKBO-\nSKED BOGOTA FIR EMBD TS FCST WI N0500 W07600 - N0430 W07400 - N0330 W07500 - N0400 W07700 - N0500 W07600 TOP FL420 MOV NE 15KT NC",
-      "consigna": "Léelo entero y di qué tipo de tormenta anuncia y por qué esa palabra cambia tu plan.",
-      "respuesta_modelo": "SIGMET número 3 de la FIR Bogotá, válido del día 18 a las 12:00 UTC a las 16:00 UTC, emitido por SKBO. Anuncia EMBD TS pronosticadas dentro del polígono descrito por esas cuatro coordenadas, con topes en FL420, moviéndose al noreste a 15 nudos y sin cambio de intensidad (NC). EMBD significa incrustadas: cumulonimbos ocultos dentro de otras formaciones nubosas, que no se ven ni desde tierra ni en vuelo. Esa palabra lo cambia todo, porque la evitación visual deja de servir: no puedo confiar en mirar por la ventana y rodear lo que veo. Hay que apoyarse en el radar meteorológico de a bordo y en la información en vuelo, y con topes en FL420 pasar por encima no es opción para la mayoría de la flota. La decisión razonable es rodear el polígono, no cruzarlo.",
+      "titulo": "Tormentas incrustadas en ruta",
+      "metar": "Escenario simulado: el briefing vigente para tu ruta advierte tormentas incrustadas (EMBD TS) en una franja que se mueve hacia el noreste. Tu trayectoria prevista atraviesa esa franja durante la validez del aviso.",
+      "consigna": "Explica qué significa EMBD TS, qué información del aviso debes comprobar y cómo replantearías la ruta.",
+      "respuesta_modelo": "EMBD TS significa tormentas incrustadas en otras nubes: pueden no distinguirse visualmente antes de acercarse. Verifico emisor, hora de validez, área, niveles, movimiento y actualizaciones del SIGMET (Significant Meteorological Information, información meteorológica significativa). Después confronto el área prevista con ruta, horario y altitud. No planifico atravesar la convección; coordino una alternativa lateral o temporal, con combustible y aeródromos adecuados. El radar de a bordo ayuda a evitar precipitación intensa, pero no convierte en segura una penetración entre ecos ni sustituye la información oficial actualizada.",
       "puntos_clave": [
-        "EMBD: tormentas incrustadas, no visibles",
-        "TOP FL420: no se pasa por encima",
-        "MOV NE 15KT: el polígono se desplaza",
-        "NC: sin cambio de intensidad",
-        "Válido cuatro horas, del 1200Z al 1600Z"
+        "EMBD TS: tormentas incrustadas, difíciles de reconocer visualmente",
+        "Cruzar área, niveles, hora de validez y movimiento con la ruta prevista",
+        "No asumir que un hueco de radar es un corredor seguro",
+        "Revisar actualizaciones y coordinar una ruta o momento alternativo",
+        "La decisión depende también de combustible y procedimientos de la empresa"
       ],
       "errores_tipicos": [
         "Leer TS y no ver el EMBD",
         "Buscar un «SIGMET convectivo» aparte: en OACI va aquí dentro"
       ],
-      "fuente": "Práctica Aviatory, formato del Anexo 3 de la OACI"
+      "fuente": "Escenario didáctico Aviatory; no es un SIGMET vigente"
     },
     {
       "id": 52,
       "nivel": "avanzado",
-      "titulo": "SIGMET de ceniza volcánica",
-      "metar": "SKED SIGMET 1 VALID 090600/091200 SKBO-\nSKED BOGOTA FIR VA ERUPTION MT NEVADO DEL RUIZ PSN N0453 W07519 VA CLD OBS AT 0600Z FL200/350 WI 30NM OF N0453 W07519 MOV W 20KT FCST 1200Z VA CLD APRX 60NM W OF VOLCANO",
-      "consigna": "Di cuánto vale este aviso, en qué se diferencia de un SIGMET normal y qué haces con la ruta.",
-      "respuesta_modelo": "SIGMET número 1 de la FIR Bogotá, válido del día 9 a las 06:00 a las 12:00 UTC. Es un SIGMET de ceniza volcánica: erupción del Nevado del Ruiz, en la posición dada, con nube de ceniza observada a las 06:00Z entre FL200 y FL350, dentro de 30 millas náuticas del volcán, moviéndose al oeste a 20 nudos, y pronosticada a las 12:00Z a unas 60 millas al oeste. Se diferencia en dos cosas: la ceniza volcánica tiene su propio SIGMET, igual que los ciclones tropicales, y su validez es de seis horas en lugar de las cuatro del SIGMET ordinario. Con la ruta no se negocia: la ceniza erosiona los álabes, funde dentro de la turbina y puede apagar los motores. Hay que replanear fuera del área pronosticada, contando con que se mueve, y cruzarlo con el ASHTAM y los avisos del VAAC.",
+      "titulo": "Ceniza volcánica y trayectoria prevista",
+      "metar": "Escenario simulado: un aviso vigente de ceniza volcánica sitúa una nube entre FL200 y FL350. La posición pronosticada para tu hora de paso se superpone con el tramo que planificaste a FL280.",
+      "consigna": "Di qué información verificarías y qué harías con la ruta; no trates este escenario como un aviso real.",
+      "respuesta_modelo": "FL280 queda dentro de la capa indicada y la posición futura importa más que la observada al inicio del aviso. Verifico la validez y actualización del SIGMET de ceniza, los avisos del centro asesor de ceniza volcánica (VAAC, Volcanic Ash Advisory Centre), los NOTAM pertinentes y la información operacional de la empresa. Replanifico para evitar el área afectada, considerando movimiento, incertidumbre y reservas; no deduzco que cambiar unos pocos niveles o seguir una imagen de radar baste para pasar con seguridad. Un SIGMET de ceniza puede tener validez de hasta seis horas, pero hay que consultar la hora concreta del producto vigente.",
       "puntos_clave": [
-        "La ceniza volcánica tiene SIGMET propio",
-        "Validez de seis horas, no cuatro",
-        "FL200/350 es la capa afectada",
-        "Se mueve: la posición pronosticada importa más que la observada",
-        "Se cruza con ASHTAM y avisos VAAC"
+        "Un SIGMET de ceniza puede valer hasta seis horas; manda el período publicado",
+        "FL200/350 incluye el nivel previsto FL280",
+        "Comparar trayectoria, hora de paso y posición pronosticada",
+        "Consultar avisos VAAC y NOTAM pertinentes",
+        "Evitar la ceniza y replanificar con márgenes y reservas"
       ],
       "errores_tipicos": [
         "Aplicar la validez de cuatro horas del SIGMET normal",
         "Planear con la posición observada y no con la pronosticada"
       ],
-      "fuente": "Práctica Aviatory, formato del Anexo 3 de la OACI"
+      "fuente": "Escenario didáctico Aviatory; no es un aviso de ceniza vigente"
     },
     {
       "id": 53,
       "nivel": "intermedio",
-      "titulo": "AIRMET, y a quién le habla",
-      "metar": "SKED AIRMET 2 VALID 141400/141800 SKBO-\nSKED BOGOTA FIR MOD TURB FCST WI N0600 W07500 - N0520 W07300 - N0450 W07500 - N0540 W07700 - N0600 W07500 SFC/FL100 STNR NC",
-      "consigna": "Di a quién le habla este aviso y por qué no es un SIGMET.",
-      "respuesta_modelo": "AIRMET número 2 de la FIR Bogotá, válido del 14 a las 14:00 a las 18:00 UTC. Pronostica turbulencia moderada dentro del polígono, desde la superficie hasta FL100, estacionaria y sin cambio de intensidad. Le habla a los vuelos a baja altura: el AIRMET cubre por debajo de FL100, o de FL150 en zonas montañosas, y recoge los fenómenos que no estaban ya en el pronóstico de área. No es un SIGMET porque la turbulencia es moderada, no severa: el SIGMET se reserva para lo que es peligroso para todas las aeronaves, o sea turbulencia severa, engelamiento severo, onda de montaña severa, tormentas, tempestades de polvo o arena y nube radiactiva. Para una aeronave ligera volando a 8000 ft dentro de ese polígono, este AIRMET es tan relevante como lo sería un SIGMET.",
+      "titulo": "AIRMET y vuelo a baja altura",
+      "metar": "Escenario simulado: el servicio meteorológico de una región que publica AIRMET informa turbulencia moderada desde la superficie hasta FL100. Una aeronave ligera prevé cruzar el área a 8000 ft.",
+      "consigna": "Explica por qué importa al vuelo, cómo difiere del SIGMET y qué debes verificar antes de usarlo.",
+      "respuesta_modelo": "El nivel previsto está dentro de la capa afectada. El AIRMET (Airmen's Meteorological Information, información meteorológica para vuelos a baja altura) advierte, donde se emite conforme al acuerdo regional, fenómenos que afectan especialmente la operación a baja altura y no están incluidos en la sección pertinente del pronóstico de área. La turbulencia moderada puede ser decisiva para una aeronave ligera aunque no sea la turbulencia severa propia de un SIGMET. Verifico si el producto existe para esa región, su validez, área y niveles; después evalúo ruta, altitud y limitaciones de aeronave y tripulación. No presupongo que todos los Estados emitan AIRMET.",
       "puntos_clave": [
-        "AIRMET: por debajo de FL100, o FL150 en montaña",
-        "MOD TURB: turbulencia moderada, no severa",
-        "El SIGMET es para lo severo y para todas las aeronaves",
-        "SFC/FL100 es la capa afectada",
-        "STNR: estacionario, no se desplaza"
+        "AIRMET: comprobar si está disponible en el Estado y región",
+        "Turbulencia moderada también puede condicionar un vuelo ligero",
+        "El SIGMET cubre fenómenos significativos para la seguridad en ruta",
+        "SFC/FL100 incluye 8000 ft",
+        "Verificar vigencia, área, niveles y alternativas"
       ],
       "errores_tipicos": [
         "Ignorar el AIRMET por no ser SIGMET",
         "Suponer que cubre también los niveles altos"
       ],
-      "fuente": "Práctica Aviatory, formato del Anexo 3 de la OACI"
+      "fuente": "Escenario didáctico Aviatory; no es un AIRMET vigente"
     },
     {
       "id": 54,
       "nivel": "avanzado",
-      "titulo": "El convectivo que no existe aquí",
+      "titulo": "Producto estadounidense y consulta regional",
       "metar": "CONVECTIVE SIGMET 21C\nVALID UNTIL 2055Z\nKS OK TX\nFROM 20SSW GLD-30WNW CDS\nDVLPG LINE TS 1955Z. TS MOV FROM 26030KT. HAIL TO 2 IN POSS.",
-      "consigna": "Este aviso es de otro sistema. Di de cuál, qué dice, y qué buscarías en su lugar volando en Colombia.",
-      "respuesta_modelo": "Es un SIGMET convectivo número 21C, del sistema de Estados Unidos, válido hasta las 20:55Z, sobre Kansas, Oklahoma y Texas, en la línea de 20 millas al sursuroeste de Goodland a 30 al oestenoroeste de Childress. Anuncia una línea de tormentas en desarrollo a las 19:55Z, moviéndose desde el 260 a 30 nudos, con granizo posible de hasta 2 pulgadas. La clave es que el SIGMET convectivo es un producto del sistema estadounidense, donde el SIGMET ordinario cubre solo lo no convectivo. En Colombia, con OACI, ese producto no existe como aviso aparte: las tormentas van dentro del SIGMET normal, codificadas como OBSC, EMBD, FRQ o SQL TS, y con GR si hay granizo. Buscar aquí un «convectivo» separado es perderse las tormentas, que están donde siempre.",
+      "consigna": "Este ejemplo simulado usa una categoría estadounidense. Identifica el sistema y explica dónde consultarías convección significativa antes de volar en Colombia.",
+      "respuesta_modelo": "«Convective SIGMET» es una categoría del sistema estadounidense; no debo buscar el mismo nombre como condición para detectar peligro en otra región. En una operación en Colombia consulto los SIGMET y demás productos oficiales disponibles para la región de información de vuelo correspondiente, además de radar, satélite y actualizaciones de control según proceda. En un SIGMET conforme a la OACI las tormentas pueden describirse con calificadores como EMBD (incrustadas), OBSC (oscurecidas), FRQ (frecuentes) o SQL (línea de turbonada). La nomenclatura y disponibilidad se verifican en la documentación vigente del servicio local; el ejercicio no representa un aviso emitido.",
       "puntos_clave": [
-        "SIGMET convectivo: producto de Estados Unidos",
-        "Allí el SIGMET normal cubre solo lo NO convectivo",
-        "En OACI las tormentas van dentro del SIGMET ordinario",
-        "Se codifican OBSC, EMBD, FRQ o SQL TS, y GR si hay granizo",
-        "Los convectivos de EE. UU. valen dos horas"
+        "«Convective SIGMET» es una categoría estadounidense",
+        "No trasladar nombres de productos entre regiones sin comprobarlos",
+        "Consultar el SIGMET oficial disponible para la región",
+        "EMBD, OBSC, FRQ y SQL describen organización o visibilidad de tormentas",
+        "Confirmar validez y actualizaciones antes de decidir"
       ],
       "errores_tipicos": [
         "Buscar un producto equivalente en la región y concluir que no hay avisos",
@@ -1105,13 +1105,13 @@
       "titulo": "Leer un PIREP",
       "metar": "UA /OV SKBO 180015 /TM 1430 /FL085 /TP C208 /SK BKN035-TOP055 /TA 08 /TB LGT /IC NEG /RM SMOOTH ABV 060",
       "consigna": "Traduce el informe campo por campo y di qué te aporta que no tengas de otra fuente.",
-      "respuesta_modelo": "Informe de piloto rutinario (UA). Sobre el radial 180 de El Dorado a 15 millas (/OV), a las 14:30 UTC (/TM), volando a 8500 ft (/FL085), en un Cessna 208 (/TP). Cielo: fragmentadas con base en 3500 ft y topes en 5500 ft (/SK). Temperatura del aire 8 grados (/TA). Turbulencia ligera (/TB). Engelamiento negativo (/IC). Y en observaciones: aire liso por encima de 6000 ft (/RM). Lo que aporta y no da ninguna otra fuente es la realidad del aire en ese momento: los topes de la capa, que ningún radar ni satélite mide, y la confirmación de que no hay engelamiento. Junto con la radiosonda es una de las dos únicas formas de observar el tiempo en altura, y es la única en tiempo real. El /RM me dice directamente a qué nivel pedir para volar cómodo.",
+      "respuesta_modelo": "Es un informe de piloto rutinario (UA, Pilot Report o PIREP) del escenario simulado. /OV sitúa la observación al sur de SKBO, /TM da las 14:30 UTC, /FL085 señala 8500 ft y /TP identifica un Cessna 208. /SK informa una capa fragmentada y sus topes observados; /TA registra 8 °C, /TB turbulencia ligera y /IC NEG ausencia de engelamiento en ese punto y momento. /RM añade que el aire se observó más liso por encima de 6000 ft. Es una observación puntual, útil para contrastar pronósticos, pero no demuestra que toda la ruta o todos los niveles estén libres de engelamiento o turbulencia. Compruebo hora, lugar, nivel y reportes más recientes antes de usarla en el briefing.",
       "puntos_clave": [
         "UA rutinario; UUA sería urgente",
         "/OV lugar, /TM hora zulú, /FL nivel, /TP aeronave",
         "/SK BKN035-TOP055: base 3500, topes 5500",
         "/IC NEG: sin engelamiento observado",
-        "Topes de nube: dato que solo da el PIREP"
+        "Un PIREP confirma condiciones observadas en un punto, nivel y hora, no en toda la ruta"
       ],
       "errores_tipicos": [
         "Leer /FL085 como 850 ft",
@@ -1125,13 +1125,13 @@
       "titulo": "El PIREP urgente",
       "metar": "UUA /OV SKCL 270025 /TM 1755 /FL120 /TP B738 /TB SEV /IC MOD RIME /RM LLWS ON APCH RWY 20",
       "consigna": "Di qué tiene de distinto respecto de un PIREP rutinario y qué haces con esta información.",
-      "respuesta_modelo": "Informe de piloto URGENTE (UUA), no rutinario. Sobre el radial 270 de Alfonso Bonilla Aragón a 25 millas, a las 17:55 UTC, a FL120, en un Boeing 737-800. Turbulencia severa (/TB SEV), engelamiento moderado tipo escarcha (/IC MOD RIME), y en observaciones cizalladura de bajo nivel en aproximación a la pista 20. La diferencia con un UA es el primer campo: UUA se reserva para condiciones que comprometen la seguridad, y por eso se distribuye con prioridad. Con esto en la mano: la turbulencia severa y el engelamiento moderado a FL120 me obligan a replantear el nivel de crucero o la ruta, y la cizalladura en aproximación a la 20 me obliga a preparar la aproximación con velocidades de referencia con margen, o a pedir otra cabecera. Además, si yo encuentro algo parecido, mi obligación es reportarlo.",
+      "respuesta_modelo": "UUA identifica un informe urgente de piloto (PIREP, Pilot Report), no un informe rutinario UA. El caso simulado ubica a un Boeing 737-800 a FL120, con turbulencia severa y engelamiento moderado tipo escarcha, además de una observación de cizalladura en aproximación. Compruebo hora, posición, nivel y vigencia operacional del reporte; notifico y coordino con control y la tripulación, reviso avisos y procedimientos de turbulencia, engelamiento y cizalladura, y considero cambiar ruta, nivel o momento. No invento una velocidad de aproximación ni doy por segura otra cabecera: aplico el procedimiento aprobado y los datos actuales. Si encuentro condiciones peligrosas, las comunico de inmediato por el canal establecido.",
       "puntos_clave": [
         "UUA: urgente, para condiciones que comprometen la seguridad",
         "TB SEV e IC MOD RIME en el mismo nivel",
-        "LLWS en aproximación a una cabecera concreta",
+        "LLWS: cizalladura de viento a baja altura (Low-Level Wind Shear)",
         "Se distribuye con prioridad sobre el rutinario",
-        "Encontrar algo así obliga a reportarlo"
+        "Reportar de inmediato y seguir procedimientos aprobados; no improvisar velocidades"
       ],
       "errores_tipicos": [
         "No distinguir UUA de UA",
@@ -1145,57 +1145,57 @@
       "titulo": "Cuándo mandar un PIREP sin que lo pidan",
       "metar": "METAR SKMD 121500Z 27006KT 4000 BR BKN008 16/15 Q1021 NOSIG\n[en vuelo, a 6500 ft, encuentras topes de la capa en 4200 ft y aire liso por encima]",
       "consigna": "Di si este es un caso de mandar PIREP y redáctalo con los campos obligatorios.",
-      "respuesta_modelo": "El METAR de Olaya Herrera da 4 km con neblina y fragmentadas a 800 ft, o sea techo bajo. Los controladores solicitan PIREP cuando el techo está por debajo de 5000 ft o la visibilidad es de cinco millas o menos: aquí se cumplen las dos cosas, así que lo van a pedir. Pero además yo tengo un dato que nadie más tiene: los topes de la capa a 4200 ft y aire liso por encima, que es exactamente lo que otro piloto necesita para decidir a qué nivel subir. Redactado con los cinco campos obligatorios más lo observado: UA /OV SKMD /TM 1500 /FL065 /TP (mi tipo) /SK BKN008-TOP042 /RM SMOOTH ABV 045. Y sin que lo pidan hay que mandarlo siempre que se encuentren condiciones inesperadas: ese informe entra en la red y sirve para avisar a los demás.",
+      "respuesta_modelo": "El METAR simulado muestra 4 km de visibilidad y una capa fragmentada a 800 ft sobre el aeródromo. Si observo topes y aire más liso en vuelo, puedo comunicar ese dato puntual a los servicios de tránsito aéreo por el procedimiento local, sobre todo si ayuda a otras tripulaciones o difiere del pronóstico. Para estructurar el reporte incluyo tipo UA/UUA, posición /OV, hora UTC /TM, nivel /FL y tipo de aeronave /TP; después agrego nube y observaciones, sin inventar tipo de aeronave ni posición. Por ejemplo: UA /OV (posición real) /TM (hora real) /FL065 /TP (tipo real) /SK (capa y topes observados). Las reglas de solicitud y difusión dependen del servicio y del Estado; no aplico automáticamente un umbral estadounidense a Colombia.",
       "puntos_clave": [
-        "Techo bajo 5000 ft o visibilidad de 5 millas o menos: lo piden",
+        "Un reporte oportuno puede aclarar topes y condiciones en la trayectoria",
         "Los cinco obligatorios: UA/UUA, /OV, /TM, /FL, /TP",
-        "Los topes son el dato que no tiene nadie más",
-        "Condiciones inesperadas: se manda sin que lo pidan",
-        "El informe entra en la red y avisa a otros"
+        "Comunicar condiciones peligrosas o inesperadas según el procedimiento local",
+        "Nunca completar posición, hora o tipo con datos supuestos",
+        "No trasladar umbrales de solicitud de un país a otro"
       ],
       "errores_tipicos": [
-        "Esperar a que lo pidan",
-        "Omitir /FL o /TP, que son obligatorios"
+        "Esperar a que lo pidan aun cuando haya una condición peligrosa que reportar",
+        "Rellenar /OV, /TM o /TP con información supuesta"
       ],
       "fuente": "Práctica Aviatory, formato de PIREP del capítulo"
     },
     {
       "id": 58,
       "nivel": "avanzado",
-      "titulo": "Lo que el radar no te dice",
-      "metar": "RAREP SKBO 1535Z\nAREA 4TRW+ /NC 30/50 180/60 C2025 MT380 AT 220/45\n[la pantalla de radar no muestra eco sobre tu ruta prevista]",
+      "titulo": "Lo que una pantalla sin eco no demuestra",
+      "metar": "Escenario simulado: un producto de reflectividad meteorológica no muestra ecos sobre el tramo previsto. La zona está lejos del radar y hay relieve entre el sensor y parte de la ruta.",
       "consigna": "Tu ruta pasa por una zona sin eco. Di qué puedes y qué no puedes concluir.",
-      "respuesta_modelo": "El informe de radar de Bogotá a las 15:35Z describe un área con cuatro décimos de cobertura de chubascos con tormenta de intensidad fuerte, sin cambio, en las coordenadas dadas, con células moviéndose desde el 200 a 25 nudos y topes máximos en 38 000 ft en la posición 220 grados a 45 millas. Sobre mi ruta prevista no hay eco. Lo que puedo concluir es exactamente una cosa: que ahí no hay precipitación lo bastante grande para ser detectada. Lo que NO puedo concluir es que el cielo esté despejado, ni que haya condiciones VFR, ni que no haya nubes. El radar detecta precipitación, no nubes: no ve bases ni topes de nubes, ni techos, ni visibilidad. Una pantalla limpia significa que no hay lluvia, no que no haya tiempo. Para techo y visibilidad tengo que ir al METAR y al TAF, y para topes de nube, al PIREP.",
+      "respuesta_modelo": "La ausencia de eco solo indica que ese producto no detectó reflectividad significativa en el volumen que alcanzó a muestrear. No demuestra ausencia de precipitación: la distancia eleva el haz, el relieve bloquea sectores y la precipitación débil o baja puede pasar inadvertida. Tampoco confirma cielo despejado, visibilidad suficiente, ausencia de nubes ni condiciones para vuelo visual. Compruebo cobertura, hora, producto y limitaciones del radar; contrasto con METAR, TAF, satélite, observaciones en vuelo y avisos vigentes. No usaría una pantalla limpia como autorización para cruzar una zona convectiva.",
       "puntos_clave": [
-        "El radar detecta precipitación, nada más",
-        "No ve nubes, techos ni visibilidad",
-        "Eco limpio no es cielo limpio ni VFR",
-        "MT380: topes máximos en 38 000 ft",
-        "Para techos, METAR; para topes de nube, PIREP"
+        "La reflectividad detecta blancos dentro de su cobertura, no todo el tiempo meteorológico",
+        "Relieve, distancia y precipitación débil pueden ocultar fenómenos",
+        "Sin eco no equivale a cielo despejado ni vuelo visual seguro",
+        "Comprobar hora y alcance del producto",
+        "Contrastar con METAR, TAF, satélite, reportes y avisos vigentes"
       ],
       "errores_tipicos": [
-        "Concluir VFR porque no hay eco",
-        "Leer el movimiento de las células como dirección hacia la que van sin invertirla"
+        "Concluir que la ruta es apta para vuelo visual porque no hay eco",
+        "Ignorar la sombra del relieve y la elevación del haz lejos del radar"
       ],
-      "fuente": "Práctica Aviatory, formato de informe de radar del capítulo"
+      "fuente": "Escenario didáctico Aviatory; no es un producto de radar vigente"
     },
     {
       "id": 59,
       "nivel": "intermedio",
-      "titulo": "Vientos y temperaturas en altura",
-      "metar": "FD SKBO\nFT      3000    6000    9000    12000   18000   24000\nSKBO            1815+12 2022+06 2334-02 2648-15 2972-28",
-      "consigna": "Explica por qué no hay dato a 3000 ft y di qué viento y qué temperatura esperas a FL150.",
-      "respuesta_modelo": "Pronóstico de vientos y temperaturas en altura para El Dorado. No hay dato a 3000 ft porque El Dorado está a 8360 ft de elevación: no se pronostica viento para un nivel que esté dentro de 1500 ft de la elevación de la estación, y menos aún para uno que quede por debajo. Los niveles hasta 12 000 ft son alturas verdaderas; por encima de 18 000 ft son altitudes de presión. La dirección va referida al norte verdadero, la velocidad en nudos y la temperatura en grados Celsius. Para FL150 no hay dato directo: hay que interpolar entre 12 000 (2334-02) y 18 000 (2648-15). Interpolando a mitad de camino: dirección alrededor del 240, velocidad alrededor de 40 nudos, y temperatura alrededor de menos 8 o 9 grados. El nivel real de crucero casi nunca coincide con uno pronosticado, así que interpolar es la norma, no la excepción.",
+      "titulo": "Pronóstico por niveles de vuelo",
+      "metar": "Datos simulados de planificación, no un producto oficial:\nNivel      Viento       Temperatura\nFL120      230°/35 kt   -2 °C\nFL180      260°/50 kt   -15 °C\nNivel previsto: FL150.",
+      "consigna": "Estima provisionalmente las condiciones entre dos niveles y explica qué comprobarías en el producto de planificación real.",
+      "respuesta_modelo": "FL150 está a mitad de camino entre FL120 y FL180. Una interpolación pedagógica da viento aproximado del 245° a 40–45 kt y temperatura cercana a -8 o -9 °C. No es un pronóstico oficial para FL150: compruebo el producto vigente, la hora válida, coordenadas o tramos de ruta, niveles, unidades y método de interpolación de la herramienta aprobada. El viento y la temperatura cambian espacialmente, así que un valor aislado no describe toda la ruta; uso el plan de vuelo operacional y comparo opciones de nivel, tiempo y combustible.",
       "puntos_clave": [
-        "No se pronostica viento dentro de 1500 ft de la elevación",
-        "Hasta 12 000 ft, alturas verdaderas; sobre 18 000, altitudes de presión",
-        "Dirección al norte verdadero y velocidad en nudos",
-        "FL150 se interpola entre 12 000 y 18 000",
-        "La temperatura no se pronostica dentro de 2500 ft del nivel"
+        "Identificar niveles, unidades y hora válida antes de leer valores",
+        "FL150 queda entre FL120 y FL180",
+        "La interpolación es una estimación, no una observación",
+        "El producto vigente y la herramienta aprobada gobiernan el plan operacional",
+        "Cruzar viento y temperatura con tiempo, rendimiento y combustible"
       ],
       "errores_tipicos": [
-        "Usar el nivel inferior sin interpolar",
-        "Leer 2334 como 23 nudos del 340"
+        "Tratar la interpolación como un pronóstico exacto",
+        "Olvidar la hora válida y los cambios a lo largo de la ruta"
       ],
       "fuente": "Práctica Aviatory, formato de pronóstico de vientos en altura del capítulo"
     },
@@ -1203,15 +1203,15 @@
       "id": 60,
       "nivel": "avanzado",
       "titulo": "Viento en altura y decisión de nivel",
-      "metar": "FD RUTA SKBO-SKCG\nFT      9000    12000   18000   24000   30000\nRUTA    0510+08 0715+02 0925-12 1140-25 1355-40",
+      "metar": "Escenario simulado de planificación de una ruta hacia el norte:\nFL240: viento del 110° a 40 kt; temperatura -25 °C.\nFL300: viento del 130° a 55 kt; temperatura -40 °C.\nEl sistema de despacho ofrece tiempos y combustible distintos para ambos niveles.",
       "consigna": "Vuelas de Bogotá a Cartagena, o sea hacia el norte. Di qué nivel te conviene y qué más miras antes de decidir.",
-      "respuesta_modelo": "El pronóstico da, para la ruta, vientos del 050 a 10 nudos a 9000 ft, del 070 a 15 a 12 000, del 090 a 25 a 18 000, del 110 a 40 a 24 000 y del 130 a 55 a 30 000, con temperaturas que van de más 8 a menos 40. Volando de Bogotá a Cartagena voy hacia el norte, aproximadamente rumbo 350. Con viento del este rolando al sureste y arreciando con la altura, en los niveles altos el viento me entra por el costado derecho y cada vez más fuerte: a 30 000 ft son 55 nudos del 130, que con rumbo 350 es casi viento de cola en componente, pero también la mayor deriva. Lo que conviene mirar, aparte de la componente: la temperatura, porque menos 40 condiciona el nivel de congelación y el rendimiento; el consumo a cada nivel; y si hay SIGMET o AIRMET en la capa. El viento no decide solo: decide junto con el tiempo y con el combustible.",
+      "respuesta_modelo": "No elijo FL300 por ser más alto ni por ver 55 kt sin calcular la componente respecto al rumbo real de cada tramo. Un viento del 110° o 130° puede tener componentes muy distintas según el trayecto. Comparo tiempos, combustible y rendimiento de ambos niveles con el plan operacional; reviso restricciones, capacidad de ascenso, temperatura y fenómenos significativos en cada capa. El sistema de planificación debe usar viento y temperatura previstos para cada tramo y hora. Selecciono el nivel que satisfaga limitaciones y reservas, y actualizo la decisión con la información en vuelo.",
       "puntos_clave": [
-        "Rumbo aproximado 350 hacia el norte",
-        "El viento rola y arrecia con la altura",
-        "Componente de cola frente a deriva",
-        "La temperatura condiciona nivel de congelación y rendimiento",
-        "Hay que cruzarlo con SIGMET y AIRMET"
+        "Una dirección de viento no define componente sin rumbo de tramo",
+        "Comparar tiempo y combustible del plan operacional por nivel",
+        "Revisar rendimiento, restricciones y fenómenos significativos",
+        "Temperatura y viento varían en la ruta y en el tiempo",
+        "Actualizar la elección si cambia la información en vuelo"
       ],
       "errores_tipicos": [
         "Elegir el nivel solo por la velocidad del viento",
@@ -1222,62 +1222,62 @@
     {
       "id": 61,
       "nivel": "intermedio",
-      "titulo": "Pronóstico de área",
-      "metar": "FA SKBO 121000Z\nSYNOPSIS...LOW PRES TROF 10Z CNTRL COL FCST MOV EWD INTO ORINOQUIA BY 04Z.\nWRMFNT 10Z SRN COL FCST LIFT NWD INTO CNTRL COL.\nSIG CLDS AND WX...SCT-BKN020 TOPS 100. OCNL SHRA. AFT 16Z ISOL TSRA.",
+      "titulo": "Pronóstico regional para el tramo en ruta",
+      "metar": "Escenario simulado: el pronóstico regional disponible para la ruta indica nubosidad extensa, chubascos aislados y mayor probabilidad de convección después de las 16:00 UTC. El TAF del destino conserva buenas condiciones.",
       "consigna": "Di qué cubre este documento que no cubre un TAF y qué te llevas de él para la ruta.",
-      "respuesta_modelo": "Pronóstico de área para la región de Bogotá, emitido el 12 a las 10:00Z. La sinopsis dice que hay una vaguada de baja presión sobre el centro de Colombia a las 10Z que se pronostica moviéndose al este hacia la Orinoquía para las 04Z, y un frente cálido en el sur del país que se pronostica ascendiendo hacia el noroeste. En nubes y tiempo significativo: dispersas a fragmentadas con base a 2000 ft y topes en 10 000, chubascos ocasionales, y después de las 16Z tormentas aisladas. Lo que cubre y el TAF no es la región entera, que es justo lo que necesito para la parte de la ruta que no tiene aeropuerto cerca. El TAF habla de un aeródromo; esto habla del aire por el que voy a pasar. Me llevo tres cosas: los topes en 10 000 para elegir nivel, las tormentas aisladas desde las 16Z, y hacia dónde se mueve el sistema.",
+      "respuesta_modelo": "Un TAF describe el entorno de un aeródromo; no garantiza que el tramo en ruta esté libre de convección. El pronóstico regional, cuando existe para el área, aporta contexto espacial y temporal. Verifico cuál producto oficial está disponible para la región, su hora válida, niveles y leyenda; confronto la evolución prevista después de las 16:00 UTC con mi hora de paso, radar, satélite y avisos vigentes. Si la ruta intercepta convección, reviso desvíos, alternos, combustible y momento de salida. No convierto el texto del escenario en un pronóstico vigente ni supongo la existencia de un formato FA idéntico en todos los Estados.",
       "puntos_clave": [
-        "El pronóstico de área cubre una región, no un aeródromo",
-        "Sinopsis: posición y movimiento de sistemas y frentes",
-        "TOPS 100: topes en 10 000 ft, útil para elegir nivel",
-        "AFT 16Z ISOL TSRA: tormentas aisladas desde esa hora",
-        "Es para la ruta, no para el destino"
+        "TAF: pronóstico del entorno de un aeródromo",
+        "El producto regional aporta contexto del tramo en ruta",
+        "Cruzar hora de paso con la evolución prevista",
+        "Verificar producto, validez, niveles y leyenda del servicio disponible",
+        "Preparar desvíos y combustible si la convección afecta la ruta"
       ],
       "errores_tipicos": [
-        "Usarlo como si fuera el pronóstico del aeródromo de destino",
-        "Ignorar la sinopsis y quedarse solo con las nubes"
+        "Usar el pronóstico regional como si fuera el TAF del destino",
+        "Ignorar la hora de paso por la zona de convección"
       ],
-      "fuente": "Práctica Aviatory, formato de pronóstico de área del capítulo"
+      "fuente": "Escenario didáctico Aviatory; no es un pronóstico de área vigente"
     },
     {
       "id": 62,
       "nivel": "avanzado",
-      "titulo": "El modelo de estación",
-      "metar": "[Modelo de estación en carta de superficie]\nCírculo relleno hasta la mitad. Flecha de viento hacia el noreste con dos púas largas y un banderín.\nArriba a la izquierda: 18   ·   Abajo a la izquierda: 16\nArriba a la derecha: 992   ·   Debajo: -14",
-      "consigna": "Lee el modelo campo por campo y di qué tiempo esperas en ese punto.",
-      "respuesta_modelo": "El círculo relleno hasta la mitad indica cuatro octavos de cobertura, es decir cielo dispersos. La flecha apunta hacia el noreste, y la flecha apunta hacia donde va el viento desde donde viene: el viento viene del suroeste. Las púas dan la velocidad: un banderín vale 50 nudos y cada púa larga 10, así que son 70 nudos, que es viento muy fuerte. Arriba a la izquierda, la temperatura: 18 grados. Abajo a la izquierda, el punto de rocío: 16 grados, solo dos de separación, aire casi saturado. Arriba a la derecha, la presión: 992 son tres dígitos con un decimal implícito, y se antepone 9 o 10 según cuál dé el valor más cercano a 1000, aquí 999,2 hPa. El menos 14 es la tendencia: la presión ha caído 1,4 hPa en tres horas. Presión baja y cayendo, viento de 70 nudos y aire casi saturado: sistema de baja presión acercándose, con mal tiempo.",
+      "titulo": "Leer la leyenda antes de una carta",
+      "metar": "Escenario simulado: recibes una carta meteorológica de superficie cuya leyenda no conoces. Muestra símbolos de viento, presión y nubosidad. La carta no se incluye aquí y no representa una publicación oficial.",
+      "consigna": "Explica por qué no debes decodificar símbolos de memoria ni inferir una decisión a partir de un punto aislado.",
+      "respuesta_modelo": "Primero identifico emisor, fecha, hora válida, área, unidades y leyenda del producto oficial. Las convenciones de los modelos de estación y los símbolos pueden variar según el producto y servicio; sin ver la carta real y su leyenda no asigno dirección de viento, presión ni tendencia a números imaginados. Después interpreto el patrón regional, lo comparo con METAR, TAF y avisos y ubico mi ruta y hora. Un solo modelo de estación tampoco demuestra que un sistema de baja presión se acerque o que toda la ruta tenga mal tiempo.",
       "puntos_clave": [
-        "Relleno del círculo: octavos de cobertura",
-        "Banderín 50 kt, púa larga 10 kt: aquí 70 kt",
-        "T arriba izquierda, Td abajo izquierda",
-        "992 se lee 999,2 hPa: se antepone 9 o 10",
-        "La tendencia negativa dice que la presión cae"
+        "No hay una carta real en este ejercicio: no inventar una lectura",
+        "Comprobar emisor, validez, área, unidades y leyenda",
+        "La simbología se interpreta según el producto concreto",
+        "Un dato puntual no describe toda la ruta",
+        "Contrastar el patrón con otras fuentes oficiales"
       ],
       "errores_tipicos": [
-        "Leer 992 como 992 hPa directamente",
-        "Tomar la dirección de la flecha como de dónde viene el viento"
+        "Inventar el significado de símbolos sin la leyenda oficial",
+        "Inferir una tendencia regional a partir de un dato aislado"
       ],
-      "fuente": "Práctica Aviatory, formato de modelo de estación del capítulo"
+      "fuente": "Escenario didáctico Aviatory; no incluye una carta meteorológica"
     },
     {
       "id": 63,
       "nivel": "intermedio",
-      "titulo": "Isobaras en una carta de superficie",
-      "metar": "[Carta de superficie]\nZona A: isobaras separadas unos 300 km entre sí, valores 1012, 1014, 1016.\nZona B: isobaras separadas unos 60 km entre sí, valores 1004, 1008, 1012, 1016.\nTu ruta cruza de A a B.",
+      "titulo": "Gradiente de presión y ruta",
+      "metar": "Comparación conceptual simulada, no una carta: en A, dos isobaras separadas 4 hPa distan unos 300 km; en B, dos isobaras con la misma diferencia de 4 hPa distan unos 60 km. La ruta cruza de A a B.",
       "consigna": "Di qué esperas en cada zona y qué preparas antes de entrar en B.",
-      "respuesta_modelo": "En la zona A las isobaras están muy separadas: el gradiente de presión es pequeño y por tanto los vientos son suaves. Es la zona cómoda de la ruta. En la zona B las isobaras están muy juntas, y además cada línea salta 4 hPa en vez de 2: el gradiente es fuerte y eso significa vientos fuertes. Al cruzar de A a B espero un aumento notable de la velocidad del viento, y probablemente también turbulencia asociada, sobre todo si hay relieve debajo. Lo que preparo antes de entrar: recalcular la deriva y el tiempo de tramo, revisar el combustible con el viento real y no con el de la planificación inicial, avisar a cabina de pasajeros si procede, y mirar si hay SIGMET o AIRMET de turbulencia en esa zona. La separación entre isobaras es la lectura más rápida y más útil de una carta de superficie.",
+      "respuesta_modelo": "Para la misma diferencia de 4 hPa, la presión cambia más rápido con la distancia en B que en A: el gradiente horizontal es mayor. Eso puede asociarse con vientos más intensos a escala sinóptica, pero no permite calcular el viento real a mi nivel ni garantiza turbulencia. Verifico la carta oficial, su hora y escala, los pronósticos de viento a los niveles de vuelo, el relieve y los avisos pertinentes. Si la información confirma un cambio significativo, actualizo componente, deriva, tiempo y combustible con los procedimientos de la operación.",
       "puntos_clave": [
-        "Isobaras separadas: gradiente pequeño, viento suave",
-        "Isobaras juntas: gradiente fuerte, viento fuerte",
-        "El salto entre isobaras también importa",
-        "Al cruzar, recalcular deriva, tiempo y combustible",
-        "Cruzarlo con avisos de turbulencia"
+        "Comparar espaciamiento solo si el intervalo de presión es el mismo",
+        "B tiene mayor gradiente horizontal que A",
+        "El gradiente no da por sí solo el viento al nivel de vuelo",
+        "Consultar viento en altura, relieve y avisos vigentes",
+        "Actualizar tiempo y combustible si el cambio se confirma"
       ],
       "errores_tipicos": [
-        "Mirar solo los valores y no la separación",
-        "Suponer que viento fuerte en altura no afecta al plan"
+        "Comparar separación sin igualar el intervalo de presión",
+        "Tomar el gradiente de superficie como viento exacto a nivel de crucero"
       ],
-      "fuente": "Práctica Aviatory, formato de carta de superficie del capítulo"
+      "fuente": "Comparación conceptual Aviatory; no incluye una carta oficial"
     },
     {
       "id": 64,
@@ -1285,13 +1285,13 @@
       "titulo": "Las cuatro fuentes, y qué ve cada una",
       "metar": "[Briefing]\n1. METAR SKBO 141200Z 09006KT 9999 SCT025 18/10 Q1018 NOSIG\n2. Radar: sin eco en la ruta\n3. Satélite: cobertura nubosa extensa al sur\n4. PIREP: UA /OV SKBO 180020 /TM 1150 /FL095 /SK OVC070-TOP110 /TB MOD",
       "consigna": "Di qué aporta cada una de las cuatro y cuál te da el dato que las otras no tienen.",
-      "respuesta_modelo": "El METAR describe El Dorado a las 12:00Z: viento del este a 6, de 10 km o más, dispersas a 2500 ft, 18 y 10, QNH 1018. Es el punto exacto, y no dice nada de diez millas más allá. El radar no muestra eco en la ruta: eso significa que no hay precipitación detectable, y nada más; no ve nubes, ni techos, ni visibilidad. El satélite muestra cobertura nubosa extensa al sur: da la imagen de conjunto, dónde están los sistemas, pero no el detalle de mi campo. El PIREP es el que aporta lo que ninguna otra fuente tiene: a las 11:50Z, a 9500 ft, cubierto con base en 7000 y topes en 11 000, con turbulencia moderada. Los topes de la capa y la turbulencia real no los mide el radar, ni el satélite, ni la estación. Ninguna fuente lo ve todo: cada una cubre el punto ciego de la otra.",
+      "respuesta_modelo": "En este briefing simulado, el METAR describe condiciones observadas en el aeródromo, no todo el trayecto. El producto de radar no muestra eco detectable dentro de su cobertura; eso no demuestra ausencia de nubes, precipitación débil o tiempo peligroso fuera del haz. El satélite aporta el patrón nuboso regional, pero su imagen tampoco fija por sí sola el techo de la pista. El PIREP (Pilot Report, informe de piloto) confirma condiciones experimentadas en su posición, nivel y hora; no se extrapola a toda la ruta. Para un vuelo de aerolínea comparo ubicación y vigencia de las cuatro fuentes, agrego TAF, avisos y pronósticos en ruta, y decido con el plan y procedimientos vigentes.",
       "puntos_clave": [
-        "Estación: el punto exacto, poco radio",
-        "Radar: precipitación, no nubes ni techos",
-        "Satélite: imagen de conjunto, no el detalle",
-        "PIREP: topes y turbulencia reales, en tiempo real",
-        "Ninguna sirve sola"
+        "METAR: observación del aeródromo en una hora concreta",
+        "Radar: reflectividad dentro de su cobertura y con limitaciones",
+        "Satélite: evolución y distribución regional de nubes",
+        "PIREP: experiencia puntual de otra aeronave, con hora y nivel",
+        "Cruzar fuentes y avisos; ninguna autoriza sola la ruta"
       ],
       "errores_tipicos": [
         "Concluir VFR porque el radar está limpio",
@@ -1303,19 +1303,19 @@
       "id": 65,
       "nivel": "avanzado",
       "titulo": "Todo el briefing, una decisión",
-      "metar": "TAF SKCL 190500Z 1906/2006 00000KT 0500 FG VV002 BECMG 1913/1915 6000 BR SCT015\nSIGMET: SKED SIGMET 2 VALID 190600/191000 SKBO- EMBD TS FCST WI ... TOP FL400 MOV NE 20KT\nPIREP: UA /OV SKCL 090030 /TM 0540 /FL100 /SK OVC020-TOP090 /IC MOD RIME\nFD: 12000 2135-02   18000 2450-14",
-      "consigna": "Llegada prevista a SKCL a las 12Z. Di si sales, y justifica con los cuatro documentos.",
-      "respuesta_modelo": "Cuatro documentos y una hora: las 12Z. El TAF de Cali pronostica calma con 500 m de niebla y visibilidad vertical de 200 ft hasta el BECMG 1913/1915, que mejora a 6 km y dispersas a 1500 ft entre las 13Z y las 15Z. Mi llegada a las 12Z cae ANTES de esa mejora: me toca la niebla, que está por debajo de mínimos. El SIGMET añade tormentas incrustadas con topes en FL400 moviéndose al noreste a 20 nudos, válido hasta las 10Z, así que puede haberse renovado. El PIREP de las 05:40Z reporta engelamiento moderado tipo escarcha con base en 2000 y topes en 9000 ft: eso condiciona el nivel de ascenso y descenso. Y los vientos en altura dan del 210 a 35 a 12 000 y del 240 a 50 a 18 000. Conclusión: con el destino por debajo de mínimos a mi hora, no salgo para llegar a las 12Z. O retraso la salida para llegar después del BECMG, o salgo con un alterno holgado fuera del fenómeno y combustible para esperar.",
+      "metar": "Briefing simulado para una llegada prevista a las 12:00 UTC:\n• TAF del destino: 500 m con niebla hasta una mejora gradual prevista entre 13:00 y 15:00 UTC.\n• SIGMET de convección en un sector de la ruta: su validez terminó a las 10:00 UTC.\n• PIREP de engelamiento moderado: observado a las 05:40 UTC.\n• Pronóstico de viento y temperatura por nivel: disponible en la herramienta de planificación.",
+      "consigna": "Explica qué puedes concluir para una llegada a las 12:00 UTC, qué datos ya no bastan y qué hace falta antes de autorizar la salida.",
+      "respuesta_modelo": "La llegada prevista precede la mejora del TAF: no debo planificar como si ya existieran mejores condiciones. Tampoco puedo afirmar que 500 m esté por debajo de los mínimos sin conocer aproximación, aeronave, tripulación y aprobación operacional. El SIGMET terminó antes de mi paso y exige buscar actualización; el PIREP es varias horas anterior y no demuestra que el engelamiento siga ni que haya desaparecido. Verifico productos vigentes, hora de paso por el área, mínimos aplicables, alternos, combustible y políticas de despacho con la tripulación. Según esos datos, la salida podría demorarse, replanificarse con alternativa admisible o descartarse; el caso no ofrece suficiente información para un «salgo/no salgo» universal.",
       "puntos_clave": [
-        "Mi hora cae antes del BECMG: me toca la niebla",
-        "El SIGMET obliga a rodear, no a pasar por encima",
-        "El PIREP fija la capa de engelamiento: 2000 a 9000 ft",
-        "Los vientos en altura entran en el combustible",
-        "La decisión sale del cruce de los cuatro"
+        "Una mejora BECMG posterior no se anticipa en la planificación",
+        "Un SIGMET vencido obliga a consultar su estado actual, no a ignorar el peligro",
+        "Un PIREP antiguo es evidencia histórica puntual",
+        "Los mínimos dependen de la operación aprobada",
+        "Cruzar productos vigentes, alternos, combustible y políticas de despacho"
       ],
       "errores_tipicos": [
-        "Decidir solo con el TAF",
-        "Leer el BECMG como si ya aplicara a las 12Z"
+        "Dar por vigente un aviso vencido o extrapolar un reporte antiguo",
+        "Aplicar la mejora de las 13:00–15:00 UTC a una llegada a las 12:00 UTC"
       ],
       "fuente": "Práctica Aviatory, formato de briefing del capítulo"
     },
@@ -1323,15 +1323,15 @@
       "id": 66,
       "nivel": "intermedio",
       "titulo": "La radiosonda y su límite",
-      "metar": "[Sondeo de SKBO, 12Z]\nSUP  8360 ft  18 °C  Td 10 °C\n10 000 ft  15 °C  Td 09 °C\n14 000 ft  06 °C  Td 04 °C\n18 000 ft  -02 °C  Td -06 °C\n24 000 ft  -14 °C  Td -20 °C",
+      "metar": "Perfil vertical hipotético para practicar, no un sondeo oficial:\nNivel      Temperatura   Punto de rocío\n14 000 ft  +6 °C        +4 °C\n18 000 ft  -2 °C        -6 °C\n24 000 ft  -14 °C       -20 °C",
       "consigna": "Di qué te da este documento que no da ninguna observación de superficie, y cuál es su límite.",
-      "respuesta_modelo": "Es un sondeo de radiosonda: el perfil vertical completo de temperatura y punto de rocío sobre El Dorado a las 12Z. Lo que da y ninguna observación de superficie puede dar es precisamente eso, la vertical: cómo cambian temperatura y humedad con la altura. De aquí puedo sacar el nivel de congelación, que está entre 14 000 y 18 000 ft porque ahí la temperatura cruza el cero, y puedo ver dónde temperatura y rocío se acercan, que es donde hay capas húmedas y por tanto nubes. Su límite es la frecuencia: se lanza dos veces al día, y ya. A las cinco de la tarde ese sondeo tiene cinco horas y la atmósfera se ha movido. Junto con el PIREP es una de las dos únicas formas de observar el tiempo en altura, y cada una tapa el agujero de la otra: la radiosonda es completa pero vieja, el PIREP es puntual pero de ahora.",
+      "respuesta_modelo": "El perfil permite ver cómo cambian temperatura y humedad con la altura. En estos datos hipotéticos, 0 °C queda entre 14 000 y 18 000 ft; una interpolación simple lo situaría cerca de 17 000 ft, pero no representa una altura de engelamiento garantizada. Una separación pequeña entre temperatura y punto de rocío sugiere aire húmedo, no confirma por sí sola nubes ni engelamiento. Antes de usar un sondeo real compruebo lugar, hora, tipo de nivel y unidades: describe una columna y momento, no toda la ruta ni la evolución posterior. Contrasto con pronósticos, observaciones y reportes en vuelo. La frecuencia de lanzamientos varía según estación y servicio.",
       "puntos_clave": [
-        "Da el perfil vertical completo",
-        "El nivel de congelación sale de donde cruza el cero",
-        "Separación T/Td pequeña: capa húmeda",
-        "Su límite es la frecuencia: dos veces al día",
-        "Con el PIREP, las dos únicas observaciones en altura"
+        "Un sondeo describe una columna atmosférica en un momento",
+        "El cruce de 0 °C se estima entre niveles medidos",
+        "Temperatura cercana al rocío sugiere humedad, no confirma nube",
+        "La frecuencia y disponibilidad dependen de la estación",
+        "Contrastar con pronósticos y reportes actuales"
       ],
       "errores_tipicos": [
         "Usar un sondeo de hace horas como si fuera actual",
@@ -1343,79 +1343,79 @@
       "id": 67,
       "nivel": "avanzado",
       "titulo": "Un SIGMET que te cruza la ruta",
-      "metar": "SKED SIGMET 5 VALID 221000/221400 SKBO-\nSKED BOGOTA FIR SEV TURB FCST WI N0700 W07400 - N0620 W07200 - N0530 W07400 - N0620 W07600 - N0700 W07400 FL180/FL300 MOV SE 25KT INTSF",
+      "metar": "Escenario simulado: un SIGMET vigente pronostica turbulencia severa entre FL180 y FL300 en un área que intercepta la ruta a la hora prevista. El plan inicial cruza el área a FL240.",
       "consigna": "Tu ruta cruza ese polígono a FL240. Di qué opciones tienes y cuál descartas.",
-      "respuesta_modelo": "SIGMET 5 de la FIR Bogotá, válido del 22 a las 10:00 a las 14:00Z. Turbulencia severa pronosticada dentro del polígono, entre FL180 y FL300, moviéndose al sureste a 25 nudos e intensificándose (INTSF). Mi ruta lo cruza a FL240, que está de lleno dentro de la capa afectada. Opciones: primera, cambiar de nivel por debajo de FL180 o por encima de FL300, si la aeronave y el combustible lo permiten y si no hay otro problema en esos niveles. Segunda, desviar lateralmente para rodear el polígono, contando con que se mueve al sureste a 25 nudos, o sea que hay que rodear por donde va a estar, no por donde está. Tercera, retrasar la salida hasta que el aviso expire o el polígono se haya desplazado. Lo que descarto es cruzarlo a FL240: turbulencia severa es, por definición, peligrosa para todas las aeronaves, y el INTSF dice que va a peor.",
+      "respuesta_modelo": "FL240 está dentro de la capa afectada, así que no mantengo esa trayectoria como plan normal. Verifico área, validez, movimiento, actualización y extensión vertical del SIGMET. Considero desvío lateral, otro nivel que sea realmente utilizable y libre del fenómeno, o demorar la salida; cada opción se contrasta con combustible, rendimiento, restricciones y servicios de tránsito aéreo. Que el aviso expire no significa que la turbulencia desaparezca. Coordino la alternativa aprobada antes de entrar en el área y mantengo seguimiento en vuelo.",
       "puntos_clave": [
-        "FL180/FL300 es la capa afectada; FL240 está dentro",
-        "MOV SE 25KT: hay que rodear por donde va a estar",
-        "INTSF: intensificándose, no mejorando",
-        "SEV TURB es peligrosa para todas las aeronaves",
-        "Cruzarlo al nivel previsto no es una opción"
+        "FL240 está dentro de FL180–FL300",
+        "Cruzar ruta y hora de paso con área y movimiento del aviso",
+        "Otro nivel solo sirve si es operacionalmente viable y libre del peligro",
+        "La caducidad del aviso no demuestra que el fenómeno terminó",
+        "Coordinar ruta, nivel o demora con reservas suficientes"
       ],
       "errores_tipicos": [
-        "Rodear por la posición actual del polígono",
+        "Ignorar el movimiento y la hora de paso por el área",
         "Suponer que un avión grande puede con turbulencia severa"
       ],
-      "fuente": "Práctica Aviatory, formato del Anexo 3 de la OACI"
+      "fuente": "Escenario didáctico Aviatory; no es un SIGMET vigente"
     },
     {
       "id": 68,
       "nivel": "basico",
       "titulo": "Cuánto vale cada aviso",
-      "metar": "SIGMET 3 VALID 181200/181600\nSIGMET VA 1 VALID 090600/091200\nAIRMET 2 VALID 141400/141800\nCONVECTIVE SIGMET 21C VALID UNTIL 2055Z",
-      "consigna": "Di cuánto vale cada uno y de qué sistema es cada cual.",
-      "respuesta_modelo": "El primero es un SIGMET ordinario OACI: válido del 18 a las 12:00 a las 16:00Z, cuatro horas, que es la validez normal. El segundo es un SIGMET de ceniza volcánica: del 9 a las 06:00 a las 12:00Z, seis horas, porque la ceniza volcánica y los ciclones tropicales tienen validez ampliada y además SIGMET propio. El tercero es un AIRMET: del 14 a las 14:00 a las 18:00Z, cuatro horas también, pero dirigido a vuelos por debajo de FL100, o FL150 en zonas montañosas. El cuarto es un SIGMET convectivo, que no es OACI sino del sistema de Estados Unidos, y vale dos horas, hasta las 20:55Z. Resumiendo: cuatro horas el SIGMET y el AIRMET, seis el de ceniza y el de ciclón, dos el convectivo estadounidense. Confundir esas validez es planificar con un aviso caducado.",
+      "metar": "Comparación didáctica, sin avisos oficiales:\nA. SIGMET: validez publicada de 12:00 a 16:00 UTC.\nB. SIGMET de ceniza volcánica: validez publicada de 06:00 a 12:00 UTC.\nC. AIRMET de una región donde se emite: validez publicada de 14:00 a 18:00 UTC.\nD. «Convective SIGMET»: producto estadounidense; consultar su hora de expiración.",
+      "consigna": "Calcula los períodos de A, B y C. Explica por qué ninguna duración máxima sustituye la consulta del aviso vigente.",
+      "respuesta_modelo": "A y C muestran períodos de cuatro horas; B, seis. En el marco OACI un SIGMET y un AIRMET tienen validez de hasta cuatro horas, y los SIGMET de ceniza volcánica o ciclón tropical pueden extenderse hasta seis. No es una duración fija obligatoria: se lee el inicio y fin publicados, se busca actualización o cancelación y se comprueba disponibilidad regional. El «Convective SIGMET» pertenece al sistema estadounidense y se interpreta con la fuente que lo emitió. Ninguno de estos ejemplos es un aviso vigente ni debe usarse para despachar un vuelo.",
       "puntos_clave": [
-        "SIGMET ordinario: cuatro horas",
-        "Ceniza volcánica y ciclón tropical: seis horas",
-        "AIRMET: cuatro horas, para vuelos bajos",
-        "Convectivo de EE. UU.: dos horas",
-        "Un aviso caducado no es información vigente"
+        "SIGMET y AIRMET OACI: hasta cuatro horas",
+        "SIGMET de ceniza o ciclón: hasta seis horas",
+        "Leer siempre el período publicado, no solo el máximo permitido",
+        "Comprobar actualización y cancelación",
+        "Un aviso vencido no prueba que el fenómeno haya cesado"
       ],
       "errores_tipicos": [
         "Aplicar la misma validez a todos",
         "Suponer que el convectivo existe en la región"
       ],
-      "fuente": "Práctica Aviatory, formato del Anexo 3 de la OACI"
+      "fuente": "Comparación didáctica Aviatory; no contiene avisos vigentes"
     },
     {
       "id": 69,
       "nivel": "intermedio",
-      "titulo": "La carta primero, el METAR después",
-      "metar": "[Planificación SKBO-SKBQ]\nCarta de superficie 12Z: frente frío sobre el centro del país, moviéndose al noreste a 20 kt.\nMETAR SKBQ 121200Z 06008KT 9999 FEW020 31/24 Q1010 NOSIG\nTAF SKBQ 121100Z 1212/1312 06008KT 9999 FEW020 BECMG 1218/1220 22015G28KT 5000 TSRA BKN012CB",
-      "consigna": "El METAR del destino es bueno. Explica por qué la carta cambia la planificación de todos modos.",
-      "respuesta_modelo": "El METAR de Ernesto Cortissoz a las 12Z es bueno: viento del noreste a 8, de 10 km o más, escasas a 2000 ft, 31 y 24, QNH 1010, sin cambio significativo en dos horas. Si me quedara ahí, saldría tranquilo. La carta de superficie dice otra cosa: hay un frente frío sobre el centro del país moviéndose al noreste a 20 nudos, o sea hacia Barranquilla. Y el TAF lo confirma con un BECMG 1218/1220 que entre las 18Z y las 20Z establece viento del suroeste a 15 con ráfagas de 28, 5 km con tormenta y techo de 1200 ft: eso es exactamente el paso del frente. Por eso las cartas se miran al principio de la planificación y no al final: dan la imagen global, dónde están los sistemas y hacia dónde van. Un METAR bueno no te dice que dentro de seis horas te va a cruzar un frente. Al revés no funciona.",
+      "titulo": "Una observación buena no garantiza la llegada",
+      "metar": "Escenario simulado, sin carta oficial: el METAR del destino a las 12:00 UTC muestra buena visibilidad. El TAF prevé tormentas y ráfagas entre 18:00 y 20:00 UTC. Una imagen regional actual muestra convección avanzando hacia el corredor de llegada.",
+      "consigna": "Tu llegada prevista es a las 19:00 UTC. Explica qué pesa más y qué debes confirmar antes de despachar.",
+      "respuesta_modelo": "El METAR describe las 12:00 UTC; no predice las 19:00. La llegada cae dentro del período de deterioro pronosticado, y la evolución regional da contexto a ese riesgo, pero una imagen aislada tampoco fija condiciones exactas en el aeródromo. Consulto TAF y actualizaciones, avisos, radar y satélite vigentes, hora real de llegada, mínimos, alternos y combustible. Reviso una ruta de evitación de convección y opciones de demora o desvío. No atribuyo automáticamente el cambio a un frente frío ni tomo una carta fabricada como evidencia.",
       "puntos_clave": [
-        "El METAR describe el ahora, no el sistema que viene",
-        "La carta da posición y movimiento de los frentes",
-        "El BECMG del TAF es el paso del frente",
-        "Las cartas se miran al principio, no al final",
-        "NOSIG cubre dos horas, no seis"
+        "El METAR observa un momento; la llegada requiere pronóstico válido",
+        "Las 19:00 UTC caen en el período de deterioro",
+        "La imagen regional aporta contexto, no condiciones exactas de pista",
+        "Verificar actualizaciones, avisos, mínimos, alternos y combustible",
+        "No inventar la causa sinóptica de una tormenta"
       ],
       "errores_tipicos": [
-        "Despachar con el METAR del destino y nada más",
-        "Leer NOSIG como garantía para toda la tarde"
+        "Despachar solo por el METAR del destino",
+        "Confundir una observación de las 12:00 UTC con el pronóstico de las 19:00 UTC"
       ],
       "fuente": "Práctica Aviatory, formato de briefing del capítulo"
     },
     {
       "id": 70,
       "nivel": "avanzado",
-      "titulo": "Estimar el viento sin pronóstico",
-      "metar": "METAR SKVP 150900Z 09010KT 9999 FEW025 26/20 Q1012 NOSIG\n[no hay pronóstico de vientos en altura disponible para la zona]",
-      "consigna": "Necesitas el viento a 2000 ft AGL para el circuito y no tienes FD. Estímalo y di de dónde sale la regla.",
-      "respuesta_modelo": "Alfonso López (SKVP), en Valledupar, día 15 a las 09:00Z, o sea las 04:00 de Colombia. El viento de superficie es del 090 a 10 nudos. Sin pronóstico de vientos en altura, se estima a partir del de superficie: a 2000 ft AGL el viento suele estar de 20 a 40 grados a la derecha del de superficie en el hemisferio norte, y con más velocidad. Colombia está en el hemisferio norte, así que espero algo del orden del 110 al 130, y más fuerte, quizá 15 a 20 nudos. La razón es la fricción: en los primeros 2000 ft el rozamiento con el terreno frena el aire, y al frenarlo reduce la fuerza de Coriolis, así que el viento de superficie queda girado a la izquierda respecto del de arriba. Al subir desaparece ese freno y el viento vuelve a su dirección y velocidad libres. El giro es mayor sobre terreno rugoso y menor sobre superficies planas.",
+      "titulo": "Cuando falta el viento al nivel necesario",
+      "metar": "Escenario simulado: el METAR indica viento de superficie del 090° a 10 kt. No hay pronóstico ni observación disponible para el nivel al que necesitas calcular la trayectoria.",
+      "consigna": "Explica qué puedes y qué no puedes inferir del viento de superficie y cómo manejarías la incertidumbre.",
+      "respuesta_modelo": "El 090° a 10 kt solo describe el viento observado cerca de la superficie en ese aeródromo y a esa hora. No permite asignar con fiabilidad un rumbo y velocidad a 2000 ft sobre el terreno: fricción, estabilidad, relieve, brisas, convección y gradiente cambian el perfil. Busco productos vigentes de viento en altura, datos de aeronaves, información de tránsito aéreo y observaciones cercanas, si están disponibles. Si no obtengo una base suficiente, no fabrico un valor de 20–40° de giro; aplico márgenes y procedimientos aprobados, vigilo el viento real y actualizo navegación y combustible.",
       "puntos_clave": [
-        "De 20° a 40° a la derecha en el hemisferio norte",
-        "A la izquierda en el hemisferio sur",
-        "Y con más velocidad al desaparecer la fricción",
-        "La causa es la fricción, que reduce Coriolis",
-        "Mayor giro sobre terreno rugoso"
+        "El viento de superficie no fija el de 2000 ft",
+        "No usar un giro angular fijo como pronóstico operacional",
+        "Buscar datos vigentes para la altura, ruta y hora",
+        "Aplicar márgenes y procedimientos aprobados ante incertidumbre",
+        "Comparar con viento real y actualizar el plan"
       ],
       "errores_tipicos": [
-        "Aplicar el giro a la izquierda estando en el norte",
-        "Suponer la misma velocidad que en superficie"
+        "Aplicar una regla fija de giro como si fuera un pronóstico",
+        "Suponer que la velocidad en altura coincide con la de superficie"
       ],
       "fuente": "Práctica Aviatory, formato de la clave OACI"
     }

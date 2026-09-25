@@ -128,8 +128,8 @@ export function MetarPractice() {
               <Target className="h-3.5 w-3.5" /> Meteorología · Práctica
             </>
           }
-          title="Practica interpretando METAR"
-          subtitle={`${METAR_EXERCISES.length} informes con formato real. Léelo, explícalo con tus palabras y después compara con la respuesta modelo.`}
+          title="Practica meteorología operacional"
+          subtitle={`${METAR_EXERCISES.length} casos simulados. Interpreta la información, explica qué verificarías antes de decidir y después compara con la respuesta modelo.`}
         />
 
         {/* Filtros y avance */}
@@ -246,7 +246,7 @@ export function MetarPractice() {
                 </p>
               </div>
 
-              <div className="mt-4 text-[12px] font-medium text-muted-foreground">El informe</div>
+              <div className="mt-4 text-[12px] font-medium text-muted-foreground">Material del caso</div>
               <pre className="mt-1.5 mb-0 overflow-x-auto rounded-lg border border-border bg-muted/40 px-4 py-3.5">
                 <code className="mono block text-[13px] leading-[1.7] whitespace-pre-wrap break-words">
                   {item.metar}
@@ -279,7 +279,7 @@ export function MetarPractice() {
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 rows={7}
-                placeholder="Dónde y cuándo, cómo sopla, cuánto ves, qué tapa, qué números, y qué decide todo eso."
+                placeholder="Qué indica el producto, qué no permite concluir y qué comprobarías antes de decidir."
                 className="w-full rounded-lg border border-border bg-background px-3.5 py-3 text-[15px] leading-relaxed outline-none focus-visible:ring-2 focus-visible:ring-[var(--av-mt-600)]"
               />
 
