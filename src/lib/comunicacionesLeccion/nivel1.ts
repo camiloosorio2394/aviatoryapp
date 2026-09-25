@@ -1538,8 +1538,14 @@ export const NIVEL_1: DocScreen[] = [
     n: 7,
     title: "Cómo se arma una transmisión",
     kicker: "A quién llamas, quién eres y qué quieres",
-    minutes: 9,
+    minutes: 13,
     blocks: [
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Dos clases de ejemplo",
+        text: "La estructura de las bandas es una ayuda pedagógica, no una autorización operativa. El caso de Avianca 052 que se analiza abajo sí corresponde al vuelo Bogotá, Medellín y Nueva York del 25 de enero de 1990 y procede del informe de la Junta Nacional de Seguridad del Transporte de Estados Unidos (NTSB, National Transportation Safety Board) AAR-91/04. Los modelos de llamada del manual de la Administración Federal de Aviación (FAA, Federal Aviation Administration) son ejemplos publicados por esa autoridad, no grabaciones de vuelos reales. No se inventan frecuencias, puntos ni instrucciones locales.",
+      },
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
@@ -1563,10 +1569,10 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "kv",
         items: [
-          { k: "Piloto que llama", v: "Estación, distintivo propio, mensaje. `BOGOTA GROUND, AVIATORY 452, …`" },
+          { k: "Piloto que llama", v: "Estación, distintivo propio completo y mensaje. En superficie, añada la posición antes de la solicitud. Es el orden del Manual de Información Aeronáutica (AIM, Aeronautical Information Manual) de la FAA, 4-2-3, y del Doc 9432, 2.8.1.1." },
           {
             k: "ATC que llama o instruye",
-            v: "Distintivo de la aeronave, (estación, si hace falta), mensaje. `AVIATORY 452, CLIMB TO FL 240.`",
+            v: "Distintivo de la aeronave, estación si hace falta, e instrucción. La tripulación comprueba que el mensaje sea para su vuelo antes de actuar.",
           },
           { k: "Colación", v: "El contenido primero y **el distintivo al final** (Doc 9432, 2.8.3.7)." },
         ],
@@ -1575,15 +1581,15 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "list",
         items: [
-          "En dos pasos: el piloto llama con los distintivos y espera. Que la estación conteste con los distintivos ya es la invitación a seguir: el Doc 9432 omitió «GO AHEAD» por esa razón (nota al final de 2.6). Se usa cuando la estación puede no estar lista para anotar o en un primer contacto con una dependencia que necesita prepararse (por ejemplo, para presentar un plan de vuelo: Doc 9432, 3.5.1, «READY TO COPY»).",
-          "En un paso: estación, distintivo y mensaje de corrido. Es lo normal en frecuencias VHF ocupadas y en mensajes cortos y esperados.",
+          "En dos pasos: el piloto llama con los distintivos y espera una respuesta antes de dar un mensaje extenso. El Doc 9432, edición de 2007, explica que la respuesta de la estación permite continuar sin añadir una invitación verbal; antes de usar esa práctica en un Estado concreto hay que comprobar la fraseología vigente y las instrucciones locales.",
+          "En un paso: estación, distintivo y mensaje de corrido. Puede reducir ocupación de una frecuencia de muy alta frecuencia (VHF, Very High Frequency) cuando la recepción es fiable y la solicitud es corta y esperada; no es excusa para omitir datos críticos.",
         ],
       },
       { kind: "p", text: "**Qué va en el mensaje, según la situación** (ejemplos del Doc 9432):" },
       {
         kind: "list",
         items: [
-          "**Puesta en marcha**: ubicación (puesto) y acuse del ATIS junto con la solicitud (Doc 9432, 4.2.2).",
+          "**Puesta en marcha**: ubicación (puesto) y acuse del servicio automático de información terminal (ATIS, Automatic Terminal Information Service) junto con la solicitud (Doc 9432, 4.2.2).",
           "**Rodaje**: con el acuse del ATIS, el controlador no necesita repetir la información de salida (Doc 9432, 4.4.3).",
           "**Contacto inicial con aproximación**: nivel, estimado a un punto e información ATIS (Doc 9432, 7.3.1).",
           "**Notificación de posición**: identificación, posición, hora, nivel, próxima posición y hora, punto significativo siguiente (Doc 9432, 3.4.1).",
@@ -1591,99 +1597,61 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Algunos Estados fijan en su AIP qué debe incluir el primer contacto al entrar o salir de su espacio aéreo (Doc 9432, Preámbulo). **La estructura de esta lección es educativa; lo que manda en cada aeropuerto es el procedimiento local publicado.**",
+        text: "Algunos Estados fijan en su publicación de información aeronáutica (AIP, Aeronautical Information Publication) qué debe incluir el primer contacto al entrar o salir de su espacio aéreo (Doc 9432, Preámbulo). **La estructura de esta lección es educativa; lo que manda en cada aeropuerto es el procedimiento local publicado.**",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-07-01 · Diagrama · 16:9 · 1600×900",
-        descripcion:
-          "Una transmisión escrita en una sola línea y dividida en bloques de colores del módulo: [BOGOTA GROUND] [AVIATORY 452] [STAND 12] [INFORMATION ALFA] [REQUEST START-UP AND PUSH-BACK]. Encima de cada bloque, la pregunta que responde: WHO ARE YOU CALLING? · WHO ARE YOU? · WHERE ARE YOU? · WHAT DO YOU HAVE? · WHAT DO YOU WANT? Debajo, en una segunda línea, la respuesta del ATC y la colación, con el distintivo resaltado al principio (ATC) y al final (colación). Rótulo al pie: «Ejemplo educativo, se ajusta al procedimiento local». Objetivo: que el piloto vea el orden de los bloques y dónde va el distintivo en cada tipo de transmisión.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-07-01.svg",
+        alt: "Diagrama de tres transmisiones: llamada inicial del piloto con estación, distintivo y posición o solicitud; respuesta de control con distintivo al principio; colación del piloto con distintivo al final.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Identifica a quién se llama y quién habla antes de transmitir el mensaje; en la respuesta, verifica que el distintivo sea el tuyo y colaciona los elementos obligatorios con tu distintivo al final. Amplía la lámina para seguir las tres bandas. Esquema basado en Doc 9432, 2.8.1 y 2.8.3, y AIM FAA, 4-2-3; no representa una autorización real.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
+      { kind: "sub", text: "Del modelo oficial a una operación real" },
       {
         kind: "pasos",
         items: [
           {
-            rotulo: "Puesta en marcha y retroceso",
-            codigo: tx(
-              "PILOT: BOGOTA GROUND, AVIATORY 452, STAND 12, INFORMATION ALFA, REQUEST START-UP AND PUSH-BACK.",
-              "ATC:   AVIATORY 452, START-UP AND PUSH-BACK APPROVED, QNH 1019.",
-              "PILOT: START-UP AND PUSH-BACK APPROVED, QNH 1019, AVIATORY 452.",
-            ),
-            texto:
-              "**Significado:** a quién (Bogota Ground), quién (Aviatory 452), dónde (puesto 12), qué tiene (ATIS Alfa), qué quiere (puesta en marcha y retroceso). El Doc 9432 muestra la puesta en marcha («STAND 24 REQUEST START UP, INFORMATION BRAVO» / «START UP APPROVED QNH 1009», 4.2.2) y el retroceso («STAND 27 REQUEST PUSH-BACK» / «PUSH-BACK APPROVED», 4.3.1) como solicitudes separadas; en muchos aeropuertos se piden juntas y en otros el retroceso se pide a APRON. **Ejemplo educativo**: siga el procedimiento local.",
-            etiqueta: "Forma combinada «START-UP AND PUSH-BACK»: " + POR_VERIFICAR,
+            rotulo: "El orden en una llamada inicial",
+            codigo: "FAA AIM 4-2-3 (ejemplo publicado): Columbia Ground, Cessna Three One Six Zero Foxtrot, south ramp, I-F-R Memphis.",
+            texto: "Este es un **modelo publicado en el AIM de la FAA**, no una transmisión grabada. Columbia Ground identifica a la estación; el distintivo completo evita que otro avión se atribuya la llamada; south ramp sitúa la aeronave en superficie; I-F-R anuncia una solicitud bajo reglas de vuelo instrumental (IFR, Instrument Flight Rules) hacia Memphis. La estructura es transferible a la aviación de línea, pero los datos del ejemplo pertenecen al manual estadounidense, no a un procedimiento de Colombia. En una operación real se usarían la estación, posición, autorización y publicación local correspondientes.",
           },
           {
-            rotulo: "Puesta en marcha con demora",
-            codigo: tx(
-              "PILOT: BOGOTA GROUND, AVIATORY 452, STAND 12, REQUEST START-UP, INFORMATION ALFA.",
-              "ATC:   AVIATORY 452, EXPECT START-UP AT 35, QNH 1019.",
-              "PILOT: EXPECT START-UP AT 35, QNH 1019, AVIATORY 452.",
-            ),
-            texto:
-              "**Significado:** todavía no está aprobada; prevea encender a los 35 (minutos de la hora). Doc 9432, 4.2.2. «EXPECT» no es una aprobación.",
+            rotulo: "La situación determina cuánto hay que decir",
+            texto: "El AIM 4-2-3 permite incluir la solicitud, posición o altitud y la información ATIS recibida si la recepción es fiable y eso reduce congestión. También advierte que no se debe saturar al controlador con datos superfluos. Antes de pulsar el transmisor, la tripulación decide qué información necesita esa dependencia *ahora*: en superficie importan ubicación y petición; tras una transferencia, la altitud y el contexto de la autorización; ante una condición anormal, la naturaleza de la situación y lo que la aeronave puede hacer. No existe una frase universal de cinco casillas que sirva igual en todas las fases.",
           },
           {
-            rotulo: "Llamada en dos pasos",
-            codigo: tx(
-              "PILOT: BOGOTA INFORMATION, AVIATORY 452.",
-              "ATC:   AVIATORY 452, BOGOTA INFORMATION.",
-              "PILOT: AVIATORY 452, … (mensaje)",
-            ),
-            texto:
-              "**Significado:** el piloto llamó y esperó; la estación contestó con los distintivos, que es la invitación a seguir (Doc 9432, 2.6, nota sobre GO AHEAD; 2.8.1.1).",
-            etiqueta: "Vigencia de «GO AHEAD»: " + POR_VERIFICAR,
-          },
-          {
-            rotulo: "Primer contacto con aproximación",
-            codigo: tx(
-              "PILOT: BOGOTA APPROACH, AVIATORY 452 HEAVY, FL 80, ESTIMATING GIKOS 46, INFORMATION DELTA.",
-              "ATC:   AVIATORY 452, DESCEND TO 4 000 FEET, QNH 1005, TRANSITION LEVEL 50, EXPECT ILS APPROACH RUNWAY 13R.",
-              "PILOT: DESCENDING TO 4 000 FEET, QNH 1005, TRANSITION LEVEL 50, EXPECTING ILS APPROACH RUNWAY 13R, AVIATORY 452.",
-            ),
-            texto:
-              "**Significado:** quién, a quién, nivel, estimado e información ATIS. Modelo del Doc 9432, 7.3.1.",
-          },
-          {
-            rotulo: "Notificación de posición",
-            codigo: tx(
-              "PILOT: BOGOTA CONTROL, AVIATORY 452, GIKOS 47, FL 330, RUTAM 57, KOLOX NEXT.",
-              "ATC:   AVIATORY 452, ROGER.",
-            ),
-            texto:
-              "**Significado:** identificación, posición (GIKOS), hora (47), nivel (FL 330), próxima posición y hora (RUTAM a los 57), punto siguiente (KOLOX). Puntos ficticios. Doc 9432, 3.4.1.",
-          },
-          {
-            rotulo: "Listo en el punto de espera",
-            codigo: tx(
-              "ATC:   AVIATORY 452, REPORT WHEN READY FOR DEPARTURE.",
-              "PILOT: WILCO, AVIATORY 452.",
-              "PILOT: AVIATORY 452, READY.",
-            ),
-            texto:
-              "**Significado:** con torre ya en contacto, basta el distintivo y «READY». No se dice «ready for take-off» de forma que suene a autorización (Doc 9432, 4.5.3 y 2.8.3.3).",
-          },
-          {
-            rotulo: "Colación que termina con el distintivo",
-            codigo: tx("ATC:   AVIATORY 452, CROSS GIKOS FL 70.", "PILOT: CROSS GIKOS FL 70, AVIATORY 452."),
-            texto: "**Significado:** contenido primero, distintivo al final (Doc 9432, 2.8.3.7, adaptado).",
+            rotulo: "Respuesta y colación: cerrar el ciclo",
+            texto: "Al oír el distintivo en la respuesta de control, el piloto verifica que la instrucción está dirigida a su vuelo. Después identifica qué partes requieren colación, las contrasta con el plan y las indicaciones de cabina, y cierra con su distintivo. El controlador debe escuchar esa respuesta y corregir una discrepancia. La colación no es eco mecánico: una autorización entendida pero incompatible con el estado de la aeronave exige aclaración o una respuesta de imposibilidad, no aceptación automática (Doc 9432, 2.8.3).",
           },
         ],
+      },
+      {
+        kind: "casoReal",
+        titulo: "Avianca 052: un mensaje de combustible no establece por sí solo una emergencia compartida",
+        fecha: "25 de enero de 1990",
+        lugar: "Aproximación al aeropuerto John F. Kennedy, Nueva York",
+        aeronave: "Boeing 707-321B, matrícula HK 2016",
+        queOcurrio: [
+          "El vuelo regular Avianca 052 salió de Bogotá, hizo escala en el aeropuerto José María Córdova cerca de Medellín y continuó a Nueva York. El informe NTSB AAR-91/04 documenta esperas, una aproximación frustrada y el agotamiento de combustible antes de llegar a JFK.",
+          "Tras la aproximación frustrada, la tripulación contactó de nuevo a aproximación. El primer oficial informó sobre el combustible con la expresión «we're running out of fuel sir». El informe recoge que en cabina se hablaba de la urgencia, pero el mensaje radiado no declaró inequívocamente una emergencia. El controlador preguntó después si el tramo adicional era aceptable dadas las condiciones de combustible, y la respuesta no transmitió una imposibilidad clara.",
+          "La lección de estructura no consiste en memorizar una línea de ese accidente ni en reconstruir una autorización nueva. Consiste en separar destinatario, identidad, condición, intención y necesidad de asistencia, y comprobar que el controlador entendió la gravedad. Si la seguridad exige prioridad de emergencia, se comunica como tal mediante la fraseología aplicable; una expresión vaga no sustituye esa declaración.",
+        ],
+        consecuencia: "La aeronave se accidentó por agotamiento de combustible. La NTSB identificó tanto la gestión de combustible como la falta de comunicación oportuna de la emergencia entre las causas probables; no atribuyó el resultado a una sola frase aislada.",
+        leccion: "En un vuelo de línea, una comunicación eficaz no solo contiene datos verdaderos: deja explícitos la gravedad, la capacidad de la aeronave y la respuesta que se necesita de ATC. El piloto verifica la comprensión recibida y, si la situación evoluciona, actualiza el mensaje sin esperar a la siguiente fase de vuelo.",
+        fuente: "NTSB, AAR-91/04, §§1.1 y 2.6: https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR9104.pdf",
       },
       {
         kind: "callout",
         tone: "verificar",
         title: "Verificar",
-        text: "La forma combinada «REQUEST START-UP AND PUSH-BACK» / «START-UP AND PUSH-BACK APPROVED» se confirma en el **Doc 4444 vigente, cap. 12 (puesta en marcha y retroceso)** y en el **AIP del aeródromo (AD 2.20, reglamentos locales de tránsito)**; el Doc 9432 cargado las muestra por separado. La vigencia de «GO AHEAD» (el Doc 9432, 4.ª ed., nota en 2.6, dice que se omitió): **Anexo 10 Vol. II, cap. 5, y Doc 4444 vigente, cap. 12**. Los requisitos de primer contacto en Colombia: **AIP Colombia (ENR 1.1 / GEN 3.4)**.",
+        text: "Antes de convertir este esquema en una llamada real, consulte el **AIP/eAIP vigente del aeródromo y del espacio aéreo** para identificar dependencia, frecuencia, posición que debe notificarse y procedimiento local de primer contacto. El modelo del AIM citado pertenece a Estados Unidos; el Doc 9432 cargado es la 4.ª edición de 2007 y no sustituye publicaciones locales. La condición de emergencia se rige por la fraseología vigente y la situación real de la aeronave; el caso histórico de Avianca 052 no es una plantilla de radio.",
       },
       {
         kind: "enLaOperacion",
         momento: "En la preparación de salida",
         texto:
-          "Antes de oprimir el PTT, el piloto que comunica arma el mensaje en la cabeza (o lo lee de lo que ya tiene anotado: puesto, ATIS, lo que va a pedir). En la preparación de salida muchas tripulaciones anotan el puesto, la letra del ATIS y el QNH antes de llamar a Delivery o a Ground, para que la primera llamada salga completa y sin pausas. Qué se anota y quién llama lo define el SOP del operador.\n\nLlamar con toda la información de una vez evita que el controlador tenga que preguntar «say position» o «confirm information». Cada pregunta evitada es tiempo de frecuencia para otros.",
+          "Antes de pulsar el botón de transmisión (PTT, Push To Talk), el piloto que comunica arma el mensaje en la cabeza o lo lee de lo que ya tiene anotado: puesto, información ATIS y solicitud. En la preparación de salida muchas tripulaciones anotan el puesto, la letra del ATIS y el ajuste altimétrico QNH antes de llamar a la dependencia que corresponda. Qué se anota y quién llama lo define el procedimiento operativo estándar (SOP, Standard Operating Procedures) del explotador.\n\nUna llamada completa evita que el controlador tenga que preguntar por posición o confirmar la información recibida. Completa no significa saturada: en el caso del vuelo Avianca 052, la decisión importante es poner por delante la condición crítica y la asistencia necesaria, no recitar todos los datos de la aeronave. Cada pregunta evitable ocupa una frecuencia que comparte el resto del tránsito.",
       },
       {
         kind: "callout",
@@ -1698,7 +1666,7 @@ export const NIVEL_1: DocScreen[] = [
           "**Omitir la letra del ATIS** o decir una que ya cambió.",
           "**Colacionar sin distintivo al final.**",
           "**Pedir cosas que no van con esa dependencia** (pedir rodaje a Delivery, pedir nivel a Ground).",
-          "**Meter todo en una sola transmisión larga** cuando la estación no está lista para anotar: mejor en dos pasos.",
+          "**Ocultar la condición crítica entre datos secundarios.** Si la situación exige prioridad de emergencia, la gravedad y la ayuda requerida tienen que quedar inequívocas para ATC.",
         ],
       },
       {
@@ -1708,17 +1676,16 @@ export const NIVEL_1: DocScreen[] = [
           "Piloto que llama: estación, distintivo, mensaje.",
           "ATC: distintivo de la aeronave primero.",
           "Colación: contenido primero, distintivo al final.",
-          "En el mensaje: dónde está, qué tiene (ATIS), qué quiere o qué informa.",
-          "La respuesta de la estación con los distintivos es la invitación a hablar.",
-          "El ejemplo es educativo: manda el procedimiento local publicado en el AIP.",
+          "En el mensaje: posición, información recibida, solicitud o condición, según la fase y el procedimiento aplicable.",
+          "Avianca 052 muestra que decir algo sobre combustible no garantiza que ATC entienda una emergencia.",
+          "El modelo es educativo: manda el procedimiento local publicado en el AIP/eAIP vigente.",
         ],
       },
       fuentes(
-        "Doc 9432 (4.ª ed.) Preámbulo, 2.6 (nota sobre GO AHEAD), 2.8.1.1, 2.8.3.3, 2.8.3.7, 3.4.1, 3.5.1, 4.2.2, 4.3.1, 4.4.3, 4.5.3, 7.3.1.",
+        "Doc 9432 (4.ª ed.) Preámbulo, 2.8.1.1, 2.8.3 y 3.4.1. FAA AIM vigente, 4-2-1 a 4-2-3 (https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap4_section_2.html). NTSB AAR-91/04, §§1.1 y 2.6 (https://www.ntsb.gov/investigations/AccidentReports/Reports/AAR9104.pdf).",
         [
-          "La forma combinada «REQUEST START-UP AND PUSH-BACK» / «START-UP AND PUSH-BACK APPROVED» contra Doc 4444 vigente cap. 12 (puesta en marcha y retroceso) y el AIP del aeródromo (AD 2.20, reglamentos locales de tránsito) (no cargados); el Doc 9432 cargado las muestra por separado.",
-          "La vigencia de «GO AHEAD» (el Doc 9432 4.ª ed., nota en 2.6, dice que se omitió) contra Anexo 10 Vol. II cap. 5 y Doc 4444 vigente cap. 12 (no cargados).",
-          "Requisitos de primer contacto en Colombia contra AIP Colombia (ENR 1.1 / GEN 3.4) (no cargado).",
+          "Dependencia, frecuencia y contenido exigido en el primer contacto para un vuelo colombiano concreto contra el AIP/eAIP vigente del Estado y aeródromo. Esta lección no publica valores locales.",
+          "Comparar la edición vigente del Doc 4444 y el Anexo 10, Vol. II con el Doc 9432 de 2007 antes de trasladar una frase del manual a la operación.",
         ],
       ),
     ],
