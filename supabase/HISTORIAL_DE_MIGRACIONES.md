@@ -368,3 +368,30 @@ RVSM ya estaba aplicado. La versión `20260929000000` la tiene registrada la bas
 para `modulo_rvsm`, así que la otra, que está pendiente de correr, se renumeró a
 `20260930000000` y la marca de arriba pasó a `20260929000000`. Cuando se corra,
 hay que mover la marca otra vez.
+
+## 25 de septiembre, noche: el banco de PBN deja de regalar la respuesta
+
+En el banco de 66, la opción correcta era la más larga en el 94 % de las
+preguntas y estaba en la B en el 94 %. Un piloto que marcara siempre la más
+larga aprobaba sin haber leído nada. Se reescribieron las cuatro opciones de
+las 66 (y de las 144 de práctica, que tenían el mismo vicio en el 86 %) y se
+repartió la correcta entre las cuatro letras y los cuatro puestos de largo.
+Quedó así: en el banco la mejor estrategia a ciegas acierta el 26 %, y en la
+práctica el 25 %.
+
+Dos filas en el historial, las dos de siembra y sin archivo:
+
+| Fila | Qué hizo |
+| --- | --- |
+| `20260925200759_banco_pbn_4_opciones_sin_sesgo_1` | `opciones` y `correcta` de `ev-01` a `ev-33` |
+| `20260925200841_banco_pbn_4_opciones_sin_sesgo_2` | lo mismo de `ev-34` a `ev-66` |
+
+No cambió ningún enunciado, explicación, referencia ni tema. Antes de aplicar
+se comprobó que **no había ninguna sesión de `pbn_evaluacion`** en
+`evaluacion_sesiones` (abierta ni cerrada) ni intentos en
+`user_pbn_exam_attempts`: cambiar la letra correcta con un examen a medias
+habría calificado mal ese intento.
+
+Comprobado contra la base: 66 activas, y la huella md5 de id, enunciado,
+correcta, explicación, referencia y opciones da `4c4478c2…` en la base y en
+`contenido/bancos/pbn_evaluacion.json`.
