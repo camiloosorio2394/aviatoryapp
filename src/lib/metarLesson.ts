@@ -1191,7 +1191,11 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
     blocks: [
       {
         kind: "p",
-        text: "Un TAF no describe un estado: describe una **evolución**. Los grupos de cambio son los que dicen cuándo cambia, cuánto dura y con qué seguridad. Confundirlos es el error que más caro sale en la planificación, porque cada uno significa algo distinto para tu alterno.",
+        text: "**En la portada:** un piloto observa desde el terminal una franja de lluvia bajo nubes densas, mientras otra zona del aeródromo recibe luz. **Cómo lo reconoces:** la precipitación se concentra en una parte de la escena; la foto no indica cuándo llegará ni cuánto durará. **Qué decides:** ubicar los grupos de cambio del TAF en la hora prevista de llegada y verificar el impacto sobre mínimos, alternos y combustible con las reglas aplicables.",
+      },
+      {
+        kind: "p",
+        text: "Un TAF describe condiciones previstas y su evolución durante un periodo. Los grupos de cambio indican cuándo se espera que una condición se establezca o aparezca temporalmente. Léelos en relación con la hora de tu vuelo; ninguna etiqueta por sí sola fija los mínimos ni la elegibilidad de un alterno.",
       },
       {
         kind: "fichas",
@@ -1200,33 +1204,33 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
           {
             titulo: "FM · desde",
             puntos: [
-              "**`FM121500`**: a partir del día 12 a las 15:00Z.",
-              "Cambio **rápido y permanente**: lo que sigue **sustituye por completo** a lo anterior.",
-              "Todo lo que no se repite después del FM deja de aplicar. Es una línea nueva, no un matiz.",
+              "**`FM121500` (from):** desde el día 12 a las 15:00 UTC.",
+              "Abre un **nuevo tramo predominante** con la serie completa de condiciones previstas que sigue al grupo.",
+              "Lo que no se repite del tramo anterior no se arrastra automáticamente; revisa toda la nueva línea.",
             ],
           },
           {
             titulo: "BECMG · llegando a ser",
             puntos: [
-              "**`BECMG 1214/1216`**: el cambio se establece en algún momento de esa ventana.",
-              "Cambio **gradual y permanente**. Al final de la ventana, las condiciones nuevas están.",
-              "Solo cambia lo que nombra: lo demás sigue como estaba.",
+              "**`BECMG 1214/1216` (becoming):** transición entre el día 12 a las 14:00 y las 16:00 UTC.",
+              "Las condiciones indicadas pasan a ser predominantes **a más tardar al final** de esa ventana; no deduzcas un minuto exacto.",
+              "Solo sustituye los elementos nombrados; los demás continúan desde el tramo previo.",
             ],
           },
           {
             titulo: "TEMPO · temporal",
             puntos: [
-              "**`TEMPO 1218/1222`**: fluctuaciones dentro de esa ventana.",
-              "Cada episodio dura **menos de una hora** y en total **menos de la mitad** del periodo.",
-              "Va y vuelve. Es lo que puede pillarte justo al llegar aunque el resto del tiempo esté bien.",
+              "**`TEMPO 1218/1222` (temporary):** fluctuaciones entre el día 12 a las 18:00 y las 22:00 UTC.",
+              "Cada episodio dura **menos de una hora** y, en conjunto, menos de **la mitad de la ventana**.",
+              "Entre episodios vuelve la condición predominante, salvo otro cambio; el episodio puede coincidir con tu llegada.",
             ],
           },
           {
             titulo: "PROB30 / PROB40 · probabilidad",
             puntos: [
-              "Probabilidad del 30 % o del 40 % de que ocurra lo que sigue.",
-              "**No existe PROB50 ni más**: por encima de eso el pronosticador usa BECMG o TEMPO.",
-              "Puede combinarse: **`PROB40 TEMPO`** es un 40 % de probabilidad de fluctuaciones temporales.",
+              "**`PROB30` / `PROB40` (probability):** posibilidad del 30 % o 40 % de las condiciones indicadas en la ventana.",
+              "El formato TAF usa esos dos valores; no conviertas el porcentaje en una certeza ni en una decisión automática.",
+              "Puede combinarse con **`TEMPO`** para condiciones temporales cuya ocurrencia se expresa con esa probabilidad.",
             ],
           },
         ],
@@ -1234,12 +1238,20 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
       {
         kind: "callout",
         tone: "warn",
-        title: "La confusión que más cuesta",
-        text: "**FM borra; BECMG matiza.** Después de un FM, todo lo anterior deja de valer y hay que leer la línea completa. Después de un BECMG, solo cambia lo que ese grupo nombra. Si lees un BECMG como si fuera un FM, te inventas condiciones que el pronóstico no dijo.",
+        title: "Distingue un tramo nuevo de un cambio parcial",
+        text: "`FM` inicia una nueva descripción completa de condiciones predominantes. `BECMG` cambia los elementos que nombra y mantiene los no mencionados. Durante la transición no supongas que la nueva condición ya se estableció: sitúa tu hora dentro de la ventana y comprueba el pronóstico actualizado.",
       },
       {
-        kind: "infografia",
-        nombre: "meteo-cambios",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t23-01-grupos-cambio.webp",
+        alt: "Cuatro tarjetas didácticas comparan FM como nuevo tramo, BECMG como transición, TEMPO como episodios breves y PROB40 como condición de ocurrencia incierta",
+        ancho: 1600,
+        alto: 820,
+        pie: "Esquema conceptual, no TAF real: FM sustituye el tramo predominante, BECMG modifica grupos, TEMPO describe episodios y PROB expresa posibilidad. Revisa siempre horas y condiciones codificadas.",
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** cuatro formas distintas de cambio en el tiempo. **Cómo lo reconoces:** `FM` abre otro tramo, `BECMG` conecta dos condiciones, `TEMPO` muestra episodios dentro de una ventana y `PROB` marca incertidumbre de ocurrencia. **Qué decides:** localizar tu hora de llegada y aplicar los requisitos de planificación del operador a las condiciones que correspondan, sin tratar los trazos como un pronóstico vigente.",
       },
       {
         kind: "check",
@@ -1252,22 +1264,22 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
         ],
         answer: 1,
         explain:
-          "El BECMG **solo modifica lo que nombra**. Aquí nombra visibilidad (3000) y tiempo presente (BR), así que el viento y las nubes siguen siendo los del bloque anterior. Si hubiera sido un FM, habría que leer la línea entera de nuevo.",
+          "Al terminar la ventana `BECMG`, solo se modifican los grupos incluidos: 3000 m de visibilidad y neblina (`BR`). El viento y las nubes previstos se mantienen del tramo anterior. Un `FM`, en cambio, abriría una nueva descripción completa.",
       },
       {
         kind: "piensaComoPiloto",
-        momento: "Planificando, llegada estimada 1930Z",
+        momento: "Planificando una llegada el día 19 a las 19:30 UTC",
         situacion:
-          "El TAF del destino trae: **`... 1912/1922 18012KT 9999 BKN025 TEMPO 1918/1922 3000 TSRA BKN012CB`**.",
-        pregunta: "¿Con qué condiciones planificas la llegada?",
+          "Ejemplo ficticio, no pronóstico vigente. El TAF del destino dice: **`... 1912/1922 18012KT 9999 BKN025 TEMPO 1918/1922 3000 TSRA BKN012CB`**.",
+        pregunta: "¿Qué información usarías para planificar esa llegada?",
         claves: [
-          "Las condiciones **predominantes** a mi hora son buenas: viento moderado, 10 km de visibilidad y techo a 2.500 pies.",
-          "Pero el **TEMPO cubre 1918/1922** y yo llego a las 1930: estoy dentro de la ventana. Tengo que planificar **para el TEMPO, no para lo predominante**.",
-          "El TEMPO trae tormenta con lluvia y techo a 1.200 pies con CB. Eso es lo que puedo encontrarme.",
-          "Consecuencia real: combustible para esperar, alterno que no esté afectado por el mismo sistema, y expectativa de posible espera o desvío.",
+          "La condición predominante prevista incluye viento 180° a 12 kt, visibilidad de 10 km o más y techo `BKN025` a 2500 ft sobre el aeródromo. No la llamo «buena» sin compararla con mis mínimos.",
+          "`TEMPO 1918/1922` incluye las 19:30 UTC: podrían presentarse episodios de 3000 m, tormenta con lluvia y techo `BKN012CB` a 1200 ft.",
+          "No sé si un episodio coincidirá exactamente con la llegada; comparo tanto la condición predominante como la temporal con los criterios de despacho, aproximación y alterno que apliquen.",
+          "Actualizo pronóstico, METAR/SPECI y avisos; evalúo ubicación de la convección, alternos, combustible y margen para esperar o desviar conforme al plan del operador.",
         ],
         cierre:
-          "Un TEMPO que solapa tu hora de llegada no es un matiz del pronóstico: es el pronóstico, para ti.",
+          "Un `TEMPO` que solapa tu llegada es un escenario posible que debes evaluar; no sustituye toda la condición predominante ni dicta por sí solo una regla universal de alterno.",
       },
       {
         kind: "entrevista",
@@ -1276,32 +1288,32 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
             nivel: "concepto",
             q: "¿Qué diferencia hay entre FM, BECMG y TEMPO?",
             respuesta:
-              "FM marca un cambio rápido y permanente a partir de una hora concreta, y lo que sigue sustituye por completo a lo anterior. BECMG es un cambio gradual y permanente que se establece dentro de la ventana indicada, y solo modifica los elementos que nombra. TEMPO son fluctuaciones temporales dentro de su ventana, cada una de menos de una hora y sin sumar más de la mitad del periodo.",
-            claves: ["FM sustituye por completo", "BECMG gradual y solo lo que nombra", "TEMPO va y vuelve"],
+              "FM abre un tramo nuevo con una descripción completa desde el día y hora indicados. BECMG anuncia una transición que modifica solo los grupos nombrados y queda establecida al terminar su ventana. TEMPO prevé fluctuaciones dentro de una ventana: cada episodio dura menos de una hora y, sumados, ocupan menos de la mitad de esa ventana.",
+            claves: ["FM abre tramo completo", "BECMG cambia grupos nombrados", "TEMPO son episodios breves"],
           },
           {
             nivel: "interpretacion",
             q: "¿Por qué no existe un PROB50?",
             respuesta:
-              "Porque a partir de esa probabilidad el pronosticador ya no está expresando una posibilidad sino una expectativa, y para eso tiene BECMG o TEMPO. PROB30 y PROB40 sirven para avisar de algo que puede pasar sin comprometerse a que pase; por encima del 40 %, la herramienta correcta es el grupo de cambio.",
-            claves: ["Solo PROB30 y PROB40", "Por encima se usa BECMG o TEMPO", "PROB expresa posibilidad, no expectativa"],
+              "En el formato TAF se codifican los grupos de probabilidad `PROB30` y `PROB40`; no se codifica `PROB50`. Los cambios con mayor certeza se expresan con el grupo apropiado de cambio, según su naturaleza y duración. No traduzco esa regla de codificación a una garantía de que el fenómeno ocurrirá o no ocurrirá.",
+            claves: ["PROB30 y PROB40 son los valores codificados", "Elegir grupo según naturaleza del cambio", "Probabilidad no es garantía"],
           },
           {
             nivel: "situacion",
-            q: "Tu llegada cae dentro de un `PROB40 TEMPO 0600/0800 0400 FG`. ¿Cómo lo tratas?",
+            q: "Tu llegada cae dentro de un `PROB40 TEMPO 1206/1208 0400 FG`. ¿Cómo lo tratas?",
             respuesta:
-              "Como una posibilidad real que hay que cubrir. Es un 40 % de probabilidad de fluctuaciones temporales con 400 metros de visibilidad y niebla, y 400 metros está por debajo de casi cualquier mínimo. No planifico contando con que no ocurra: llevo alterno con condiciones holgadas y combustible para esperar, porque si ocurre no voy a tener margen para improvisar.",
-            claves: ["40 % es una posibilidad que se cubre", "400 m está bajo mínimos", "Alterno holgado y combustible"],
+              "El grupo expresa un 40 % de probabilidad de episodios temporales de 400 m de visibilidad con niebla entre las 06:00 y las 08:00 UTC del día 12. Comparo ese escenario con los mínimos y reglas de despacho y alterno de mi operación; no asumo que 400 m esté necesariamente bajo todos los mínimos ni que el fenómeno vaya a ocurrir. Reviso pronóstico actualizado, alterno y combustible con margen para contingencias.",
+            claves: ["Ventana del día 12", "Comparar 400 m con mínimos concretos", "Planificar contingencias"],
           },
         ],
       },
       {
         kind: "summary",
         items: [
-          "FM borra y sustituye; BECMG matiza solo lo que nombra; TEMPO va y vuelve.",
-          "TEMPO: cada episodio menos de una hora, en total menos de la mitad del periodo.",
-          "PROB30 y PROB40, nada más. Por encima, el pronosticador usa BECMG o TEMPO.",
-          "Un TEMPO que solapa tu hora de llegada es tu pronóstico, no un matiz.",
+          "FM abre un tramo predominante nuevo; BECMG modifica solo los grupos nombrados; TEMPO prevé episodios temporales.",
+          "TEMPO: cada episodio dura menos de una hora y el conjunto ocupa menos de la mitad de su ventana.",
+          "PROB30 y PROB40 expresan posibilidad codificada, no certeza ni una regla automática de despacho.",
+          "Si un TEMPO solapa tu llegada, evalúalo junto con la condición predominante y los mínimos aplicables.",
         ],
       },
     ],
