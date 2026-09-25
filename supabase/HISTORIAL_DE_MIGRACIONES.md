@@ -156,9 +156,9 @@ archivo, insertada después para que `db push` no las vea pendientes.
 
 ### La regla del orden, que es la que muerde
 
-<!-- ULTIMA_APLICADA: 20260929000000 -->
+<!-- ULTIMA_APLICADA: 20260929120000 -->
 
-**Toda migración nueva lleva una versión posterior a `20260929000000`.**
+**Toda migración nueva lleva una versión posterior a `20260929120000`.**
 
 No es burocracia. Seis funciones se republican enteras en cada migración de
 módulo —`private.secciones_leidas`, `private.practicas_hechas`,
@@ -255,7 +255,42 @@ archivo y en la base (`puerta_de_leccion_de_rvsm`).
 `supabase/tests/rvsm.sql` se corrió contra la base ya migrada y pasó:
 `PRUEBA_DESHECHA` con los veintiún puntos, y nada quedó escrito.
 
-**El PR #277 se mergeó con una migración en la misma versión que esta**
+## 25 de septiembre: PBN
+
+`20260929120000_modulo_pbn.sql` es el módulo once, y el más grande: 52
+capítulos, 156 preguntas de práctica y un banco de 50. Se aplicó por el conector
+en tres tramos, y después se insertó la fila de la versión de archivo:
+
+| Tramo | Qué trae |
+| --- | --- |
+| `modulo_pbn_1_tablas_catalogo_y_evaluacion` | las dos tablas de piloto, sus políticas, la RPC, la fila del catálogo, los umbrales, la evaluación con su fuente y los cuatro logros |
+| `modulo_pbn_2_funciones_compartidas` | cinco de las seis funciones compartidas |
+| `modulo_pbn_3_desbloquear_logros` | `private.desbloquear_logros` y los dos disparadores |
+
+**Las seis funciones compartidas no se transcribieron.** El tramo 2 recorre una
+lista de cinco pares (ancla, texto nuevo), lee cada función con
+`pg_get_functiondef`, comprueba que el ancla está y que `pbn` **no** está
+todavía, y la vuelve a publicar con la rama añadida. El tramo 3 hace lo mismo
+con `desbloquear_logros`, que pasa de las trescientas líneas, insertándole dos
+bloques. Si el texto que espera no está, el bloque falla y no escribe nada. Es
+la misma técnica de RVSM, ahora para las seis y no solo para una.
+
+La versión va **entre** la última aplicada (`20260929000000`) y la que sigue
+pendiente de correr (`20260930000000`), para no dejar un archivo pendiente por
+debajo de la marca.
+
+Comprobado contra la base ya migrada: las seis funciones compartidas nombran los
+once módulos del catálogo, `panel_tarjetas` conserva `plan`, `postulaciones`,
+`licencias` y `preparacion`, y `desbloquear_logros` desbloquea los cuatro
+logros de PBN leyendo `user_pbn_exam_attempts` con el umbral `pbn_pass`.
+
+El banco `pbn_evaluacion` (50 preguntas) se sembró en cuatro tramos, con la
+huella md5 de siempre: `a2ed9531…` en la base y en el archivo.
+
+`supabase/tests/pbn.sql` se corrió contra la base ya migrada y pasó:
+`PRUEBA_DESHECHA` con los veintiún puntos, y nada quedó escrito.
+
+**El PR #277 se mergeó con una migración en la misma versión que RVSM**
 (`20260929000000_evaluacion_entrega_el_tema_del_banco`), escrita sin saber que
 RVSM ya estaba aplicado. La versión `20260929000000` la tiene registrada la base
 para `modulo_rvsm`, así que la otra, que está pendiente de correr, se renumeró a

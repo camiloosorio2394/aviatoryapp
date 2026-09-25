@@ -6,6 +6,7 @@ import {
   Gauge,
   Headset,
   MoveVertical,
+  Route as RouteIcon,
   Scale,
   TowerControl,
   Wind,
@@ -108,7 +109,7 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
   rac: {
     icon: Scale,
     color: "var(--av-rac-700)",
-    fotoHueco: "RAC-TEMA · Portada de tema · 3:2 · 1200×800 · Licencia de piloto y certificado médico sobre el manual de operaciones, en cabina",
+    foto: "/modulos/rac/tema-rac.webp",
     descripcion: "Licencias, médico, reglas de vuelo, aerolínea y sanciones: lo que dice cada RAC y lo que te toca a ti.",
   },
   combustible: {
@@ -125,5 +126,14 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     fotoHueco:
       "RVSM-TEMA · Portada de tema · 3:2 · 1200×800 · Dos aeronaves en crucero en niveles adyacentes, vistas de costado, con la separación acotada",
     descripcion: "Mil pies entre FL 290 y FL 410: equipo, chequeos, fraseología y qué hacer si se pierde.",
+  },
+  pbn: {
+    // Una ruta de puntos unidos: es exactamente lo que PBN permite trazar sin
+    // depender de volar hacia una antena.
+    icon: RouteIcon,
+    color: "var(--av-pbn-700)",
+    fotoHueco:
+      "PBN-TEMA · Portada de tema · 3:2 · 1200×800 · Carta de llegada con la trayectoria definida por waypoints y la especificación rotulada sobre un segmento",
+    descripcion: "RNAV y RNP, el número, la carta, el FMS y qué decir cuando se pierde la capacidad.",
   },
 }

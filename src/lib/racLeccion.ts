@@ -800,7 +800,7 @@ export const RAC_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "El RAC 67 define qué tan sano tienes que estar para volar, cómo se certifica y qué haces cuando tu salud cambia. Fija las clases de certificado médico, cuánto dura cada una según tu licencia y tu edad, los requisitos físicos, mentales, visuales y auditivos, y tus obligaciones como titular. Para un piloto que va a una aerolínea lo central es la Clase 1: sin ella vigente y sin restricciones, tu licencia comercial no te sirve para volar."
+        "text": "El RAC 67 define qué aptitud psicofísica necesitas para volar, cómo se certifica y qué haces cuando tu salud cambia. Fija las clases de certificado médico, cuánto dura cada una según tu licencia y tu edad, los requisitos físicos, mentales, visuales y auditivos, y tus obligaciones como titular. Para un piloto que va a una aerolínea lo central es tener un certificado Clase 1 vigente y cumplir las condiciones que figuren en él y en la licencia (67.015(c), 67.075(h)(3))."
       },
       {
         "kind": "titulo",
@@ -1156,7 +1156,7 @@ export const RAC_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "El RAC 120 obliga a las empresas del sector aeronáutico y a los centros de instrucción a tener un programa para prevenir y controlar el consumo de alcohol y drogas, con capacitación, exámenes toxicológicos y rehabilitación. Casi todo lo ejecuta la empresa, pero las consecuencias caen sobre ti: un positivo o una negativa a hacerte la prueba te dejan sin licencia y sin certificado médico por un buen tiempo. En una entrevista de aerolínea te pueden preguntar qué pruebas existen, cuándo te las hacen y qué pasa si sales positivo."
+        "text": "El RAC 120 obliga a las empresas del sector aeronáutico y a los centros de instrucción a tener un programa para prevenir y controlar el consumo de alcohol y otras sustancias psicoactivas, con capacitación, exámenes toxicológicos y medidas de rehabilitación. La empresa administra el programa, pero un resultado positivo confirmado o la negativa a una prueba tienen consecuencias para ti: suspensión o cancelación inmediata del ejercicio de las atribuciones de tu licencia y suspensión de la aptitud psicofísica (120.100(a), 120.300(e), 120.320(g)). En una entrevista de aerolínea te pueden preguntar qué pruebas existen, cuándo te las hacen y qué ocurre ante un positivo."
       },
       {
         "kind": "titulo",
@@ -1393,10 +1393,10 @@ export const RAC_LECCIONES: DocScreen[] = [
         "kind": "list",
         "items": [
           "En funciones no puedes usar sustancias psicoactivas ni estar bajo su efecto, aunque no lo notes (120.025, 120.001).",
-          "Alcohol: por encima de 20 mg/dL es positivo; el RAC no da un plazo en horas, así que no llegues con alcohol en el cuerpo (120.001).",
+          "Alcohol: por encima de 20 mg/dL es positivo; el RAC no da un plazo en horas, pero exige un resultado negativo y prohíbe ejercer bajo sus efectos (120.001, 120.025(a)).",
           "Hay pruebas previas, aleatorias, posaccidente (alcohol en 8 h, lo demás en 32 h), por sospecha, para reasumir y de seguimiento (120.320).",
           "Negarte trae las mismas consecuencias inmediatas que un positivo: suspensión o cancelación inmediata de las atribuciones de tu licencia y al menos un año de solicitudes rechazadas (120.100, 120.320(g)).",
-          "Volver después de un positivo exige rehabilitación, autorización de la Aerocivil y al menos 2 años (3 si reincides) (120.320(e), 120.410).",
+          "Volver después de un positivo exige valoración por un especialista y rehabilitación si es necesaria; la prueba para reasumir funciones no puede hacerse antes de 2 años (3 si reincides) y, si tienes certificado médico, requiere autorización previa de la Aerocivil (120.320(e), 120.400, 120.410).",
           "Tras un accidente o incidente no consumes nada hasta la prueba, y si no tienes empresa, la gestionas tú (120.320(c))."
         ]
       }
@@ -1418,7 +1418,7 @@ export const RAC_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Es el reglamento del aire y de la operación general en Colombia: cómo se vuela bajo reglas de vuelo visual (VFR) y por instrumentos (IFR), derecho de paso, plan de vuelo, falla de comunicaciones e interceptación, y qué debe cumplir toda aeronave civil en preparación, combustible, alternos, oxígeno, equipos y documentos. Es la base de todo lo demás: una aerolínea opera bajo el RAC 121 o el RAC 135 **además** del RAC 91, no en lugar de él (91.005(a)(3)). La Parte 1 aplica a todas las aeronaves; la Parte 2 suma reglas para aviones grandes y turborreactores de aviación general."
+        "text": "Es el reglamento del aire y de la operación general en Colombia: cómo se vuela bajo reglas de vuelo visual (VFR) y por instrumentos (IFR), derecho de paso, plan de vuelo, falla de comunicaciones e interceptación, y qué debe cumplir una aeronave civil en preparación, combustible, alternos, oxígeno, equipos y documentos. Es la base de todo lo demás: una aerolínea opera bajo el RAC 121 o el RAC 135 **además** del RAC 91, no en lugar de él (91.005(a)(3)). Los capítulos A a C de la Parte 1 también aplican a esos explotadores; los capítulos D a M ceden cuando la norma especial establece su propia regla (91.005(a) y (b)). La Parte 2 suma reglas para aviones grandes y turborreactores de aviación general."
       },
       {
         "kind": "titulo",
@@ -1832,11 +1832,11 @@ export const RAC_LECCIONES: DocScreen[] = [
       {
         "kind": "list",
         "items": [
-          "El RAC 91 es la base: el RAC 121 o el 135 se suman encima, no lo reemplazan (91.005).",
+          "Los capítulos A a C del RAC 91 también rigen para operaciones RAC 121 y 135; en los capítulos D a M, la regla especial prevalece cuando regula el mismo asunto (91.005).",
           "El PIC tiene autoridad decisiva, responde aunque no vuele los mandos y no sale ni continúa con una tripulación incapacitada (91.115, 91.120).",
           "Plan de vuelo obligatorio para todo vuelo; de noche en las FIR Bogotá y Barranquilla se vuela IFR salvo el VFR nocturno del Apéndice 19 (91.210, 91.112).",
           "Combustible: destino, alterno más distante y reserva final (45 min en IFR). «COMBUSTIBLE MÍNIMO» anticipa; «MAYDAY COMBUSTIBLE» es emergencia (91.610, 91.637).",
-          "Bajo DA/MDA solo con referencias visuales; con visibilidad bajo mínimos no se pasa de 1.000 ft (91.370, 91.585).",
+          "Para descender bajo DA/H o MDA/H deben cumplirse la visibilidad en vuelo, la posición para aterrizar y las referencias visuales exigidas. Si la visibilidad reportada o el RVR de control están bajo mínimos antes del tramo final o de 1.000 ft sobre el aeródromo, no se continúa más allá de ese límite; si caen después, puede seguirse hasta DA/H o MDA/H (91.370, 91.585).",
           "Los límites de tiempo de vuelo de aerolínea no están aquí: van en el RAC 121 y el RAC 135."
         ]
       }
@@ -3838,7 +3838,7 @@ export const RAC_LECCIONES: DocScreen[] = [
       {
         "kind": "list",
         "items": [
-          "Solo lleva mercancías peligrosas la empresa que lo tiene autorizado en sus OpSpecs; en aviación privada, ninguna.",
+          "El explotador necesita autorización de la Aerocivil en sus OpSpecs o documento equivalente; para algunos artículos de riesgo menor puede recibir una autorización especial. El RAC 175 prohíbe el transporte de mercancías peligrosas en aeronaves de aviación civil privada (175.020, 175.115).",
           "El PIC recibe la información por escrito antes de salir, la firma y la lleva a mano todo el vuelo.",
           "Nada peligroso en cabina de pasajeros ni en el puesto de pilotaje; lo de «solo carga», accesible en vuelo.",
           "En emergencia avisas a ATS para que el aeropuerto sepa qué llevas; la guía de respuesta sale del Doc 9481 o de un documento equivalente.",
@@ -4043,7 +4043,7 @@ export const RAC_LECCIONES: DocScreen[] = [
         "items": [
           "Eres la autoridad a bordo: puedes negar el embarque o desembarcar a quien ponga en riesgo el vuelo, basándote en su conducta.",
           "Perturbador e insubordinado no son lo mismo; la insubordinación se mide con la puerta cerrada.",
-          "En Colombia no viajan armas ni personal armado en la cabina principal.",
+          "En aeronaves comerciales que operan en, desde o hacia Colombia se prohíben las armas y el personal armado en la cabina principal (160.1415).",
           "La puerta de cabina va asegurada durante todo el vuelo y la lista de búsqueda de bombas va a bordo.",
           "La interferencia ilícita se informa de inmediato a la Aerocivil; los medios y la OACI son asunto del Director General."
         ]
@@ -4426,7 +4426,7 @@ export const RAC_LECCIONES: DocScreen[] = [
           "La investigación busca prevenir, no culpar: causas y factores contribuyentes no son responsabilidad legal.",
           "Accidente: muertos o lesionados graves, daño estructural importante o aeronave desaparecida. Incidente grave: casi fue accidente.",
           "Si estuviste involucrado, reportas a la AIG dentro de 12 horas; tu empresa también, en el mismo plazo.",
-          "La aeronave queda suspendida y nada se mueve ni se toca sin el investigador.",
+          "Tras un accidente o incidente grave, la aeronave queda suspendida para volar. Sus restos se preservan y solo se mueven con autorización de la autoridad investigadora; el salvamento y la extinción de incendios no deben retrasarse por preservar la posición (114.500(d), 114.505).",
           "CVR y FDR: nadie los manipula; la grabación de cabina y tus declaraciones están protegidas.",
           "Debes colaborar con documentos, entrevistas y exámenes; la Aerocivil decide sobre tu licencia y tu aptitud médica."
         ]

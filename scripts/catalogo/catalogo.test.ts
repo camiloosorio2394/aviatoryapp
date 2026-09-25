@@ -29,6 +29,7 @@ import { CM_PRACTICA_CLAVES } from "@/lib/comunicacionesPracticaGrupos"
 import { RAC_LECCION_TOTAL } from "@/lib/racLeccion"
 import { RAC_PRACTICA_CLAVES } from "@/lib/racPractica"
 import { RV_LECCION_TOTAL, RV_PRACTICA_CLAVES } from "@/lib/rvsmLeccion"
+import { PB_LECCION_TOTAL, PB_PRACTICA_CLAVES } from "@/lib/pbnLeccion"
 import { CB_LECCION_TOTAL } from "@/lib/combustibleLeccion"
 import { CB_PRACTICA_CLAVES } from "@/lib/combustiblePractica"
 import { MODULOS_AEROLINEA } from "@/lib/modulosAerolinea"
@@ -101,6 +102,13 @@ function catalogoDesdeContenido() {
     rvsm: {
       lecciones: RV_LECCION_TOTAL,
       practicas: RV_PRACTICA_CLAVES,
+    },
+    // Las del quiz de cada capítulo (p01-q1…), de scripts/pbn/convertir.mjs.
+    // Los doce escenarios del capítulo 52 se leen, no se responden, así que no
+    // son claves de práctica.
+    pbn: {
+      lecciones: PB_LECCION_TOTAL,
+      practicas: PB_PRACTICA_CLAVES,
     },
   }
 }

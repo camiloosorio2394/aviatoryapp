@@ -135,9 +135,10 @@ comprueba las dos cosas.
 
 ## Pendiente
 
-- [ ] **Imágenes.** El tema y el hub de Combustible ya tienen sus cinco fotos
-      (fase 2). Las cinco de RAC están en el PR #279, independiente de esta
-      rama. Las lecciones
+- [x] **Fase 1, RAC:** foto del tema, hero y tres tarjetas del hub en WebP.
+- [x] **Fase 2, Combustible:** foto del tema, hero y tres tarjetas del hub en WebP.
+- [ ] **Imágenes.** El tema y el hub de RAC y de Combustible ya tienen sus cinco
+      fotos cada uno. Las lecciones
       no tienen portada (`portadaAuto: false`); cuando existan, van a
       `public/modulos/rac/leccion-NN.webp` y
       `public/modulos/combustible/leccion-NN.webp` y se quita ese `false`.
