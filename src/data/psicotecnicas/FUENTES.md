@@ -206,6 +206,20 @@ La edición mantuvo la disposición de cubos y cavidades. En E2-10 conserva
 exactamente 5 + 3 + 1 puntos visibles arriba y 5 + 3 abajo: 17 en total.
 Los cuatro WebP conservan sus URL, las claves no cambian y los recortes
 anteriores permanecen en el repositorio como referencia de comparación.
+**EJ-E2-04, 05, 06, 07, 08, 09 y 15** se recompusieron a partir de los
+recortes de la fuente con `node scripts/psicotecnicas/componer-e2-ejemplos.mjs`.
+Se retiraron los círculos de respuesta impresos mediante las bases PNG de
+`redibujos/` y se destaca la respuesta en una tarjeta menta, separada de la
+figura. Las versiones `-limpio.webp` se conservan para contrastar la fuente.
+En EJ-E2-04 y 05 se corrigieron explicaciones que atribuían parejas de caras
+opuestas incorrectas al desarrollo concreto. El 05 no es un dado convencional:
+contiene una cara vacía y dos caras de tres puntos.
+**EJ-E2-14** es una adaptación didáctica independiente, generada por
+`node scripts/psicotecnicas/componer-e2-rotacion.mjs`: en la fuente la opción
+marcada como giro horario de 90° cambia la disposición de las figuras pero
+no gira las siluetas de forma consistente. La nueva lámina diferencia un giro
+horario real, uno antihorario, un reflejo y una traslación. No se presenta como
+reproducción literal de esa pregunta.
 
 ## Derechos
 

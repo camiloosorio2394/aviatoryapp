@@ -10,8 +10,8 @@ import { EJEMPLOS_ESPACIAL, TEORIA_CUBO } from "@/data/psicotecnicas/aprende"
  *
  * Existe por una razón concreta: una de las fuentes de espacial publica sus
  * ejercicios con la respuesta marcada encima de la opción correcta, así que no
- * se pueden preguntar. En vez de tirarlos, se usan para lo único que pueden
- * hacer bien, que es enseñar antes de que el reloj empiece a correr.
+ * se pueden preguntar. Las figuras se recompusieron para enseñar antes de que
+ * el reloj empiece a correr.
  *
  * Aquí no hay cronómetro ni puntaje. Es la pantalla a la que se entra antes.
  */
@@ -63,9 +63,8 @@ export function PsicoAprende() {
             Ocho ejercicios con la respuesta a la vista
           </h2>
           <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[68ch]">
-            En estos la respuesta viene señalada en la propia figura, tal como los publica la
-            fuente. Sirven para ver el razonamiento, no para medirte: para eso están los modos
-            cronometrados.
+            La respuesta está señalada en cada figura recompuesta. Sirven para ver el
+            razonamiento, no para medirte: para eso están los modos cronometrados.
           </p>
         </div>
 

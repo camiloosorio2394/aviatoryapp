@@ -32,9 +32,10 @@ const servidor = await createServer({
   logLevel: "silent",
 })
 
-let BANCO, dibujo, solucionador, aprobadas
+let BANCO, dibujo, solucionador, aprobadas, ejemplos
 try {
   ;({ BANCO } = await servidor.ssrLoadModule("/src/data/psicotecnicas/index.ts"))
+  ;({ EJEMPLOS_ESPACIAL: ejemplos } = await servidor.ssrLoadModule("/src/data/psicotecnicas/aprende.ts"))
   dibujo = await servidor.ssrLoadModule("/src/lib/psicotecnicasFiguras.ts")
   solucionador = await servidor.ssrLoadModule("/src/lib/psicotecnicasSolucionador.ts")
   ;({ FIGURAS_APROBADAS: aprobadas } = await servidor.ssrLoadModule(
@@ -131,6 +132,16 @@ const secciones = familias
   })
   .join("\n")
 
+const seccionEjemplos = `<section id="ejemplos"><h2>Ejemplos resueltos <small>${ejemplos.length}</small></h2>
+  ${ejemplos.map((e, i) => `<article class="card" data-id="${escapar(e.id)}">
+    <header><span class="num">${i + 1}</span><code class="id">${escapar(e.id)}</code>
+    <span class="pill dibujada">Recompuesta · respuesta visible</span>
+    <button class="copiar" data-copia="${escapar(e.id)}">copiar id</button></header>
+    <h3>${escapar(e.titulo)}</h3>
+    <div class="lamina"><img loading="lazy" src="public${escapar(e.imagen)}" alt="${escapar(e.imagenAlt)}"></div>
+    <p>${escapar(e.respuesta)}</p><footer>${escapar(e.fuente)}</footer>
+  </article>`).join("\n")}</section>`
+
 const conImagen = BANCO.filter((e) => e.imagen && !e.figura).length
 const dibujadas = BANCO.filter((e) => e.figura).length
 
@@ -167,6 +178,7 @@ fs.writeFileSync(
             padding: 3px 9px; font-size: 12px; cursor: pointer; color: #475467 }
   .copiar:hover { background: #f2f4f7 }
   .lamina img { max-width: 100%; border: 1px solid #e3e6ea; border-radius: 8px; display: block }
+  #ejemplos .lamina img { width: min(100%, 720px) }
   .figura { padding: 6px 0 }
   .ops { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px }
   .op { margin: 0; border: 1px solid #d7dbe0; border-radius: 10px; padding: 6px; text-align: center }
@@ -197,9 +209,11 @@ fs.writeFileSync(
     <p><b>Cómo decírmelo.</b> Con el identificador basta: «ES-E2-08 la figura se ve chica»
     es suficiente para llegar al archivo, a la ficha y a la página del cuadernillo. Hay un
     botón «copiar id» en cada tarjeta.</p>
-    <p><b>Lo que ya sé que está mal:</b> los ocho ejemplos del E2 tienen el dibujo mordido
-    en origen. Los ejercicios E1-01 a E1-14 y E2-07 a E2-10 ya están redibujados; faltan los ejemplos de aprendizaje.</p>
+    <p><b>Avance visual:</b> los ejercicios E1-01 a E1-14 y E2-07 a E2-10 están redibujados.
+    Los ocho ejemplos de aprendizaje E2 se recompusieron en láminas verticales; la rotación
+    del ejemplo 14 se adaptó para que el giro de 90° sea geométricamente correcto.</p>
   </div>
+  ${seccionEjemplos}
   ${secciones}
 </div>
 
