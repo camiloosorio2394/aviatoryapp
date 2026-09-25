@@ -61,6 +61,9 @@ export const TEMAS = {
   combustible: { acento: "#005071", acento2: "#2F92B8", claro: "#9DCFE3", tinte: "#E8F6FD", tinte2: "#CDE9F5" },
 }
 
+/** El amarillo del escalón intermedio, entre el verde de «normal» y el ámbar. */
+export const AMARILLO = { fuerte: "#8A6D00", suave: "#FBF1C4", medio: "#E2C44A" }
+
 /** Pone el acento de un módulo. Lo llama el índice de figuras de cada módulo al cargarse. */
 export function tema(t) {
   Object.assign(C, t)
@@ -385,22 +388,22 @@ export function leyenda(x, y, items, ancho = 384) {
  * rótulo de recreación. `desc` va en el <desc> del SVG y es el mismo texto que
  * el lector usa de `alt`.
  */
-export function lienzo({ codigo, titulo, sub, desc, alto = 900, cuerpo, recreacion }) {
+export function lienzo({ codigo, titulo, sub, desc, alto = 900, ancho = ANCHO, cuerpo, recreacion }) {
   const partes = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${ANCHO}" height="${alto}" viewBox="0 0 ${ANCHO} ${alto}" role="img" aria-labelledby="titulo desc" font-family="${FUENTE}">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${ancho}" height="${alto}" viewBox="0 0 ${ancho} ${alto}" role="img" aria-labelledby="titulo desc" font-family="${FUENTE}">`,
     `<title id="titulo">${esc(titulo)}</title>`,
     `<desc id="desc">${esc(desc)}</desc>`,
     `<defs>${defsFlechas()}</defs>`,
-    `<rect width="${ANCHO}" height="${alto}" rx="24" fill="${C.fondo}"/>`,
+    `<rect width="${ancho}" height="${alto}" rx="24" fill="${C.fondo}"/>`,
     t(56, 84, titulo, { size: 44, peso: 700 }),
   ]
   if (sub) partes.push(t(56, 124, sub, { size: 24, color: C.suave }))
   if (recreacion) {
-    const p = pildora(ANCHO - 56, 72, recreacion, { anchor: "end", size: 20, fill: C.tinte, color: C.acento })
+    const p = pildora(ancho - 56, 72, recreacion, { anchor: "end", size: 20, fill: C.tinte, color: C.acento })
     partes.push(p.svg)
   }
   partes.push(cuerpo)
-  partes.push(t(ANCHO - 40, alto - 24, codigo, { size: 20, color: C.gris, anchor: "end", peso: 700, espaciado: 1 }))
+  partes.push(t(ancho - 40, alto - 24, codigo, { size: 20, color: C.gris, anchor: "end", peso: 700, espaciado: 1 }))
   partes.push("</svg>")
   return partes.join("\n") + "\n"
 }
