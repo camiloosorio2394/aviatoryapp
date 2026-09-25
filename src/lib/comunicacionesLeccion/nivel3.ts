@@ -5,62 +5,16 @@
  * el recorrido en tierra hasta el despegue, con la pista como el lugar donde un
  * malentendido cuesta más.
  *
- * Fuente: docs/comunicaciones/nivel-3.md, entero. Cada intercambio del
- * Markdown es un bloque `code` con su significado debajo; los que el Markdown
- * rotula como escenario de práctica y ponen a prueba una colación van como
- * `escenario`. Lo que el Markdown marca VERIFICAR sale en un callout
- * «Verificar» visible antes de la fraseología y, completo, en el detalle
- * técnico de FUENTES. El formato de los bloques y de los huecos está
- * documentado al inicio de index.ts.
+ * Redacción editorial contrastada con documentos oficiales. Los casos de
+ * entrenamiento se identifican como construcciones didácticas y las frases
+ * extranjeras no se presentan como procedimientos colombianos vigentes.
  */
 
 import type { DocBlockData, DocScreen } from "@/lib/docBlocks"
 
-/**
- * Un intercambio: el título en negrita y, en orden, sus piezas. Un texto es un
- * párrafo en español; una lista de líneas es la transmisión literal, una línea
- * por turno de palabra.
- */
-function entrada(titulo: string, ...partes: (string | string[])[]): DocBlockData[] {
-  return [
-    { kind: "p", text: `**${titulo}**` },
-    ...partes.map((parte): DocBlockData =>
-      typeof parte === "string" ? { kind: "p", text: parte } : { kind: "code", text: parte.join("\n") },
-    ),
-  ]
-}
-
 /** Un error frecuente, con la semántica de alerta. */
 function error(text: string): DocBlockData {
   return { kind: "callout", tone: "warn", text }
-}
-
-/** Las fuentes del capítulo, plegadas: lo verificado y lo que falta verificar. */
-function fuentes(cita: string, verificado: string, porVerificar: string[]): DocBlockData {
-  return {
-    kind: "detalleTecnico",
-    etiqueta: "Fuentes",
-    cita,
-    bloques: [
-      { kind: "sub", text: "Verificado" },
-      { kind: "p", text: verificado },
-      { kind: "sub", text: "Por verificar" },
-      { kind: "list", items: porVerificar },
-      { kind: "sub", text: "Convenciones de los ejemplos" },
-      CONVENCIONES,
-    ],
-  }
-}
-
-/** Las convenciones de los ejemplos de todo el nivel (cabecera de nivel-3.md). */
-const CONVENCIONES: DocBlockData = {
-  kind: "list",
-  items: [
-    "**Sobre los ejemplos.** Son educativos. El distintivo es `AVIATORY 452` (y `AVIATORY 425` o `AVIATORY 542` cuando hace falta un distintivo parecido). Las estaciones se llaman «Bogota Delivery», «Bogota Ground», «Bogota Tower» y «Bogota Departure» solo como ambientación: las pistas, calles de rodaje, puestos, frecuencias, rutas y puntos (GIKOS y los demás) son **ficticios** y no describen el aeropuerto real.",
-    "Cuando un ejemplo en inglés se adapta de uno del Doc 9432, se indica el párrafo; el original usa el distintivo FASTAIR 345 y otros nombres de lugar.",
-    "Los números se escriben en cifras para leer más rápido; se pronuncian como enseña el capítulo 5 (Nivel 1).",
-    "Fuentes cargadas para este nivel: Doc 4444 PANS-ATM (15.ª ed., Enm. 4, 2012) cap. 1 y 4; Doc 9432 Manual de radiotelefonía (4.ª ed., 2007) cap. 1 a 5 y 7.1. El Doc 4444 cargado **no es la edición vigente** (existe la 16.ª ed. de 2016 con enmiendas) y su capítulo 12 de fraseología no está cargado: por eso varias frases llevan VERIFICAR.",
-  ],
 }
 
 export const NIVEL_3: DocScreen[] = [
@@ -869,186 +823,122 @@ export const NIVEL_3: DocScreen[] = [
   {
     n: 18,
     title: "Despegue",
-    kicker: "De la solicitud a la primera instrucción en el aire",
-    minutes: 12,
+    kicker: "De READY a CLEARED FOR TAKE-OFF y al primer contacto en el aire",
+    minutes: 20,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "La secuencia desde el punto de espera hasta el cambio a Salida: informar listo, alinearse, recibir la autorización de despegue (con viento e instrucciones de salida cuando las hay), despegar y cambiar de frecuencia.",
+        text: "El despegue no es una sola llamada: es una transición entre una aeronave preparada, una pista protegida, una autorización explícita y una tripulación que conserva la capacidad de rechazar la salida si deja de ser segura. Aquí se sigue esa secuencia desde el punto de espera hasta el contacto con la dependencia de salida. Las frases publicadas por la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency) se usan como **referencia documental de fraseología europea**, no como transcripciones ni como procedimiento colombiano.",
       },
-
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      { kind: "sub", text: "La palabra decisiva" },
       {
         kind: "p",
-        text: "**La palabra TAKE-OFF tiene dueño.** Solo se usa cuando la aeronave está autorizada a despegar o cuando se cancela esa autorización; en los demás casos se dice DEPARTURE o AIRBORNE (Doc 9432, 2.8.3.3). Consecuencia práctica para el piloto: al informar que está listo se dice «ready» o «ready for departure», no «ready for take-off». Así, la única vez que se oye TAKE-OFF en la frecuencia es cuando hay una autorización (o su cancelación), y nadie puede tomar una frase del piloto como si fuera la autorización.",
+        text: "En radiotelefonía, TAKE-OFF se reserva para la autorización de despegue o su cancelación. Para avisar que el avión está preparado, la tabla de fraseología EASA muestra READY; el controlador puede preguntar ARE YOU READY FOR DEPARTURE? o REPORT WHEN READY FOR DEPARTURE. Así se evita que una transmisión incompleta que contiene TAKE-OFF parezca una autorización. LINE UP AND WAIT y LINE UP. BE READY FOR IMMEDIATE DEPARTURE permiten alinearse o prepararse, pero **no** iniciar la carrera. La diferencia debe escucharse y confirmarse en cabina antes de aplicar potencia.",
       },
-      { kind: "p", text: "**Paso a paso** (Doc 9432, 4.5):" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-18-01.svg",
+        alt: "Secuencia conceptual de cuatro estados desde READY hasta contacto con salida, con una autorización de despegue explícita antes de la carrera.",
+        ancho: 1600,
+        alto: 850,
+        pie: "Mapa de permisos, no carta ni autorización: READY informa preparación; LINE UP AND WAIT permite entrar y esperar; solo CLEARED FOR TAKE-OFF cambia el estado a salida autorizada. El contacto posterior con Salida depende de la instrucción recibida y del procedimiento publicado; no se presupone una frecuencia.",
+      },
+      { kind: "sub", text: "Secuencia operacional completa" },
       {
         kind: "list",
         ordered: true,
         items: [
-          "**En el punto de espera.** En aeropuertos con Ground y Tower separados, lo transfieren a torre al acercarse al punto de espera (4.5.1). Algunas aeronaves necesitan verificaciones y no están listas al llegar: por eso ATC puede pedir «report when ready for departure» (4.5.3).",
-          "**Listo.** Informe cuando de verdad lo esté (listas completas, cabina preparada).",
-          "**Alineación.** «Line up and wait» (entra y espera) o, si el tránsito lo exige, «line up, be ready for immediate departure» (4.5.5).",
-          "**Autorización de despegue.** Con número de pista, siempre que pueda haber confusión (4.5.8), y eventualmente con instrucciones de salida para separación (4.5.9).",
-          "**Despegue.** Los controladores deben evitar transmitirle durante el despegue y el ascenso inicial salvo emergencia (4.1.2 y 4.5.4). Si le hablan en ese momento, es importante.",
-          "**Airborne y cambio a Salida.** Con visibilidad reducida pueden pedir «report airborne» (4.5.6); luego lo transfieren a Salida.",
+          "**Preparación en el punto de espera.** El piloto que opera los mandos (PF, pilot flying) y el piloto que atiende y supervisa (PM, pilot monitoring) comprueban listas, configuración, performance, pista asignada, entrada prevista, autorización de ruta y restricciones iniciales. El PM informa READY solo cuando la tripulación está realmente preparada. Si hace falta tiempo, lo comunica; no responde AFFIRM por presión de secuencia.",
+          "**Alineación, si se instruye.** Se identifica el indicativo y la pista, se colaciona LINE UP AND WAIT y se verifica la pista física con la documentación vigente. La salida de una aeronave precedente no convierte la espera en autorización de despegue. Una instrucción de salida inmediata exige capacidad real de ejecutarla sin demora, según el procedimiento aplicable.",
+          "**Autorización específica.** La fraseología EASA publica RUNWAY (number) CLEARED FOR TAKE-OFF, opcionalmente con REPORT AIRBORNE. El PM escucha la pista y cualquier instrucción adicional, colaciona los datos críticos y ambos pilotos confrontan la autorización con la pista, el plan lateral/vertical y el estado del avión. Una frase incompleta, un indicativo parecido o una restricción imposible se aclaran antes de actuar.",
+          "**Carrera y ascenso inicial.** Después de confirmar la autorización y la seguridad de la operación, la tripulación ejecuta su procedimiento operacional normalizado (SOP, standard operating procedure). El PF mantiene el control del avión y el PM supervisa las llamadas y la radio. Una instrucción ATC urgente se escucha, pero la decisión física de continuar o rechazar una carrera ya iniciada depende de velocidad, performance, situación y SOP; no se improvisa a partir de una frase genérica.",
+          "**Después de estar en el aire.** Si se solicitó REPORT AIRBORNE, se notifica según corresponda. El cambio de torre a Salida se hace cuando lo instruye control o cuando el procedimiento local aplicable lo establece; ni el tiempo ni la frecuencia se infieren de esta lección. Antes de transferirse, el PM confirma a quién se llama y cuál autorización inicial permanece vigente.",
+        ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-18-02.webp",
+        alt: "Historieta fotográfica de cuatro paneles: tripulación preparada, controlador en torre, verificación cruzada y carrera de despegue.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no registro de un vuelo: 1) PF y PM terminan la preparación; 2) torre coordina el tránsito; 3) la tripulación confirma indicativo, pista e instrucción antes de actuar; 4) solo después de una autorización entendida se inicia la carrera. La imagen no representa una pista, señal, frecuencia ni procedimiento colombiano concreto.",
+      },
+      { kind: "sub", text: "Leer la frase, no completar lo que falta" },
+      {
+        kind: "table",
+        head: ["Frase publicada por EASA", "Qué autoriza", "Qué debe hacer la tripulación"],
+        rows: [
+          ["REPORT WHEN READY [FOR DEPARTURE] / READY", "Intercambiar estado de preparación.", "Informar solo al terminar la preparación. READY no permite entrar ni despegar."],
+          ["LINE UP [AND WAIT]", "Entrar en la pista y esperar.", "Confirmar indicativo y pista; no aplicar potencia de despegue."],
+          ["LINE UP. BE READY FOR IMMEDIATE DEPARTURE", "Alinearse y estar preparado para una salida inmediata posterior.", "No interpretarlo como CLEARED FOR TAKE-OFF."],
+          ["RUNWAY (number) CLEARED FOR TAKE-OFF", "Comenzar la salida en la pista indicada, si es seguro.", "Colacionar pista y autorización; contrastar restricciones adicionales."],
+          ["HOLD POSITION, CANCEL TAKE-OFF", "Retirar una autorización antes de iniciar la carrera.", "Mantener posición y reconocer la instrucción; no continuar por haber recibido la autorización anterior."],
+          ["STOP IMMEDIATELY", "Alerta para detener una carrera iniciada.", "Escucharla y ejecutar la respuesta segura conforme al estado real del avión y al SOP."],
         ],
       },
       {
         kind: "p",
-        text: "**Si no está listo, dígalo.** «¿Listo para salida inmediata?» exige una respuesta honesta: AFFIRM solo si puede rodar a la pista y despegar sin demora.",
+        text: "EASA distingue expresamente entre cancelar una autorización cuando el avión todavía no inicia la carrera y ordenar STOP IMMEDIATELY cuando ya la inició. En un despegue rechazado por decisión propia, primero se controla y detiene el avión; después, cuando sea posible, se informa a torre el estado, posición, necesidad de asistencia y cualquier imposibilidad de liberar la pista. La tabla de fraseología contiene STOPPING como respuesta publicada, pero no prescribe por sí sola la maniobra ni reemplaza el entrenamiento de rechazo.",
       },
-      {
-        kind: "p",
-        text: "**Si abandona el despegue**, informe a la torre lo antes posible que lo suspende y pida ayuda o instrucciones de rodaje (4.5.12).",
-      },
-      {
-        kind: "p",
-        text: "**Ascenso inicial**: las instrucciones de salida (rumbo, altitud antes de virar, SID) se colacionan junto con la autorización de despegue. El detalle de SID y ascenso es del Nivel 4.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "CM-18-01 · Diagrama · 21:9 · 2100×900 px",
-        descripcion:
-          "Imagen sugerida: línea de tiempo horizontal sobre un perfil lateral de pista: 1) avión en el punto de espera, globo «READY»; 2) avión entrando, globo «LINE UP AND WAIT»; 3) avión alineado, globo «RUNWAY 13 CLEARED FOR TAKE-OFF» con la palabra TAKE-OFF resaltada; 4) avión rotando, franja gris «ATC evita transmitir» sobre el despegue y el ascenso inicial; 5) avión en ascenso, globo «CONTACT DEPARTURE 119.1». Debajo de cada paso, en mono, qué se colaciona. Objetivo: que el piloto tenga el mapa completo del despegue y vea en qué punto aparece por primera vez la palabra TAKE-OFF.",
-        alto: 240,
-        ratio: "21 / 9",
-      },
-
-      { kind: "sub", text: "Fraseología OACI" },
-      {
-        kind: "callout",
-        tone: "verificar",
-        title: "Verificar",
-        text: "Tres puntos de esta lección no están comprobados. La inclusión y el orden del viento en la autorización de despegue («wind (direction/speed), runway (number), cleared for take-off», Ejemplo 7): Doc 4444 cap. 7 y cap. 12, no cargados. «Ready for departure» como notificación del piloto (el Doc 9432 muestra «ready» tras «report when ready for departure»): Doc 4444 cap. 12, no cargado. El momento del cambio a Salida (transferencia por torre o automática): AIP del aeropuerto (AD 2.22, procedimientos de vuelo).",
-      },
-      ...entrada(
-        "Ejemplo 1. Listo, alineación y despegue (Doc 9432, 4.5.3 y 4.5.4)",
-        [
-          `ATC:   "AVIATORY 452, report when ready for departure."`,
-          `PILOT: "Wilco, AVIATORY 452."`,
-          `PILOT: "AVIATORY 452, ready."`,
-          `ATC:   "AVIATORY 452, line up and wait."`,
-          `PILOT: "Lining up, AVIATORY 452."`,
-          `ATC:   "AVIATORY 452, runway 13, cleared for take-off."`,
-          `PILOT: "Runway 13, cleared for take-off, AVIATORY 452."`,
-        ],
-        "Significado: dos autorizaciones distintas. La palabra TAKE-OFF aparece solo en la segunda.",
-      ),
-      ...entrada(
-        "Ejemplo 2. Salida inmediata (Doc 9432, 4.5.5)",
-        [
-          `ATC:   "AVIATORY 452, are you ready for immediate departure?"`,
-          `PILOT: "AVIATORY 452, affirm."`,
-          `ATC:   "AVIATORY 452, line up, be ready for immediate departure."`,
-          `PILOT: "Lining up, AVIATORY 452."`,
-          `ATC:   "AVIATORY 452, runway 13, cleared for take-off."`,
-          `PILOT: "Runway 13, cleared for take-off, AVIATORY 452."`,
-        ],
-        "Significado: «Line up, be ready for immediate departure» sigue sin ser autorización de despegue. Se espera el «cleared for take-off».",
-      ),
+      { kind: "sub", text: "Caso de entrenamiento: un minuto que no obliga a salir" },
       {
         kind: "escenario",
-        titulo: "Ejemplo 3. No está listo para salida inmediata",
-        situacion:
-          "Escenario de práctica; NEGATIVE de Doc 9432, 2.6. ATC: `AVIATORY 452, are you ready for immediate departure?` La tripulación no está lista para salida inmediata.",
+        titulo: "Listos en secuencia, pero la configuración cambia",
+        situacion: "Simulación didáctica sin indicativo, ruta, pista ni frecuencia inventados. La tripulación había informado READY y recibió LINE UP AND WAIT. Mientras espera, aparece una indicación que obliga a repetir una lista antes de poder despegar. La torre pregunta si puede aceptar salida inmediata.",
         preguntas: [
           {
-            q: "¿Qué responde el piloto y qué hace el controlador?",
-            a: "PILOT: `AVIATORY 452, negative, ready in two minutes.` ATC: `AVIATORY 452, hold short runway 13.` PILOT: `Holding short runway 13, AVIATORY 452.` «Ready in two minutes» es lenguaje claro y útil: le permite al controlador planear. Mejor un NEGATIVE que una salida apresurada con la cabina a medio preparar.",
+            q: "¿Qué debe comunicar la tripulación y qué permiso tiene mientras tanto?",
+            a: "Comunica que no puede aceptar la salida inmediata y que necesita tiempo; mantiene el avión en espera dentro del límite de la instrucción vigente. No afirma estar listo ni inicia la carrera. Si no puede permanecer en pista, coordina con torre la acción siguiente; la tripulación no se autoriza por sí misma a rodar o despegar.",
+          },
+          {
+            q: "¿Qué cambia si después oye la autorización de despegue, pero no entendió una restricción de salida?",
+            a: "No completa de memoria la restricción ni aplica potencia. El PM pide repetición o aclaración y ambos pilotos verifican la autorización completa frente a la ruta, la pista y la capacidad del avión. La autorización de despegue no convierte una restricción inaudible o imposible en ejecutable.",
           },
         ],
-        concepto: "Si no está listo, NEGATIVE. AFFIRM solo si puede rodar a la pista y despegar sin demora.",
+        concepto: "Preparación, alineación y autorización de despegue son estados distintos; una discrepancia exige comunicarla antes de actuar.",
       },
-      ...entrada(
-        "Ejemplo 4. Instrucción de salida con la autorización (Doc 9432, 4.5.9)",
-        [
-          `ATC:   "AVIATORY 452, climb straight ahead until 2500 feet before turning right, runway 24, cleared for take-off."`,
-          `PILOT: "Straight ahead 2500 feet, right turn, cleared for take-off runway 24, AVIATORY 452."`,
-        ],
-        "Significado: la instrucción de salida y la autorización se colacionan juntas. Virar antes de 2500 ft rompe la separación que el controlador planeó.",
-      ),
-      ...entrada("Ejemplo 5. Solicitud de viraje después del despegue (Doc 9432, 4.5.9)", [
-        `PILOT: "AVIATORY 452, request right turn when airborne."`,
-        `ATC:   "AVIATORY 452, right turn approved, runway 06, cleared for take-off."`,
-        `PILOT: "Runway 06, cleared for take-off, right turn, AVIATORY 452."`,
-      ]),
-      ...entrada(
-        "Ejemplo 6. Notificar en el aire y pasar a Salida (Doc 9432, 4.5.6)",
-        [
-          `ATC:   "AVIATORY 452, runway 24, cleared for take-off, report airborne."`,
-          `PILOT: "Runway 24, cleared for take-off, wilco, AVIATORY 452."`,
-          `PILOT: "AVIATORY 452, airborne 57."`,
-          `ATC:   "AVIATORY 452, contact Departure 121.750."`,
-          `PILOT: "121.750, AVIATORY 452."`,
-        ],
-        "Significado: «Airborne 57» es «en el aire a los 57». Note que en la notificación se dice AIRBORNE, no TAKE-OFF.",
-      ),
-      ...entrada(
-        "Ejemplo 7. Autorización con viento (escenario de práctica; ver VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, wind 150 degrees 8 knots, runway 13, cleared for take-off."`,
-          `PILOT: "Runway 13, cleared for take-off, AVIATORY 452."`,
-        ],
-        "Significado: el viento es información: no se colaciona, pero se compara con los límites del avión. Si excede un límite, la respuesta es UNABLE, no un despegue «a ver si baja».",
-      ),
-      ...entrada(
-        "Ejemplo 8. Despegue abandonado (Doc 9432, 4.5.12)",
-        [
-          `PILOT: "AVIATORY 452, stopping."`,
-          `ATC:   "AVIATORY 452, roger."`,
-          `PILOT: "AVIATORY 452, request return to ramp."`,
-          `ATC:   "AVIATORY 452, take next right, return to ramp, contact Ground 118.350."`,
-          `PILOT: "Next right, return to ramp, 118.350, AVIATORY 452."`,
-        ],
-        "Significado: primero se vuela (se detiene) el avión; la llamada viene «tan pronto como sea posible». Si hay emergencia, la comunicación cambia (Nivel 5).",
-      ),
-      ...entrada(
-        "Ejemplo 9. Error: «ready for take-off» (escenario de práctica, contraste con Doc 9432, 2.8.3.3)",
-        [
-          `PILOT (incorrecto): "AVIATORY 452, ready for take-off."`,
-          `PILOT (correcto):   "AVIATORY 452, ready." o "AVIATORY 452, ready for departure."`,
-        ],
-        "Significado: si en una frecuencia congestionada se bloquea parte de la transmisión, «…for take-off» puede sonar a autorización para otro avión. Reservar la palabra elimina ese riesgo.",
-      ),
-
-      { kind: "sub", text: "Aplicación en aerolínea" },
+      { kind: "sub", text: "Transferencia a Salida sin inventar una regla universal" },
+      {
+        kind: "p",
+        text: "Una instrucción de despegue puede ir acompañada de información o instrucciones de salida; otras llegan por separado. La tabla EASA contempla REPORT AIRBORNE y AIRBORNE (time), pero no significa que todo vuelo deba notificar hora de despegue. La Administración Federal de Aviación de Estados Unidos (FAA, Federal Aviation Administration) publica prácticas propias para el cambio de dependencia. Ninguna de esas fuentes permite afirmar que, en Colombia, un avión cambie automáticamente a una frecuencia determinada tras rotar. Se sigue la autorización real, la publicación de información aeronáutica (AIP, Aeronautical Information Publication) vigente de Aerocivil y el SOP del operador.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Antes de aplicar potencia",
-        texto:
-          "Antes del despegue, la tripulación confirma que la pista en la que está alineada es la autorizada y que la autorización fue de despegue, no de alineación. Muchos operadores exigen que ambos pilotos verbalicen «cleared for take-off» y verifiquen la pista antes de aplicar potencia. La frecuencia de Salida y la altitud inicial se tienen preseleccionadas desde el briefing. Los detalles son del SOP de cada operador.",
+        momento: "Antes de aplicar potencia y al recibir cualquier cambio",
+        texto: "El PM no se limita a repetir CLEARED FOR TAKE-OFF: comprueba el indicativo, la pista, la intersección si aplica, las instrucciones de salida y la coincidencia con lo seleccionado en cabina. El PF confirma que la pista y la configuración son correctas. Si el viento o una instrucción hacen insegura la salida, la tripulación comunica la imposibilidad; una autorización ATC no elimina los límites del avión. Si la torre cancela la autorización, se detiene la secuencia y se espera una nueva instrucción. Tras despegar, la prioridad sigue siendo volar el avión y mantener la trayectoria autorizada mientras el PM gestiona la siguiente comunicación.",
       },
-
-      { kind: "sub", text: "Error frecuente" },
-      error("Despegar con «line up and wait» o con «line up, be ready for immediate departure»."),
-      error("Decir «ready for take-off»."),
-      error("Aceptar una salida inmediata sin estar listo."),
-      error("Colacionar la autorización de despegue sin la instrucción de salida que venía con ella."),
-      error("Cambiar a Salida antes de que la torre lo transfiera (salvo que el procedimiento local lo indique)."),
-
+      { kind: "sub", text: "Errores que importan" },
+      error("Interpretar LINE UP AND WAIT o BE READY FOR IMMEDIATE DEPARTURE como autorización para aplicar potencia."),
+      error("Informar READY antes de completar listas, configuración o verificación de pista."),
+      error("Colacionar CLEARED FOR TAKE-OFF sin una restricción adicional recibida en la misma transmisión."),
+      error("Aplicar una regla de cambio automático a Salida o una frecuencia no verificada para el aeropuerto."),
+      error("Priorizar una respuesta por radio sobre el control del avión durante un rechazo o una anomalía en carrera."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "TAKE-OFF solo lo dice la torre, para autorizar o cancelar.",
-          "El piloto informa «ready» o «ready for departure».",
-          "Line up and wait y line up (be ready for immediate departure) no autorizan a despegar.",
-          "Autorización de despegue: se colaciona con el número de pista y con las instrucciones de salida.",
-          "Si no está listo, NEGATIVE. Si no puede cumplir, UNABLE.",
+          "READY informa preparación; no autoriza movimiento.",
+          "LINE UP AND WAIT permite alinearse y esperar; CLEARED FOR TAKE-OFF es una autorización posterior.",
+          "TAKE-OFF se reserva en radio para autorización o cancelación.",
+          "Pista, indicativo y restricciones se verifican antes de iniciar la carrera.",
+          "Tras despegar, la transferencia y los reportes se rigen por la instrucción y el procedimiento local vigentes.",
         ],
       },
-      fuentes(
-        "Doc 9432 · Doc 4444",
-        "Doc 9432 (4.ª ed.) 2.6 (AFFIRM, NEGATIVE, WILCO), 2.8.3.3, 4.1.2, 4.5.1, 4.5.3, 4.5.4, 4.5.5, 4.5.6, 4.5.8, 4.5.9, 4.5.12; Doc 4444 (15.ª ed., Enm. 4) 4.5.7.5.1 b).",
-        [
-          "VERIFICAR: inclusión y orden del viento en la autorización de despegue («wind (direction/speed), runway (number), cleared for take-off») contra Doc 4444 cap. 7 y cap. 12, no cargados.",
-          "VERIFICAR: «ready for departure» como notificación del piloto (el Doc 9432 muestra «ready» tras «report when ready for departure») contra Doc 4444 cap. 12, no cargado.",
-          "VERIFICAR: momento del cambio a Salida (transferencia por torre o automática) en la AIP del aeropuerto (AD 2.22, procedimientos de vuelo).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "EASA SERA.14001 · FAA AIM · ICAO Doc 9432",
+        bloques: [
+          { kind: "sub", text: "Documentos consultados" },
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, SERA.14045(c) (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9832), y Appendix 1 to AMC1 SERA.14001, apartados 1.4.10–1.4.12 (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). FAA, AIM 5-2-5 (https://www.faa.gov/air_traffic/publications/aim_html/chap5_section_2.html). Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization), Manual of Radiotelephony, Doc 9432, 4.ª edición, como referencia histórica de estructura de fraseología; no se usa aquí para afirmar que una frase esté vigente en Colombia." },
+          { kind: "sub", text: "Límite de aplicación" },
+          { kind: "list", items: [
+            "Las frases citadas corresponden a una publicación europea; no se presentan como llamadas reales ni como regla colombiana.",
+            "El escenario y la historieta son construcciones didácticas, sin pistas, rutas, aeronaves o frecuencias ficticias.",
+            "La pista, el viento, la hora de reporte y el momento de transferencia solo se establecen con la autorización real, eAIP de Aerocivil y SOP aplicable.",
+          ] },
         ],
-      ),
+      },
     ],
   },
 ]
