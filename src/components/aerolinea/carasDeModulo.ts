@@ -124,8 +124,8 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     // esa distancia, y el icono lo dice sin texto.
     icon: MoveVertical,
     color: "var(--av-rv-700)",
-    fotoHueco:
-      "RVSM-TEMA · Portada de tema · 3:2 · 1200×800 · Dos aeronaves en crucero en niveles adyacentes, vistas de costado, con la separación acotada",
+    // Esquema dibujado en SVG (scripts/figuras/portadas.mjs), no foto.
+    foto: "/modulos/rvsm/tema-rvsm.svg",
     descripcion: "Mil pies entre FL 290 y FL 410: equipo, chequeos, fraseología y qué hacer si se pierde.",
   },
   pbn: {
@@ -133,8 +133,8 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     // depender de volar hacia una antena.
     icon: RouteIcon,
     color: "var(--av-pbn-700)",
-    fotoHueco:
-      "PBN-TEMA · Portada de tema · 3:2 · 1200×800 · Carta de llegada con la trayectoria definida por waypoints y la especificación rotulada sobre un segmento",
+    // Esquema dibujado en SVG (scripts/figuras/portadas.mjs), no foto.
+    foto: "/modulos/pbn/tema-pbn.svg",
     descripcion: "RNAV y RNP, el número, la carta, el FMS y qué decir cuando se pierde la capacidad.",
   },
 }
