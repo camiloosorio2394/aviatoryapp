@@ -10,15 +10,15 @@ import {
 } from "@/lib/pbnProgress"
 
 /**
- * Los treinta y dos capítulos de PBN, con el mismo lector que el resto de los
- * módulos y el verde azulado del tema (`lector-pbn`).
+ * Los cuarenta y ocho capítulos de PBN, con el mismo lector que el resto de los
+ * módulos y el bronce de instrumento del tema (`lector-pbn`).
  *
- * No lleva práctica dentro de la lectura: las noventa y seis preguntas viven
- * en la pantalla de práctica, que es la regla de la casa.
+ * No lleva práctica dentro de la lectura: las ciento cuarenta y cuatro
+ * preguntas viven en la pantalla de práctica, que es la regla de la casa.
  *
  * `portadaAuto` queda en false mientras no existan las portadas de capítulo:
- * sin esto el lector pintaría treinta y dos huecos de portada encima de los
- * veinte huecos de figura que el módulo ya trae a propósito.
+ * sin esto el lector pintaría cuarenta y ocho huecos de portada encima de las
+ * veintinueve figuras SVG que ya trae el módulo.
  *
  * Ruta: /app/aerolinea/pbn/aprende?l=1
  */
