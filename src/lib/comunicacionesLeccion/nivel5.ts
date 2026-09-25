@@ -1,85 +1,6 @@
-/**
- * Nivel 5 · Vigilancia, contingencias y emergencias (lecciones 31 a 40, capítulos 31 a 40 de la especificación).
- *
- * Transpondedor, falla de comunicaciones, socorro y urgencia, combustible,
- * TCAS/ACAS y las capacidades que el ATC da por hechas (RVSM, PBN) hasta que
- * dejan de estar.
- *
- * Fuente: docs/comunicaciones/nivel-5.md, entero. Cada intercambio del
- * Markdown es un bloque `code` con su significado debajo (`ejemplo`); los
- * rótulos (VERIFICAR) y PLAIN LANGUAGE de cada ejemplo se conservan en su
- * título y en su significado. Lo que el Markdown marca VERIFICAR sale en un
- * callout «Verificar» visible al empezar la fraseología y, completo, en el
- * detalle técnico de FUENTES. Los «Escenario de práctica» del capítulo 36 van
- * como `escenario`. El formato de los bloques y de los huecos está documentado
- * al inicio de index.ts.
- *
- * Ojo: la cabecera de nivel-5.md trae un VERIFICAR de bloqueo de publicación
- * (el nivel depende del Doc 4444 cap. 12 y 15, del Doc 9432 cap. 9 y del
- * Anexo 10 Vol. II cap. 5, no cargados). Va en las convenciones de cada
- * detalle técnico y en el callout de cada lección.
- */
+/** Nivel 5 · Vigilancia, contingencias y emergencias (lecciones 31 a 40). */
+import type { DocScreen } from "@/lib/docBlocks"
 
-import type { DocBlockData, DocScreen } from "@/lib/docBlocks"
-
-/**
- * Un intercambio: el título en negrita, la transmisión literal (una línea por
- * turno de palabra) y el significado en español.
- */
-function ejemplo(titulo: string, turnos: string[], significado: string): DocBlockData[] {
-  return [
-    { kind: "p", text: `**${titulo}**` },
-    { kind: "code", text: turnos.join("\n") },
-    { kind: "p", text: significado },
-  ]
-}
-
-/** Un error frecuente: el nombre del error como título y la explicación. */
-function error(titulo: string, text: string): DocBlockData {
-  return { kind: "callout", tone: "warn", title: titulo, text }
-}
-
-/** El aviso visible de lo que no está verificado en la lección. */
-function verificar(text: string): DocBlockData {
-  return { kind: "callout", tone: "verificar", title: "Verificar", text }
-}
-
-/** Cómo leer los ejemplos: va al empezar la fraseología de cada lección. */
-const COMO_LEER: DocBlockData = {
-  kind: "callout",
-  tone: "info",
-  title: "Cómo leer los ejemplos",
-  text: "`AVIATORY 452` (y AVIATORY 425 o 542), las estaciones, frecuencias, códigos SSR, niveles y waypoints (GIKOS, TOLMA) son **ficticios**. Frase **sin etiqueta**: su estructura está en el Doc 9432 o el Doc 4444 cargados (el párrafo exacto va en Fuentes). **VERIFICAR**: no está en las fuentes cargadas y se confirma en el documento indicado. **PLAIN LANGUAGE**: lenguaje claro, no fraseología normalizada.",
-}
-
-/** Las convenciones de los ejemplos de todo el nivel (cabecera de nivel-5.md). */
-const CONVENCIONES: DocBlockData = {
-  kind: "list",
-  items: [
-    "**VERIFICAR (bloqueo de publicación).** Este nivel depende de capítulos no cargados (Doc 4444 cap. 12 y 15, Doc 9432 cap. 9, Anexo 10 Vol. II cap. 5). No se publica hasta verificar cada línea VERIFICAR.",
-    "Distintivo ficticio en todos los ejemplos: `AVIATORY 452` (y AVIATORY 425 o 542 cuando se necesitan distintivos parecidos).",
-    "«Bogota Control», «Bogota Approach» y «Bogota Tower» son estaciones de ejemplo educativo. Frecuencias, códigos SSR, niveles y waypoints (GIKOS, TOLMA, ficticios) son didácticos, no datos del AIP.",
-    "Fuentes cargadas: Doc 9432 (4.ª ed., 2007, ES), Doc 4444 (15.ª ed., Enm. 4, 2012, ES) cap. 1 a 5, Doc 9835 (2.ª ed., 2010, ES). La 15.ª edición del Doc 4444 no es la vigente: toda cita suya se revisa contra la edición en vigor antes de publicar.",
-    "Cuando una línea en inglés no es fraseología normalizada, va rotulada **PLAIN LANGUAGE**.",
-  ],
-}
-
-/** El bloque FUENTES de cada capítulo, plegado. */
-function fuentes(cita: string, verificado: string, porVerificar: string[]): DocBlockData {
-  return {
-    kind: "detalleTecnico",
-    etiqueta: "Fuentes",
-    cita,
-    bloques: [
-      { kind: "sub", text: "Verificado" },
-      { kind: "p", text: verificado },
-      { kind: "sub", text: "Por verificar" },
-      { kind: "list", items: porVerificar },
-      { kind: "sub", text: "Convenciones de los ejemplos" },
-      CONVENCIONES,
-    ],
-  }
-}
 
 export const NIVEL_5: DocScreen[] = [
   // ── 31 ──────────────────────────────────────────────────────────────────
@@ -1133,115 +1054,110 @@ export const NIVEL_5: DocScreen[] = [
   {
     n: 40,
     title: "PBN, RNAV y RNP",
-    kicker: "Decir que no se puede cumplir un procedimiento",
-    minutes: 8,
+    kicker: "Declarar una capacidad que cambió en vuelo",
+    minutes: 20,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "PBN (navegación basada en la performance) agrupa las especificaciones RNAV y RNP. El Doc 4444 define **RNAV** como el método de navegación que permite operar en cualquier trayectoria deseada dentro de la cobertura de las ayudas o de los límites de las ayudas autónomas, y **RNP** como la declaración de la performance de navegación necesaria para operar en un espacio aéreo definido. Este capítulo no enseña PBN: enseña **qué decir cuando no puede cumplir** un procedimiento o ruta PBN.",
+        text: "La navegación basada en la performance (PBN, Performance-Based Navigation) expresa requisitos de navegación para una ruta o procedimiento. La navegación de área (RNAV, Area Navigation) permite volar trayectorias definidas dentro de la capacidad del sistema; la performance de navegación requerida (RNP, Required Navigation Performance) añade vigilancia y alerta de la performance a bordo. Para comunicaciones, la pregunta clave no es memorizar siglas: es si la aeronave, el explotador y la tripulación pueden cumplir la especificación exigida ahora. Una autorización no subsana una degradación del sistema ni concede una aprobación operacional que no existe.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-40-01.svg",
+        alt: "Comparación conceptual RNAV y RNP y secuencia de aviso ante performance degradada.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Esquema conceptual basado en OACI Doc 9613 y EASA AMC1 SERA.14001. RNAV y RNP no son nombres intercambiables de una aproximación: la especificación publicada determina los requisitos. Si la capacidad efectiva deja de cumplirla, la decisión es comprobar el efecto, informar a ATC y coordinar una alternativa.",
+      },
+      { kind: "sub", text: "Antes de aceptar un procedimiento" },
       {
         kind: "list",
+        ordered: true,
         items: [
-          "**Aprobación antes de salir.** El explotador se asegura de que la aeronave tenga la aprobación para el tipo de RNP que exige la ruta o el área (Doc 4444 4.4.1.4 a). La orientación sobre especificaciones está en el Doc 9613 (Manual PBN), citado en el Doc 4444.",
-          "**Degradación en vuelo.** Si una falla de navegación (por ejemplo, pérdida de GNSS o una alerta de integridad) deja la performance por debajo de lo que exige el espacio aéreo o el procedimiento, se notifica **sin demora** al ATC (Doc 4444 5.2.2).",
-          "**Lo que el ATC necesita saber:** qué no puede cumplir (la ruta, la SID, la STAR, la aproximación RNP), por qué (en pocas palabras) y qué necesita (vectores, una aproximación convencional, otra ruta).",
-          "**Frases:** UNABLE (Doc 9432 2.6) más el procedimiento y la razón. El Doc 4444 cap. 12 vigente tiene fraseología PBN y de estado GNSS; no está cargada, así que aquí va solo lo que se puede decir con certeza y el resto en PLAIN LANGUAGE.",
-          "**Si el ATC pregunta capacidad**, conteste con verdad y con precisión: no todas las aeronaves ni todas las tripulaciones están aprobadas para todas las especificaciones.",
+          "**Lee la especificación exacta.** La ruta, salida normalizada por instrumentos (SID, Standard Instrument Departure), llegada normalizada por instrumentos (STAR, Standard Terminal Arrival Route) o aproximación publicada exige una capacidad concreta. RNAV 1, RNP 1 y RNP APCH no son autorizaciones equivalentes; una cifra o sigla distinta cambia lo que debe comprobarse.",
+          "**Comprueba aprobación y equipo disponible.** La documentación de la aeronave y el explotador, la lista de equipo mínimo (MEL, Minimum Equipment List) y la habilitación aplicable determinan si puedes aceptar esa operación. La capacidad declarada en el plan de vuelo no sustituye esta comprobación presente.",
+          "**Contrasta la base de datos y la trayectoria.** Antes de ejecutar un procedimiento se verifica que la codificación y las restricciones corresponden a la publicación vigente. Si falta un tramo o la ruta cargada no coincide, se aclara antes de aceptarla; no se crea un punto a mano como remedio genérico.",
+          "**Separa sensor de capacidad.** Una pérdida del sistema global de navegación por satélite (GNSS, Global Navigation Satellite System) o una alerta de vigilancia no significa necesariamente que todas las funciones RNAV estén perdidas. Se sigue el procedimiento del avión para determinar qué especificaciones continúan disponibles; no se promete ni se niega una capacidad sin verificarla.",
         ],
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología que no está en las fuentes cargadas. La fraseología PBN y de estado GNSS (incapacidad para una especificación RNP o RNAV, pregunta de capacidad del ATC): **Doc 4444 cap. 12 de la edición vigente**. «DESCEND VIA STAR»: **Doc 4444 cap. 12 vigente** (ver Nivel 4, cap. 26). La regla sobre puntos creados manualmente en procedimientos PBN: **Doc 9613**, **Doc 8168** y el **manual del explotador**.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · No puede la aproximación RNP (VERIFICAR la forma PBN)",
-        [
-          `ATC:   "AVIATORY 452, CLEARED RNP APPROACH RUNWAY 13."`,
-          `PILOT: "AVIATORY 452, UNABLE RNP APPROACH DUE GPS FAILURE, REQUEST ILS RUNWAY 13."`,
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-40-02.webp",
+        alt: "Historieta de tres paneles: tripulación identifica limitación de navegación, PM informa a ATC y el controlador coordina alternativa.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Historieta didáctica, no un vuelo real: 1) los pilotos verifican la alerta y la especificación que afecta; 2) el piloto que vuela (PF, pilot flying) conserva el control y el piloto que monitorea (PM, pilot monitoring) informa la incapacidad y solicita una opción viable; 3) ATC coordina una autorización alternativa. Las pantallas son ilustrativas y no contienen rutas, cartas o valores utilizables.",
+      },
+      { kind: "sub", text: "Cuando se degrada la navegación" },
+      {
+        kind: "p",
+        text: "Si ya no se puede sostener la performance exigida en ruta o en el procedimiento, la notificación es temprana y específica. El mensaje debe identificar a la aeronave con su indicativo real, indicar la especificación afectada, explicar la causa conocida sin diagnosticar de más, decir qué parte de la autorización no puede cumplirse y proponer una alternativa que el avión sí pueda volar. ATC necesita tiempo para evaluar separación, vigilancia y una nueva autorización. Una solicitud de vectores o de otra aproximación no es permiso para iniciar esa trayectoria.",
+      },
+      {
+        kind: "table",
+        head: ["Situación", "Expresión documentada", "Uso prudente"],
+        rows: [
+          ["Falla RNAV por equipo", "UNABLE RNAV DUE EQUIPMENT", "Comunicar una degradación RNAV confirmada, no cualquier aviso aislado."],
+          ["Pérdida de una especificación", "UNABLE RNP (tipo) o RNAV, DUE TO (razón)", "Precisar qué especificación se perdió y una razón comprobada; EASA incluye LOSS OF RAIM o RAIM ALERT como ejemplos."],
+          ["Salida o llegada RNAV no aceptable", "UNABLE (designador) DEPARTURE / ARRIVAL DUE RNAV TYPE", "Usar solo con el designador real publicado y cuando el tipo RNAV sea la limitación."],
+          ["ATC pregunta por navegación GNSS", "CONFIRM GNSS NAVIGATION / AFFIRM GNSS NAVIGATION", "Afirmar únicamente si la capacidad necesaria sigue disponible después de la comprobación."],
+          ["Sin capacidad RNAV", "NEGATIVE RNAV", "No confundir ausencia de capacidad con una restricción de un solo procedimiento."],
         ],
-        "Significado: UNABLE es palabra normalizada; la combinación con el procedimiento y la razón sigue el modelo «UNABLE TO CROSS … DUE WEIGHT» del Doc 9432 2.8.3. La forma específica PBN: VERIFICAR.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Pérdida de GPS en ruta (PLAIN LANGUAGE)",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, LOSS OF GPS, NAVIGATION DEGRADED, UNABLE RNAV ROUTE, REQUEST VECTORS TO TOLMA VOR."`,
-          `ATC:   "AVIATORY 452, TURN RIGHT HEADING 090, VECTORS TO TOLMA."`,
-          `PILOT: "RIGHT HEADING 090, AVIATORY 452."`,
+      },
+      {
+        kind: "p",
+        text: "Las expresiones anteriores aparecen en EASA AMC1 SERA.14001, apartados de estado GNSS, RNAV y degradación de performance. La vigilancia autónoma de integridad del receptor (RAIM, Receiver Autonomous Integrity Monitoring) es un ejemplo de causa que figura allí, no una prueba de que toda aeronave con una alerta RAIM haya perdido toda navegación. Para una aproximación específica se reporta la capacidad efectiva y se solicita una alternativa según lo publicado y el equipo disponible. La fraseología local vigente debe verificarse antes de usarla como procedimiento colombiano.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Estructura de llamada didáctica",
+        text: "Indicativo real — UNABLE más la especificación afectada — causa conocida — qué autorización no se puede cumplir — alternativa solicitada. No es una transcripción ATC ni asigna pista, ruta, rumbo, frecuencia o aproximación ficticios. Espera, colaciona y verifica la autorización revisada; si la seguridad exige una acción inmediata, aplica la contingencia correspondiente y comunica la desviación tan pronto como sea posible.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Alerta de navegación antes de una llegada PBN",
+        situacion: "Caso didáctico sin aeropuerto, ruta o pista inventados. En crucero, antes de comenzar una llegada publicada que exige RNP, aparece una alerta de integridad. PF mantiene la trayectoria autorizada; PM aplica la lista y confirma que ya no se puede demostrar la performance RNP requerida para esa llegada. Una aproximación convencional podría estar disponible, pero no se ha comprobado todavía ni está autorizada.",
+        preguntas: [
+          { q: "¿Qué se informa primero al control?", a: "PM comunica sin demora la incapacidad para la especificación afectada, con la causa conocida y la parte de la llegada que ya no puede aceptarse. Puede solicitar tiempo, vectores o una alternativa publicada que se haya comprobado viable. No afirma que toda navegación falló si solo se perdió la capacidad RNP exigida." },
+          { q: "¿Puede la tripulación cambiar por sí sola a la aproximación convencional?", a: "No. Primero verifica que exista, esté vigente y sea compatible con la aeronave y la situación; luego la solicita y espera una autorización clara. La disponibilidad técnica no convierte la alternativa en trayectoria autorizada." },
+          { q: "¿Qué cambia si la alerta desaparece?", a: "Se sigue el procedimiento del avión para confirmar recuperación real. PM informa a ATC de la capacidad actualizada, pero no presupone que la llegada o aproximación original haya sido restituida: hace falta coordinar y leer cualquier autorización nueva." },
         ],
-        "Significado: **PLAIN LANGUAGE** para la descripción. El rumbo se colaciona como siempre.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · El ATC pregunta la capacidad (PLAIN LANGUAGE del ATC; VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, CONFIRM ABLE RNP APPROACH RUNWAY 31."`,
-          `PILOT: "NEGATIVE, AVIATORY 452. REQUEST VOR APPROACH RUNWAY 31."`,
-        ],
-        "Significado: **PLAIN LANGUAGE** del ATC (la forma estándar de esta pregunta: VERIFICAR). Usted no tiene la aprobación o el equipo para esa aproximación: NEGATIVE y lo que sí puede hacer.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · El punto no está en la base de datos (PLAIN LANGUAGE; VERIFICAR «DESCEND VIA STAR»)",
-        [
-          `ATC:   "AVIATORY 452, CLEARED DIRECT GIKOS, DESCEND VIA STAR."`,
-          `PILOT: "AVIATORY 452, UNABLE DIRECT GIKOS, GIKOS NOT IN OUR DATABASE, REQUEST HEADING."`,
-        ],
-        "Significado: **PLAIN LANGUAGE**. Un punto que no está en la base de datos no se construye a mano en un procedimiento PBN sin que el manual lo permita; se dice y se pide alternativa. VERIFICAR «DESCEND VIA STAR» (Nivel 4, cap. 26).",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Recuperó la capacidad (PLAIN LANGUAGE)",
-        [
-          `PILOT: "BOGOTA APPROACH, AVIATORY 452, GPS RESTORED, ABLE RNP APPROACH RUNWAY 13."`,
-          `ATC:   "AVIATORY 452, ROGER, EXPECT RNP APPROACH RUNWAY 13."`,
-        ],
-        "Significado: **PLAIN LANGUAGE**. Recuperó la capacidad: se informa para que el ATC la tenga en cuenta.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
+        concepto: "La especificación publicada, la aprobación operacional y la capacidad actual deben coincidir antes de aceptar o continuar una ruta PBN.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "SID, STAR y aproximaciones PBN",
-        texto: "Cada vez más SID, STAR y aproximaciones en la región son RNAV o RNP. En la práctica, las situaciones de comunicación son tres: una falla o degradación en vuelo (GNSS, FMS), un procedimiento para el que la aeronave o la tripulación no está aprobada y un cambio del ATC que la base de datos no permite volar. En los tres casos se usa UNABLE con la razón y una alternativa concreta. Lo que la aeronave necesita para cada especificación lo dicen el AFM, la MEL y el manual del explotador; en Colombia, las aprobaciones PBN y los procedimientos publicados están en el AIP y el RAC.",
+        momento: "Preparación, vuelo y reprogramación",
+        texto: "Una tripulación de aerolínea contrasta la especificación en la publicación, la aprobación del explotador, el estado de sensores y la base de datos. Si surge degradación, PF conserva el control y gestiona la trayectoria; PM revisa qué funciones quedan, informa a ATC y confirma la nueva autorización antes de que ambos actualicen el sistema de gestión de vuelo (FMS, Flight Management System). Si el vuelo opera en Colombia, los procedimientos y cartas concretos se consultan exclusivamente en la AIP/eAIP vigente de Aerocivil. Esta lección deliberadamente no asigna rutas ni aproximaciones locales de ejemplo.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Aceptar un RNP sin aprobación",
-        "Aceptar un procedimiento RNP sin tener la aprobación o el equipo, por no decir UNABLE.",
-      ),
-      error(
-        "Describir el problema sin decir qué necesita",
-        "Decir «we have a problem with the navigation» sin decir qué no puede hacer ni qué necesita.",
-      ),
-      error(
-        "Seguir con una alerta de integridad",
-        "Seguir un procedimiento RNP con una alerta de integridad activa sin informar.",
-      ),
-      error(
-        "Construir un punto a mano",
-        "Construir a mano un punto que no está en la base de datos para cumplir una autorización.",
-      ),
-      error("No avisar la recuperación", "No informar cuando se recupera la capacidad."),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Confundir ruta publicada con aprobación", text: "Que el procedimiento exista o esté cargado en el FMS no demuestra que aeronave, explotador y tripulación estén habilitados para él." },
+      { kind: "callout", tone: "warn", title: "Convertir una alerta en diagnóstico absoluto", text: "La falla de un sensor no prueba que todas las capacidades RNAV/RNP hayan desaparecido. Se comprueba el efecto conforme al avión y se comunica lo que se sabe." },
+      { kind: "callout", tone: "warn", title: "Seguir o improvisar una trayectoria", text: "No se vuela una especificación que ya no se cumple ni se inventa un punto para sostener la autorización. Se informa y coordina la alternativa segura." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "La aprobación PBN es de la aeronave, del explotador y de la tripulación; se revisa antes de salir.",
-          "La degradación se notifica sin demora (Doc 4444 5.2.2).",
-          "UNABLE + procedimiento + razón + alternativa.",
-          "Conteste con precisión cuando el ATC pregunte capacidad.",
-          "Si recupera la capacidad, avise.",
+          "PBN expresa requisitos de navegación; RNP añade vigilancia y alerta de performance a bordo.",
+          "Se comprueba especificación, aprobación, equipo y base de datos antes de aceptar.",
+          "Si la capacidad baja del requisito, se avisa a ATC sin demora y con precisión.",
+          "UNABLE identifica qué no se puede cumplir; la alternativa se solicita, no se asume.",
+          "La recuperación se confirma y se comunica antes de replanear.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432 · Doc 9613",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1, definiciones «Navegación de área (RNAV)» y «Performance de navegación requerida (RNP)»; 4.4.1.4 a) (aprobación RNP antes de la salida); 5.2.2 (deterioro de la performance); cap. 5, nota 4 tras 5.4.1.2 (orientación sobre especificaciones de navegación en el Doc 9613, Manual PBN). Doc 9432 (4.ª ed.) 2.6 (UNABLE, NEGATIVE); 2.8.3 (ejemplo «UNABLE TO CROSS WICKEN FL 150 DUE WEIGHT»).",
-        [
-          "VERIFICAR: fraseología PBN y de estado GNSS (incapacidad para una especificación RNP o RNAV, pregunta de capacidad del ATC) contra Doc 4444 cap. 12 de la edición vigente (no cargado).",
-          "VERIFICAR: «DESCEND VIA STAR» contra Doc 4444 cap. 12 de la edición vigente (no cargado).",
-          "VERIFICAR: regla sobre puntos creados manualmente en procedimientos PBN contra Doc 9613 y Doc 8168 (no cargados) y el manual del explotador.",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "OACI Doc 9613 · EASA AMC1 SERA.14001 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "OACI, Performance-Based Navigation Manual (Doc 9613), quinta edición de 2023, descripción oficial de RNAV y RNP: https://store.icao.int/en/performance-based-navigation-pbn-manual-doc-9613" },
+          { kind: "p", text: "OACI, material de referencia PBN: una especificación RNP añade vigilancia y alerta a bordo frente a RNAV: https://www.icao.int/sites/default/files/safety/pbn/PBNStatePlans/China-PBN-implementation-plan.pdf" },
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, AMC1 SERA.14001, apartados 1.1.14–1.1.16 de estado GNSS, RNAV y degradación de performance: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299" },
+          { kind: "p", text: "EASA, Easy Access Rules for Air Operations, orientación de aprobaciones y procedimientos PBN: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-air-operations?erules-id=ERULES-1963177438-13098" },
+          { kind: "p", text: "Aerocivil, portal oficial de la AIP/eAIP colombiana para cartas, rutas y procedimientos vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "El escenario y la historieta son didácticos; ninguna imagen representa una carta o ruta real. La aplicación local se verifica en la publicación vigente y en el manual del explotador." },
         ],
-      ),
+      },
     ],
   },
 ]

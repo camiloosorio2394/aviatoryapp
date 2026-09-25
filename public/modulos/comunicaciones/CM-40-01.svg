@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Capacidad PBN y respuesta a una degradación en vuelo</title>
+  <desc id="desc">RNAV y RNP son especificaciones de navegación; RNP añade vigilancia y alerta de la performance a bordo. Una degradación exige verificar capacidad, informar a ATC si ya no se cumple y coordinar una alternativa.</desc>
+  <rect width="1600" height="900" fill="#101d2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="92" y="108" fill="#f5f9fb" font-size="52" font-weight="700">PBN: la autorización depende de la capacidad real</text>
+    <text x="94" y="160" fill="#b7cbd1" font-size="28">Una especificación publicada no equivale a poder volarla hoy</text>
+    <rect x="92" y="220" width="660" height="254" rx="26" fill="#203a48" stroke="#82ddcd" stroke-width="4"/>
+    <text x="128" y="282" fill="#82ddcd" font-size="31" font-weight="700">RNAV</text>
+    <text x="128" y="342" fill="#f5f9fb" font-size="29">Navegación de área según una</text>
+    <text x="128" y="381" fill="#f5f9fb" font-size="29">especificación de performance.</text>
+    <text x="128" y="440" fill="#b7cbd1" font-size="25">Verifica qué tipo exige el procedimiento.</text>
+    <rect x="848" y="220" width="660" height="254" rx="26" fill="#26394a" stroke="#9eafbb" stroke-width="3"/>
+    <text x="884" y="282" fill="#82ddcd" font-size="31" font-weight="700">RNP</text>
+    <text x="884" y="342" fill="#f5f9fb" font-size="29">Navegación de área con vigilancia</text>
+    <text x="884" y="381" fill="#f5f9fb" font-size="29">y alerta de performance a bordo.</text>
+    <text x="884" y="440" fill="#b7cbd1" font-size="25">Una alerta puede cambiar la capacidad.</text>
+    <path d="M790 494V551" stroke="#82ddcd" stroke-width="6" stroke-linecap="round"/>
+    <path d="M775 540l15 20 15-20" fill="none" stroke="#82ddcd" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="92" y="568" width="1416" height="240" rx="28" fill="#203a48"/>
+    <text x="130" y="630" fill="#82ddcd" font-size="30" font-weight="700">Si la performance requerida ya no se sostiene</text>
+    <text x="130" y="685" fill="#f5f9fb" font-size="28">1  Comprueba la limitación y el procedimiento del avión.</text>
+    <text x="130" y="730" fill="#f5f9fb" font-size="28">2  Informa a ATC qué especificación no puedes cumplir.</text>
+    <text x="130" y="775" fill="#f5f9fb" font-size="28">3  Pide y confirma una alternativa; no la asumas autorizada.</text>
+  </g>
+</svg>
