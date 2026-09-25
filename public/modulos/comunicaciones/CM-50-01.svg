@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
+  <title id="t">Capas de comunicación durante un vuelo oceánico</title>
+  <desc id="d">Tres canales distintos conectan la cabina con los servicios de tierra: CPDLC para mensajes ATC, ADS-C para informes automáticos y voz HF con SELCAL como alternativa. Ningún canal convierte una solicitud en autorización.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#091827"/><stop offset="1" stop-color="#193248"/></linearGradient>
+  </defs>
+  <rect width="1600" height="900" rx="28" fill="url(#bg)"/>
+  <text x="80" y="94" fill="#a8f3d1" font-family="Arial,sans-serif" font-size="26" font-weight="700" letter-spacing="5">COMUNICACIÓN OCEÁNICA</text>
+  <text x="80" y="149" fill="#f5f8fb" font-family="Arial,sans-serif" font-size="39" font-weight="700">Tres funciones, una sola disciplina de cabina</text>
+  <text x="80" y="192" fill="#b7c9d5" font-family="Arial,sans-serif" font-size="23">Esquema conceptual · disponibilidad y procedimientos según región y equipo</text>
+  <rect x="68" y="235" width="333" height="533" rx="22" fill="#213b51" stroke="#527489" stroke-width="2"/>
+  <text x="102" y="290" fill="#a8f3d1" font-family="Arial,sans-serif" font-size="24" font-weight="700">CABINA</text>
+  <text x="102" y="334" fill="#f5f8fb" font-family="Arial,sans-serif" font-size="25">PF mantiene la trayectoria</text>
+  <text x="102" y="372" fill="#f5f8fb" font-family="Arial,sans-serif" font-size="25">PM gestiona mensajes</text>
+  <path d="M105 424h255" stroke="#527489" stroke-width="2"/>
+  <text x="102" y="472" fill="#d5e4eb" font-family="Arial,sans-serif" font-size="22">Confirma destinatario,</text>
+  <text x="102" y="506" fill="#d5e4eb" font-family="Arial,sans-serif" font-size="22">contenido y autorización</text>
+  <text x="102" y="540" fill="#d5e4eb" font-family="Arial,sans-serif" font-size="22">antes de ejecutar.</text>
+  <path d="M105 589h255" stroke="#527489" stroke-width="2"/>
+  <text x="102" y="637" fill="#a8f3d1" font-family="Arial,sans-serif" font-size="22" font-weight="700">FMS verificado contra</text>
+  <text x="102" y="671" fill="#a8f3d1" font-family="Arial,sans-serif" font-size="22" font-weight="700">ruta autorizada</text>
+  <rect x="456" y="235" width="615" height="142" rx="18" fill="#28435a" stroke="#7ebfce" stroke-width="2"/>
+  <text x="489" y="287" fill="#b8ebf1" font-family="Arial,sans-serif" font-size="26" font-weight="700">CPDLC</text>
+  <text x="489" y="329" fill="#f5f8fb" font-family="Arial,sans-serif" font-size="23">Solicitudes, autorizaciones y acuses digitales</text>
+  <rect x="456" y="408" width="615" height="142" rx="18" fill="#28435a" stroke="#d1ca8a" stroke-width="2"/>
+  <text x="489" y="460" fill="#f2e5a7" font-family="Arial,sans-serif" font-size="26" font-weight="700">ADS-C</text>
+  <text x="489" y="502" fill="#f5f8fb" font-family="Arial,sans-serif" font-size="23">Informes automáticos bajo contrato con tierra</text>
+  <rect x="456" y="581" width="615" height="187" rx="18" fill="#28435a" stroke="#a8f3d1" stroke-width="2"/>
+  <text x="489" y="633" fill="#a8f3d1" font-family="Arial,sans-serif" font-size="26" font-weight="700">HF + SELCAL</text>
+  <text x="489" y="675" fill="#f5f8fb" font-family="Arial,sans-serif" font-size="23">Voz por estación aeronáutica; alerta selectiva</text>
+  <text x="489" y="712" fill="#d5e4eb" font-family="Arial,sans-serif" font-size="20">Primaria y secundaria asignadas; comprobar recepción</text>
+  <path d="M403 305h45M403 478h45M403 674h45" stroke="#a8f3d1" stroke-width="5"/>
+  <path d="M1077 305h45M1077 478h45M1077 674h45" stroke="#a8f3d1" stroke-width="5"/>
+  <rect x="1128" y="235" width="404" height="533" rx="22" fill="#213b51" stroke="#527489" stroke-width="2"/>
+  <text x="1162" y="290" fill="#a8f3d1" font-family="Arial,sans-serif" font-size="24" font-weight="700">TIERRA</text>
+  <text x="1162" y="339" fill="#f5f8fb" font-family="Arial,sans-serif" font-size="24">Centro de control</text>
+  <text x="1162" y="373" fill="#d5e4eb" font-family="Arial,sans-serif" font-size="20">recibe / emite CPDLC</text>
+  <path d="M1162 417h335" stroke="#527489" stroke-width="2"/>
+  <text x="1162" y="466" fill="#f5f8fb" font-family="Arial,sans-serif" font-size="24">Sistema de vigilancia</text>
+  <text x="1162" y="500" fill="#d5e4eb" font-family="Arial,sans-serif" font-size="20">procesa ADS-C</text>
+  <path d="M1162 544h335" stroke="#527489" stroke-width="2"/>
+  <text x="1162" y="591" fill="#f5f8fb" font-family="Arial,sans-serif" font-size="24">Estación aeronáutica</text>
+  <text x="1162" y="625" fill="#d5e4eb" font-family="Arial,sans-serif" font-size="20">retransmite la voz HF</text>
+  <text x="1162" y="664" fill="#d5e4eb" font-family="Arial,sans-serif" font-size="20">No crea autorizaciones</text>
+  <text x="80" y="835" fill="#dce8ed" font-family="Arial,sans-serif" font-size="24" font-weight="700">Un enlace activo no sustituye la vigilancia de los demás ni autoriza cambios por sí solo.</text>
+</svg>

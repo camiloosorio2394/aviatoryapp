@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cinco preguntas para escuchar una instrucción ATC</title>
+  <desc id="desc">Destinatario, acción, dato, condición y paso siguiente; después colación, verificación y vigilancia.</desc>
+  <rect width="1600" height="900" fill="#102235"/>
+  <rect x="70" y="60" width="1460" height="780" rx="32" fill="#1c3548" stroke="#4d7181" stroke-width="2"/>
+  <text x="120" y="145" fill="#a7f3d0" font-family="Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="4">ESCUCHA OPERACIONAL</text>
+  <text x="120" y="210" fill="#fff" font-family="Arial,sans-serif" font-size="48" font-weight="700">Cinco preguntas antes de actuar</text>
+  <text x="120" y="258" fill="#cbdbe3" font-family="Arial,sans-serif" font-size="24">Una cifra correcta sin su condición puede producir una maniobra incorrecta.</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="120" y="335" width="255" height="220" rx="23" fill="#29475b" stroke="#699b96"/>
+    <text x="148" y="394" fill="#a7f3d0" font-size="28" font-weight="700">01</text>
+    <text x="148" y="447" fill="#fff" font-size="29" font-weight="700">¿Para quién?</text>
+    <text x="148" y="496" fill="#d8e6eb" font-size="21">Distintivo</text>
+    <text x="148" y="525" fill="#d8e6eb" font-size="21">completo.</text>
+    <rect x="396" y="335" width="255" height="220" rx="23" fill="#29475b" stroke="#699b96"/>
+    <text x="424" y="394" fill="#a7f3d0" font-size="28" font-weight="700">02</text>
+    <text x="424" y="447" fill="#fff" font-size="29" font-weight="700">¿Qué hacer?</text>
+    <text x="424" y="496" fill="#d8e6eb" font-size="21">Verbo e intención</text>
+    <text x="424" y="525" fill="#d8e6eb" font-size="21">de ATC.</text>
+    <rect x="672" y="335" width="255" height="220" rx="23" fill="#29475b" stroke="#699b96"/>
+    <text x="700" y="394" fill="#a7f3d0" font-size="28" font-weight="700">03</text>
+    <text x="700" y="447" fill="#fff" font-size="29" font-weight="700">¿Qué dato?</text>
+    <text x="700" y="496" fill="#d8e6eb" font-size="21">Pista, nivel,</text>
+    <text x="700" y="525" fill="#d8e6eb" font-size="21">rumbo o punto.</text>
+    <rect x="948" y="335" width="255" height="220" rx="23" fill="#215044" stroke="#93dfba"/>
+    <text x="976" y="394" fill="#a7f3d0" font-size="28" font-weight="700">04</text>
+    <text x="976" y="447" fill="#fff" font-size="29" font-weight="700">¿Cuándo?</text>
+    <text x="976" y="496" fill="#d8e6eb" font-size="21">Condición y</text>
+    <text x="976" y="525" fill="#d8e6eb" font-size="21">límite.</text>
+    <rect x="1224" y="335" width="255" height="220" rx="23" fill="#29475b" stroke="#699b96"/>
+    <text x="1252" y="394" fill="#a7f3d0" font-size="28" font-weight="700">05</text>
+    <text x="1252" y="447" fill="#fff" font-size="29" font-weight="700">¿Qué sigue?</text>
+    <text x="1252" y="496" fill="#d8e6eb" font-size="21">Reporte, contacto</text>
+    <text x="1252" y="525" fill="#d8e6eb" font-size="21">o espera.</text>
+  </g>
+  <path d="M230 630 H1370" stroke="#93dfba" stroke-width="5" stroke-linecap="round"/>
+  <path d="m1350 614 22 16-22 16" fill="none" stroke="#93dfba" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="120" y="700" fill="#fff" font-family="Arial,sans-serif" font-size="29" font-weight="700">Colacionar → verificar en cabina → escuchar la corrección → vigilar la trayectoria</text>
+  <text x="120" y="774" fill="#b6cbd2" font-family="Arial,sans-serif" font-size="22">Método didáctico; no reemplaza reglas de colación ni prioridades de seguridad.</text>
+</svg>

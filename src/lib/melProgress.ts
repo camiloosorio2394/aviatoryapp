@@ -8,13 +8,13 @@
  * Supabase detrás.
  *
  * Mientras Camilo no corra
- * `supabase/migrations/20260928000000_progreso_de_mel.sql` la tabla no existe:
+ * `supabase/migrations/20261001000000_progreso_de_mel.sql` la tabla no existe:
  * la consulta falla, `leer` devuelve null y el módulo sigue contando con lo
  * del navegador. El día que la corra, lo que cada piloto tenga guardado aquí
  * se sube solo en su primera visita.
  *
  * La mejor nota sale de user_mel_exam_attempts, que nace con
- * `20260928010000_evaluacion_de_mel.sql`. Si esa tabla todavía no existe, la
+ * `20261001010000_evaluacion_de_mel.sql`. Si esa tabla todavía no existe, la
  * consulta falla sola y queda la nota de este navegador.
  */
 

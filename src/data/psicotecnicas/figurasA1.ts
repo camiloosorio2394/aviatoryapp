@@ -170,9 +170,9 @@ const cm = (
 })
 
 /** Casilla con la pieza de punta: hacia dónde mira y con qué relleno. */
-const pp = (mira: Sentido, relleno: Relleno): Celda => ({
+const pp = (mira: Sentido, relleno: Relleno, barra?: "horizontal" | "vertical"): Celda => ({
   marco: true,
-  elementos: [{ tipo: "pieza-punta", mira, relleno }],
+  elementos: [{ tipo: "pieza-punta", mira, relleno, ...(barra ? { barra } : {}) }],
 })
 
 /**
@@ -248,9 +248,8 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
    * igual. El conteo de brazos por casilla dibuja la ida y la vuelta:
    * 1 · 2 · 3 · 4 · 3 · 2 · 1 · 2 · y la que falta lleva tres.
    *
-   * El solucionador no cubre esta regla —no es un giro ni una combinación de
-   * las dos primeras casillas—, así que aquí no hay comprobación automática y
-   * la respuesta es la de la clave del cuadernillo: la D.
+   * El solucionador comprueba la secuencia de cantidades sin atribuirle una
+   * orientación que no puede deducir: solo la D ofrece tres brazos.
    */
   "AB-A1-02": {
     tipo: "matriz-3x3",
@@ -301,16 +300,15 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
    * derecha con blanco, y cada fila es la anterior corrida un puesto. A la
    * casilla que falta le toca abajo, y con abajo viene el punteado.
    *
-   * El cuadernillo dibuja algunas casillas con la barra en el eje de la punta
-   * y otras perpendicular; aquí van todas perpendiculares, como las cinco
-   * alternativas, que es contra lo que el candidato compara.
+   * La fuente alterna barras paralelas y perpendiculares a la punta sin que
+   * eso decida la clave. Se conserva esa orientación en cada casilla.
    */
   "AB-A1-04": {
     tipo: "matriz-3x3",
     celdas: [
-      pp("arriba", "rayado-diagonal"), pp("abajo", "punteado"), pp("derecha", "blanco"),
-      pp("abajo", "punteado"), pp("derecha", "blanco"), pp("arriba", "rayado-diagonal"),
-      pp("derecha", "blanco"), pp("arriba", "rayado-diagonal"), HUECO,
+      pp("arriba", "rayado-diagonal"), pp("abajo", "punteado", "vertical"), pp("derecha", "blanco", "horizontal"),
+      pp("abajo", "punteado", "vertical"), pp("derecha", "blanco", "horizontal"), pp("arriba", "rayado-diagonal", "vertical"),
+      pp("derecha", "blanco"), pp("arriba", "rayado-diagonal", "vertical"), HUECO,
     ],
     opciones: [
       pp("abajo", "punteado"),

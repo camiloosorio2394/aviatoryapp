@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Dos vías de entrega de la autorización de salida en el sistema FAA</title>
+  <desc id="desc">La autorización PDC pasa del control a operaciones o proveedor y de allí al piloto; CPDLC-DCL va del control a la aviónica y requiere respuesta de la tripulación. Ambos se revisan antes de actuar. Es un esquema estadounidense, no un procedimiento colombiano.</desc>
+  <rect width="1600" height="900" fill="#101d2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="92" y="104" fill="#f3f9fb" font-size="50" font-weight="700">PDC y CPDLC-DCL no son el mismo intercambio</text>
+    <text x="94" y="162" fill="#b9cad3" font-size="27">Esquema del sistema FAA; la disponibilidad local se publica por aeródromo</text>
+    <rect x="90" y="229" width="1420" height="248" rx="26" fill="#203947" stroke="#84ddcf" stroke-width="3"/>
+    <text x="125" y="284" fill="#84ddcf" font-size="34" font-weight="700">PDC · entrega indirecta</text>
+    <rect x="126" y="328" width="285" height="103" rx="20" fill="#344f5a"/><text x="168" y="392" fill="#f3f9fb" font-size="26">Control ATC</text>
+    <path d="M423 381h76" stroke="#84ddcf" stroke-width="5"/><path d="m499 381-19-12v24z" fill="#84ddcf"/>
+    <rect x="511" y="328" width="400" height="103" rx="20" fill="#344f5a"/><text x="543" y="376" fill="#f3f9fb" font-size="25">Operador / proveedor</text><text x="543" y="409" fill="#cbd9df" font-size="22">entrega por datos o impresión</text>
+    <path d="M923 381h76" stroke="#84ddcf" stroke-width="5"/><path d="m999 381-19-12v24z" fill="#84ddcf"/>
+    <rect x="1011" y="328" width="451" height="103" rx="20" fill="#344f5a"/><text x="1047" y="392" fill="#f3f9fb" font-size="26">Tripulación: revisar</text>
+    <rect x="90" y="517" width="1420" height="248" rx="26" fill="#203947" stroke="#84ddcf" stroke-width="3"/>
+    <text x="125" y="572" fill="#84ddcf" font-size="34" font-weight="700">CPDLC-DCL · diálogo directo</text>
+    <rect x="126" y="616" width="285" height="103" rx="20" fill="#344f5a"/><text x="168" y="680" fill="#f3f9fb" font-size="26">Control ATC</text>
+    <path d="M423 669h76" stroke="#84ddcf" stroke-width="5"/><path d="m499 669-19-12v24z" fill="#84ddcf"/>
+    <rect x="511" y="616" width="400" height="103" rx="20" fill="#344f5a"/><text x="547" y="664" fill="#f3f9fb" font-size="25">Aviónica de cabina</text><text x="547" y="698" fill="#cbd9df" font-size="22">mensaje CPDLC</text>
+    <path d="M923 669h76" stroke="#84ddcf" stroke-width="5"/><path d="m999 669-19-12v24z" fill="#84ddcf"/>
+    <rect x="1011" y="616" width="451" height="103" rx="20" fill="#344f5a"/><text x="1047" y="660" fill="#f3f9fb" font-size="26">Tripulación: revisar</text><text x="1047" y="697" fill="#f3f9fb" font-size="24">y responder en el enlace</text>
+    <text x="92" y="830" fill="#f3f9fb" font-size="26">Si la autorización falta, cambia o no se entiende: aclarar con control antes de usarla para salir.</text>
+  </g>
+</svg>

@@ -2,7 +2,7 @@ import type { CategoriaPsico, EjercicioPsico } from "@/lib/psicotecnicas"
 import { ABSTRACTO } from "./abstracto"
 import { ESPACIAL } from "./espacial"
 import { NUMERICO } from "./numerico"
-import { SERIES } from "./series"
+import { SERIES_REVISADAS } from "./seriesRevisadas"
 
 export { EJEMPLOS_ESPACIAL, TEORIA_CUBO } from "./aprende"
 
@@ -15,7 +15,7 @@ export { EJEMPLOS_ESPACIAL, TEORIA_CUBO } from "./aprende"
  * porcentajes. La selección baraja igual, pero los totales que se muestran en
  * pantalla salen de aquí y conviene que digan la verdad de lo que hay.
  */
-export const BANCO: EjercicioPsico[] = [...ABSTRACTO, ...ESPACIAL, ...NUMERICO, ...SERIES]
+export const BANCO: EjercicioPsico[] = [...ABSTRACTO, ...ESPACIAL, ...NUMERICO, ...SERIES_REVISADAS]
 
 /** Cuántos ejercicios hay por familia. La pantalla no inventa cifras. */
 export const TOTALES: Record<CategoriaPsico, number> = {

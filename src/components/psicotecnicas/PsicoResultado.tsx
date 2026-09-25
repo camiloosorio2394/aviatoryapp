@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { ArrowRight, ChevronDown, RotateCcw } from "lucide-react"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { FiguraEnunciado, FiguraOpcion } from "./FiguraPsico"
+import { ImagenPsicoAmpliable } from "./ImagenPsicoAmpliable"
 import { ReportarProblema } from "@/components/ReportarProblema"
 import {
   CATEGORIAS,
@@ -143,6 +144,14 @@ export function PsicoResultado({
    * que no enseña nada.
    */
   const repaso = (tanda ?? []).filter((item) => !item.respuesta.correcta)
+  const mejorFamilia = r.correctas > 0
+    ? [...r.porCategoria].sort((a, b) => b.porcentaje - a.porcentaje)[0]
+    : undefined
+  const foco = r.porCategoria.find((c) => c.categoria === r.porMejorar) ?? r.porCategoria[0]
+  const practicarFoco = foco && foco.porcentaje < 80 && r.sinResponder === 0
+  const siguienteDestino = practicarFoco
+    ? `${PSICO_HUB}/practica?categoria=${foco.categoria}`
+    : `${PSICO_HUB}/practica`
 
   return (
     <div className="max-w-[900px] mx-auto">
@@ -165,37 +174,46 @@ export function PsicoResultado({
           </p>
         )}
 
-        <div className="mt-6 grid gap-3 grid-cols-2 sm:grid-cols-4">
-          <Dato valor={String(r.total)} etiqueta="Ejercicios realizados" />
-          <Dato
-            valor={String(r.correctas)}
-            etiqueta="Respuestas correctas"
-            color="var(--av-green-400)"
-          />
-          <Dato
-            valor={String(r.incorrectas)}
-            etiqueta="Respuestas incorrectas"
-            color="var(--av-red-400)"
-          />
-          <Dato valor={String(r.sinResponder)} etiqueta="No respondidas" />
-        </div>
-
-        {conPuntajeGlobal && (
-          <div className="mt-3 grid gap-3 grid-cols-2">
-            <Dato valor={`${precision}%`} etiqueta="Precisión" />
-            <Dato valor={`${velocidad}%`} etiqueta="Velocidad" />
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <div className="rounded-xl border border-border bg-muted/30 p-4">
+            <div className="nh-display text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Lo que salió mejor</div>
+            <div className="mt-1 text-[16px] font-semibold">
+              {mejorFamilia ? CATEGORIAS[mejorFamilia.categoria].nombre : "Aún sin aciertos"}
+            </div>
+            <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
+              {mejorFamilia
+                ? `${mejorFamilia.correctas} de ${mejorFamilia.total} correctas en esta tanda. ${r.porCategoria.length === 1 ? "Prueba otras familias para poder comparar." : "Compárala con las demás antes de subir la dificultad."}`
+                : "Revisa los errores de esta tanda y vuelve a intentarlo para identificar tu punto fuerte."}
+            </p>
           </div>
-        )}
-
-        <div className="mt-3 grid gap-3 grid-cols-2 sm:grid-cols-3">
-          <Dato valor={`${r.tiempoPromedio} s`} etiqueta="Tiempo promedio" />
-          <Dato valor={`${r.tiempoCorrectas} s`} etiqueta="Promedio en las correctas" />
-          <Dato valor={`${r.tiempoIncorrectas} s`} etiqueta="Promedio en las incorrectas" />
+          <div className="rounded-xl border border-border bg-muted/30 p-4">
+            <div className="nh-display text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--av-blue-500)" }}>Qué practicar ahora</div>
+            <div className="mt-1 text-[16px] font-semibold">
+              {r.sinResponder > 0
+                ? "Llegar a todas las preguntas"
+                : practicarFoco
+                  ? CATEGORIAS[foco.categoria].nombre
+                  : "Consolidar precisión y velocidad"}
+            </div>
+            <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
+              {r.sinResponder > 0
+                ? `${r.sinResponder} ${r.sinResponder === 1 ? "pregunta quedó" : "preguntas quedaron"} sin responder. Entrena el ritmo y usa «Dejarlo para el final» cuando te estanques.`
+                : practicarFoco
+                  ? `En ${CATEGORIAS[foco.categoria].nombre.toLowerCase()} acertaste ${foco.correctas} de ${foco.total}. Practica esa familia y revisa la regla detrás de cada error.`
+                  : "Haz otra tanda variada y comprueba si mantienes los aciertos con menos tiempo."}
+            </p>
+            <Link to={siguienteDestino} className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold hover:underline" style={{ color: "var(--av-blue-500)" }}>
+              Ir a práctica <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+            </Link>
+          </div>
         </div>
 
-        <div className="mt-3 grid gap-3 grid-cols-2">
-          <Dato valor={String(r.dentroDeTiempo)} etiqueta="Respondidos dentro del tiempo" />
-          <Dato valor={String(r.fueraDeTiempo)} etiqueta="Respondidos fuera del tiempo" />
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <Dato valor={`${r.correctas} / ${r.total}`} etiqueta="Respuestas correctas" color="var(--av-green-400)" />
+          <Dato valor={String(r.sinResponder)} etiqueta="Sin responder" />
+          <div className="col-span-2 sm:col-span-1">
+            <Dato valor={r.total > r.sinResponder ? `${r.tiempoPromedio} s` : "—"} etiqueta="Tiempo promedio al responder" />
+          </div>
         </div>
       </div>
 
@@ -235,6 +253,30 @@ export function PsicoResultado({
           )}
         </div>
       )}
+
+      <details className="group mt-4 rounded-2xl surface">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-5 font-semibold marker:hidden sm:px-8 [&::-webkit-details-marker]:hidden">
+          <span>Ver métricas detalladas</span>
+          <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180" aria-hidden />
+        </summary>
+        <div className="border-t border-border/70 px-5 pb-5 sm:px-8 sm:pb-8">
+          <div className="mt-5 grid gap-3 grid-cols-2 sm:grid-cols-3">
+            <Dato valor={String(r.incorrectas)} etiqueta="Incorrectas" color="var(--av-red-400)" />
+            <Dato valor={String(r.dentroDeTiempo)} etiqueta="Respondidas dentro del tiempo" />
+            <Dato valor={String(r.fueraDeTiempo)} etiqueta="Respondidas fuera del tiempo" />
+          </div>
+          {conPuntajeGlobal && (
+            <div className="mt-3 grid gap-3 grid-cols-2">
+              <Dato valor={`${precision}%`} etiqueta="Precisión" />
+              <Dato valor={`${velocidad}%`} etiqueta="Velocidad" />
+            </div>
+          )}
+          <div className="mt-3 grid gap-3 grid-cols-2">
+            <Dato valor={r.correctas > 0 ? `${r.tiempoCorrectas} s` : "—"} etiqueta="Promedio en las correctas" />
+            <Dato valor={r.incorrectas > 0 ? `${r.tiempoIncorrectas} s` : "—"} etiqueta="Promedio en las incorrectas" />
+          </div>
+        </div>
+      </details>
 
       {repaso.length > 0 && (
         <section className="mt-4 rounded-2xl surface p-6 sm:p-8">
@@ -360,18 +402,10 @@ function FichaRepaso({ ejercicio, respuesta, solucion }: ItemRepaso) {
             </>
           ) : (
             ejercicio.imagen && (
-              // El recorte es papel escaneado y va sobre blanco también en tema
-              // oscuro: sobre una superficie oscura, un escaneo de papel se lee
-              // como un fallo de carga. Los ejercicios ya dibujados no tienen
-              // este problema y siguen al tema.
-              <div className="mt-3 overflow-x-auto rounded-xl border border-border bg-white p-3">
-                <img
-                  src={ejercicio.imagen}
-                  alt={ejercicio.imagenAlt ?? ejercicio.enunciado}
-                  className="mx-auto h-auto max-w-full"
-                  loading="lazy"
-                />
-              </div>
+              <ImagenPsicoAmpliable
+                src={ejercicio.imagen}
+                alt={ejercicio.imagenAlt ?? ejercicio.enunciado}
+              />
             )
           )}
 

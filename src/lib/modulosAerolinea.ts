@@ -30,6 +30,16 @@ import { PERF_HUB, PERF_LECTURA_TOTAL, PERF_PASS_SCORE, PERF_PRACTICA_TOTAL } fr
 
 import { CM_HUB, CM_LECTURA_TOTAL, CM_PASS_SCORE } from "@/lib/comunicaciones"
 import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
+import { RAC_HUB, RAC_LECTURA_TOTAL, RAC_PASS_SCORE, RAC_PRACTICA_TOTAL } from "@/lib/rac"
+import { CB_HUB, CB_LECTURA_TOTAL, CB_PASS_SCORE, CB_PRACTICA_TOTAL } from "@/lib/combustible"
+import {
+  RVSM_HUB,
+  RVSM_LECTURA_TOTAL,
+  RVSM_PASS_SCORE,
+  RVSM_PRACTICA_TOTAL,
+  RVSM_TITULO,
+} from "@/lib/rvsm"
+import { PBN_HUB, PBN_LECTURA_TOTAL, PBN_PASS_SCORE, PBN_PRACTICA_TOTAL, PBN_TITULO } from "@/lib/pbn"
 import { MEL_HUB, MEL_LECTURA_TOTAL, MEL_PASS_SCORE } from "@/lib/mel"
 import { MEL_PRACTICA_CONTEO } from "@/lib/melConteo"
 
@@ -42,6 +52,10 @@ export type ClaveModulo =
   | "aeropuertos"
   | "performance"
   | "comunicaciones"
+  | "rac"
+  | "combustible"
+  | "rvsm"
+  | "pbn"
   | "mel"
 
 export interface ModuloAerolinea {
@@ -139,6 +153,54 @@ export const MODULOS_AEROLINEA: ModuloAerolinea[] = [
       aprobacion: CM_PASS_SCORE,
     },
     promesa: "Escuchar, interpretar, confirmar y responder al ATC.",
+  },
+  {
+    clave: "rac",
+    titulo: "RAC",
+    hub: RAC_HUB,
+    acento: "var(--av-rac-500)",
+    totales: {
+      secciones: RAC_LECTURA_TOTAL,
+      practicas: RAC_PRACTICA_TOTAL,
+      aprobacion: RAC_PASS_SCORE,
+    },
+    promesa: "Los reglamentos que te preguntan: licencia, médico, reglas de vuelo y aerolínea.",
+  },
+  {
+    clave: "combustible",
+    titulo: "Gestión del combustible",
+    hub: CB_HUB,
+    acento: "var(--av-cb-500)",
+    totales: {
+      secciones: CB_LECTURA_TOTAL,
+      practicas: CB_PRACTICA_TOTAL,
+      aprobacion: CB_PASS_SCORE,
+    },
+    promesa: "Planificar, vigilar y decidir antes de que el combustible sea la emergencia.",
+  },
+  {
+    clave: "rvsm",
+    titulo: RVSM_TITULO,
+    hub: RVSM_HUB,
+    acento: "var(--av-rv-500)",
+    totales: {
+      secciones: RVSM_LECTURA_TOTAL,
+      practicas: RVSM_PRACTICA_TOTAL,
+      aprobacion: RVSM_PASS_SCORE,
+    },
+    promesa: "Mil pies de separación: qué exige, qué verificas y qué dices si falla.",
+  },
+  {
+    clave: "pbn",
+    titulo: PBN_TITULO,
+    hub: PBN_HUB,
+    acento: "var(--av-pbn-500)",
+    totales: {
+      secciones: PBN_LECTURA_TOTAL,
+      practicas: PBN_PRACTICA_TOTAL,
+      aprobacion: PBN_PASS_SCORE,
+    },
+    promesa: "RNAV, RNP y el número: qué exige cada especificación y cómo se verifica.",
   },
   {
     clave: "mel",

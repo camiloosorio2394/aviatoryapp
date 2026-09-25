@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="title desc">
+  <title id="title">Coordinación entre piloto que vuela y piloto que monitorea</title>
+  <desc id="desc">La instrucción ATC llega a ambos pilotos. El piloto que monitorea comunica y verifica, el piloto que vuela gestiona la trayectoria; las tareas específicas dependen del procedimiento del operador.</desc>
+  <rect width="1600" height="900" fill="#0d1c2e"/>
+  <rect x="70" y="70" width="1460" height="760" rx="32" fill="#142a3d" stroke="#3a5a6b" stroke-width="2"/>
+  <text x="120" y="152" fill="#bfffe5" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="4">COORDINACIÓN EN CABINA</text>
+  <text x="120" y="211" fill="#f4fafb" font-family="Arial, sans-serif" font-size="46" font-weight="700">Una autorización, dos barreras de verificación</text>
+  <rect x="560" y="254" width="480" height="100" rx="22" fill="#265b69" stroke="#9feccf" stroke-width="2"/>
+  <text x="638" y="317" fill="#eefef8" font-family="Arial, sans-serif" font-size="31" font-weight="700">INSTRUCCIÓN ATC</text>
+  <path d="M650 355 438 428M950 355l212 73" fill="none" stroke="#8af4cb" stroke-width="6" stroke-linecap="round"/>
+  <path d="m438 428 20-2-10-18m714 20-20-2 10-18" fill="none" stroke="#8af4cb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="120" y="434" width="605" height="238" rx="23" fill="#1d3549" stroke="#6c8b9a" stroke-width="2"/>
+  <text x="158" y="495" fill="#bfffe5" font-family="Arial, sans-serif" font-size="32" font-weight="700">PF · PILOTO QUE VUELA</text>
+  <text x="158" y="551" fill="#f4fafb" font-family="Arial, sans-serif" font-size="26">Mantiene trayectoria y energía</text>
+  <text x="158" y="596" fill="#f4fafb" font-family="Arial, sans-serif" font-size="26">Comprueba el dato autorizado</text>
+  <text x="158" y="641" fill="#f4fafb" font-family="Arial, sans-serif" font-size="26">Verifica la acción en el avión</text>
+  <rect x="875" y="434" width="605" height="238" rx="23" fill="#1d3549" stroke="#6c8b9a" stroke-width="2"/>
+  <text x="913" y="495" fill="#bfffe5" font-family="Arial, sans-serif" font-size="32" font-weight="700">PM · PILOTO QUE MONITOREA</text>
+  <text x="913" y="551" fill="#f4fafb" font-family="Arial, sans-serif" font-size="26">Registra y colaciona según SOP</text>
+  <text x="913" y="596" fill="#f4fafb" font-family="Arial, sans-serif" font-size="26">Monitorea trayectoria e instrucciones</text>
+  <text x="913" y="641" fill="#f4fafb" font-family="Arial, sans-serif" font-size="26">Señala discrepancias al PF</text>
+  <path d="M738 550h124" fill="none" stroke="#8af4cb" stroke-width="6" stroke-linecap="round"/>
+  <path d="m739 550 16-15m-16 15 16 15m107-15-16-15m16 15-16 15" fill="none" stroke="#8af4cb" stroke-width="6" stroke-linecap="round"/>
+  <rect x="120" y="714" width="1360" height="65" rx="17" fill="#163e42" stroke="#8af4cb" stroke-width="2"/>
+  <text x="158" y="756" fill="#e8fff3" font-family="Arial, sans-serif" font-size="26" font-weight="700">Reparto exacto, llamadas y transferencia de funciones: procedimiento del operador.</text>
+  <text x="120" y="811" fill="#9bb4bf" font-family="Arial, sans-serif" font-size="19">Esquema conceptual basado en FAA AC 120-71B; no impone un SOP para todas las aeronaves.</text>
+</svg>

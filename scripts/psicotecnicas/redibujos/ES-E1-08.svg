@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="830" viewBox="0 0 1100 830" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Silueta blanca de referencia y cuatro siluetas negras</title>
+  <desc id="descripcion">Redibujo del ejercicio 8 del cuadernillo E1. La opción A reproduce la distribución de círculos, salientes y dos puntos aislados del modelo en negativo.</desc>
+  <defs>
+    <style>
+      .panel { fill: #fafbfc; stroke: #d8dee5; stroke-width: 2; }
+      .rotulo { fill: #202631; font: 700 25px Arial, sans-serif; }
+      .guia { fill: #637182; font: 600 18px Arial, sans-serif; letter-spacing: 1px; }
+    </style>
+    <g id="silueta">
+      <circle cx="54" cy="55" r="28"/>
+      <circle cx="104" cy="57" r="31"/>
+      <circle cx="140" cy="78" r="40"/>
+      <ellipse cx="187" cy="100" rx="70" ry="76"/>
+      <circle cx="57" cy="132" r="25"/>
+      <circle cx="111" cy="153" r="36"/>
+      <ellipse cx="152" cy="148" rx="43" ry="43"/>
+      <circle cx="70" cy="195" r="29"/>
+      <circle cx="172" cy="211" r="9"/>
+      <circle cx="224" cy="216" r="18"/>
+    </g>
+  </defs>
+  <rect width="1100" height="830" fill="#fff"/>
+  <text class="guia" x="36" y="43">SILUETA DE REFERENCIA · EN NEGATIVO</text>
+  <rect x="350" y="62" width="400" height="220" rx="12" fill="#34383f"/>
+  <use href="#silueta" fill="#fff" transform="translate(430 66) scale(.88)"/>
+
+  <rect class="panel" x="30" y="320" width="510" height="235" rx="16"/>
+  <rect class="panel" x="560" y="320" width="510" height="235" rx="16"/>
+  <rect class="panel" x="30" y="570" width="510" height="235" rx="16"/>
+  <rect class="panel" x="560" y="570" width="510" height="235" rx="16"/>
+
+  <text class="rotulo" x="62" y="360">A</text>
+  <use href="#silueta" fill="#34383f" transform="translate(200 333) scale(.82)"/>
+
+  <text class="rotulo" x="592" y="360">B</text>
+  <g fill="#34383f" transform="translate(730 333) scale(.82)">
+    <circle cx="54" cy="55" r="28"/><circle cx="104" cy="57" r="31"/>
+    <circle cx="140" cy="78" r="40"/><ellipse cx="187" cy="100" rx="70" ry="76"/>
+    <circle cx="57" cy="132" r="25"/><circle cx="111" cy="153" r="36"/>
+    <ellipse cx="152" cy="148" rx="43" ry="43"/><circle cx="86" cy="191" r="29"/>
+    <circle cx="172" cy="211" r="9"/><circle cx="224" cy="216" r="18"/>
+  </g>
+
+  <text class="rotulo" x="62" y="610">C</text>
+  <g fill="#34383f" transform="translate(200 583) scale(.82)">
+    <circle cx="54" cy="55" r="28"/><circle cx="104" cy="57" r="31"/>
+    <circle cx="140" cy="78" r="40"/><ellipse cx="187" cy="100" rx="70" ry="76"/>
+    <circle cx="57" cy="132" r="25"/><circle cx="111" cy="153" r="36"/>
+    <ellipse cx="152" cy="148" rx="43" ry="43"/><circle cx="70" cy="195" r="29"/>
+    <circle cx="172" cy="211" r="9"/><circle cx="224" cy="216" r="25"/>
+  </g>
+
+  <text class="rotulo" x="592" y="610">D</text>
+  <g fill="#34383f" transform="translate(730 583) scale(.82)">
+    <circle cx="54" cy="55" r="22"/><circle cx="104" cy="57" r="28"/>
+    <circle cx="140" cy="78" r="40"/><ellipse cx="187" cy="100" rx="70" ry="76"/>
+    <circle cx="57" cy="132" r="25"/><circle cx="111" cy="153" r="36"/>
+    <ellipse cx="152" cy="148" rx="43" ry="43"/><circle cx="70" cy="195" r="29"/>
+    <circle cx="172" cy="211" r="9"/><circle cx="224" cy="216" r="18"/>
+  </g>
+</svg>

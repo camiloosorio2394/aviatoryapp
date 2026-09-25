@@ -7,9 +7,14 @@ import {
   ClipboardCheck,
   ClipboardList,
   CloudSun,
+  Fuel,
+  Gauge,
   Headset,
   ListChecks,
+  MoveVertical,
+  Route as RouteIcon,
   Play,
+  Scale,
   Wind,
   TowerControl,
 } from "lucide-react"
@@ -71,6 +76,16 @@ import {
   readComunicacionesLocal,
   resumirComunicaciones,
 } from "@/lib/comunicaciones"
+// Los números, no la lección: `performanceLeccion` pesa tres mil líneas y esta
+// pantalla solo necesita los totales, igual que con los demás módulos.
+import {
+  PERF_HUB,
+  PERF_LECTURA_MINUTOS,
+  PERF_LECTURA_TOTAL,
+  PERF_PRACTICA_TOTAL,
+  resumirPerformance,
+} from "@/lib/performance"
+import { fetchPerformanceProgress, readPerformanceLocal } from "@/lib/performanceProgress"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
 import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
@@ -89,13 +104,24 @@ import {
 import { fetchMelProgress } from "@/lib/melProgress"
 import { MEL_PRACTICA_CONTEO } from "@/lib/melConteo"
 import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
+import { RAC_HUB, RAC_LECTURA_TOTAL, RAC_PRACTICA_TOTAL, RAC_TITULO, resumirRac } from "@/lib/rac"
+import { fetchRacProgress, readRacLocal } from "@/lib/racProgress"
+import { CB_HUB, CB_LECTURA_TOTAL, CB_PRACTICA_TOTAL, CB_TITULO, resumirCombustible } from "@/lib/combustible"
+import { fetchCombustibleProgress, readCombustibleLocal } from "@/lib/combustibleProgress"
+import {
+  RVSM_HUB,
+  RVSM_LECTURA_TOTAL,
+  RVSM_PRACTICA_TOTAL,
+  RVSM_TITULO,
+  resumirRvsm,
+} from "@/lib/rvsm"
+import { fetchRvsmProgress, readRvsmLocal } from "@/lib/rvsmProgress"
+import { PBN_HUB, PBN_LECTURA_TOTAL, PBN_PRACTICA_TOTAL, PBN_TITULO, resumirPbn } from "@/lib/pbn"
+import { fetchPbnProgress, readPbnLocal } from "@/lib/pbnProgress"
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.webp"
 import simulacroPhoto from "@/assets/photos/notam-evaluacion-examen.webp"
-// La misma foto que abre el hub de Psicotécnicas. Antes la tarjeta traía la
-// portada del SIMULACRO, que es una página interior del tema.
-import psicoPhoto from "@/assets/photos/psicotecnicas-mano-panel.webp"
 // La cabina al amanecer: la foto no la usa ninguna tarjeta de esta pantalla,
 // así que el hero no repite imagen con lo que tiene debajo.
 import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
@@ -136,6 +162,31 @@ import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
 
 /** Temas que todavía no tienen contenido: la lista vive en `carasDeModulo`. */
 const PROXIMOS = TEMAS_EN_CAMINO
+
+/**
+ * El orden de estudio, de lo más sencillo a lo más exigente, y en qué nivel
+ * cae cada tema.
+ *
+ * Antes la rejilla se ordenaba por avance: primero lo empezado, luego lo nuevo
+ * y al final lo terminado. Eso sirve para retomar, pero no dice por dónde
+ * empezar, y con once módulos abiertos esa es la pregunta que hace un piloto
+ * que llega por primera vez. El orden de aquí es el pedagógico y no se mueve:
+ * quién va por dónde ya lo dice la barra de cada tarjeta y el chip «En curso».
+ *
+ * Básico es lo que se lee y se reconoce (decodificar, identificar, hablar);
+ * avanzado es lo que decide números y autorizaciones de la operación.
+ */
+const ORDEN_BASICO: readonly string[] = [
+  "/app/aerolinea/notam",
+  "/app/aerolinea/meteorologia",
+  AP_HUB,
+  CM_HUB,
+  MP_HUB,
+  RAC_HUB,
+  AERO_HUB,
+]
+
+const ORDEN_AVANZADO: readonly string[] = [PERF_HUB, CB_HUB, RVSM_HUB, PBN_HUB]
 
 /** Rótulo de grupo: el de las portadas de módulo, en Archivo y con aire. */
 const ROTULO =
@@ -183,6 +234,11 @@ export function AirlinePrep() {
   const [aeroProgreso, setAeroProgreso] = useState(() => readAerodinamicaLocal())
   const [aeropuertosProgreso, setAeropuertosProgreso] = useState(() => readAeropuertosLocal())
   const [comunicacionesProgreso, setComunicacionesProgreso] = useState(() => readComunicacionesLocal())
+  const [performanceProgreso, setPerformanceProgreso] = useState(() => readPerformanceLocal())
+  const [racProgreso, setRacProgreso] = useState(() => readRacLocal())
+  const [combustibleProgreso, setCombustibleProgreso] = useState(() => readCombustibleLocal())
+  const [rvsmProgreso, setRvsmProgreso] = useState(() => readRvsmLocal())
+  const [pbnProgreso, setPbnProgreso] = useState(() => readPbnLocal())
   const [melProgreso, setMelProgreso] = useState(() => readMelLocal())
   const [mejorPsico, setMejorPsico] = useState<number | null>(
     () => leerPsicoLocal().mejorSimulacro
@@ -204,7 +260,7 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, melRes, psicoRes] =
+      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, pfRes, racRes, cbRes, rvRes, pbRes, melRes, psicoRes] =
         await Promise.all([
           fetchNotamProgress(user.id),
           fetchMetarProgress(user.id),
@@ -214,6 +270,11 @@ export function AirlinePrep() {
           fetchAerodinamicaProgress(user.id),
           fetchAeropuertosProgress(user.id),
           fetchComunicacionesProgress(user.id),
+          fetchPerformanceProgress(user.id),
+          fetchRacProgress(user.id),
+          fetchCombustibleProgress(user.id),
+          fetchRvsmProgress(user.id),
+          fetchPbnProgress(user.id),
           fetchMelProgress(user.id),
           mejorSimulacroRemoto(user.id),
         ])
@@ -248,6 +309,11 @@ export function AirlinePrep() {
       if (aeRes) setAeroProgreso(aeRes)
       if (apRes) setAeropuertosProgreso(apRes)
       if (cmRes) setComunicacionesProgreso(cmRes)
+      if (pfRes) setPerformanceProgreso(pfRes)
+      if (racRes) setRacProgreso(racRes)
+      if (cbRes) setCombustibleProgreso(cbRes)
+      if (rvRes) setRvsmProgreso(rvRes)
+      if (pbRes) setPbnProgreso(pbRes)
       if (melRes) setMelProgreso(melRes)
 
       // La última vez que tocó CUALQUIER tema: la más reciente de las cuatro
@@ -261,6 +327,10 @@ export function AirlinePrep() {
         aeRes?.remoto.actualizado,
         apRes?.remoto.actualizado,
         cmRes?.remoto.actualizado,
+        pfRes?.remoto.actualizado,
+        racRes?.remoto.actualizado,
+        cbRes?.remoto.actualizado,
+        rvRes?.remoto.actualizado,
         melRes?.remoto.actualizado,
       ].filter((f): f is string => typeof f === "string" && f.length > 0)
       setUltimaActividad(fechas.length > 0 ? fechas.reduce((a, b) => (a > b ? a : b)) : null)
@@ -287,6 +357,11 @@ export function AirlinePrep() {
   const aero = useMemo(() => resumirAerodinamica(aeroProgreso), [aeroProgreso])
   const aeropuertos = useMemo(() => resumirAeropuertos(aeropuertosProgreso), [aeropuertosProgreso])
   const comunicaciones = useMemo(() => resumirComunicaciones(comunicacionesProgreso), [comunicacionesProgreso])
+  const performance = useMemo(() => resumirPerformance(performanceProgreso), [performanceProgreso])
+  const rac = useMemo(() => resumirRac(racProgreso), [racProgreso])
+  const combustible = useMemo(() => resumirCombustible(combustibleProgreso), [combustibleProgreso])
+  const rvsm = useMemo(() => resumirRvsm(rvsmProgreso), [rvsmProgreso])
+  const pbn = useMemo(() => resumirPbn(pbnProgreso), [pbnProgreso])
   const mel = useMemo(() => resumirMel(melProgreso), [melProgreso])
 
   // Los estados van en cifras cortas («9/9 secciones») porque la tarjeta de
@@ -311,7 +386,7 @@ export function AirlinePrep() {
           meta: `${NOTAM_TOTALES.lessonScreens} secciones · ${NOTAM_TOTALES.lessonMinutes} min`,
           descripcion:
             "Lee la línea Q y decodifica avisos reales de la Aerocivil.",
-          foto: "/modulos/notam/tema-notam-operacion.webp",
+          foto: "/modulos/notam/tema-notam-briefing.webp",
           cta: ctaDeTema(notam.overall),
           avance: notam.overall,
           completo: notam.overall >= 100,
@@ -335,7 +410,7 @@ export function AirlinePrep() {
           // Lo que se aprende, en el orden en que se lee.
           descripcion:
             "Del cielo al informe: nubes, frentes, METAR y TAF.",
-          foto: "/modulos/meteorologia/tema-meteorologia-conveccion.webp",
+          foto: "/modulos/meteorologia/tema-meteorologia-tormenta.webp",
           cta: ctaDeTema(metar.overall),
           avance: metar.overall,
           completo: metar.overall >= 100,
@@ -357,7 +432,7 @@ export function AirlinePrep() {
           titulo: "Mercancías peligrosas",
           meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_LECTURA_MINUTOS} min`,
           descripcion: "Clases, NOTOC, baterías de litio y qué hacer en vuelo.",
-          foto: "/modulos/mercancias/tema-mercancias-carga.webp",
+          foto: "/modulos/mercancias/tema-mercancias-etiqueta.webp",
           cta: ctaDeTema(mercancias.overall),
           avance: mercancias.overall,
           completo: mercancias.overall >= 100,
@@ -379,7 +454,7 @@ export function AirlinePrep() {
           titulo: "Aerodinámica",
           meta: `${AERO_LECTURA_TOTAL} secciones · ${AERO_LECTURA_MINUTOS} min`,
           descripcion: "Sustentación, pérdida, factor de carga, Mach y altitud de densidad.",
-          foto: "/modulos/aerodinamica/tema-aerodinamica-ala.webp",
+          foto: "/modulos/aerodinamica/tema-aerodinamica-tunel.webp",
           cta: ctaDeTema(aero.overall),
           avance: aero.overall,
           completo: aero.overall >= 100,
@@ -414,6 +489,33 @@ export function AirlinePrep() {
               : `${aeropuertos.lessonRead}/${AP_LECTURA_TOTAL} lecciones · ${aeropuertos.practiceDone}/${AP_PRACTICA_CONTEO} ejercicios`,
         },
       },
+      // Performance: el módulo existía completo y esta lista no lo nombraba, así
+      // que desde la portada no había manera de llegar a él. Su práctica no
+      // tiene pantalla aparte (vive en los temas 38 y 40), y por eso el estado
+      // cuenta temas y ejercicios y no "lecciones y prácticas".
+      {
+        nombre: "Performance",
+        to: PERF_HUB,
+        pct: performance.overall,
+        card: {
+          to: PERF_HUB,
+          icon: Gauge,
+          color: "var(--av-pf-700)",
+          titulo: "Performance",
+          meta: `${PERF_LECTURA_TOTAL} temas · ${PERF_LECTURA_MINUTOS} min de lectura`,
+          descripcion: "V₁, campo equilibrado, segundo segmento y peso máximo del día.",
+          fotoHueco:
+            "PERF-TEM-01 · 2:1 · 1200×600 · Avión de transporte iniciando la carrera de despegue, visto desde el costado de la pista",
+          cta: ctaDeTema(performance.overall),
+          avance: performance.overall,
+          completo: performance.overall >= 100,
+          estado: performance.empty
+            ? "Sin empezar"
+            : performance.overall >= 100
+              ? "Tema completo"
+              : `${performance.lessonRead}/${PERF_LECTURA_TOTAL} temas · ${performance.practiceDone}/${PERF_PRACTICA_TOTAL} ejercicios`,
+        },
+      },
       // Comunicaciones ATC: lección, práctica con audio y evaluación, como
       // Aeropuertos.
       {
@@ -436,6 +538,102 @@ export function AirlinePrep() {
             : comunicaciones.overall >= 100
               ? "Tema completo"
               : `${comunicaciones.lessonRead}/${CM_LECTURA_TOTAL} lecciones · ${comunicaciones.practiceDone}/${CM_PRACTICA_CONTEO} ejercicios`,
+        },
+      },
+      // RAC: una unidad por reglamento, práctica de opción múltiple y evaluación.
+      {
+        nombre: RAC_TITULO,
+        to: RAC_HUB,
+        pct: rac.overall,
+        card: {
+          to: RAC_HUB,
+          icon: Scale,
+          color: "var(--av-rac-700)",
+          titulo: RAC_TITULO,
+          meta: `${RAC_LECTURA_TOTAL} unidades · 5 bloques`,
+          descripcion: "Licencias, médico, reglas de vuelo, aerolínea y sanciones: lo que te toca de cada RAC.",
+          foto: "/modulos/rac/tema-rac.webp",
+          cta: ctaDeTema(rac.overall),
+          avance: rac.overall,
+          completo: rac.overall >= 100,
+          estado: rac.empty
+            ? "Sin empezar"
+            : rac.overall >= 100
+              ? "Tema completo"
+              : `${rac.lessonRead}/${RAC_LECTURA_TOTAL} unidades · ${rac.practiceDone}/${RAC_PRACTICA_TOTAL} preguntas`,
+        },
+      },
+      // Gestión del combustible: veintitrés capítulos, práctica y evaluación.
+      {
+        nombre: CB_TITULO,
+        to: CB_HUB,
+        pct: combustible.overall,
+        card: {
+          to: CB_HUB,
+          icon: Fuel,
+          color: "var(--av-cb-700)",
+          titulo: CB_TITULO,
+          meta: `${CB_LECTURA_TOTAL} capítulos · 10 escenarios`,
+          descripcion: "Block fuel, reserva final, fuel check, combustible mínimo y MAYDAY: decidir antes de que falte.",
+          foto: "/modulos/combustible/tema-combustible.webp",
+          cta: ctaDeTema(combustible.overall),
+          avance: combustible.overall,
+          completo: combustible.overall >= 100,
+          estado: combustible.empty
+            ? "Sin empezar"
+            : combustible.overall >= 100
+              ? "Tema completo"
+              : `${combustible.lessonRead}/${CB_LECTURA_TOTAL} capítulos · ${combustible.practiceDone}/${CB_PRACTICA_TOTAL} ejercicios`,
+        },
+      },
+      // RVSM: treinta y dos capítulos, práctica y evaluación. Es conocimiento
+      // avanzado de aerolínea, así que va después de los módulos de base.
+      {
+        nombre: RVSM_TITULO,
+        to: RVSM_HUB,
+        pct: rvsm.overall,
+        card: {
+          to: RVSM_HUB,
+          icon: MoveVertical,
+          color: "var(--av-rv-700)",
+          titulo: RVSM_TITULO,
+          meta: `${RVSM_LECTURA_TOTAL} capítulos · 10 escenarios`,
+          descripcion: "Mil pies entre FL 290 y FL 410: equipo, chequeos, fraseología y qué hacer si se pierde.",
+          fotoHueco:
+            "RVSM-TEMA · 3:2 · 1200×800 · Dos aeronaves en crucero en niveles adyacentes, vistas de costado, con la separación acotada",
+          cta: ctaDeTema(rvsm.overall),
+          avance: rvsm.overall,
+          completo: rvsm.overall >= 100,
+          estado: rvsm.empty
+            ? "Sin empezar"
+            : rvsm.overall >= 100
+              ? "Tema completo"
+              : `${rvsm.lessonRead}/${RVSM_LECTURA_TOTAL} capítulos · ${rvsm.practiceDone}/${RVSM_PRACTICA_TOTAL} preguntas`,
+        },
+      },
+      // PBN: cuarenta y ocho capítulos. El módulo más largo del bloque
+      // avanzado, y el que más se pregunta en entrevista técnica.
+      {
+        nombre: PBN_TITULO,
+        to: PBN_HUB,
+        pct: pbn.overall,
+        card: {
+          to: PBN_HUB,
+          icon: RouteIcon,
+          color: "var(--av-pbn-700)",
+          titulo: PBN_TITULO,
+          meta: `${PBN_LECTURA_TOTAL} capítulos · 12 escenarios`,
+          descripcion: "RNAV y RNP, el número, la carta, el FMS y qué decir cuando se pierde la capacidad.",
+          fotoHueco:
+            "PBN-TEMA · 3:2 · 1200×800 · Carta de llegada con la trayectoria definida por waypoints y la especificación rotulada sobre un segmento",
+          cta: ctaDeTema(pbn.overall),
+          avance: pbn.overall,
+          completo: pbn.overall >= 100,
+          estado: pbn.empty
+            ? "Sin empezar"
+            : pbn.overall >= 100
+              ? "Tema completo"
+              : `${pbn.lessonRead}/${PBN_LECTURA_TOTAL} capítulos · ${pbn.practiceDone}/${PBN_PRACTICA_TOTAL} preguntas`,
         },
       },
       // MEL: lección, práctica y evaluación, como Comunicaciones ATC.
@@ -478,7 +676,7 @@ export function AirlinePrep() {
           titulo: "Pruebas psicotécnicas",
           meta: `${PSICO_TOTAL} ejercicios · simulacro de ${SIMULACRO_TOTAL}`,
           descripcion: "Razonamiento abstracto, espacial y numérico, con reloj.",
-          foto: psicoPhoto,
+          foto: "/modulos/psicotecnicas/tema-psicotecnicas-razonamiento.webp",
           cta: mejorPsico === null ? "Empezar" : "Entrenar",
           avance: mejorPsico ?? 0,
           estado:
@@ -531,20 +729,46 @@ export function AirlinePrep() {
       },
     ]
 
-    // Primero lo que está a medias, después lo no empezado y de último lo
-    // terminado: la pantalla ordena por lo que te falta hacer, no por el orden
-    // en que se publicaron los temas. Las herramientas van al final: no se
-    // estudian ni se completan.
-    const grupo = (t: TemaEstado) =>
-      t.herramienta ? 3 : t.pct >= 100 ? 2 : t.pct > 0 ? 0 : 1
+    // Los temas de estudio salen en el orden pedagógico de ORDEN_BASICO y
+    // ORDEN_AVANZADO, que es fijo. Las herramientas van al final: no se
+    // estudian ni se completan, así que las ordena lo empezado primero.
+    const orden = [...ORDEN_BASICO, ...ORDEN_AVANZADO]
+    const puesto = (t: TemaEstado) => {
+      const i = orden.indexOf(t.to)
+      return i < 0 ? orden.length : i
+    }
     return lista
       .map((t, i) => ({ t, i }))
-      .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
+      .sort((a, b) => {
+        if (a.t.herramienta !== b.t.herramienta) return a.t.herramienta ? 1 : -1
+        if (a.t.herramienta) return b.t.pct - a.t.pct || a.i - b.i
+        return puesto(a.t) - puesto(b.t) || a.i - b.i
+      })
       .map(({ t }) => t)
-  }, [notam, metar, mercancias, aero, aeropuertos, comunicaciones, mel, mejorSimulacro, mejorPsico])
+  }, [
+    notam,
+    metar,
+    mercancias,
+    aero,
+    aeropuertos,
+    performance,
+    comunicaciones,
+    rac,
+    combustible,
+    rvsm,
+    pbn,
+    mel,
+    mejorSimulacro,
+    mejorPsico,
+  ])
 
   const cursables = temas.filter((t) => !t.herramienta)
   const herramientas = temas.filter((t) => t.herramienta)
+  const basicos = cursables.filter((t) => ORDEN_BASICO.includes(t.to))
+  // Lo que no esté declarado en ninguna de las dos listas cae en avanzado, que
+  // es donde entran los módulos nuevos mientras no se les asigne nivel: mejor
+  // que desaparezcan de la pantalla.
+  const avanzados = cursables.filter((t) => !ORDEN_BASICO.includes(t.to))
 
   // El único botón primario de la pantalla: retomar donde ibas, o entrar al
   // primero si todavía no empezaste nada. Las herramientas no se retoman.
@@ -619,6 +843,10 @@ export function AirlinePrep() {
                   Aquí había un botón de «Seguir con …». No se reemplaza por
                   otro: la acción de retomar vive en la tarjeta del tema, que ya
                   va marcada «En curso» y es la primera de la rejilla. */}
+              {/* Aquí no va un `EspacioVideo`: ese es el video de apertura de un
+                  módulo y lleva su «continuar» a la lección. Este es el de la
+                  sección entera, que todavía no existe, así que se queda el
+                  hueco rotulado con lo que hay que producir. */}
               <div className="mt-5 flex w-full max-w-[380px] items-center gap-3.5 rounded-[12px] border border-dashed border-white/20 bg-white/[0.05] p-2 pr-4 text-left">
                 <span className="grid h-[52px] w-[92px] shrink-0 place-items-center rounded-[8px] border border-dashed border-white/20 bg-white/[0.06]">
                   <Play className="h-4 w-4 text-white/35" aria-hidden />
@@ -706,25 +934,37 @@ export function AirlinePrep() {
           </div>
         </section>
 
-        <section className="mt-8" aria-labelledby="aerolinea-temas">
-          <h2 id="aerolinea-temas" className={ROTULO}>
-            Temas de estudio
+        {/* Dos niveles, en el orden en que conviene estudiarlos. La tarjeta
+            va en compacto —portada, nombre y avance—: con once módulos, cuatro
+            renglones de texto por tarjeta convertían la pantalla en una lectura
+            en vez de un índice. Lo que cada módulo enseña se lee en su portada. */}
+        <section className="mt-8" aria-labelledby="aerolinea-basico">
+          <h2 id="aerolinea-basico" className={ROTULO}>
+            Conocimiento básico
           </h2>
-
-          {/* Cuatro columnas. Cinco se probaron y quedaban demasiado estrechas
-              —unos 213 px por tarjeta, con la descripción cortada a nada—, así
-              que se paró en cuatro, que es donde la tarjeta todavía se lee.
-
-              Los temas son cinco, o sea que el quinto cae solo en la segunda
-              fila. En vez de dejar tres huecos, «En camino» entra en la misma
-              rejilla y ocupa las tres celdas que sobran: la fila queda completa
-              y con contenido de verdad, que además es su continuación natural
-              —los temas que hay, y los que vienen. */}
           <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @4xl:grid-cols-4">
-            {cursables.map((t) => (
+            {basicos.map((t) => (
               <TarjetaModulo
                 key={t.to}
                 {...t.card}
+                compacta
+                chip={enCurso && t.to === enCurso.to ? "En curso" : undefined}
+                cargando={loading}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-10" aria-labelledby="aerolinea-avanzado">
+          <h2 id="aerolinea-avanzado" className={ROTULO}>
+            Conocimiento avanzado
+          </h2>
+          <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @4xl:grid-cols-4">
+            {avanzados.map((t) => (
+              <TarjetaModulo
+                key={t.to}
+                {...t.card}
+                compacta
                 chip={enCurso && t.to === enCurso.to ? "En curso" : undefined}
                 cargando={loading}
               />
@@ -732,9 +972,10 @@ export function AirlinePrep() {
 
             {/* Borde sólido, no punteado: en esta app el punteado significa
                 «hueco por llenar» (los espacios de imagen reservados), y esto
-                no es un hueco, es la ruta que viene. */}
+                no es un hueco, es la ruta que viene. Va en avanzado porque lo
+                que falta por abrir es de ese nivel. */}
             {PROXIMOS.length > 0 && (
-              <div className="flex flex-col justify-center gap-3 rounded-2xl border border-border bg-muted/25 p-4 @xl:col-span-2 @4xl:col-span-3">
+              <div className="flex flex-col justify-center gap-3 rounded-2xl border border-border bg-muted/25 p-4 @xl:col-span-2 @4xl:col-span-4">
                 <p className="m-0 text-[12.5px] leading-relaxed text-muted-foreground">
                   <span className="font-semibold text-foreground">En camino.</span> Se abren en este
                   orden, cada uno cuando está completo:
@@ -755,7 +996,6 @@ export function AirlinePrep() {
               </div>
             )}
           </div>
-
         </section>
 
         <section className="mt-10" aria-labelledby="aerolinea-herramientas">

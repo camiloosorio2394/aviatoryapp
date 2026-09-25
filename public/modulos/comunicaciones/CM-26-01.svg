@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Llegada: expectativa, autorización y cambios</title>
+  <desc id="desc">Esquema conceptual, no carta aeronáutica. Distingue información para planear, autorización de descenso por STAR, directo y autorización de aproximación.</desc>
+  <rect width="1600" height="900" rx="32" fill="#101e2b"/>
+  <text x="76" y="95" fill="#eef8f5" font-family="Arial,sans-serif" font-size="42" font-weight="700">La llegada se construye con autorizaciones</text>
+  <text x="78" y="139" fill="#a8bcbf" font-family="Arial,sans-serif" font-size="22">Esquema didáctico · No representa una STAR, carta, aeródromo ni fraseología local.</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="74" y="215" width="452" height="226" rx="24" fill="#1b2b39" stroke="#637b84" stroke-width="2"/>
+    <text x="106" y="269" fill="#94e5c7" font-size="25" font-weight="700">1 · EXPECT</text>
+    <text x="106" y="319" fill="#f3f7f6" font-size="28" font-weight="700">Preparar, no ejecutar</text>
+    <text x="106" y="363" fill="#c3d1d2" font-size="23">Aproximación o pista prevista</text>
+    <text x="106" y="397" fill="#c3d1d2" font-size="23">no sustituye autorización.</text>
+    <path d="M534 327h55" stroke="#8fe2c3" stroke-width="5" stroke-linecap="round"/><path d="m579 316 20 11-20 11" fill="none" stroke="#8fe2c3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="606" y="215" width="452" height="226" rx="24" fill="#1b2b39" stroke="#8fe2c3" stroke-width="2"/>
+    <text x="638" y="269" fill="#94e5c7" font-size="25" font-weight="700">2 · DESCEND VIA STAR</text>
+    <text x="638" y="319" fill="#f3f7f6" font-size="28" font-weight="700">Seguir lo autorizado</text>
+    <text x="638" y="363" fill="#c3d1d2" font-size="23">Ruta y restricciones publicadas</text>
+    <text x="638" y="397" fill="#c3d1d2" font-size="23">hasta el nivel autorizado.</text>
+    <path d="M1065 327h55" stroke="#8fe2c3" stroke-width="5" stroke-linecap="round"/><path d="m1110 316 20 11-20 11" fill="none" stroke="#8fe2c3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="1138" y="215" width="390" height="226" rx="24" fill="#1b2b39" stroke="#637b84" stroke-width="2"/>
+    <text x="1170" y="269" fill="#94e5c7" font-size="25" font-weight="700">3 · CLEARED APPROACH</text>
+    <text x="1170" y="319" fill="#f3f7f6" font-size="26" font-weight="700">Aproximación</text>
+    <text x="1170" y="363" fill="#c3d1d2" font-size="22">Autorización distinta</text>
+    <text x="1170" y="397" fill="#c3d1d2" font-size="22">del aviso EXPECT.</text>
+    <rect x="74" y="511" width="697" height="230" rx="24" fill="#17333a" stroke="#8fe2c3" stroke-width="2"/>
+    <text x="106" y="564" fill="#94e5c7" font-size="25" font-weight="700">SI ATC DA UN DIRECTO O CAMBIA LA PISTA</text>
+    <text x="106" y="612" fill="#f3f7f6" font-size="25">Revisar trayectoria, restricciones y distancia</text>
+    <text x="106" y="649" fill="#f3f7f6" font-size="25">restante para descender y configurar.</text>
+    <text x="106" y="694" fill="#c3d1d2" font-size="22">Confirmar toda ambigüedad antes de ejecutar.</text>
+    <rect x="823" y="511" width="705" height="230" rx="24" fill="#24313d" stroke="#637b84" stroke-width="2"/>
+    <text x="855" y="564" fill="#94e5c7" font-size="25" font-weight="700">SI NO SE PUEDE CUMPLIR</text>
+    <text x="855" y="612" fill="#f3f7f6" font-size="25">Informar temprano: nivel, velocidad,</text>
+    <text x="855" y="649" fill="#f3f7f6" font-size="25">restricción o tiempo de preparación.</text>
+    <text x="855" y="694" fill="#c3d1d2" font-size="22">Solicitar una solución, no asumir una excepción.</text>
+    <text x="78" y="819" fill="#a8bcbf" font-size="21">Secuencia conceptual basada en OACI Doc 4444 y EASA AMC1 SERA.14001. Verificar publicación estatal vigente.</text>
+  </g>
+</svg>

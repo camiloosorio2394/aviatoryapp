@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cinco datos de una solicitud de desvío meteorológico</title>
+  <desc id="desc">Tarjeta conceptual que organiza maniobra, lado y magnitud, motivo, momento y límite o regreso.</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101d30"/><stop offset="1" stop-color="#1c3440"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="30" fill="url(#bg)"/>
+  <text x="88" y="101" fill="#a2f0d5" font-family="Arial,sans-serif" font-size="26" font-weight="700" letter-spacing="4">DESVÍO POR METEOROLOGÍA</text>
+  <text x="88" y="166" fill="#f3f9f8" font-family="Arial,sans-serif" font-size="48" font-weight="700">Pedir con tiempo y sin ambigüedad</text>
+  <text x="88" y="212" fill="#c5d5dd" font-family="Arial,sans-serif" font-size="24">La solicitud describe lo necesario; la autorización define lo que puede ejecutarse.</text>
+  <g fill="#213b49" stroke="#75dabc" stroke-width="2">
+    <rect x="75" y="275" width="455" height="212" rx="22"/><rect x="573" y="275" width="455" height="212" rx="22"/><rect x="1071" y="275" width="455" height="212" rx="22"/>
+    <rect x="324" y="520" width="455" height="212" rx="22"/><rect x="822" y="520" width="455" height="212" rx="22"/>
+  </g>
+  <g fill="#a1efd5" font-family="Arial,sans-serif" font-size="26" font-weight="700">
+    <text x="111" y="327">01 · QUÉ</text><text x="609" y="327">02 · LADO Y MAGNITUD</text><text x="1107" y="327">03 · POR QUÉ</text>
+    <text x="360" y="572">04 · CUÁNDO</text><text x="858" y="572">05 · LÍMITE Y REGRESO</text>
+  </g>
+  <g fill="#ecf7f3" font-family="Arial,sans-serif" font-size="23">
+    <text x="111" y="382">Cambio lateral, rumbo,</text><text x="111" y="417">directo o nivel solicitado</text>
+    <text x="609" y="382">Dirección y espacio</text><text x="609" y="417">que se necesita</text>
+    <text x="1107" y="382">Fenómeno observado</text><text x="1107" y="417">y amenaza para la ruta</text>
+    <text x="360" y="627">Aviso temprano o</text><text x="360" y="662">urgencia real</text>
+    <text x="858" y="627">Condición para salir</text><text x="858" y="662">y coordinar reingreso</text>
+  </g>
+  <text x="88" y="802" fill="#a9f0d6" font-family="Arial,sans-serif" font-size="22">Solicitud enviada ≠ cambio autorizado</text>
+  <text x="88" y="848" fill="#9eb2bd" font-family="Arial,sans-serif" font-size="19">Estructura didáctica · no es carta, radar meteorológico ni procedimiento de contingencia</text>
+</svg>

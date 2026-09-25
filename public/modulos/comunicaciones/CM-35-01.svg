@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
+  <title id="t">Urgencia PAN PAN y diferencia con socorro MAYDAY</title>
+  <desc id="d">Esquema de decisión conceptual entre seguridad afectada sin necesidad inmediata de ayuda y peligro grave que requiere asistencia inmediata.</desc>
+  <rect width="1600" height="900" fill="#0c1724"/>
+  <g font-family="Arial, sans-serif">
+    <text x="80" y="105" fill="#e9f7f3" font-size="48" font-weight="700">PAN PAN: seguridad afectada, ayuda no inmediata</text>
+    <text x="81" y="156" fill="#a7c5c1" font-size="25">La gravedad puede cambiar durante el vuelo; la señal debe reflejar la situación actual</text>
+    <rect x="80" y="222" width="685" height="415" rx="32" fill="#172b3d" stroke="#6edac0" stroke-width="3"/>
+    <rect x="835" y="222" width="685" height="415" rx="32" fill="#172b3d" stroke="#e9a99c" stroke-width="3"/>
+    <text x="122" y="288" fill="#6edac0" font-size="28" font-weight="700">URGENCIA</text>
+    <text x="877" y="288" fill="#e9a99c" font-size="28" font-weight="700">SOCORRO</text>
+    <text x="122" y="350" fill="#e9f7f3" font-size="43" font-weight="700">PAN PAN × 3</text>
+    <text x="877" y="350" fill="#e9f7f3" font-size="43" font-weight="700">MAYDAY × 3</text>
+    <text x="122" y="421" fill="#a7c5c1" font-size="27">Seguridad comprometida;</text>
+    <text x="122" y="459" fill="#a7c5c1" font-size="27">sin ayuda inmediata.</text>
+    <text x="877" y="421" fill="#a7c5c1" font-size="27">Peligro grave o inminente;</text>
+    <text x="877" y="459" fill="#a7c5c1" font-size="27">ayuda inmediata necesaria.</text>
+    <text x="122" y="546" fill="#e9f7f3" font-size="25">Informar qué ocurre, intención</text>
+    <text x="122" y="581" fill="#e9f7f3" font-size="25">y qué apoyo se necesita.</text>
+    <text x="877" y="546" fill="#e9f7f3" font-size="25">Actualizar la señal si el</text>
+    <text x="877" y="581" fill="#e9f7f3" font-size="25">peligro escala.</text>
+    <path d="M771 429h54m-17-16 17 16-17 16" fill="none" stroke="#6edac0" stroke-width="5" stroke-linecap="round"/>
+    <rect x="80" y="695" width="1440" height="122" rx="28" fill="#203648"/>
+    <text x="118" y="748" fill="#e9f7f3" font-size="28" font-weight="700">No son etiquetas para una falla concreta</text>
+    <text x="118" y="789" fill="#a7c5c1" font-size="23">La tripulación evalúa amenaza, necesidad de ayuda y evolución; una falla técnica no define sola la señal.</text>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Por qué HF alcanza más allá del horizonte VHF</title>
+  <desc id="desc">Dos cortes conceptuales: a la izquierda un enlace VHF directo deja de alcanzar una aeronave tras la curvatura de la Tierra; a la derecha una señal HF retorna desde la ionosfera hacia una aeronave lejana. La calidad HF varía según las condiciones.</desc>
+  <rect width="1600" height="900" fill="#101d2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="86" y="101" fill="#f4f9fb" font-size="47" font-weight="700">HF llega más allá del horizonte VHF</text>
+    <text x="90" y="156" fill="#bbced6" font-size="26">Esquema conceptual; no representa cobertura ni frecuencias publicadas</text>
+    <rect x="86" y="204" width="680" height="550" rx="26" fill="#203745" stroke="#85decf" stroke-width="3"/>
+    <rect x="834" y="204" width="680" height="550" rx="26" fill="#203745" stroke="#85decf" stroke-width="3"/>
+    <text x="122" y="270" fill="#85decf" font-size="36" font-weight="700">VHF · Línea de vista</text>
+    <text x="870" y="270" fill="#85decf" font-size="36" font-weight="700">HF · Propagación ionosférica</text>
+    <path d="M88 639 Q395 514 764 640" fill="none" stroke="#87a5ad" stroke-width="8"/>
+    <path d="M836 639 Q1164 514 1512 640" fill="none" stroke="#87a5ad" stroke-width="8"/>
+    <text x="122" y="699" fill="#b7cbd3" font-size="24">Tierra / océano</text>
+    <text x="870" y="699" fill="#b7cbd3" font-size="24">Tierra / océano</text>
+    <path d="M178 592v-122m-25 122h50m-25-123-28 28m28-28 28 28" fill="none" stroke="#f3f9fb" stroke-width="6" stroke-linecap="round"/>
+    <path d="M925 589v-119m-25 119h50m-25-120-28 28m28-28 28 28" fill="none" stroke="#f3f9fb" stroke-width="6" stroke-linecap="round"/>
+    <text x="112" y="456" fill="#f3f9fb" font-size="24">Estación</text>
+    <text x="860" y="456" fill="#f3f9fb" font-size="24">Estación</text>
+    <path d="M184 470 469 407" fill="none" stroke="#85decf" stroke-width="7" stroke-linecap="round"/>
+    <path d="M470 407 706 356" fill="none" stroke="#85decf" stroke-width="5" stroke-dasharray="14 15" opacity=".45"/>
+    <path d="M434 403h64m-32-20v40" stroke="#f3f9fb" stroke-width="5"/>
+    <path d="M677 351h64m-32-20v40" stroke="#f3f9fb" stroke-width="5" opacity=".65"/>
+    <text x="463" y="499" fill="#f3f9fb" font-size="24">Avión cercano</text>
+    <text x="579" y="408" fill="#ffcf8d" font-size="22">Fuera de vista</text>
+    <path d="M880 363 Q1150 244 1470 362" fill="none" stroke="#5b8799" stroke-width="6" stroke-dasharray="18 14"/>
+    <text x="1113" y="327" fill="#b7cbd3" font-size="26">Ionosfera</text>
+    <path d="M932 468 Q1058 307 1164 354 Q1303 395 1433 411" fill="none" stroke="#85decf" stroke-width="7" stroke-linecap="round"/>
+    <path d="M1403 406h64m-32-20v40" stroke="#f3f9fb" stroke-width="5"/>
+    <text x="1282" y="491" fill="#f3f9fb" font-size="24">Avión lejano</text>
+    <text x="90" y="821" fill="#f3f9fb" font-size="25">La hora, el Sol y la ionosfera modifican la calidad HF: se verifica la frecuencia asignada.</text>
+  </g>
+</svg>

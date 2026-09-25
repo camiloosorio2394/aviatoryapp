@@ -223,6 +223,37 @@ const APOYOS_MINIMOS = 2
 /** Saltos que se prueban: seguidas, alternas y de tres en tres. */
 const SALTOS = [1, 2, 3]
 
+/**
+ * Un rombo fijo con brazos que se agregan y se retiran uno a uno. El recorrido
+ * 1·2·3·4·3·2·1·2 obliga a que la novena casilla lleve tres brazos. Solo se
+ * aplica cuando todos los elementos son radios del mismo rombo; las direcciones
+ * se dejan libres y la respuesta se acepta únicamente si una sola alternativa
+ * tiene esa cantidad. Así no se inventa una orientación que la regla no prueba.
+ */
+function reglasDeCantidadDeRadios(
+  celdas: Casilla[],
+  hueco: number,
+  candidatas: Map<string, Candidata>
+) {
+  if (celdas.length !== 9 || hueco !== 8) return
+  const conocidas = celdas.slice(0, 8)
+  if (conocidas.some(esIncognita)) return
+  const completas = conocidas as Celda[]
+  const cantidades = [1, 2, 3, 4, 3, 2, 1, 2]
+  if (completas.some((celda, i) =>
+    !celda.marco || celda.rejilla || celda.elementos.length !== cantidades[i] + 1 ||
+    celda.elementos[0].tipo !== "rombo" || celda.elementos.slice(1).some((el) => el.tipo !== "radio")
+  )) return
+
+  const ultima = completas[7]
+  proponer(
+    candidatas,
+    { ...ultima, elementos: [...ultima.elementos, { tipo: "radio", hacia: "arriba" }] },
+    { salto: 1, transformacion: "cantidad de brazos 1·2·3·4·3·2·1·2·3", apoyos: 7 },
+    new Set(["radio.hacia"])
+  )
+}
+
 /** Una casilla candidata a ocupar el hueco, y las reglas que la proponen. */
 interface Candidata {
   celda: Celda
@@ -710,6 +741,7 @@ export function resolverFigura(figura: Figura): Diagnostico {
   } else {
     reglasPorAtributo(figura.celdas, hueco, candidatas)
     reglasDeCombinacion(figura.celdas, hueco, candidatas)
+    reglasDeCantidadDeRadios(figura.celdas, hueco, candidatas)
 
     // La matriz también se recorre: por su fila y por su columna.
     const fila = Math.floor(hueco / 3)

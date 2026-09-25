@@ -2987,6 +2987,54 @@ export type Database = {
         }
         Relationships: []
       }
+      user_combustible_exam_attempts: {
+        Row: {
+          correct: number
+          id: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          id?: string
+          score: number
+          taken_at?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          id?: string
+          score?: number
+          taken_at?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_combustible_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_comunicaciones_exam_attempts: {
         Row: {
           correct: number
@@ -3264,6 +3312,54 @@ export type Database = {
         Relationships: []
       }
       user_performance_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_rac_exam_attempts: {
+        Row: {
+          correct: number
+          id: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          id?: string
+          score: number
+          taken_at?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          id?: string
+          score?: number
+          taken_at?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_rac_progress: {
         Row: {
           lesson_screens: number[]
           practice_done: string[]
@@ -3686,6 +3782,21 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      combustible_mark_progress: {
+        Args: { p_lesson_screen?: number; p_practice_id?: string }
+        Returns: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_combustible_progress"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       comunicaciones_mark_progress: {
         Args: { p_lesson_screen?: number; p_practice_id?: string }
         Returns: {
@@ -3778,6 +3889,21 @@ export type Database = {
       }
       pca_stats: { Args: never; Returns: Json }
       recalc_pilot_hours: { Args: { p_user_id: string }; Returns: undefined }
+      rac_mark_progress: {
+        Args: { p_lesson_screen?: number; p_practice_id?: string }
+        Returns: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_rac_progress"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       record_daily_activity: {
         Args: { p_correct?: number; p_minutes?: number; p_questions?: number }
         Returns: undefined

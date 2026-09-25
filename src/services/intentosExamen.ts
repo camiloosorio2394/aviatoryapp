@@ -1,6 +1,7 @@
 /**
  * Los intentos de evaluación de los módulos: NOTAM, Meteorología, Mercancías,
- * Aerodinámica, Aeropuertos, Performance, Comunicaciones ATC y MEL.
+ * Aerodinámica, Aeropuertos, Performance, Comunicaciones ATC, RAC, Gestión
+ * del combustible, RVSM, PBN y MEL.
  *
  * Cada módulo tiene su tabla y sus columnas (unas guardan `created_at` y otras
  * `taken_at`, unas el aprobado y otras lo deducen del puntaje), así que lo que
@@ -20,6 +21,10 @@ export type TablaDeIntentos =
   | "user_aeropuertos_exam_attempts"
   | "user_performance_exam_attempts"
   | "user_comunicaciones_exam_attempts"
+  | "user_rac_exam_attempts"
+  | "user_combustible_exam_attempts"
+  | "user_rvsm_exam_attempts"
+  | "user_pbn_exam_attempts"
   | "user_mel_exam_attempts"
 
 /** Cuántos intentos trae la lista del historial. */
@@ -168,6 +173,56 @@ export function traerHistorialComunicaciones(
     "taken_at",
     userId,
     "comunicaciones: historial de evaluación",
+  )
+}
+
+/** RAC, igual. */
+export function traerHistorialRac(userId: string): Promise<Historial<FilaIntentoMercancias> | null> {
+  return traerHistorial<FilaIntentoMercancias>(
+    "user_rac_exam_attempts",
+    "id,score,correct,total,taken_at",
+    "taken_at",
+    userId,
+    "rac: historial de evaluación",
+  )
+}
+
+/** Y Gestión del combustible. */
+export function traerHistorialCombustible(
+  userId: string,
+): Promise<Historial<FilaIntentoMercancias> | null> {
+  return traerHistorial<FilaIntentoMercancias>(
+    "user_combustible_exam_attempts",
+    "id,score,correct,total,taken_at",
+    "taken_at",
+    userId,
+    "combustible: historial de evaluación",
+  )
+}
+
+/** Y RVSM. */
+export function traerHistorialRvsm(
+  userId: string,
+): Promise<Historial<FilaIntentoMercancias> | null> {
+  return traerHistorial<FilaIntentoMercancias>(
+    "user_rvsm_exam_attempts",
+    "id,score,correct,total,taken_at",
+    "taken_at",
+    userId,
+    "rvsm: historial de evaluación",
+  )
+}
+
+/** Y PBN. */
+export function traerHistorialPbn(
+  userId: string,
+): Promise<Historial<FilaIntentoMercancias> | null> {
+  return traerHistorial<FilaIntentoMercancias>(
+    "user_pbn_exam_attempts",
+    "id,score,correct,total,taken_at",
+    "taken_at",
+    userId,
+    "pbn: historial de evaluación",
   )
 }
 

@@ -285,7 +285,7 @@ export function MeteoBrisas() {
   const rx = w * 0.32
   const ry = 100
   return (
-    <Lienzo etiqueta="Brisa de mar y brisa de tierra, una al lado de la otra, con el mar a la izquierda y la tierra a la derecha en las dos. De día el aire sube sobre la tierra, viaja en altura hacia el mar, baja sobre el mar y vuelve por la superficie hacia la tierra. De noche el ciclo se invierte: sube sobre el mar y en superficie sale de la tierra hacia el mar.">
+    <Lienzo etiqueta="Esquema ideal de brisa de mar y brisa de tierra, una al lado de la otra, con el mar a la izquierda y la tierra a la derecha. Con condiciones favorables, de día el aire asciende sobre la tierra y en superficie entra desde el mar. De noche el contraste térmico puede invertirse y favorecer una brisa desde tierra hacia el mar. El viento predominante puede modificar o impedir ambos patrones.">
       <line x1={W / 2} y1={70} x2={W / 2} y2={H - 40} stroke={LINEA} strokeWidth={1.4} />
 
       {/* ── De día: brisa de mar ─────────────────────────────────────────── */}
@@ -464,7 +464,7 @@ export function MeteoMontana() {
     { y0: 364, yCima: 140, onda: 58 },
   ]
   return (
-    <Lienzo etiqueta="Corte de una montaña con el viento llegando por la izquierda. En barlovento las líneas de corriente suben la ladera de forma ordenada y paralela; al pasar la cima descienden por sotavento y se rompen en ondas cada vez más marcadas, con remolinos cerca del suelo, donde vuela una aeronave pequeña.">
+    <Lienzo etiqueta="Esquema ideal de una montaña con viento desde la izquierda. En barlovento el flujo puede ascender por la ladera; en sotavento pueden formarse ondas, descendencias y rotores cerca del suelo. La intensidad real depende del viento, la estabilidad y el relieve: el dibujo no implica que barlovento sea siempre seguro ni cuantifica la turbulencia.">
       <rect x={IZQ} y={BASE_M} width={DER - IZQ} height={H - BASE_M - 30} fill={RESALTADO} />
       <path d={monte} fill={ACENTO} opacity={0.3} />
       <path d={monte} fill="none" stroke={TINTA} strokeWidth={1.8} />
@@ -510,7 +510,7 @@ const MOMENTOS = [
   { n: "1", rotulo: "VIENTO DE FRENTE" },
   { n: "2", rotulo: "DESCENDENTE" },
   { n: "3", rotulo: "VIENTO DE COLA" },
-  { n: "4", rotulo: "EL RESULTADO" },
+  { n: "4", rotulo: "EL RIESGO" },
 ] as const
 
 export function MeteoMicrorrafaga() {
@@ -526,7 +526,7 @@ export function MeteoMicrorrafaga() {
   ]
 
   return (
-    <Lienzo etiqueta="Corte vertical de una microrráfaga sobre una pista. La columna de aire desciende desde la nube, golpea el suelo y se abre en abanico hacia los dos lados. Sobre ella cruza la trayectoria de un despegue con cuatro momentos numerados: primero viento de frente, que engaña porque la performance mejora; después la corriente descendente; después el viento de cola, con la velocidad desplomándose; y al final el resultado, sin altura para recuperar.">
+    <Lienzo etiqueta="Esquema de un encuentro posible con una microrráfaga durante el despegue. La columna de aire desciende desde la nube y se dispersa cerca del suelo. La trayectoria ilustra cuatro momentos: aumento transitorio del viento de frente, descendencia, viento de cola y riesgo de perder margen con el terreno. No representa todos los encuentros ni implica un resultado inevitable; la primera defensa es evitar la zona.">
       {/* La nube de la que sale todo. */}
       <path
         d={`M${nucleo - 210},${yNube + 46}
@@ -566,7 +566,7 @@ export function MeteoMicrorrafaga() {
         )
       })}
 
-      {/* La trayectoria de despegue: sube, se hunde al cruzar y no recupera. */}
+      {/* Una trayectoria posible de despegue: pérdida de margen, no desenlace inevitable. */}
       <Corriente
         d={`M${IZQ + 40},${suelo - 8} C${210},${suelo - 46} ${268},${396} ${puntos[0].x},${puntos[0].y}
             C${390},${340} ${450},${330} ${puntos[1].x},${puntos[1].y}
@@ -611,7 +611,7 @@ export function MeteoMicrorrafaga() {
       <line x1={IZQ} y1={suelo} x2={DER} y2={suelo} stroke={TINTA} strokeWidth={2.4} />
 
       <Rotulo x={IZQ} y={H - 30} color={ACENTO_CLARO} tam={16}>
-        EL PRIMER MOMENTO SE SIENTE BIEN: AHÍ ESTÁ LA TRAMPA
+        EL AUMENTO INICIAL DE VELOCIDAD NO GARANTIZA SEGURIDAD
       </Rotulo>
     </Lienzo>
   )

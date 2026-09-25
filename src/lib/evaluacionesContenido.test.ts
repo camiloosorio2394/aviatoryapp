@@ -2,6 +2,10 @@ import { describe, expect, it } from "vitest"
 import { BANCO_TOTAL, MP_CHEQUEO_TOTAL, TEMAS_SIMULACRO } from "@/lib/airlineMock"
 import { AP_EVALUACION_META } from "@/lib/aeropuertosEvaluacion"
 import { CM_EVALUACION_META } from "@/lib/comunicacionesEvaluacion"
+import { CB_EVALUACION_META } from "@/lib/combustibleEvaluacion"
+import { CB_EXAM_PER_ATTEMPT } from "@/lib/combustible"
+import { RAC_EVALUACION_META } from "@/lib/racEvaluacion"
+import { RAC_EXAM_PER_ATTEMPT } from "@/lib/rac"
 import { MEL_EVALUACION_META } from "@/lib/melEvaluacion"
 import { MP_EVALUACION_META } from "@/lib/mercanciasEvaluacion"
 import { METAR_EXAM_TOTAL } from "@/lib/metar"
@@ -37,6 +41,12 @@ describe("evaluaciones: la app y los bancos del servidor", () => {
     expect(AP_EVALUACION_META.porIntento).toBeLessThanOrEqual(AP_EVALUACION_META.total)
     expect(CM_EVALUACION_META.total).toBe(banco("comunicaciones_evaluacion").preguntas.length)
     expect(CM_EVALUACION_META.porIntento).toBeLessThanOrEqual(CM_EVALUACION_META.total)
+    expect(RAC_EVALUACION_META.total).toBe(banco("rac_evaluacion").preguntas.length)
+    expect(RAC_EVALUACION_META.porIntento).toBe(RAC_EXAM_PER_ATTEMPT)
+    expect(RAC_EVALUACION_META.porIntento).toBeLessThanOrEqual(RAC_EVALUACION_META.total)
+    expect(CB_EVALUACION_META.total).toBe(banco("combustible_evaluacion").preguntas.length)
+    expect(CB_EVALUACION_META.porIntento).toBe(CB_EXAM_PER_ATTEMPT)
+    expect(CB_EVALUACION_META.porIntento).toBeLessThanOrEqual(CB_EVALUACION_META.total)
     expect(MEL_EVALUACION_META.total).toBe(banco("mel_evaluacion").preguntas.length)
     expect(MEL_EVALUACION_META.porIntento).toBeLessThanOrEqual(MEL_EVALUACION_META.total)
     expect(BANCO_TOTAL).toBe(TEMAS_SIMULACRO.reduce((s, t) => s + t.preguntas, 0))
@@ -51,6 +61,8 @@ describe("evaluaciones: la app y los bancos del servidor", () => {
       "mercancias_chequeo",
       "aeropuertos_evaluacion",
       "comunicaciones_evaluacion",
+      "rac_evaluacion",
+      "combustible_evaluacion",
       "mel_evaluacion",
     ]
       .flatMap((nombre) => banco(nombre).preguntas.map((p) => p.enunciado))

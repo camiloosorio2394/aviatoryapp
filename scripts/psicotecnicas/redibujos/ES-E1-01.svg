@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="790" viewBox="0 0 1100 790" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Cubo y cuatro desarrollos planos, opciones A a D</title>
+  <desc id="descripcion">Redibujo geométrico del ejercicio 1 del cuadernillo E1. Conserva la posición, los símbolos y la orientación de las seis caras de cada alternativa.</desc>
+  <defs>
+    <symbol id="estrella" viewBox="0 0 64 64">
+      <path d="M32 7 39 25 57 32 39 39 32 57 25 39 7 32 25 25Z" fill="#fff" stroke="#202631" stroke-width="2.8" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="marca" viewBox="0 0 64 64">
+      <rect x="5" y="5" width="7" height="7" fill="#fff" stroke="#202631" stroke-width="2.5"/>
+      <rect x="52" y="52" width="7" height="7" fill="#fff" stroke="#202631" stroke-width="2.5"/>
+    </symbol>
+    <style>
+      .panel { fill: #fafbfc; stroke: #d8dee5; stroke-width: 2; }
+      .cara { fill: #fff; stroke: #202631; stroke-width: 2.8; }
+      .rotulo { fill: #202631; font: 700 25px Arial, sans-serif; }
+      .guia { fill: #637182; font: 600 18px Arial, sans-serif; letter-spacing: 1px; }
+      .negro { fill: #202631; }
+    </style>
+  </defs>
+
+  <rect width="1100" height="790" fill="#fff"/>
+  <text class="guia" x="36" y="45">CUBO DE REFERENCIA</text>
+
+  <!-- Tres caras visibles: estrella al frente, dos marcas arriba y mitad negra a la derecha. -->
+  <g transform="translate(454 47) scale(1.42)">
+    <path d="M0 35 17 17H85L68 35Z" fill="#fff" stroke="#202631" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M68 35 85 17V85L68 103Z" fill="#fff" stroke="#202631" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M68 35 85 17V51L68 69Z" class="negro"/>
+    <rect class="cara" x="0" y="35" width="68" height="68"/>
+    <use href="#estrella" x="2" y="37" width="64" height="64"/>
+    <path d="M22 22 29 22 24 27 17 27Z M66 22 73 22 68 27 61 27Z" fill="#fff" stroke="#202631" stroke-width="2"/>
+  </g>
+
+  <rect class="panel" x="30" y="208" width="510" height="268" rx="16"/>
+  <rect class="panel" x="560" y="208" width="510" height="268" rx="16"/>
+  <rect class="panel" x="30" y="492" width="510" height="268" rx="16"/>
+  <rect class="panel" x="560" y="492" width="510" height="268" rx="16"/>
+
+  <!-- A: estrella a la izquierda de la cara marcada; dos triángulos en caras distintas. -->
+  <text class="rotulo" x="62" y="247">A</text>
+  <g transform="translate(151 242)">
+    <rect class="cara" x="128" y="0" width="64" height="64"/>
+    <rect class="cara" x="0" y="64" width="64" height="64"/>
+    <rect class="cara" x="64" y="64" width="64" height="64"/>
+    <rect class="cara" x="128" y="64" width="64" height="64"/>
+    <rect class="cara" x="192" y="64" width="64" height="64"/>
+    <rect class="cara" x="64" y="128" width="64" height="64"/>
+    <path class="negro" d="M192 64H256V128Z M64 128H128L64 192Z"/>
+    <use href="#estrella" x="64" y="64" width="64" height="64"/>
+    <use href="#marca" x="128" y="64" width="64" height="64"/>
+  </g>
+
+  <!-- B: triángulo encima de la cara marcada; segunda estrella al pie. -->
+  <text class="rotulo" x="592" y="247">B</text>
+  <g transform="translate(724 214)">
+    <rect class="cara" x="64" y="0" width="64" height="64"/>
+    <rect class="cara" x="0" y="64" width="64" height="64"/>
+    <rect class="cara" x="64" y="64" width="64" height="64"/>
+    <rect class="cara" x="128" y="64" width="64" height="64"/>
+    <rect class="cara" x="64" y="128" width="64" height="64"/>
+    <rect class="cara" x="64" y="192" width="64" height="64"/>
+    <path class="negro" d="M64 0 128 0 64 64Z"/>
+    <use href="#estrella" x="0" y="64" width="64" height="64"/>
+    <use href="#estrella" x="64" y="192" width="64" height="64"/>
+    <use href="#marca" x="64" y="64" width="64" height="64"/>
+  </g>
+
+  <!-- C: cuatro caras en fila; estrella junto al triángulo, marcas arriba y abajo. -->
+  <text class="rotulo" x="62" y="531">C</text>
+  <g transform="translate(151 531)">
+    <rect class="cara" x="64" y="0" width="64" height="64"/>
+    <rect class="cara" x="0" y="64" width="64" height="64"/>
+    <rect class="cara" x="64" y="64" width="64" height="64"/>
+    <rect class="cara" x="128" y="64" width="64" height="64"/>
+    <rect class="cara" x="192" y="64" width="64" height="64"/>
+    <rect class="cara" x="0" y="128" width="64" height="64"/>
+    <path class="negro" d="M128 64H192L128 128Z"/>
+    <use href="#estrella" x="64" y="64" width="64" height="64"/>
+    <use href="#marca" x="64" y="0" width="64" height="64"/>
+    <rect x="51" y="136" width="7" height="7" fill="#fff" stroke="#202631" stroke-width="2.5"/>
+    <rect x="5" y="181" width="7" height="7" fill="#fff" stroke="#202631" stroke-width="2.5"/>
+  </g>
+
+  <!-- D: dos estrellas y la cara marcada en el extremo inferior derecho. -->
+  <text class="rotulo" x="592" y="531">D</text>
+  <g transform="translate(682 531)">
+    <rect class="cara" x="128" y="0" width="64" height="64"/>
+    <rect class="cara" x="0" y="64" width="64" height="64"/>
+    <rect class="cara" x="64" y="64" width="64" height="64"/>
+    <rect class="cara" x="128" y="64" width="64" height="64"/>
+    <rect class="cara" x="192" y="64" width="64" height="64"/>
+    <rect class="cara" x="192" y="128" width="64" height="64"/>
+    <path class="negro" d="M128 64H192L128 128Z"/>
+    <use href="#estrella" x="64" y="64" width="64" height="64"/>
+    <use href="#estrella" x="192" y="64" width="64" height="64"/>
+    <rect x="246" y="136" width="7" height="7" fill="#fff" stroke="#202631" stroke-width="2.5"/>
+    <rect x="199" y="181" width="7" height="7" fill="#fff" stroke="#202631" stroke-width="2.5"/>
+  </g>
+</svg>

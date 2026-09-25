@@ -1,1519 +1,1163 @@
-/**
- * Nivel 5 · Vigilancia, contingencias y emergencias (lecciones 31 a 40, capítulos 31 a 40 de la especificación).
- *
- * Transpondedor, falla de comunicaciones, socorro y urgencia, combustible,
- * TCAS/ACAS y las capacidades que el ATC da por hechas (RVSM, PBN) hasta que
- * dejan de estar.
- *
- * Fuente: docs/comunicaciones/nivel-5.md, entero. Cada intercambio del
- * Markdown es un bloque `code` con su significado debajo (`ejemplo`); los
- * rótulos (VERIFICAR) y PLAIN LANGUAGE de cada ejemplo se conservan en su
- * título y en su significado. Lo que el Markdown marca VERIFICAR sale en un
- * callout «Verificar» visible al empezar la fraseología y, completo, en el
- * detalle técnico de FUENTES. Los «Escenario de práctica» del capítulo 36 van
- * como `escenario`. El formato de los bloques y de los huecos está documentado
- * al inicio de index.ts.
- *
- * Ojo: la cabecera de nivel-5.md trae un VERIFICAR de bloqueo de publicación
- * (el nivel depende del Doc 4444 cap. 12 y 15, del Doc 9432 cap. 9 y del
- * Anexo 10 Vol. II cap. 5, no cargados). Va en las convenciones de cada
- * detalle técnico y en el callout de cada lección.
- */
+/** Nivel 5 · Vigilancia, contingencias y emergencias (lecciones 31 a 40). */
+import type { DocScreen } from "@/lib/docBlocks"
 
-import type { DocBlockData, DocScreen } from "@/lib/docBlocks"
-
-/**
- * Un intercambio: el título en negrita, la transmisión literal (una línea por
- * turno de palabra) y el significado en español.
- */
-function ejemplo(titulo: string, turnos: string[], significado: string): DocBlockData[] {
-  return [
-    { kind: "p", text: `**${titulo}**` },
-    { kind: "code", text: turnos.join("\n") },
-    { kind: "p", text: significado },
-  ]
-}
-
-/** Un error frecuente: el nombre del error como título y la explicación. */
-function error(titulo: string, text: string): DocBlockData {
-  return { kind: "callout", tone: "warn", title: titulo, text }
-}
-
-/** El aviso visible de lo que no está verificado en la lección. */
-function verificar(text: string): DocBlockData {
-  return { kind: "callout", tone: "verificar", title: "Verificar", text }
-}
-
-/** Cómo leer los ejemplos: va al empezar la fraseología de cada lección. */
-const COMO_LEER: DocBlockData = {
-  kind: "callout",
-  tone: "info",
-  title: "Cómo leer los ejemplos",
-  text: "`AVIATORY 452` (y AVIATORY 425 o 542), las estaciones, frecuencias, códigos SSR, niveles y waypoints (GIKOS, TOLMA) son **ficticios**. Frase **sin etiqueta**: su estructura está en el Doc 9432 o el Doc 4444 cargados (el párrafo exacto va en Fuentes). **VERIFICAR**: no está en las fuentes cargadas y se confirma en el documento indicado. **PLAIN LANGUAGE**: lenguaje claro, no fraseología normalizada.",
-}
-
-/** Las convenciones de los ejemplos de todo el nivel (cabecera de nivel-5.md). */
-const CONVENCIONES: DocBlockData = {
-  kind: "list",
-  items: [
-    "**VERIFICAR (bloqueo de publicación).** Este nivel depende de capítulos no cargados (Doc 4444 cap. 12 y 15, Doc 9432 cap. 9, Anexo 10 Vol. II cap. 5). No se publica hasta verificar cada línea VERIFICAR.",
-    "Distintivo ficticio en todos los ejemplos: `AVIATORY 452` (y AVIATORY 425 o 542 cuando se necesitan distintivos parecidos).",
-    "«Bogota Control», «Bogota Approach» y «Bogota Tower» son estaciones de ejemplo educativo. Frecuencias, códigos SSR, niveles y waypoints (GIKOS, TOLMA, ficticios) son didácticos, no datos del AIP.",
-    "Fuentes cargadas: Doc 9432 (4.ª ed., 2007, ES), Doc 4444 (15.ª ed., Enm. 4, 2012, ES) cap. 1 a 5, Doc 9835 (2.ª ed., 2010, ES). La 15.ª edición del Doc 4444 no es la vigente: toda cita suya se revisa contra la edición en vigor antes de publicar.",
-    "Cuando una línea en inglés no es fraseología normalizada, va rotulada **PLAIN LANGUAGE**.",
-  ],
-}
-
-/** El bloque FUENTES de cada capítulo, plegado. */
-function fuentes(cita: string, verificado: string, porVerificar: string[]): DocBlockData {
-  return {
-    kind: "detalleTecnico",
-    etiqueta: "Fuentes",
-    cita,
-    bloques: [
-      { kind: "sub", text: "Verificado" },
-      { kind: "p", text: verificado },
-      { kind: "sub", text: "Por verificar" },
-      { kind: "list", items: porVerificar },
-      { kind: "sub", text: "Convenciones de los ejemplos" },
-      CONVENCIONES,
-    ],
-  }
-}
 
 export const NIVEL_5: DocScreen[] = [
   // ── 31 ──────────────────────────────────────────────────────────────────
   {
     n: 31,
     title: "Transpondedor y SSR",
-    kicker: "Códigos, IDENT y los códigos especiales",
-    minutes: 9,
+    kicker: "Código, altitud, IDENT y vigilancia",
+    minutes: 18,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "El radar secundario de vigilancia (SSR) interroga al transpondedor de la aeronave y este responde con datos: un código de cuatro dígitos (identidad), la altitud de presión y, en Modo S, más información. El Doc 4444 lo define como «sistema radar de vigilancia que usa transmisores/receptores (interrogadores) y transpondedores». El ATC usa esa respuesta para identificarlo, separarlo y darle servicio de vigilancia.",
+        text: "El radar secundario de vigilancia (SSR, Secondary Surveillance Radar) interroga el transpondedor de la aeronave. Su respuesta permite al servicio de tránsito aéreo (ATS, Air Traffic Services) asociar una traza con un código y, según el equipo, con altitud de presión e identificación. En una operación de aerolínea no basta repetir un código por radio: hay que seleccionarlo correctamente, verificar la transmisión y detectar cualquier discrepancia que comunique el controlador.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
       {
-        kind: "p",
-        text: "**Modos.** El Doc 4444 cap. 1 menciona cuatro modos definidos en el Anexo 10: A, C, S e intermodo. Para la cabina basta esto:",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-31-01.svg",
+        alt: "Esquema de instrucción ATS, selección y verificación del transpondedor en cabina, y comprobación por el controlador.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Esquema didáctico: la instrucción SQUAWK se escucha y colaciona, se selecciona y comprueba en cabina, y ATS observa la respuesta. Modo A aporta el código; Modo C, altitud de presión; Modo S, identificación entre otros datos. La figura no reproduce una pantalla, código asignado ni procedimiento local.",
       },
+      { kind: "sub", text: "Qué distingue la tripulación" },
       {
         kind: "glosario",
         items: [
-          { k: "Modo A", v: "el código de cuatro dígitos que asigna el ATC." },
-          { k: "Modo C", v: "agrega la altitud de presión. «TRANSPONDER CHARLIE» es la instrucción de activarla." },
-          {
-            k: "Modo S",
-            v: "interrogación selectiva; entre otros datos transmite la identificación de la aeronave, que debe coincidir con el distintivo del plan de vuelo. Por eso existe la instrucción de «reactivar la identificación Modo S».",
-          },
+          { k: "Modo A", v: "Código de cuatro dígitos octales que ATS asigna o que corresponde a una situación especial. El código concreto de un vuelo sale de la autorización real, no de esta lección." },
+          { k: "Modo C", v: "Transmite altitud de presión. Un valor que no concuerde con el nivel comunicado debe investigarse; no se corrige inventando un nivel para que coincida con la pantalla del controlador." },
+          { k: "Modo S", v: "Permite interrogación selectiva y transmite, entre otros datos, la identificación de la aeronave. Debe concordar con la identificación del plan de vuelo según las reglas aplicables." },
+          { k: "IDENT", v: "Función que destaca temporalmente la respuesta de la aeronave para que ATS la identifique. No es un código ni reemplaza una colación verbal." },
         ],
       },
-      {
-        kind: "list",
-        items: [
-          "**El código SSR se colaciona siempre.** Está en la lista de elementos que se colacionan (Doc 4444 4.5.7.5.1 c; Doc 9432 2.8.3.5 c).",
-          "**Los dígitos se dicen uno por uno**: 2400 se transmite «dos cuatro cero cero» (Doc 9432 2.4).",
-          "**IDENT** es un botón: no se dice «ident» por radio en lugar de oprimirlo. Si el ATC pide IDENT, se oprime y se acusa recibo.",
-        ],
-      },
-      { kind: "p", text: "**Tres códigos especiales:**" },
-      {
-        kind: "table",
-        head: ["Código", "Significado", "Fuente"],
-        rows: [
-          ["7700", "Emergencia", "VERIFICAR"],
-          ["7600", "Falla de radiocomunicaciones", "Doc 9432 6.6, nota (cargado)"],
-          ["7500", "Interferencia ilícita (apoderamiento)", "VERIFICAR"],
-        ],
-      },
-      { kind: "p", text: "**Precauciones con los códigos especiales:**" },
-      {
-        kind: "list",
-        items: [
-          "En una emergencia se selecciona 7700 salvo que el ATC ya le haya asignado otro código y esté en contacto con usted: en ese caso, lo normal es conservar el código asignado. VERIFICAR.",
-          "Al cambiar de código en un panel de perillas, evite pasar por 7500, 7600 o 7700 aunque sea un instante. VERIFICAR.",
-          "El 7500 activa procedimientos de seguridad en tierra. No se usa «para probar» ni se comenta en frecuencia. Qué hace la tripulación en ese caso lo fijan el Anexo 2, el Doc 4444 cap. 15 y los procedimientos de seguridad del explotador; no es tema de este capítulo.",
-        ],
-      },
-      {
-        kind: "hueco",
-        rotulo: "CM-31-01 · Esquema · 16:9 · 1600×900 px",
-        descripcion: "Imagen sugerida: Panel de transpondedor genérico (sin marca) con el código 4321 en pantalla, selector STBY / ALT / ON y botón IDENT resaltado. A la derecha, la pantalla del controlador con la etiqueta de la aeronave: distintivo AVIATORY 452, nivel de vuelo del Modo C y la marca de IDENT parpadeando. Debajo, tres fichas de color neutro con 7700 / 7600 / 7500 y su significado en una línea. Objetivo: Que el piloto relacione cada control del panel con lo que ve el controlador y reconozca los tres códigos especiales de un vistazo.",
-        alto: 280,
-      },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología y reglas que no están en las fuentes cargadas. La forma inglesa de SQUAWK STANDBY, SQUAWK CHARLIE, STOP SQUAWK CHARLIE WRONG INDICATION, SQUAWK MAYDAY, RESET MODE S IDENTIFICATION y CONFIRM (level): **Doc 4444 cap. 12** (fraseología SSR/ADS-B) y la versión inglesa del **Doc 9432 6.5.1**. 7700 = emergencia y 7500 = interferencia ilícita: **Anexo 10 Vol. IV** y **Doc 4444 cap. 15 / Doc 8168 Vol. I**. Conservar el código asignado en emergencia y no pasar por los códigos especiales al cambiar de código: **Doc 8168 Vol. I** (y Doc 4444 cap. 15).",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · Asignación de código",
-        [`ATC:   "AVIATORY 452, SQUAWK 4321."`, `PILOT: "4321, AVIATORY 452."`],
-        "Significado: seleccione el código 4321. Se colaciona el código (es elemento de colación obligatoria).",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Confirmar el código",
-        [`ATC:   "AVIATORY 452, CONFIRM SQUAWK."`, `PILOT: "AVIATORY 452, SQUAWKING 4321."`],
-        "Significado: el ATC pide confirmar el código seleccionado; usted dice el que tiene en el panel, no el que cree que le dieron.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · Volver a seleccionar el código",
-        [`ATC:   "AVIATORY 452, RESET SQUAWK 4321."`, `PILOT: "RESETTING 4321, AVIATORY 452."`],
-        "Significado: vuelva a seleccionar el código asignado (el ATC no lo está recibiendo bien).",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · IDENT",
-        [`ATC:   "AVIATORY 452, SQUAWK IDENT."`, `PILOT: "AVIATORY 452." (y oprime IDENT)`],
-        "Significado: active el dispositivo de identificación. Es la instrucción que el Doc 9432 muestra para confirmar que una aeronave recibe aunque no transmita (6.6).",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · El nivel del Modo C no coincide",
-        [
-          `ATC:   "AVIATORY 452, CHECK ALTIMETER SETTING AND CONFIRM LEVEL."`,
-          `PILOT: "AVIATORY 452, ALTIMETER 1013, FLIGHT LEVEL 80."`,
-        ],
-        "Significado: el nivel del Modo C no coincide con lo esperado: revise el reglaje y diga su nivel actual.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · Transpondedor fuera de servicio",
-        [
-          `ATC:   "AVIATORY 452, CONFIRM TRANSPONDER OPERATING."`,
-          `PILOT: "AVIATORY 452, NEGATIVE, TRANSPONDER UNSERVICEABLE."`,
-        ],
-        "Significado: el ATC no ve su respuesta. Si el equipo falló, se dice sin rodeos: afecta su servicio de vigilancia y el acceso a ciertos espacios aéreos.",
-      ),
-      ...ejemplo(
-        "Ejemplo 7 · Capacidad del transpondedor",
-        [
-          `ATC:   "AVIATORY 452, ADVISE TYPE OF TRANSPONDER CAPABILITY."`,
-          `PILOT: "AVIATORY 452, TRANSPONDER CHARLIE."`,
-        ],
-        "Significado: el ATC pregunta qué capacidad tiene su transpondedor.",
-      ),
       {
         kind: "p",
-        text: "**Instrucciones de la lista del Doc 9432 6.5.1 cuya forma inglesa no está en el texto cargado (solo la española):**",
+        text: "La vigilancia secundaria no convierte automáticamente al controlador en responsable de verificar cada ajuste de cabina. La tripulación mantiene su comprobación independiente del código, modo y estado conforme al equipo y al procedimiento normalizado de operación (SOP, Standard Operating Procedures) del explotador.",
       },
       {
-        kind: "table",
-        head: ["Inglés (VERIFICAR)", "Español cargado (Doc 9432 6.5.1)", "Qué hace el piloto"],
-        rows: [
-          ["SQUAWK STANDBY", "TRANSPONDEDOR A ESPERA", "Selecciona STBY"],
-          ["SQUAWK CHARLIE", "TRANSPONDEDOR CHARLIE", "Activa el reporte de altitud"],
-          [
-            "STOP SQUAWK CHARLIE WRONG INDICATION",
-            "INTERRUMPA TRANSPONDEDOR CHARLIE INDICACIÓN ERRÓNEA",
-            "Apaga el reporte de altitud defectuoso",
-          ],
-          ["SQUAWK MAYDAY", "TRANSPONDEDOR MAYDAY", "Selecciona el código de emergencia"],
-          ["RESET MODE S IDENTIFICATION", "REACTIVE IDENTIFICACIÓN CON MODO S", "Vuelve a cargar la identificación Modo S"],
-          ["CONFIRM (level)", "VERIFIQUE NIVEL", "Confirma su nivel (el ATC comprueba el Modo C)"],
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-31-02.webp",
+        alt: "Historieta de tres paneles: tripulación coteja el ajuste, controlador solicita identificación y piloto actúa sobre el transpondedor.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no transcripción: 1) ambos pilotos cotejan la instrucción y el ajuste; 2) el controlador observa una traza y solicita IDENT; 3) la tripulación opera IDENT tras la solicitud. Los paneles no muestran datos de vigilancia reales ni una frecuencia.",
+      },
+      { kind: "sub", text: "Secuencia de una asignación normal" },
+      {
+        kind: "list",
+        ordered: true,
+        items: [
+          "**Recibir y colacionar:** cuando ATS asigna un código, el piloto que monitorea (PM, pilot monitoring) lo lee dígito por dígito con su distintivo. La fraseología SQUAWK (code) está en la tabla oficial de EASA; el número entre paréntesis es un campo variable, no un código de ejemplo.",
+          "**Seleccionar y comprobar:** el piloto designado introduce el código recibido y el otro verifica visualmente el ajuste y el estado de transmisión según el SOP. Un readback perfecto no detecta por sí solo una cifra mal seleccionada.",
+          "**Confirmar una duda:** si ATS pide CONFIRM SQUAWK (code), se comprueba lo que realmente indica el equipo y se responde SQUAWKING (code). Si lo seleccionado no coincide con lo asignado, se corrige y se informa; no se confirma de memoria.",
+          "**Reajustar cuando proceda:** RESET SQUAWK [(mode)] (code) pide volver a seleccionar modo y código. La tripulación comprueba la configuración y sigue cualquier instrucción adicional; si el equipo no responde, comunica la falla de forma explícita.",
+          "**IDENT solo a solicitud:** SQUAWK [(code)] [AND] IDENT solicita operar la función de identificación. Se acciona el control una vez solicitado por ATS; decir la palabra por radio sin activarlo no produce la señal de identificación.",
         ],
       },
-      { kind: "sub", text: "Aplicación en aerolínea" },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Plantillas oficiales, no una conversación grabada",
+        text: "SQUAWK (code), CONFIRM SQUAWK (code), SQUAWKING (code), RESET SQUAWK [(mode)] (code), SQUAWK [(code)] [AND] IDENT y SQUAWK CHARLIE proceden de la tabla de fraseología de EASA AMC1 SERA.14001, sección 2.3. Se muestran como plantillas para aprender la estructura; no representan una transmisión de un vuelo ni asignan un código utilizable.",
+      },
+      { kind: "sub", text: "Cuando la indicación no concuerda" },
+      {
+        kind: "list",
+        items: [
+          "**Altitud:** CHECK ALTIMETER SETTING AND CONFIRM (level) exige revisar el reglaje y confirmar el nivel real. Si la indicación transmitida sigue siendo errónea, se informa la discrepancia y se cumplen las instrucciones; STOP SQUAWK CHARLIE WRONG INDICATION es una instrucción distinta que detiene la transmisión de altitud defectuosa.",
+          "**Identificación Modo S:** si ATS detecta una identidad diferente, la tabla oficial contempla RE-ENTER [ADS-B or MODE S] AIRCRAFT IDENTIFICATION. Antes de cambiarla se coteja con el plan de vuelo y el procedimiento del equipo; no se reemplaza el distintivo por uno supuesto.",
+          "**Equipo inoperativo:** se informa sin rodeos si el transpondedor deja de funcionar. La continuidad del vuelo y el acceso al espacio aéreo dependen de los requisitos y autorizaciones aplicables; no se presume que basta con una llamada de radio.",
+        ],
+      },
+      { kind: "sub", text: "Códigos reservados y decisión" },
+      {
+        kind: "table",
+        head: ["Código", "Situación reconocida", "Lectura operacional"],
+        rows: [
+          ["7700", "Emergencia", "Se usa de acuerdo con la situación y el procedimiento aplicable. Si ATS ya asignó un código, la regla OACI citada permite mantenerlo salvo otra instrucción; 7700 puede elegirse si hay motivo específico para considerarlo mejor."],
+          ["7600", "Falla de radiocomunicaciones", "Señaliza la falla; luego rigen los procedimientos de comunicaciones perdidas para el vuelo y espacio aéreo concretos, no una ruta dibujada aquí."],
+          ["7500", "Interferencia ilícita", "Tiene implicaciones de seguridad. No se selecciona para ensayos ni se da por hecho que la tripulación pueda explicar la situación por radio."],
+        ],
+      },
+      {
+        kind: "p",
+        text: "La OACI reserva estos tres códigos en el Anexo 10, Volumen IV. La fuente oficial de la OACI que reproduce el Doc 8168 aclara que en emergencia se conserva el código previamente especificado por ATS salvo nueva instrucción, aunque el piloto puede seleccionar 7700 si cree que es la mejor medida. La falla de comunicaciones y la interferencia ilícita requieren sus propios procedimientos; no son variaciones de una simple asignación de código.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Código colacionado, indicación distinta",
+        situacion: "Caso didáctico sin aeródromo, ruta, distintivo, frecuencia ni código discreto inventados. Durante preparación de salida, ATS asigna un código. PM lo colaciona correctamente; al verificar el panel, el piloto que vuela (PF, pilot flying) detecta una cifra distinta. Después de corregirla, ATS pregunta por la indicación de altitud recibida.",
+        preguntas: [
+          {
+            q: "¿Qué hace la tripulación antes de continuar?",
+            a: "Detiene la aceptación tácita de la configuración, coteja la autorización y el código real, corrige el ajuste y vuelve a verificarlo en el equipo. Si la discrepancia generó una respuesta incorrecta, la aclara con ATS. El readback inicial no prueba que el panel estuviera bien."
+          },
+          {
+            q: "¿Cómo responde a la pregunta sobre altitud?",
+            a: "Revisa reglaje y nivel efectivo, confirma el nivel que vuela y comunica cualquier discrepancia de transmisión. No altera una altitud autorizada ni desactiva por iniciativa propia una función sin identificar el problema y cumplir la instrucción aplicable."
+          },
+        ],
+        concepto: "La vigilancia fiable exige colación, ajuste, comprobación y comunicación de fallas; son controles distintos.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Del despacho a la transferencia",
-        texto: "El código llega casi siempre en la autorización de ruta («… SQUAWK 5501», Doc 9432 2.8.3.5) y se coloca antes del rodaje. En la transferencia a otra dependencia el ATC puede asignar un código nuevo: se colaciona y se cambia en el momento. En cabina, quien selecciona el código lo dice en voz alta y el otro piloto lo verifica en el panel; el reparto de tareas lo fija el SOP del explotador. Si el Modo S identifica la aeronave con un distintivo distinto al del plan de vuelo, el ATC lo ve y puede pedirle reactivar la identificación.",
+        momento: "De la autorización a la transferencia",
+        texto: "PM registra y colaciona el código asignado; la tripulación lo ajusta y lo coteja con el equipo antes de continuar, según el SOP. Una transferencia puede traer un código nuevo, por lo que se vuelve a hacer el ciclo completo. Si ATS solicita IDENT o verifica un nivel discrepante, la tripulación actúa solo tras entender la instrucción y describe el estado real del avión y del transpondedor. El modo y momento de activación en tierra dependen del procedimiento local y del equipo: no se enseña aquí una regla universal de pushback.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Colacionar un código y seleccionar otro",
-        "Colacionar un código y seleccionar otro (por ejemplo 4321 colacionado y 4231 en el panel). El readback correcto no sirve si nadie verifica el panel.",
-      ),
-      error("Decir «ident» en vez de oprimirlo", "Decir «ident» por radio sin oprimir el botón."),
-      error("Pasar por un código especial", "Pasar por 7700 o 7500 al girar perillas."),
-      error(
-        "Transpondedor en STBY después del pushback",
-        "Dejar el transpondedor en STBY después del pushback: el ATC y el ACAS de otros aviones pierden la altitud de presión.",
-      ),
-      error(
-        "Contestar lo que le dieron, no lo que tiene",
-        "Contestar «CONFIRM SQUAWK» con el código que le dieron en lugar del que tiene seleccionado.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Colacionar bien y seleccionar mal", text: "El código dicho por radio y el mostrado en el equipo deben cotejarse por separado; el error de selección puede sobrevivir a un readback correcto." },
+      { kind: "callout", tone: "warn", title: "Activar IDENT sin solicitud", text: "IDENT no se pulsa por rutina, al cambiar de frecuencia ni para probar el equipo: se opera cuando ATS lo solicita." },
+      { kind: "callout", tone: "warn", title: "Tratar 7500, 7600 o 7700 como códigos ordinarios", text: "Sus significados son reservados. Un ajuste accidental puede desencadenar una respuesta operacional o de seguridad no deseada." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "El código SSR siempre se colaciona, dígito por dígito.",
-          "IDENT se oprime; no se dice.",
-          "7700 emergencia, 7600 falla de comunicaciones, 7500 interferencia ilícita.",
-          "Si ya tiene código asignado y contacto con el ATC, en emergencia normalmente lo conserva (VERIFICAR).",
-          "Quien colaciona y quien verifica el panel pueden ser personas distintas: las dos cosas se hacen.",
+          "La respuesta del transpondedor y el readback verbal se verifican por separado.",
+          "Modo A es código; Modo C añade altitud de presión; Modo S puede transmitir identificación.",
+          "IDENT solo se opera cuando ATS lo solicita.",
+          "Una discrepancia de altitud o identidad se comprueba y comunica, no se maquilla.",
+          "7700, 7600 y 7500 tienen fines reservados diferentes.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1, definiciones «Radar secundario de vigilancia (SSR)» y «Modo (SSR)»; 4.5.7.5.1 c). Doc 9432 (4.ª ed.) 2.4 (códigos del transpondedor), 2.8.3.5 c), 6.5.1 (lista de instrucciones SSR, en español), 6.5.2 (ejemplos SQUAWK, CONFIRM SQUAWK, SQUAWKING, RESET SQUAWK, CHECK ALTIMETER SETTING AND CONFIRM LEVEL, CONFIRM TRANSPONDER OPERATING, TRANSPONDER UNSERVICEABLE, ADVISE TYPE OF TRANSPONDER CAPABILITY), 6.6 (SQUAWK IDENT; nota: código 7600).",
-        [
-          "VERIFICAR: forma inglesa de SQUAWK STANDBY, SQUAWK CHARLIE, STOP SQUAWK CHARLIE WRONG INDICATION, SQUAWK MAYDAY, RESET MODE S IDENTIFICATION y CONFIRM (level) contra Doc 4444 cap. 12 (fraseología SSR/ADS-B) y la versión inglesa del Doc 9432 6.5.1 (no cargados).",
-          "VERIFICAR: 7700 = emergencia y 7500 = interferencia ilícita contra Anexo 10 Vol. IV y Doc 4444 cap. 15 / Doc 8168 Vol. I (no cargados).",
-          "VERIFICAR: regla de conservar el código asignado en emergencia cuando hay contacto con el ATC, contra Doc 8168 Vol. I (procedimientos de utilización del transpondedor) y Doc 4444 cap. 15 (no cargados).",
-          "VERIFICAR: precaución de no pasar por códigos especiales al cambiar de código, contra Doc 8168 Vol. I (no cargado).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA SERA · OACI Anexo 10 Vol. IV · OACI Doc 8168",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, AMC1 SERA.14001 sección 2.3 (fraseología SSR, IDENT, altitud e identificación): https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299" },
+          { kind: "p", text: "OACI, Anexo 10, Vol. IV, 2.1.4.2: reserva 7700, 7600 y 7500: https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/Annex10_Volume%204_cons.pdf" },
+          { kind: "p", text: "OACI, extracto del Doc 8168 Vol. I en el anexo de Anexo 17: operación del transpondedor en emergencia y 7500: https://www.icao.int/casp-ap/Test%20Document/an17_cons.pdf" },
+          { kind: "p", text: "Los ejemplos y la historieta son didácticos, no transcripciones. La tabla EASA es una referencia de fraseología, no reemplaza las instrucciones de la autoridad o explotador aplicables al vuelo. No se indican códigos discretos, aeródromos, frecuencias, rutas ni requisitos locales colombianos; para estos últimos se consulta únicamente la eAIP vigente de Aerocivil." },
         ],
-      ),
+      },
     ],
   },
   // ── 32 ──────────────────────────────────────────────────────────────────
   {
     n: 32,
     title: "Falla de comunicaciones",
-    kicker: "Qué revisar y qué hacer cuando la radio calla",
-    minutes: 11,
+    kicker: "Diagnóstico, recuperación y procedimiento aplicable",
+    minutes: 20,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
-      { kind: "p", text: "Pérdida de la comunicación oral en ambos sentidos con el ATC. Puede ser:" },
+      {
+        kind: "p",
+        text: "Una frecuencia inesperadamente silenciosa no demuestra que hayan fallado todas las radios. Puede existir una selección equivocada, una recepción defectuosa, un transmisor inoperativo, una transferencia incompleta o una interrupción en tierra. La tripulación debe mantener el control del avión y distinguir lo que todavía funciona antes de entrar en un procedimiento de comunicaciones perdidas. En vuelo por instrumentos (IFR, Instrument Flight Rules), el perfil posterior depende de la regla del Estado, la autorización y la carta vigentes; una tabla genérica no reemplaza esas fuentes.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-32-01.svg",
+        alt: "Flujo de cuatro etapas ante silencio de radio: volar, revisar cabina, buscar contacto y aplicar el procedimiento vigente si persiste la falla.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Esquema conceptual: se conserva el vuelo seguro y se comprueban los canales antes de concluir una falla. Si no se recupera el contacto, la señalización y el perfil se rigen por la norma y la carta aplicables al espacio aéreo. No fija tiempos, rutas ni autorizaciones colombianas.",
+      },
+      { kind: "sub", text: "Diagnóstico sin dejar de volar" },
       {
         kind: "glosario",
         items: [
-          { k: "Falla de recepción", v: "usted transmite, pero no escucha." },
-          { k: "Falla de transmisión", v: "usted escucha, pero el ATC no lo recibe." },
-          { k: "Falla total", v: "ni transmite ni recibe." },
+          { k: "No recibe", v: "El transmisor puede funcionar, pero la tripulación no oye al servicio de tránsito aéreo (ATS, Air Traffic Services). Debe seguir escuchando por todos los medios disponibles y no asumir que tampoco la reciben." },
+          { k: "No transmite", v: "Puede escuchar instrucciones aunque ATS no reciba su voz. Una respuesta visible solicitada por el controlador, como IDENT, puede ayudar a confirmar la recepción." },
+          { k: "No hay enlace bilateral", v: "Después de revisar equipo y canales, no se logra intercambio en ambos sentidos. La tripulación aplica las acciones y el procedimiento publicados para ese vuelo." },
         ],
       },
-      {
-        kind: "p",
-        text: "La mayoría de las «fallas» en línea aérea no son del equipo: son una frecuencia mal seleccionada, un volumen abajo, un panel de audio mal configurado o una transferencia que no se completó. Por eso el primer paso es revisar la cabina, no aplicar el procedimiento.",
-      },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
-      { kind: "p", text: "**Primero, lo que usted controla (lista de revisión, no norma):**" },
       {
         kind: "list",
         ordered: true,
         items: [
-          "Aviate: el avión sigue volando con la última autorización. La falla de comunicaciones no justifica dejar de volar el avión.",
-          "Frecuencia: ¿está la que le dieron? ¿La colacionó bien? ¿Cambió la radio activa y no la de reserva?",
-          "Panel de audio: selector de transmisión en la radio correcta, recepción abierta, volumen, squelch.",
-          "Audífonos, micrófono, PTT. Pruebe el otro puesto o la otra radio.",
-          "**Vuelva a la frecuencia anterior** y pida la correcta.",
-          "Pruebe otra dependencia ATS de la ruta o una frecuencia apropiada para la ruta.",
-          "Pida a otra aeronave que retransmita (relay).",
-          "121,5 MHz (ver cap. 33).",
-          "Si la aeronave tiene CPDLC y está conectado, el enlace de datos puede seguir funcionando: úselo según los procedimientos de ese espacio aéreo.",
-          "Transpondedor 7600 cuando la falla se confirma (Doc 9432 6.6, nota).",
+          "**Mantener la trayectoria segura:** el piloto que vuela (PF, pilot flying) controla el avión, observa el tránsito y conserva la última autorización recibida y colacionada hasta que una regla o instrucción aplicable indique otra cosa. El piloto que monitorea (PM, pilot monitoring) organiza el diagnóstico.",
+          "**Revisar selección:** ambos confirman canal activo, panel de audio, recepción, volumen, selector de transmisión, micrófono, auriculares y botón de transmisión. Usan la otra radio o el otro puesto según el procedimiento normalizado de operación (SOP, Standard Operating Procedures), sin alterar inadvertidamente el canal que todavía permite escuchar.",
+          "**Reintentar por medios apropiados:** la regla europea SERA.14083 documenta volver al canal anterior, probar otro adecuado a la ruta y luego ATS, otra dependencia u otras aeronaves, mediante medios disponibles como enlace de datos o voz satelital. Esta secuencia ilustra el diagnóstico; no establece una frecuencia ni sustituye la normativa del Estado donde se vuela.",
+          "**Separar falla de voz y de enlace:** una conexión de comunicaciones por enlace de datos controlador–piloto (CPDLC, Controller–Pilot Data Link Communications) podría estar disponible mientras falla la voz, pero no debe suponerse que sustituye por sí sola la escucha de voz; se sigue el procedimiento del espacio aéreo y del equipo.",
         ],
       },
       {
-        kind: "p",
-        text: "**Lo que el ATC hace desde tierra (esto sí está cargado).** Si el controlador sospecha que usted recibe pero no transmite, le pide una acción visible en el radar: un viraje o un IDENT (Doc 9432 6.6). Si usted escucha «REPLY NOT RECEIVED IF YOU READ…», su transmisor falló o no llega: haga exactamente lo que pide.",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-32-02.webp",
+        alt: "Historieta fotográfica de tres paneles: pilotos observan silencio, comprueban el audio y prueban otro medio mientras ATS intenta restablecer contacto.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no registro de un incidente: 1) PF mantiene el vuelo mientras PM detecta que la frecuencia quedó sin respuesta; 2) la tripulación coteja audio, radio y canal anterior; 3) ATS busca restablecer contacto. Las pantallas son genéricas y no contienen datos operacionales reales.",
       },
+      { kind: "sub", text: "Si ATS sospecha que la tripulación aún recibe" },
       {
         kind: "p",
-        text: "**Si usted sospecha que su receptor falló.** Siga transmitiendo sus notificaciones a la hora prevista, en la frecuencia en uso, anunciando que transmite a ciegas por falla de receptor y repitiendo el mensaje completo (VERIFICAR). El Doc 9432 define «transmisión a ciegas»: la que se hace cuando no puede establecerse comunicación en ambos sentidos, pero se cree que la estación llamada puede recibir.",
+        text: "La norma EASA SERA.14083 y su material explicativo describen una prueba observable: ATS puede pedir una maniobra especificada, una modificación de respuesta del transpondedor o IDENT y observar el resultado. Si la tripulación oye una instrucción condicional, debe comprenderla y ejecutarla solo si es segura y compatible con las instrucciones recibidas. IDENT no se activa espontáneamente. La prueba puede demostrar que el receptor funciona aunque la voz de respuesta no llegue; no demuestra por sí sola que toda la falla esté resuelta.",
       },
-      { kind: "sub", text: "ICAO PROCEDURE: qué hace una aeronave IFR que sigue sin comunicaciones" },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Sin indicativos, rumbos ni frecuencias de utilería",
+        text: "La expresión condicional IF YOU READ… pertenece a un intercambio en que ATS busca una respuesta observable. El rumbo, el punto y el distintivo de una instrucción real se reciben en vuelo: esta lección no inventa una transmisión ni una ruta. La figura muestra el razonamiento, no una autorización.",
+      },
+      { kind: "sub", text: "Cuando la pérdida de contacto se confirma" },
+      {
+        kind: "list",
+        items: [
+          "**Señalización:** el código reservado 7600 indica falla de radiocomunicaciones. Su selección forma parte del procedimiento aplicable una vez fallan los intentos de restablecer el enlace; no se usa como sustituto de revisar un panel de audio mal configurado.",
+          "**Perfil IFR:** nivel, velocidad, trayectoria, regreso desde un vector, espera, hora de descenso y aproximación se determinan con la regla y la carta vigentes del espacio aéreo. No se extrapolan tiempos de otro Estado. La revisión de EASA de 2025 contiene un procedimiento europeo específico, distinto de versiones antiguas que citaban combinaciones de 7 y 20 minutos; esa regla europea no se enseña como norma colombiana.",
+          "**Salida o llegada instrumental:** una carta de salida normalizada por instrumentos (SID, Standard Instrument Departure) o de llegada normalizada por instrumentos (STAR, Standard Terminal Arrival Route) puede incluir instrucciones de falla de comunicaciones. Se consulta la publicación actual de la autoridad; esta página no dibuja una SID, STAR o aproximación ficticia.",
+          "**Condiciones visuales y aeródromo adecuado:** las alternativas posibles se valoran conforme a la norma aplicable y al vuelo real; no basta con asumir que cualquier campo cercano es utilizable para la aeronave, combustible y meteorología.",
+        ],
+      },
       {
         kind: "callout",
         tone: "verificar",
-        title: "Todo este bloque va con VERIFICAR",
-        text: "Lo que sigue es la estructura del procedimiento OACI (Anexo 2, 3.6.5.2). Se presenta de forma conceptual y **todo el bloque va con VERIFICAR**: tiempos y condiciones exactos se toman del **Anexo 2 vigente**, no de este texto.",
+        title: "Colombia: fuente obligatoria antes de volar",
+        text: "Para un vuelo en Colombia, la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica —eAIP— de Aerocivil, las cartas vigentes, diferencias publicadas y los Reglamentos Aeronáuticos de Colombia aplicables determinan el procedimiento. Aquí no se fija cronómetro, frecuencia, ruta, nivel ni pista. El portal oficial de Aerocivil enlaza la AIP y las secciones ENR; se verifica allí la revisión efectiva para el aeródromo y espacio aéreo concretos.",
       },
       {
-        kind: "list",
-        items: [
-          "En condiciones meteorológicas de vuelo visual: continuar en VMC, aterrizar en el aeródromo adecuado más próximo y notificar la llegada por el medio más rápido.",
-          "En IMC, o si no puede seguir en VMC:",
+        kind: "escenario",
+        titulo: "Silencio tras una transferencia",
+        situacion: "Caso didáctico sin espacio aéreo, ruta, distintivo o frecuencia inventados. Una aeronave IFR recibe y colaciona una transferencia, pero no obtiene respuesta en el nuevo canal. PF mantiene el vuelo autorizado. PM detecta que el canal activo no coincide con el recién anotado; después de corregirlo, todavía no recibe respuesta.",
+        preguntas: [
+          {
+            q: "¿Qué comprueban antes de declarar una falla?",
+            a: "PM verifica selección activa, panel de audio, volumen, transmisor y micrófono; usa la otra radio o puesto conforme al SOP. Reintenta el canal anterior y otro canal apropiado a la ruta, y coordina con ATS u otra aeronave por los medios disponibles. PF conserva el control y la navegación; ambos vigilan que el diagnóstico no cree otra desviación."
+          },
+          {
+            q: "Si ATS les da una instrucción observable y no pueden contestar, ¿qué demuestra la respuesta?",
+            a: "Una maniobra o IDENT solicitados y observados indican que la tripulación recibió esa instrucción y puede actuar. No prueban que el transmisor de voz se haya recuperado. Se sigue escuchando y usando los medios que funcionen, y se aplica la regla de falla completa si no se restablece la comunicación bilateral."
+          },
+          {
+            q: "¿Qué dato falta para planear el vuelo sin radio?",
+            a: "Faltan la norma del Estado, la carta vigente, la última autorización colacionada, el estado meteorológico, el combustible y la condición real de la aeronave. No puede reemplazarse esa evaluación por un número de minutos extraído de una regla extranjera."
+          },
         ],
+        concepto: "Diagnosticar, recuperar y solo entonces aplicar el procedimiento normativo del lugar; el silencio de una frecuencia no es una autorización nueva.",
       },
-      {
-        kind: "list",
-        items: [
-          "Mantener la última velocidad y el último nivel asignados (o la altitud mínima de vuelo si es mayor) durante un tiempo fijado. El Anexo 2 distingue dos casos: con sistema de vigilancia ATS (7 minutos, contados desde el último de estos momentos: alcanzar el nivel asignado, poner 7600 o no notificar un punto de notificación obligatoria) y sin él (20 minutos desde que no notifica un punto de notificación obligatoria). Después, ajustar nivel y velocidad al plan de vuelo presentado.",
-          "Si estaba bajo guía vectorial o con desplazamiento lateral sin límite especificado: regresar a la ruta del plan de vuelo a más tardar en el siguiente punto significativo, respetando la altitud mínima.",
-          "Continuar según la ruta del plan de vuelo hasta la ayuda o fijo que sirve al aeródromo de destino y, si hace falta, esperar allí.",
-          "Iniciar el descenso a la hora prevista de aproximación (EAT) recibida y acusada, o, si no tiene EAT, a la hora prevista de llegada del plan de vuelo.",
-          "Completar un procedimiento de aproximación por instrumentos normal y aterrizar, si es posible, dentro de los 30 minutos siguientes a esa hora.",
-        ],
-      },
-      { kind: "sub", text: "PROCEDIMIENTO NACIONAL: no es lo mismo" },
-      {
-        kind: "norma",
-        titulo: "PROCEDIMIENTO NACIONAL",
-        ref: "AIP (GEN 1.7 y ENR) · RAC 91",
-        texto: "Los Estados publican sus propios procedimientos o diferencias con la OACI, a veces por aeropuerto (en SID, STAR o cartas de aproximación) y a veces para todo el territorio. Estados Unidos, por ejemplo, tiene su propia regla de falla de comunicaciones IFR (14 CFR 91.185), que no coincide con el texto OACI (VERIFICAR). **En Colombia: consultar el AIP (ENR y GEN 1.7, diferencias con la OACI) y el RAC 91.** Lo que manda en vuelo es la regla del Estado cuyo espacio aéreo usted ocupa, más lo que publique la carta del procedimiento que está volando.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "CM-32-01 · Diagrama · 4:5 · 1080×1350 px",
-        descripcion: "Imagen sugerida: Diagrama de flujo vertical, pensado para el celular. Inicio: «Sin respuesta del ATC». Bloque 1: «Aviate: mantener la última autorización». Bloque 2 (revisión de cabina): frecuencia activa / panel de audio y volumen / otra radio y otro puesto / frecuencia anterior. Decisión: «¿Recuperó contacto?» Sí: «Pedir frecuencia correcta y seguir». No: bloque 3: «Otra dependencia ATS / relay de otra aeronave / 121,5 / CPDLC si está conectado». Decisión: «¿Recuperó contacto?» No: bloque 4: «7600» y bloque 5 dividido en dos columnas con rótulo visible: «ICAO PROCEDURE (Anexo 2)» y «PROCEDIMIENTO NACIONAL (AIP del Estado)», con una flecha que dice «manda el del espacio aéreo en que vuela». Un recuadro aparte: «Si escucha \"IF YOU READ…\": haga lo que piden (viraje o IDENT)». Objetivo: Que el piloto vea que la mayoría de las fallas se resuelven en la cabina antes de llegar al procedimiento, y que el procedimiento final depende del Estado.",
-        alto: 420,
-        ratio: "4 / 5",
-        anchoMax: 420,
-      },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología y procedimientos que no están en las fuentes cargadas. El procedimiento de falla de comunicaciones IFR (VMC, 7 y 20 minutos, regreso a la ruta, EAT o ETA, 30 minutos): **Anexo 2, 3.6.5.2** y su aplicación ATC en el **Doc 4444 cap. 15**. «TRANSMITTING BLIND DUE TO RECEIVER FAILURE» y la repetición completa del mensaje (ejemplo 6), y los intentos en la frecuencia anterior, otra estación de la ruta y otras aeronaves: **Anexo 10 Vol. II cap. 5** y **Doc 9432 9.5**. La regla nacional: 14 CFR 91.185 como ejemplo; en Colombia, **AIP (GEN 1.7 y ENR) y RAC 91**.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · «IF YOU READ…»: responder con un viraje",
-        [
-          `ATC:   "AVIATORY 452, REPLY NOT RECEIVED. IF YOU READ BOGOTA CONTROL, TURN LEFT HEADING 040."`,
-          `PILOT: (vira a la izquierda rumbo 040, sin poder responder)`,
-          `ATC:   "AVIATORY 452, TURN OBSERVED. POSITION 5 MILES SOUTH OF TOLMA. WILL CONTINUE RADAR CONTROL."`,
-        ],
-        "Significado: el ATC sospecha que usted recibe pero no transmite. Usa el viraje como respuesta. Usted sigue escuchando y cumpliendo.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · «IF YOU READ…»: responder con IDENT",
-        [
-          `ATC:   "AVIATORY 452, REPLY NOT RECEIVED. IF YOU READ BOGOTA CONTROL, SQUAWK IDENT."`,
-          `PILOT: (oprime IDENT)`,
-          `ATC:   "AVIATORY 452, SQUAWK OBSERVED. WILL CONTINUE RADAR CONTROL."`,
-        ],
-        "Significado: igual que el anterior, con IDENT en lugar de viraje.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · Prueba de radio",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, RADIO CHECK 128.7."`,
-          `ATC:   "AVIATORY 452, BOGOTA CONTROL, READING YOU THREE."`,
-        ],
-        "Significado: prueba de radio con la escala de inteligibilidad del Doc 9432 (1 ininteligible a 5 perfectamente inteligible). «Tres» es inteligible con dificultad: vale la pena cambiar de radio.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Duda sobre el propio transmisor",
-        [`PILOT: "BOGOTA CONTROL, AVIATORY 452, HOW DO YOU READ?"`, `ATC:   "AVIATORY 452, READING YOU FIVE."`],
-        "Significado: usted duda de su transmisor después de un silencio largo. Una sola llamada corta, no tres seguidas.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Pedir retransmisión a otra aeronave (PLAIN LANGUAGE)",
-        [
-          `PILOT: "AVIATORY 542, AVIATORY 452 ON 128.7, REQUEST RELAY TO BOGOTA CONTROL."`,
-          `PILOT (otra aeronave): "AVIATORY 452, AVIATORY 542, READING YOU FIVE."`,
-        ],
-        "Significado: **PLAIN LANGUAGE** para la solicitud de retransmisión (no hay frase estándar cargada). La otra aeronave responde con la escala de inteligibilidad y luego lleva su mensaje al ATC.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · Transmisión a ciegas por falla de receptor (VERIFICAR)",
-        [
-          `PILOT: "TRANSMITTING BLIND DUE TO RECEIVER FAILURE, AVIATORY 452, POSITION GIKOS 1532, FLIGHT LEVEL 330, ESTIMATING TOLMA 1551. I SAY AGAIN, AVIATORY 452, POSITION GIKOS 1532, FLIGHT LEVEL 330, ESTIMATING TOLMA 1551."`,
-        ],
-        "Significado: su receptor falló; se transmite a ciegas en la frecuencia en uso y se repite el mensaje completo. VERIFICAR la forma exacta.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
       {
         kind: "enLaOperacion",
-        momento: "Cuando la frecuencia se queda callada",
-        texto: "Lo común en línea aérea es la **pérdida de contacto por frecuencia** (prolonged loss of communication): un cambio mal colacionado, una frecuencia de reserva activada por error, un panel de audio mal puesto. Se detecta por el silencio: si la frecuencia está callada más de lo normal para esa zona, alguien en cabina lo dice y se revisa. En operación con CPDLC, el enlace puede seguir funcionando aunque la voz falle, y el ATC también puede buscarlo por ahí. El procedimiento completo de falla (7600, perfil del Anexo 2 o del Estado) se reserva para cuando la revisión de cabina y los otros medios no funcionaron. Cada explotador publica en su manual cómo aplica los procedimientos del Estado.",
+        momento: "PF mantiene el vuelo; PM busca el enlace",
+        texto: "La tripulación comunica internamente quién mantiene el control y quién revisa audio y radios. PM anota los intentos y el último permiso recibido, pues la secuencia puede afectar decisiones posteriores. Si se restablece el contacto en otro canal, informa que no pudo comunicarse por el asignado y confirma con ATS el estado de la autorización. Si persiste la falla, PF y PM consultan el procedimiento correspondiente al espacio aéreo y la carta vigente; señalizan la falla como corresponde y evitan mezclar una regla europea o estadounidense con una operación colombiana.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Aplicar el procedimiento cuando era la frecuencia",
-        "Aplicar el procedimiento de falla (7600, cambio de nivel según plan de vuelo) cuando el problema era la frecuencia o el volumen.",
-      ),
-      error(
-        "Llamar tres o cuatro veces seguidas",
-        "Llamar tres o cuatro veces seguidas en la misma frecuencia sin revisar nada: bloquea a otros y no resuelve.",
-      ),
-      error(
-        "No volver a la frecuencia anterior",
-        "No volver a la frecuencia anterior, que es la forma más rápida de recuperar contacto.",
-      ),
-      error("Mezclar reglas", "Mezclar reglas: aplicar lo que se estudió para un Estado en el espacio aéreo de otro."),
-      error(
-        "Dejar de escuchar",
-        "Dejar de escuchar: con falla de transmisor, el ATC sigue dando instrucciones que usted puede cumplir.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Pasar a 7600 antes de revisar el audio", text: "Una selección o volumen errados pueden explicar el silencio. El diagnóstico tiene pasos concretos y no se resuelve aumentando la potencia de la voz o repitiendo llamadas sin pausa." },
+      { kind: "callout", tone: "warn", title: "Tratar CPDLC como solución automática", text: "Un enlace de datos disponible no implica que toda la coordinación ni la obligación de escucha de voz queden suspendidas. Se comprueba qué capacidad queda y qué regla rige." },
+      { kind: "callout", tone: "warn", title: "Copiar el cronómetro de otro Estado", text: "Los tiempos, perfiles y condiciones del procedimiento de pérdida de comunicaciones son normativos. Un valor de una edición antigua o jurisdicción distinta puede llevar a una trayectoria incorrecta." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Primero se vuela el avión; luego se revisa la cabina; al final, el procedimiento.",
-          "Frecuencia anterior, otra dependencia, relay, 121,5, CPDLC: en ese orden de sentido común.",
-          "«REPLY NOT RECEIVED IF YOU READ…» significa que el ATC lo escucha a usted mal o nada; haga lo que pide.",
-          "7600 con la falla confirmada.",
-          "ICAO PROCEDURE (Anexo 2) y PROCEDIMIENTO NACIONAL no son lo mismo; en Colombia, AIP y RAC 91.",
+          "PF mantiene vuelo y navegación; PM diagnostica los sistemas de comunicación.",
+          "Canal anterior, otro apropiado y otros medios se intentan antes de asumir pérdida total.",
+          "Una respuesta observable puede confirmar recepción sin confirmar transmisión de voz.",
+          "7600 identifica la falla cuando procede; el perfil IFR sale de la norma y carta vigentes.",
+          "Para Colombia se consulta únicamente Aerocivil/eAIP oficial para datos locales.",
         ],
       },
-      fuentes(
-        "Doc 9432 · Doc 4444 · Anexo 2",
-        "Doc 9432 (4.ª ed.) cap. 1 (glosario, «Transmisión a ciegas»); 2.8.4 (prueba de radio y escala de inteligibilidad); 6.6 (REPLY NOT RECEIVED IF YOU READ… TURN / SQUAWK IDENT; TURN OBSERVED; SQUAWK OBSERVED … WILL CONTINUE RADAR CONTROL; nota: código 7600). Doc 4444 (15.ª ed., Enm. 4) cap. 1, definición «Transmisión a ciegas».",
-        [
-          "VERIFICAR: procedimiento de falla de comunicaciones IFR (VMC, 7 y 20 minutos, regreso a la ruta, EAT o ETA, 30 minutos) contra Anexo 2, 3.6.5.2 (no cargado), y su aplicación ATC en Doc 4444 cap. 15 (no cargado).",
-          "VERIFICAR: «TRANSMITTING BLIND DUE TO RECEIVER FAILURE» y la repetición completa del mensaje contra Anexo 10 Vol. II cap. 5 y Doc 9432 9.5 (no cargados).",
-          "VERIFICAR: intentos en frecuencia anterior, otra estación de la ruta y otras aeronaves contra Anexo 10 Vol. II cap. 5 (no cargado).",
-          "VERIFICAR: 14 CFR 91.185 como ejemplo de regla nacional distinta; en Colombia, AIP (GEN 1.7 y ENR) y RAC 91.",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA SERA.14083 · Aerocivil AIP · OACI Anexo 10",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.14083 y AMC1 SERA.14083(b)(1), recuperación de contacto, pruebas observables y procedimiento europeo: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9832" },
+          { kind: "p", text: "EASA SERA.8035, obligación de escucha de voz aun con CPDLC establecida: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9888" },
+          { kind: "p", text: "OACI, Anexo 10 Vol. IV, código 7600 reservado para falla de radiocomunicaciones: https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/Annex10_Volume%204_cons.pdf" },
+          { kind: "p", text: "Aerocivil, portal oficial de la AIP Colombia y acceso a eAIP: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "La secuencia de recuperación EASA es fuente comparativa, no un procedimiento colombiano. Esta lección no reproduce la carta ni declara vigentes los tiempos o rutas de ningún aeródromo. La historieta y el escenario son didácticos, no transcripciones de un vuelo." },
         ],
-      ),
+      },
     ],
   },
   // ── 33 ──────────────────────────────────────────────────────────────────
   {
     n: 33,
-    title: "La frecuencia de emergencia 121.5 MHz",
-    kicker: "Para qué es y para qué no",
-    minutes: 8,
+    title: "La frecuencia de emergencia 121,5 MHz",
+    kicker: "Canal de socorro, recuperación y escucha",
+    minutes: 17,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "121,5 MHz es el canal VHF de emergencia aeronáutico. Existe para que haya una frecuencia común, escuchada por dependencias ATS designadas y por muchas aeronaves, cuando los canales normales no sirven o no están disponibles. El Doc 9432 menciona que dentro del servicio móvil aeronáutico entran las radiobalizas de localización de siniestros que operan en las frecuencias de socorro y de urgencia designadas.",
+        text: "121,5 megahercios (MHz) es la frecuencia aeronáutica de emergencia en muy alta frecuencia (VHF, Very High Frequency). Es un canal común para comunicaciones de seguridad cuando el canal habitual no sirve o cuando las circunstancias requieren llegar a otras estaciones. No es una frecuencia de trabajo ordinaria. En una emergencia con contacto establecido, el primer mensaje se transmite normalmente en el canal aire–tierra en uso: el servicio de tránsito aéreo (ATS, Air Traffic Services) que ya conoce el vuelo puede actuar sin perder tiempo en una búsqueda de frecuencia.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
-      { kind: "p", text: "**Para qué sirve (según el Anexo 10, VERIFICAR la lista exacta):**" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-33-01.svg",
+        alt: "Comparación entre comunicar socorro o urgencia en el canal ATS en uso y usar 121,5 MHz cuando el contacto normal no está disponible.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Esquema didáctico: si el enlace con ATS funciona, el mensaje de socorro o urgencia va por el canal en uso. Si no hay contacto tras revisar radios y canales, 121,5 MHz puede ayudar a recuperarlo o pedir asistencia. La obligación de escucha depende de la normativa y del equipo; no se fija una regla universal para todo vuelo.",
+      },
+      { kind: "sub", text: "Tres usos que no deben confundirse" },
       {
         kind: "list",
         items: [
-          "Dar un canal libre entre una aeronave en socorro o urgencia y una estación en tierra cuando los canales normales están ocupados.",
-          "Comunicación con aeródromos que normalmente no usan los servicios internacionales, en caso de emergencia.",
-          "Canal común entre aeronaves civiles y militares, y con buques, en búsqueda y salvamento.",
-          "Comunicación con una aeronave cuando una falla de equipo le impide usar los canales normales.",
-          "Interceptación: el interceptor intenta comunicarse en 121,5 (Anexo 2, Apéndice 2; VERIFICAR).",
-          "Radiobalizas de emergencia (ELT): las modernas transmiten en 406 MHz y usan 121,5 como señal de localización (VERIFICAR).",
+          "**Mensaje de socorro o urgencia:** EASA SERA.14095 especifica el canal aire–tierra en uso para el mensaje inicial; su material explicativo permite usar 121,5 MHz u otro canal si es necesario o deseable. La prioridad es que el mensaje llegue, no completar una secuencia mecánica de sintonización.",
+          "**Recuperar contacto:** si la frecuencia asignada no responde, la tripulación revisa la cabina e intenta el canal anterior y otros medios apropiados, como se explica en la lección 32. El canal de emergencia puede servir para contactar una estación o responder a un llamado de búsqueda. Tras recuperar el enlace, se confirma con ATS la frecuencia y autorización vigentes.",
+          "**Escucha preventiva:** determinadas rutas o áreas exigen mantener escucha de 121,5 MHz en la medida permitida por el equipo y la carga de trabajo; otras operaciones la mantienen por procedimiento normalizado de operación (SOP, Standard Operating Procedures) del explotador. No se afirma que todos los vuelos deban dedicar siempre la segunda radio al canal de emergencia.",
         ],
       },
-      { kind: "p", text: "**Lo que 121,5 NO es:**" },
       {
-        kind: "list",
-        items: [
-          "No es «la frecuencia para cualquier cosa». No se usa para charla, para preguntar la frecuencia del siguiente sector por comodidad ni como canal aire-aire.",
-          "**No es el primer lugar donde se declara una emergencia.** El mensaje de socorro o urgencia va, en principio, en la frecuencia aire-tierra en uso, donde el controlador que ya lo tiene identificado puede actuar (VERIFICAR, Anexo 10 Vol. II cap. 5). 121,5 es la opción cuando esa frecuencia no funciona o usted no tiene contacto.",
-          "No reemplaza la revisión de cabina en una pérdida de comunicaciones (cap. 32).",
-        ],
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-33-02.webp",
+        alt: "Historieta de tres paneles: tripulación revisa la radio, controlador intenta contactar por el canal de emergencia y pilotos recuperan el enlace.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no transcripción: 1) la tripulación comprueba la pérdida de contacto en el canal asignado; 2) ATS intenta localizarla por un canal de emergencia; 3) los pilotos reciben la llamada y coordinan el regreso al canal correcto. No se representan frecuencias operacionales adicionales, distintivos ni aeropuertos.",
       },
+      { kind: "sub", text: "Escuchar no equivale a haber comunicado" },
       {
         kind: "p",
-        text: "**Escucha de 121,5.** El Anexo 10 y el Anexo 6 piden que ciertas aeronaves mantengan escucha continua de 121,5 en determinadas zonas o vuelos (por ejemplo, largos trayectos sobre el agua o áreas designadas), en la medida de lo posible (VERIFICAR alcance exacto). Muchas aerolíneas la dejan en la segunda radio durante el crucero; es práctica del explotador, no regla universal. En pilotos de habla inglesa se escucha llamar a esta frecuencia «guard»; es jerga, no fraseología.",
+        text: "Tener 121,5 MHz sintonizada, escuchar una portadora o transmitir una vez sin respuesta no prueba que una estación haya recibido el mensaje. Si una tripulación oye un llamado dirigido a su aeronave, confirma la identidad, escucha la instrucción completa y responde de forma breve. Si sirve de retransmisor para otra aeronave, identifica claramente qué parte del mensaje procede de ella y qué información ha recibido de ATS. Una transmisión rutinaria innecesaria puede ocupar el canal cuando se necesita para socorro.",
       },
       {
-        kind: "p",
-        text: "**Por qué importa escucharla:** por ahí puede llegarle un llamado del ATC que lo perdió en su frecuencia, una aeronave en problemas que necesita retransmisión o un interceptor.",
+        kind: "callout",
+        tone: "info",
+        title: "La escucha tiene condiciones concretas",
+        text: "La regla europea SERA.14080 exige escucha continua en vuelos largos sobre agua y determinadas áreas, con excepciones por otros canales, equipo o tareas de cabina; también en rutas o áreas de posible interceptación cuando la autoridad competente lo haya establecido. Su material de orientación recomienda escucha en otros vuelos cuando sea posible. Esto describe Europa, no asigna una obligación colombiana. Para Colombia se verifica la eAIP de Aerocivil, el equipo y el SOP aplicable.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene reglas que no están en las fuentes cargadas. Los usos del canal de emergencia 121,5 MHz: **Anexo 10 Vol. V** (asignación de frecuencias; canal de emergencia) y **Vol. II cap. 5**. Que el mensaje de socorro o urgencia vaya en principio en la frecuencia en uso: **Anexo 10 Vol. II cap. 5**. Requisitos de escucha de 121,5: **Anexo 10 Vol. II cap. 5 y Anexo 6 Parte I**. Interceptores en 121,5: **Anexo 2, Apéndice 2**; ELT 406 / 121,5: **Anexo 10 Vol. III y Anexo 6**. Cómo notificar una señal de ELT escuchada: **AIP de cada Estado**.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · El ATC lo busca por 121,5 (PLAIN LANGUAGE en la forma de la llamada)",
-        [
-          `ATC (en 121,5):   "AVIATORY 452, BOGOTA CONTROL ON 121.5, CONTACT BOGOTA CONTROL 128.7."`,
-          `PILOT (en 121,5): "128.7, AVIATORY 452."`,
+      { kind: "sub", text: "Radiobalizas e interceptación: vínculo, no equivalencia" },
+      {
+        kind: "p",
+        text: "El transmisor localizador de emergencia (ELT, Emergency Locator Transmitter) y la comunicación de voz en 121,5 MHz cumplen funciones distintas. El manual de espectro de la Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization) señala que 121,5 MHz se usa también para localización de ELT y que el sistema satelital COSPAS–SARSAT ya no vigila esa frecuencia como canal de alerta. Una señal de baliza o un llamado de interceptación merecen atención, pero la respuesta se rige por los procedimientos aplicables; no se improvisa una posición o instrucción por oír una portadora.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Sin respuesta en el canal asignado; un llamado en 121,5",
+        situacion: "Caso didáctico sin ruta, distintivo, frecuencia ATS, altitud ni aeródromo inventados. En crucero IFR, después de una transferencia, la tripulación no logra contacto en el canal asignado. El piloto que vuela (PF, pilot flying) mantiene la autorización colacionada; el piloto que monitorea (PM, pilot monitoring) revisa radio y audio. Tras reintentar el canal anterior, escucha en 121,5 MHz un llamado que podría ser para su aeronave.",
+        preguntas: [
+          {
+            q: "¿Cómo identifica si el llamado es suyo y qué responde?",
+            a: "PM escucha el distintivo completo y la instrucción. Si corresponde a su aeronave, contesta con su identificación y colaciona los datos que lo requieran; si el distintivo no es claro, pide aclaración en vez de asumirlo. Luego confirma con ATS el canal y la autorización efectivos."
+          },
+          {
+            q: "¿Qué cambia si, antes de perder contacto, aparece una condición de socorro?",
+            a: "Si el enlace asignado todavía funciona, la declaración de socorro se transmite allí, con la información esencial, para que ATS actúe. Si ese enlace falla o la situación hace preferible otro medio, 121,5 MHz está disponible. No se retrasa el mensaje urgente por una regla rígida de sintonización."
+          },
+          {
+            q: "¿Qué no prueba una llamada sin respuesta por 121,5?",
+            a: "No demuestra que ATS la haya recibido ni que haya una autorización nueva. La tripulación sigue buscando contacto por medios apropiados y, si no se recupera, aplica la norma de comunicaciones perdidas del espacio aéreo concreto."
+          },
         ],
-        "Significado: la instrucción CONTACT es normalizada (Doc 9432 2.8.2.1); la forma de la llamada en 121,5 es **PLAIN LANGUAGE**. El ATC lo perdió en la frecuencia asignada y lo busca por 121,5. Usted responde corto y cambia. No se discute en 121,5 por qué se perdió el contacto.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Usted pide frecuencia por 121,5 (PLAIN LANGUAGE)",
-        [
-          `PILOT (en 121,5): "BOGOTA CONTROL, AVIATORY 452 ON 121.5, UNABLE CONTACT ON 128.7, REQUEST FREQUENCY."`,
-          `ATC:              "AVIATORY 452, CONTACT BOGOTA CONTROL 126.3."`,
-          `PILOT:            "126.3, AVIATORY 452."`,
-        ],
-        "Significado: **PLAIN LANGUAGE**. Pérdida de contacto que no es emergencia: se usa 121,5 como último recurso, se resuelve en una o dos transmisiones y se sale.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · MAYDAY en 121,5",
-        [`PILOT (en 121,5): "MAYDAY, MAYDAY, MAYDAY, BOGOTA CONTROL, AVIATORY 452, ..."`],
-        "Significado: solo cuando la frecuencia en uso no le sirve. La estructura del mensaje está en el cap. 34.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Lo que no se hace (PLAIN LANGUAGE)",
-        [`PILOT (en 121,5): "AVIATORY 425, AVIATORY 452 ON 121.5, CONFIRM YOU ARE ON THIS FREQUENCY."`],
-        "Significado: **PLAIN LANGUAGE**. Evite usar 121,5 para coordinar entre aeronaves de la misma empresa: cada transmisión que no es necesaria tapa una que sí podría serlo. Este ejemplo está aquí como lo que **no** se hace.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
+        concepto: "121,5 MHz es un recurso de seguridad, no un atajo para omitir el canal asignado ni una autorización implícita.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "En crucero, con la segunda radio en 121,5",
-        texto: "En crucero, la segunda radio suele quedar en 121,5 (según SOP). Cuando se escucha un llamado ahí, primero se comprueba si es para usted. Si otra aeronave pide ayuda y no tiene contacto con el ATC, usted puede servirle de relay en la frecuencia del ATC. Se escuchan portadoras de ELT activados sin intención: si lo nota, puede informarlo al ATC con el lugar y la hora aproximados (procedimiento local; VERIFICAR).",
+        momento: "Monitoreo en crucero y llamada inesperada",
+        texto: "PM conoce qué radio está dedicada al canal ATS y cuál, si el SOP lo indica, escucha 121,5 MHz. Cuando aparece una llamada en el canal de emergencia, no silencia sin más la escucha de control: comprueba el destinatario y coordina con PF la prioridad. Si la llamada permite restablecer el contacto, informa a ATS que el canal asignado no funcionó y confirma el permiso vigente. Ante un mensaje de otra aeronave en peligro, puede retransmitirlo con precisión si ayuda y si la carga de trabajo lo permite. Se evita usar el canal para comprobaciones o charla no esenciales.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Declarar primero en 121,5",
-        "Declarar primero en 121,5 cuando tenía contacto con el controlador en su frecuencia.",
-      ),
-      error("121,5 como canal de charla", "Usar 121,5 como canal de charla o de coordinación entre compañeros."),
-      error(
-        "El volumen de 121,5 abajo",
-        "Olvidar que el volumen de la radio en 121,5 está abajo y perder un llamado de interceptación o del ATC.",
-      ),
-      error(
-        "Creer que estar en 121,5 es haber avisado",
-        "Confundir «estar en 121,5» con «haber avisado al ATC»: si nadie responde, nadie lo escuchó.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Cambiar primero a 121,5 durante una emergencia con contacto ATS", text: "Si el controlador en el canal en uso ya recibe a la aeronave, declarar allí normalmente acelera la respuesta. Se usa el canal de emergencia cuando las circunstancias lo hagan necesario o deseable." },
+      { kind: "callout", tone: "warn", title: "Tratar la escucha como una transmisión confirmada", text: "La radio puede estar sintonizada y nadie haber recibido un mensaje. Se necesita acuse de recibo o acción comprobable y, si no lo hay, se siguen los procedimientos de recuperación." },
+      { kind: "callout", tone: "warn", title: "Ocupar el canal para coordinación rutinaria", text: "Una conversación no esencial puede interferir con comunicaciones de socorro, urgencia o recuperación de contacto." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "121,5 es el canal VHF de emergencia, con usos definidos por el Anexo 10.",
-          "El mensaje de socorro o urgencia va primero en la frecuencia en uso.",
-          "Sirve también para recuperar contacto, interceptación, búsqueda y salvamento y ELT.",
-          "No es canal aire-aire ni de charla.",
-          "Escúchela cuando la norma o el SOP lo pidan: por ahí pueden estar buscándolo.",
+          "121,5 MHz es una frecuencia aeronáutica de emergencia, no un canal rutinario.",
+          "El mensaje inicial de socorro o urgencia se transmite en el canal en uso cuando es posible.",
+          "Ayuda a recuperar contacto cuando fallan los canales normales.",
+          "La escucha depende de norma, área, equipo y SOP; no es idéntica en todos los vuelos.",
+          "Sintonizar o transmitir sin respuesta no equivale a haber informado a ATS.",
         ],
       },
-      fuentes(
-        "Doc 9432 · Doc 9835 · Anexo 10",
-        "Doc 9432 (4.ª ed.) cap. 1, definición «Servicio móvil aeronáutico» (radiobalizas en frecuencias de socorro y urgencia); 2.8.2.1 (CONTACT). Doc 9835 (2.ª ed.) 4.3.4 (el lenguaje común en emergencias, claro y conciso).",
-        [
-          "VERIFICAR: usos del canal de emergencia 121,5 MHz contra Anexo 10 Vol. V (asignación de frecuencias; canal de emergencia) y Vol. II cap. 5 (no cargados).",
-          "VERIFICAR: que el mensaje de socorro o urgencia se transmita en principio en la frecuencia en uso, contra Anexo 10 Vol. II cap. 5 (no cargado).",
-          "VERIFICAR: requisitos de escucha de 121,5 contra Anexo 10 Vol. II cap. 5 y Anexo 6 Parte I (no cargados).",
-          "VERIFICAR: comunicación con interceptores en 121,5 contra Anexo 2, Apéndice 2 (no cargado); ELT 406 / 121,5 contra Anexo 10 Vol. III y Anexo 6 (no cargados).",
-          "VERIFICAR: cómo notificar una señal de ELT escuchada, según AIP de cada Estado.",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "OACI Doc 9718 · EASA SERA.14080 y SERA.14095 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "OACI, Handbook on Radio Frequency Spectrum Requirements for Civil Aviation, Doc 9718, Vol. I, edición anticipada 2026: 121,5 MHz como frecuencia aeronáutica de emergencia y su relación con ELT; la versión anticipada no sustituye el Anexo 10 vigente: https://www.icao.int/sites/default/files/FSMP/Doc9718_VolI_4th_Edition_2026_Advance_Unedited_Version.pdf" },
+          { kind: "p", text: "EASA, Easy Access Rules for SERA, revisión agosto de 2025, SERA.14080 (escucha) y SERA.14083 (recuperación de contacto): https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9832" },
+          { kind: "p", text: "EASA SERA.14095 (socorro y urgencia en el canal en uso y alternativas): https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9854" },
+          { kind: "p", text: "Aerocivil, portal oficial de la AIP Colombia y acceso a eAIP para requisitos y datos locales vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "La historieta y el escenario son didácticos, no transcripciones. No se inventan distintivos, sectores, frecuencias ATS, rutas ni un mandato de escucha colombiano." },
         ],
-      ),
+      },
     ],
   },
   // ── 34 ──────────────────────────────────────────────────────────────────
   {
     n: 34,
     title: "Socorro: MAYDAY",
-    kicker: "Qué es una situación de socorro y qué se informa",
-    minutes: 10,
+    kicker: "Prioridad, mensaje inicial y coordinación",
+    minutes: 19,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "**Socorro** (distress) es la condición de estar amenazado por un peligro grave o inminente y necesitar ayuda inmediata (VERIFICAR la redacción exacta, Anexo 10 Vol. II cap. 5). La señal radiotelefónica es **MAYDAY**, dicha preferiblemente tres veces al comienzo del primer mensaje. Una llamada de socorro tiene prioridad absoluta sobre cualquier otra comunicación.",
+        text: "Socorro es una condición de peligro grave o inminente que exige ayuda inmediata. La señal radiotelefónica es MAYDAY, preferiblemente pronunciada tres veces al iniciar la primera comunicación. La declaración da a las comunicaciones de socorro prioridad absoluta: permite que el servicio de tránsito aéreo (ATS, Air Traffic Services) organice la frecuencia, el tránsito y la asistencia. No sustituye las acciones de control del avión ni una lista de verificación; la tripulación comunica en cuanto la carga de trabajo lo permite.",
       },
       {
-        kind: "p",
-        text: "No confundir con las **fases de emergencia** del Doc 4444 (incertidumbre, alerta, peligro). Esas fases las declara el ATS para activar el servicio de alerta y búsqueda y salvamento. La «fase de peligro» se define como la situación en que hay motivos justificados para creer que la aeronave y sus ocupantes están amenazados por un peligro grave e inminente y necesitan auxilio inmediato. Se parece a la definición de socorro, pero no es lo que el piloto dice por radio: es la clasificación que hace el sistema.",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-34-01.svg",
+        alt: "Estructura de un mensaje MAYDAY: señal de socorro, estación, identificación, naturaleza, intención, posición y datos adicionales.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Ficha didáctica basada en EASA SERA.14095: la señal MAYDAY abre el mensaje; siguen, cuando sea posible, estación, identificación, naturaleza del peligro, intención y posición/nivel/rumbo. La información adicional se entrega después si ayuda. No se retrasa una acción urgente para completar una plantilla.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
-      {
-        kind: "secuencia",
-        titulo: "Contenido del mensaje de socorro (orden según Anexo 10 Vol. II y Doc 9432 cap. 9; VERIFICAR)",
-        numerada: true,
-        items: [
-          "MAYDAY, MAYDAY, MAYDAY.",
-          "Estación a la que se dirige (cuando el tiempo y las circunstancias lo permitan).",
-          "Identificación de la aeronave.",
-          "Naturaleza de la condición de socorro.",
-          "Intenciones del piloto al mando.",
-          "Posición actual, nivel y rumbo.",
-          "Cualquier otra información útil.",
-        ],
-      },
-      { kind: "p", text: "**Reglas que acompañan esa secuencia (VERIFICAR):**" },
+      { kind: "sub", text: "Dos tareas simultáneas, no una llamada perfecta" },
       {
         kind: "list",
         items: [
-          "Se transmite en la frecuencia en uso, con el controlador que ya lo tiene.",
-          "Es una guía, no un formulario: si no tiene tiempo, diga lo esencial (MAYDAY, quién es, qué pasa) y complete después.",
-          "El transpondedor puede ir a 7700 (cap. 31, con su precaución).",
-          "El ATC puede imponer silencio a las demás estaciones y, al terminar, anunciar que el tráfico de socorro ha terminado.",
+          "**Piloto que vuela:** el piloto que vuela (PF, pilot flying) mantiene trayectoria segura, ejecuta acciones inmediatas y usa la lista aplicable. No se desvía de una situación crítica solo para narrar todos los detalles a ATS.",
+          "**Piloto que monitorea:** el piloto que monitorea (PM, pilot monitoring) apoya la cabina y transmite la declaración cuando puede. El reparto real depende del procedimiento normalizado de operación (SOP, Standard Operating Procedures) y del estado de la aeronave.",
+          "**Primer mensaje:** incluye tanto como sea posible, no necesariamente todos los elementos. Si solo hay tiempo para la señal, la identificación y la naturaleza del peligro, se transmite eso y se completa luego. EASA SERA.14095 pide hablar despacio y con claridad cuando la situación lo permite.",
+          "**Canal:** con contacto establecido, se usa el canal aire–tierra en uso. La frecuencia de emergencia 121,5 MHz u otro canal puede usarse si las circunstancias hacen necesario o deseable llegar a otras estaciones; no se impone un cambio de canal antes de declarar.",
         ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-34-02.webp",
+        alt: "Historieta de tres paneles: PF mantiene el avión, PM comunica MAYDAY y ATS coordina ayuda.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no una transmisión real: 1) PF sostiene el control y PM reconoce la necesidad de ayuda inmediata; 2) PM comunica MAYDAY con la información disponible; 3) ATS acusa recibo y coordina la asistencia. No representa una falla específica, un aeródromo ni datos de vuelo.",
+      },
+      { kind: "sub", text: "La estructura que debe poder construir" },
+      {
+        kind: "list",
+        ordered: true,
+        items: [
+          "**Señal:** MAYDAY al comienzo de la primera comunicación, preferiblemente tres veces. No es un saludo ni una etiqueta tardía después de un relato largo.",
+          "**A quién y quién:** dependencia ATS si hay tiempo, seguida de la identificación completa de la aeronave.",
+          "**Naturaleza:** qué peligro grave o inminente afecta al vuelo. Debe ser comprensible para que ATS elija la ayuda adecuada; no se requiere diagnosticar por radio la causa técnica exacta antes de declarar.",
+          "**Intención:** qué planea hacer la tripulación ahora: por ejemplo, mantener el vuelo, iniciar una acción necesaria o solicitar prioridad. La intención se expresa con datos reales del momento, no con una pista o altitud inventada.",
+          "**Ubicación y movimiento:** posición, nivel y rumbo actuales cuando puedan transmitirse. Si alguno es incierto, se aclara; no se improvisa una coordenada.",
+          "**Información complementaria:** combustible o autonomía, personas a bordo, material peligroso o asistencia requerida se puede dar después, cuando la cabina esté estabilizada y ATS lo solicite o resulte útil.",
+        ],
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Plantilla de aprendizaje, no conversación de un vuelo",
+        text: "MAYDAY × 3 — [dependencia] — [identificación real] — [naturaleza] — [intención] — [posición, nivel, rumbo]. Los corchetes son campos por completar con información cierta del vuelo; no asignan indicativo, ruta, pista, frecuencia o nivel. La estructura se apoya en EASA SERA.14095 y se adapta a la capacidad de comunicación disponible.",
+      },
+      { kind: "sub", text: "Qué hace ATS y qué sigue haciendo la tripulación" },
+      {
+        kind: "p",
+        text: "ATS acusa inmediatamente el mensaje, asume el control de esas comunicaciones o transfiere explícitamente esa responsabilidad y coordina con otras dependencias y el explotador. Puede mantener el tráfico de socorro en la frecuencia inicial o transferirlo si otra ofrece mejor asistencia. La aeronave continúa volando y ejecutando su procedimiento; una nueva instrucción de rumbo, nivel o pista se escucha, evalúa y colaciona si la carga de trabajo lo permite. Si no puede cumplir, lo dice; la declaración no convierte cualquier instrucción en automáticamente ejecutable.",
       },
       {
         kind: "p",
-        text: "**Aviate, navigate, communicate.** El mensaje de socorro no va antes de controlar el avión. En una despresurización, primero máscaras y descenso; la llamada viene cuando la cabina lo permite.",
+        text: "La aeronave en socorro o ATS puede imponer silencio a estaciones que interfieran usando STOP TRANSMITTING y MAYDAY. Las demás aeronaves no ocupan la frecuencia salvo condiciones previstas, incluida la prestación de ayuda. Cuando termina la condición de socorro, la tripulación la cancela por radio; ATS comunica el fin del tráfico de socorro y del silencio de acuerdo con su procedimiento. La tripulación no declara por sí sola terminadas las comunicaciones de todas las estaciones.",
       },
       {
-        kind: "p",
-        text: "**MAYDAY no es un castigo ni un trámite.** Declarar socorro da prioridad y moviliza ayuda. Si la situación mejora, se puede cancelar. Pero tampoco se usa para cualquier falla (ver cap. 35 y 36).",
+        kind: "escenario",
+        titulo: "Primero el control, después el mensaje completo",
+        situacion: "Caso didáctico sin aeronave, posición, frecuencia ni falla técnica específica inventadas. Durante una situación de peligro grave e inmediato en crucero, PF se concentra en estabilizar el avión y PM prepara la llamada. Al principio PM conoce la naturaleza del problema y la intención inmediata, pero todavía no tiene una posición confirmada ni el cálculo actualizado de autonomía.",
+        preguntas: [
+          {
+            q: "¿Se espera a tener todos los campos antes de decir MAYDAY?",
+            a: "No. Cuando la cabina lo permita, PM transmite MAYDAY y los datos seguros que ya tiene: identificación, naturaleza e intención, con la dependencia si hay tiempo. La posición, nivel, rumbo y otros datos se completan a continuación. PF sigue controlando el vuelo."
+          },
+          {
+            q: "ATS da una nueva instrucción que la aeronave no puede cumplir mientras ejecuta la lista. ¿Qué hace PM?",
+            a: "La escucha y la contrasta con el estado del avión y la carga de trabajo. Si no es posible cumplirla, informa UNABLE y la razón o intención de forma breve cuando puede transmitir. No colaciona una autorización imposible como si fuera aceptada."
+          },
+          {
+            q: "Al resolverse la condición grave, ¿qué se comunica?",
+            a: "La tripulación informa y cancela su condición de socorro cuando realmente terminó. ATS decide y comunica el fin del tráfico de socorro y del silencio conforme a su autoridad y al estado de la frecuencia."
+          },
+        ],
+        concepto: "MAYDAY activa ayuda inmediata, pero la prioridad de cabina sigue siendo el control de la aeronave y una comunicación cierta, por etapas.",
       },
-      {
-        kind: "hueco",
-        rotulo: "CM-34-01 · Esquema · 4:5 · 1080×1350 px",
-        descripcion: "Imagen sugerida: Tarjeta vertical tipo «ficha de bolsillo» con los siete elementos del mensaje de socorro, numerados, cada uno con un ícono simple (radio, avión, advertencia, flecha, mapa con nivel y rumbo, signo más). Debajo, el ejemplo de la despresurización de este capítulo con cada parte subrayada en el color del elemento que le corresponde. Rótulo en la esquina: «VERIFICAR contra Anexo 10 Vol. II cap. 5 antes de publicar». Objetivo: Que el piloto memorice el orden del mensaje y lo reconozca en un ejemplo real de cabina.",
-        alto: 420,
-        ratio: "4 / 5",
-        anchoMax: 420,
-      },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología que no está en las fuentes cargadas. La definición de socorro, la señal MAYDAY dicha tres veces y el orden del mensaje: **Anexo 10 Vol. II cap. 5** y **Doc 9432 9.2.1**. «ROGER MAYDAY», «STOP TRANSMITTING, MAYDAY» y «DISTRESS TRAFFIC ENDED»: **Doc 9432 9.2.2 y 9.2.3** y **Anexo 10 Vol. II cap. 5**. «SQUAWK MAYDAY» en inglés: **Doc 4444 cap. 12**. Fraseología de descenso de emergencia: **Doc 9432 9.4** y **Doc 4444 cap. 15**. Aceptación de «declare emergency» sin señal: la norma de cada Estado.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · Despresurización (VERIFICAR «ROGER MAYDAY»)",
-        [
-          `PILOT: "MAYDAY, MAYDAY, MAYDAY, BOGOTA CONTROL, AVIATORY 452, RAPID DECOMPRESSION, EMERGENCY DESCENT TO FLIGHT LEVEL 100, POSITION 20 MILES NORTH OF GIKOS, PASSING FLIGHT LEVEL 330, HEADING 180."`,
-          `ATC:   "AVIATORY 452, ROGER MAYDAY."`,
-        ],
-        "Significado: socorro por despresurización. Naturaleza, intención (descenso de emergencia a FL 100), posición, nivel y rumbo. El ATC acusa recibo y luego despeja el espacio debajo.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Fuego de motor después del despegue (VERIFICAR «ROGER MAYDAY»)",
-        [
-          `PILOT: "MAYDAY, MAYDAY, MAYDAY, BOGOTA APPROACH, AVIATORY 452, ENGINE FIRE LEFT ENGINE, REQUEST IMMEDIATE RETURN RUNWAY 13, 15 MILES SOUTH, CLIMBING THROUGH 9000 FEET, HEADING 160."`,
-          `ATC:   "AVIATORY 452, ROGER MAYDAY, TURN LEFT HEADING 340, DESCEND TO 8000 FEET, QNH 1026."`,
-          `PILOT: "LEFT HEADING 340, DESCENDING 8000 FEET, QNH 1026, AVIATORY 452."`,
-        ],
-        "Significado: fuego de motor después del despegue. Aun en socorro, las instrucciones de rumbo, nivel y reglaje se colacionan.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · El código de emergencia (VERIFICAR)",
-        [`ATC:   "AVIATORY 452, SQUAWK MAYDAY."`, `PILOT: "SQUAWKING 7700, AVIATORY 452."`],
-        "Significado: el ATC pide el código de emergencia (instrucción de Doc 9432 6.5.1; forma inglesa VERIFICAR). Normalmente el ATC ya sabe de la emergencia si usted está en contacto.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Imposición de silencio (VERIFICAR)",
-        [`ATC:   "ALL STATIONS, BOGOTA CONTROL, STOP TRANSMITTING, MAYDAY."`],
-        "Significado: imposición de silencio: nadie transmite en esa frecuencia salvo la aeronave en socorro y el ATC, hasta que se anuncie el fin. VERIFICAR la forma exacta.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Completar la información (PLAIN LANGUAGE)",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, FLIGHT LEVEL 100, CABIN ALTITUDE UNDER CONTROL, NO INJURIES REPORTED, REQUEST DIVERSION TO BOGOTA, 1 HOUR 10 MINUTES FUEL."`,
-        ],
-        "Significado: **PLAIN LANGUAGE**. Después del primer mensaje se completa «cualquier otra información útil»: estado, personas, combustible en tiempo, lo que necesita.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · Personas a bordo y autonomía (PLAIN LANGUAGE)",
-        [
-          `ATC:   "AVIATORY 452, REPORT PERSONS ON BOARD AND FUEL ENDURANCE."`,
-          `PILOT: "AVIATORY 452, 146 PERSONS ON BOARD, ENDURANCE 1 HOUR 10 MINUTES."`,
-        ],
-        "Significado: **PLAIN LANGUAGE** (la forma de esta pregunta varía por Estado y controlador). Número de personas y autonomía en tiempo, no en kilos.",
-      ),
-      ...ejemplo(
-        "Ejemplo 7 · Fin del tráfico de socorro (VERIFICAR)",
-        [`ATC:   "ALL STATIONS, BOGOTA CONTROL, DISTRESS TRAFFIC ENDED."`],
-        "Significado: fin del tráfico de socorro y del silencio. VERIFICAR la forma exacta.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
       {
         kind: "enLaOperacion",
-        momento: "Con el avión controlado y la lista en marcha",
-        texto: "En línea aérea, la llamada la hace normalmente el piloto que no vuela (PM) cuando el PF tiene el avión y la lista de verificación está en marcha; el reparto exacto lo fija el SOP. Se declara MAYDAY en situaciones como fuego que no se extingue, humo que no se controla, despresurización, pérdida de varios sistemas críticos o combustible por debajo de la reserva final (cap. 37). La información se da en capas: primero lo esencial, después lo demás cuando la cabina está estable. El explotador suele definir qué situaciones son MAYDAY en sus listas; esas decisiones se entrenan en simulador.",
+        momento: "Primera llamada y seguimiento",
+        texto: "El briefing de cabina se reduce a quién vuela, quién comunica, qué se necesita de ATS y qué información falta confirmar. PM puede empezar con un mensaje breve y más tarde proporcionar autonomía, personas a bordo, asistencia en tierra e intención revisada. PF y PM conservan conciencia de la ruta y de cualquier instrucción nueva. Si se requiere cambio de frecuencia, se confirma antes de dejar una comunicación que funciona, salvo que la situación imponga otra acción. Una mejora temporal no se confunde automáticamente con el fin del peligro.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error("Llamar antes de estabilizar", "Hacer la llamada antes de estabilizar el avión."),
-      error(
-        "Mensaje largo y desordenado",
-        "Mensaje de socorro largo y desordenado: el controlador tiene que buscar la naturaleza del problema entre frases (Doc 9835 3.4.14 muestra ese problema con un mensaje de «poco combustible»).",
-      ),
-      error("Omitir la intención", "Omitir la intención: el ATC no sabe si regresa, desvía o sigue."),
-      error(
-        "«Emergency» sin señal",
-        "Decir «emergency» sin MAYDAY ni PAN PAN: el controlador puede no saber el grado de prioridad (VERIFICAR la aceptación de «declare emergency» sin señal en cada Estado).",
-      ),
-      error("Dejar de colacionar", "Dejar de colacionar rumbos y niveles por estar en emergencia."),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Demorar la llamada por completar la plantilla", text: "La norma dice tantos elementos como sea posible. Una declaración temprana, clara y cierta permite a ATS comenzar la ayuda mientras llegan más detalles." },
+      { kind: "callout", tone: "warn", title: "Llamar antes de controlar el avión", text: "PF no abandona una acción inmediata de seguridad para construir un mensaje largo. PM transmite cuando la carga de trabajo lo permite." },
+      { kind: "callout", tone: "warn", title: "Aceptar una instrucción imposible", text: "En emergencia se siguen colacionando los datos críticos cuando es posible, pero una orden incompatible con el estado del avión requiere comunicar UNABLE y la intención real." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "MAYDAY = peligro grave o inminente y necesidad de ayuda inmediata.",
-          "Tres veces MAYDAY, estación, distintivo, naturaleza, intención, posición/nivel/rumbo, lo demás.",
-          "Primero se vuela el avión; la llamada viene después.",
-          "Frecuencia en uso primero; 121,5 si no hay contacto.",
-          "En socorro también se colaciona lo crítico.",
+          "MAYDAY señala peligro grave o inminente con necesidad de ayuda inmediata.",
+          "El primer mensaje va en la frecuencia en uso cuando hay contacto.",
+          "Se transmite lo esencial cuanto antes; el resto llega cuando la cabina puede.",
+          "ATS acusa, coordina y protege las comunicaciones de socorro.",
+          "La cancelación de la condición y el fin del tráfico son actos distintos.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432 · Doc 9835",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1, definiciones «Fase de emergencia», «Fase de incertidumbre», «Fase de alerta», «Fase de peligro», «Servicio de alerta». Doc 9432 (4.ª ed.) 6.5.1 («TRANSPONDEDOR MAYDAY: seleccione código de emergencia», en español); 2.8.1.8 (repetir elementos importantes cuando la recepción es difícil). Doc 9835 (2.ª ed.) 3.3.13, 3.4.14, 4.3.4.",
-        [
-          "VERIFICAR: definición de socorro y de urgencia, señal MAYDAY dicha tres veces y orden del mensaje (estación, identificación, naturaleza, intenciones, posición/nivel/rumbo, otra información) contra Anexo 10 Vol. II cap. 5 y Doc 9432 9.2.1 (no cargados).",
-          "VERIFICAR: «ROGER MAYDAY», «STOP TRANSMITTING, MAYDAY» y «DISTRESS TRAFFIC ENDED» contra Doc 9432 9.2.2 y 9.2.3 y Anexo 10 Vol. II cap. 5 (no cargados).",
-          "VERIFICAR: «SQUAWK MAYDAY» en inglés contra Doc 4444 cap. 12 (no cargado).",
-          "VERIFICAR: fraseología de descenso de emergencia contra Doc 9432 9.4 y Doc 4444 cap. 15 (no cargados).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA SERA.14095 · EASA AMC1 SERA.14001 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.14095 (definición, señal, contenido, prioridad, ATS, silencio y fin de las comunicaciones): https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9854" },
+          { kind: "p", text: "EASA, misma publicación, AMC1 SERA.14001, fraseología estándar de imposibilidad de cumplimiento: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299" },
+          { kind: "p", text: "Aerocivil, portal oficial de la AIP Colombia y eAIP para información local vigente: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "La historieta y el escenario son didácticos, no transcripciones. No se asigna una condición real a una aeronave, ni se inventa posición, ruta, frecuencia o autorización." },
         ],
-      ),
+      },
     ],
   },
   // ── 35 ──────────────────────────────────────────────────────────────────
   {
     n: 35,
     title: "Urgencia: PAN PAN",
-    kicker: "Cuándo una situación es urgente sin ser socorro",
-    minutes: 10,
+    kicker: "Seguridad afectada sin ayuda inmediata",
+    minutes: 18,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "**Urgencia** es una condición que afecta la seguridad de la aeronave o de alguien a bordo o a la vista, pero que **no requiere ayuda inmediata** (VERIFICAR la redacción exacta, Anexo 10 Vol. II cap. 5). La señal es **PAN PAN**, dicha preferiblemente tres veces. Tiene prioridad sobre todo el tráfico, excepto el de socorro.",
+        text: "Urgencia describe una condición que afecta la seguridad de una aeronave, otro vehículo o una persona a bordo o a la vista, pero que no exige ayuda inmediata. Su señal radiotelefónica es PAN PAN, preferiblemente repetida tres veces al comienzo del primer mensaje. Tiene prioridad sobre el tráfico normal, aunque no sobre las comunicaciones de socorro MAYDAY. La elección no depende únicamente del nombre de la falla o del diagnóstico de un pasajero: depende de su efecto actual, el margen operativo y la ayuda necesaria.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
       {
-        kind: "secuencia",
-        titulo: "Contenido del mensaje de urgencia (VERIFICAR): igual al de socorro, cambiando la señal y la naturaleza",
-        numerada: true,
-        items: [
-          "PAN PAN, PAN PAN, PAN PAN.",
-          "Estación a la que se dirige.",
-          "Identificación de la aeronave.",
-          "Naturaleza de la condición de urgencia.",
-          "Intenciones del piloto al mando.",
-          "Posición actual, nivel y rumbo.",
-          "Cualquier otra información útil.",
-        ],
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-35-01.svg",
+        alt: "Comparación entre PAN PAN para urgencia sin ayuda inmediata y MAYDAY para peligro grave o inminente que requiere asistencia inmediata.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Comparación conceptual basada en EASA SERA.14095: PAN PAN identifica seguridad afectada sin necesidad de ayuda inmediata; MAYDAY, peligro grave o inminente que sí la requiere. La situación puede evolucionar y la tripulación debe actualizar su declaración. No clasifica automáticamente una falla concreta.",
       },
-      { kind: "p", text: "**Cuándo suele encajar PAN PAN (escenarios de práctica, no lista oficial):**" },
+      { kind: "sub", text: "Cómo decide una tripulación de aerolínea" },
       {
         kind: "list",
         items: [
-          "Pasajero con una emergencia médica que obliga a desviar, sin amenaza para el vuelo.",
-          "Falla técnica que degrada el avión y pide prioridad, pero el avión sigue controlable y con margen (por ejemplo, una falla hidráulica con sistemas de respaldo funcionando).",
-          "Tripulante incapacitado, cuando el vuelo sigue controlado.",
-          "Una situación que puede empeorar y en la que usted quiere que el ATC esté prevenido.",
+          "**Qué ha cambiado:** el piloto que vuela (PF, pilot flying) y el piloto que monitorea (PM, pilot monitoring) determinan si la aeronave permanece controlable, qué sistemas o capacidades se redujeron y qué tareas impone la lista de verificación aplicable.",
+          "**Qué asistencia se necesita:** prioridad para desviarse, tiempo para completar una lista, coordinación de servicios médicos o una pista adecuada pueden hacer necesario informar una urgencia. Una condición grave que requiere ayuda inmediata se declara como socorro; una condición sin efecto de seguridad ni necesidad de prioridad puede comunicarse en lenguaje claro sin señal.",
+          "**Qué se sabe y qué falta:** no se declara un diagnóstico médico no confirmado ni se afirma que un sistema de respaldo funciona sin comprobarlo. Se comunica el efecto observable y la intención actual; luego se amplía.",
+          "**Cómo evoluciona:** PAN PAN no encierra al vuelo en una categoría permanente. Si aparece peligro grave o inminente, se usa MAYDAY. Si la urgencia termina, se informa a ATS de que ya no se requiere prioridad.",
         ],
-      },
-      { kind: "p", text: "**Cuándo NO hace falta ninguna de las dos señales:**" },
-      {
-        kind: "p",
-        text: "Muchas fallas no requieren declarar nada: una falla de un sistema redundante, un generador perdido con los demás funcionando, una indicación que la lista resuelve. Se informa en lenguaje claro si afecta la operación (Doc 4444 5.2.2 pide notificar sin demora cuando una falla degrada la performance por debajo de lo requerido en ese espacio aéreo) y se pide lo que haga falta. **No se convierte automáticamente cada falla en PAN PAN o MAYDAY.**",
       },
       {
-        kind: "p",
-        text: "**PAN PAN MEDICAL no es «pasajero enfermo».** Esa variante se reserva para transportes sanitarios protegidos por los Convenios de Ginebra (VERIFICAR). Para un pasajero enfermo se usa PAN PAN, o ni siquiera eso si no necesita prioridad.",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-35-02.webp",
+        alt: "Historieta de tres paneles: cabina de pasajeros informa necesidad médica, pilotos comunican la urgencia y controladores coordinan asistencia.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no caso real: 1) la tripulación de cabina comunica una necesidad médica; 2) PF mantiene el vuelo y PM informa a ATS la condición y la intención; 3) ATS coordina la prioridad y asistencia solicitadas. Las pantallas no muestran una carta, ruta ni aeropuerto.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología que no está en las fuentes cargadas. La definición de urgencia, la señal PAN PAN dicha tres veces, su prioridad y el orden del mensaje: **Anexo 10 Vol. II cap. 5** y **Doc 9432 9.3**. «ROGER PAN PAN» y la forma de cancelar la urgencia: **Doc 9432 9.3**. «PAN PAN MEDICAL» reservado a transportes sanitarios: **Anexo 10 Vol. II cap. 5**. «HOLD AT (fix) AS PUBLISHED»: **Doc 4444 cap. 12** (espera; ver Nivel 4, cap. 28).",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · Urgencia médica (VERIFICAR «ROGER PAN PAN»)",
-        [
-          `PILOT: "PAN PAN, PAN PAN, PAN PAN, BOGOTA CONTROL, AVIATORY 452, MEDICAL EMERGENCY ON BOARD, PASSENGER WITH SUSPECTED HEART ATTACK, REQUEST DIVERSION TO BOGOTA, POSITION TOLMA, FLIGHT LEVEL 350, HEADING 020."`,
-          `ATC:   "AVIATORY 452, ROGER PAN PAN. CLEARED DIRECT BOGOTA, DESCEND TO FLIGHT LEVEL 200."`,
-          `PILOT: "DIRECT BOGOTA, DESCENDING FLIGHT LEVEL 200, AVIATORY 452."`,
+      { kind: "sub", text: "Mensaje útil, no relato clínico o técnico" },
+      {
+        kind: "p",
+        text: "EASA SERA.14095 establece el canal aire–tierra en uso y, en lo posible, el orden: dependencia del servicio de tránsito aéreo (ATS, Air Traffic Services), identificación, naturaleza de la urgencia, intención del piloto al mando, posición/nivel/rumbo y otra información útil. PAN PAN inicia la primera comunicación; se pronuncia preferiblemente tres veces, cada grupo como la palabra francesa panne. La información adicional puede incluir autonomía, personas a bordo, materiales peligrosos y recursos necesarios, cuando sea pertinente y confiable.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Plantilla oficial sin datos ficticios",
+        text: "PAN PAN × 3 — [ATS] — [identificación real] — [naturaleza y efecto] — [intención y solicitud] — [posición, nivel, rumbo] — [otros datos útiles]. Es una plantilla de aprendizaje, no una transcripción. Los campos variables se completan únicamente con la situación real; no hay ruta, frecuencia, pista, código ni autorización de ejemplo.",
+      },
+      { kind: "sub", text: "Una urgencia médica exige juicio, no una etiqueta automática" },
+      {
+        kind: "p",
+        text: "La enfermedad de un pasajero puede justificar prioridad y coordinación médica mientras el vuelo se mantiene controlado. En ese caso PAN PAN puede ser apropiado. Si la condición implica peligro grave o inminente y requiere ayuda inmediata, la evaluación puede llevar a MAYDAY; no es correcto enseñar que un pasajero enfermo nunca lo justifica. La tripulación comunica qué necesita: desvío, atención al llegar, tiempo estimado o cualquier limitación del vuelo, sin inventar diagnóstico ni prometer una pista que aún no está autorizada.",
+      },
+      {
+        kind: "callout",
+        tone: "warn",
+        title: "PAN PAN MEDICAL tiene otro significado",
+        text: "La señal específica PAN PAN seguida de MAY-DEE-CAL está prevista en EASA SERA.14095(c)(4) para identificar un transporte sanitario protegido por los Convenios de Ginebra. No se usa por el solo hecho de llevar a un pasajero que necesita asistencia médica.",
+      },
+      { kind: "sub", text: "Respuesta de ATS y actualización" },
+      {
+        kind: "p",
+        text: "ATS acusa la urgencia y comunica lo necesario a las dependencias y al explotador; puede controlar la frecuencia para evitar interferencias. La tripulación sigue escuchando autorizaciones y colaciona lo crítico. Si necesita tiempo para la lista o una opción de desvío, lo solicita con claridad; no supone que PAN PAN ya concedió una ruta o prioridad de aterrizaje específica. Una mejora o deterioro se comunica. El procedimiento normalizado de operación (SOP, Standard Operating Procedures) determina el reparto de tareas, no la definición reglamentaria de urgencia.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Necesidad médica con decisión de desvío pendiente",
+        situacion: "Caso didáctico sin pasajero identificable, aeródromo, ruta, distintivo o frecuencia inventados. La tripulación de cabina comunica una condición médica seria. La aeronave continúa controlable y sin limitaciones técnicas; PF mantiene el vuelo mientras PM recopila información útil. Aún no se ha decidido si el aeródromo previsto o un alterno permitirá recibir asistencia a tiempo.",
+        preguntas: [
+          {
+            q: "¿Qué se informa primero y qué no se inventa?",
+            a: "PM puede declarar PAN PAN si la condición requiere prioridad o coordinación, e informar que hay una urgencia médica a bordo, la intención provisional y la asistencia requerida. No da un diagnóstico como hecho si no está confirmado ni anuncia un destino que aún no se decidió."
+          },
+          {
+            q: "¿Qué más necesita la tripulación para decidir?",
+            a: "Evalúa el estado comunicado por cabina, tiempo a aeródromos adecuados, combustible, meteorología, capacidad de recibir asistencia y autorizaciones disponibles. Comunica a ATS su opción cuando la elige y colaciona cualquier cambio de ruta o nivel."
+          },
+          {
+            q: "Si el peligro se vuelve grave e inmediato, ¿se mantiene PAN PAN?",
+            a: "No por inercia. La tripulación actualiza a MAYDAY si ahora se necesita ayuda inmediata, dice qué cambió y qué requiere. La prioridad debe reflejar la condición actual, no la primera clasificación."
+          },
         ],
-        "Significado: urgencia médica. El avión no está en peligro; un pasajero sí, y necesita prioridad. VERIFICAR «ROGER PAN PAN».",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Falla hidráulica con avión controlable (PLAIN LANGUAGE en la parte del ATC; VERIFICAR «HOLD AT … AS PUBLISHED»)",
-        [
-          `PILOT: "PAN PAN, PAN PAN, PAN PAN, BOGOTA APPROACH, AVIATORY 452, HYDRAULIC SYSTEM FAILURE, REQUEST HOLDING TO COMPLETE CHECKLIST, THEN ILS RUNWAY 13, POSITION 25 MILES EAST, 12000 FEET, HEADING 270."`,
-          `ATC:   "AVIATORY 452, ROGER. HOLD AT GIKOS AS PUBLISHED, MAINTAIN 12000 FEET, ADVISE WHEN READY FOR APPROACH."`,
-        ],
-        "Significado: falla técnica con avión controlable: se pide espacio y tiempo, no una aproximación inmediata. La parte del ATC tiene elementos **PLAIN LANGUAGE** («advise when ready»).",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · Falla sin urgencia (PLAIN LANGUAGE)",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, WE HAVE LOST ONE GENERATOR, NO IMPACT ON OUR OPERATION, FOR YOUR INFORMATION."`,
-          `ATC:   "AVIATORY 452, ROGER."`,
-        ],
-        "Significado: **PLAIN LANGUAGE**. Falla sin urgencia: se informa porque puede ser útil, sin declarar nada.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · El ATC pregunta si necesita ayuda (PLAIN LANGUAGE)",
-        [`ATC:   "AVIATORY 452, DO YOU REQUIRE ANY ASSISTANCE?"`, `PILOT: "NEGATIVE, AVIATORY 452. WE WILL ADVISE."`],
-        "Significado: **PLAIN LANGUAGE**. El ATC pregunta si necesita ayuda; usted contesta con verdad y deja abierta la puerta.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · La urgencia empeora y se eleva a socorro",
-        [
-          `PILOT: "BOGOTA APPROACH, AVIATORY 452, SITUATION DETERIORATING, MAYDAY, MAYDAY, MAYDAY, AVIATORY 452, SMOKE IN THE CABIN NOT CONTROLLED, REQUEST IMMEDIATE LANDING RUNWAY 13."`,
-        ],
-        "Significado: una urgencia que empeora se eleva a socorro con la señal completa. No hace falta «cancelar» la urgencia antes.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · La situación se resuelve (PLAIN LANGUAGE; VERIFICAR)",
-        [`PILOT: "BOGOTA APPROACH, AVIATORY 452, PASSENGER CONDITION STABLE, NO LONGER REQUIRE PRIORITY."`],
-        "Significado: **PLAIN LANGUAGE**. Si la situación se resuelve, se informa para que el ATC libere la prioridad. VERIFICAR si existe forma estándar de cancelar la urgencia.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
+        concepto: "La señal ayuda a ATS a priorizar, pero la decisión operativa se actualiza con información real y la evolución del riesgo.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Emergencia médica o falla con limitaciones",
-        texto: "PAN PAN es la llamada más común en línea aérea para emergencias médicas que llevan a desviar. También se usa cuando una falla técnica da un avión controlable pero con limitaciones que el ATC debe conocer (distancia de aterrizaje mayor, menos maniobrabilidad, pista específica). En ambos casos lo que el ATC necesita es: qué pasa, qué quiere hacer y qué necesita de él. Si la situación no pide prioridad, se informa en lenguaje claro. Cada explotador fija en su manual cuándo se declara y quién lo hace.",
+        momento: "Coordinar la prioridad sin ceder el control",
+        texto: "PF conserva control y navegación; PM comunica la urgencia, registra lo que ATS autoriza y coordina con cabina. El primer mensaje puede ser breve, seguido de autonomía, asistencia requerida y destino elegido cuando estén confirmados. Si se necesita tiempo para una lista técnica, PM solicita margen sin aceptar una aproximación precipitada. Si la condición se estabiliza y deja de requerir prioridad, se informa; si empeora, se eleva la señal. Todo desvío, rumbo o nivel nuevo se verifica y colaciona conforme a la carga de trabajo.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "MAYDAY por un pasajero enfermo",
-        "Declarar MAYDAY por un pasajero enfermo con el avión sin problemas: moviliza recursos que no hacen falta y no mejora su atención.",
-      ),
-      error(
-        "No declarar cuando sí hacía falta",
-        "No declarar nada cuando sí necesitaba prioridad, y quedar en secuencia normal con un pasajero grave.",
-      ),
-      error("«PAN PAN MEDICAL» mal usado", "Usar «PAN PAN MEDICAL» para un pasajero enfermo."),
-      error(
-        "Un solo «pan pan» a media frase",
-        "Anunciar «pan pan» una sola vez y en medio de la frase: el controlador puede no escucharlo.",
-      ),
-      error(
-        "El relato en lugar del problema",
-        "Mezclar el problema con la historia: el controlador necesita naturaleza, intención y necesidad, no el relato completo.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Clasificar solo por el nombre de la falla", text: "Una etiqueta técnica no define por sí sola PAN PAN o MAYDAY. Se evalúa amenaza, control del avión, margen y necesidad de ayuda." },
+      { kind: "callout", tone: "warn", title: "Declarar PAN PAN MEDICAL para un pasajero", text: "Esa señal especial identifica transporte sanitario protegido; no es la forma estándar de anunciar a un pasajero enfermo." },
+      { kind: "callout", tone: "warn", title: "No actualizar la declaración", text: "Si el riesgo o la ayuda necesaria cambian, ATS debe saberlo. Una clasificación inicial no debe ocultar un deterioro posterior." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "PAN PAN = urgencia: la seguridad está afectada, pero no se necesita ayuda inmediata.",
-          "Mismo orden de mensaje que el socorro.",
-          "Emergencia médica que obliga a desviar: el caso más común.",
-          "No toda falla es PAN PAN; muchas se informan en lenguaje claro.",
-          "Si empeora, se eleva a MAYDAY.",
+          "PAN PAN indica seguridad afectada sin necesidad de ayuda inmediata.",
+          "MAYDAY prevalece cuando hay peligro grave o inminente que exige ayuda inmediata.",
+          "Se comunica condición, intención, posición y apoyo requerido con datos ciertos.",
+          "Una urgencia médica puede requerir PAN PAN o incluso MAYDAY según su gravedad.",
+          "PAN PAN MEDICAL no es la señal para un pasajero enfermo común.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9835 · Anexo 10",
-        "Doc 4444 (15.ª ed., Enm. 4) 5.2.2 (deterioro de la performance: la tripulación notifica sin demora). Doc 9835 (2.ª ed.) 3.3.13 (problema técnico, pasajero indispuesto como casos de lenguaje común), 4.3.4.",
-        [
-          "VERIFICAR: definición de urgencia, señal PAN PAN dicha tres veces, prioridad y orden del mensaje contra Anexo 10 Vol. II cap. 5 y Doc 9432 9.3 (no cargados).",
-          "VERIFICAR: «ROGER PAN PAN» y forma de cancelar la urgencia contra Doc 9432 9.3 (no cargado).",
-          "VERIFICAR: uso de «PAN PAN MEDICAL» reservado a transportes sanitarios, contra Anexo 10 Vol. II cap. 5 (no cargado).",
-          "VERIFICAR: «HOLD AT (fix) AS PUBLISHED» contra Doc 4444 cap. 12 (espera) (no cargado; ver Nivel 4, cap. 28).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA SERA.14095 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.14095: definiciones, señal PAN PAN, mensaje, prioridad, respuesta ATS y transporte sanitario protegido: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9854" },
+          { kind: "p", text: "Aerocivil, portal oficial de la AIP Colombia y acceso a la eAIP vigente para datos locales: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "La historieta y el escenario son didácticos; no representan una transmisión real ni establecen que una condición médica o técnica específica pertenezca siempre a una categoría. No se inventan rutas, frecuencias, pistas o autorizaciones." },
         ],
-      ),
+      },
     ],
   },
   // ── 36 ──────────────────────────────────────────────────────────────────
   {
     n: 36,
     title: "MAYDAY o PAN PAN",
-    kicker: "La diferencia, lado a lado",
-    minutes: 8,
+    kicker: "Clasificar el riesgo y actualizar a ATS",
+    minutes: 19,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "Una comparación para decidir rápido. La diferencia no está en qué sistema falló, sino en **si usted necesita ayuda inmediata**.",
+        text: "Una señal de emergencia no es una etiqueta automática para «motor», «humo» o «pasajero enfermo». En radiotelefonía, MAYDAY corresponde a peligro grave o inminente con necesidad de ayuda inmediata; PAN PAN, a una condición que afecta la seguridad sin requerir esa ayuda inmediata. Si no existe ninguna de esas condiciones, la tripulación puede informar una limitación relevante en lenguaje claro, sin convertirla artificialmente en urgencia. Lo decisivo es el riesgo real y qué asistencia se necesita ahora.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-36-01.svg",
+        alt: "Tres estados de comunicación: informar sin señal, urgencia PAN PAN y socorro MAYDAY, según gravedad y ayuda necesaria.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Mapa de decisión basado en EASA SERA.14095. Se reconoce por dos criterios: peligro grave o inminente y necesidad de ayuda inmediata. Si la condición cambia, la tripulación actualiza a la dependencia del servicio de tránsito aéreo (ATS, Air Traffic Services); el nombre de una falla no decide por sí solo.",
+      },
+      { kind: "sub", text: "Una comparación que sí sirve en cabina" },
       {
         kind: "table",
-        head: ["", "MAYDAY (socorro)", "PAN PAN (urgencia)"],
+        head: ["Criterio", "MAYDAY · socorro", "PAN PAN · urgencia"],
         rows: [
-          ["Condición", "Peligro grave o inminente; necesita ayuda inmediata", "Seguridad afectada; no necesita ayuda inmediata"],
-          ["Prioridad", "Sobre todo el tráfico", "Sobre todo, excepto socorro"],
-          ["Señal", "MAYDAY, tres veces", "PAN PAN, tres veces"],
-          [
-            "Mensaje",
-            "Estación, distintivo, naturaleza, intenciones, posición/nivel/rumbo, otra información",
-            "El mismo orden",
-          ],
-          [
-            "Transpondedor",
-            "7700 posible (con la precaución del cap. 31)",
-            "7700 posible según el caso y lo que pida el ATC",
-          ],
-          ["Silencio de frecuencia", "El ATC puede imponerlo", "No es lo habitual"],
-          [
-            "Ejemplos de práctica",
-            "Fuego no extinguido, humo no controlado, despresurización, combustible bajo la reserva final",
-            "Emergencia médica, falla técnica con avión controlable, situación que puede empeorar",
-          ],
+          ["Condición", "Peligro grave o inminente; se necesita ayuda inmediata.", "Seguridad afectada; no se necesita ayuda inmediata."],
+          ["Prioridad", "Absoluta sobre otras comunicaciones.", "Sobre el tráfico normal, nunca sobre el socorro."],
+          ["Primera llamada", "Señal MAYDAY al inicio; preferiblemente tres veces.", "Señal PAN PAN al inicio; preferiblemente tres veces."],
+          ["Contenido", "Dependencia, identificación, naturaleza, intención, posición/nivel/rumbo y otros datos útiles, según sea posible.", "Los mismos campos, tantos como haga falta y pueda transmitirse."],
+          ["Respuesta ATS", "Acusa, coordina asistencia y puede imponer silencio a otras estaciones.", "Acusa y coordina; puede controlar las comunicaciones si hace falta."],
         ],
       },
       {
-        kind: "callout",
-        tone: "verificar",
-        title: "Verificar",
-        text: "Todas las filas de la tabla (definiciones, prioridades, señal, mensaje, silencio): VERIFICAR contra **Anexo 10 Vol. II cap. 5** y **Doc 9432 cap. 9**. Que la clasificación de la falla de motor dependa del explotador: **manual de operaciones del explotador** (no es norma OACI).",
+        kind: "p",
+        text: "La tabla resume EASA SERA.14095, no una autorización local ni una clasificación de fallas del manual de un explotador. Tampoco prescribe un código de transpondedor para cada columna: el uso del equipo de vigilancia se decide conforme a la situación, la instrucción recibida y las reglas aplicables. Declarar la señal no concede por sí mismo una ruta, una altitud o una pista.",
       },
-      { kind: "p", text: "**Tres preguntas para decidir:**" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-36-02.webp",
+        alt: "Historieta de tres paneles: tripulación evalúa una condición, comunica cuando se agrava y ATS coordina ayuda.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no transcripción real: 1) PF y PM evalúan una anomalía sin asignarle todavía una señal; 2) aparece humo y PM comunica la gravedad mientras PF mantiene el control; 3) ATS acusa y coordina. El humo visible obliga a reevaluar el riesgo; no toda anomalía debe etiquetarse de antemano.",
+      },
+      { kind: "sub", text: "Proceso en cuatro movimientos" },
       {
         kind: "list",
         ordered: true,
         items: [
-          "¿Hay peligro grave o inminente para el avión o sus ocupantes y necesito ayuda ya? MAYDAY.",
-          "¿La seguridad está afectada y necesito prioridad, pero no ayuda inmediata? PAN PAN.",
-          "¿El avión sigue normal y solo debo informar? Lenguaje claro, sin señal.",
+          "**Aviate:** el piloto que vuela (PF, pilot flying) mantiene el avión dentro de sus límites. El piloto que monitorea (PM, pilot monitoring) reúne hechos observables y prepara la comunicación; una llamada no desplaza acciones inmediatas de control.",
+          "**Clasificar y transmitir:** si se necesita ayuda inmediata ante peligro grave o inminente, MAYDAY; si la seguridad está afectada sin ese requisito, PAN PAN. La primera transmisión empieza con la señal y aporta dependencia, identificación, naturaleza, intención y posición/nivel/rumbo cuando se pueda.",
+          "**Coordinar:** se indica qué asistencia o margen se requiere. ATS puede ofrecer prioridad, vectores u opciones, pero la tripulación confirma cada autorización nueva y dice UNABLE si no puede cumplirla. No improvisa una posición ni acepta una pista no autorizada.",
+          "**Reevaluar:** si una urgencia se convierte en socorro, se transmite MAYDAY con la nueva condición. Si el peligro grave termina, la tripulación cancela la condición de socorro; ATS gestiona el fin del tráfico y el silencio. Una mejora no borra automáticamente todas las limitaciones restantes.",
         ],
       },
       {
-        kind: "p",
-        text: "**La escala se puede subir y bajar.** Una urgencia puede volverse socorro; un socorro controlado se puede reducir. Lo importante es que el ATC sepa en qué nivel está usted en cada momento.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "CM-36-01 · Diagrama · 16:9 · 1600×900 px",
-        descripcion: "Imagen sugerida: Escala horizontal de tres escalones: NORMAL (informar en lenguaje claro) → URGENCIA (PAN PAN) → SOCORRO (MAYDAY). Colores neutros del módulo: el ámbar y el rojo solo como semántica en los dos últimos escalones, con poca saturación. Bajo cada escalón, una pregunta corta («¿Solo informar?», «¿Necesito prioridad?», «¿Necesito ayuda inmediata?») y dos ejemplos de práctica. Flechas en ambos sentidos entre escalones con el rótulo «la situación puede subir o bajar». Objetivo: Que el piloto ubique una situación en la escala por la necesidad de ayuda, no por el nombre del sistema que falló.",
-        alto: 280,
-      },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      {
-        kind: "escenario",
-        titulo: "Escenario de práctica 1: pasajero inconsciente, avión normal",
-        situacion: "Un pasajero está inconsciente. El avión funciona con normalidad. Usted va en GIKOS, FL 360, rumbo 210, con Bogota Control.",
-        preguntas: [
-          {
-            q: "¿Qué señal usa y cómo suena el mensaje?",
-            a: "PILOT: «PAN PAN, PAN PAN, PAN PAN, BOGOTA CONTROL, AVIATORY 452, MEDICAL EMERGENCY, UNCONSCIOUS PASSENGER, REQUEST DIVERSION TO CALI, POSITION GIKOS, FLIGHT LEVEL 360, HEADING 210.» Urgencia: no hay peligro para el avión.",
-          },
-        ],
-        concepto: "La señal sale de la necesidad de ayuda, no del nombre del problema.",
+        kind: "callout",
+        tone: "info",
+        title: "Plantillas sin vuelo ni ruta inventados",
+        text: "MAYDAY × 3 o PAN PAN × 3 — [dependencia ATS] — [identificación real] — [condición y efecto] — [intención y ayuda requerida] — [posición, nivel, rumbo] — [información útil]. Son campos de aprendizaje, no frases de un vuelo real. Se completan únicamente con datos confirmados y se amplían por etapas si la carga de trabajo lo exige.",
       },
       {
         kind: "escenario",
-        titulo: "Escenario de práctica 2: humo en cabina que no se controla",
-        situacion: "Hay humo en la cabina y no se logra controlar. Usted va 30 millas al sur de TOLMA, FL 340, rumbo 190, con Bogota Control.",
+        titulo: "Del aviso inicial al socorro",
+        situacion: "Caso didáctico sin aeródromo, ruta, distintivo o frecuencia inventados. En crucero aparece olor anormal y una indicación que exige comprobar el sistema. El avión es controlable y la tripulación necesita tiempo para la lista. Minutos después se observa humo persistente en la cabina y la fuente no se identifica ni controla.",
         preguntas: [
           {
-            q: "¿Qué señal usa y cómo suena el mensaje?",
-            a: "PILOT: «MAYDAY, MAYDAY, MAYDAY, BOGOTA CONTROL, AVIATORY 452, SMOKE IN THE CABIN, UNABLE TO CONTROL, REQUEST IMMEDIATE DESCENT AND LANDING NEAREST SUITABLE AIRPORT, POSITION 30 MILES SOUTH OF TOLMA, FLIGHT LEVEL 340, HEADING 190.» Socorro: amenaza inmediata al avión.",
+            q: "¿Se declara MAYDAY automáticamente por el primer olor?",
+            a: "No se decide solo por el nombre del indicio. PF mantiene el vuelo y PM comunica a ATS la limitación y la necesidad de tiempo o prioridad. PAN PAN puede corresponder si la seguridad está afectada sin requerir aún ayuda inmediata. La tripulación aplica su procedimiento y no espera a conocer la causa para informar un deterioro."
           },
-        ],
-        concepto: "La señal sale de la necesidad de ayuda, no del nombre del problema.",
-      },
-      {
-        kind: "escenario",
-        titulo: "Escenario de práctica 3: un piloto automático inoperativo, otro funcionando",
-        situacion: "El piloto automático 1 queda inoperativo; el 2 funciona. Usted va con Bogota Control.",
-        preguntas: [
           {
-            q: "¿Declara algo? ¿Qué transmite?",
-            a: "PILOT: «BOGOTA CONTROL, AVIATORY 452, AUTOPILOT 1 INOPERATIVE, AUTOPILOT 2 AVAILABLE, NO ASSISTANCE REQUIRED.» **PLAIN LANGUAGE**. Ninguna señal: se informa porque puede afectar ciertas operaciones (por ejemplo, RVSM; ver cap. 39).",
+            q: "Con humo persistente no controlado, ¿qué cambia?",
+            a: "Se reevalúa como peligro grave o inminente y necesidad de ayuda inmediata. PM inicia un mensaje MAYDAY, dice el efecto observable, la intención y la asistencia necesaria con datos reales. PF prioriza control, procedimiento y una opción de aterrizaje adecuada; ATS coordina, sin que la señal equivalga a una autorización concreta."
           },
-        ],
-        concepto: "Informar sin señal es válido cuando no hay urgencia.",
-      },
-      {
-        kind: "escenario",
-        titulo: "Escenario de práctica 4: falla de motor en crucero en un bimotor",
-        situacion: "En un bimotor, falla un motor en crucero y no puede mantener FL 370. Usted va en GIKOS, rumbo 040, con Bogota Control.",
-        preguntas: [
           {
-            q: "¿Qué transmite y de qué depende la señal?",
-            a: "PILOT: «MAYDAY, MAYDAY, MAYDAY, BOGOTA CONTROL, AVIATORY 452, ENGINE FAILURE, UNABLE TO MAINTAIN FLIGHT LEVEL 370, DESCENDING TO FLIGHT LEVEL 250, REQUEST DIVERSION TO BOGOTA, POSITION GIKOS, HEADING 040.» Varios explotadores clasifican la falla de motor en bimotor como socorro; otros usan urgencia según el caso. Lo decide el SOP y el comandante. Lo que no cambia es que el ATC debe saber que usted no puede mantener el nivel y qué va a hacer.",
+            q: "Si desaparece el humo, ¿basta con callar?",
+            a: "No. La tripulación informa el cambio y, solo si la condición de socorro realmente terminó, la cancela. Si queda una limitación de seguridad, la comunica y acuerda con ATS cómo continuar. ATS gestiona el fin formal del tráfico de socorro y de cualquier silencio impuesto."
           },
         ],
-        concepto: "El criterio final es del comandante, según SOP.",
+        concepto: "La misma secuencia puede cruzar más de un estado. La señal se actualiza con el riesgo y la ayuda requerida, no con una lista de fallas prefijada.",
       },
-      ...ejemplo(
-        "Ejemplo · El ATC pregunta el nivel de la emergencia (PLAIN LANGUAGE del ATC)",
-        [`ATC:   "AVIATORY 452, CONFIRM YOU ARE DECLARING AN EMERGENCY?"`, `PILOT: "AFFIRM, MAYDAY, AVIATORY 452."`],
-        "Significado: **PLAIN LANGUAGE** del ATC. Si su mensaje no dejó claro el nivel, el controlador preguntará. Conteste con la señal.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
       {
         kind: "enLaOperacion",
-        momento: "En cabina y en la entrevista",
-        texto: "La decisión la toma el comandante con apoyo de las listas y del SOP. En entrevista de aerolínea suele preguntarse con casos: «pasajero enfermo», «humo», «falla de motor», «falla hidráulica». La respuesta que se espera no es solo «MAYDAY» o «PAN PAN», sino el criterio: necesidad de ayuda inmediata, prioridad o solo información.",
+        momento: "Decisión compartida, responsabilidad clara",
+        texto: "El comandante integra la evaluación técnica, el tiempo disponible, el terreno, el combustible y los procedimientos normalizados de operación (SOP, Standard Operating Procedures). PM no reduce esa decisión a una palabra aislada: transmite qué ocurre, cómo afecta al vuelo, qué hará la tripulación y qué necesita de ATS. La cabina puede enviar primero un mensaje breve y completar después personas a bordo, autonomía y asistencia en tierra. Toda instrucción nueva se verifica; una declaración no traslada a ATC el control de la aeronave.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Elegir la señal por el nombre del problema",
-        "Elegir la señal por el nombre del problema («motor = MAYDAY siempre») sin pensar en la necesidad.",
-      ),
-      error("Subestimar", "Subestimar: decir «minor problem» cuando la situación pide prioridad."),
-      error("Sobrestimar", "Sobrestimar sin necesidad y saturar la frecuencia."),
-      error("No actualizar al ATC", "No actualizar al ATC cuando la situación cambia de nivel."),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Un diagnóstico no es una señal", text: "Una falla de motor, una situación médica o el humo tienen efectos variables. La gravedad y la ayuda necesaria determinan la declaración; el manual de operaciones aporta procedimientos específicos del explotador." },
+      { kind: "callout", tone: "warn", title: "No actualizar a ATS", text: "Mantener PAN PAN cuando ya se necesita ayuda inmediata retrasa la respuesta. Dejar MAYDAY sin cancelar cuando el peligro terminó también distorsiona la gestión de la frecuencia." },
+      { kind: "callout", tone: "warn", title: "Confundir prioridad con autorización", text: "La prioridad permite organizar ayuda; no aprueba automáticamente desvíos, niveles, pistas ni procedimientos. Esos elementos se coordinan y colacionan." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "La diferencia es la necesidad de ayuda inmediata.",
-          "Mismo orden de mensaje para ambas.",
-          "Informar sin señal es válido cuando no hay urgencia.",
-          "La situación puede subir o bajar de nivel; el ATC debe saberlo.",
-          "El criterio final es del comandante, según SOP.",
+          "MAYDAY: peligro grave o inminente y ayuda inmediata necesaria.",
+          "PAN PAN: seguridad afectada sin esa necesidad inmediata.",
+          "El tráfico de socorro prevalece sobre la urgencia y sobre el tráfico normal.",
+          "Se declara con datos ciertos y se amplía cuando la cabina puede.",
+          "La señal se actualiza si evoluciona el riesgo; no otorga autorizaciones por sí sola.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432 · Anexo 10",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1, definición «Fase de peligro» (como contraste de la clasificación ATS); 5.2.2. Doc 9432 (4.ª ed.) 2.6 (AFFIRM, UNABLE).",
-        [
-          "VERIFICAR: todas las filas de la tabla comparativa (definiciones, prioridades, señal, mensaje, silencio) contra Anexo 10 Vol. II cap. 5 y Doc 9432 cap. 9 (no cargados).",
-          "VERIFICAR: que la clasificación de la falla de motor dependa del explotador, contra el manual de operaciones del explotador (no es norma OACI).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA SERA.14095 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.14095: definiciones, prioridad, contenido de las primeras transmisiones, respuesta ATS y cancelación: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9854" },
+          { kind: "p", text: "Aerocivil, portal oficial AIP Colombia y eAIP para verificar datos y procedimientos locales vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "El escenario y la historieta son didácticos, no transcripciones. No se inventan distintivos, posiciones, frecuencias, pistas ni autorizaciones. Las normas europeas citadas ilustran la estructura y la prioridad; no sustituyen la publicación colombiana aplicable." },
         ],
-      ),
+      },
     ],
   },
   // ── 37 ──────────────────────────────────────────────────────────────────
   {
     n: 37,
     title: "MINIMUM FUEL y emergencia de combustible",
-    kicker: "Qué comunica cada una y qué no",
-    minutes: 9,
+    kicker: "Del aviso preventivo al socorro",
+    minutes: 20,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "Dos comunicaciones distintas sobre combustible. Este capítulo trata solo cómo se comunican; el cálculo y la gestión del combustible están en otro módulo.",
+        text: "La gestión del combustible se decide con pronósticos de llegada, opciones de aterrizaje y la reserva final planificada; la radio comunica esa decisión a tiempo al servicio de tránsito aéreo (ATS, Air Traffic Services). MINIMUM FUEL informa que la tripulación ya se comprometió con un aeródromo específico y que un cambio a la autorización vigente puede hacer que aterrice por debajo de la reserva final. No es una declaración de emergencia y no concede prioridad automática. Si el combustible utilizable calculado al aterrizar en el aeródromo más cercano donde pueda aterrizarse con seguridad es menor que la reserva final planificada, la llamada de socorro es MAYDAY MAYDAY MAYDAY FUEL.",
       },
       {
-        kind: "glosario",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-37-01.svg",
+        alt: "Comparación de MINIMUM FUEL con MAYDAY FUEL según la reserva final calculada al aterrizar.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Comparación basada en EASA CAT.OP.MPA.185 y SERA.11012. MINIMUM FUEL advierte que un cambio o demora puede comprometer la reserva final; MAYDAY FUEL se declara al calcular menos reserva final en el aeródromo seguro más cercano. La tripulación usa sus datos reales y recalcula tras cualquier demora.",
+      },
+      { kind: "sub", text: "La secuencia operacional antes de hablar" },
+      {
+        kind: "list",
+        ordered: true,
         items: [
+          "**Actualizar el cálculo:** contrastar combustible utilizable a bordo con consumo real, tiempo de vuelo, demoras conocidas, meteorología, condiciones de llegada y reservas del plan. El pronóstico al aterrizaje importa más que una cifra de combustible aislada.",
+          "**Revisar opciones seguras:** antes de comprometerse con un aeródromo, comprobar que sigue siendo una opción de aterrizaje segura según los datos disponibles. Un desvío no se anuncia como decidido si aún no lo está; una opción que desaparece exige recalcular.",
+          "**Solicitar información de demora:** si circunstancias no previstas pueden reducir el margen, pedir a ATS demora esperada y vigilar el combustible durante todo el proceso. La respuesta «sin demora prevista» describe un pronóstico, no una garantía.",
+          "**Emitir la señal correcta:** MINIMUM FUEL cuando se cumplen el compromiso con aeródromo y el riesgo de comprometer la reserva por un cambio de autorización; MAYDAY MAYDAY MAYDAY FUEL cuando el cálculo en el aeródromo seguro más cercano cae por debajo de la reserva final.",
+          "**Continuar la coordinación:** tras la declaración, comunicar intención, restricciones y asistencia requerida con datos reales; colacionar autorizaciones nuevas, recalcular y actualizar a ATS si cambia la condición.",
+        ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-37-02.webp",
+        alt: "Historieta de tres paneles: pilotos verifican cálculo de combustible, PM informa por radio y ATS coordina.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no una transmisión real: 1) el piloto que vuela (PF, pilot flying) y el piloto que monitorea (PM, pilot monitoring) comparan opciones y reserva; 2) PM informa mientras PF sigue volando; 3) ATS comunica demora y coordina. Ninguna pantalla, hoja o imagen contiene una cifra, ruta, frecuencia o autorización para uso operacional.",
+      },
+      { kind: "sub", text: "Qué oye ATS y qué devuelve" },
+      {
+        kind: "p",
+        text: "Según EASA SERA.11012, al recibir MINIMUM FUEL el controlador informa tan pronto como sea practicable si se prevé demora o si no se espera ninguna. Esa respuesta permite a la tripulación revisar su cálculo, pero no le asigna prioridad. Si la espera propuesta no es aceptable, la tripulación debe decirlo claramente y transmitir su intención; repetir MINIMUM FUEL sin analizar el efecto de la demora no protege el combustible.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Plantillas, no autorizaciones ni un vuelo ficticio",
+        text: "[Dependencia ATS] — [identificación real] — MINIMUM FUEL. ATS informa [demora prevista o ninguna]; la tripulación recalcula. Para socorro: MAYDAY × 3 — FUEL — [dependencia e identificación reales] — [situación, intención, posición/nivel/rumbo y ayuda necesaria]. Los corchetes solo indican campos; no son una transcripción ni contienen una ruta, pista, frecuencia o demora inventada.",
+      },
+      {
+        kind: "p",
+        text: "En una emergencia de combustible no se espera a consumir físicamente la reserva final para transmitir. El criterio de EASA CAT.OP.MPA.185(d) es el combustible utilizable calculado al aterrizar en el aeródromo seguro más cercano, comparado con la reserva final prevista. La señal MAYDAY va al comienzo de la primera llamada y FUEL identifica la naturaleza del socorro. La información complementaria, incluida la autonomía si se solicita, se comunica con unidades y referencia claras; no se enseña que siempre deba darse solo en tiempo o solo en masa.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Una demora cambia el pronóstico de llegada",
+        situacion: "Caso didáctico sin aeródromo, indicativo, ruta, tiempo ni cantidad inventados. Durante la llegada, la tripulación ya se comprometió con un aeródromo porque las demás opciones planificadas dejaron de ser viables. El pronóstico protege la reserva final solo si no cambia la autorización. PM declara MINIMUM FUEL. ATS informa que ahora se prevé una demora, y el nuevo cálculo muestra que incluso el aeródromo seguro más cercano quedaría por debajo de la reserva final planificada.",
+        preguntas: [
           {
-            k: "MINIMUM FUEL",
-            v: "El Doc 4444 (15.ª ed., Enm. 4) lo define como «situación en que el combustible restante de la aeronave es tal que el vuelo debe aterrizar en un aeródromo específico y no puede aceptarse ninguna demora adicional».",
+            q: "¿Qué aporta la primera llamada y qué no obtiene?",
+            a: "MINIMUM FUEL hace explícitos el compromiso y la vulnerabilidad ante un cambio o demora. ATS debe informar la demora prevista o su ausencia. No equivale a socorro ni concede prioridad automática; PF y PM mantienen el monitoreo y preparan una nueva decisión."
           },
-          { k: "MAYDAY FUEL", v: "Declaración de socorro por combustible." },
+          {
+            q: "Con el cálculo revisado bajo la reserva final, ¿basta con repetir MINIMUM FUEL?",
+            a: "No. El comandante declara MAYDAY MAYDAY MAYDAY FUEL y PM comunica la condición, intención y ayuda requerida con la información disponible. ATS puede coordinar prioridad y opciones, pero cada autorización concreta se recibe y verifica."
+          },
+          {
+            q: "ATS ofrece una ruta que el avión no puede cumplir; ¿qué se transmite?",
+            a: "PM dice UNABLE, explica brevemente la limitación y propone una intención ejecutable. No colaciona como aceptada una autorización incompatible con combustible, rendimiento u otra restricción. El cálculo se actualiza otra vez si ATS ofrece una alternativa."
+          },
         ],
+        concepto: "El umbral es prospectivo: el pronóstico en una opción segura de aterrizaje, no el instante en que el indicador alcanza la reserva final.",
       },
-      {
-        kind: "p",
-        text: "La Enmienda 4 de la 15.ª edición del Doc 4444 (aplicable desde el 15 de noviembre de 2012) armonizó la fraseología y los procedimientos ATC de combustible con el Anexo 6 (Tabla A del preámbulo). Por eso lo que aprendió antes de 2012 puede estar desactualizado.",
-      },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
-      { kind: "p", text: "**Qué comunica MINIMUM FUEL:**" },
-      {
-        kind: "list",
-        items: [
-          "Que usted está comprometido a aterrizar en un aeródromo específico.",
-          "Que cualquier demora adicional puede llevarlo a aterrizar con menos de la reserva final.",
-          "Según el Anexo 6, se informa cuando un cambio en la autorización vigente puede hacer que aterrice con menos que la reserva final de combustible prevista (VERIFICAR).",
-        ],
-      },
-      { kind: "p", text: "**Qué NO significa MINIMUM FUEL:**" },
-      {
-        kind: "list",
-        items: [
-          "**No es una emergencia** ni da prioridad automática. Es un aviso de que una emergencia es posible si hay más demora (VERIFICAR la nota a la definición en la edición vigente del Doc 4444).",
-          "No se usa para «combustible más bajo de lo que me gustaría».",
-        ],
-      },
-      {
-        kind: "p",
-        text: "**Cuándo evoluciona a emergencia:** según el Anexo 6, el piloto al mando declara emergencia de combustible cuando el combustible utilizable que calcula tener al aterrizar en el aeródromo más cercano donde puede aterrizar con seguridad es menor que la reserva final prevista (VERIFICAR). Se dice **MAYDAY, MAYDAY, MAYDAY, FUEL**.",
-      },
-      {
-        kind: "p",
-        text: "**Lo que hace el ATC con MINIMUM FUEL (VERIFICAR):** acusa recibo e informa la demora prevista, o que no hay demora. Usted usa esa información para decidir.",
-      },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología y criterios que no están en las fuentes cargadas. Criterios de MINIMUM FUEL y de emergencia de combustible: **Anexo 6 Parte I**, gestión del combustible en vuelo. «MAYDAY, MAYDAY, MAYDAY, FUEL»: **Anexo 6 Parte I** y **Doc 4444 cap. 15**. Las respuestas ATC «ROGER, NO DELAY EXPECTED» / «EXPECT (delay information)» y «HOLD AT (fix) AS PUBLISHED, EXPECT APPROACH CLEARANCE AT (time)»: **Doc 4444 cap. 12**. La nota de la definición («no es una situación de emergencia…»): **Doc 4444 cap. 1 vigente**. Diferencias de Estados Unidos: **AIM / FAA Order JO 7110.65**.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · MINIMUM FUEL sin demora (VERIFICAR la respuesta del ATC)",
-        [`PILOT: "BOGOTA APPROACH, AVIATORY 452, MINIMUM FUEL."`, `ATC:   "AVIATORY 452, ROGER, NO DELAY EXPECTED."`],
-        "Significado: usted avisa que ya no acepta más demora. El ATC confirma que no se espera ninguna.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · MINIMUM FUEL con demora (VERIFICAR la respuesta del ATC)",
-        [`PILOT: "BOGOTA APPROACH, AVIATORY 452, MINIMUM FUEL."`, `ATC:   "AVIATORY 452, ROGER, EXPECT 10 MINUTES DELAY."`],
-        "Significado: el ATC informa demora. Usted calcula: si con 10 minutos aterriza por encima de la reserva final, continúa; si no, declara.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · No acepta la espera (PLAIN LANGUAGE; VERIFICAR «HOLD AT … AS PUBLISHED»)",
-        [
-          `ATC:   "AVIATORY 452, HOLD AT GIKOS AS PUBLISHED, EXPECT APPROACH CLEARANCE AT 1545."`,
-          `PILOT: "AVIATORY 452, UNABLE TO ACCEPT DELAY, MINIMUM FUEL."`,
-        ],
-        "Significado: usted ya no puede aceptar la espera. UNABLE es palabra normalizada; la combinación con la razón es **PLAIN LANGUAGE**.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Emergencia de combustible (VERIFICAR)",
-        [
-          `PILOT: "MAYDAY, MAYDAY, MAYDAY, FUEL, BOGOTA APPROACH, AVIATORY 452, CALCULATED FUEL AT LANDING BELOW FINAL RESERVE, REQUEST PRIORITY APPROACH RUNWAY 13, POSITION GIKOS, 9000 FEET, HEADING 310."`,
-          `ATC:   "AVIATORY 452, ROGER MAYDAY, CLEARED DIRECT TO ILS RUNWAY 13, DESCEND TO 7000 FEET, QNH 1026."`,
-        ],
-        "Significado: emergencia de combustible: señal de socorro con la palabra FUEL, y el mismo orden de mensaje del cap. 34.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Autonomía en tiempo (PLAIN LANGUAGE en la forma)",
-        [`ATC:   "AVIATORY 452, REPORT FUEL ENDURANCE."`, `PILOT: "AVIATORY 452, ENDURANCE 35 MINUTES."`],
-        "Significado: **PLAIN LANGUAGE** en la forma. El combustible se da en tiempo: el controlador piensa en minutos, no en kilos ni libras.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
       {
         kind: "enLaOperacion",
-        momento: "Esperas largas cerca del destino",
-        texto: "En línea aérea, MINIMUM FUEL aparece con esperas largas, cambios de pista o cierres de aeródromo cerca del destino y alterno. La tripulación ya lleva cálculos de combustible al aterrizaje (en el FMS y a mano); la comunicación con el ATC sale de esos números. Informar con tiempo ayuda al controlador a planificar; no hacerlo lo deja sin información. Varios Estados tienen procedimientos propios (por ejemplo, los Estados Unidos no usan la definición OACI de la misma forma; VERIFICAR). En Colombia: AIP y RAC.",
+        momento: "PF vuela; PM informa con cálculo trazable",
+        texto: "PF mantiene trayectoria y conciencia de energía; PM registra combustible y pronóstico, escucha información de demora, compara opciones seguras y comunica la decisión del comandante. El procedimiento normalizado de operación (SOP, Standard Operating Procedures) del explotador define comprobaciones y reparto de tareas. Una llamada temprana y precisa ayuda a ATS a coordinar, pero la gestión de combustible y la elección de una opción segura continúan en la cabina. En Colombia se deben verificar procedimientos locales en la publicación oficial vigente de Aerocivil antes de aplicarlos.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Creer que MINIMUM FUEL da prioridad",
-        "Decir MINIMUM FUEL creyendo que da prioridad y quedarse esperando.",
-      ),
-      error(
-        "MINIMUM FUEL cuando es MAYDAY FUEL",
-        "Declarar MINIMUM FUEL cuando lo que corresponde es MAYDAY FUEL.",
-      ),
-      error(
-        "«Low fuel» y parecidos",
-        "Decir «low fuel», «fuel critical» o «short of fuel»: no son la fraseología; el controlador puede no entender el grado (Doc 9835 3.4.14 muestra un mensaje de «poco combustible» mezclado con otra información).",
-      ),
-      error(
-        "Combustible en masa",
-        "Dar combustible en kilos o libras cuando el ATC lo necesita en tiempo.",
-      ),
-      error(
-        "Avisar tarde",
-        "Esperar a estar por debajo de la reserva final para decir algo.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Esperar prioridad automática", text: "MINIMUM FUEL no es socorro. Si el combustible calculado exige ayuda inmediata, debe declararse MAYDAY FUEL; una frase ambigua como «low fuel» no expresa el umbral reglamentario." },
+      { kind: "callout", tone: "warn", title: "Esperar al indicador de reserva", text: "La comparación se hace con el combustible utilizable previsto al aterrizar en el aeródromo seguro más cercano, no con lo que quedará cuando sea demasiado tarde para cambiar el plan." },
+      { kind: "callout", tone: "warn", title: "Tomar una demora estimada como compromiso", text: "La demora comunicada por ATS es información para recalcular. Las condiciones pueden cambiar; se monitorea y se actualiza la declaración si el margen desaparece." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "MINIMUM FUEL: comprometido a un aeródromo, sin aceptar más demora. No es emergencia.",
-          "El ATC responde con la demora prevista o «no delay expected».",
-          "MAYDAY, MAYDAY, MAYDAY, FUEL: combustible al aterrizar por debajo de la reserva final.",
-          "Combustible en tiempo, no en masa.",
-          "Desde 2012 la fraseología está armonizada con el Anexo 6.",
+          "MINIMUM FUEL informa compromiso con un aeródromo y vulnerabilidad a cambios; no da prioridad automática.",
+          "ATS comunica demora esperada o que no la prevé.",
+          "MAYDAY MAYDAY MAYDAY FUEL es socorro cuando el cálculo al aterrizaje seguro más cercano cae bajo la reserva final.",
+          "No se espera a consumir la reserva final para declarar.",
+          "Después de cada demora o nueva opción se recalcula y se informa la intención real.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432 · Doc 9835 · Anexo 6",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1, definición «Combustible mínimo»; preámbulo, Tabla A, Enmienda 4 de la 15.ª edición (fraseología y procedimientos ATC de combustible armonizados con el Anexo 6; aprobada el 16 de marzo de 2012, aplicable el 15 de noviembre de 2012). Doc 9432 (4.ª ed.) 2.6 (UNABLE). Doc 9835 (2.ª ed.) 3.4.14.",
-        [
-          "VERIFICAR: criterios de MINIMUM FUEL y de emergencia de combustible contra Anexo 6 Parte I, sección de gestión del combustible en vuelo (no cargado).",
-          "VERIFICAR: «MAYDAY, MAYDAY, MAYDAY, FUEL» contra Anexo 6 Parte I y Doc 4444 cap. 15 (no cargados).",
-          "VERIFICAR: respuestas ATC «ROGER, NO DELAY EXPECTED» / «EXPECT (delay information)» contra Doc 4444 cap. 12 (no cargado).",
-          "VERIFICAR: nota de la definición («no es una situación de emergencia…») en la edición vigente del Doc 4444 cap. 1.",
-          "VERIFICAR: diferencias de Estados Unidos (FAA) sobre minimum fuel, contra AIM/FAA Order JO 7110.65.",
-          "VERIFICAR: «HOLD AT (fix) AS PUBLISHED, EXPECT APPROACH CLEARANCE AT (time)» contra Doc 4444 cap. 12 (espera) (no cargado; ver Nivel 4, cap. 28).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA CAT.OP.MPA.185 · SERA.11012 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Air Operations, revisión marzo de 2026, CAT.OP.MPA.185(c)–(d): criterios de MINIMUM FUEL y MAYDAY FUEL para aviones de transporte comercial: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-air-operations?erules-id=ERULES-1963177438-12803" },
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.11012 y GM1: información de demora del controlador y naturaleza no urgente de MINIMUM FUEL: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9921" },
+          { kind: "p", text: "OACI, Doc 4444 PANS-ATM, edición alojada en ATMiKIT, sección 15.5.4; verificar siempre la edición operativamente aplicable: https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/DOC%204444_PANS%20ATM_en.pdf" },
+          { kind: "p", text: "Aerocivil, portal oficial de AIP Colombia y eAIP para datos y procedimientos colombianos vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "El escenario y la historieta son didácticos, no transcripciones. Los criterios europeos citados no sustituyen RAC, AIP ni manual del explotador aplicables al vuelo real." },
         ],
-      ),
+      },
     ],
   },
   // ── 38 ──────────────────────────────────────────────────────────────────
   {
     n: 38,
     title: "TCAS/ACAS RA",
-    kicker: "Cumplir, informar y volver a la autorización",
-    minutes: 9,
+    kicker: "Responder, informar y recuperar la autorización",
+    minutes: 20,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "El ACAS es un «sistema de aeronave basado en señales de transpondedor del SSR que funciona independientemente del equipo instalado en tierra para proporcionar aviso al piloto sobre posibles conflictos entre aeronaves dotadas de transpondedores SSR» (Doc 4444 cap. 1). TCAS es el nombre del equipo que lo implementa en la mayoría de los aviones de transporte.",
+        text: "El sistema anticolisión de a bordo (ACAS, Airborne Collision Avoidance System) detecta encuentros con aeronaves dotadas de transpondedor sin depender del control terrestre. TCAS (Traffic Alert and Collision Avoidance System) es una familia de equipos que implementa esa función. Un aviso de tránsito (TA, Traffic Advisory) ayuda a buscarlo y prepararse; por sí solo no ordena una maniobra. Un aviso de resolución (RA, Resolution Advisory) exige la respuesta indicada, incluso si entra en conflicto con una instrucción del control de tránsito aéreo (ATC, Air Traffic Control), salvo que seguirlo comprometa la seguridad de la aeronave.",
       },
-      { kind: "p", text: "Da dos tipos de aviso (VERIFICAR definiciones, Doc 4444 cap. 1 edición vigente y Doc 8168 Vol. I):" },
       {
-        kind: "glosario",
-        items: [
-          { k: "TA (traffic advisory)", v: "aviso de tránsito. Alerta; no pide maniobra." },
-          {
-            k: "RA (resolution advisory)",
-            v: "aviso de resolución. Pide una maniobra vertical (o limitarla) para aumentar la separación.",
-          },
-        ],
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-38-01.svg",
+        alt: "Secuencia TA, respuesta a RA, aviso a ATC, libre de conflicto y regreso a la autorización.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Secuencia basada en EASA SERA.11014 y AMC1 SERA.14001. TA permite observar, no maniobrar por sí solo; ante RA se responde primero y se informa cuando la carga lo permite. Tras CLEAR OF CONFLICT se inicia el retorno y se confirma cuando la autorización está reanudada.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      { kind: "sub", text: "Prioridad de cabina y de radio" },
       {
         kind: "list",
+        ordered: true,
         items: [
-          "**Con un RA se sigue el RA**, incluso si contradice una instrucción del ATC, y se maniobra con prontitud (VERIFICAR, Doc 8168 Vol. I).",
-          "**No se maniobra con un TA solo.** El TA sirve para buscar el tránsito y prepararse.",
-          "**Se avisa al ATC en cuanto se pueda**, con la fraseología prevista. Primero el avión, luego la radio.",
-          "Mientras usted responde a un RA, el ATC no intenta cambiarle la trayectoria (VERIFICAR, Doc 4444 cap. 15).",
-          "**Al terminar** («clear of conflict»), se regresa con prontitud a la autorización y se le dice al ATC.",
-          "El ACAS depende del transpondedor de los dos aviones: un transpondedor en STBY o sin Modo C deja al otro sin RA (cap. 31).",
-          "La Tabla A del Doc 4444 registra que la 15.ª edición incorporó «procedimientos y fraseología relativos al ACAS». La fraseología exacta está en el cap. 12, que no está cargado.",
+          "**TA:** ambos pilotos buscan tránsito y mantienen conciencia situacional. No crean una desviación vertical solo por la indicación TA ni por una interpretación visual incierta del tráfico.",
+          "**RA:** el piloto que vuela (PF, pilot flying) sigue de inmediato la guía del equipo, incluida cualquier modificación posterior, y limita la desviación a lo necesario. Nunca maniobra en el sentido contrario al RA. La excepción reglamentaria es que seguirlo comprometa la seguridad del avión.",
+          "**Notificación:** el piloto que monitorea (PM, pilot monitoring) avisa a ATC tan pronto como la carga de trabajo lo permita cuando el RA exige desviarse de la autorización o instrucción vigente. La frase prevista es TCAS RA; no se retrasa la respuesta para formular una llamada larga.",
+          "**Conflicto con instrucción:** si ATC transmite una orden contraria, la tripulación sigue el RA y responde UNABLE, TCAS RA tan pronto como pueda. Un reconocimiento de ATC no sustituye la maniobra indicada.",
+          "**Recuperación:** al resolverse el conflicto, se vuelve prontamente a los términos de la autorización o se cumple una alternativa emitida por ATC. Se informa que se está regresando y, después, que ya se reanudó la autorización. Son dos estados distintos.",
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "CM-38-01 · Diagrama · 16:9 · 1600×900 px",
-        descripcion: "Imagen sugerida: Vista lateral de dos aeronaves en niveles cercanos con trayectorias convergentes. La de arriba recibe «DESCEND» y la de abajo «CLIMB» (flechas verticales con el texto del RA en mono). Una línea de tiempo abajo con cuatro momentos numerados: 1) TA: buscar tránsito; 2) RA: maniobra; 3) llamada «TCAS RA»; 4) «CLEAR OF CONFLICT, RETURNING TO…» y 5) «CLEAR OF CONFLICT, … RESUMED». Globos de diálogo cortos con el texto de cada llamada. Objetivo: Que el piloto vea el orden: maniobrar primero, informar después, y los dos avisos distintos al terminar.",
-        alto: 280,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-38-02.webp",
+        alt: "Historieta de tres paneles: tripulación observa tráfico, responde a RA y controlador coordina tras el aviso.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no un caso ni una transcripción real: 1) la tripulación observa un aviso de tránsito sin maniobrar solo por él; 2) PF responde al RA y PM avisa cuando la carga lo permite; 3) ATC coordina hasta recibir CLEAR OF CONFLICT. Las pantallas son ilustrativas y no muestran un RA, nivel ni ruta para uso operacional.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología y procedimientos que no están en las fuentes cargadas. «TCAS RA», «CLEAR OF CONFLICT, RETURNING TO (assigned clearance)», «CLEAR OF CONFLICT (assigned clearance) RESUMED», «UNABLE, TCAS RA» y la respuesta ATC «ROGER»: **Doc 4444 cap. 12** (maniobras ACAS) y **Doc 9432 11.6**. Seguir el RA aunque contradiga al ATC, no maniobrar por un TA y regresar pronto a la autorización: **Doc 8168 (PANS-OPS) Vol. I**. Que el ATC no modifique la trayectoria durante un RA: **Doc 4444 cap. 15**. Definiciones de TA y RA: **Doc 4444 cap. 1 vigente**. Piloto automático con RA: **manual del fabricante** del tipo.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · Aviso de RA (VERIFICAR)",
-        [`PILOT: "BOGOTA CONTROL, AVIATORY 452, TCAS RA."`, `ATC:   "AVIATORY 452, ROGER."`],
-        "Significado: usted inició la maniobra por un RA y se aparta de la autorización. El ATC acusa recibo; no le da instrucciones de trayectoria mientras dura el RA.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Terminó el RA y vuelve al nivel (VERIFICAR)",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, CLEAR OF CONFLICT, RETURNING TO FLIGHT LEVEL 350."`,
-          `ATC:   "AVIATORY 452, ROGER."`,
+      { kind: "sub", text: "Fraseología en su momento exacto" },
+      {
+        kind: "table",
+        head: ["Momento", "Mensaje de la tripulación", "Qué significa para ATC"],
+        rows: [
+          ["RA con desviación", "TCAS RA", "La tripulación responde a un RA; ATC acusa y no intenta modificar su trayectoria hasta CLEAR OF CONFLICT."],
+          ["Orden contraria al RA", "UNABLE, TCAS RA", "No puede cumplirse la instrucción; se sigue el RA."],
+          ["Conflicto resuelto; retorno iniciado", "CLEAR OF CONFLICT, RETURNING TO [autorización vigente]", "La respuesta al RA terminó y la aeronave está regresando; aún no dice que ya alcanzó lo asignado."],
+          ["Autorización recuperada", "CLEAR OF CONFLICT, [autorización vigente] RESUMED", "La aeronave volvió a la autorización; ATC acusa o emite y coordina una alternativa."],
         ],
-        "Significado: terminó el RA y está volviendo al nivel autorizado. (El ATC puede, en lugar de ROGER, dar otra instrucción.)",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · De nuevo en la autorización (VERIFICAR)",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, CLEAR OF CONFLICT, FLIGHT LEVEL 350 RESUMED."`,
-          `ATC:   "AVIATORY 452, ROGER."`,
+      },
+      {
+        kind: "p",
+        text: "Los corchetes son campos que la tripulación completa con la autorización real. La fraseología anterior figura en EASA AMC1 SERA.14001. No se inserta un nivel ficticio para simular exactitud. Una RA puede modificarse durante el encuentro; el aviso a ATC no convierte la primera indicación en inmutable. Las acciones del piloto automático y del director de vuelo dependen del tipo de aeronave y del procedimiento del fabricante, no de una regla universal de esta lección.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Separación: dos hitos diferentes",
+        text: "Bajo EASA SERA.11014, cuando un RA induce desviación o se notifica, el controlador deja de ser responsable de separar a esa aeronave de las afectadas directamente por la maniobra. No intenta cambiar su trayectoria hasta CLEAR OF CONFLICT. Recupera esa responsabilidad cuando acusa que la aeronave ya reanudó la autorización, o cuando acusa que la está reanudando, emite otra autorización y la tripulación la acusa. Por eso RETURNING TO y RESUMED no son sinónimos.",
+      },
+      {
+        kind: "escenario",
+        titulo: "RA durante un cambio de nivel autorizado",
+        situacion: "Caso didáctico sin aeródromo, ruta, indicativo ni nivel inventados. Una aeronave está cambiando de nivel por autorización de ATC. Aparece un TA; la tripulación busca tránsito sin iniciar una maniobra adicional. Luego surge un RA cuya guía entra en conflicto con la instrucción vigente. PF responde al equipo y PM está ocupado verificando el cambio de trayectoria.",
+        preguntas: [
+          {
+            q: "¿Se llama antes de ejecutar el RA?",
+            a: "No. PF responde de inmediato al RA conforme al procedimiento del avión, salvo que hacerlo comprometiera su seguridad. PM informa TCAS RA en cuanto la carga de trabajo lo permite porque la respuesta implica apartarse de lo autorizado. No se maniobra en sentido contrario ni se espera permiso de ATC para obedecer el RA."
+          },
+          {
+            q: "ATC repite una instrucción incompatible, ¿cómo contesta PM?",
+            a: "UNABLE, TCAS RA. La tripulación continúa siguiendo la indicación vigente del RA y las modificaciones posteriores; ATC acusa y no intenta modificar la trayectoria hasta recibir CLEAR OF CONFLICT."
+          },
+          {
+            q: "Al anunciar el equipo fin del conflicto, ¿qué se comunica?",
+            a: "Se inicia el regreso oportuno a la autorización actual, si es ejecutable, y PM comunica CLEAR OF CONFLICT, RETURNING TO [autorización]. Cuando efectivamente se reanuda, comunica CLEAR OF CONFLICT, [autorización] RESUMED. Si ATC asigna una alternativa, la tripulación la verifica y acusa en vez de suponer que persiste un nivel anterior."
+          },
         ],
-        "Significado: ya está de nuevo en la autorización.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Una instrucción que el RA no deja cumplir (VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, CLIMB TO FLIGHT LEVEL 360."`,
-          `PILOT: "AVIATORY 452, UNABLE, TCAS RA."`,
-          `ATC:   "AVIATORY 452, ROGER."`,
-        ],
-        "Significado: recibió una instrucción que el RA no le deja cumplir. Se dice UNABLE, TCAS RA, y se sigue el RA.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Información de tránsito",
-        [
-          `ATC:   "AVIATORY 452, TRAFFIC 12 O'CLOCK 5 MILES OPPOSITE DIRECTION, 1000 FEET BELOW."`,
-          `PILOT: "AVIATORY 452, LOOKING OUT."`,
-        ],
-        "Significado: información de tránsito (Doc 9432 6.4). Si usted tiene un TA de ese tránsito, no maniobra por el TA: lo busca y espera.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · Maniobra de evitación ordenada por el ATC",
-        [
-          `ATC:   "AVIATORY 452, TURN RIGHT IMMEDIATELY HEADING 110 TO AVOID TRAFFIC 12 O'CLOCK 4 MILES."`,
-          `PILOT: "RIGHT HEADING 110, AVIATORY 452."`,
-        ],
-        "Significado: maniobra de evitación ordenada por el ATC (Doc 9432 6.7.2). Si durante esa maniobra aparece un RA, manda el RA.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
+        concepto: "La secuencia es responder al RA, informar cuando se pueda y distinguir retorno iniciado de autorización ya recuperada.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Durante y después de un RA",
-        texto: "En cabina, el PF sigue el RA con las guías del PFD y el PM hace la llamada cuando la maniobra está en curso y el avión controlado; el reparto exacto lo fija el SOP del explotador. El piloto automático y el director de vuelo se manejan según el procedimiento del fabricante (en algunos aviones el piloto automático puede volar el RA; VERIFICAR según tipo). Después de un RA hay reporte obligatorio según el sistema de notificación del explotador y del Estado.",
+        momento: "Durante el encuentro y después",
+        texto: "PF controla la trayectoria con la guía aprobada para el avión; PM mantiene conciencia del tráfico, de la autorización y de las transmisiones. El procedimiento normalizado de operación (SOP, Standard Operating Procedures) especifica el reparto de tareas y el uso de automatismos. El conocimiento visual de un avión cercano no demuestra que sea el intruso causante del RA. Tras el encuentro se revisan la autorización vigente, la altitud real, cualquier modificación de ATC y los requisitos de notificación del explotador y del Estado aplicable; esta lección no inventa un reporte local obligatorio.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error("Seguir al ATC en contra del RA", "Seguir la instrucción del ATC en contra del RA."),
-      error("Maniobrar con un TA", "Maniobrar con un TA."),
-      error("Llamar antes de maniobrar", "Llamar al ATC antes de iniciar la maniobra."),
-      error(
-        "Olvidar CLEAR OF CONFLICT",
-        "Olvidar la segunda llamada (CLEAR OF CONFLICT): el ATC no sabe cuándo recupera la responsabilidad de separación.",
-      ),
-      error("Frases no estándar", "Usar frases no estándar («we had a TCAS», «traffic alert, climbing»)."),
-      error(
-        "Invertir el sentido del RA",
-        "Invertir el sentido del RA (subir cuando pide bajar) por una mala lectura bajo estrés.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Maniobrar por TA", text: "TA alerta y favorece la búsqueda de tránsito; no ordena por sí solo una maniobra. Una reacción vertical innecesaria puede crear otro conflicto." },
+      { kind: "callout", tone: "warn", title: "Dar preferencia a una orden contraria", text: "EASA SERA.11014 exige seguir el RA pese a una instrucción ATC incompatible, excepto si seguirlo compromete la seguridad del avión. PM informa UNABLE, TCAS RA cuando puede." },
+      { kind: "callout", tone: "warn", title: "Confundir RETURNING TO con RESUMED", text: "Una frase anuncia el retorno en curso; la otra confirma que ya se reanudó lo autorizado. ATC necesita el estado correcto para gestionar separación." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "TA: buscar y prepararse. RA: maniobrar.",
-          "El RA manda sobre la instrucción del ATC.",
-          "Primero se maniobra; después «TCAS RA».",
-          "Al terminar: «CLEAR OF CONFLICT, RETURNING TO…» y luego «… RESUMED».",
-          "Si no puede cumplir una instrucción por un RA: «UNABLE, TCAS RA».",
+          "TA: observar y prepararse; no maniobrar solo por el aviso.",
+          "RA: responder de inmediato, salvo riesgo mayor para la seguridad del propio avión.",
+          "Avisar TCAS RA cuando la carga lo permita y UNABLE, TCAS RA ante instrucción contraria.",
+          "CLEAR OF CONFLICT inicia la recuperación; RESUMED confirma que se volvió a lo autorizado.",
+          "Las pantallas, automatismos y reportes concretos dependen del avión, explotador y Estado.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432 · Doc 8168",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1, definición «Sistema anticolisión de a bordo (ACAS)»; preámbulo, Tabla A (15.ª edición: procedimientos y fraseología relativos al ACAS; 12.ª ed., Enm. 4: prestación de servicios ATS independientemente de la utilización del ACAS). Doc 9432 (4.ª ed.) 6.4 (información de tránsito, LOOKING OUT); 6.7.2 (maniobra de evitación ordenada por el ATC).",
-        [
-          "VERIFICAR: «TCAS RA», «CLEAR OF CONFLICT, RETURNING TO (assigned clearance)», «CLEAR OF CONFLICT (assigned clearance) RESUMED», «UNABLE, TCAS RA» y la respuesta ATC «ROGER» contra Doc 4444 cap. 12 (maniobras ACAS) y Doc 9432 11.6 (no cargados).",
-          "VERIFICAR: seguir el RA aunque contradiga al ATC, no maniobrar por un TA y regresar pronto a la autorización, contra Doc 8168 (PANS-OPS) Vol. I, procedimientos ACAS (no cargado).",
-          "VERIFICAR: el ATC no modifica la trayectoria de una aeronave que responde a un RA, contra Doc 4444 cap. 15 (no cargado).",
-          "VERIFICAR: definiciones de TA y RA contra Doc 4444 cap. 1 de la edición vigente.",
-          "VERIFICAR: modo de piloto automático con RA según tipo de aeronave (manual del fabricante).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA SERA.11014 · AMC1 SERA.14001 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.11014 y GM3–GM6: prioridad del RA, aviso, recuperación, responsabilidad de separación y limitación de TA: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9921" },
+          { kind: "p", text: "EASA, misma publicación, AMC1 SERA.14001: TCAS RA, UNABLE, TCAS RA y las dos llamadas CLEAR OF CONFLICT: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299" },
+          { kind: "p", text: "OACI, Airborne Collision Avoidance System Manual Doc 9863, copia oficial de referencia, secciones 5.2.1.15–18: https://www.icao.int/meetings/anconf12/document%20archive/9863_cons_en.pdf" },
+          { kind: "p", text: "Aerocivil, portal oficial AIP Colombia y eAIP para datos y procedimientos colombianos vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "La historieta y el escenario son didácticos, no transcripciones. Las fuentes europeas ilustran el marco y la fraseología, sin sustituir las reglas locales ni el manual del avión y del explotador." },
         ],
-      ),
+      },
     ],
   },
   // ── 39 ──────────────────────────────────────────────────────────────────
   {
     n: 39,
     title: "RVSM",
-    kicker: "Cuándo se pierde la capacidad y cómo se dice",
-    minutes: 9,
+    kicker: "Avisar la pérdida de capacidad sin demora",
+    minutes: 19,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "RVSM (separación vertical mínima reducida) es la aplicación de 1000 ft de separación vertical entre el FL 290 y el FL 410 inclusive, cuando fuera de ese espacio designado se aplican nominalmente 2000 ft desde el FL 290 (Doc 4444 2.6.1.1 nota 1 y 5.3.2). Solo pueden operar ahí aeronaves con aprobación RVSM.",
+        text: "La separación vertical mínima reducida (RVSM, Reduced Vertical Separation Minimum) permite aplicar 1 000 ft entre niveles de vuelo (FL, Flight Level) 290 y 410 inclusive, entre aeronaves aprobadas en el espacio donde está implantada. La autorización de la aeronave y el explotador no garantiza que la capacidad permanezca durante todo el vuelo. Una falla de equipo o turbulencia que impida mantener la precisión exigida cambia la situación operacional: la tripulación debe informar sin demora al control de tránsito aéreo (ATC, Air Traffic Control), describir la limitación y coordinar la continuación.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-39-01.svg",
+        alt: "Banda RVSM de FL 290 a FL 410 y mensajes ante incapacidad por equipo o turbulencia.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Esquema basado en EASA SERA.11013 y AMC1 SERA.14001. Se reconoce una pérdida de capacidad porque el equipo o la turbulencia ya no permiten mantener la performance vertical requerida. La decisión de cabina es avisar sin demora y obtener una autorización revisada o aplicar la contingencia pertinente si no puede esperar.",
+      },
+      { kind: "sub", text: "Detectar, comunicar y coordinar" },
       {
         kind: "list",
+        ordered: true,
         items: [
-          "**Aprobación.** El explotador se asegura antes de la salida de que la aeronave tiene la aprobación RVSM requerida cuando va a operar en ese espacio aéreo (Doc 4444 4.4.1.4 b). En el plan de vuelo se indica esa capacidad (VERIFICAR la casilla y la letra en el Apéndice 2 vigente).",
-          "**Pérdida de capacidad.** Cuando una falla de altimetría, del piloto automático u otro sistema degrada la performance por debajo de lo requerido para ese espacio aéreo, la tripulación lo notifica **sin demora** al ATC (Doc 4444 5.2.2). El ATC entonces aplica otra separación.",
-          "**Turbulencia.** Turbulencia que no deja mantener el nivel con la precisión requerida también es motivo para informar que no puede seguir en RVSM (VERIFICAR).",
-          "**Aeronave sin aprobación.** Si una aeronave no aprobada es autorizada a entrar o cruzar el espacio RVSM (por ejemplo, en vuelos especiales), lo informa en la comunicación, con la frase NEGATIVE RVSM (VERIFICAR).",
-          "**Frases cortas.** El ATC necesita saber tres cosas: que usted no puede operar en RVSM, por qué y qué va a hacer o pedir.",
+          "**Comprobar el efecto:** contrastar indicaciones altimétricas, capacidad de mantenimiento de nivel, automatismos y la lista aplicable al avión. Una indicación anómala no basta para diagnosticar una causa por radio; se determina si la performance requerida puede sostenerse.",
+          "**Avisar sin demora:** cuando la degradación cae por debajo del requisito del espacio aéreo, ATC necesita conocerlo para establecer otra separación. La expresión UNABLE RVSM DUE EQUIPMENT corresponde a degradación de equipo; UNABLE RVSM DUE TURBULENCE, a turbulencia intensa que impide cumplir el mantenimiento de altura.",
+          "**Explicar qué puede hacer:** junto a la frase normalizada, transmitir de forma breve el efecto real, si puede mantener el nivel actual y qué necesita: tiempo, un nivel alternativo o una autorización revisada. La solicitud no equivale a aprobación.",
+          "**Mantener o actuar según contingencia:** no iniciar un cambio de nivel por el solo hecho de pronunciar UNABLE RVSM. Seguir la autorización hasta recibir otra si es seguro; cuando la condición exige desviarse antes, aplicar el procedimiento de contingencia vigente del espacio aéreo y comunicar la acción tan pronto como sea posible.",
+          "**Confirmar recuperación:** READY TO RESUME RVSM informa que vuelve a estar disponible la capacidad después de una contingencia de equipo o tiempo atmosférico. ATC debe conocerlo y coordinar el tratamiento subsiguiente; la frase no otorga una autorización nueva.",
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "CM-39-01 · Esquema · 4:5 · 1080×1350 px",
-        descripcion: "Imagen sugerida: Columna vertical de niveles de vuelo del FL 280 al FL 420. Entre FL 290 y FL 410, banda sombreada con el rótulo «RVSM: 1000 ft» y niveles cada 1000 ft. Fuera de la banda, rótulos de separación nominal según Doc 4444 5.3.2. A un lado, tres fichas de fallas: «altímetro», «piloto automático / mantenimiento de nivel», «turbulencia fuerte», cada una con una flecha hacia «Notificar al ATC sin demora (Doc 4444 5.2.2)». Objetivo: Que el piloto entienda dónde aplica RVSM y qué fallas le quitan la capacidad y obligan a avisar.",
-        alto: 420,
-        ratio: "4 / 5",
-        anchoMax: 420,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-39-02.webp",
+        alt: "Historieta de tres paneles: pilotos comprueban altimetría, PM informa incapacidad RVSM y ATS coordina.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no un vuelo real: 1) ambos pilotos comparan indicaciones y comprueban la capacidad; 2) el piloto que vuela (PF, pilot flying) conserva el control y el piloto que monitorea (PM, pilot monitoring) avisa a ATC; 3) los controladores coordinan separación o una alternativa. Las pantallas no representan valores ni rutas válidos.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Toda la fraseología RVSM de esta lección está sin verificar: «CONFIRM RVSM APPROVED», «AFFIRM RVSM», «NEGATIVE RVSM», «UNABLE RVSM DUE EQUIPMENT», «UNABLE RVSM DUE TURBULENCE», «READY TO RESUME RVSM», «UNABLE ISSUE CLEARANCE INTO RVSM AIRSPACE, MAINTAIN (level)» y en qué transmisiones se incluye NEGATIVE RVSM: **Doc 4444 cap. 12** (fraseología RVSM). La indicación RVSM en el plan de vuelo: **Doc 4444 Apéndice 2 vigente**. La turbulencia como causa de pérdida de capacidad y los procedimientos de contingencia: **Doc 9574** y **Doc 4444 cap. 15**.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · El ATC pregunta la aprobación (VERIFICAR)",
-        [`ATC:   "AVIATORY 452, CONFIRM RVSM APPROVED."`, `PILOT: "AFFIRM RVSM, AVIATORY 452."`],
-        "Significado: el ATC pregunta si la aeronave tiene aprobación RVSM.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Pérdida de capacidad por equipo (VERIFICAR)",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, UNABLE RVSM DUE EQUIPMENT."`,
-          `ATC:   "AVIATORY 452, ROGER, DESCEND TO FLIGHT LEVEL 280."`,
-          `PILOT: "DESCENDING FLIGHT LEVEL 280, AVIATORY 452."`,
+      { kind: "sub", text: "Fraseología con contexto" },
+      {
+        kind: "table",
+        head: ["Situación", "Frase normalizada", "Decisión que implica"],
+        rows: [
+          ["ATC comprueba aprobación", "CONFIRM RVSM APPROVED / AFFIRM RVSM", "Confirmar la aprobación real; no usar AFFIRM si se perdió la capacidad."],
+          ["Aeronave no aprobada", "NEGATIVE RVSM", "Identificar estado de aprobación distinto de una falla sobrevenida."],
+          ["Capacidad degradada por equipo", "UNABLE RVSM DUE EQUIPMENT", "Avisar el efecto y solicitar coordinación sin demora."],
+          ["Turbulencia que impide mantener altura", "UNABLE RVSM DUE TURBULENCE", "Avisar la incapacidad efectiva, no toda turbulencia leve."],
+          ["Capacidad recuperada", "READY TO RESUME RVSM", "Informar la recuperación; esperar coordinación antes de asumir otra separación."],
         ],
-        "Significado: perdió la capacidad RVSM por una falla (por ejemplo, un altímetro principal). El ATC lo saca del espacio RVSM o aplica otra separación. La respuesta del ATC es un ejemplo: puede ser otra.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · Pérdida de capacidad por turbulencia (VERIFICAR)",
-        [`PILOT: "BOGOTA CONTROL, AVIATORY 452, UNABLE RVSM DUE TURBULENCE."`, `ATC:   "AVIATORY 452, ROGER."`],
-        "Significado: turbulencia que no deja mantener el nivel dentro de la precisión requerida.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Listo para volver a RVSM (VERIFICAR)",
-        [`PILOT: "BOGOTA CONTROL, AVIATORY 452, READY TO RESUME RVSM."`, `ATC:   "AVIATORY 452, ROGER."`],
-        "Significado: terminó la turbulencia o se recuperó el sistema; el ATC decide cuándo lo vuelve a tratar como RVSM.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Aeronave sin aprobación (VERIFICAR)",
-        [`PILOT: "BOGOTA CONTROL, AVIATORY 452, FLIGHT LEVEL 370, NEGATIVE RVSM."`, `ATC:   "AVIATORY 452, ROGER."`],
-        "Significado: primer contacto de una aeronave sin aprobación RVSM (o que la perdió) dentro de ese espacio aéreo. VERIFICAR en qué transmisiones se exige incluir NEGATIVE RVSM.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · El ATC no puede autorizar el ascenso (VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, UNABLE ISSUE CLEARANCE INTO RVSM AIRSPACE, MAINTAIN FLIGHT LEVEL 280."`,
-          `PILOT: "MAINTAINING FLIGHT LEVEL 280, AVIATORY 452."`,
+      },
+      {
+        kind: "p",
+        text: "Estas expresiones constan en EASA AMC1 SERA.14001. NEGATIVE RVSM comunica que la aeronave no está aprobada; UNABLE RVSM DUE EQUIPMENT o DUE TURBULENCE comunica una incapacidad concreta en vuelo. La fraseología exacta y las condiciones de entrada de aeronaves no aprobadas pueden variar por región y Estado; esta lección no inventa una exención ni una autorización colombiana.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Lo que ATC necesita saber",
+        text: "Identificación real — estado RVSM — causa observable o tipo de limitación — posibilidad de mantener el nivel actual — intención o solicitud. Es una estructura de comunicación didáctica, no una transcripción. No asigna nivel, ruta, frecuencia ni descenso ficticios. Si una acción inmediata de seguridad obliga a apartarse de la autorización, se aplican las contingencias publicadas y se informa tan pronto como se pueda.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Desacuerdo altimétrico en crucero",
+        situacion: "Caso didáctico sin vuelo, nivel, ruta o frecuencia inventados. En espacio RVSM aparecen indicaciones altimétricas discrepantes. La tripulación comprueba según el procedimiento del avión y concluye que ya no puede demostrar la performance vertical requerida. PF mantiene el avión controlado; PM informa a ATC. No hay autorización nueva todavía.",
+        preguntas: [
+          {
+            q: "¿Qué mensaje debe salir y cuándo?",
+            a: "Sin demora, PM transmite la identificación real y UNABLE RVSM DUE EQUIPMENT, seguido de la capacidad actual de mantener nivel y una solicitud concreta si se necesita. La noticia permite que ATC revise la separación. No se sustituye con un relato largo sin la frase clave."
+          },
+          {
+            q: "¿Se desciende automáticamente fuera de RVSM después de la llamada?",
+            a: "No. La frase no es autorización para abandonar el nivel. Si puede mantenerse el vuelo seguro se espera la instrucción revisada. Si no puede mantenerse y la seguridad exige acción inmediata, se aplica la contingencia pertinente y se comunica la desviación tan pronto como sea posible."
+          },
+          {
+            q: "Tras resolver la discrepancia, ¿basta con volver a operar en RVSM sin avisar?",
+            a: "No. Se verifica que la capacidad realmente se recuperó y PM informa READY TO RESUME RVSM. ATC coordina la situación y cualquier autorización posterior. Un simple cese de la alarma no demuestra por sí solo la recuperación."
+          },
         ],
-        "Significado: el ATC no puede autorizar a una aeronave no aprobada a subir al espacio RVSM.",
-      ),
-      ...ejemplo(
-        "Ejemplo 7 · Qué pasó, qué significa y qué pide (PLAIN LANGUAGE con la frase RVSM)",
-        [`PILOT: "BOGOTA CONTROL, AVIATORY 452, ALTIMETER DISAGREE, UNABLE RVSM DUE EQUIPMENT, REQUEST FLIGHT LEVEL 280."`],
-        "Significado: **PLAIN LANGUAGE** para la descripción («altimeter disagree») y la solicitud, junto con la frase RVSM. Así el ATC sabe qué pasó, qué significa y qué pide usted.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
+        concepto: "La capacidad de mantener altura es una condición presente que se comprueba, se comunica y se vuelve a confirmar cuando cambia.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "En crucero, entre FL 290 y FL 410",
-        texto: "Casi toda la operación de jet de línea en crucero ocurre en espacio RVSM. La MEL del explotador dice qué equipos se necesitan para operar en RVSM; si uno falla en vuelo, la lista anormal del avión y el manual del explotador indican cuándo se pierde la capacidad. En ese momento se avisa al ATC con la frase corta y se espera su instrucción; no se cambia de nivel por cuenta propia salvo contingencia. Algunas regiones tienen procedimientos de contingencia particulares (por ejemplo, oceánicas; ver Nivel 6).",
+        momento: "No perder de vista autorización y contingencia",
+        texto: "El manual y la lista del avión, junto con la lista de equipo mínimo (MEL, Minimum Equipment List) y la aprobación del explotador, determinan qué sistemas sustentan la operación RVSM. PF mantiene el control; PM documenta qué indicaciones discrepan, avisa a ATC y confirma cualquier autorización nueva. Las prácticas de contingencia difieren entre espacios continentales y oceánicos: se revisan las publicaciones de la región que realmente se está sobrevolando. Para Colombia, la referencia local debe salir de Aerocivil/eAIP vigente, no de los niveles o frases de un ejemplo inventado.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Seguir en RVSM con altímetros en desacuerdo",
-        "Seguir en RVSM con un altímetro en desacuerdo sin decir nada.",
-      ),
-      error(
-        "El relato sin la frase clave",
-        "Explicar la falla con un relato largo y no decir la frase clave («UNABLE RVSM DUE EQUIPMENT»).",
-      ),
-      error(
-        "Cambiar de nivel sin autorización",
-        "Cambiar de nivel sin autorización por una falla que no lo exige.",
-      ),
-      error(
-        "No avisar la recuperación",
-        "Olvidar informar cuando la capacidad se recupera y seguir con restricciones que ya no aplican.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Seguir sin avisar", text: "Una discrepancia que elimina la performance vertical exigida afecta la separación utilizada por ATC. La comunicación no espera al próximo cambio de frecuencia." },
+      { kind: "callout", tone: "warn", title: "Confundir aprobación con capacidad actual", text: "Un avión aprobado puede quedar temporalmente incapaz. NEGATIVE RVSM no reemplaza la frase de degradación por equipo o turbulencia." },
+      { kind: "callout", tone: "warn", title: "Asumir un descenso autorizado", text: "UNABLE RVSM informa una limitación; no permite seleccionar por cuenta propia otro FL, salvo una contingencia que exija acción inmediata." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "RVSM: 1000 ft entre FL 290 y FL 410 inclusive, solo con aprobación.",
-          "La pérdida de capacidad se notifica sin demora (Doc 4444 5.2.2).",
-          "«UNABLE RVSM DUE EQUIPMENT» / «DUE TURBULENCE»; «READY TO RESUME RVSM».",
-          "Aeronave no aprobada: «NEGATIVE RVSM».",
-          "El ATC decide el nivel; usted informa y pide.",
+          "RVSM aplica 1 000 ft entre FL 290 y FL 410 inclusive donde está implantado.",
+          "La performance degradada se informa a ATC sin demora.",
+          "UNABLE RVSM DUE EQUIPMENT o DUE TURBULENCE describe la causa pertinente.",
+          "READY TO RESUME RVSM informa recuperación, no una autorización nueva.",
+          "La maniobra y separación subsiguientes se coordinan con ATC o se rigen por una contingencia publicada.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432 · Doc 9574",
-        "Doc 4444 (15.ª ed., Enm. 4) 2.6.1.1 nota 1 (RVSM, 300 m / 1000 ft entre FL 290 y FL 410 inclusive); 4.4.1.4 b) (aprobación RVSM antes de la salida); 5.2.2 (deterioro de la performance: notificar sin demora); 5.3.2 (separación vertical mínima; nota sobre Doc 9574); preámbulo, Tabla A (14.ª ed., Enm. 3: fraseología relativa a RVSM). Doc 9432 (4.ª ed.) 2.6 (AFFIRM, UNABLE).",
-        [
-          "VERIFICAR: «CONFIRM RVSM APPROVED», «AFFIRM RVSM», «NEGATIVE RVSM», «UNABLE RVSM DUE EQUIPMENT», «UNABLE RVSM DUE TURBULENCE», «READY TO RESUME RVSM», «UNABLE ISSUE CLEARANCE INTO RVSM AIRSPACE, MAINTAIN (level)» y en qué transmisiones se incluye NEGATIVE RVSM, contra Doc 4444 cap. 12 (fraseología RVSM) (no cargado).",
-          "VERIFICAR: indicación de la aprobación RVSM en el plan de vuelo contra Doc 4444 Apéndice 2 vigente (no cargado).",
-          "VERIFICAR: turbulencia como causa de pérdida de capacidad y procedimientos de contingencia contra Doc 9574 y Doc 4444 cap. 15 (no cargados).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA SERA.11013 · AMC1 SERA.14001 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.11013 y GM1, notificación de performance degradada en espacio RVSM: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9921" },
+          { kind: "p", text: "EASA, misma publicación, AMC1 SERA.14001, fraseología RVSM de aprobación, degradación y recuperación: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299" },
+          { kind: "p", text: "EASA, Easy Access Rules for Air Operations, revisión marzo de 2026, orientación de operación RVSM y contingencias de equipo/meteorología: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-air-operations?erules-id=ERULES-1963177438-13098" },
+          { kind: "p", text: "Aerocivil, portal oficial AIP Colombia y eAIP para espacios, procedimientos y publicaciones locales vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "La historieta y el escenario son didácticos. La aplicación local y las contingencias particulares se verifican en la publicación vigente y en el manual del explotador; no se han inventado niveles, rutas ni autorizaciones." },
         ],
-      ),
+      },
     ],
   },
   // ── 40 ──────────────────────────────────────────────────────────────────
   {
     n: 40,
     title: "PBN, RNAV y RNP",
-    kicker: "Decir que no se puede cumplir un procedimiento",
-    minutes: 8,
+    kicker: "Declarar una capacidad que cambió en vuelo",
+    minutes: 20,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "PBN (navegación basada en la performance) agrupa las especificaciones RNAV y RNP. El Doc 4444 define **RNAV** como el método de navegación que permite operar en cualquier trayectoria deseada dentro de la cobertura de las ayudas o de los límites de las ayudas autónomas, y **RNP** como la declaración de la performance de navegación necesaria para operar en un espacio aéreo definido. Este capítulo no enseña PBN: enseña **qué decir cuando no puede cumplir** un procedimiento o ruta PBN.",
+        text: "La navegación basada en la performance (PBN, Performance-Based Navigation) expresa requisitos de navegación para una ruta o procedimiento. La navegación de área (RNAV, Area Navigation) permite volar trayectorias definidas dentro de la capacidad del sistema; la performance de navegación requerida (RNP, Required Navigation Performance) añade vigilancia y alerta de la performance a bordo. Para comunicaciones, la pregunta clave no es memorizar siglas: es si la aeronave, el explotador y la tripulación pueden cumplir la especificación exigida ahora. Una autorización no subsana una degradación del sistema ni concede una aprobación operacional que no existe.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-40-01.svg",
+        alt: "Comparación conceptual RNAV y RNP y secuencia de aviso ante performance degradada.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Esquema conceptual basado en OACI Doc 9613 y EASA AMC1 SERA.14001. RNAV y RNP no son nombres intercambiables de una aproximación: la especificación publicada determina los requisitos. Si la capacidad efectiva deja de cumplirla, la decisión es comprobar el efecto, informar a ATC y coordinar una alternativa.",
+      },
+      { kind: "sub", text: "Antes de aceptar un procedimiento" },
       {
         kind: "list",
+        ordered: true,
         items: [
-          "**Aprobación antes de salir.** El explotador se asegura de que la aeronave tenga la aprobación para el tipo de RNP que exige la ruta o el área (Doc 4444 4.4.1.4 a). La orientación sobre especificaciones está en el Doc 9613 (Manual PBN), citado en el Doc 4444.",
-          "**Degradación en vuelo.** Si una falla de navegación (por ejemplo, pérdida de GNSS o una alerta de integridad) deja la performance por debajo de lo que exige el espacio aéreo o el procedimiento, se notifica **sin demora** al ATC (Doc 4444 5.2.2).",
-          "**Lo que el ATC necesita saber:** qué no puede cumplir (la ruta, la SID, la STAR, la aproximación RNP), por qué (en pocas palabras) y qué necesita (vectores, una aproximación convencional, otra ruta).",
-          "**Frases:** UNABLE (Doc 9432 2.6) más el procedimiento y la razón. El Doc 4444 cap. 12 vigente tiene fraseología PBN y de estado GNSS; no está cargada, así que aquí va solo lo que se puede decir con certeza y el resto en PLAIN LANGUAGE.",
-          "**Si el ATC pregunta capacidad**, conteste con verdad y con precisión: no todas las aeronaves ni todas las tripulaciones están aprobadas para todas las especificaciones.",
+          "**Lee la especificación exacta.** La ruta, salida normalizada por instrumentos (SID, Standard Instrument Departure), llegada normalizada por instrumentos (STAR, Standard Terminal Arrival Route) o aproximación publicada exige una capacidad concreta. RNAV 1, RNP 1 y RNP APCH no son autorizaciones equivalentes; una cifra o sigla distinta cambia lo que debe comprobarse.",
+          "**Comprueba aprobación y equipo disponible.** La documentación de la aeronave y el explotador, la lista de equipo mínimo (MEL, Minimum Equipment List) y la habilitación aplicable determinan si puedes aceptar esa operación. La capacidad declarada en el plan de vuelo no sustituye esta comprobación presente.",
+          "**Contrasta la base de datos y la trayectoria.** Antes de ejecutar un procedimiento se verifica que la codificación y las restricciones corresponden a la publicación vigente. Si falta un tramo o la ruta cargada no coincide, se aclara antes de aceptarla; no se crea un punto a mano como remedio genérico.",
+          "**Separa sensor de capacidad.** Una pérdida del sistema global de navegación por satélite (GNSS, Global Navigation Satellite System) o una alerta de vigilancia no significa necesariamente que todas las funciones RNAV estén perdidas. Se sigue el procedimiento del avión para determinar qué especificaciones continúan disponibles; no se promete ni se niega una capacidad sin verificarla.",
         ],
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología que no está en las fuentes cargadas. La fraseología PBN y de estado GNSS (incapacidad para una especificación RNP o RNAV, pregunta de capacidad del ATC): **Doc 4444 cap. 12 de la edición vigente**. «DESCEND VIA STAR»: **Doc 4444 cap. 12 vigente** (ver Nivel 4, cap. 26). La regla sobre puntos creados manualmente en procedimientos PBN: **Doc 9613**, **Doc 8168** y el **manual del explotador**.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · No puede la aproximación RNP (VERIFICAR la forma PBN)",
-        [
-          `ATC:   "AVIATORY 452, CLEARED RNP APPROACH RUNWAY 13."`,
-          `PILOT: "AVIATORY 452, UNABLE RNP APPROACH DUE GPS FAILURE, REQUEST ILS RUNWAY 13."`,
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-40-02.webp",
+        alt: "Historieta de tres paneles: tripulación identifica limitación de navegación, PM informa a ATC y el controlador coordina alternativa.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Historieta didáctica, no un vuelo real: 1) los pilotos verifican la alerta y la especificación que afecta; 2) el piloto que vuela (PF, pilot flying) conserva el control y el piloto que monitorea (PM, pilot monitoring) informa la incapacidad y solicita una opción viable; 3) ATC coordina una autorización alternativa. Las pantallas son ilustrativas y no contienen rutas, cartas o valores utilizables.",
+      },
+      { kind: "sub", text: "Cuando se degrada la navegación" },
+      {
+        kind: "p",
+        text: "Si ya no se puede sostener la performance exigida en ruta o en el procedimiento, la notificación es temprana y específica. El mensaje debe identificar a la aeronave con su indicativo real, indicar la especificación afectada, explicar la causa conocida sin diagnosticar de más, decir qué parte de la autorización no puede cumplirse y proponer una alternativa que el avión sí pueda volar. ATC necesita tiempo para evaluar separación, vigilancia y una nueva autorización. Una solicitud de vectores o de otra aproximación no es permiso para iniciar esa trayectoria.",
+      },
+      {
+        kind: "table",
+        head: ["Situación", "Expresión documentada", "Uso prudente"],
+        rows: [
+          ["Falla RNAV por equipo", "UNABLE RNAV DUE EQUIPMENT", "Comunicar una degradación RNAV confirmada, no cualquier aviso aislado."],
+          ["Pérdida de una especificación", "UNABLE RNP (tipo) o RNAV, DUE TO (razón)", "Precisar qué especificación se perdió y una razón comprobada; EASA incluye LOSS OF RAIM o RAIM ALERT como ejemplos."],
+          ["Salida o llegada RNAV no aceptable", "UNABLE (designador) DEPARTURE / ARRIVAL DUE RNAV TYPE", "Usar solo con el designador real publicado y cuando el tipo RNAV sea la limitación."],
+          ["ATC pregunta por navegación GNSS", "CONFIRM GNSS NAVIGATION / AFFIRM GNSS NAVIGATION", "Afirmar únicamente si la capacidad necesaria sigue disponible después de la comprobación."],
+          ["Sin capacidad RNAV", "NEGATIVE RNAV", "No confundir ausencia de capacidad con una restricción de un solo procedimiento."],
         ],
-        "Significado: UNABLE es palabra normalizada; la combinación con el procedimiento y la razón sigue el modelo «UNABLE TO CROSS … DUE WEIGHT» del Doc 9432 2.8.3. La forma específica PBN: VERIFICAR.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Pérdida de GPS en ruta (PLAIN LANGUAGE)",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, LOSS OF GPS, NAVIGATION DEGRADED, UNABLE RNAV ROUTE, REQUEST VECTORS TO TOLMA VOR."`,
-          `ATC:   "AVIATORY 452, TURN RIGHT HEADING 090, VECTORS TO TOLMA."`,
-          `PILOT: "RIGHT HEADING 090, AVIATORY 452."`,
+      },
+      {
+        kind: "p",
+        text: "Las expresiones anteriores aparecen en EASA AMC1 SERA.14001, apartados de estado GNSS, RNAV y degradación de performance. La vigilancia autónoma de integridad del receptor (RAIM, Receiver Autonomous Integrity Monitoring) es un ejemplo de causa que figura allí, no una prueba de que toda aeronave con una alerta RAIM haya perdido toda navegación. Para una aproximación específica se reporta la capacidad efectiva y se solicita una alternativa según lo publicado y el equipo disponible. La fraseología local vigente debe verificarse antes de usarla como procedimiento colombiano.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Estructura de llamada didáctica",
+        text: "Indicativo real — UNABLE más la especificación afectada — causa conocida — qué autorización no se puede cumplir — alternativa solicitada. No es una transcripción ATC ni asigna pista, ruta, rumbo, frecuencia o aproximación ficticios. Espera, colaciona y verifica la autorización revisada; si la seguridad exige una acción inmediata, aplica la contingencia correspondiente y comunica la desviación tan pronto como sea posible.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Alerta de navegación antes de una llegada PBN",
+        situacion: "Caso didáctico sin aeropuerto, ruta o pista inventados. En crucero, antes de comenzar una llegada publicada que exige RNP, aparece una alerta de integridad. PF mantiene la trayectoria autorizada; PM aplica la lista y confirma que ya no se puede demostrar la performance RNP requerida para esa llegada. Una aproximación convencional podría estar disponible, pero no se ha comprobado todavía ni está autorizada.",
+        preguntas: [
+          { q: "¿Qué se informa primero al control?", a: "PM comunica sin demora la incapacidad para la especificación afectada, con la causa conocida y la parte de la llegada que ya no puede aceptarse. Puede solicitar tiempo, vectores o una alternativa publicada que se haya comprobado viable. No afirma que toda navegación falló si solo se perdió la capacidad RNP exigida." },
+          { q: "¿Puede la tripulación cambiar por sí sola a la aproximación convencional?", a: "No. Primero verifica que exista, esté vigente y sea compatible con la aeronave y la situación; luego la solicita y espera una autorización clara. La disponibilidad técnica no convierte la alternativa en trayectoria autorizada." },
+          { q: "¿Qué cambia si la alerta desaparece?", a: "Se sigue el procedimiento del avión para confirmar recuperación real. PM informa a ATC de la capacidad actualizada, pero no presupone que la llegada o aproximación original haya sido restituida: hace falta coordinar y leer cualquier autorización nueva." },
         ],
-        "Significado: **PLAIN LANGUAGE** para la descripción. El rumbo se colaciona como siempre.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · El ATC pregunta la capacidad (PLAIN LANGUAGE del ATC; VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, CONFIRM ABLE RNP APPROACH RUNWAY 31."`,
-          `PILOT: "NEGATIVE, AVIATORY 452. REQUEST VOR APPROACH RUNWAY 31."`,
-        ],
-        "Significado: **PLAIN LANGUAGE** del ATC (la forma estándar de esta pregunta: VERIFICAR). Usted no tiene la aprobación o el equipo para esa aproximación: NEGATIVE y lo que sí puede hacer.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · El punto no está en la base de datos (PLAIN LANGUAGE; VERIFICAR «DESCEND VIA STAR»)",
-        [
-          `ATC:   "AVIATORY 452, CLEARED DIRECT GIKOS, DESCEND VIA STAR."`,
-          `PILOT: "AVIATORY 452, UNABLE DIRECT GIKOS, GIKOS NOT IN OUR DATABASE, REQUEST HEADING."`,
-        ],
-        "Significado: **PLAIN LANGUAGE**. Un punto que no está en la base de datos no se construye a mano en un procedimiento PBN sin que el manual lo permita; se dice y se pide alternativa. VERIFICAR «DESCEND VIA STAR» (Nivel 4, cap. 26).",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Recuperó la capacidad (PLAIN LANGUAGE)",
-        [
-          `PILOT: "BOGOTA APPROACH, AVIATORY 452, GPS RESTORED, ABLE RNP APPROACH RUNWAY 13."`,
-          `ATC:   "AVIATORY 452, ROGER, EXPECT RNP APPROACH RUNWAY 13."`,
-        ],
-        "Significado: **PLAIN LANGUAGE**. Recuperó la capacidad: se informa para que el ATC la tenga en cuenta.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
+        concepto: "La especificación publicada, la aprobación operacional y la capacidad actual deben coincidir antes de aceptar o continuar una ruta PBN.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "SID, STAR y aproximaciones PBN",
-        texto: "Cada vez más SID, STAR y aproximaciones en la región son RNAV o RNP. En la práctica, las situaciones de comunicación son tres: una falla o degradación en vuelo (GNSS, FMS), un procedimiento para el que la aeronave o la tripulación no está aprobada y un cambio del ATC que la base de datos no permite volar. En los tres casos se usa UNABLE con la razón y una alternativa concreta. Lo que la aeronave necesita para cada especificación lo dicen el AFM, la MEL y el manual del explotador; en Colombia, las aprobaciones PBN y los procedimientos publicados están en el AIP y el RAC.",
+        momento: "Preparación, vuelo y reprogramación",
+        texto: "Una tripulación de aerolínea contrasta la especificación en la publicación, la aprobación del explotador, el estado de sensores y la base de datos. Si surge degradación, PF conserva el control y gestiona la trayectoria; PM revisa qué funciones quedan, informa a ATC y confirma la nueva autorización antes de que ambos actualicen el sistema de gestión de vuelo (FMS, Flight Management System). Si el vuelo opera en Colombia, los procedimientos y cartas concretos se consultan exclusivamente en la AIP/eAIP vigente de Aerocivil. Esta lección deliberadamente no asigna rutas ni aproximaciones locales de ejemplo.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Aceptar un RNP sin aprobación",
-        "Aceptar un procedimiento RNP sin tener la aprobación o el equipo, por no decir UNABLE.",
-      ),
-      error(
-        "Describir el problema sin decir qué necesita",
-        "Decir «we have a problem with the navigation» sin decir qué no puede hacer ni qué necesita.",
-      ),
-      error(
-        "Seguir con una alerta de integridad",
-        "Seguir un procedimiento RNP con una alerta de integridad activa sin informar.",
-      ),
-      error(
-        "Construir un punto a mano",
-        "Construir a mano un punto que no está en la base de datos para cumplir una autorización.",
-      ),
-      error("No avisar la recuperación", "No informar cuando se recupera la capacidad."),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Confundir ruta publicada con aprobación", text: "Que el procedimiento exista o esté cargado en el FMS no demuestra que aeronave, explotador y tripulación estén habilitados para él." },
+      { kind: "callout", tone: "warn", title: "Convertir una alerta en diagnóstico absoluto", text: "La falla de un sensor no prueba que todas las capacidades RNAV/RNP hayan desaparecido. Se comprueba el efecto conforme al avión y se comunica lo que se sabe." },
+      { kind: "callout", tone: "warn", title: "Seguir o improvisar una trayectoria", text: "No se vuela una especificación que ya no se cumple ni se inventa un punto para sostener la autorización. Se informa y coordina la alternativa segura." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "La aprobación PBN es de la aeronave, del explotador y de la tripulación; se revisa antes de salir.",
-          "La degradación se notifica sin demora (Doc 4444 5.2.2).",
-          "UNABLE + procedimiento + razón + alternativa.",
-          "Conteste con precisión cuando el ATC pregunte capacidad.",
-          "Si recupera la capacidad, avise.",
+          "PBN expresa requisitos de navegación; RNP añade vigilancia y alerta de performance a bordo.",
+          "Se comprueba especificación, aprobación, equipo y base de datos antes de aceptar.",
+          "Si la capacidad baja del requisito, se avisa a ATC sin demora y con precisión.",
+          "UNABLE identifica qué no se puede cumplir; la alternativa se solicita, no se asume.",
+          "La recuperación se confirma y se comunica antes de replanear.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432 · Doc 9613",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1, definiciones «Navegación de área (RNAV)» y «Performance de navegación requerida (RNP)»; 4.4.1.4 a) (aprobación RNP antes de la salida); 5.2.2 (deterioro de la performance); cap. 5, nota 4 tras 5.4.1.2 (orientación sobre especificaciones de navegación en el Doc 9613, Manual PBN). Doc 9432 (4.ª ed.) 2.6 (UNABLE, NEGATIVE); 2.8.3 (ejemplo «UNABLE TO CROSS WICKEN FL 150 DUE WEIGHT»).",
-        [
-          "VERIFICAR: fraseología PBN y de estado GNSS (incapacidad para una especificación RNP o RNAV, pregunta de capacidad del ATC) contra Doc 4444 cap. 12 de la edición vigente (no cargado).",
-          "VERIFICAR: «DESCEND VIA STAR» contra Doc 4444 cap. 12 de la edición vigente (no cargado).",
-          "VERIFICAR: regla sobre puntos creados manualmente en procedimientos PBN contra Doc 9613 y Doc 8168 (no cargados) y el manual del explotador.",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "OACI Doc 9613 · EASA AMC1 SERA.14001 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "OACI, Performance-Based Navigation Manual (Doc 9613), quinta edición de 2023, descripción oficial de RNAV y RNP: https://store.icao.int/en/performance-based-navigation-pbn-manual-doc-9613" },
+          { kind: "p", text: "OACI, material de referencia PBN: una especificación RNP añade vigilancia y alerta a bordo frente a RNAV: https://www.icao.int/sites/default/files/safety/pbn/PBNStatePlans/China-PBN-implementation-plan.pdf" },
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, AMC1 SERA.14001, apartados 1.1.14–1.1.16 de estado GNSS, RNAV y degradación de performance: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299" },
+          { kind: "p", text: "EASA, Easy Access Rules for Air Operations, orientación de aprobaciones y procedimientos PBN: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-air-operations?erules-id=ERULES-1963177438-13098" },
+          { kind: "p", text: "Aerocivil, portal oficial de la AIP/eAIP colombiana para cartas, rutas y procedimientos vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "El escenario y la historieta son didácticos; ninguna imagen representa una carta o ruta real. La aplicación local se verifica en la publicación vigente y en el manual del explotador." },
         ],
-      ),
+      },
     ],
   },
 ]

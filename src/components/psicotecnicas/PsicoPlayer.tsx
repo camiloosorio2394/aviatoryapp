@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { AlertTriangle, Bookmark, CheckCircle2, ChevronRight, Loader2, XCircle } from "lucide-react"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { FiguraEnunciado, FiguraOpcion } from "./FiguraPsico"
+import { ImagenPsicoAmpliable } from "./ImagenPsicoAmpliable"
 import { ReportarProblema } from "@/components/ReportarProblema"
 import type { CorreccionPsico, SesionPsico } from "@/services/psicotecnicas"
 import type { ErrorEvaluacion } from "@/services/rpc"
@@ -252,15 +253,12 @@ export function PsicoPlayer({ sesion, onCorregir, onRegistrar, onAplazar, onTerm
           </div>
         ) : (
           ejercicio.imagen && (
-            <div className="mt-4 rounded-xl border border-border bg-white p-3 overflow-x-auto">
-              <img
-                src={ejercicio.imagen}
-                alt={ejercicio.imagenAlt ?? ejercicio.enunciado}
-                className="mx-auto max-w-full h-auto"
-                // El ejercicio es la imagen: si tarda, la pantalla no sirve.
-                loading="eager"
-              />
-            </div>
+            <ImagenPsicoAmpliable
+              key={ejercicio.posicion}
+              src={ejercicio.imagen}
+              alt={ejercicio.imagenAlt ?? ejercicio.enunciado}
+              loading="eager"
+            />
           )
         )}
 
@@ -270,7 +268,7 @@ export function PsicoPlayer({ sesion, onCorregir, onRegistrar, onAplazar, onTerm
         <div
           className={
             ejercicio.figura
-              ? "mt-5 flex flex-wrap gap-3"
+              ? "mt-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3"
               : ejercicio.opcionesEnImagen
                 ? "mt-5 flex flex-wrap gap-2"
                 : "mt-5 grid gap-2 sm:grid-cols-2"
@@ -296,7 +294,7 @@ export function PsicoPlayer({ sesion, onCorregir, onRegistrar, onAplazar, onTerm
                 className={[
                   "pj-opcion rounded-xl border text-left",
                   ejercicio.figura
-                    ? "flex flex-col items-center gap-1 p-2"
+                    ? "flex min-w-0 flex-col items-center gap-1 p-2"
                     : ejercicio.opcionesEnImagen
                       ? "h-12 w-14 flex items-center justify-center text-[17px] font-semibold"
                       : "px-4 py-3 text-[15px]",

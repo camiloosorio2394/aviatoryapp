@@ -1805,10 +1805,194 @@
 .lector-notam.lector-cm .doc-sheet {
   --doc-accent: var(--ln-primary);
 }
+/* En este módulo la portada y las historietas siguen el ancho de lectura,
+   incluso cuando el lector común ensancha las láminas en monitores grandes. */
+.lector-notam.lector-cm .ln-medio {
+  margin-inline: 0;
+}
+/* El diálogo de radio es contenido para leer, no un rótulo técnico minúsculo.
+   Conserva el espaciado de las estaciones, con un cuerpo legible en portátil. */
+.lector-notam.lector-cm .doc-sheet pre code.mono {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.7;
+  letter-spacing: 0;
+}
 /* En el índice navy el foco oscuro no se vería (3,2:1): ahí va una ciruela
    clara, #D9B6E1, que da 9,2:1 sobre el navy y 4,5:1 sobre la pastilla. */
 .lector-notam.lector-cm .ln-side :where(a, button, [role="button"]):focus-visible {
   outline-color: #D9B6E1;
+}
+
+/* RAC: grafito pizarra.
+   Los matices que quedaban libres ya dicen algo: una frambuesa (350) queda al
+   lado del vinotinto de «respuesta incorrecta» de las evaluaciones (14), y un
+   oliva (110) es de la familia del verde de correcto. Así que el RAC se
+   distingue por croma y no por matiz: un gris azulado casi neutro, sobrio como
+   un expediente, que no compite con el azul carta de NOTAM (croma 0,22) ni con
+   el acero de Aerodinámica (0,075).
+
+   Contraste, medido: el primario del lector da 8,8:1 sobre el papel y 9,2:1
+   con el blanco encima; el foco, 5,1:1 sobre el papel. */
+:root {
+  --av-rac-500: oklch(0.560 0.030 255);
+  --av-rac-600: oklch(0.470 0.030 255);
+  --av-rac-700: oklch(0.400 0.030 255);
+  --av-rac-fg: oklch(0.365 0.028 255);
+}
+.dark {
+  --av-rac-500: oklch(0.720 0.030 255);
+  --av-rac-600: oklch(0.630 0.030 255);
+  --av-rac-700: oklch(0.520 0.030 255);
+  --av-rac-fg: oklch(0.820 0.022 255);
+}
+.lector-notam.lector-rac {
+  --ln-primary: #3D4958;
+  --ln-primary-hover: #2B3645;
+  --ln-bright: #7A8799;
+  --ln-tint: #F1F4F7;
+  /* La pastilla de la lección abierta, sobre el navy: 1,9:1 contra el índice
+     (como la de NOTAM) y 8,5:1 con el texto blanco. */
+  --ln-pill: #424E5E;
+  --ln-focus: #606D7D;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-rac .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+/* En el índice navy: 10,9:1 sobre el navy y 5,6:1 sobre la pastilla. */
+.lector-notam.lector-rac .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #C9D3DF;
+}
+
+/* Gestión del combustible: azul queroseno.
+   El matiz 228 cae entre el turquesa de Meteorología (205) y el acero de
+   Aerodinámica (250), y se separa de los dos por croma: 0,10 contra 0,075. Es
+   el azul del AvGas 100LL, el único combustible de aviación que lleva color.
+
+   Contraste, medido: el primario del lector da 8,4:1 sobre el papel y 8,8:1
+   con el blanco encima; el foco, 4,9:1 sobre el papel. */
+:root {
+  --av-cb-500: oklch(0.585 0.105 228);
+  --av-cb-600: oklch(0.500 0.100 228);
+  --av-cb-700: oklch(0.420 0.090 228);
+  --av-cb-fg: oklch(0.385 0.080 228);
+}
+.dark {
+  --av-cb-500: oklch(0.720 0.095 228);
+  --av-cb-600: oklch(0.630 0.095 228);
+  --av-cb-700: oklch(0.530 0.090 228);
+  --av-cb-fg: oklch(0.820 0.070 228);
+}
+.lector-notam.lector-cb {
+  --ln-primary: #005071;
+  --ln-primary-hover: #003D5D;
+  --ln-bright: #2F92B8;
+  --ln-tint: #E8F6FD;
+  /* Sobre el navy: 2:1 contra el índice y 8,1:1 con el texto blanco. */
+  --ln-pill: #005677;
+  --ln-focus: #0E7699;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-cb .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+/* En el índice navy: 10,4:1 sobre el navy y 5,1:1 sobre la pastilla. */
+.lector-notam.lector-cb .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #9FD6EC;
+}
+
+/* RVSM: verde azulado de cabina.
+   Con diez módulos la rueda de matices está casi llena, así que este entra en
+   el único hueco que quedaba entre el verde de «correcto» (155) y el turquesa
+   de Meteorología (205): el 172, a 17 grados del uno y a 33 del otro. Se
+   separa del verde además por croma, que aquí es la mitad, y de Meteorología
+   por valor: este es claramente más oscuro y más saturado. No se acerca al
+   ámbar ni al rojo, que son semántica.
+
+   Contraste, medido sobre el papel del lector (#FBFAF8): el 700 da 8,1:1 y el
+   blanco encima 7,4:1; el 500 sobre papel, 4,6:1. Los hex del lector, más
+   abajo, salen de estos mismos oklch. */
+:root {
+  --av-rv-500: oklch(0.545 0.085 172);
+  --av-rv-600: oklch(0.460 0.080 172);
+  --av-rv-700: oklch(0.385 0.070 173);
+  --av-rv-fg: oklch(0.355 0.062 173);
+}
+.dark {
+  --av-rv-500: oklch(0.690 0.080 172);
+  --av-rv-600: oklch(0.595 0.080 172);
+  --av-rv-700: oklch(0.495 0.072 172);
+  --av-rv-fg: oklch(0.800 0.060 172);
+}
+
+.lector-notam.lector-rv {
+  --ln-primary: #1C5750;
+  --ln-primary-hover: #13443E;
+  --ln-bright: #4B9089;
+  --ln-tint: #E5F3F1;
+  /* Sobre el navy del índice: 2:1 contra el fondo y 8,3:1 con el texto blanco. */
+  --ln-pill: #235F58;
+  --ln-focus: #3E857D;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-rv .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+/* En el índice navy el acento oscuro no se vería: ahí va el escalón claro. */
+.lector-notam.lector-rv .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #9CD2CB;
+}
+
+/* === PBN · bronce de instrumento =============================================
+   Módulo once, y la rueda de tonos ya estaba llena. Se midió la distancia de
+   cada hueco libre al vecino más cercano: el 300 queda a 13 grados del violeta
+   de Aeropuertos (287), el 190 a 15 del turquesa de Meteorología (205) y a 18
+   del verde azulado de RVSM (172), y el 140 a 15 del verde de «correcto» (155).
+   El 55 es el que más aire tiene: 23 grados al ámbar de alerta (78) y 31 al
+   mostaza de Mercancías (86).
+
+   La distancia de tono no bastaba, porque el ámbar es semántica y no se puede
+   rozar. Lo que separa de verdad este bronce del ámbar es el valor: 0,50 contra
+   0,82, y la mitad de croma. Sale un latón envejecido, el color del bisel de un
+   instrumento viejo, que no se puede confundir con una alerta.
+
+   Contraste, medido sobre el papel del lector (#FBFAF8): el 700 da 8,0:1 y el
+   blanco encima 7,3:1; el 500 sobre papel, 4,7:1. Los hex del lector salen de
+   estos mismos oklch. */
+:root {
+  --av-pbn-500: oklch(0.500 0.075 55);
+  --av-pbn-600: oklch(0.430 0.070 54);
+  --av-pbn-700: oklch(0.375 0.062 53);
+  --av-pbn-fg: oklch(0.345 0.056 53);
+}
+.dark {
+  --av-pbn-500: oklch(0.680 0.080 58);
+  --av-pbn-600: oklch(0.585 0.078 56);
+  --av-pbn-700: oklch(0.490 0.070 55);
+  --av-pbn-fg: oklch(0.795 0.058 60);
+}
+
+.lector-notam.lector-pbn {
+  --ln-primary: #5C4520;
+  --ln-primary-hover: #48350F;
+  --ln-bright: #8F7343;
+  --ln-tint: #F3EDE1;
+  /* Sobre el navy del índice: 2:1 contra el fondo y 8,2:1 con el texto blanco. */
+  --ln-pill: #654D27;
+  --ln-focus: #85693B;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-pbn .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+/* En el índice navy el acento oscuro no se vería: ahí va el escalón claro. */
+.lector-notam.lector-pbn .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #D2BC93;
 }
 
 /* Y el de MEL, en grafito de bitácora. Los hex salen de los mismos oklch de

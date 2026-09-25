@@ -21,6 +21,10 @@ export type ClaveEvaluacion =
   | "aeropuertos_evaluacion"
   | "performance_evaluacion"
   | "comunicaciones_evaluacion"
+  | "rac_evaluacion"
+  | "combustible_evaluacion"
+  | "rvsm_evaluacion"
+  | "pbn_evaluacion"
   | "mel_evaluacion"
   | "simulacro_aerolinea"
 

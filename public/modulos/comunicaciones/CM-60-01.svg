@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="title desc">
+  <title id="title">Ciclo de gestión de una autorización</title>
+  <desc id="desc">Oír, interpretar, colacionar, seleccionar, cotejar, ejecutar y monitorear una instrucción ATC; ante duda se pide aclaración.</desc>
+  <rect width="1600" height="900" fill="#0d1c2e"/>
+  <rect x="70" y="70" width="1460" height="760" rx="32" fill="#142a3d" stroke="#3a5a6b" stroke-width="2"/>
+  <text x="120" y="151" fill="#bfffe5" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="4">GESTIÓN DE AUTORIZACIONES</text>
+  <text x="120" y="208" fill="#f5fbfc" font-family="Arial, sans-serif" font-size="45" font-weight="700">De la radio al comportamiento del avión</text>
+  <rect x="120" y="277" width="317" height="150" rx="21" fill="#1d3549" stroke="#6c8b9a" stroke-width="2"/>
+  <text x="151" y="333" fill="#bfffe5" font-family="Arial, sans-serif" font-size="25" font-weight="700">01 · OÍR</text>
+  <text x="151" y="382" fill="#e2edf0" font-family="Arial, sans-serif" font-size="22">Dato completo y destino</text>
+  <rect x="467" y="277" width="317" height="150" rx="21" fill="#1d3549" stroke="#6c8b9a" stroke-width="2"/>
+  <text x="498" y="333" fill="#bfffe5" font-family="Arial, sans-serif" font-size="25" font-weight="700">02 · INTERPRETAR</text>
+  <text x="498" y="382" fill="#e2edf0" font-family="Arial, sans-serif" font-size="22">Sentido y capacidad</text>
+  <rect x="814" y="277" width="317" height="150" rx="21" fill="#1d3549" stroke="#6c8b9a" stroke-width="2"/>
+  <text x="845" y="333" fill="#bfffe5" font-family="Arial, sans-serif" font-size="25" font-weight="700">03 · COLACIONAR</text>
+  <text x="845" y="382" fill="#e2edf0" font-family="Arial, sans-serif" font-size="22">Cerrar circuito ATC</text>
+  <rect x="1161" y="277" width="317" height="150" rx="21" fill="#1d3549" stroke="#6c8b9a" stroke-width="2"/>
+  <text x="1192" y="333" fill="#bfffe5" font-family="Arial, sans-serif" font-size="25" font-weight="700">04 · SELECCIONAR</text>
+  <text x="1192" y="382" fill="#e2edf0" font-family="Arial, sans-serif" font-size="22">Valor autorizado</text>
+  <path d="M439 352h27m-13-13 13 13-13 13M786 352h27m-13-13 13 13-13 13M1133 352h27m-13-13 13 13-13 13" fill="none" stroke="#8af4cb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1460 431v36H331v34m-13-14 13 14 13-14" fill="none" stroke="#8af4cb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="120" y="503" width="422" height="150" rx="21" fill="#173f42" stroke="#8af4cb" stroke-width="2"/>
+  <text x="152" y="559" fill="#bfffe5" font-family="Arial, sans-serif" font-size="25" font-weight="700">05 · COTEJAR</text>
+  <text x="152" y="608" fill="#e2edf0" font-family="Arial, sans-serif" font-size="22">Autorizado = seleccionado</text>
+  <rect x="589" y="503" width="422" height="150" rx="21" fill="#173f42" stroke="#8af4cb" stroke-width="2"/>
+  <text x="621" y="559" fill="#bfffe5" font-family="Arial, sans-serif" font-size="25" font-weight="700">06 · EJECUTAR</text>
+  <text x="621" y="608" fill="#e2edf0" font-family="Arial, sans-serif" font-size="22">Respetar condiciones</text>
+  <rect x="1058" y="503" width="422" height="150" rx="21" fill="#173f42" stroke="#8af4cb" stroke-width="2"/>
+  <text x="1090" y="559" fill="#bfffe5" font-family="Arial, sans-serif" font-size="25" font-weight="700">07 · MONITOREAR</text>
+  <text x="1090" y="608" fill="#e2edf0" font-family="Arial, sans-serif" font-size="22">Trayectoria y captura</text>
+  <path d="M545 579h43m-13-13 13 13-13 13M1014 579h43m-13-13 13 13-13 13" fill="none" stroke="#8af4cb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="120" y="693" width="1360" height="84" rx="19" fill="#27373f" stroke="#ffdb91" stroke-width="2"/>
+  <text x="157" y="746" fill="#fff1cf" font-family="Arial, sans-serif" font-size="28" font-weight="700">Si un dato no está claro o no puede cumplirse: aclarar o avisar UNABLE antes de actuar.</text>
+  <text x="120" y="810" fill="#9bb4bf" font-family="Arial, sans-serif" font-size="19">Secuencia didáctica; orden de tareas y llamadas exactas según procedimiento del operador.</text>
+</svg>

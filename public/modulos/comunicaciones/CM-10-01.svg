@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Cuándo usar fraseología normalizada y cuándo lenguaje común</title>
+  <desc id="desc">Primero se comprueba si la situación tiene fraseología normalizada. Si la tiene, se utiliza. Si no cubre el mensaje, se describe la condición, la capacidad y la necesidad en lenguaje común claro, sin jerga ni charla.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#1d2232"/><stop offset="1" stop-color="#392641"/></linearGradient>
+    <style>
+      .ey{font:700 19px Arial,sans-serif;letter-spacing:3px;fill:#d4bfd8}.h{font:700 41px Arial,sans-serif;fill:#fff}.sub{font:500 24px Arial,sans-serif;fill:#eee4ef}.label{font:700 26px Arial,sans-serif;fill:#fff}.card{font:500 24px Arial,sans-serif;fill:#fff}.note{font:700 25px Arial,sans-serif;fill:#e5ffed}
+    </style>
+  </defs>
+  <rect width="1080" height="1350" rx="28" fill="url(#bg)"/>
+  <text class="ey" x="55" y="67">DOS REGISTROS · UNA DECISIÓN</text>
+  <text class="h" x="55" y="124">¿Hay una frase normalizada?</text>
+  <text class="sub" x="55" y="167">Primero identifica la intención del mensaje.</text>
+  <rect x="55" y="213" width="470" height="862" rx="23" fill="#344b5b" stroke="#92c4ce" stroke-width="3"/>
+  <rect x="555" y="213" width="470" height="862" rx="23" fill="#584462" stroke="#cfb6d4" stroke-width="3"/>
+  <text class="label" x="82" y="273">SÍ · FRASEOLOGÍA</text>
+  <text class="sub" x="82" y="310">Usa la formulación publicada.</text>
+  <text class="label" x="582" y="273">NO · LENGUAJE COMÚN</text>
+  <text class="sub" x="582" y="310">Explica lo que falta con claridad.</text>
+  <g fill="#476578">
+    <rect x="82" y="352" width="416" height="94" rx="14"/><rect x="82" y="467" width="416" height="94" rx="14"/><rect x="82" y="582" width="416" height="94" rx="14"/><rect x="82" y="697" width="416" height="94" rx="14"/><rect x="82" y="812" width="416" height="94" rx="14"/><rect x="82" y="927" width="416" height="94" rx="14"/>
+  </g>
+  <g fill="#715879">
+    <rect x="582" y="352" width="416" height="94" rx="14"/><rect x="582" y="467" width="416" height="94" rx="14"/><rect x="582" y="582" width="416" height="94" rx="14"/><rect x="582" y="697" width="416" height="94" rx="14"/><rect x="582" y="812" width="416" height="94" rx="14"/><rect x="582" y="927" width="416" height="94" rx="14"/>
+  </g>
+  <text class="card" x="108" y="408">Solicitar descenso</text><text class="card" x="108" y="523">Colacionar pista</text><text class="card" x="108" y="638">Informar UNABLE</text><text class="card" x="108" y="753">Pedir SAY AGAIN</text><text class="card" x="108" y="868">Cambiar de frecuencia</text><text class="card" x="108" y="983">Ajustar transpondedor</text>
+  <text class="card" x="608" y="408">Describir una falla</text><text class="card" x="608" y="523">Explicar un caso médico</text><text class="card" x="608" y="638">Precisar humo u olor</text><text class="card" x="608" y="753">Aclarar una duda nueva</text><text class="card" x="608" y="868">Proponer una alternativa</text><text class="card" x="608" y="983">Explicar una limitación</text>
+  <path d="M525 669h30" stroke="#b7f2d5" stroke-width="5"/><path d="m544 656 13 13-13 13" stroke="#b7f2d5" stroke-width="5" fill="none"/>
+  <text class="sub" x="55" y="1124">Si la fraseología no alcanza: condición → capacidad</text>
+  <text class="sub" x="55" y="1162">→ necesidad → intención. Verifica la comprensión.</text>
+  <rect x="55" y="1210" width="970" height="85" rx="17" fill="#25564f"/>
+  <text class="note" x="82" y="1261">LENGUAJE COMÚN ≠ CHARLA, JERGA NI FRASES INVENTADAS</text>
+</svg>

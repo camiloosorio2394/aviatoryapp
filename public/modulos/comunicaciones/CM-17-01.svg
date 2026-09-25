@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="850" viewBox="0 0 1600 850" role="img" aria-labelledby="title desc">
+  <title id="title">Tres estados, tres autorizaciones de pista</title>
+  <desc id="desc">El diagrama diferencia mantener corto, alinearse y esperar, y despegar con autorización separada.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1">
+      <stop stop-color="#122033"/>
+      <stop offset="1" stop-color="#1a3447"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="15" stdDeviation="18" flood-color="#081522" flood-opacity=".28"/></filter>
+  </defs>
+  <rect width="1600" height="850" rx="36" fill="url(#bg)"/>
+  <g font-family="Inter,Arial,sans-serif">
+    <text x="80" y="96" fill="#8ee0d1" font-size="22" font-weight="700" letter-spacing="5">SEGURIDAD EN LA PISTA</text>
+    <text x="80" y="158" fill="#f5fbff" font-size="46" font-weight="750">El siguiente permiso nunca se presume</text>
+    <text x="80" y="207" fill="#b9cbd4" font-size="25">Escuchar · confirmar indicativo y pista · colacionar · actuar dentro del límite</text>
+  </g>
+  <path d="M246 418 H1360" fill="none" stroke="#58cbb6" stroke-width="8" stroke-linecap="round"/>
+  <g filter="url(#shadow)">
+    <rect x="80" y="282" width="430" height="337" rx="26" fill="#f4f9fa"/>
+    <rect x="585" y="282" width="430" height="337" rx="26" fill="#f4f9fa"/>
+    <rect x="1090" y="282" width="430" height="337" rx="26" fill="#e3f8f1"/>
+  </g>
+  <g font-family="Inter,Arial,sans-serif" fill="#123147">
+    <text x="112" y="350" font-size="24" font-weight="750">01 · ESPERAR FUERA</text>
+    <text x="617" y="350" font-size="24" font-weight="750">02 · ALINEAR Y ESPERAR</text>
+    <text x="1122" y="350" font-size="24" font-weight="750">03 · DESPEGAR</text>
+    <text x="112" y="424" font-size="27" font-weight="800">HOLD SHORT</text>
+    <text x="617" y="424" font-size="27" font-weight="800">LINE UP AND WAIT</text>
+    <text x="1122" y="424" font-size="25" font-weight="800">CLEARED FOR TAKE-OFF</text>
+  </g>
+  <g font-family="Inter,Arial,sans-serif" fill="#34576a" font-size="23">
+    <text x="112" y="492"><tspan x="112">Permanecer antes</tspan><tspan x="112" dy="35">del punto de espera.</tspan></text>
+    <text x="617" y="492"><tspan x="617">Entrar y alinearse;</tspan><tspan x="617" dy="35">no iniciar la carrera.</tspan></text>
+    <text x="1122" y="492"><tspan x="1122">Autorización posterior,</tspan><tspan x="1122" dy="35">para pista e indicativo propios.</tspan></text>
+  </g>
+  <g fill="#44bca9"><circle cx="548" cy="418" r="18"/><circle cx="1053" cy="418" r="18"/></g>
+  <rect x="80" y="670" width="1440" height="90" rx="20" fill="#2f4651"/>
+  <text x="110" y="724" fill="#f7f9f8" font-family="Inter,Arial,sans-serif" font-size="26" font-weight="650">Que la pista quede libre o el avión esté listo no equivale a CLEARED FOR TAKE-OFF.</text>
+  <text x="80" y="812" fill="#a5bbc7" font-family="Inter,Arial,sans-serif" font-size="19">Esquema didáctico, no una autorización ni un procedimiento de aeropuerto.</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Combustible mínimo frente a emergencia de combustible</title>
+  <desc id="desc">La declaración MINIMUM FUEL informa compromiso con un aeródromo y riesgo de consumir la reserva final si cambia la autorización. MAYDAY FUEL se declara cuando el combustible calculado al aterrizar en el aeródromo seguro más cercano es inferior a la reserva final prevista.</desc>
+  <rect width="1600" height="900" fill="#101d2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="95" y="110" fill="#f5fafb" font-size="50" font-weight="700">El pronóstico, no el indicador aislado, decide la llamada</text>
+    <text x="97" y="162" fill="#bfd1d8" font-size="28">Comparar combustible utilizable previsto al aterrizar con la reserva final planificada</text>
+    <rect x="95" y="235" width="670" height="436" rx="28" fill="#203748" stroke="#83dccd" stroke-width="4"/>
+    <text x="132" y="305" fill="#83dccd" font-size="30" font-weight="700">INFORMACIÓN A ATS</text>
+    <text x="132" y="378" fill="#ffffff" font-size="43" font-weight="700">MINIMUM FUEL</text>
+    <text x="132" y="447" fill="#e1eaf0" font-size="28">Compromiso con un aeródromo.</text>
+    <text x="132" y="488" fill="#e1eaf0" font-size="28">Un cambio en la autorización</text>
+    <text x="132" y="529" fill="#e1eaf0" font-size="28">puede llevar bajo reserva final.</text>
+    <text x="132" y="607" fill="#a9c0c9" font-size="27">No concede prioridad automática.</text>
+    <rect x="835" y="235" width="670" height="436" rx="28" fill="#38303a" stroke="#e6aaa9" stroke-width="4"/>
+    <text x="872" y="305" fill="#f2b9b7" font-size="30" font-weight="700">SOCORRO</text>
+    <text x="872" y="378" fill="#ffffff" font-size="43" font-weight="700">MAYDAY × 3 FUEL</text>
+    <text x="872" y="447" fill="#f4e8e8" font-size="28">Al aterrizar en el aeródromo</text>
+    <text x="872" y="488" fill="#f4e8e8" font-size="28">seguro más cercano, el cálculo</text>
+    <text x="872" y="529" fill="#f4e8e8" font-size="28">queda bajo la reserva final.</text>
+    <text x="872" y="607" fill="#efd0d0" font-size="27">Se solicita ayuda inmediata.</text>
+    <text x="95" y="762" fill="#83dccd" font-size="33" font-weight="700">Si ATS informa demora, recalcula de inmediato.</text>
+    <text x="95" y="812" fill="#b9cad2" font-size="26">Una respuesta «sin demora prevista» no garantiza que el combustible futuro permanezca igual.</text>
+  </g>
+</svg>

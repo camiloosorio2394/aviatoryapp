@@ -63,6 +63,16 @@ export interface TarjetaModuloProps {
   /** Esqueleto del estado mientras llega el progreso de la base. */
   cargando?: boolean
   /**
+   * Compacta: solo la portada, el nombre y el avance.
+   *
+   * En la rejilla de temas, cada tarjeta traía cuatro renglones de texto bajo
+   * el título (las cifras, la descripción, el estado) y con once módulos la
+   * pantalla pedía más lectura que los propios módulos. En compacto el nombre
+   * se lee de un vistazo y la barra dice por dónde vas, que es para lo que se
+   * entra a esa pantalla. La descripción larga vive en la portada del módulo.
+   */
+  compacta?: boolean
+  /**
    * "horizontal" pone la portada a la izquierda, para las herramientas que
    * ocupan media fila. Cuando la tarjeta es estrecha vuelve a apilarse sola.
    */
@@ -84,6 +94,7 @@ export function TarjetaModulo({
   chip,
   completo,
   cargando,
+  compacta,
   orientacion = "vertical",
 }: TarjetaModuloProps) {
   const horizontal = orientacion === "horizontal"
@@ -164,12 +175,16 @@ export function TarjetaModulo({
           <h3 className="m-0 line-clamp-2 min-h-[2lh] text-[14.5px] font-semibold leading-snug tracking-[-0.01em] text-foreground">
             {titulo}
           </h3>
-          <div className="mt-0.5 truncate text-[11.5px] font-medium text-muted-foreground">
-            {meta}
-          </div>
-          <p className="mt-1.5 mb-0 line-clamp-2 min-h-[2lh] text-[12.5px] leading-relaxed text-muted-foreground">
-            {descripcion}
-          </p>
+          {!compacta && (
+            <>
+              <div className="mt-0.5 truncate text-[11.5px] font-medium text-muted-foreground">
+                {meta}
+              </div>
+              <p className="mt-1.5 mb-0 line-clamp-2 min-h-[2lh] text-[12.5px] leading-relaxed text-muted-foreground">
+                {descripcion}
+              </p>
+            </>
+          )}
 
           {/* El pie: estado arriba y, debajo, la barra con su cifra a la
               izquierda y la flecha a la derecha. La flecha sustituye al CTA de
@@ -183,13 +198,15 @@ export function TarjetaModulo({
               />
             ) : (
               <>
-                <p
-                  className="m-0 truncate text-[11.5px] font-medium text-muted-foreground"
-                  title={estado}
-                >
-                  {estado}
-                </p>
-                <div className="mt-2 flex items-center gap-3">
+                {!compacta && (
+                  <p
+                    className="m-0 truncate text-[11.5px] font-medium text-muted-foreground"
+                    title={estado}
+                  >
+                    {estado}
+                  </p>
+                )}
+                <div className={`${compacta ? "" : "mt-2 "}flex items-center gap-3`}>
                   <div className="flex min-w-0 flex-1 items-center gap-2">
                     <div
                       className="h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-muted"

@@ -26,6 +26,12 @@ import { AP_PRACTICA_CLAVES } from "@/lib/aeropuertosPractica"
 import { PERF_LECCION_TOTAL, PERF_PRACTICA_CLAVES } from "@/lib/performanceLeccion"
 import { CM_LECCION_TOTAL } from "@/lib/comunicacionesLeccion"
 import { CM_PRACTICA_CLAVES } from "@/lib/comunicacionesPracticaGrupos"
+import { RAC_LECCION_TOTAL } from "@/lib/racLeccion"
+import { RAC_PRACTICA_CLAVES } from "@/lib/racPractica"
+import { RV_LECCION_TOTAL, RV_PRACTICA_CLAVES } from "@/lib/rvsmLeccion"
+import { PB_LECCION_TOTAL, PB_PRACTICA_CLAVES } from "@/lib/pbnLeccion"
+import { CB_LECCION_TOTAL } from "@/lib/combustibleLeccion"
+import { CB_PRACTICA_CLAVES } from "@/lib/combustiblePractica"
 import { MEL_LECCION_TOTAL } from "@/lib/melLeccion"
 import { MEL_PRACTICA_CLAVES } from "@/lib/melPracticaGrupos"
 import { MODULOS_AEROLINEA } from "@/lib/modulosAerolinea"
@@ -79,6 +85,32 @@ function catalogoDesdeContenido() {
     comunicaciones: {
       lecciones: CM_LECCION_TOTAL,
       practicas: CM_PRACTICA_CLAVES,
+    },
+    // Las preguntas del quiz de cada unidad (u01-q1…), que salen del documento
+    // con scripts/rac/convertir.mjs.
+    rac: {
+      lecciones: RAC_LECCION_TOTAL,
+      practicas: RAC_PRACTICA_CLAVES,
+    },
+    // Las del quiz de cada capítulo (c01-q1…) y los diez escenarios del
+    // capítulo 23 (esc-01…), de scripts/combustible/convertir.mjs.
+    combustible: {
+      lecciones: CB_LECCION_TOTAL,
+      practicas: CB_PRACTICA_CLAVES,
+    },
+    // Las del quiz de cada capítulo (r01-q1…), de scripts/rvsm/convertir.mjs.
+    // Los diez escenarios del capítulo 32 se leen, no se responden, así que no
+    // son claves de práctica.
+    rvsm: {
+      lecciones: RV_LECCION_TOTAL,
+      practicas: RV_PRACTICA_CLAVES,
+    },
+    // Las del quiz de cada capítulo (p01-q1…), de scripts/pbn/convertir.mjs.
+    // Los doce escenarios del capítulo 52 se leen, no se responden, así que no
+    // son claves de práctica.
+    pbn: {
+      lecciones: PB_LECCION_TOTAL,
+      practicas: PB_PRACTICA_CLAVES,
     },
     // Las claves salen de claveEjercicioMel sobre los ejercicios
     // (melPracticaGrupos.ts): cambian los ejercicios, cambia esto.

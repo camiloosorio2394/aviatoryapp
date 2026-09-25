@@ -11,8 +11,8 @@ cosas —auditar una respuesta y decidir qué se publica—.
 | A3 | `354684364` RAZONAMIENTO ABSTRACTO (.docx) | 9 páginas escaneadas, **sin extraer** | No |
 | E1 | `670006116` Test Razonamiento Espacial | 14 ejercicios | Sí, al final |
 | E2 | `667045629` Test de Razonamiento Espacial | 4 ejercicios + 8 ejemplos + 2 láminas | Sí, marcada sobre la figura |
-| N1 | `256486461` Razonamiento Numérico | 38 ejercicios | No: resueltos y verificados uno a uno |
-| N2 | `336461140` Psicotécnicos — Razonamiento numérico | 173 series | Sí, sección SOLUCIONES |
+| N1 | `256486461` Razonamiento Numérico | 36 ejercicios activos | No: resueltos y verificados uno a uno |
+| N2 | `336461140` Psicotécnicos — Razonamiento numérico | 150 series activas | Sí, sección SOLUCIONES |
 
 Del tercer documento de espacial que menciona el encargo no llegó ninguno; el
 material espacial sale de E1 y E2.
@@ -27,15 +27,16 @@ que respalda cada una, y con qué se comprueba:
 | A1 abstracto | 20 | `verificar-claves.mjs` lee la lámina SOLUCIONES del propio PDF y compara: los 20 coinciden |
 | E1 espacial | 14 | `verificar-claves.mjs` lee la clave del final del PDF y compara: los 14 coinciden |
 | E2 espacial | 4 | Revisadas mirando las páginas 10 a 13, que resaltan la opción correcta: las 4 coinciden. La 7 (27 − 6 = 21) y la 10 (dos dados suman 42 puntos, se ven 17) además cuadran por cuenta propia |
-| N1 numérico | 38 | `verificar-numerico.mjs` recalcula las 38 desde el enunciado —con la aritmética escrita y ejecutada, no leída— y las compara: cuadran |
-| N2 series | 162 | `verificar-series.mjs` las resuelve **de cero, sin mirar la respuesta**: 129 coinciden, 0 discrepan, 2 salen ambiguas y 31 usan reglas fuera de su familia |
+| N1 numérico | 36 | `verificar-numerico.mjs` recalcula las 36 desde el enunciado —con la aritmética escrita y ejecutada, no leída— y las compara: cuadran |
+| N2 series | 150 | `verificar-series.mjs` las resuelve **de cero, sin mirar la respuesta**: 129 coinciden, 0 discrepan, 1 sale ambigua bajo varias reglas y 20 usan reglas fuera de su familia |
 
-En total, **205 de las 238 respuestas del banco están comprobadas por una vía
-independiente de quien las cargó**. Las 33 que faltan no están sin revisar: son
-2 series ambiguas en el propio original y 31 cuya regla no cubre el
-solucionador —tríos, ciclos sobre las diferencias, cosas así—. Se revisaron a
-mano por muestreo y salieron bien, pero eso no es lo mismo que estar
-comprobadas, y por eso se cuentan aparte.
+El banco activo tiene **224 ejercicios**: 20 abstractos, 18 espaciales y 186
+numéricos (36 de N1 y 150 de N2). De ellos, **203 respuestas** tienen una
+comprobación independiente completa: 20 + 14 + 4 por claves o figuras de
+fuente, 36 por recálculo y 129 por el solucionador de series. Las 21 restantes
+son 1 serie ambigua bajo reglas alternativas y 20 que quedan fuera de la
+familia del solucionador; sus patrones se revisaron editorialmente y se
+explican con pasos propios, pero no se cuentan como verificación independiente.
 
 Los verificadores se corren así, y conviene hacerlo antes de publicar:
 
@@ -52,9 +53,10 @@ Todos comparten una regla: **cero comprobaciones no es un aprobado**. Si no
 encuentran el PDF, o su clave, o no llegan a comprobar nada, salen con error en
 vez de dar por bueno lo que no miraron.
 
-Las 65 series «sin comprobación automática» no son dudosas: son las agrupadas y
-las entrelazadas, donde el documento declara menos operaciones que saltos y no
-hay forma de alinearlas. Su respuesta es la que trae la fuente.
+La explicación que ve el estudiante no es el desglose literal del PDF.
+`seriesRevisadas.ts` deduce el patrón a partir de los términos visibles y
+solo acepta la explicación automática si predice la clave; las reglas que no
+entran en esa familia se redactaron y contrastaron por ítem.
 
 ### El fallo gordo: once ejercicios preguntaban otra cosa
 
@@ -95,6 +97,23 @@ corrige cuando la operación es la misma en toda la serie, porque ahí la regla 
 admite discusión. Con operaciones mezcladas, una discrepancia entre la regla y
 la respuesta impresa saca al ejercicio del banco en vez de corregirlo.
 
+**El 8.4 también salió del banco activo.** La fuente pide señalar un término
+sobrante de «58, 53, 49, 46, 44, 43» y marca 43, pero los saltos de toda la
+serie son −5, −4, −3, −2 y −1: no sobra ninguno. El 8.13 conserva la respuesta
+15 porque, al quitarlo, la regla didáctica simple es sumar 4 en cada paso; la
+explicación ahora muestra esa regla en vez de afirmar vagamente que solo hay
+una posible.
+
+**Revisión adicional de septiembre de 2026.** Se retiraron 11 series más cuya
+clave o secuencia impresa no permite una solución única y comprobable: N2-04-19,
+06-01, 06-20, 07-07, 07-08, 07-09, 08-05, 08-06, 08-07, 10-05 y 10-13.
+`SERIES_DESCARTADAS` registra la razón de cada una. El bloque N2-09 pide dos
+términos, no uno: sus diez preguntas muestran ahora parejas completas tanto
+en las opciones como en la explicación, cotejadas con SOLUCIONES. La revisión
+quitó la frase generada «El documento lo desglosa» de las 150 explicaciones
+activas: las reglas se cuentan con palabras propias y pasos que el estudiante
+puede reproducir.
+
 ## Lo que quedó fuera, y por qué
 
 **N1, ejercicio 11** (formas de sentarse tres hombres y dos mujeres alternados).
@@ -108,6 +127,15 @@ con la D corregida a 12.
 lectura del enunciado produce una de las cuatro alternativas: con «el lado
 desigual es el doble del otro aumentado en 60» sale 130, y las opciones son 35,
 65, 86 y 140. El ejercicio está mal en la fuente, no en la extracción.
+
+**N1, ejercicio 4** (grupos de letras de “Matemáticas”). La clave 462 trata las
+dos letras repetidas como si fueran distintas; el enunciado no fija esa
+convención, así que se retiró. **N1, ejercicio 15** (B, D, G, __, U): la
+progresión sugerida por los primeros saltos no termina en U; también se retiró.
+En **N1-14** se corrigió B1 por B2 en el enunciado adaptado, porque la
+progresión de letras y números exigía B2; la explicación señala esa corrección.
+En **N1-12** se sustituyó “distancia acumulada” por “magnitud” porque la función
+impresa disminuye entre dos instantes y no puede describir un acumulado.
 
 **E2, preguntas 1 a 6, 11 y 12.** La fuente publica la respuesta marcada con un
 círculo encima de la propia opción correcta, así que no se pueden preguntar: se
@@ -156,10 +184,9 @@ se leían sus extensiones. Abiertas en el PDF de origen a 240 puntos por pulgada
   una letra constante por fila (A, B, C), un triángulo negro que ocupa uno de
   los ocho medios cuadrantes y un punto negro que aparece y desaparece.
 
-Ninguna de las tres está transcrita todavía. **Se leen, pero leerlas no es
-haberlas comprobado**: cada una necesita su primitiva nueva y sus catorce
-casillas contrastadas una a una, y hacerlo con prisa es justo lo que la regla de
-las tres fuentes existe para impedir.
+Las tres recibieron láminas didácticas recompuestas a partir de la fuente.
+La 14 se transcribió después a SVG; la 08 y la 10 siguen rasterizadas. Sus
+detalles finos exigen cotejo visual con el PDF, además de la clave.
 
 ## Lo que falta por cargar
 
@@ -173,21 +200,91 @@ decide ejercicio por ejercicio, no por el nombre del archivo.
 
 ## Sobre las alternativas generadas
 
-Las 173 series de N2 son de completar el número: el original no ofrece
-alternativas. Como el módulo entero funciona con opción múltiple cronometrada,
+Las series de N2 no ofrecen alternativas en el original. Como el módulo entero
+funciona con opción múltiple cronometrada,
 `scripts/psicotecnicas/generar-series.mjs` genera tres distractores por ítem a
 partir de los errores típicos (repetir el salto anterior, adelantarse un
-término, invertir el signo). La respuesta y el desglose son los del documento.
+término, invertir el signo). La respuesta se coteja con el documento; la
+explicación activa está redactada para Aviatory y no copia el desglose.
 
-En todo lo demás no se tocó nada: ni enunciados, ni valores, ni alternativas, ni
-figuras. Lo único restituido son los superíndices de unidades al cuadrado de los
-ejercicios 23 y 34 de N1, que `pdftotext` pierde al extraer.
+En N1 se conservaron los valores y alternativas de los ejercicios activos,
+salvo las correcciones editoriales declaradas arriba. Se restituyeron
+los superíndices de unidades al cuadrado de los ejercicios 23 y 34 de N1, que
+`pdftotext` pierde al extraer. En E1-08 se aclaró la consigna: se compara una
+silueta en negativo, no se inserta una pieza. En E1-09 se corrigió la
+explicación: la diferencia es la separación vertical, no un reflejo.
+
+## Estado de los redibujos visuales
+
+**ES-E1-01 a ES-E1-09** tienen fuente SVG editable en
+`scripts/psicotecnicas/redibujos/`, contrastada con las páginas 1 a 3 del PDF
+E1. `node scripts/psicotecnicas/redibujar-e1.mjs` regenera esos WebP.
+**ES-E1-10 a ES-E1-14** tienen bases PNG limpias, editadas con la herramienta de
+imagen integrada a partir de recortes del PDF. Las instrucciones de edición
+fueron conservar exactamente la geometría de conectores, aristas, cavidades y
+alternativas, y quitar únicamente la marca de agua y artefactos de impresión.
+Se contrastaron con las páginas 3 a 5 y con las claves impresas de la página 6.
+`node scripts/psicotecnicas/componer-e1-10.mjs`,
+`node scripts/psicotecnicas/componer-e1-volumen.mjs` y
+`node scripts/psicotecnicas/componer-e1-areas.mjs` reordenan las bases en
+paneles legibles para móvil. En E1-13 y E1-14, la pieza y los huecos conservan
+la misma escala. Los WebP conservan sus URL y las claves no cambian.
+**ES-E2-07 a ES-E2-10** tienen bases PNG redibujadas desde las páginas 10 a
+13 del PDF E2 y publicadas por `node scripts/psicotecnicas/componer-e2-ejercicios.mjs`.
+La edición mantuvo la disposición de cubos y cavidades. En E2-10 conserva
+exactamente 5 + 3 + 1 puntos visibles arriba y 5 + 3 abajo: 17 en total.
+Los cuatro WebP conservan sus URL, las claves no cambian y los recortes
+anteriores permanecen en el repositorio como referencia de comparación.
+**EJ-E2-04, 05, 06, 07, 08, 09 y 15** se recompusieron a partir de los
+recortes de la fuente con `node scripts/psicotecnicas/componer-e2-ejemplos.mjs`.
+Se retiraron los círculos de respuesta impresos mediante las bases PNG de
+`redibujos/` y se destaca la respuesta en una tarjeta menta, separada de la
+figura. Las versiones `-limpio.webp` se conservan para contrastar la fuente.
+En EJ-E2-04 y 05 se corrigieron explicaciones que atribuían parejas de caras
+opuestas incorrectas al desarrollo concreto. El 05 no es un dado convencional:
+contiene una cara vacía y dos caras de tres puntos.
+**EJ-E2-14** es una adaptación didáctica independiente, generada por
+`node scripts/psicotecnicas/componer-e2-rotacion.mjs`: en la fuente la opción
+marcada como giro horario de 90° cambia la disposición de las figuras pero
+no gira las siluetas de forma consistente. La nueva lámina diferencia un giro
+horario real, uno antihorario, un reflejo y una traslación. No se presenta como
+reproducción literal de esa pregunta.
+**AB-A1-08, 10, 13, 14, 15, 16 y 18** se transcribieron a SVG nítidos en
+`scripts/psicotecnicas/redibujar-a1-08.mjs`,
+`scripts/psicotecnicas/redibujar-a1-10.mjs`,
+`scripts/psicotecnicas/redibujar-a1-13.mjs`,
+`scripts/psicotecnicas/redibujar-a1-14.mjs`,
+`scripts/psicotecnicas/redibujar-a1-15.mjs`,
+`scripts/psicotecnicas/redibujar-a1-16.mjs` y
+`scripts/psicotecnicas/redibujar-a1-18.mjs`: cada una incluye ocho casillas y
+cinco alternativas. En A1-08 el relleno superior y el bloque central llevan
+a la D: zona rayada con rectángulo negro. En A1-10 dos ciclos independientes
+llevan a la B: armazón hacia la derecha y triángulo pequeño sin relleno.
+En A1-13 la opción D conserva el círculo fuera del arco; C lo desplaza dentro.
+En A1-14 la opción B conserva el 9,
+la cuña superior izquierda y la diagonal inferior derecha; A comparte número
+y cuña, pero invierte esa diagonal. A1-15 transcribe cada remate oblicuo de la
+cruz. A1-16 conserva la posición y el sentido de las tramas de cada sector.
+A1-18 conserva los tres atributos de cada casilla: letra, triángulo negro y
+detalle adicional. Los siete WebP didácticos anteriores quedan para cotejo;
+proceden de `componer-a1-recortes.mjs` y no son los activos.
+Las otras 13 láminas A1 son figuras vectoriales. `verificar-figuras.mjs` deduce
+las 13 respuestas desde sus atributos y coincide con la clave; para A1-02
+comprueba la progresión 1·2·3·4·3·2·1·2·3 brazos y acepta la única opción de
+tres brazos, sin suponer orientaciones. El cotejo visual con el cuadernillo
+sigue siendo una comprobación distinta del razonamiento de la clave.
+En A1-04 se restituyó la orientación vertical u horizontal de cada barra tal
+como aparece en la matriz original; antes el dibujo las uniformaba.
+**NU-N1-03** se redibujó en SVG con un cuadrado de lado 2 y un triángulo
+equilátero de lado 2 que comparten arista. El recorte original de 110 × 130
+píxeles queda en el repositorio para contraste; el área y la clave no cambian.
 
 ## Derechos
 
-Los cuatro PDF llevan marca de agua o logotipo de sus autores (Hospital Farallón
+Cuatro de los cinco PDF llevan marca de agua o logotipo de sus autores (Hospital Farallón
 y DaVinci Centro de Estudios en E1; AulaContable y Grupo Pinillos en E2; Centro
-de Nivelación MARPID en A1; U. P. Aula Magna en N2). Las figuras se recortan tal
-cual porque alterarlas cambiaría el ejercicio. Publicarlas en un producto de pago
-es una decisión que no es técnica: queda anotada para que Camilo y Nico la tomen
+de Nivelación MARPID en A1; U. P. Aula Magna en N2). Los recortes se conservan
+como referencia; un redibujo solo es aceptable si mantiene cada rasgo que
+decide la respuesta. Publicar estas figuras, originales o redibujadas, en un
+producto de pago es una decisión de derechos que Camilo y Nico deben resolver
 antes de abrir el módulo al público.

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="title desc">
+  <title id="title">Dos transmisiones se superponen</title>
+  <desc id="desc">Línea de tiempo didáctica con mensaje de control y mensaje de otro avión simultáneos. La zona superpuesta queda inutilizable, por lo que se pide repetición.</desc>
+  <rect width="1600" height="900" fill="#0d1c2e"/>
+  <rect x="70" y="70" width="1460" height="760" rx="32" fill="#142a3d" stroke="#3a5a6b" stroke-width="2"/>
+  <text x="120" y="154" fill="#bfffe5" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="4">TRANSMISIONES BLOQUEADAS</text>
+  <text x="120" y="215" fill="#f5fbfc" font-family="Arial, sans-serif" font-size="46" font-weight="700">Dos voces, una frecuencia: dato perdido</text>
+  <text x="120" y="315" fill="#c5dbe2" font-family="Arial, sans-serif" font-size="26" font-weight="700">ATC</text>
+  <rect x="325" y="278" width="950" height="65" rx="17" fill="#275c6b"/>
+  <text x="360" y="321" fill="#e9ffff" font-family="Arial, sans-serif" font-size="25">MENSAJE DE CONTROL EN CURSO</text>
+  <text x="120" y="430" fill="#c5dbe2" font-family="Arial, sans-serif" font-size="26" font-weight="700">OTRO AVIÓN</text>
+  <rect x="640" y="390" width="760" height="65" rx="17" fill="#71556d"/>
+  <text x="675" y="433" fill="#fff2fb" font-family="Arial, sans-serif" font-size="25">SEGUNDA TRANSMISIÓN SIMULTÁNEA</text>
+  <rect x="640" y="265" width="635" height="205" rx="16" fill="#ffd27a" fill-opacity=".18" stroke="#ffd27a" stroke-width="3" stroke-dasharray="12 9"/>
+  <text x="690" y="525" fill="#ffdfa0" font-family="Arial, sans-serif" font-size="30" font-weight="700">ZONA SUPERPUESTA: NO COMPLETAR EL DATO</text>
+  <path d="M120 601h1360" stroke="#527587" stroke-width="4"/>
+  <circle cx="330" cy="601" r="12" fill="#bfffe5"/>
+  <circle cx="770" cy="601" r="12" fill="#ffd27a"/>
+  <circle cx="1260" cy="601" r="12" fill="#bfffe5"/>
+  <text x="120" y="655" fill="#d8e6ea" font-family="Arial, sans-serif" font-size="24">Inicio inteligible</text>
+  <text x="645" y="655" fill="#ffdfa0" font-family="Arial, sans-serif" font-size="24">Recepción incierta</text>
+  <text x="1128" y="655" fill="#d8e6ea" font-family="Arial, sans-serif" font-size="24">Fin inteligible</text>
+  <rect x="120" y="694" width="1360" height="86" rx="19" fill="#163e42" stroke="#8af4cb" stroke-width="2"/>
+  <text x="160" y="748" fill="#e8fff3" font-family="Arial, sans-serif" font-size="28" font-weight="700">Acción: mantener la autorización válida y pedir repetición de la parte perdida.</text>
+  <text x="120" y="811" fill="#9bb4bf" font-family="Arial, sans-serif" font-size="19">Esquema temporal didáctico; no reproduce la grabación de Tenerife ni una frecuencia real.</text>
+</svg>

@@ -14,14 +14,8 @@ import {
  * Las cuatro láminas del nivel 3, "Masas de aire, frentes y tormentas"
  * (secciones 10 a 12).
  *
- * **Los símbolos frontales van en la paleta del módulo, no en el rojo y azul de
- * una carta de superficie.** En esta app el rojo significa error y el verde
- * correcto, y gastar el rojo en un frente cálido lo rompería en las treinta
- * secciones. No se pierde nada: lo que identifica un frente en una carta es la
- * **forma** (triángulos contra semicírculos) y de qué lado del trazo van, no el
- * color, y las cartas de fax llevan décadas imprimiéndose en negro. Lo que sí
- * hay que respetar y se respeta es que los símbolos apunten hacia donde avanza
- * el frente.
+ * Los símbolos frontales conservan las convenciones de color y forma de los
+ * análisis de superficie. Los cortes verticales siguen la paleta del módulo.
  */
 
 const W = 1000
@@ -89,7 +83,7 @@ export function MeteoMasas() {
   }
 
   return (
-    <Lienzo etiqueta="Rejilla de dos por dos con el doble apellido de una masa de aire. Las filas son la temperatura, tropical arriba y polar abajo; las columnas son la humedad, marítima a la izquierda sobre el mar y continental a la derecha sobre tierra. Cada celda muestra la superficie sobre la que la masa estuvo quieta y que le dio su carácter.">
+    <Lienzo etiqueta="Rejilla de dos por dos con una clasificación habitual de masas de aire. Las filas indican origen térmico, tropical arriba y polar abajo; las columnas indican superficie de origen, marítima a la izquierda y continental a la derecha. Cada celda recuerda que las características se modifican después de salir de la región de origen.">
       {/* Cabeceras de columna: la humedad. */}
       <Rotulo x={x0 + cw / 2} y={y0 - 24} ancla="middle" color={ACENTO} tam={19}>MARÍTIMA</Rotulo>
       <Rotulo x={x0 + cw + cw / 2} y={y0 - 24} ancla="middle" color={ACENTO} tam={19}>CONTINENTAL</Rotulo>
@@ -126,7 +120,7 @@ export function MeteoMasas() {
       })}
 
       <Rotulo x={IZQ} y={H - 44} color={SECUNDARIO} tam={16}>
-        EL AIRE SE PARECE A DONDE ESTUVO QUIETO
+        LA REGIÓN DE ORIGEN INFLUYE EN EL AIRE
       </Rotulo>
     </Lienzo>
   )
@@ -143,41 +137,54 @@ const FRENTES = [
   { clave: "ocluido", rotulo: "OCLUIDO" },
 ] as const
 
+const FRENTE_FRIO = "#2B6CB0"
+const FRENTE_CALIDO = "#C94F4F"
+const FRENTE_OCLUIDO = "#7950A2"
+
 /** Triángulo del símbolo de frente frío. Apunta hacia donde avanza. */
-function Diente({ x, y, arriba }: { x: number; y: number; arriba: boolean }) {
+function Diente({ x, y, arriba, color }: { x: number; y: number; arriba: boolean; color: string }) {
   const h = arriba ? -13 : 13
-  return <path d={`M${x - 8},${y} L${x + 8},${y} L${x},${y + h} Z`} fill={ACENTO} />
+  return <path d={`M${x - 8},${y} L${x + 8},${y} L${x},${y + h} Z`} fill={color} />
 }
 
 /** Semicírculo del símbolo de frente cálido. */
-function Bulbo({ x, y, arriba }: { x: number; y: number; arriba: boolean }) {
+function Bulbo({ x, y, arriba, color }: { x: number; y: number; arriba: boolean; color: string }) {
   return (
     <path
       d={`M${x - 8},${y} A 8,8 0 0,${arriba ? 1 : 0} ${x + 8},${y} Z`}
-      fill={ACENTO}
+      fill={color}
     />
   )
 }
 
 function Simbolo({ clave, x, y, w }: { clave: string; x: number; y: number; w: number }) {
   const pos = [x + w * 0.2, x + w * 0.5, x + w * 0.8]
+  const color = clave === "frio" ? FRENTE_FRIO : clave === "calido" ? FRENTE_CALIDO : FRENTE_OCLUIDO
   return (
     <g>
-      <line x1={x + 6} y1={y} x2={x + w - 6} y2={y} stroke={ACENTO} strokeWidth={2.6} />
-      {clave === "frio" && pos.map((px) => <Diente key={px} x={px} y={y} arriba />)}
-      {clave === "calido" && pos.map((px) => <Bulbo key={px} x={px} y={y} arriba />)}
+      {clave === "estacionario" ? (
+        <>
+          <line x1={x + 6} y1={y} x2={x + w * 0.35} y2={y} stroke={FRENTE_FRIO} strokeWidth={2.6} />
+          <line x1={x + w * 0.35} y1={y} x2={x + w * 0.65} y2={y} stroke={FRENTE_CALIDO} strokeWidth={2.6} />
+          <line x1={x + w * 0.65} y1={y} x2={x + w - 6} y2={y} stroke={FRENTE_FRIO} strokeWidth={2.6} />
+        </>
+      ) : (
+        <line x1={x + 6} y1={y} x2={x + w - 6} y2={y} stroke={color} strokeWidth={2.6} />
+      )}
+      {clave === "frio" && pos.map((px) => <Diente key={px} x={px} y={y} arriba color={FRENTE_FRIO} />)}
+      {clave === "calido" && pos.map((px) => <Bulbo key={px} x={px} y={y} arriba color={FRENTE_CALIDO} />)}
       {clave === "estacionario" && (
         <>
-          <Diente x={pos[0]} y={y} arriba />
-          <Bulbo x={pos[1]} y={y} arriba={false} />
-          <Diente x={pos[2]} y={y} arriba />
+          <Diente x={pos[0]} y={y} arriba color={FRENTE_FRIO} />
+          <Bulbo x={pos[1]} y={y} arriba={false} color={FRENTE_CALIDO} />
+          <Diente x={pos[2]} y={y} arriba color={FRENTE_FRIO} />
         </>
       )}
       {clave === "ocluido" && (
         <>
-          <Diente x={pos[0]} y={y} arriba />
-          <Bulbo x={pos[1]} y={y} arriba />
-          <Diente x={pos[2]} y={y} arriba />
+          <Diente x={pos[0]} y={y} arriba color={FRENTE_OCLUIDO} />
+          <Bulbo x={pos[1]} y={y} arriba color={FRENTE_OCLUIDO} />
+          <Diente x={pos[2]} y={y} arriba color={FRENTE_OCLUIDO} />
         </>
       )}
     </g>
@@ -241,7 +248,7 @@ function Corte({ clave, x, y, w, h }: { clave: string; x: number; y: number; w: 
 export function MeteoSimbolos() {
   const w = (DER - IZQ - 3 * 22) / 4
   return (
-    <Lienzo etiqueta="Los cuatro símbolos frontales de carta, en fila: frío con triángulos, cálido con semicírculos, estacionario alternando triángulos y semicírculos a lados opuestos del trazo, y ocluido con los dos al mismo lado. Debajo de cada símbolo, el corte vertical de cómo se monta una masa sobre la otra.">
+    <Lienzo etiqueta="Cuatro símbolos frontales convencionales: frío con triángulos azules, cálido con semicírculos rojos, estacionario alternando ambos en lados opuestos, y ocluido morado con ambos del mismo lado. Debajo, cortes verticales conceptuales; no son una carta meteorológica vigente.">
       {FRENTES.map((f, i) => {
         const x = IZQ + i * (w + 22)
         return (
@@ -299,9 +306,8 @@ function Tramo({
 
       {calido ? (
         <>
-          {/* La cuña fría va DELANTE del frente y el aire cálido se desliza por
-              encima: pendiente larga y tendida. La nubosidad va justo encima de
-              esa superficie, así que baja al acercarse al frente. */}
+          {/* Ascenso gradual posible del aire cálido sobre el frío. La nubosidad
+              dibujada es ilustrativa y depende de humedad y estabilidad. */}
           <path d={`M${x0},${suelo} L${x0},${y + 104} L${x1 - 30},${suelo} Z`} fill={ACENTO} opacity={0.26} />
           <path d={`M${x0},${y + 104} L${x1 - 30},${suelo}`} fill="none" stroke={TINTA} strokeWidth={1.6} />
           {[0, 1, 2, 3].map((i) => (
@@ -319,8 +325,8 @@ function Tramo({
         </>
       ) : (
         <>
-          {/* La cuña fría se mete por debajo: pared, y el aire cálido sube de
-              golpe. De ahí la tormenta pegada al frente. */}
+          {/* El aire frío avanza bajo el cálido. La tormenta dibujada es una
+              posibilidad en aire húmedo e inestable, no una consecuencia fija. */}
           <path d={`M${x1},${suelo} L${x1},${y + 26} L${x1 - 210},${suelo} Z`} fill={ACENTO} opacity={0.26} />
           <path d={`M${x1},${y + 26} L${x1 - 210},${suelo}`} fill="none" stroke={TINTA} strokeWidth={1.6} />
           <path
@@ -354,7 +360,7 @@ function Tramo({
 
 export function MeteoRuta() {
   return (
-    <Lienzo etiqueta="Dos cortes verticales apilados. Arriba, un frente cálido: la pendiente es larga y tendida, el aire cálido se desliza por encima del frío y la nubosidad estratiforme va bajando al acercarse al frente. Abajo, un frente frío: la pendiente es una pared, el aire cálido sube de golpe y se forma una tormenta pegada al frente, con chaparrones.">
+    <Lienzo etiqueta="Dos cortes verticales conceptuales. Arriba, un frente cálido con ascenso gradual y nubosidad estratiforme posible. Abajo, un frente frío con ascenso más concentrado y convección posible si hay humedad e inestabilidad. El dibujo no es un análisis actual ni predice dónde habrá tormentas.">
       <Tramo y={82} h={172} rotulo="FRENTE CÁLIDO" calido />
       <Tramo y={344} h={172} rotulo="FRENTE FRÍO" calido={false} />
     </Lienzo>
@@ -367,9 +373,9 @@ export function MeteoRuta() {
 
 /**
  * Las corrientes de cada etapa salen del texto de la sección: en la de cúmulo
- * **solo ascendentes**, en la madura **las dos a la vez**, y en la de disipación
- * **solo descendentes** con el yunque ya abierto. Que las dos convivan es lo que
- * hace violenta la etapa madura, así que es la única con las dos.
+ * predominan las ascendentes, en la madura coexisten ambos flujos y en la
+ * disipación predominan las descendentes. Es un esquema de una célula, no de
+ * una línea multicelular, y el yunque ya puede existir durante la madurez.
  */
 const ETAPAS = [
   { clave: "cumulo", rotulo: "CÚMULO", sube: true, baja: false },
@@ -383,7 +389,7 @@ export function MeteoEtapas() {
   const cima = 130
 
   return (
-    <Lienzo etiqueta="Las tres etapas de una tormenta en fila. En la de cúmulo la nube crece y dentro solo hay corrientes ascendentes. En la madura conviven ascendentes y descendentes a la vez, con precipitación: es la etapa violenta. En la de disipación solo quedan descendentes y el yunque ya está abierto.">
+    <Lienzo etiqueta="Esquema idealizado de las tres etapas de una célula de tormenta. En cúmulo predominan las ascendentes; en madurez coexisten ascendentes, descendentes y precipitación, con yunque posible; en disipación predominan las descendentes. Las etapas no indican cuándo es seguro acercarse.">
       {ETAPAS.map((e, i) => {
         const x = IZQ + i * (w + 30)
         const cx = x + w / 2
@@ -394,7 +400,7 @@ export function MeteoEtapas() {
             <Rotulo x={cx} y={98} ancla="middle" color={ACENTO} tam={18}>{e.rotulo}</Rotulo>
             <rect x={x} y={cima - 18} width={w} height={suelo - cima + 18} fill={RESALTADO} opacity={0.35} />
 
-            {/* La nube. En disipación pierde la torre y se queda el yunque. */}
+            {/* La torre se debilita en disipación; el yunque puede existir antes. */}
             {e.clave !== "disipacion" ? (
               <path
                 d={`M${cx - 54},${suelo - 18}
@@ -433,7 +439,7 @@ export function MeteoEtapas() {
               />
             )}
 
-            {/* Las corrientes. Solo la madura tiene las dos. */}
+            {/* Corrientes predominantes simplificadas; no son exclusivas. */}
             {e.sube && (
               <Flecha x1={cx - 26} y1={suelo - 34} x2={cx - 26} y2={techo + 66} color={ACENTO} grosor={2.4} tam={12} />
             )}

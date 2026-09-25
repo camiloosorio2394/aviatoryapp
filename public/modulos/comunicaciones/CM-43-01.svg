@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Secuencia de comprobación de un mensaje CPDLC</title>
+  <desc id="desc">La tripulación comprueba la autoridad de datos activa, lee el mensaje, contrasta intención y capacidad, responde con la opción habilitada y ejecuta solo una autorización inequívoca. Ante duda, usa voz.</desc>
+  <rect width="1600" height="900" fill="#101d2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="88" y="103" fill="#f3f9fb" font-size="49" font-weight="700">CPDLC: del mensaje a la acción</text>
+    <text x="90" y="159" fill="#b9cad3" font-size="27">Una solicitud o un acuse no se convierten en autorización</text>
+    <rect x="88" y="230" width="326" height="350" rx="26" fill="#203947" stroke="#84ddcf" stroke-width="4"/>
+    <text x="119" y="288" fill="#84ddcf" font-size="29" font-weight="700">1 · IDENTIFICAR</text>
+    <text x="119" y="347" fill="#f3f9fb" font-size="26">Autoridad de datos</text>
+    <text x="119" y="385" fill="#f3f9fb" font-size="26">activa y mensaje</text>
+    <text x="119" y="423" fill="#f3f9fb" font-size="26">dirigido al vuelo.</text>
+    <text x="119" y="501" fill="#b9cad3" font-size="23">Logon ≠ autorización</text>
+    <path d="M427 405h47" stroke="#84ddcf" stroke-width="5"/><path d="m474 405-18-12v24z" fill="#84ddcf"/>
+    <rect x="486" y="230" width="326" height="350" rx="26" fill="#203947" stroke="#84ddcf" stroke-width="4"/>
+    <text x="517" y="288" fill="#84ddcf" font-size="29" font-weight="700">2 · REVISAR</text>
+    <text x="517" y="347" fill="#f3f9fb" font-size="26">Ambos pilotos leen</text>
+    <text x="517" y="385" fill="#f3f9fb" font-size="26">y comprueban ruta,</text>
+    <text x="517" y="423" fill="#f3f9fb" font-size="26">nivel y capacidad.</text>
+    <text x="517" y="501" fill="#b9cad3" font-size="23">No cargar a ciegas</text>
+    <path d="M825 405h47" stroke="#84ddcf" stroke-width="5"/><path d="m872 405-18-12v24z" fill="#84ddcf"/>
+    <rect x="884" y="230" width="326" height="350" rx="26" fill="#203947" stroke="#84ddcf" stroke-width="4"/>
+    <text x="915" y="288" fill="#84ddcf" font-size="29" font-weight="700">3 · RESPONDER</text>
+    <text x="915" y="347" fill="#f3f9fb" font-size="26">Elegir la respuesta</text>
+    <text x="915" y="385" fill="#f3f9fb" font-size="26">habilitada para ese</text>
+    <text x="915" y="423" fill="#f3f9fb" font-size="26">tipo de mensaje.</text>
+    <text x="915" y="501" fill="#b9cad3" font-size="23">STANDBY no cierra</text>
+    <path d="M1223 405h47" stroke="#84ddcf" stroke-width="5"/><path d="m1270 405-18-12v24z" fill="#84ddcf"/>
+    <rect x="1282" y="230" width="230" height="350" rx="26" fill="#203947" stroke="#84ddcf" stroke-width="4"/>
+    <text x="1313" y="288" fill="#84ddcf" font-size="29" font-weight="700">4 · ACTUAR</text>
+    <text x="1313" y="347" fill="#f3f9fb" font-size="25">Solo con una</text>
+    <text x="1313" y="385" fill="#f3f9fb" font-size="25">autorización</text>
+    <text x="1313" y="423" fill="#f3f9fb" font-size="25">inequívoca.</text>
+    <rect x="88" y="646" width="1424" height="165" rx="26" fill="#2a3b4b"/>
+    <text x="125" y="708" fill="#84ddcf" font-size="29" font-weight="700">Si el contenido llega tarde, contradice la voz o genera duda: aclarar por voz.</text>
+    <text x="125" y="758" fill="#f3f9fb" font-size="25">El procedimiento y los medios de respaldo dependen del espacio aéreo y del operador.</text>
+  </g>
+</svg>

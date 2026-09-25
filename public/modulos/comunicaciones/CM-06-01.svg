@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1560" viewBox="0 0 1080 1560" role="img" aria-labelledby="title desc">
+  <title id="title">Distintivo completo y confusión entre vuelos: caso documentado en Nueva York</title>
+  <desc id="desc">La identificación de radio incluye el designador radiotelefónico y el número de vuelo. Un informe del NTSB describe que un controlador confundió TWA 843 con TWA 834; este último ejecutó un viraje destinado al primero y se perdió la separación con Pan Am 537. La lámina distingue hechos documentados de decisiones preventivas para la tripulación.</desc>
+  <defs>
+    <style>
+      .eyebrow{font:700 23px Arial,sans-serif;letter-spacing:4px;fill:#795583}
+      .title{font:700 52px Arial,sans-serif;fill:#261d2b}
+      .lead{font:500 28px Arial,sans-serif;fill:#544a59}
+      .section{font:700 28px Arial,sans-serif;letter-spacing:2px;fill:#704379}
+      .big{font:700 60px Arial,sans-serif;fill:#261d2b}
+      .medium{font:700 37px Arial,sans-serif;fill:#261d2b}
+      .body{font:500 27px Arial,sans-serif;fill:#3e3543}
+      .small{font:500 23px Arial,sans-serif;fill:#625968}
+      .white{font:700 34px Arial,sans-serif;fill:#fff}
+      .whiteSmall{font:500 26px Arial,sans-serif;fill:#fff}
+      .pill{font:700 25px Arial,sans-serif;fill:#674076}
+    </style>
+  </defs>
+  <rect width="1080" height="1560" rx="28" fill="#faf8fb"/>
+  <text x="56" y="85" class="eyebrow">COMUNICACIONES · CM-06-01</text>
+  <text x="56" y="164" class="title">¿Era para mi vuelo?</text>
+  <text x="56" y="213" class="lead">El indicativo es una barrera de seguridad, no un adorno.</text>
+
+  <rect x="48" y="256" width="984" height="292" rx="24" fill="#fff" stroke="#d9cedf" stroke-width="3"/>
+  <text x="78" y="309" class="section">ANATOMÍA DEL INDICATIVO</text>
+  <rect x="78" y="340" width="454" height="112" rx="18" fill="#eee5f1"/>
+  <rect x="548" y="340" width="216" height="112" rx="18" fill="#eee5f1"/>
+  <text x="107" y="415" class="big">AIR CHINA</text>
+  <text x="582" y="415" class="big">238</text>
+  <text x="80" y="493" class="body">Designador radiotelefónico</text>
+  <text x="549" y="493" class="body">Identificación</text>
+  <text x="80" y="527" class="small">CCA238 en el plan de vuelo; no se dice “CCA” por radio.</text>
+
+  <text x="56" y="621" class="section">CASO REAL · NUEVA YORK, 9 AGO 1987</text>
+  <text x="56" y="663" class="small">Resumen de hechos del NTSB, no transcripción de radio.</text>
+  <rect x="48" y="699" width="984" height="457" rx="24" fill="#29212f"/>
+  <rect x="75" y="727" width="930" height="111" rx="16" fill="#4b3456"/>
+  <text x="101" y="776" class="white">TWA 843</text>
+  <text x="409" y="776" class="whiteSmall">Viraje previsto por el controlador</text>
+  <text x="409" y="810" class="whiteSmall">para secuenciar su llegada a JFK</text>
+  <path d="M540 847v38" stroke="#bea1c7" stroke-width="5" stroke-linecap="round"/>
+  <path d="m526 872 14 17 14-17" fill="none" stroke="#bea1c7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="75" y="899" width="930" height="112" rx="16" fill="#765080"/>
+  <text x="101" y="948" class="white">TWA 834</text>
+  <text x="409" y="948" class="whiteSmall">El controlador dijo otro indicativo.</text>
+  <text x="409" y="982" class="whiteSmall">Esta tripulación ejecutó el viraje.</text>
+  <path d="M540 1019v35" stroke="#bea1c7" stroke-width="5" stroke-linecap="round"/>
+  <path d="m526 1041 14 17 14-17" fill="none" stroke="#bea1c7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="102" y="1104" class="whiteSmall">TWA 843 siguió recto; hubo pérdida de separación</text>
+  <text x="102" y="1138" class="whiteSmall">con Pan Am 537. Ambas aeronaves continuaron.</text>
+
+  <text x="56" y="1231" class="section">DECISIÓN EN CABINA</text>
+  <rect x="48" y="1261" width="984" height="191" rx="24" fill="#f0e8f3"/>
+  <circle cx="93" cy="1311" r="13" fill="#704379"/>
+  <text x="123" y="1321" class="body">Escuche el indicativo completo antes de actuar.</text>
+  <circle cx="93" cy="1363" r="13" fill="#704379"/>
+  <text x="123" y="1373" class="body">Si hay duda, confirme la autorización para su vuelo.</text>
+  <circle cx="93" cy="1415" r="13" fill="#704379"/>
+  <text x="123" y="1425" class="body">Colacione con el indicativo completo; escuche la corrección.</text>
+  <text x="55" y="1511" class="small">Fuente: NTSB, recomendaciones A-89-83 a A-89-90, pp. 1–2.</text>
+</svg>

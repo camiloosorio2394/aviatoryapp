@@ -1,7 +1,7 @@
 import type { EjercicioPsico } from "@/lib/psicotecnicas"
 
 /**
- * Series numéricas — 162 ejercicios.
+ * Series numéricas — 161 ejercicios.
  *
  * ARCHIVO GENERADO. No se edita a mano: sale de
  * `node scripts/psicotecnicas/generar-series.mjs <carpeta-con-los-pdf>`.
@@ -2206,23 +2206,6 @@ export const SERIES: EjercicioPsico[] = [
     "categoria": "numerico"
   },
   {
-    "id": "NU-N2-08-04",
-    "subcategoria": "Número que rompe la serie",
-    "nivel": "intermedio",
-    "enunciado": "Señala el número que sobra en la serie: 58, 53, 49, 46, 44, 43",
-    "opciones": [
-      "53",
-      "43",
-      "49",
-      "58"
-    ],
-    "respuesta": 1,
-    "explicacion": "El número que sobra es 43: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
-    "tiempo": 60,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.4",
-    "categoria": "numerico"
-  },
-  {
     "id": "NU-N2-08-05",
     "subcategoria": "Sucesiones alternantes",
     "nivel": "avanzado",
@@ -2319,7 +2302,7 @@ export const SERIES: EjercicioPsico[] = [
       "5"
     ],
     "respuesta": 1,
-    "explicacion": "El número que sobra es 15: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+    "explicacion": "El 15 rompe el salto constante de +4: sin él queda 1, 5, 9, 13, 17, 21, 25.",
     "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.13",
     "categoria": "numerico"

@@ -42,7 +42,11 @@ export interface ConfigProgreso {
     | "user_aerodinamica_progress"
     | "user_aeropuertos_progress"
     | "user_performance_progress"
+    | "user_rac_progress"
+    | "user_combustible_progress"
     | "user_comunicaciones_progress"
+    | "user_rvsm_progress"
+    | "user_pbn_progress"
     | "user_mel_progress"
   rpc:
     | "notam_mark_progress"
@@ -51,7 +55,11 @@ export interface ConfigProgreso {
     | "aerodinamica_mark_progress"
     | "aeropuertos_mark_progress"
     | "performance_mark_progress"
+    | "rac_mark_progress"
+    | "combustible_mark_progress"
     | "comunicaciones_mark_progress"
+    | "rvsm_mark_progress"
+    | "pbn_mark_progress"
     | "mel_mark_progress"
   /** Lo que el respaldo local tiene leído y resuelto. */
   leerLocal: () => ProgresoRemoto

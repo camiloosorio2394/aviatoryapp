@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="700" viewBox="0 0 700 700" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Casa compuesta por un cuadrado y un triángulo equilátero</title>
+  <desc id="descripcion">El cuadrado tiene lado 2. El triángulo superior también tiene dos lados exteriores de longitud 2 y comparte su base con el lado superior del cuadrado.</desc>
+  <rect width="700" height="700" fill="#fff"/>
+  <path d="M190 630V310L350 32.8718708 510 310V630Z" fill="#f4fbf8" stroke="#23443c" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M190 310H510" fill="none" stroke="#23443c" stroke-width="6"/>
+  <g fill="#154e42" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="700" text-anchor="middle">
+    <text x="220" y="160">2</text>
+    <text x="480" y="160">2</text>
+    <text x="558" y="485">2</text>
+    <text x="350" y="682">2</text>
+  </g>
+</svg>

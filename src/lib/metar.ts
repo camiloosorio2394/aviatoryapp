@@ -24,7 +24,7 @@ import type { NotamLevel } from "@/lib/notamComun"
  * aerolínea y la Biblioteca solo necesitan el número. leccionesConteo.test.ts
  * los compara con metarLesson.ts.
  */
-export const METAR_LECCION = { secciones: 30, minutos: 191 } as const
+export const METAR_LECCION = { secciones: 30, minutos: 196 } as const
 
 // ─── Tablas de códigos (leyenda del curso, normalizada) ──────────────────────
 

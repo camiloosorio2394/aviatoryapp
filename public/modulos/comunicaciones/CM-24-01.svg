@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Seis elementos del reporte de posición</title>
+  <desc id="desc">Tarjeta de estudio con identificación, posición, hora, nivel, próximo punto con estimado y punto siguiente.</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#102134"/><stop offset="1" stop-color="#182c3b"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="30" fill="url(#bg)"/>
+  <text x="90" y="105" fill="#a2f0d5" font-family="Arial,sans-serif" font-size="26" font-weight="700" letter-spacing="4">REPORTE DE POSICIÓN</text>
+  <text x="90" y="170" fill="#f2f9f7" font-family="Arial,sans-serif" font-size="48" font-weight="700">Seis datos en un orden comprobable</text>
+  <text x="90" y="216" fill="#c7d6df" font-family="Arial,sans-serif" font-size="24">Preparar el mensaje con el plan y confirmar el dato real antes de transmitir.</text>
+  <g fill="#203848" stroke="#6fd4b8" stroke-width="2">
+    <rect x="80" y="275" width="448" height="188" rx="22"/><rect x="576" y="275" width="448" height="188" rx="22"/><rect x="1072" y="275" width="448" height="188" rx="22"/>
+    <rect x="80" y="495" width="448" height="188" rx="22"/><rect x="576" y="495" width="448" height="188" rx="22"/><rect x="1072" y="495" width="448" height="188" rx="22"/>
+  </g>
+  <g fill="#a2f0d5" font-family="Arial,sans-serif" font-size="26" font-weight="700">
+    <text x="112" y="326">01 · IDENTIFICACIÓN</text><text x="608" y="326">02 · POSICIÓN</text><text x="1104" y="326">03 · HORA</text>
+    <text x="112" y="546">04 · NIVEL</text><text x="608" y="546">05 · PRÓXIMO + ESTIMADO</text><text x="1104" y="546">06 · SIGUIENTE</text>
+  </g>
+  <g fill="#eff7f5" font-family="Arial,sans-serif" font-size="23">
+    <text x="112" y="377">¿Qué aeronave reporta?</text><text x="112" y="413">Distintivo vigente</text>
+    <text x="608" y="377">¿Dónde está ahora?</text><text x="608" y="413">Punto o coordenadas</text>
+    <text x="1104" y="377">¿Cuándo pasó?</text><text x="1104" y="413">Hora efectiva, no prevista</text>
+    <text x="112" y="597">¿Qué nivel mantiene?</text><text x="112" y="633">Si cambia: paso + autorizado</text>
+    <text x="608" y="597">¿A dónde va después?</text><text x="608" y="633">Punto y hora calculada</text>
+    <text x="1104" y="597">¿Qué punto viene luego?</text><text x="1104" y="633">Continuidad de la ruta</text>
+  </g>
+  <text x="90" y="765" fill="#a5efda" font-family="Arial,sans-serif" font-size="23">Omisiones solo cuando un acuerdo regional o ATC lo permitan.</text>
+  <text x="90" y="805" fill="#b8ccd3" font-family="Arial,sans-serif" font-size="22">El nivel se incluye en la primera llamada tras cambiar de canal de voz.</text>
+  <text x="90" y="851" fill="#91a9b8" font-family="Arial,sans-serif" font-size="18">Ayuda de estudio basada en OACI Doc 4444 · no es un formulario ni un reporte real</text>
+</svg>

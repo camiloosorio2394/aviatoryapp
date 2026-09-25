@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Transferencia entre sectores en crucero</title>
+  <desc id="desc">Tres pasos: mantener la autorización vigente, seleccionar la nueva frecuencia y establecer el primer contacto.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0d1a2b"/><stop offset="1" stop-color="#172b3a"/></linearGradient>
+  </defs>
+  <rect width="1600" height="900" rx="30" fill="url(#bg)"/>
+  <text x="90" y="105" fill="#a1f0d7" font-family="Arial,sans-serif" font-size="26" font-weight="700" letter-spacing="4">CRUCERO · RELEVO DE SECTOR</text>
+  <text x="90" y="170" fill="#f4f8f8" font-family="Arial,sans-serif" font-size="48" font-weight="700">Cambiar frecuencia no cambia la autorización</text>
+  <text x="90" y="218" fill="#c5d3dc" font-family="Arial,sans-serif" font-size="25">Tres comprobaciones antes de dar por cerrada una transferencia.</text>
+  <rect x="72" y="286" width="451" height="428" rx="24" fill="#203444" stroke="#72d8be" stroke-width="2"/>
+  <circle cx="120" cy="341" r="28" fill="#75d9bd"/><text x="111" y="352" fill="#102536" font-family="Arial,sans-serif" font-size="29" font-weight="700">1</text>
+  <text x="112" y="416" fill="#f3f8f7" font-family="Arial,sans-serif" font-size="31" font-weight="700">AUTORIZACIÓN</text>
+  <text x="112" y="463" fill="#e0ecee" font-family="Arial,sans-serif" font-size="24">Ruta y nivel vigentes</text>
+  <text x="112" y="505" fill="#e0ecee" font-family="Arial,sans-serif" font-size="24">Velocidad asignada</text>
+  <text x="112" y="547" fill="#e0ecee" font-family="Arial,sans-serif" font-size="24">Restricciones pendientes</text>
+  <text x="112" y="647" fill="#a1f0d7" font-family="Arial,sans-serif" font-size="21">No se borran por cambiar de sector</text>
+  <path d="M533 499 H555" stroke="#a1f0d7" stroke-width="5"/><path d="M546 488 L558 499 546 510" fill="none" stroke="#a1f0d7" stroke-width="5"/>
+  <rect x="574" y="286" width="451" height="428" rx="24" fill="#203444" stroke="#72d8be" stroke-width="2"/>
+  <circle cx="622" cy="341" r="28" fill="#75d9bd"/><text x="613" y="352" fill="#102536" font-family="Arial,sans-serif" font-size="29" font-weight="700">2</text>
+  <text x="614" y="416" fill="#f3f8f7" font-family="Arial,sans-serif" font-size="31" font-weight="700">FRECUENCIA</text>
+  <text x="614" y="463" fill="#e0ecee" font-family="Arial,sans-serif" font-size="24">Colacionar</text>
+  <text x="614" y="505" fill="#e0ecee" font-family="Arial,sans-serif" font-size="24">Seleccionar y comprobar</text>
+  <text x="614" y="547" fill="#e0ecee" font-family="Arial,sans-serif" font-size="24">CONTACT / STAND BY / MONITOR</text>
+  <text x="614" y="647" fill="#a1f0d7" font-family="Arial,sans-serif" font-size="21">Cada verbo pide una acción distinta</text>
+  <path d="M1035 499 H1057" stroke="#a1f0d7" stroke-width="5"/><path d="M1048 488 L1060 499 1048 510" fill="none" stroke="#a1f0d7" stroke-width="5"/>
+  <rect x="1076" y="286" width="451" height="428" rx="24" fill="#203444" stroke="#72d8be" stroke-width="2"/>
+  <circle cx="1124" cy="341" r="28" fill="#75d9bd"/><text x="1115" y="352" fill="#102536" font-family="Arial,sans-serif" font-size="29" font-weight="700">3</text>
+  <text x="1116" y="416" fill="#f3f8f7" font-family="Arial,sans-serif" font-size="31" font-weight="700">PRIMER CONTACTO</text>
+  <text x="1116" y="463" fill="#e0ecee" font-family="Arial,sans-serif" font-size="24">Distintivo y nivel</text>
+  <text x="1116" y="505" fill="#e0ecee" font-family="Arial,sans-serif" font-size="24">Condiciones aún asignadas</text>
+  <text x="1116" y="547" fill="#e0ecee" font-family="Arial,sans-serif" font-size="24">Respuesta confirmada</text>
+  <text x="1116" y="647" fill="#a1f0d7" font-family="Arial,sans-serif" font-size="21">Si no responde, recuperar contacto</text>
+  <text x="90" y="817" fill="#a3b4c0" font-family="Arial,sans-serif" font-size="22">Esquema conceptual · sin sector, ruta ni frecuencia real</text>
+</svg>

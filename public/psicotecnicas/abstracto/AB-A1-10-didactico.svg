@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="1600" viewBox="0 0 1020 1600" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Completa la matriz de triángulos</title>
+  <desc id="descripcion">Ocho rectángulos con líneas diagonales y un triángulo pequeño negro, rayado o blanco. Falta el noveno; debajo aparecen cinco alternativas.</desc>
+  <defs><pattern id="rayado" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M2 0 V12" stroke="#26353d" stroke-width="2.2"/></pattern></defs>
+  <rect width="1020" height="1600" fill="#fff"/>
+  <text x="35" y="50" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif" letter-spacing="1">COMPLETA LA MATRIZ</text>
+  <rect x="23" y="75" width="990" height="655" rx="17" fill="#fff" stroke="#d6e1e3" stroke-width="2"/>
+  <g transform="translate(35 100)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 0 L140 180 L280 0 M140 0 V180" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M140 0 L238 46 L140 90 Z" fill="url(#rayado)" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+<g transform="translate(365 100)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 0 L280 90 L0 180 M0 90 H280" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 90 L54 18 L112 90 Z" fill="#fff" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+<g transform="translate(695 100)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 180 L140 0 L280 180 M140 0 V180" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M140 110 L225 110 L185 180 Z" fill="#26353d" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+<g transform="translate(35 305)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 0 L280 90 L0 180 M0 90 H280" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 30 L90 30 L43 90 Z" fill="#fff" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+<g transform="translate(365 305)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 180 L140 0 L280 180 M140 0 V180" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M140 90 L247 135 L140 180 Z" fill="#26353d" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+<g transform="translate(695 305)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 0 L140 180 L280 0 M140 0 V180" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M140 0 L238 46 L140 90 Z" fill="url(#rayado)" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+<g transform="translate(35 510)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 180 L140 0 L280 180 M140 0 V180" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M140 180 L185 115 L230 180 Z" fill="#26353d" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+<g transform="translate(365 510)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 0 L140 180 L280 0 M140 0 V180" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M140 0 L230 0 L185 65 Z" fill="url(#rayado)" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+<g transform="translate(695 510)"><rect width="280" height="180" fill="#f3f7f8" stroke="#26353d" stroke-width="3"/><text x="140" y="111" text-anchor="middle" font-size="58" fill="#64748b">?</text></g>
+  <g><rect x="35" y="765" width="460" height="250" rx="15" fill="#fafdfc" stroke="#d6e1e3" stroke-width="2"/>
+    <text x="57" y="808" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif">A</text>
+    <g transform="translate(125 817)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 0 L280 90 L0 180 M0 90 H280" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 0 L72 55 L0 90 Z" fill="#26353d" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g></g>
+<g><rect x="535" y="765" width="460" height="250" rx="15" fill="#fafdfc" stroke="#d6e1e3" stroke-width="2"/>
+    <text x="557" y="808" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif">B</text>
+    <g transform="translate(625 817)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 0 L280 90 L0 180 M0 90 H280" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 0 L72 55 L0 90 Z" fill="#fff" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g></g>
+<g><rect x="35" y="1035" width="460" height="250" rx="15" fill="#fafdfc" stroke="#d6e1e3" stroke-width="2"/>
+    <text x="57" y="1078" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif">C</text>
+    <g transform="translate(125 1087)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 180 L140 0 L280 180 M140 0 V180" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 180 L42 120 L90 180 Z" fill="#fff" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g></g>
+<g><rect x="535" y="1035" width="460" height="250" rx="15" fill="#fafdfc" stroke="#d6e1e3" stroke-width="2"/>
+    <text x="557" y="1078" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif">D</text>
+    <g transform="translate(625 1087)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 0 L280 90 L0 180 M0 90 H280" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 90 L54 18 L112 90 Z" fill="#fff" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g></g>
+<g><rect x="35" y="1305" width="460" height="250" rx="15" fill="#fafdfc" stroke="#d6e1e3" stroke-width="2"/>
+    <text x="57" y="1348" fill="#24453f" font-size="30" font-weight="700" font-family="Arial, sans-serif">E</text>
+    <g transform="translate(125 1357)">
+    <rect width="280" height="180" fill="#fff" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 0 L280 90 L0 180 M0 90 H280" fill="none" stroke="#26353d" stroke-width="3"/>
+    <path d="M0 90 L54 18 L112 90 Z" fill="#26353d" stroke="#26353d" stroke-width="3" stroke-linejoin="round"/>
+  </g></g>
+</svg>

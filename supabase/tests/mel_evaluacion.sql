@@ -1,8 +1,8 @@
 -- ============================================================================
--- Evaluación del módulo MEL. Migración 20260928010000.
+-- Evaluación del módulo MEL. Migración 20261001010000.
 --
--- Corre esto DESPUÉS de aplicar las tres migraciones de MEL (20260928000000,
--- 20260928010000 y 20260928020000) y de sembrar el banco con
+-- Corre esto DESPUÉS de aplicar las tres migraciones de MEL (20261001000000,
+-- 20261001010000 y 20261001020000) y de sembrar el banco con
 -- supabase/seeds/mel_evaluacion.sql (la salida de
 --   node scripts/bancos/sembrar.mjs mel_evaluacion).
 -- Sin el banco cargado falla en el conteo de preguntas, que es lo que se quiere:
@@ -11,7 +11,7 @@
 -- Comprueba las reglas (25 de 70, aprueba con 80, corrección al final, un solo
 -- banco, lección exigida), que el banco esté completo y bien formado, que la
 -- tabla de intentos nazca cerrada, que evaluacion_terminar siga sabiendo
--- enrutar a los otros siete módulos y al simulacro, y que secciones_leidas
+-- enrutar a los otros once módulos y al simulacro, y que secciones_leidas
 -- siga contando los de antes: la migración reemplaza las dos enteras y una
 -- copia mal hecha se nota aquí y no en producción.
 --
@@ -139,22 +139,26 @@ begin
       'user_notam_exam_attempts', 'user_metar_exam_attempts',
       'user_mercancias_exam_attempts', 'user_aerodinamica_exam_attempts',
       'user_aeropuertos_exam_attempts', 'user_performance_exam_attempts',
-      'user_comunicaciones_exam_attempts', 'user_mel_exam_attempts',
+      'user_comunicaciones_exam_attempts', 'user_rac_exam_attempts',
+      'user_combustible_exam_attempts', 'user_rvsm_exam_attempts',
+      'user_pbn_exam_attempts', 'user_mel_exam_attempts',
       'user_airline_mock_attempts'
     ]) as tabla
   ) as t
   where pg_get_functiondef('public.evaluacion_terminar(uuid)'::regprocedure) like '%' || t.tabla || '%';
-  if x_n <> 9 then raise exception 'FALLO evaluacion_terminar solo enruta % destinos de 9', x_n; end if;
+  if x_n <> 13 then raise exception 'FALLO evaluacion_terminar solo enruta % destinos de 13', x_n; end if;
 
   -- Y el CHECK de destino los admite a todos.
   select pg_get_constraintdef(oid) into x_t from pg_constraint
   where conname = 'evaluaciones_destino_check' and conrelid = 'public.evaluaciones'::regclass;
   if x_t not like '%''mel''%' or x_t not like '%comunicaciones%' or x_t not like '%performance%'
      or x_t not like '%aeropuertos%' or x_t not like '%aerodinamica%'
+     or x_t not like '%''rac''%' or x_t not like '%combustible%'
+     or x_t not like '%rvsm%' or x_t not like '%''pbn''%'
      or x_t not like '%simulacro_aerolinea%' then
     raise exception 'FALLO el CHECK de destino dice %', x_t;
   end if;
-  x_log := x_log || ' terminar_enruta_los_nueve';
+  x_log := x_log || ' terminar_enruta_los_trece';
 
   -- ── secciones_leidas sigue contando todos los módulos ─────────────────────
   -- También se reemplaza entera. Cada tabla de progreso tiene que seguir
@@ -163,15 +167,16 @@ begin
     select unnest(array[
       'user_notam_progress', 'user_metar_progress', 'user_mercancias_progress',
       'user_aerodinamica_progress', 'user_aeropuertos_progress', 'user_performance_progress',
-      'user_comunicaciones_progress', 'user_mel_progress'
+      'user_comunicaciones_progress', 'user_rac_progress', 'user_combustible_progress',
+      'user_rvsm_progress', 'user_pbn_progress', 'user_mel_progress'
     ]) as tabla
   ) as t
   where pg_get_functiondef('private.secciones_leidas(uuid, text)'::regprocedure) like '%' || t.tabla || '%';
-  if x_n <> 8 then raise exception 'FALLO secciones_leidas solo cuenta % módulos de 8', x_n; end if;
+  if x_n <> 12 then raise exception 'FALLO secciones_leidas solo cuenta % módulos de 12', x_n; end if;
   if private.secciones_leidas(x_a, 'inventado') <> 0 then
     raise exception 'FALLO un módulo que no existe cuenta algo';
   end if;
-  x_log := x_log || ' secciones_leidas_los_ocho';
+  x_log := x_log || ' secciones_leidas_los_doce';
 
   raise exception 'PRUEBA_DESHECHA%', x_log;
 end

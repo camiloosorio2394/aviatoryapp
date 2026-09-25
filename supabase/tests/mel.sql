@@ -1,6 +1,8 @@
 -- ============================================================================
 -- Módulo MEL: progreso, catálogo, permisos, puerta de la evaluación, panel y
--- logros. Migraciones 20260928000000, 20260928010000 y 20260928020000.
+-- logros. Migraciones 20261001000000, 20261001010000 y 20261001020000 (MEL
+-- es el módulo doce: va después de PBN, 20260929120000, y de
+-- 20260930000000).
 --
 -- Corre esto con las tres migraciones aplicadas, el catálogo de la práctica
 -- cargado (node scripts/catalogo/sembrar.mjs mel) y el banco sembrado
@@ -9,7 +11,7 @@
 -- las claves de práctica de contenido/catalogo), que repetir no duplica, que
 -- cada piloto ve solo lo suyo, que nadie escribe las tablas directo, que anon
 -- no tiene nada, la puerta (39 lecciones no abren, 40 sí), que el intento
--- llega a su tabla, que los otros siete módulos siguen contando, que el panel
+-- llega a su tabla, que los otros once módulos siguen contando, que el panel
 -- no perdió nada y los cuatro logros. Es el recorrido de
 -- supabase/tests/comunicaciones.sql.
 --
@@ -200,8 +202,8 @@ begin
 
   -- ── Los otros módulos siguen en su catálogo y contando ────────────────────
   select count(*) into x_n from public.modulos_contenido
-  where modulo in ('notam', 'metar', 'mercancias', 'aerodinamica', 'aeropuertos', 'performance', 'comunicaciones');
-  if x_n <> 7 then raise exception 'FALLO un módulo viejo perdió su catálogo: %', x_n; end if;
+  where modulo in ('notam', 'metar', 'mercancias', 'aerodinamica', 'aeropuertos', 'performance', 'comunicaciones', 'rac', 'combustible', 'rvsm', 'pbn');
+  if x_n <> 11 then raise exception 'FALLO un módulo viejo perdió su catálogo: %', x_n; end if;
   if private.secciones_leidas(x_a, 'mel') <> 40 then
     raise exception 'FALLO secciones_leidas mel: %', private.secciones_leidas(x_a, 'mel');
   end if;
@@ -215,8 +217,12 @@ begin
      or private.secciones_leidas(x_b, 'mercancias') is null or private.secciones_leidas(x_b, 'aerodinamica') is null
      or private.secciones_leidas(x_b, 'aeropuertos') is null or private.secciones_leidas(x_b, 'performance') is null
      or private.secciones_leidas(x_b, 'comunicaciones') is null
+     or private.secciones_leidas(x_b, 'rac') is null or private.secciones_leidas(x_b, 'combustible') is null
+     or private.secciones_leidas(x_b, 'rvsm') is null or private.secciones_leidas(x_b, 'pbn') is null
      or private.practicas_hechas(x_b, 'aeropuertos') is null or private.practicas_hechas(x_b, 'performance') is null
-     or private.practicas_hechas(x_b, 'comunicaciones') is null then
+     or private.practicas_hechas(x_b, 'comunicaciones') is null
+     or private.practicas_hechas(x_b, 'rac') is null or private.practicas_hechas(x_b, 'combustible') is null
+     or private.practicas_hechas(x_b, 'rvsm') is null or private.practicas_hechas(x_b, 'pbn') is null then
     raise exception 'FALLO un módulo viejo dejó de contar';
   end if;
   if private.practicas_hechas(x_b, 'inventado') <> 0 then
@@ -224,7 +230,7 @@ begin
   end if;
   x_log := x_log || ' conteos_y_modulos_viejos';
 
-  -- ── Panel: los ocho módulos, el plan y las postulaciones ─────────────────
+  -- ── Panel: los doce módulos, el plan y las postulaciones ─────────────────
   perform set_config('request.jwt.claims', json_build_object('sub', x_a, 'role', 'authenticated')::text, true);
   set local role authenticated;
   x_r := public.panel_tarjetas();
@@ -239,10 +245,13 @@ begin
   end if;
   if x_r -> 'notam' is null or x_r -> 'metar' is null or x_r -> 'mercancias' is null
      or x_r -> 'aerodinamica' is null or x_r -> 'aeropuertos' is null
-     or x_r -> 'performance' is null or x_r -> 'comunicaciones' is null then
+     or x_r -> 'performance' is null or x_r -> 'comunicaciones' is null
+     or x_r -> 'rac' is null or x_r -> 'combustible' is null
+     or x_r -> 'rvsm' is null or x_r -> 'pbn' is null then
     raise exception 'FALLO el panel perdió un módulo';
   end if;
-  if not (x_r ? 'plan') or jsonb_typeof(x_r -> 'postulaciones') <> 'array' then
+  if not (x_r ? 'plan') or jsonb_typeof(x_r -> 'postulaciones') <> 'array'
+     or not (x_r ? 'licencias') or not (x_r ? 'preparacion') then
     raise exception 'FALLO el panel perdió el plan o las postulaciones';
   end if;
   x_log := x_log || ' panel_con_plan_y_postulaciones';
@@ -259,10 +268,16 @@ begin
 
   x_t := pg_get_functiondef('public.check_and_unlock_achievements(uuid)'::regprocedure);
   if x_t not like '%''mel''%' or x_t not like '%''comunicaciones''%' or x_t not like '%''performance''%'
-     or x_t not like '%''aeropuertos''%' or x_t not like '%''aerodinamica''%' then
+     or x_t not like '%''aeropuertos''%' or x_t not like '%''aerodinamica''%'
+     or x_t not like '%''rac''%' or x_t not like '%''combustible''%'
+     or x_t not like '%''rvsm''%' or x_t not like '%''pbn''%' then
     raise exception 'FALLO check_and_unlock_achievements no repasa todos los módulos';
   end if;
   perform private.desbloquear_logros(x_a, 'mel');
+  perform private.desbloquear_logros(x_a, 'pbn');
+  perform private.desbloquear_logros(x_a, 'rvsm');
+  perform private.desbloquear_logros(x_a, 'combustible');
+  perform private.desbloquear_logros(x_a, 'rac');
   perform private.desbloquear_logros(x_a, 'comunicaciones');
   perform private.desbloquear_logros(x_a, 'performance');
   perform private.desbloquear_logros(x_a, 'aeropuertos');

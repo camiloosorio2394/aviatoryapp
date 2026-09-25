@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Elegir una señal según peligro y necesidad de ayuda</title>
+  <desc id="desc">Tres estados: informar sin señal, PAN PAN por urgencia y MAYDAY por socorro. La declaración se actualiza si cambia el riesgo.</desc>
+  <rect width="1600" height="900" fill="#101d2b"/>
+  <text x="94" y="112" fill="#f4f8fb" font-family="Arial,sans-serif" font-size="52" font-weight="700">La situación manda; la falla no tiene una etiqueta fija</text>
+  <text x="96" y="165" fill="#bbcad3" font-family="Arial,sans-serif" font-size="28">Evalúa gravedad, margen y ayuda necesaria antes de llamar</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="94" y="248" width="440" height="425" rx="28" fill="#223747" stroke="#7995a1" stroke-width="3"/>
+    <text x="128" y="319" fill="#c8d7db" font-size="28" font-weight="700">INFORMAR</text>
+    <text x="128" y="390" fill="#ffffff" font-size="43" font-weight="700">Sin señal</text>
+    <text x="128" y="461" fill="#e0e9ed" font-size="28">No hay condición de</text>
+    <text x="128" y="499" fill="#e0e9ed" font-size="28">urgencia o socorro.</text>
+    <text x="128" y="575" fill="#b6c9d0" font-size="25">Comunica la limitación</text>
+    <text x="128" y="611" fill="#b6c9d0" font-size="25">y la intención, si afecta ATC.</text>
+    <rect x="580" y="248" width="440" height="425" rx="28" fill="#213949" stroke="#83ddcf" stroke-width="4"/>
+    <text x="614" y="319" fill="#83ddcf" font-size="28" font-weight="700">URGENCIA</text>
+    <text x="614" y="390" fill="#ffffff" font-size="43" font-weight="700">PAN PAN × 3</text>
+    <text x="614" y="461" fill="#e0e9ed" font-size="28">Seguridad afectada;</text>
+    <text x="614" y="499" fill="#e0e9ed" font-size="28">sin ayuda inmediata.</text>
+    <text x="614" y="575" fill="#b6c9d0" font-size="25">Explica efecto, intención</text>
+    <text x="614" y="611" fill="#b6c9d0" font-size="25">y apoyo solicitado.</text>
+    <rect x="1066" y="248" width="440" height="425" rx="28" fill="#3a303b" stroke="#e5a9a9" stroke-width="4"/>
+    <text x="1100" y="319" fill="#f2bbbb" font-size="28" font-weight="700">SOCORRO</text>
+    <text x="1100" y="390" fill="#ffffff" font-size="43" font-weight="700">MAYDAY × 3</text>
+    <text x="1100" y="461" fill="#f5e8e8" font-size="28">Peligro grave o inminente;</text>
+    <text x="1100" y="499" fill="#f5e8e8" font-size="28">ayuda inmediata necesaria.</text>
+    <text x="1100" y="575" fill="#eed0d0" font-size="25">Comunica necesidad urgente</text>
+    <text x="1100" y="611" fill="#eed0d0" font-size="25">sin esperar datos perfectos.</text>
+    <text x="95" y="765" fill="#83ddcf" font-size="34" font-weight="700">Si el riesgo cambia, actualiza la declaración ante ATS.</text>
+    <text x="95" y="815" fill="#a9bec8" font-size="26">La tripulación conserva el control y confirma toda autorización nueva.</text>
+  </g>
+</svg>

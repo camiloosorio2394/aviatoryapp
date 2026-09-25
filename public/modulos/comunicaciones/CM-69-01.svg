@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cómo estudiar una frase de radiotelefonía</title>
+  <desc id="desc">Preguntar qué significa, qué debe colacionarse, qué acción permite y qué falta por confirmar.</desc>
+  <rect width="1600" height="900" fill="#102235"/>
+  <rect x="70" y="60" width="1460" height="780" rx="32" fill="#1c3548" stroke="#4d7181" stroke-width="2"/>
+  <text x="120" y="145" fill="#a7f3d0" font-family="Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="4">50 FICHAS DE REPASO</text>
+  <text x="120" y="210" fill="#fff" font-family="Arial,sans-serif" font-size="49" font-weight="700">No memorices palabras sin su decisión</text>
+  <text x="120" y="258" fill="#cbdbe3" font-family="Arial,sans-serif" font-size="24">Aplica las cuatro preguntas a cada frase y contrasta con la fuente vigente.</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="120" y="332" width="660" height="190" rx="23" fill="#29475b" stroke="#699b96"/>
+    <text x="152" y="385" fill="#a7f3d0" font-size="27" font-weight="700">01 · SIGNIFICADO</text>
+    <text x="152" y="434" fill="#fff" font-size="29" font-weight="700">¿Qué comunica exactamente?</text>
+    <text x="152" y="481" fill="#d8e6eb" font-size="21">Recibir, autorizar, pedir o informar no son lo mismo.</text>
+    <rect x="820" y="332" width="660" height="190" rx="23" fill="#29475b" stroke="#699b96"/>
+    <text x="852" y="385" fill="#a7f3d0" font-size="27" font-weight="700">02 · COLACIÓN</text>
+    <text x="852" y="434" fill="#fff" font-size="29" font-weight="700">¿Qué dato hay que devolver?</text>
+    <text x="852" y="481" fill="#d8e6eb" font-size="21">Pista, nivel, rumbo, límite o condición crítica.</text>
+    <rect x="120" y="548" width="660" height="190" rx="23" fill="#29475b" stroke="#699b96"/>
+    <text x="152" y="601" fill="#a7f3d0" font-size="27" font-weight="700">03 · ACCIÓN</text>
+    <text x="152" y="650" fill="#fff" font-size="29" font-weight="700">¿Qué maniobra permite?</text>
+    <text x="152" y="697" fill="#d8e6eb" font-size="21">Una expectativa nunca se convierte sola en permiso.</text>
+    <rect x="820" y="548" width="660" height="190" rx="23" fill="#215044" stroke="#93dfba"/>
+    <text x="852" y="601" fill="#a7f3d0" font-size="27" font-weight="700">04 · VERIFICACIÓN</text>
+    <text x="852" y="650" fill="#fff" font-size="29" font-weight="700">¿Qué falta por confirmar?</text>
+    <text x="852" y="697" fill="#d8e6eb" font-size="21">Hearback, capacidad, pantalla y trayectoria.</text>
+  </g>
+  <text x="120" y="790" fill="#b6cbd2" font-family="Arial,sans-serif" font-size="21">Los ejemplos con [campos] son plantillas didácticas, nunca datos operacionales reales.</text>
+</svg>

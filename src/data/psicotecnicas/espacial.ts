@@ -18,8 +18,9 @@ import type { EjercicioPsico } from "@/lib/psicotecnicas"
  *   lo que de verdad son: ejercicios resueltos.
  *
  * Las figuras son el ejercicio: sin ellas el enunciado no se puede responder.
- * Están recortadas del PDF original por scripts/psicotecnicas/extraer-figuras.mjs
- * y no se redibujaron, porque redibujar es cambiar el ejercicio.
+ * Los recortes salen del PDF original por scripts/psicotecnicas/extraer-figuras.mjs.
+ * E1-01 a E1-14 son excepciones visuales: se redibujaron desde las páginas 1
+ * a 5 para separar y ampliar las alternativas sin cambiar su respuesta.
  */
 export const ESPACIAL: EjercicioPsico[] = [
   {
@@ -96,7 +97,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Transformación de figuras",
     nivel: "avanzado",
     enunciado:
-      "A continuación se muestra un papel que ha sido plegado y agujereado según se muestra. Elige, entre las respuestas, la que se ajusta al papel una vez desplegado completamente:",
+      "Tras doblar y perforar el papel como indica la figura, ¿cómo quedan los agujeros al abrirlo por completo?",
     imagen: "/psicotecnicas/espacial/ES-E1-05.webp",
     imagenAlt:
       "Un papel doblado en diagonal con perforaciones, y cuatro cuadrículas A a D con distintas distribuciones de agujeros.",
@@ -114,15 +115,15 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Desarrollo de objetos",
     nivel: "intermedio",
     enunciado:
-      "Indica qué figura, de las 4 opciones, corresponde a la figura descompuesta de la izquierda:",
+      "¿Qué montaje se puede formar con las tres piezas de la izquierda, sin cambiar sus formas?",
     imagen: "/psicotecnicas/espacial/ES-E1-06.webp",
     imagenAlt:
-      "Dos piezas sueltas a la izquierda y cuatro montajes posibles A a D dentro de recuadros.",
+      "Tres piezas sueltas a la izquierda y cuatro montajes posibles A a D dentro de recuadros.",
     opciones: ["A", "B", "C", "D"],
     opcionesEnImagen: true,
     respuesta: 0,
     explicacion:
-      "Se montan las piezas sin girarlas más de lo que permite el enunciado y se comprueba que ninguna se solape ni sobre material. Las opciones B, C y D exigen deformar o duplicar alguna de las dos piezas; la A las usa tal cual.",
+      "Se montan las tres piezas conservando sus contornos y se comprueba que ninguna se solape ni sobre material. Las opciones B, C y D alteran o colocan mal algún trazo; la A conserva la combinación mostrada.",
     tiempo: 45,
     fuente: "Test razonamiento espacial (670006116), ej. 6",
   },
@@ -132,7 +133,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Transformación de figuras",
     nivel: "intermedio",
     enunciado:
-      "Decide cuál de las 4 vistas corresponde a la figura resultante de la izquierda una vez sumadas:",
+      "Si superpones los dos trazos de la izquierda sin girarlos, ¿qué figura obtienes?",
     imagen: "/psicotecnicas/espacial/ES-E1-07.webp",
     imagenAlt:
       "Dos trazos curvos a la izquierda que deben superponerse, y cuatro resultados posibles A a D.",
@@ -149,15 +150,15 @@ export const ESPACIAL: EjercicioPsico[] = [
     categoria: "espacial",
     subcategoria: "Relaciones espaciales",
     nivel: "basico",
-    enunciado: "Completa la figura con una de las opciones:",
+    enunciado: "¿Qué opción reproduce la silueta blanca del modelo?",
     imagen: "/psicotecnicas/espacial/ES-E1-08.webp",
     imagenAlt:
-      "Una mancha blanca sobre fondo negro a la que le falta un trozo, y cuatro parches A a D.",
+      "Una silueta blanca sobre fondo oscuro y cuatro siluetas negras A a D para comparar.",
     opciones: ["A", "B", "C", "D"],
     opcionesEnImagen: true,
     respuesta: 0,
     explicacion:
-      "El truco es mirar el borde por donde se corta, no el interior del parche: la línea de la mancha tiene que continuar sin salto al colocar la pieza. Solo la A empalma el contorno; las demás dejan un escalón visible.",
+      "Hay que comparar la silueta completa, incluidos los salientes pequeños y los dos puntos separados de abajo. A conserva esas posiciones y tamaños; en las demás cambia al menos uno de esos detalles.",
     tiempo: 45,
     fuente: "Test razonamiento espacial (670006116), ej. 8",
   },
@@ -174,7 +175,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     opcionesEnImagen: true,
     respuesta: 3,
     explicacion:
-      "Tres de las cuatro son el mismo fragmento del modelo girado; la cuarta está espejada, y una figura espejada no se obtiene girando en el plano. Ese es el criterio que la delata: la D.",
+      "A, B y C reproducen franjas del modelo. En D, la separación blanca entre la punta de la figura superior y la figura inferior es mayor que en la franja correspondiente; esa distancia la delata.",
     tiempo: 45,
     fuente: "Test razonamiento espacial (670006116), ej. 9",
   },
@@ -184,7 +185,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Relaciones espaciales",
     nivel: "intermedio",
     enunciado:
-      "Al puzle le faltan dos piezas, una de ellas está a la derecha del mismo. ¿Cuál de las cuatro piezas de la derecha es la otra pieza que completa el puzle?",
+      "Al puzle le faltan dos piezas. Una ya está identificada a la derecha: ¿cuál de las otras cuatro completa el espacio restante?",
     imagen: "/psicotecnicas/espacial/ES-E1-10.webp",
     imagenAlt:
       "Un puzle incompleto, la pieza que ya se sabe que encaja, y cuatro candidatas A a D.",
@@ -202,7 +203,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Visualización tridimensional",
     nivel: "avanzado",
     enunciado:
-      "Indique cuál, de las cuatro respuestas, corresponde a la figura original una vez que se le extraiga el trozo indicado:",
+      "Si retiras el fragmento señalado de la pieza original, ¿qué forma queda?",
     imagen: "/psicotecnicas/espacial/ES-E1-11.webp",
     imagenAlt:
       "Una pieza tridimensional original, el trozo que se le extrae, y cuatro resultados posibles A a D.",
@@ -220,7 +221,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Visualización tridimensional",
     nivel: "avanzado",
     enunciado:
-      "Indique cuál, de las cuatro respuestas, corresponde a la figura original una vez que se le extraiga el trozo indicado:",
+      "¿Cuál es el sólido que queda tras extraer el fragmento indicado?",
     imagen: "/psicotecnicas/espacial/ES-E1-12.webp",
     imagenAlt:
       "Una pieza tridimensional con un cilindro, el trozo extraído, y cuatro resultados posibles A a D.",
@@ -238,7 +239,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Relaciones espaciales",
     nivel: "intermedio",
     enunciado:
-      "¿Cuántas veces la figura de la izquierda taparía los huecos de la figura de la derecha?",
+      "Si usas la pieza de la izquierda como unidad de superficie, ¿cuántas necesitas para cubrir las zonas blancas de la derecha?",
     imagen: "/psicotecnicas/espacial/ES-E1-13.webp",
     imagenAlt:
       "Un triángulo gris a la izquierda y, a la derecha, un rectángulo con varios huecos blancos de formas angulosas.",
@@ -255,7 +256,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Relaciones espaciales",
     nivel: "avanzado",
     enunciado:
-      "¿Cuántas veces la figura de la izquierda taparía los huecos de la figura de la derecha?",
+      "¿Cuántas copias de la pieza de la izquierda equivalen al área blanca total de la figura derecha?",
     imagen: "/psicotecnicas/espacial/ES-E1-14.webp",
     imagenAlt:
       "Un paralelogramo alargado a la izquierda y, a la derecha, un rectángulo gris con huecos blancos en forma de estrella y cuñas.",
@@ -272,7 +273,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Cubos",
     nivel: "intermedio",
     enunciado:
-      "En la siguiente figura, calcule la menor cantidad de cubitos que faltan para construir un cubo sólido.",
+      "¿Cuántos cubitos faltan, como mínimo, para completar un cubo sólido que contenga toda esta figura?",
     imagen: "/psicotecnicas/espacial/ES-E2-07-limpio.webp",
     imagenAlt: "Un montaje de seis cubitos formando una figura en ele sobre dos niveles.",
     opciones: ["12", "17", "19", "20", "21"],
@@ -317,13 +318,13 @@ export const ESPACIAL: EjercicioPsico[] = [
     categoria: "espacial",
     subcategoria: "Dados",
     nivel: "avanzado",
-    enunciado: "De acuerdo al gráfico, ¿cuál es la cantidad de puntos no visibles?",
+    enunciado: "Entre los dos dados, ¿cuántos puntos hay en las caras que no se ven?",
     imagen: "/psicotecnicas/espacial/ES-E2-10-limpio.webp",
-    imagenAlt: "Dos dados apilados uno sobre otro, encima de una mesa.",
+    imagenAlt: "Dos dados apilados sobre una mesa: cada frente muestra cinco puntos, cada lado derecho tres y la cara superior visible uno.",
     opciones: ["25", "26", "24", "22", "20"],
     respuesta: 0,
     explicacion:
-      "Un dado suma 1 + 2 + 3 + 4 + 5 + 6 = 21 puntos, así que los dos juntos suman 42. No visibles son todas las caras que no se ven: las tres traseras de cada dado, la que apoya en la mesa y las dos caras que quedan pegadas entre los dos dados. Restando los 17 puntos a la vista de los 42 totales quedan 25.",
+      "Cada dado suma 1 + 2 + 3 + 4 + 5 + 6 = 21 puntos; entre los dos hay 42. En la lámina se ven cinco caras: dos frentes de 5, dos lados de 3 y una cara superior de 1. Eso suma 5 + 5 + 3 + 3 + 1 = 17 puntos visibles. Los demás, incluidas las caras de contacto y las que miran hacia atrás o hacia la mesa, suman 42 − 17 = 25.",
     tiempo: 75,
     fuente: "Test de razonamiento espacial (667045629), pregunta 10",
   },

@@ -72,6 +72,10 @@ Cada módulo cambia solo el acento, re-anclando `--av-blue-500`:
 | Mercancías | `.lector-notam .lector-mp` | `#7A5C12` mostaza (tokens `--av-dg-*`) |
 | Meteorología | `.lector-notam .lector-mt` | `#1A4A52` turquesa petróleo (tokens `--av-mt-*`) |
 | Aeropuertos | `.lector-notam .lector-ap` | `#2F766A` verde menta, con acentos pastel |
+| RAC | `.lector-notam .lector-rac` | `#3D4958` grafito pizarra (tokens `--av-rac-*`) |
+| Gestión del combustible | `.lector-notam .lector-cb` | `#005071` azul queroseno (tokens `--av-cb-*`) |
+| RVSM | `.lector-notam .lector-rv` | `#1C5750` verde azulado de cabina (tokens `--av-rv-*`) |
+| PBN | `.lector-notam .lector-pbn` | `#5C4520` bronce de instrumento (tokens `--av-pbn-*`) |
 
 **El ámbar y el rojo no son identidad, son semántica**: significan alerta y error en toda la
 app. No usarlos como color de módulo. Y `--av-green-400` es el verde de «correcto»: por eso

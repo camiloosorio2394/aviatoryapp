@@ -346,6 +346,9 @@ let verificados = 0
 /** Ítems corregidos y descartados, para dejarlos por escrito al terminar. */
 const corregidos = []
 const inconsistentes = []
+// En 8.4 no sobra ningún término: los saltos son −5, −4, −3, −2, −1.
+// La clave impresa dice 43, pero ofrecerlo como intruso enseña una regla falsa.
+const excluidosPorAmbiguedad = new Set(["8.4"])
 
 /** El tipo de cada bloque, resuelto en orden para poder heredarlo. */
 const TIPOS = new Map()
@@ -363,6 +366,7 @@ for (const [nEj, bloque] of [...enunciados].sort((a, b) => a[0] - b[0])) {
   const sols = soluciones.get(nEj)?.items
   if (!sols) continue
   for (const [nItem, enunciado] of [...items].sort((a, b) => a[0] - b[0])) {
+    if (excluidosPorAmbiguedad.has(`${nEj}.${nItem}`)) continue
     const solucion = sols.get(nItem)
     if (!solucion) { descartados++; continue }
     const impresa = respuestaDe(solucion)
@@ -394,9 +398,10 @@ for (const [nEj, bloque] of [...enunciados].sort((a, b) => a[0] - b[0])) {
         enunciado: `Señala el número que sobra en la serie: ${terminos.join(", ")}`,
         opciones: opcionesIntruso.map(String),
         respuesta: opcionesIntruso.indexOf(impresa),
-        explicacion:
-          `El número que sobra es ${impresa}: quitándolo, el resto de la serie sigue una sola regla. ` +
-          `Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.`,
+        explicacion: nEj === 8 && nItem === 13
+          ? "El 15 rompe el salto constante de +4: sin él queda 1, 5, 9, 13, 17, 21, 25."
+          : `El número que sobra es ${impresa}: quitándolo, el resto de la serie sigue una sola regla. ` +
+            `Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.`,
         tiempo: 60,
         fuente: `Psicotécnicos — Razonamiento numérico (336461140), ejercicio ${nEj}.${nItem}`,
       })

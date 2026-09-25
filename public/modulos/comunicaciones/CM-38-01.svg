@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Secuencia de respuesta a un aviso de resolución ACAS</title>
+  <desc id="desc">TA permite buscar tráfico sin maniobrar; RA exige responder, avisar a ATC cuando la carga lo permita, comunicar libre de conflicto y notificar el regreso a la autorización.</desc>
+  <rect width="1600" height="900" fill="#101d2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="94" y="112" fill="#f4fafb" font-size="51" font-weight="700">RA: responde al avión, luego informa a ATC</text>
+    <text x="96" y="164" fill="#b8cbd3" font-size="28">Secuencia de comunicaciones, no perfil vertical ni maniobra de un equipo concreto</text>
+    <rect x="92" y="245" width="345" height="424" rx="25" fill="#223748" stroke="#94aeb8" stroke-width="3"/>
+    <text x="122" y="300" fill="#c3d7de" font-size="26" font-weight="700">1 · TA</text>
+    <text x="122" y="370" fill="#ffffff" font-size="36" font-weight="700">Busca tránsito</text>
+    <text x="122" y="430" fill="#d8e3e7" font-size="26">Prepárate; no maniobres</text>
+    <text x="122" y="467" fill="#d8e3e7" font-size="26">solo por este aviso.</text>
+    <rect x="449" y="245" width="345" height="424" rx="25" fill="#204047" stroke="#83ddce" stroke-width="3"/>
+    <text x="479" y="300" fill="#83ddce" font-size="26" font-weight="700">2 · RA</text>
+    <text x="479" y="370" fill="#ffffff" font-size="36" font-weight="700">Sigue el RA</text>
+    <text x="479" y="430" fill="#d8e3e7" font-size="26">Responde de inmediato;</text>
+    <text x="479" y="467" fill="#d8e3e7" font-size="26">no inviertas su sentido.</text>
+    <text x="479" y="578" fill="#a9cbc7" font-size="25">Después: «TCAS RA»</text>
+    <rect x="806" y="245" width="345" height="424" rx="25" fill="#25394b" stroke="#83ddce" stroke-width="3"/>
+    <text x="836" y="300" fill="#83ddce" font-size="26" font-weight="700">3 · FIN DEL CONFLICTO</text>
+    <text x="836" y="370" fill="#ffffff" font-size="29" font-weight="700">Vuelve a lo asignado</text>
+    <text x="836" y="430" fill="#d8e3e7" font-size="25">«CLEAR OF CONFLICT,</text>
+    <text x="836" y="467" fill="#d8e3e7" font-size="25">RETURNING TO...»</text>
+    <rect x="1163" y="245" width="345" height="424" rx="25" fill="#2b3949" stroke="#94aeb8" stroke-width="3"/>
+    <text x="1193" y="300" fill="#c3d7de" font-size="26" font-weight="700">4 · AUTORIZACIÓN</text>
+    <text x="1193" y="370" fill="#ffffff" font-size="35" font-weight="700">Confirma regreso</text>
+    <text x="1193" y="430" fill="#d8e3e7" font-size="25">«CLEAR OF CONFLICT,</text>
+    <text x="1193" y="467" fill="#d8e3e7" font-size="25">... RESUMED»</text>
+    <text x="95" y="770" fill="#83ddce" font-size="32" font-weight="700">Una instrucción ATC contraria al RA: «UNABLE, TCAS RA».</text>
+    <text x="95" y="815" fill="#adc3cc" font-size="25">Solo se comunica cuando la carga de trabajo permite mantener la respuesta segura.</text>
+  </g>
+</svg>

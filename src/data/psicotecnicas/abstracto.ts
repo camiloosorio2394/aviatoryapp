@@ -19,6 +19,8 @@ import { LAMINAS_LIMPIAS } from "./laminasLimpias"
 
 const ENUNCIADO = "¿Qué figura continúa la serie?"
 const OPCIONES = ["A", "B", "C", "D", "E"]
+const LAMINAS_DIDACTICAS = new Set(["AB-A1-08", "AB-A1-10", "AB-A1-13", "AB-A1-14", "AB-A1-15", "AB-A1-16", "AB-A1-18"])
+const LAMINAS_SVG = new Set([8, 10, 13, 14, 15, 16, 18])
 
 /** Todos comparten enunciado y formato, así que la ficha se arma con esto. */
 function serie(
@@ -36,14 +38,16 @@ function serie(
   // Mientras una lámina no esté dibujada se enseña su recorte, y del recorte
   // se enseña la versión sin el logotipo de Facebook cuando se pudo quitar sin
   // morder el ejercicio. El original se queda en el repositorio como prueba.
-  const lamina = LAMINAS_LIMPIAS.has(id) ? `${id}-limpio` : id
+  const lamina = LAMINAS_DIDACTICAS.has(id)
+    ? `${id}-didactico`
+    : LAMINAS_LIMPIAS.has(id) ? `${id}-limpio` : id
   return {
     id,
     categoria: "abstracto",
     subcategoria,
     nivel,
     enunciado: ENUNCIADO,
-    imagen: `/psicotecnicas/abstracto/${lamina}.webp`,
+    imagen: `/psicotecnicas/abstracto/${lamina}.${LAMINAS_SVG.has(n) ? "svg" : "webp"}`,
     imagenAlt,
     opciones: OPCIONES,
     ...(figura ? { figura } : { opcionesEnImagen: true }),
@@ -56,8 +60,7 @@ function serie(
 
 /** Cierre común: cómo se ataca una matriz de tres por tres. */
 const METODO =
-  "El método es siempre el mismo: se separa cada atributo y se sigue por filas y por columnas; " +
-  "la casilla que falta es la combinación que todavía no ha aparecido."
+  "Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir."
 
 export const ABSTRACTO: EjercicioPsico[] = [
   serie(
@@ -74,7 +77,7 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "basico",
     3,
     "Matriz de rombos inscritos en rectángulos, con líneas interiores que se añaden y se quitan.",
-    `El rombo es fijo; lo que se mueve son las líneas de dentro, que se van añadiendo en un orden constante y girando de lado. La D es la única que continúa las dos cosas a la vez. ${METODO}`
+    `El rombo no cambia. Cuenta sus brazos interiores en el orden de lectura: 1, 2, 3, 4, 3, 2, 1, 2 y luego deben ser 3. Solo la D tiene tres brazos; no hace falta suponer un giro que la matriz no demuestra. ${METODO}`
   ),
   serie(
     3,
@@ -90,7 +93,7 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "intermedio",
     0,
     "Matriz con una pieza alargada que gira y cambia de relleno: rayado, punteado o blanco.",
-    `Dos atributos a la vez: la orientación de la pieza —que gira un cuarto de vuelta cada paso— y su relleno, que rota entre rayado, punteado y blanco. La A es la que cierra las dos series. ${METODO}`
+    `La punta y el relleno avanzan juntos por un ciclo de tres estados: arriba con rayado, abajo con punteado y derecha en blanco. Cada fila empieza un estado más adelante. Tras derecha y arriba, falta abajo con punteado: la A. La orientación de la barra interior no determina la respuesta. ${METODO}`
   ),
   serie(
     5,
@@ -122,7 +125,7 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "intermedio",
     3,
     "Matriz de rectángulos cruzados por sus diagonales, con sectores rellenos en negro o en rayado vertical.",
-    `Las diagonales dividen cada rectángulo en cuatro sectores y lo que cambia es cuál se rellena y con qué: negro o rayado. Se sigue primero el sector y después el relleno. Falta la D. ${METODO}`
+    `Las dos diagonales son el marco fijo; separa el relleno de arriba del pequeño bloque interior. En la última fila, la zona superior pasa de negra a blanca y luego debe quedar rayada. Sobre la diagonal principal, el bloque horizontal aparece rayado, blanco y finalmente negro. Solo la D combina zona superior rayada con bloque negro horizontal; B deja ese bloque blanco y C lo convierte en una franja vertical. ${METODO}`
   ),
   serie(
     9,
@@ -138,7 +141,7 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "intermedio",
     1,
     "Matriz de rectángulos con líneas diagonales y un triángulo pequeño que cambia de posición y de relleno.",
-    `El armazón de diagonales se mantiene y lo que viaja es el triángulo pequeño, que además cambia entre negro y rayado. Siguiendo su recorrido y su relleno, la respuesta es la B. ${METODO}`
+    `Sigue dos ciclos, no la figura completa: el armazón apunta abajo, derecha y arriba, y ese orden se desplaza una casilla en cada fila. El triángulo pequeño alterna rayado, sin relleno y negro. En la última casilla toca armazón hacia la derecha y triángulo sin relleno, apuntando a la derecha: B. La D conserva el armazón, pero cambia la orientación del triángulo pequeño. ${METODO}`
   ),
   serie(
     11,
@@ -162,7 +165,7 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "avanzado",
     3,
     "Matriz con un círculo cortado por una cuerda y tres formas pequeñas —triángulo, cuadrado y circunferencia— colocadas alrededor.",
-    `El círculo con su cuerda es el fondo; lo que hay que seguir son las tres formas pequeñas, cada una con su recorrido. Son tres series a la vez, y por eso conviene resolverlas de una en una. Queda la D. ${METODO}`
+    `El arco y la cuerda son la referencia fija. Sigue por separado el triángulo, el cuadrado y el círculo: la pieza que falta los muestra arriba, abajo y a la izquierda del arco, respectivamente. La C parece casi igual, pero coloca el círculo dentro del arco; la D lo deja fuera, como exige la matriz. ${METODO}`
   ),
   serie(
     14,
@@ -170,7 +173,7 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "intermedio",
     1,
     "Matriz de circunferencias divididas en sectores, con un número dentro y un sector negro que gira.",
-    `Aquí hay una pista numérica: los números avanzan de uno en uno leyendo la matriz en orden, y a la vez el sector negro gira una posición fija en cada paso. El número que toca y la posición del sector coinciden solo en la B. ${METODO}`
+    `Separa tres pistas. La última fila lleva 3, 6 y 9, así que falta el 9. La cuña negra avanza un cuadrante en sentido horario al recorrer cada fila: en la última toca el superior izquierdo. La línea diagonal sigue su propio recorrido y debe salir hacia abajo a la derecha. A y B tienen 9 y la cuña correcta, pero solo B coloca también la diagonal donde corresponde. ${METODO}`
   ),
   serie(
     15,
@@ -178,15 +181,15 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "avanzado",
     2,
     "Matriz con una cruz de la que salen trazos cortos en los extremos, en distintas orientaciones.",
-    `Todas las casillas son la misma figura girada; lo difícil es que hay poco a lo que agarrarse. Conviene fijar un trazo concreto —el más largo, por ejemplo— y medir cuánto gira de casilla a casilla. Con ese giro constante, la respuesta es la C. ${METODO}`
+    `La cruz larga permanece fija; no hay que girar la figura entera. Mira los remates oblicuos por separado: en la última casilla el extremo izquierdo debe subir, el superior debe bajar hacia la izquierda y aparece un trazo corto que sale del centro hacia abajo a la izquierda. Esa combinación es la C. En B el remate izquierdo baja; en A el remate central va hacia la derecha. ${METODO}`
   ),
   serie(
     16,
     "Patrones",
     "intermedio",
     1,
-    "Matriz de rectángulos partidos en cuatro cuadrantes, rellenos con rayado diagonal, cuadrícula o blanco.",
-    `Cada casilla reparte tres rellenos —rayado, cuadrícula y blanco— entre los cuadrantes, y lo que rota es en qué cuadrante cae cada uno. Siguiendo la rotación, falta la B. ${METODO}`
+    "Matriz de rectángulos divididos en cuatro sectores; las rayas cambian de posición y dirección.",
+    `No basta con ver dos sectores sombreados: también importa la dirección de las rayas. En la última fila, los dos sectores rayados pasan de la mitad inferior a la superior. La pieza buscada debe conservar ambos sectores superiores con rayas diagonales opuestas, como la B. A, C y D usan rayas verticales; E no reúne los dos sectores arriba. ${METODO}`
   ),
   serie(
     17,
@@ -202,7 +205,7 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "avanzado",
     3,
     "Matriz de rectángulos con diagonales, una letra (A, B o C), un triángulo negro y un punto que se desplazan.",
-    `Tres atributos independientes: la letra, en qué sector cae el triángulo negro y dónde está el punto. Cada uno se repite una vez por fila y una por columna. Cruzando los tres, la casilla vacía solo admite la D. ${METODO}`
+    `La letra cambia por fila —A, B, C— y el triángulo grande pasa del sector superior izquierdo al superior derecho y luego al inferior derecho. Hay un tercer ciclo: casilla sin marca, pequeña zona negra y punto; esos tres estados se desplazan una posición en cada fila. En el hueco toca C, triángulo grande abajo a la derecha y pequeña zona negra a la izquierda. La D reúne los tres rasgos. ${METODO}`
   ),
   serie(
     19,

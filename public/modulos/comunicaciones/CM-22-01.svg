@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Velocidad, altura y distancia en una llegada</title>
+  <desc id="desc">Dos perfiles conceptuales comparan una desaceleración planificada con una reducción tardía mientras resta altura por perder.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0d1a2b"/><stop offset="1" stop-color="#17253a"/></linearGradient>
+    <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="22" refX="20" refY="11" orient="auto"><path d="M2 2 20 11 2 20" fill="none" stroke="#97f0d0" stroke-width="3"/></marker>
+  </defs>
+  <rect width="1600" height="900" rx="30" fill="url(#bg)"/>
+  <text x="90" y="104" fill="#a1f0d7" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="4">CONTROL DE VELOCIDAD</text>
+  <text x="90" y="170" fill="#f3f7fa" font-family="Arial,sans-serif" font-size="48" font-weight="700">Una instrucción cambia todo el perfil</text>
+  <text x="90" y="219" fill="#bcc9d4" font-family="Arial,sans-serif" font-size="26">Reducir velocidad requiere distancia y puede competir con perder altura.</text>
+  <rect x="80" y="276" width="694" height="482" rx="24" fill="#1a3441" stroke="#70d6bc" stroke-width="2"/>
+  <text x="122" y="337" fill="#a1f0d7" font-family="Arial,sans-serif" font-size="28" font-weight="700">PLANIFICADO</text>
+  <text x="122" y="377" fill="#dce9ee" font-family="Arial,sans-serif" font-size="23">La reducción inicia con distancia disponible</text>
+  <path d="M146 625 H706" stroke="#66808c" stroke-width="3"/>
+  <path d="M166 489 C280 503 350 534 437 564 S606 596 686 600" fill="none" stroke="#a1f0d7" stroke-width="9" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <circle cx="245" cy="500" r="11" fill="#a1f0d7"/><text x="174" y="464" fill="#f1f9f5" font-family="Arial,sans-serif" font-size="21">Desacelerar</text>
+  <circle cx="467" cy="572" r="11" fill="#a1f0d7"/><text x="431" y="538" fill="#f1f9f5" font-family="Arial,sans-serif" font-size="21">Descender</text>
+  <text x="143" y="691" fill="#e9f4f2" font-family="Arial,sans-serif" font-size="22">Perfil verificado por ambos pilotos</text>
+  <rect x="826" y="276" width="694" height="482" rx="24" fill="#322b35" stroke="#e7b49e" stroke-width="2"/>
+  <text x="868" y="337" fill="#f0c1a8" font-family="Arial,sans-serif" font-size="28" font-weight="700">TARDÍO</text>
+  <text x="868" y="377" fill="#ebdfe0" font-family="Arial,sans-serif" font-size="23">Queda poco espacio para ambas tareas</text>
+  <path d="M894 625 H1452" stroke="#86767d" stroke-width="3"/>
+  <path d="M914 489 C1090 499 1250 512 1427 528" fill="none" stroke="#f0c1a8" stroke-width="9" stroke-linecap="round"/>
+  <path d="M1425 530 L1425 609" stroke="#f0c1a8" stroke-width="4" stroke-dasharray="11 11"/>
+  <circle cx="1418" cy="530" r="13" fill="#f0c1a8"/>
+  <text x="1062" y="579" fill="#fff0e9" font-family="Arial,sans-serif" font-size="22">Velocidad y altura pendientes</text>
+  <text x="895" y="691" fill="#fff0e9" font-family="Arial,sans-serif" font-size="22">Avisar incapacidad; pedir alternativa</text>
+  <text x="90" y="830" fill="#9caebd" font-family="Arial,sans-serif" font-size="22">Esquema conceptual · sin distancias, velocidades ni aeródromo reales</text>
+</svg>

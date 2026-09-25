@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="850" viewBox="0 0 1100 850" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Desarrollo plano de un cubo y cuatro cubos plegados</title>
+  <desc id="descripcion">Redibujo del ejercicio 3 del cuadernillo E1, conservando la posición de los triángulos, las marcas cuadradas y la orientación de cada alternativa.</desc>
+  <defs>
+    <style>
+      .panel { fill: #fafbfc; stroke: #d8dee5; stroke-width: 2; }
+      .cara { fill: #fff; stroke: #202631; stroke-width: 2.6; stroke-linejoin: round; }
+      .rotulo { fill: #202631; font: 700 25px Arial, sans-serif; }
+      .guia { fill: #637182; font: 600 18px Arial, sans-serif; letter-spacing: 1px; }
+      .negro { fill: #202631; }
+      .marca { fill: #fff; stroke: #202631; stroke-width: 2; }
+    </style>
+    <g id="cubo">
+      <path class="cara" d="M0 32 27 5H127L100 32Z"/>
+      <path class="cara" d="M100 32 127 5V105L100 132Z"/>
+      <path class="cara" d="M0 32H100V132H0Z"/>
+    </g>
+  </defs>
+
+  <rect width="1100" height="850" fill="#fff"/>
+  <text class="guia" x="36" y="45">DESARROLLO DE REFERENCIA</text>
+  <g transform="translate(382 64)">
+    <rect class="cara" x="0" y="70" width="70" height="70"/>
+    <rect class="cara" x="70" y="70" width="70" height="70"/>
+    <rect class="cara" x="140" y="70" width="70" height="70"/>
+    <rect class="cara" x="140" y="0" width="70" height="70"/>
+    <rect class="cara" x="210" y="0" width="70" height="70"/>
+    <rect class="cara" x="0" y="140" width="70" height="70"/>
+    <path class="negro" d="M140 0H210V70Z M0 210H70V140Z"/>
+    <rect class="marca" x="55" y="77" width="9" height="9"/>
+    <rect class="marca" x="7" y="124" width="9" height="9"/>
+    <rect class="marca" x="77" y="77" width="9" height="9"/>
+    <rect class="marca" x="124" y="124" width="9" height="9"/>
+    <rect class="marca" x="147" y="77" width="9" height="9"/>
+    <rect class="marca" x="239" y="29" width="9" height="9"/>
+  </g>
+
+  <rect class="panel" x="30" y="290" width="510" height="255" rx="16"/>
+  <rect class="panel" x="560" y="290" width="510" height="255" rx="16"/>
+  <rect class="panel" x="30" y="560" width="510" height="255" rx="16"/>
+  <rect class="panel" x="560" y="560" width="510" height="255" rx="16"/>
+
+  <text class="rotulo" x="62" y="331">A</text>
+  <g transform="translate(228 337) scale(1.45)">
+    <use href="#cubo"/>
+    <path class="negro" d="M0 32 127 5 100 32Z"/>
+    <path d="M0 32 27 5 127 5 100 32" fill="none" stroke="#202631" stroke-width="2.6"/>
+    <rect class="marca" x="44" y="76" width="10" height="10"/>
+    <rect class="marca" x="105" y="52" width="9" height="9"/>
+    <rect class="marca" x="105" y="103" width="9" height="9"/>
+  </g>
+
+  <text class="rotulo" x="592" y="331">B</text>
+  <g transform="translate(758 337) scale(1.45)">
+    <use href="#cubo"/>
+    <path class="negro" d="M0 132H100V32Z"/>
+    <path d="M0 32H100V132H0Z" fill="none" stroke="#202631" stroke-width="2.6"/>
+    <rect class="marca" x="25" y="12" width="10" height="8" transform="skewX(-35)"/>
+    <rect class="marca" x="79" y="12" width="10" height="8" transform="skewX(-35)"/>
+    <rect class="marca" x="104" y="51" width="8" height="10"/>
+    <rect class="marca" x="104" y="105" width="8" height="10"/>
+  </g>
+
+  <text class="rotulo" x="62" y="601">C</text>
+  <g transform="translate(228 607) scale(1.45)">
+    <use href="#cubo"/>
+    <path class="negro" d="M100 32 127 5V71L100 132Z"/>
+    <path d="M100 32 127 5V105L100 132" fill="none" stroke="#202631" stroke-width="2.6"/>
+    <rect class="marca" x="50" y="13" width="10" height="8" transform="skewX(-35)"/>
+    <rect class="marca" x="12" y="39" width="10" height="10"/>
+    <rect class="marca" x="78" y="112" width="10" height="10"/>
+  </g>
+
+  <text class="rotulo" x="592" y="601">D</text>
+  <g transform="translate(758 607) scale(1.45)">
+    <use href="#cubo"/>
+    <path class="negro" d="M0 32 100 132H0Z"/>
+    <path d="M0 32H100V132H0Z" fill="none" stroke="#202631" stroke-width="2.6"/>
+    <rect class="marca" x="38" y="13" width="10" height="8" transform="skewX(-35)"/>
+    <rect class="marca" x="93" y="13" width="10" height="8" transform="skewX(-35)"/>
+    <rect class="marca" x="108" y="65" width="9" height="10"/>
+  </g>
+</svg>
