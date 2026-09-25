@@ -51,11 +51,11 @@ export const NIVEL_2: DocScreen[] = [
     n: 8,
     title: "Aviation English",
     kicker: "Comunicar con eficacia, no con sofisticación",
-    minutes: 10,
+    minutes: 13,
     blocks: [
       {
         kind: "p",
-        text: "El nivel 1 enseñó el mecanismo (servicios, principios, alfabeto, números, distintivos, estructura de una transmisión). Este nivel enseña el idioma con el que se usa ese mecanismo: qué inglés se habla en la frecuencia, qué exige la OACI, cuándo se usa fraseología y cuándo lenguaje común, y qué significa exactamente cada palabra normalizada.",
+        text: "El nivel 1 enseñó el mecanismo (servicios, principios, alfabeto, números, distintivos y estructura de una transmisión). Este nivel trata el idioma con el que se usa ese mecanismo: qué inglés se habla en frecuencia, qué exige la Organización de Aviación Civil Internacional (OACI; International Civil Aviation Organization, ICAO), cuándo se usa fraseología y cuándo lenguaje común, y por qué la tripulación debe verificar que su mensaje produjo la comprensión y la acción correctas.",
       },
       { kind: "sub", text: "¿Qué es?" },
       {
@@ -92,7 +92,7 @@ export const NIVEL_2: DocScreen[] = [
             "**Fraseología normalizada (RT phraseology)**",
             "Un «sublenguaje» restringido y codificado: cada palabra tiene un significado fijo.",
             "Pilotos y ATC",
-            "«Aviatory 452, request descent»",
+            "«REQUEST DESCENT» (fragmento del Doc 9432; la llamada completa incluye distintivo)",
           ],
           [
             "**Lenguaje común (plain language)**",
@@ -107,12 +107,12 @@ export const NIVEL_2: DocScreen[] = [
         text: "Las tres últimas capas son las que importan al piloto en la frecuencia. El capítulo 10 trabaja la frontera entre fraseología y lenguaje común.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-08-01 · Diagrama · 4:3 · 1200×900 px",
-        descripcion:
-          "Imagen sugerida: círculos concéntricos (o conjuntos anidados). El más grande: «General English». Dentro: «Lenguaje aeronáutico (ingeniería, mantenimiento, despacho, cabina de pasajeros…)». Dentro: «Radiotelefonía aeronáutica (pilotos y ATC)», partido en dos mitades: «Fraseología normalizada» y «Lenguaje común (plain language)». En cada zona, una frase de ejemplo corta. Al margen, la leyenda «Esto es lo que mide la competencia lingüística OACI» señalando el círculo de radiotelefonía. Objetivo: que el piloto ubique de un vistazo qué inglés se exige en la frecuencia y entienda que la competencia OACI no mide el General English ni el vocabulario técnico de otras áreas.",
-        alto: 360,
-        ratio: "4 / 3",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-08-01.svg",
+        alt: "Conjuntos anidados: inglés general, inglés aeronáutico y radiotelefonía; dentro de la radiotelefonía aparecen fraseología normalizada y lenguaje común.",
+        ancho: 1200,
+        alto: 900,
+        pie: "Reconoce qué registro exige la situación: use fraseología para lo previsto y lenguaje común directo cuando aquella no alcance. En ambos casos, confirme que el otro comprendió la condición y la acción necesaria. Amplía la lámina para seguir los niveles. Esquema basado en el Doc 9835, 3.2.6–3.3.14.",
       },
 
       { kind: "sub", text: "Lo que debe saber un piloto" },
@@ -130,7 +130,7 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**4. El idioma de la frecuencia.** Según el Anexo 10, Vol. II, 5.2.1.2, citado en el Doc 9835 4.3.5, la radiotelefonía se hace en el idioma de la estación terrestre o en inglés, y el inglés debe estar disponible en las estaciones que atienden rutas y aeropuertos de servicios internacionales. El propio Doc 9835 pone el ejemplo de México, Centroamérica y gran parte de Sudamérica: en vuelos internacionales se puede usar español o inglés, pero el inglés tiene que estar disponible. Para el piloto latinoamericano esto significa frecuencias **bilingües**: el mismo controlador puede hablar en español con un vuelo nacional y en inglés con uno extranjero. El Doc 9835 (3.3.22) advierte el costo: el piloto que solo habla inglés no entiende lo que se dice en español a las demás aeronaves y pierde parte de la conciencia situacional de la frecuencia.",
+        text: "**4. El idioma de la frecuencia.** Según el Anexo 10, Vol. II, 5.2.1.2, citado en el Doc 9835 4.3.5, la radiotelefonía se hace en el idioma de la estación terrestre o en inglés, y el inglés debe estar disponible en las estaciones que atienden rutas y aeropuertos de servicios internacionales. El Doc 9835 menciona operaciones de México, Centroamérica y parte de Sudamérica en las que puede escucharse español e inglés en una misma frecuencia. Eso no permite afirmar que **todas** las frecuencias de la región sean bilingües: el idioma disponible y las condiciones de uso se confirman en la publicación del Estado. Cuando dos idiomas coexisten, el piloto que no entiende uno de ellos pierde parte de la conciencia del tránsito, riesgo señalado en el Doc 9835, 3.3.22.",
       },
       {
         kind: "p",
@@ -145,76 +145,39 @@ export const NIVEL_2: DocScreen[] = [
       },
       { kind: "p", text: "El documento no nombra los sucesos; aquí tampoco." },
 
-      { kind: "sub", text: "Fraseología OACI" },
+      { kind: "sub", text: "De la fraseología al lenguaje común" },
       {
-        kind: "callout",
-        tone: "info",
-        title: "Cómo leer los ejemplos de este nivel",
-        text: "Distintivos (AVIATORY 452, 425, 542), estaciones, frecuencias, códigos y waypoints son ficticios y educativos. «Adaptado de Doc 9432 x.x» quiere decir que el intercambio sale del manual con el distintivo y las estaciones cambiados. **PLAIN LANGUAGE** es lenguaje común, no fraseología normalizada. **(ejemplo construido)** no aparece en las fuentes cargadas y está en la línea VERIFICAR del capítulo.",
+        kind: "p",
+        text: "**En operación no se elige entre hablar bonito y hablar corto.** Primero se decide si la situación tiene fraseología publicada. Si la tiene, se usa completa y en el orden que corresponde; el resto del mensaje se adapta a la fase y a la autorización vigente. Si una falla, una persona enferma o una limitación de la aeronave no caben en esa fraseología, se pasa a lenguaje común directo: condición, capacidad, intención y ayuda solicitada. La tripulación comprueba después qué entendió la dependencia. El análisis del vuelo Avianca 052 en la lección anterior muestra por qué una expresión verdadera pero ambigua no basta para comunicar una emergencia.",
+      },
+      {
+        kind: "pasos",
+        items: [
+          {
+            rotulo: "Solicitud normal: fraseología disponible",
+            codigo: "DOC 9432, 3.3.3.1 · REQUEST DESCENT / LEAVING FL 90 DESCENDING TO FL 60",
+            texto: "Estos son **fragmentos de ejemplo del Manual de Radiotelefonía**, no el diálogo completo de un vuelo ni una autorización local. El primero expresa la solicitud sin rodeos; el segundo informa tanto el nivel que se abandona como el autorizado. Un piloto de aerolínea no comunica solo la palabra DESCENT ni mueve el selector antes de escuchar una autorización: integra distintivo, límite vertical, restricciones asociadas y colación que permita al controlador comprobar la interpretación. En una entrevista, el evaluador escucha si usted separa la solicitud de la autorización recibida y no confunde la frase corta del manual con una licencia para omitir contexto.",
+          },
+          {
+            rotulo: "La palabra normalizada no se sustituye por una paráfrasis",
+            texto: "El Doc 9835, 3.3.11, explica el riesgo de pronunciar una pista como «ten» cuando «one zero» diferencia los dígitos y evita confusión con «turn». El Doc 9432, 2.4.2, prescribe la pronunciación separada de las cifras de pista. Es una regla de identificación, no de estilo. Después de una autorización de aterrizaje, la tripulación comprueba el número y lado de pista contra la carta, las indicaciones de cabina y el entorno visual; una sílaba no entendida se aclara antes de interpretar la autorización como propia.",
+          },
+          {
+            rotulo: "Situación no prevista: lenguaje común explícito",
+            texto: "Si hay una falla hidráulica y la tripulación necesita tiempo para una lista de comprobación, el mensaje útil identifica el problema, lo que puede mantener la aeronave y la ayuda requerida. No hace falta fingir un rumbo, punto de espera o frecuencia para practicar esa decisión. Decir «tenemos un problema» sin explicar la consecuencia deja al controlador sin una imagen operativa; prometer una maniobra todavía no evaluada es igualmente deficiente. El Doc 9835, 5.3.3.4–5.3.3.7, insiste en declaraciones directas y en limitar la carga informativa por transmisión.",
+          },
+          {
+            rotulo: "Caso documentado: US Airways 1549",
+            texto: "El 15 de enero de 2009 el vuelo US Airways 1549 salió de LaGuardia hacia Charlotte. Tras el impacto con aves y la pérdida de empuje de ambos motores, la tripulación comunicó la condición a control de salida. El controlador ofreció opciones; cuando una pista no era alcanzable, el comandante expresó la imposibilidad y la posibilidad de amerizar en el Hudson. El informe de la Junta Nacional de Seguridad del Transporte de Estados Unidos (NTSB, National Transportation Safety Board) AAR-10/03, §1.1 y apéndice B, permite distinguir lo grabado de cualquier reconstrucción pedagógica. La lección lingüística es que «no podemos» y la alternativa prevista transmitieron una capacidad real que una colación cortés de una pista inviable habría ocultado. No se reutiliza aquí la historieta de la lección 1 ni se presenta esta síntesis como transcripción literal.",
+          },
+        ],
       },
       {
         kind: "callout",
         tone: "verificar",
-        title: "Verificar",
-        text: "Tres frases de esta lección no están comprobadas contra su fuente. «Aviatory 452, going around»: consultar Doc 4444 cap. 12 (fraseología de aproximación frustrada) y Anexo 10 Vol. II cap. 5. «Request heading 270 to avoid» y «Request to hold present position» van como PLAIN LANGUAGE: consultar Doc 4444 cap. 12 (desvíos por meteorología y fraseología de espera). El idioma de cada dependencia ATS en Colombia se confirma en la AIP Colombia GEN 3.4 vigente.",
+        title: "Antes de usarlo en una frecuencia real",
+        text: "La fraseología concreta de motor y al aire, desvío por meteorología, espera y emergencia debe comprobarse en el **Doc 4444 y el Anexo 10 vigentes**, además de los procedimientos de la dependencia y del explotador. El idioma disponible en cada dependencia de Colombia se consulta en el **AIP/eAIP Colombia vigente, GEN 3.4**. Esta lección evita publicar rumbos, frecuencias o rutas supuestos como si fueran actuales.",
       },
-      {
-        kind: "p",
-        text: "Cada pareja muestra la misma intención dicha en General English (lo que **no** se debe transmitir) y en fraseología o en lenguaje común bien construido.",
-      },
-      ...entrada(
-        "Solicitar descenso",
-        [
-          `PILOT (General English, incorrecto): "Bogota Control, Aviatory 452, hi, we were wondering if we could maybe start going down now."`,
-          `PILOT: "Aviatory 452, request descent."`,
-          `ATC:   "Aviatory 452, descend to FL 240."`,
-          `PILOT: "Leaving FL 350, descending to FL 240, Aviatory 452."`,
-        ],
-        "Significado: la versión correcta cabe en cuatro palabras y el controlador reconoce la solicitud sin interpretar. La respuesta del piloto informa el nivel que abandona y el nivel autorizado. Adaptado de Doc 9432 3.3.3.1 (REQUEST DESCENT; LEAVING FL 90 DESCENDING TO FL 60).",
-      ),
-      ...entrada(
-        "Informar que no se puede cumplir",
-        [
-          `ATC:   "Aviatory 452, cleared to GIKOS, FL 290, cross TOLKO FL 150 or above, if unable, maintain FL 130."`,
-          `PILOT (incorrecto): "Uh, I don't think we're going to make that one, it's a bit tight."`,
-          `PILOT: "Unable to cross TOLKO FL 150 due weight, maintaining FL 130, Aviatory 452."`,
-        ],
-        "Significado: UNABLE más el motivo. «I don't think…» obliga al controlador a adivinar si el piloto cumplirá o no. TOLKO es ficticio. Adaptado de Doc 9432 2.8.3.10.",
-      ),
-      ...entrada(
-        "Notificar la maniobra de motor y al aire",
-        [
-          `PILOT (jerga, incorrecto): "Aviatory 452, we're on the go."`,
-          `PILOT: "Aviatory 452, going around."`,
-          `ATC:   "Aviatory 452, roger."`,
-        ],
-        "Significado: el Doc 9835 (5.3.2.2) cuenta que un mismo motor y al aire se anuncia según la aerolínea o el país como «go-around», «missed approach», «balked approach», «abandon approach» o «we're on the go», y que los demás en la frecuencia (incluido el controlador que separa) pueden no entender qué va a hacer la aeronave. La fraseología OACI del motor y al aire se trabaja en los capítulos 29 y 30; la forma «going around» está en VERIFICAR.",
-      ),
-      ...entrada(
-        "Designar una pista",
-        [
-          `ATC (incorrecto): "Aviatory 452, runway ten left, cleared to land."`,
-          `ATC:   "Aviatory 452, runway 10 left, cleared to land."   (dicho "one zero left")`,
-          `PILOT: "Runway 10 left, cleared to land, Aviatory 452."`,
-        ],
-        "Significado: el Doc 9835 (3.3.11) pone este caso: «ten» puede oírse como «turn» (gire). Por eso cada dígito se pronuncia por separado (Doc 9432 2.4.2: «pista dos siete»).",
-      ),
-      ...entrada(
-        "Decir lo que preocupa, sin rodeos (PLAIN LANGUAGE)",
-        [
-          `PILOT (indirecto, incorrecto): "Aviatory 452, we were just wondering about the weather ahead, it looks kind of interesting."`,
-          `PILOT: "Aviatory 452, we have weather ahead on our route. Request heading 270 to avoid."`,
-        ],
-        "Significado: el Doc 9835 (5.3.3.4 y 5.3.3.5) atribuye incidentes y accidentes a problemas informados con lenguaje poco directo y pide exponer la preocupación de forma explícita. «Kind of interesting» no dice ni el problema ni lo que se necesita. La fraseología de desvío por meteorología va en el capítulo 25.",
-      ),
-      ...entrada(
-        "Limitar la carga de cada transmisión (PLAIN LANGUAGE)",
-        [
-          `PILOT (incorrecto): "Aviatory 452, we have a hydraulic problem and we need to run the checklist and maybe we will need to return but we don't know yet and we also need to talk to the company and the passengers are fine."`,
-          `PILOT: "Aviatory 452, we have a hydraulic problem. Request to hold present position for about ten minutes to run the checklist. Will advise intentions."`,
-        ],
-        "Significado: el Doc 9835 (5.3.3.7) dice que la inteligibilidad se controla moderando la velocidad, limitando la carga informativa de cada enunciado y haciendo pausas. Tres frases cortas: problema, necesidad, lo que viene.",
-      ),
 
       { kind: "sub", text: "Aplicación en aerolínea" },
       {
@@ -245,7 +208,7 @@ export const NIVEL_2: DocScreen[] = [
       { kind: "sub", text: "Error frecuente" },
       error(
         "Traducir mentalmente del español",
-        "«We are in take-off» (estamos en el despegue) repite el error que el Doc 9835 3.3.7 b documenta.",
+        "«We are at take-off» (estamos en el despegue) reproduce el error que documenta el Doc 9835, 3.3.7 b).",
       ),
       error(
         "Adornar la fraseología",
@@ -272,7 +235,7 @@ export const NIVEL_2: DocScreen[] = [
           "Aviation English busca efectividad, no sofisticación: claro, preciso, conciso, sin ambigüedad.",
           "La fraseología es corta a propósito: sin artículos, sin pronombres, sin rellenos.",
           "Nada de jerga, modismos ni coloquialismos, aunque el otro los use.",
-          "En Latinoamérica las frecuencias son bilingües: escuche también lo que se dice en español.",
+          "En algunas dependencias pueden coexistir español e inglés; confirme lo publicado y escuche al resto del tránsito.",
           "Una transmisión, una idea: problema, necesidad, intención.",
         ],
       },
@@ -284,20 +247,16 @@ export const NIVEL_2: DocScreen[] = [
           { kind: "sub", text: "Verificado" },
           {
             kind: "p",
-            text: "Doc 9835 (2.ª ed.) glosario «Lenguaje común», 3.2.6, 3.2.7, 3.3.3, 3.3.7, 3.3.9, 3.3.10, 3.3.11, 3.3.14, 3.3.21, 3.3.22, 4.3.5, 4.5.5 c), 4.5.10, 4.6.4, 5.3.1.4 d), 5.3.2.2, 5.3.3.4, 5.3.3.5, 5.3.3.7; Doc 9432 (4.ª ed.) Preámbulo, 2.2.1 d) y g), 2.4.2, 2.4.3, 2.8.3.3, 2.8.3.10, 3.3.3.1.",
+            text: "Doc 9835 (2.ª ed.) glosario «Lenguaje común», 3.2.6, 3.2.7, 3.3.3, 3.3.7, 3.3.9, 3.3.10, 3.3.11, 3.3.14, 3.3.21, 3.3.22, 4.3.5, 4.5.5 c), 4.5.10, 4.6.4, 5.3.1.4 d), 5.3.2.2 y 5.3.3.4–5.3.3.7; Doc 9432 (4.ª ed.) Preámbulo, 2.2.1 d) y g), 2.4.2, 2.4.3, 2.8.3.3 y 3.3.3.1; NTSB AAR-10/03, §1.1 y apéndice B (https://www.ntsb.gov/investigations/accidentreports/reports/aar1003.pdf).",
           },
           { kind: "sub", text: "Por verificar" },
           {
             kind: "list",
             items: [
-              "VERIFICAR: la frase del piloto «Aviatory 452, going around» contra Doc 4444 cap. 12 (fraseología de aproximación frustrada) y Anexo 10 Vol. II cap. 5 (no cargados).",
-              "VERIFICAR: idioma de cada dependencia ATS en Colombia contra AIP Colombia GEN 3.4 (no cargado).",
-              "VERIFICAR: la solicitud «Request heading 270 to avoid» contra Doc 4444 cap. 12, desvíos por meteorología (no cargado); aquí se presenta como PLAIN LANGUAGE.",
-              "VERIFICAR: «Request to hold present position» (PLAIN LANGUAGE) contra la fraseología de espera del Doc 4444 cap. 12 (no cargado).",
+              "Idioma de cada dependencia ATS en Colombia contra AIP/eAIP Colombia GEN 3.4 vigente.",
+              "Fraseología concreta de motor y al aire, desvío por meteorología, espera y emergencia contra Doc 4444 y Anexo 10, Vol. II, vigentes antes de usarla en operación.",
             ],
           },
-          { kind: "sub", text: "Convenciones de los ejemplos" },
-          CONVENCIONES,
         ],
       },
     ],
