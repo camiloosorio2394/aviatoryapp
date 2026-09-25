@@ -44,6 +44,10 @@ export const NIVEL_6: DocScreen[] = [
         ],
       },
       {
+        kind: "p",
+        text: "**Datos del ATIS que se colacionan.** Pista en uso, reglaje de altímetro, códigos SSR, nivel de transición e instrucciones de nivel, rumbo y velocidad están en la lista obligatoria del Doc 4444 (4.5.7.5.1 c), tanto si los da el controlador como si vienen en el ATIS. Haberlos leído en el boletín no te libra de colacionarlos cuando ATC te los transmite.",
+      },
+      {
         kind: "figura",
         src: "/modulos/comunicaciones/CM-41-02.webp",
         alt: "Historieta de tres paneles: PM obtiene ATIS, tripulación comprueba cambios y PM informa a ATC.",
@@ -108,9 +112,10 @@ export const NIVEL_6: DocScreen[] = [
       {
         kind: "detalleTecnico",
         etiqueta: "Fuentes y límites",
-        cita: "OACI Anexo 11 · FAA AIM 4-1-13 · ATSB VA942 · Aerocivil eAIP",
+        cita: "OACI Anexo 11 · OACI Doc 4444 · FAA AIM 4-1-13 · ATSB VA942 · Aerocivil eAIP",
         bloques: [
           { kind: "p", text: "OACI, EUR Doc 013, sexta edición, glosario con definiciones de ATIS, ATIS-voz y D-ATIS tomadas del Anexo 11: https://www.icao.int/EURNAT/EUR%20and%20NAT%20Documents/EUR%20Documents/EUR%20Documents/013%20-%20EUR%20Guidance%20Material%20on%20AWO%20at%20Aerodromes/EUR%20Doc%20013%2C%206th%20Edition%2C%20November%202023.pdf" },
+          { kind: "p", text: "OACI, Doc 4444 (PANS-ATM), 15.ª ed., Enm. 4, 4.5.7.5.1 c): pista en uso, reglajes de altímetro, códigos SSR, instrucciones de nivel, rumbo y velocidad y niveles de transición se colacionan siempre, «ya sea que sean expedidos por el controlador ya sea que estén incluidos en las radiodifusiones» ATIS." },
           { kind: "p", text: "FAA, Aeronautical Information Manual 4-1-13, finalidad, actualización y comunicación del identificador ATIS en Estados Unidos: https://www.faa.gov/air_traffic/publications/ATpubs/AIM/aim0401.html" },
           { kind: "p", text: "Australian Transport Safety Bureau, investigación AO-2022-052 sobre VA942, cambio de ATIS y discrepancia de pista en la llegada a Sídney: https://www.atsb.gov.au/investigations/ao-2022-052" },
           { kind: "p", text: "Aerocivil, portal oficial AIP/eAIP para datos terminales, cartas y servicios colombianos vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
@@ -360,6 +365,10 @@ export const NIVEL_6: DocScreen[] = [
       },
       {
         kind: "p",
+        text: "**Colación en CPDLC.** Un mensaje CPDLC no se colaciona de viva voz, salvo que la autoridad ATS competente lo prescriba (Doc 4444, 4.5.7.5.2.1). Se contesta por el mismo enlace de datos; lo que llega por voz se sigue colacionando como siempre.",
+      },
+      {
+        kind: "p",
         text: "La FAA (JO 7110.65) distingue dominios: en ruta doméstica de Estados Unidos, CPDLC complementa la voz y no se usa para órdenes inmediatas; en sus áreas oceánicas, fuera de VHF, es el medio principal, con respaldo de voz obligatorio. Nada de eso se traslada solo a Colombia.",
       },
       {
@@ -428,8 +437,9 @@ export const NIVEL_6: DocScreen[] = [
       {
         kind: "detalleTecnico",
         etiqueta: "Fuentes y límites",
-        cita: "FAA JO 7110.65, capítulo 14 · FAA AIP ENR 7.2 · Aerocivil eAIP",
+        cita: "OACI Doc 4444 · FAA JO 7110.65, capítulo 14 · FAA AIP ENR 7.2 · Aerocivil eAIP",
         bloques: [
+          { kind: "p", text: "OACI, Doc 4444 (PANS-ATM), 15.ª ed., Enm. 4, 4.5.7.5.2.1: «A menos que lo prescriba la autoridad ATS competente, no se requerirá la colación oral de mensajes» CPDLC. Su nota remite el intercambio y el acuse de recibo de esos mensajes al Anexo 10 Vol. II y al capítulo 14 de los PANS-ATM." },
           { kind: "p", text: "FAA, JO 7110.65, capítulo 14, sección 2: CPDLC doméstico como complemento de voz, límite para órdenes inmediatas, sustitución por voz y cierre de uplinks abiertos: https://www.faa.gov/air_traffic/publications/atpubs/atc_html/chap14_section_2.html" },
           { kind: "p", text: "FAA, JO 7110.65, capítulo 14, sección 3: CPDLC oceánico como medio principal fuera de VHF cuando está disponible, respaldo de voz obligatorio y paso a voz ante falla: https://www.faa.gov/air_traffic/publications/atpubs/atc_html/chap14_section_3.html" },
           { kind: "p", text: "FAA, AIP ENR 7.2: ejemplos regionales de servicios, medios de respaldo y mensajes demorados: https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part2_enr_section_7.2.html" },
@@ -773,6 +783,10 @@ export const NIVEL_6: DocScreen[] = [
         text: "En HF casi siempre hablas con un **operador de estación aeronáutica** que retransmite al centro oceánico y no puede autorizar nada por sí mismo. «ATC clears…» introduce una autorización retransmitida; «expect» no concede el cambio. Se colaciona y se escucha que el operador confirme lo colacionado.",
       },
       {
+        kind: "p",
+        text: "**OVER y OUT.** OVER: terminé mi transmisión y espero respuesta. OUT: se acabó este intercambio y no se espera respuesta. Según el Doc 9432, ninguna de las dos se usa normalmente en VHF, así que no las metas en tus llamadas de rutina; si aparecen en una frecuencia HF, ya sabes qué piden.",
+      },
+      {
         kind: "figura",
         src: "/modulos/comunicaciones/CM-48-02.webp",
         alt: "Historieta de tres paneles: piloto llama en HF, operador de estación aeronáutica retransmite y controlador oceánico analiza la solicitud.",
@@ -834,10 +848,11 @@ export const NIVEL_6: DocScreen[] = [
       {
         kind: "detalleTecnico",
         etiqueta: "Fuentes y alcance",
-        cita: "FAA AC 91-70D · AIP USA ENR 7.2 · OACI NAT Doc 007",
+        cita: "FAA AC 91-70D · AIP USA ENR 7.2 · OACI NAT Doc 007 · OACI Doc 9432",
         bloques: [
           { kind: "p", text: "FAA, AC 91-70D vigente, secciones 4.3.1 y D.2.2.8: propagación y variabilidad HF, papel del operador de radio, colación y comprobación de las radios: https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_91-70D.pdf" },
           { kind: "p", text: "FAA, AIP Estados Unidos ENR 7.2: New York Radio, prueba SELCAL, asignación primaria/secundaria y exigencia de conservar HF en New York Oceanic: https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part2_enr_section_7.2.html" },
+          { kind: "p", text: "OACI, Doc 9432, Manual de radiotelefonía, 4.ª ed. (2007), 2.6: OVER («mi transmisión ha terminado y espero su respuesta») y OUT («este intercambio de transmisiones ha terminado y no se espera respuesta»), cada una con la nota de que no se utiliza normalmente en comunicaciones VHF." },
           { kind: "p", text: "OACI, NAT Doc 007 edición 2026-1, sección 5.1: comunicaciones HF en el Atlántico Norte y retransmisión por estaciones aeronáuticas. Las instrucciones regionales se contrastan con la AIP del Estado: https://www.icao.int/sites/default/files/EURNAT/Documents/EUR%20and%20Nat%20Docs/NAT%20Documents/NAT%20Documents/NAT%20Doc%20007/NAT-Doc-007-EN-Edition-V.2026-1-Amd-0.pdf" },
           { kind: "p", text: "Aerocivil, AIP/eAIP oficial para estaciones, frecuencias y requisitos colombianos; esta lección no asigna ninguna frecuencia ni procedimiento local: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
           { kind: "p", text: "La historieta y el escenario son construcciones didácticas, no transcripciones de una comunicación real ni cartas o frecuencias operativas." },

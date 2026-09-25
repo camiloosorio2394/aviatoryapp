@@ -161,6 +161,10 @@ export const NIVEL_5: DocScreen[] = [
         ],
       },
       {
+        kind: "p",
+        text: "**Prueba de radio (RADIO CHECK).** Llamas a la estación con tu distintivo, «RADIO CHECK» y la frecuencia que usas. Te responde con una cifra de legibilidad: 1 ininteligible, 2 inteligible por momentos, 3 inteligible con dificultad, 4 inteligible y 5 perfectamente inteligible; «reading you five» es la señal limpia.",
+      },
+      {
         kind: "figura",
         src: "/modulos/comunicaciones/CM-32-02.webp",
         alt: "Historieta fotográfica de tres paneles: pilotos observan silencio, comprueban el audio y prueban otro medio mientras ATS intenta restablecer contacto.",
@@ -235,10 +239,11 @@ export const NIVEL_5: DocScreen[] = [
       {
         kind: "detalleTecnico",
         etiqueta: "Fuentes y límites",
-        cita: "EASA SERA.14083 · Aerocivil AIP · OACI Anexo 10",
+        cita: "EASA SERA.14083 · Aerocivil AIP · OACI Anexo 10 · OACI Doc 9432",
         bloques: [
           { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.14083 y AMC1 SERA.14083(b)(1), recuperación de contacto, pruebas observables y procedimiento europeo: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9832" },
           { kind: "p", text: "EASA SERA.8035, obligación de escucha de voz aun con CPDLC establecida: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9888" },
+          { kind: "p", text: "OACI, Doc 9432, Manual de radiotelefonía, 4.ª ed. (2007), 2.8.4: forma de la transmisión de prueba, contenido de la respuesta y escala de legibilidad de 1 a 5." },
           { kind: "p", text: "OACI, Anexo 10 Vol. IV, código 7600 reservado para falla de radiocomunicaciones: https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/Annex10_Volume%204_cons.pdf" },
           { kind: "p", text: "UK CAA, CAP 413 Radiotelephony Manual, edición 24 (vigente desde el 1 de julio de 2026), 5.36: con la aeronave que recibe pero no transmite, el controlador usa la vigilancia para confirmar la recepción («reply not received, if you read…»). Fuente oficial del Reino Unido que sigue la OACI." },
           { kind: "p", text: "Aerocivil, portal oficial de la AIP Colombia y acceso a eAIP: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip. El AD 2 SKBO no se pudo descargar para este módulo (la eAIP respondió con una cadena de certificados incompleta): por eso no se cita ningún procedimiento local." },
