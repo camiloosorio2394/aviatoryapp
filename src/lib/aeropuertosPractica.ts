@@ -89,7 +89,7 @@ export const AP_RECONOCE: ApReconoce[] = [
     imagen: {
       src: "/modulos/aeropuertos/ap-pra-03-carta-obstaculos-aerocivil.webp",
       alt: "Carta oficial de Aerocivil para la pista 14R/32L de Bogotá, con tabla de distancias, perfiles de obstáculos y planta del aeródromo",
-      pie: "Carta auténtica de Aerocivil para SKBO 14R/32L, incluida en la publicación electrónica de información aeronáutica (eAIP, Electronic Aeronautical Information Publication) de Colombia, enmienda 72/26 del ciclo de reglamentación y control de la información aeronáutica (AIRAC, Aeronautical Information Regulation and Control), vigente al 24 de septiembre de 2026. Reconoce la tabla de distancias declaradas, el perfil longitudinal y la planta. Para planear una operación, abre la publicación vigente y consulta también los avisos aeronáuticos; esta imagen es solo material de estudio.",
+      pie: "Carta auténtica de Aerocivil para SKBO 14R/32L, incluida en la publicación electrónica de información aeronáutica (eAIP, Electronic Aeronautical Information Publication) de Colombia, enmienda 70/26 del ciclo de reglamentación y control de la información aeronáutica (AIRAC, Aeronautical Information Regulation and Control), vigente desde el 22 de enero de 2026. Reconoce la tabla de distancias declaradas, el perfil longitudinal y la planta. Para planear una operación, abre la publicación vigente y consulta también los avisos aeronáuticos; esta imagen es solo material de estudio.",
       fuente:
         "https://eaip-colombia.atnaerocivil.gov.co/eaip/A%2072-26_2026_07_09/documents/Root_WePub/Colombia/CHARTS/AD/SKBO/AMDT_70/Aerodrome%20obstacle%20chart%20RWY%2014R%2032L.pdf",
     },
