@@ -249,20 +249,25 @@ marcada como giro horario de 90° cambia la disposición de las figuras pero
 no gira las siluetas de forma consistente. La nueva lámina diferencia un giro
 horario real, uno antihorario, un reflejo y una traslación. No se presenta como
 reproducción literal de esa pregunta.
-**AB-A1-08, 10, 13, 15 y 18** todavía dependen del recorte A1 porque
-sus reglas no están representadas por las figuras vectoriales. Ahora muestran
-una matriz y cinco alternativas a mayor escala, sin el encabezado del PDF;
-`node scripts/psicotecnicas/componer-a1-recortes.mjs` recompone los siete WebP
-didácticos a partir de los `-limpio.webp`, conservados como referencia. La
-geometría, las tramas y las claves no se modificaron.
-**AB-A1-14 y 16** se transcribieron a SVG nítidos en
-`scripts/psicotecnicas/redibujar-a1-14.mjs` y
-`scripts/psicotecnicas/redibujar-a1-16.mjs`: ocho casillas y cinco alternativas
-con número, posición del número, diagonal y cuadrante negro explícitos. La
-En A1-14 la opción B conserva el 9, la cuña superior izquierda y la diagonal
-inferior derecha; A comparte número y cuña, pero invierte esa diagonal. A1-16
-conserva la posición y el sentido de las tramas de cada sector. Las versiones
-anteriores WebP quedan para cotejo.
+**AB-A1-08, 10, 13, 14, 15, 16 y 18** se transcribieron a SVG nítidos en
+`scripts/psicotecnicas/redibujar-a1-08.mjs`,
+`scripts/psicotecnicas/redibujar-a1-10.mjs`,
+`scripts/psicotecnicas/redibujar-a1-13.mjs`,
+`scripts/psicotecnicas/redibujar-a1-14.mjs`,
+`scripts/psicotecnicas/redibujar-a1-15.mjs`,
+`scripts/psicotecnicas/redibujar-a1-16.mjs` y
+`scripts/psicotecnicas/redibujar-a1-18.mjs`: cada una incluye ocho casillas y
+cinco alternativas. En A1-08 el relleno superior y el bloque central llevan
+a la D: zona rayada con rectángulo negro. En A1-10 dos ciclos independientes
+llevan a la B: armazón hacia la derecha y triángulo pequeño sin relleno.
+En A1-13 la opción D conserva el círculo fuera del arco; C lo desplaza dentro.
+En A1-14 la opción B conserva el 9,
+la cuña superior izquierda y la diagonal inferior derecha; A comparte número
+y cuña, pero invierte esa diagonal. A1-15 transcribe cada remate oblicuo de la
+cruz. A1-16 conserva la posición y el sentido de las tramas de cada sector.
+A1-18 conserva los tres atributos de cada casilla: letra, triángulo negro y
+detalle adicional. Los siete WebP didácticos anteriores quedan para cotejo;
+proceden de `componer-a1-recortes.mjs` y no son los activos.
 Las otras 13 láminas A1 son figuras vectoriales. `verificar-figuras.mjs` deduce
 las 13 respuestas desde sus atributos y coincide con la clave; para A1-02
 comprueba la progresión 1·2·3·4·3·2·1·2·3 brazos y acepta la única opción de

@@ -1405,14 +1405,14 @@
         "E"
       ],
       "correcta": 3,
-      "explicacion": "Las diagonales dividen cada rectángulo en cuatro sectores y lo que cambia es cuál se rellena y con qué: negro o rayado. Se sigue primero el sector y después el relleno. Falta la D. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
+      "explicacion": "Las dos diagonales son el marco fijo; separa el relleno de arriba del pequeño bloque interior. En la última fila, la zona superior pasa de negra a blanca y luego debe quedar rayada. Sobre la diagonal principal, el bloque horizontal aparece rayado, blanco y finalmente negro. Solo la D combina zona superior rayada con bloque negro horizontal; B deja ese bloque blanco y C lo convierte en una franja vertical. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 08/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Patrones",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-08-didactico.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-08-didactico.svg",
         "imagenAlt": "Matriz de rectángulos cruzados por sus diagonales, con sectores rellenos en negro o en rayado vertical.",
         "opcionesEnImagen": true
       }
@@ -1590,14 +1590,14 @@
         "E"
       ],
       "correcta": 1,
-      "explicacion": "El armazón de diagonales se mantiene y lo que viaja es el triángulo pequeño, que además cambia entre negro y rayado. Siguiendo su recorrido y su relleno, la respuesta es la B. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
+      "explicacion": "Sigue dos ciclos, no la figura completa: el armazón apunta abajo, derecha y arriba, y ese orden se desplaza una casilla en cada fila. El triángulo pequeño alterna rayado, sin relleno y negro. En la última casilla toca armazón hacia la derecha y triángulo sin relleno, apuntando a la derecha: B. La D conserva el armazón, pero cambia la orientación del triángulo pequeño. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 10/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Transformaciones",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-10-didactico.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-10-didactico.svg",
         "imagenAlt": "Matriz de rectángulos con líneas diagonales y un triángulo pequeño que cambia de posición y de relleno.",
         "opcionesEnImagen": true
       }
@@ -2000,14 +2000,14 @@
         "E"
       ],
       "correcta": 3,
-      "explicacion": "El círculo con su cuerda es el fondo; lo que hay que seguir son las tres formas pequeñas, cada una con su recorrido. Son tres series a la vez, y por eso conviene resolverlas de una en una. Queda la D. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
+      "explicacion": "El arco y la cuerda son la referencia fija. Sigue por separado el triángulo, el cuadrado y el círculo: la pieza que falta los muestra arriba, abajo y a la izquierda del arco, respectivamente. La C parece casi igual, pero coloca el círculo dentro del arco; la D lo deja fuera, como exige la matriz. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 13/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Matrices",
         "nivel": "avanzado",
         "tiempo": 75,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-13-didactico.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-13-didactico.svg",
         "imagenAlt": "Matriz con un círculo cortado por una cuerda y tres formas pequeñas —triángulo, cuadrado y circunferencia— colocadas alrededor.",
         "opcionesEnImagen": true
       }
@@ -2046,14 +2046,14 @@
         "E"
       ],
       "correcta": 2,
-      "explicacion": "Todas las casillas son la misma figura girada; lo difícil es que hay poco a lo que agarrarse. Conviene fijar un trazo concreto —el más largo, por ejemplo— y medir cuánto gira de casilla a casilla. Con ese giro constante, la respuesta es la C. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
+      "explicacion": "La cruz larga permanece fija; no hay que girar la figura entera. Mira los remates oblicuos por separado: en la última casilla el extremo izquierdo debe subir, el superior debe bajar hacia la izquierda y aparece un trazo corto que sale del centro hacia abajo a la izquierda. Esa combinación es la C. En B el remate izquierdo baja; en A el remate central va hacia la derecha. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 15/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Rotación de elementos",
         "nivel": "avanzado",
         "tiempo": 75,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-15-didactico.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-15-didactico.svg",
         "imagenAlt": "Matriz con una cruz de la que salen trazos cortos en los extremos, en distintas orientaciones.",
         "opcionesEnImagen": true
       }
@@ -2319,14 +2319,14 @@
         "E"
       ],
       "correcta": 3,
-      "explicacion": "Tres atributos independientes: la letra, en qué sector cae el triángulo negro y dónde está el punto. Cada uno se repite una vez por fila y una por columna. Cruzando los tres, la casilla vacía solo admite la D. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
+      "explicacion": "La letra cambia por fila —A, B, C— y el triángulo grande pasa del sector superior izquierdo al superior derecho y luego al inferior derecho. Hay un tercer ciclo: casilla sin marca, pequeña zona negra y punto; esos tres estados se desplazan una posición en cada fila. En el hueco toca C, triángulo grande abajo a la derecha y pequeña zona negra a la izquierda. La D reúne los tres rasgos. Para resolver una matriz conviene separar los atributos y comprobar cada regla en las filas y columnas antes de elegir.",
       "referencia": "Razonamiento Abstracto — Series de figuras (554759531), problema 18/20",
       "metadatos": {
         "categoria": "abstracto",
         "subcategoria": "Matrices",
         "nivel": "avanzado",
         "tiempo": 75,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-18-didactico.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-18-didactico.svg",
         "imagenAlt": "Matriz de rectángulos con diagonales, una letra (A, B o C), un triángulo negro y un punto que se desplazan.",
         "opcionesEnImagen": true
       }
