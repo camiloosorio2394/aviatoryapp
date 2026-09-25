@@ -1,85 +1,5 @@
-/**
- * Nivel 7 · Situaciones no normales y factores humanos (lecciones 51 a 61, capítulos 51 a 61 de la especificación).
- *
- * Cuando la frase estándar no alcanza y cuando el que falla es el oído: plain
- * English para lo no normal, pedir aclaración, sesgo de expectativa,
- * distintivos parecidos y cómo se reparte la radio en la cabina.
- *
- * Fuente: docs/comunicaciones/nivel-7.md, entero. Cada intercambio del
- * Markdown es un bloque `code` con su significado debajo (`ejemplo`); los
- * rótulos STANDARD PHRASEOLOGY, PLAIN ENGLISH y (VERIFICAR) de cada ejemplo se
- * conservan en su título o en su significado. Lo que el Markdown marca
- * VERIFICAR sale en un callout «Verificar» visible al empezar la fraseología y,
- * completo, en el detalle técnico de FUENTES. Los «Escenario de práctica» de
- * los capítulos 56, 58 y 59 van como `escenario`. Los dos casos reales que el
- * Markdown propone para discutir (Avianca 052 y Tenerife) no van como
- * `casoReal`: sus informes no están cargados, así que van como texto con su
- * callout «Verificar» al lado. El formato de los bloques y de los huecos está
- * documentado al inicio de index.ts.
- */
-
-import type { DocBlockData, DocScreen } from "@/lib/docBlocks"
-
-/**
- * Un intercambio: el título en negrita, la transmisión literal (una línea por
- * turno de palabra) y el significado en español. Sin significado cuando el
- * Markdown no lo trae (una colación que sigue a la anterior).
- */
-function ejemplo(titulo: string, turnos: string[], significado?: string): DocBlockData[] {
-  const out: DocBlockData[] = [
-    { kind: "p", text: `**${titulo}**` },
-    { kind: "code", text: turnos.join("\n") },
-  ]
-  if (significado) out.push({ kind: "p", text: significado })
-  return out
-}
-
-/** Un error frecuente: el nombre del error como título y la explicación. */
-function error(titulo: string, text: string): DocBlockData {
-  return { kind: "callout", tone: "warn", title: titulo, text }
-}
-
-/** El aviso visible de lo que no está verificado en la lección. */
-function verificar(text: string): DocBlockData {
-  return { kind: "callout", tone: "verificar", title: "Verificar", text }
-}
-
-/** Cómo leer los ejemplos: va al empezar la fraseología de cada lección. */
-const COMO_LEER: DocBlockData = {
-  kind: "callout",
-  tone: "info",
-  title: "Cómo leer los ejemplos",
-  text: "`AVIATORY 452` es un distintivo **ficticio**; AVIATORY 425 y AVIATORY 542 se usan como distintivos parecidos. «Bogota Control», «Bogota Approach», «Bogota Tower» y «Bogota Ground» son estaciones de ejemplo educativo, no transcripciones reales; GIKOS y LUDEM son puntos ficticios. **STANDARD PHRASEOLOGY**: frases que salen de la fraseología OACI; si no está en las fuentes cargadas, va con **(VERIFICAR)**. **PLAIN ENGLISH**: lenguaje común en inglés (plain language); no hay frase normalizada para eso y se construye con las reglas del capítulo 52.",
-}
-
-/** Las convenciones de los ejemplos de todo el nivel (cabecera de nivel-7.md). */
-const CONVENCIONES: DocBlockData = {
-  kind: "list",
-  items: [
-    "`AVIATORY 452` es un distintivo ficticio. `AVIATORY 425` y `AVIATORY 542` se usan como distintivos parecidos.",
-    "«Bogota Control», «Bogota Approach», «Bogota Tower» y «Bogota Ground» son estaciones de ejemplo educativo, no transcripciones reales. `GIKOS` y `LUDEM` son puntos ficticios.",
-    "**STANDARD PHRASEOLOGY** marca frases que salen de la fraseología OACI. Si la frase no está en las fuentes cargadas, aparece en la línea VERIFICAR del capítulo.",
-    "**PLAIN ENGLISH** marca lenguaje común en inglés (plain language): no hay frase normalizada para eso y se construye con las reglas del capítulo 52.",
-    "Fuentes cargadas: Doc 9432 (4.ª ed., 2007), Doc 4444 (15.ª ed. con Enm. 4, 2012; no es la edición vigente), Doc 9835 (2.ª ed., 2010). No están cargados el Anexo 10 Vol. II, el Doc 4444 cap. 12 y 15 ni el Doc 9432 cap. 9.",
-  ],
-}
-
-/** El bloque FUENTES de cada capítulo, plegado. */
-function fuentes(cita: string, verificado: string, porVerificar: string[]): DocBlockData {
-  return {
-    kind: "detalleTecnico",
-    etiqueta: "Fuentes",
-    cita,
-    bloques: [
-      { kind: "sub", text: "Verificado" },
-      { kind: "p", text: verificado },
-      { kind: "sub", text: "Por verificar" },
-      { kind: "list", items: porVerificar },
-      { kind: "sub", text: "Convenciones de los ejemplos" },
-      CONVENCIONES,
-    ],
-  }
-}
+/** Nivel 7 · Situaciones no normales y factores humanos (lecciones 51 a 61). */
+import type { DocScreen } from "@/lib/docBlocks"
 
 export const NIVEL_7: DocScreen[] = [
   // ── 51 ──────────────────────────────────────────────────────────────────
@@ -1116,151 +1036,97 @@ export const NIVEL_7: DocScreen[] = [
   // ── 61 ──────────────────────────────────────────────────────────────────
   {
     n: 61,
-    title: "Errores comunes",
-    kicker: "Los que se repiten y cómo se evitan",
-    minutes: 9,
+    title: "Errores comunes y barreras de defensa",
+    kicker: "Un error de radio se previene antes, durante y después de transmitir",
+    minutes: 19,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "Es la lista de los errores de comunicación que más riesgo operacional producen, con su causa y su defensa. Sirve de repaso de todo el módulo.",
+        text: "Los errores de comunicación no se reducen a «hablar mal inglés». Una instrucción puede dirigirse a otro avión, llegar incompleta, colacionarse mal, corregirse sin que la cabina advierta la corrección o ejecutarse con un valor distinto del recibido. Para un aspirante a aerolínea, la competencia clave es identificar **en qué etapa se perdió la información y qué barrera concreta lo detecta**. La lista siguiente agrupa fallas observables; no es una estadística de frecuencia actual ni un procedimiento de un operador.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
       {
-        kind: "list",
-        items: [
-          "El Doc 9835 1.2.2 resume las tres formas en que el lenguaje contribuye a accidentes: uso incorrecto de la fraseología, conocimiento insuficiente del lenguaje común y uso de más de un idioma en el mismo espacio aéreo.",
-          "El mismo manual cita un estudio (Mell, 1992) según el cual el 70% de los actos de habla en ruta que debían hacerse con fraseología normalizada no la cumplían (Doc 9835 1.2.3). El dato es del estudio citado, no de un análisis actual.",
-          "El Doc 9432 2.1 dice que se han producido incidentes y accidentes en los que el uso de procedimientos y fraseología no normalizados fue factor contribuyente.",
-        ],
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-61-01.svg",
+        alt: "Matriz de ocho amenazas de comunicación y la acción que las contiene: destinatario, recepción, colación, corrección, frecuencia, selección, capacidad y trayectoria.",
+        ancho: 1600,
+        alto: 1000,
+        pie: "Tarjeta de repaso ampliable: ocho puntos en los que una autorización puede desviarse. Cada defensa corresponde al momento del error; colacionar bien no sustituye cotejar el selector ni vigilar la trayectoria.",
       },
-      { kind: "sub", text: "Los errores, uno por uno" },
+      { kind: "sub", text: "La cadena completa y sus fallas" },
       {
         kind: "table",
-        head: ["Error", "Por qué es peligroso", "Defensa"],
+        head: ["Momento", "Error observable", "Barrera operacional"],
         rows: [
-          ["Readback incompleto", "ATC no puede verificar lo que no se dijo", "Colacionar todos los elementos obligatorios (Doc 4444 4.5.7.5.1)"],
-          ["Hearback incorrecto", "El controlador no detecta un error de colación", "La tripulación no depende solo del hearback; crosscheck interno"],
-          ["Frecuencia errada", "Pérdida de contacto; autorizaciones perdidas", "Colacionar la frecuencia; si no hay respuesta, volver a la anterior"],
-          ["Pista errada", "Incursión, aterrizaje en pista equivocada", "Colacionar la pista siempre; confirmar si difiere de la esperada"],
-          ["Altitud errada", "Pérdida de separación, terreno", "Colacionar, seleccionar y verificar entre pilotos"],
-          ["Call sign incorrecto", "Se ejecuta una autorización ajena", "Colación terminada con el distintivo propio (Doc 9432 2.8.3.7)"],
-          ["Transmisión bloqueada", "Autorizaciones o correcciones perdidas", "Escuchar antes de hablar; preguntar ante un chillido"],
-          ["Distintivos parecidos", "Autorización ajena aceptada", "Atención al distintivo completo; preguntar si hay duda"],
-          ["Expectation bias", "Se oye lo esperado", "Colacionar lo oído; confirmar lo inesperado"],
-          ["Exceso de lenguaje no estándar", "Nadie más en frecuencia entiende", "Fraseología primero (Doc 9835 4.3.3)"],
-          ["Hablar rápido", "Mensaje ininteligible", "No más de 100 palabras por minuto (Doc 9432 2.2.1 d)"],
-          ["Slang y coloquialismos", "Ambigüedad", "Evitarlos (Doc 9835 3.3.9)"],
-          ["No preguntar", "Se ejecuta algo no entendido", "SAY AGAIN, CONFIRM"],
-          ["Aceptar lo que no se puede cumplir", "Incumplimiento tardío", "UNABLE con motivo (Doc 9432 2.8.3.10)"],
-          ["Copiar mal un número", "Valor equivocado en el sistema", "Dígito por dígito; leer lo anotado"],
-          ["No hacer crosscheck", "Error de selección sin detectar", "Uno selecciona, otro verifica"],
+          ["Destinatario", "Dos indicativos similares; un avión responde por otro.", "Escuchar el distintivo completo e incluir el propio en la colación. Ante duda, confirmar para quién fue la autorización."],
+          ["Recepción", "Ruido, transmisión bloqueada o número parcial.", "No completar por expectativa: pedir repetición de la parte faltante antes de actuar."],
+          ["Colación", "Se omite un nivel, rumbo, restricción o pista.", "Repetir los elementos críticos; ATC escucha y corrige discrepancias."],
+          ["Corrección ATC", "La cabina continúa con el valor inicial tras oír NEGATIVE o una nueva instrucción.", "Tratar la corrección como autorización vigente y actualizar el registro y la selección."],
+          ["Transferencia", "Se cambia de frecuencia y no se establece contacto.", "Verificar radio y frecuencia seleccionada; usar el procedimiento publicado del Estado y del operador para restaurar contacto, sin improvisar."],
+          ["Selección", "La colación es correcta, pero el sistema conserva el valor esperado.", "Comparar autorización, selector y modo activo entre pilotos conforme al SOP."],
+          ["Capacidad", "Se acepta una restricción que el avión no puede cumplir.", "Comunicar UNABLE oportunamente, explicar la limitación útil y solicitar alternativa."],
+          ["Trayectoria", "El avión no captura lo que la tripulación esperaba.", "Monitorear rumbo, nivel y posición; intervenir y coordinar con ATC ante desviación."],
         ],
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "«GOING AROUND» y «ARE YOU ABLE TO ACCEPT (runway)» no están en las fuentes cargadas: consultar el Doc 9432 cap. 4 y 7 y el Doc 4444 cap. 12. El procedimiento de falla de comunicaciones se confirma en el Doc 4444 cap. 15, el Anexo 10 Vol. II 5.2.2.7 y el AIP del Estado (capítulo 32).",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · Readback incompleto",
-        [
-          `ATC:   "AVIATORY 452, descend to flight level one two zero, QNH one zero two eight, turn left heading three three zero."`,
-          `PILOT (mal): "Descending, left heading three three zero. AVIATORY 452."`,
-          `PILOT (bien): "Descend flight level one two zero, QNH one zero two eight, left heading three three zero. AVIATORY 452."`,
+      { kind: "sub", text: "Una colación no es toda la defensa" },
+      {
+        kind: "p",
+        text: "La Aeronautical Information Manual de la Administración Federal de Aviación de Estados Unidos (FAA; Federal Aviation Administration) §4-4-7 recomienda colacionar asignaciones de altitud, vectores y pistas en la secuencia recibida, con identificación del avión. Es una verificación mutua entre piloto y controlador, no una certificación de que el piloto cargó el dato correcto. La orden FAA JO 7110.65 §2-4-3 pide al controlador verificar los elementos que el piloto sí colacionó; si se omitió un número, se perdió esa oportunidad de comprobarlo. En la cabina sigue siendo necesario cotejar la selección y la respuesta del avión.",
+      },
+      {
+        kind: "p",
+        text: "El Manual de requisitos de competencia lingüística de la Organización de Aviación Civil Internacional (OACI; International Civil Aviation Organization, ICAO), Doc 9835, identifica el uso incorrecto de fraseología y las limitaciones de lenguaje común como amenazas. No conviene convertir una cifra histórica citada por ese manual en una probabilidad para las operaciones actuales. La defensa práctica combina fraseología estandarizada, inglés claro para lo no previsto, escucha activa y una pregunta explícita cuando el dato no encaja.",
+      },
+      { kind: "sub", text: "Ejercicio didáctico: tres barreras sucesivas" },
+      {
+        kind: "escenario",
+        titulo: "La autorización correcta no llega a la trayectoria",
+        situacion: "Escenario inventado para entrenar, no transcripción ni ruta real. Durante una llegada, una tripulación espera descender, pero la instrucción ATC contiene una condición futura. El primer piloto oye el nivel; el segundo anota el nivel y la condición. La colación reproduce ambos datos. Aun así, se selecciona el nivel y se inicia el descenso antes de que se cumpla la condición.",
+        preguntas: [
+          { q: "¿Fue suficiente la colación correcta?", a: "No. Cerró el circuito de radio, pero fallaron el cotejo de la condición, la ejecución y el monitoreo de la trayectoria." },
+          { q: "¿Qué debería detectar el piloto que monitorea?", a: "Que el descenso empezó antes de la condición comunicada; debe señalarlo y coordinar la corrección según el procedimiento de cabina. Si hubo desviación, se informa a ATC." },
+          { q: "¿Cómo cambia el análisis si la condición no se oyó completa?", a: "El problema empieza en recepción: se pide repetición antes de colacionar o actuar. No se rellena por expectativa." },
         ],
-        "Significado: nivel, QNH y rumbo se colacionan siempre (Doc 4444 4.5.7.5.1 c). «Descending» sin valor no le permite a ATC verificar nada.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Colación incorrecta corregida (modelo verificado, Doc 9432 2.8.3.9)",
-        [
-          `ATC:   "AVIATORY 452, QNH one zero zero three."`,
-          `PILOT: "QNH one zero one three. AVIATORY 452."`,
-          `ATC:   "AVIATORY 452, negative, I say again, QNH one zero zero three."`,
-          `PILOT: "QNH one zero zero three. AVIATORY 452."`,
-        ],
-        "Significado: el Doc 9432 2.8.3.9 da este mismo ejemplo con G-CD. Después de NEGATIVE I SAY AGAIN, se vuelve a colacionar.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · Frecuencia errada (falla de comunicaciones: VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, contact Bogota Control one two eight decimal seven."`,
-          `PILOT: "One two eight decimal seven. AVIATORY 452."`,
-          `(En la frecuencia nueva nadie responde.)`,
-        ],
-        "Significado: se vuelve a la frecuencia anterior y se pide confirmación (**PLAIN ENGLISH**: `Bogota Approach, AVIATORY 452, no contact on one two eight decimal seven, confirm frequency.`). Si no hay contacto en ninguna, rige el procedimiento de falla de comunicaciones (capítulo 32).",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Slang y lenguaje no estándar («going around»: VERIFICAR)",
-        [`PILOT (mal): "AVIATORY 452, we're on the go."`, `PILOT (bien): "AVIATORY 452, going around."`],
-        "Significado: el Doc 9835 5.3.2.2 usa este caso: «we're on the go» u otra jerga regional puede no entenderse por el controlador y los demás aviones. La frase normalizada está en VERIFICAR (capítulo 58).",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · ROGER donde no corresponde («are you able to accept»: VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, are you able to accept runway three one?"`,
-          `PILOT (mal): "Roger. AVIATORY 452."`,
-          `PILOT (bien): "Affirm. AVIATORY 452."`,
-        ],
-        "Significado: ROGER solo dice «he recibido toda su transmisión». No se usa para responder una pregunta que pide sí o no (Doc 9432 2.6).",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · Aceptar lo que no se puede cumplir (Doc 9432 2.8.3.10)",
-        [
-          `ATC:   "AVIATORY 452, cross GIKOS at or above flight level one five zero, if unable, maintain flight level one three zero."`,
-          `PILOT: "Unable to cross GIKOS flight level one five zero due weight, maintaining flight level one three zero. AVIATORY 452."`,
-        ],
-        "Significado: modelo del Doc 9432 2.8.3.10 («IF UNABLE, MAINTAIN FL 130… UNABLE TO CROSS WICKEN FL 150 DUE WEIGHT, MAINTAINING FL 130»).",
-      ),
-      ...ejemplo(
-        "Ejemplo 7 · Corregir un error propio (Doc 9432 2.8.1.6)",
-        [`PILOT: "Bogota Control, AVIATORY 452, GIKOS four seven, flight level three three zero, LUDEM zero seven, correction, LUDEM five seven."`],
-        "Significado: CORRECTION, repitiendo el último grupo correcto y la versión corregida (Doc 9432 2.8.1.6; su ejemplo: «MARLO 07 CORRECTION MARLO 57»).",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
+        concepto: "La defensa se coloca donde se rompe la cadena, no solo al final.",
+      },
+      { kind: "sub", text: "Repaso para entrevista o simulador" },
       {
         kind: "enLaOperacion",
-        momento: "En los reportes de seguridad y en la entrevista",
-        texto: "Los programas de reporte de seguridad de las aerolíneas registran estos errores; muchos casos de desviación de nivel empiezan con una colación o una selección equivocada.",
+        momento: "Después de un error propio o ajeno",
+        texto: "Describir el evento en cuatro partes: dato que llegó, lo que la tripulación entendió, lo que se seleccionó y lo que hizo el avión. Identificar una barrera temprana y otra de recuperación. Evitar la explicación vacía «hay que poner más atención»: una defensa útil es comprobable, como incluir el indicativo, pedir SAY AGAIN, comparar el selector o expresar UNABLE.",
         pasos: [
-          "En la entrevista es frecuente que pregunten por un error de comunicación propio y qué se aprendió. Una respuesta sólida describe el error, la barrera que lo detectó y qué se cambió.",
+          "Reconstruir el mensaje sin inventar la parte que faltó.",
+          "Nombrar el punto de quiebre y quién podía detectarlo.",
+          "Relacionar la acción correctiva con el SOP y la autorización vigente.",
         ],
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Suponer",
-        "El error de fondo de todos los anteriores: **suponer**. Suponer que la autorización era para uno, que el número era el esperado, que ATC oyó la colación, que el otro piloto verificó.",
-      ),
+      {
+        kind: "callout",
+        tone: "warn",
+        title: "No asumir que el silencio confirma",
+        text: "La ausencia de corrección de ATC no prueba que la colación fue correcta ni que el avión cumple. Si el dato sigue siendo dudoso, la tripulación pregunta; si no puede cumplir, lo comunica antes de crear una desviación.",
+      },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Colacionar completo, con el distintivo.",
-          "Lo inesperado se confirma.",
-          "Lo que no se oyó se pide.",
-          "Lo que no se puede se dice con UNABLE.",
-          "Fraseología primero; lenguaje común claro cuando no hay.",
-          "Uno selecciona, otro verifica.",
+          "Identificar destinatario, acción, cifras y condiciones completas.",
+          "Colacionar los elementos críticos y escuchar la corrección.",
+          "Comparar autorización con selección, modo y trayectoria.",
+          "Pedir aclaración ante duda y comunicar UNABLE ante incapacidad.",
+          "No atribuir a la radio un error que ocurrió después en cabina.",
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "CM-61-01 · Esquema · 4:5 · 1080×1350 px",
-        descripcion:
-          "Imagen sugerida: Tarjeta de repaso con 16 filas cortas, cada una con un icono pequeño y el nombre del error en inglés (INCOMPLETE READBACK, WRONG FREQUENCY, WRONG RUNWAY, WRONG ALTITUDE, WRONG CALL SIGN, BLOCKED, SIMILAR CALL SIGN, EXPECTATION BIAS, NON-STANDARD, TOO FAST, SLANG, NOT ASKING, ACCEPTING THE IMPOSSIBLE, WRONG NUMBER, NO CROSSCHECK, ASSUMING). Al lado de cada una, la defensa en una palabra (READBACK, CONFIRM, SAY AGAIN, UNABLE, CROSSCHECK). Rojo solo para el nombre del error; tinta normal para la defensa. Objetivo: Que el piloto tenga una hoja de repaso visual que empareje cada error con su barrera.",
-        alto: 420,
-        ratio: "4 / 5",
-        anchoMax: 420,
-      },
-      fuentes(
-        "Doc 9835 · Doc 9432 · Doc 4444",
-        "Doc 9835 (2.ª ed.) 1.2.2, 1.2.3 (cita del estudio Mell, 1992), 3.3.9, 4.3.3, 5.3.2.2; Doc 9432 (4.ª ed.) 2.1, 2.2.1 d), 2.6 (ROGER, AFFIRM), 2.8.1.6, 2.8.3.7, 2.8.3.9, 2.8.3.10; Doc 4444 (15.ª ed., Enm. 4) 4.5.7.5.1.",
-        [
-          "VERIFICAR: «GOING AROUND» contra Doc 9432 cap. 4 y 7 y Doc 4444 cap. 12.",
-          "VERIFICAR: «ARE YOU ABLE TO ACCEPT (runway)» como frase de ATC contra Doc 4444 cap. 12.",
-          "VERIFICAR: procedimiento de falla de comunicaciones contra Doc 4444 cap. 15, Anexo 10 Vol. II 5.2.2.7 y AIP del Estado (capítulo 32).",
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "FAA AIM · FAA JO 7110.65 · OACI Doc 9835",
+        bloques: [
+          { kind: "p", text: "FAA, Aeronautical Information Manual §4-4-7, colación, indicativo y responsabilidad de aceptar o rechazar la autorización: https://www.faa.gov/air_traffic/publications/aim_html/chap4_section_4.html" },
+          { kind: "p", text: "FAA, JO 7110.65 §2-4-3, verificación de colaciones por el controlador: https://www.faa.gov/air_traffic/publications/atpubs/atc_html/chap2_section_4.html" },
+          { kind: "p", text: "OACI, Doc 9835, 2.ª edición, discusión de fraseología y lenguaje común: https://www4.icao.int/aelts/uploads/icao%20doc9835%202nd%20edition.pdf" },
+          { kind: "p", text: "Para procedimientos y datos colombianos vigentes, consultar Aerocivil/eAIP y el manual del explotador. La fotografía, matriz y escenario son material didáctico, no una carta, ruta o transcripción: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
         ],
-      ),
+      },
     ],
   },
 ]

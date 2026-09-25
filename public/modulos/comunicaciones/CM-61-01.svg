@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Ocho amenazas de comunicación y sus barreras</title>
+  <desc id="desc">Matriz didáctica que relaciona el punto de falla con una acción verificable.</desc>
+  <rect width="1600" height="1000" fill="#102032"/>
+  <rect x="65" y="55" width="1470" height="890" rx="30" fill="#192f42" stroke="#426276" stroke-width="2"/>
+  <text x="110" y="130" fill="#a7f3d0" font-family="Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="5">REPASO OPERACIONAL</text>
+  <text x="110" y="185" fill="#fff" font-family="Arial,sans-serif" font-size="48" font-weight="700">Dónde se rompe una autorización</text>
+  <text x="110" y="230" fill="#c4d4df" font-family="Arial,sans-serif" font-size="24">Del indicativo hasta la trayectoria: cada etapa necesita su propia barrera.</text>
+  <rect x="105" y="265" width="1390" height="70" rx="14" fill="#244155"/>
+  <text x="140" y="310" fill="#a7f3d0" font-family="Arial,sans-serif" font-size="24" font-weight="700">PUNTO DE FALLA</text>
+  <text x="555" y="310" fill="#a7f3d0" font-family="Arial,sans-serif" font-size="24" font-weight="700">AMENAZA</text>
+  <text x="1045" y="310" fill="#a7f3d0" font-family="Arial,sans-serif" font-size="24" font-weight="700">BARRERA</text>
+  <g font-family="Arial,sans-serif" font-size="23">
+    <rect x="105" y="350" width="1390" height="63" rx="9" fill="#21394d"/><text x="140" y="391" fill="#fff" font-weight="700">01 · Destinatario</text><text x="555" y="391" fill="#e7eef3">Indicativo parecido</text><text x="1045" y="391" fill="#a7f3d0">Confirmar identidad</text>
+    <rect x="105" y="419" width="1390" height="63" rx="9" fill="#274358"/><text x="140" y="460" fill="#fff" font-weight="700">02 · Recepción</text><text x="555" y="460" fill="#e7eef3">Dato cubierto por ruido</text><text x="1045" y="460" fill="#a7f3d0">Pedir repetición</text>
+    <rect x="105" y="488" width="1390" height="63" rx="9" fill="#21394d"/><text x="140" y="529" fill="#fff" font-weight="700">03 · Colación</text><text x="555" y="529" fill="#e7eef3">Restricción omitida</text><text x="1045" y="529" fill="#a7f3d0">Colacionar completo</text>
+    <rect x="105" y="557" width="1390" height="63" rx="9" fill="#274358"/><text x="140" y="598" fill="#fff" font-weight="700">04 · Corrección</text><text x="555" y="598" fill="#e7eef3">Dato antiguo persiste</text><text x="1045" y="598" fill="#a7f3d0">Actualizar autorización</text>
+    <rect x="105" y="626" width="1390" height="63" rx="9" fill="#21394d"/><text x="140" y="667" fill="#fff" font-weight="700">05 · Transferencia</text><text x="555" y="667" fill="#e7eef3">Sin contacto nuevo</text><text x="1045" y="667" fill="#a7f3d0">Restaurar contacto</text>
+    <rect x="105" y="695" width="1390" height="63" rx="9" fill="#274358"/><text x="140" y="736" fill="#fff" font-weight="700">06 · Selección</text><text x="555" y="736" fill="#e7eef3">Valor o modo errado</text><text x="1045" y="736" fill="#a7f3d0">Cotejar en cabina</text>
+    <rect x="105" y="764" width="1390" height="63" rx="9" fill="#21394d"/><text x="140" y="805" fill="#fff" font-weight="700">07 · Capacidad</text><text x="555" y="805" fill="#e7eef3">Instrucción inviable</text><text x="1045" y="805" fill="#a7f3d0">Avisar UNABLE</text>
+    <rect x="105" y="833" width="1390" height="63" rx="9" fill="#274358"/><text x="140" y="874" fill="#fff" font-weight="700">08 · Trayectoria</text><text x="555" y="874" fill="#e7eef3">Avión no responde</text><text x="1045" y="874" fill="#a7f3d0">Monitorear e intervenir</text>
+  </g>
+  <text x="110" y="924" fill="#a9becb" font-family="Arial,sans-serif" font-size="18">Esquema didáctico · No sustituye la fraseología ni el procedimiento del operador.</text>
+</svg>
