@@ -2,9 +2,9 @@
 /**
  * Convierte docs/contenido/pbn.md en:
  *
- *   src/lib/pbnLeccion.ts                   los 52 capítulos, para el lector
- *   src/lib/pbnPractica.ts                  las 156 preguntas de los quiz de capítulo
- *   contenido/bancos/pbn_evaluacion.json    las 50 del quiz final
+ *   src/lib/pbnLeccion.ts                   los 48 capítulos, para el lector
+ *   src/lib/pbnPractica.ts                  las 144 preguntas de los quiz de capítulo
+ *   contenido/bancos/pbn_evaluacion.json    las 66 del quiz final
  *
  * El documento es la fuente: se edita allí y se vuelve a correr esto. La
  * plantilla de cada capítulo:
@@ -43,7 +43,7 @@ const DESTINO_PRACTICA = path.join(RAIZ, "src/lib/pbnPractica.ts")
 const DESTINO_BANCO = path.join(RAIZ, "contenido/bancos/pbn_evaluacion.json")
 
 /** Lo que el documento promete en su ficha. Si no cuadra, el script para. */
-const ESPERADO = { capitulos: 52, huecos: 28, escenarios: 12, porCapitulo: 3, practica: 156, banco: 50 }
+const ESPERADO = { capitulos: 48, huecos: 29, escenarios: 12, porCapitulo: 3, practica: 144, banco: 66 }
 
 const FIGURA = { medida: "Figura · 16:9 · 1600×900", ratio: "16 / 9", alto: 260 }
 
@@ -170,7 +170,7 @@ function leerHueco(cuerpo, i, ctx) {
     return { bloque: null, siguiente: j }
   }
 
-  const codigo = `RV-${String(ctx.huecos.length + 1).padStart(2, "0")}`
+  const codigo = `PB-${String(ctx.huecos.length + 1).padStart(2, "0")}`
   ctx.huecos.push(codigo)
 
   return {

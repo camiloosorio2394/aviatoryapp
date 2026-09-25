@@ -3,13 +3,13 @@
 -- evaluación, conteos, panel y logros. Migración 20260929120000_modulo_pbn.
 --
 -- Corre esto con la migración aplicada y el banco sembrado: la puerta abre una
--- evaluación de verdad y la termina. Comprueba que el catálogo trae sus 52
+-- evaluación de verdad y la termina. Comprueba que el catálogo trae sus 48
 -- lecciones y claves con la forma que da el conversor, las reglas de la
--- evaluación (20 al azar de 50, 80 para aprobar, corrección al final, un solo
+-- evaluación (20 al azar de 66, 80 para aprobar, corrección al final, un solo
 -- banco, lección exigida), que el banco esté completo y cada pregunta tenga su
 -- tema, que la RPC valida contra el catálogo y no duplica, que cada piloto ve
 -- solo lo suyo, que nadie escribe las tablas directo ni sin sesión, la puerta
--- (51 de 52 no abre), que el intento llega a su tabla y los cuatro logros. Al
+-- (47 de 48 no abre), que el intento llega a su tabla y los cuatro logros. Al
 -- final, que los módulos de antes siguen contando y que el panel los trae todos.
 --
 -- Es el recorrido de supabase/tests/rvsm.sql con los números de PBN. Si falla por algo que no sea una regla (un nombre, un tipo), es la
@@ -35,27 +35,27 @@ begin
   if x_n > 8 then raise exception 'FALLO A abrió % evaluaciones en la última hora: espera y repite', x_n; end if;
 
   -- ════════════════════════════════════════════════════════════════════════
-  -- PBN (52 lecciones, 156 prácticas, banco de 50)
+  -- PBN (48 lecciones, 144 prácticas, banco de 66)
   -- ════════════════════════════════════════════════════════════════════════
 
   -- ── Catálogo y umbrales ───────────────────────────────────────────────────
   select lecciones, cardinality(practicas), practicas into x_n, x_m, x_practicas
   from public.modulos_contenido where modulo = 'pbn';
   if x_n is null then raise exception 'FALLO no hay catálogo de pbn'; end if;
-  -- El número lo manda contenido/catalogo/modulos.json (156 hoy); aquí
-  -- basta con que las lecciones sean 52, que haya práctica y que todas las
+  -- El número lo manda contenido/catalogo/modulos.json (144 hoy); aquí
+  -- basta con que las lecciones sean 48, que haya práctica y que todas las
   -- claves salgan del conversor: «p28-q1», capítulo y número.
-  if x_n <> 52 or x_m < 1 then raise exception 'FALLO catalogo pbn % %', x_n, x_m; end if;
+  if x_n <> 48 or x_m < 1 then raise exception 'FALLO catalogo pbn % %', x_n, x_m; end if;
   if exists (select 1 from unnest(x_practicas) p where p !~ '^p[0-9]{2}-q[0-9]$') then
     raise exception 'FALLO hay claves de práctica de pbn con otra forma';
   end if;
-  if (select total from public.module_thresholds where code = 'pbn_lesson') is distinct from 52 then
-    raise exception 'FALLO el umbral de lección de pbn no es 52';
+  if (select total from public.module_thresholds where code = 'pbn_lesson') is distinct from 48 then
+    raise exception 'FALLO el umbral de lección de pbn no es 48';
   end if;
   if (select total from public.module_thresholds where code = 'pbn_pass') is distinct from 80 then
     raise exception 'FALLO el umbral de aprobación de pbn no es 80';
   end if;
-  x_log := x_log || ' pbn:catalogo_52_y_umbrales';
+  x_log := x_log || ' pbn:catalogo_48_y_umbrales';
 
   -- ── La evaluación: 20 al azar, 80 para aprobar, corrección al final ──────
   select preguntas_por_intento, aprobacion, retroalimentacion, barajar_opciones
@@ -76,17 +76,17 @@ begin
   -- ── El banco (contenido/bancos/pbn_evaluacion.json) ───────────────────────
   select count(*) into x_n from public.banco_preguntas
   where banco = 'pbn_evaluacion' and activa;
-  if x_n <> 50 then raise exception 'FALLO el banco de pbn tiene % preguntas activas', x_n; end if;
+  if x_n <> 66 then raise exception 'FALLO el banco de pbn tiene % preguntas activas', x_n; end if;
   select count(*) into x_n from public.banco_preguntas
   where banco = 'pbn_evaluacion' and activa
     and (jsonb_array_length(opciones) <> 4
       or correcta < 0 or correcta >= jsonb_array_length(opciones)
       or coalesce(explicacion, '') = ''
       or case when coalesce(metadatos ->> 'tema', '') ~ '^P[0-9]{2}$'
-              then substr(metadatos ->> 'tema', 2)::int not between 1 and 52
+              then substr(metadatos ->> 'tema', 2)::int not between 1 and 48
               else true end);
   if x_n <> 0 then raise exception 'FALLO % preguntas de pbn mal formadas o sin tema', x_n; end if;
-  x_log := x_log || ' pbn:banco_50_bien_formado';
+  x_log := x_log || ' pbn:banco_66_bien_formado';
 
   -- ── Permisos: lectura para authenticated, nada para anon, RLS encendida ──
   if not (select relrowsecurity from pg_class where oid = 'public.user_pbn_progress'::regclass)
@@ -131,13 +131,13 @@ begin
   -- ── Marcar progreso: solo lo que existe en el catálogo ────────────────────
   perform public.pbn_mark_progress(1::smallint, null);
   perform public.pbn_mark_progress(null, x_practicas[1]);
-  perform public.pbn_mark_progress(52::smallint, x_practicas[cardinality(x_practicas)]);
+  perform public.pbn_mark_progress(48::smallint, x_practicas[cardinality(x_practicas)]);
   -- Repetir no duplica.
   perform public.pbn_mark_progress(1::smallint, x_practicas[1]);
 
   begin
-    perform public.pbn_mark_progress((52 + 1)::smallint, null);
-    raise exception 'FALLO pbn aceptó la lección 52 + 1';
+    perform public.pbn_mark_progress((48 + 1)::smallint, null);
+    raise exception 'FALLO pbn aceptó la lección 48 + 1';
   exception when invalid_parameter_value then x_log := x_log || ' pbn:leccion_fuera';
   end;
   begin
@@ -171,7 +171,7 @@ begin
   if x_n <> 1 then raise exception 'FALLO A no ve su progreso de pbn'; end if;
   begin
     update public.user_pbn_progress
-    set lesson_screens = (select array_agg(i::smallint) from generate_series(1, 52) i)
+    set lesson_screens = (select array_agg(i::smallint) from generate_series(1, 48) i)
     where user_id = x_a;
     raise exception 'FALLO update directo aceptado en pbn';
   exception when insufficient_privilege then x_log := x_log || ' pbn:sin_update_directo';
@@ -183,17 +183,17 @@ begin
   exception when insufficient_privilege then x_log := x_log || ' pbn:sin_intento_a_mano';
   end;
 
-  -- ── La puerta: sin las 52 lecciones en la base no abre ─────────────────────
-  -- A ya tiene la 1 y la 52; con 2 a 50 son 51 de 52.
-  for x_i in 2..50 loop
+  -- ── La puerta: sin las 48 lecciones en la base no abre ─────────────────────
+  -- A ya tiene la 1 y la 48; con 2 a 46 son 47 de 48.
+  for x_i in 2..46 loop
     perform public.pbn_mark_progress(x_i::smallint, null);
   end loop;
   begin
     perform public.evaluacion_iniciar('pbn_evaluacion');
-    raise exception 'FALLO pbn abrió con 51 lecciones';
+    raise exception 'FALLO pbn abrió con 47 lecciones';
   exception when others then if sqlerrm <> 'leccion_incompleta' then raise; end if;
   end;
-  x_log := x_log || ' pbn:puerta_cerrada_con_51';
+  x_log := x_log || ' pbn:puerta_cerrada_con_47';
 
   perform public.pbn_mark_progress(51::smallint, null);
   x_r := public.evaluacion_iniciar('pbn_evaluacion');
@@ -206,7 +206,7 @@ begin
              where e ? 'correcta' or e ? 'explicacion') then
     raise exception 'FALLO el intento de pbn entrega la corrección al abrir';
   end if;
-  x_log := x_log || ' pbn:puerta_abierta_con_52';
+  x_log := x_log || ' pbn:puerta_abierta_con_48';
 
   -- Terminar escribe en la tabla del módulo, con la corrección solo de lo
   -- respondido.
@@ -235,7 +235,7 @@ begin
   end;
 
   -- ── Conteos compartidos ───────────────────────────────────────────────────
-  if private.secciones_leidas(x_a, 'pbn') <> 52 then
+  if private.secciones_leidas(x_a, 'pbn') <> 48 then
     raise exception 'FALLO secciones_leidas pbn: %', private.secciones_leidas(x_a, 'pbn');
   end if;
   if private.practicas_hechas(x_a, 'pbn') <> 2 then
@@ -255,7 +255,7 @@ begin
     and not tgisinternal;
   if x_n <> 2 then raise exception 'FALLO faltan disparadores de logros de pbn: %', x_n; end if;
 
-  -- Las 52 lecciones ya desbloquearon el de lección (por el disparador de la RPC).
+  -- Las 48 lecciones ya desbloquearon el de lección (por el disparador de la RPC).
   if not exists (select 1 from public.user_achievements ua join public.achievements a on a.id = ua.achievement_id
                  where ua.user_id = x_a and a.code = 'pbn_lesson') then
     raise exception 'FALLO la lección completa de pbn no desbloqueó su logro';
@@ -323,7 +323,7 @@ begin
   x_r := public.panel_tarjetas();
   reset role;
 
-  if (x_r -> 'pbn' ->> 'lecciones')::int <> 52 or x_r -> 'pbn' ->> 'mejor' is null then
+  if (x_r -> 'pbn' ->> 'lecciones')::int <> 48 or x_r -> 'pbn' ->> 'mejor' is null then
     raise exception 'FALLO el panel dice de pbn: %', x_r -> 'pbn';
   end if;
   if x_r -> 'notam' is null or x_r -> 'metar' is null or x_r -> 'mercancias' is null

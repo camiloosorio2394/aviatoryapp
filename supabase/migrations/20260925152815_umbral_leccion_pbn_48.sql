@@ -1,0 +1,12 @@
+-- ============================================================================
+-- La puerta de la evaluación de PBN pasa a pedir 48 lecciones.
+--
+-- `evaluacion_iniciar` compara las secciones leídas contra
+-- `module_thresholds.pbn_lesson`. Con el módulo en 48 capítulos y el umbral en
+-- 52, la evaluación no habría abierto nunca: el piloto puede leer 48 como
+-- máximo y la puerta le habría pedido cuatro que ya no existen.
+--
+-- Va aparte del catálogo a propósito: son las dos mitades de la misma regla y
+-- si una se aplica sin la otra el módulo queda roto en un sentido o en el otro.
+-- ============================================================================
+update public.module_thresholds set total = 48 where code = 'pbn_lesson' and total <> 48;

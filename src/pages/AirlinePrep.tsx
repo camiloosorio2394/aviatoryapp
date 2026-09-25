@@ -569,7 +569,7 @@ export function AirlinePrep() {
               : `${rvsm.lessonRead}/${RVSM_LECTURA_TOTAL} capítulos · ${rvsm.practiceDone}/${RVSM_PRACTICA_TOTAL} preguntas`,
         },
       },
-      // PBN: cincuenta y dos capítulos. El módulo más largo del bloque
+      // PBN: cuarenta y ocho capítulos. El módulo más largo del bloque
       // avanzado, y el que más se pregunta en entrevista técnica.
       {
         nombre: PBN_TITULO,

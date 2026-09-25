@@ -15,7 +15,7 @@
       "explicacion": "Cuando el error total del sistema lateral no puede demostrarse sin el piloto automático o el director de vuelo, su acoplamiento pasa a ser obligatorio y la guía operacional lo indica. Sin él no hay capacidad, y la habilidad de pilotaje no sustituye un requisito de la especificación.",
       "referencia": "FAA AC 90-105A, Apéndice A, numeral A.3.9",
       "metadatos": {
-        "tema": "P46"
+        "tema": "P43"
       }
     },
     {
@@ -31,7 +31,7 @@
       "explicacion": "Un directo cambia geometría, secuenciamiento y perfil vertical, y las restricciones asociadas a los puntos que se saltan salen del cálculo. Hay que verificar qué sobrevive antes de ejecutar, y reintroducir puntos a mano no es la solución.",
       "referencia": "FAA AC 90-105A, numeral 8.4.3, apartado 22; FAA AIM 5-4-1",
       "metadatos": {
-        "tema": "P44"
+        "tema": "P41"
       }
     },
     {
@@ -47,7 +47,7 @@
       "explicacion": "En el espacio aéreo donde se aplica, la especificación es RNAV 10 y toda aeronave elegible para RNP 10 se considera elegible para RNAV 10. El nombre antiguo sobrevive en el código `A1`, cuyo texto es «RNAV 10 (RNP 10)». Ninguna de las dos tiene control y alerta: por eso se renombró.",
       "referencia": "FAA AIM 1-2-1, apartados RNP 10 y RNAV 10; OACI PANS-ATM, Apéndice 2, código A1",
       "metadatos": {
-        "tema": "P16"
+        "tema": "P15"
       }
     },
     {
@@ -79,7 +79,7 @@
       "explicacion": "Si se vectorea o se autoriza a desviarse de una STAR, el piloto debe considerarla cancelada y las restricciones de altitud, de velocidad y la nota de transición de Mach a velocidad indicada quedan canceladas. El ATC avisa dónde esperar reanudar el procedimiento.",
       "referencia": "FAA AIM 5-4-1, apartado de rutas con STAR",
       "metadatos": {
-        "tema": "P43"
+        "tema": "P40"
       }
     },
     {
@@ -95,7 +95,7 @@
       "explicacion": "`S1` es RNP APCH y `S2` es RNP APCH con Baro-VNAV, que es una capacidad declarable aparte. Con `S1` solo, la guía vertical barométrica no está declarada, y eso tiene consecuencias para la línea de mínimos a la que se puede volar.",
       "referencia": "OACI PANS-ATM, Apéndice 2, códigos `PBN/` D2, O2, S1 y S2",
       "metadatos": {
-        "tema": "P45"
+        "tema": "P42"
       }
     },
     {
@@ -111,7 +111,7 @@
       "explicacion": "Los procedimientos RNP AR usan un área lateral igual a dos veces el valor RNP, sin área secundaria ni márgenes adicionales. Esa ausencia de colchón es la que explica las exigencias de autorización, equipo, entrenamiento y, en algunos casos, redundancia.",
       "referencia": "FAA AIM 5-4-18, apartado de valor RNP",
       "metadatos": {
-        "tema": "P22"
+        "tema": "P21"
       }
     },
     {
@@ -127,7 +127,7 @@
       "explicacion": "El reloj del avión erróneo y las indicaciones erróneas de viento y velocidad respecto al suelo están entre los indicios que la autoridad enumera. La primera acción recomendada es verificar la posición por medio de radioayudas convencionales cuando estén disponibles.",
       "referencia": "FAA AIM 1-2-4, indicios y recomendaciones",
       "metadatos": {
-        "tema": "P41"
+        "tema": "P38"
       }
     },
     {
@@ -143,7 +143,7 @@
       "explicacion": "La norma exige que la autoridad se asegure de que el explotador estableció y documentó procedimientos normales y anormales incluidos los de contingencia, calificaciones y competencias de la tripulación, instrucción y mantenimiento, y que además el explotador esté autorizado para esas operaciones.",
       "referencia": "RAC 121, numeral 121.995, apartado (b)(2) y (b)(3)",
       "metadatos": {
-        "tema": "P51"
+        "tema": "P47"
       }
     },
     {
@@ -159,7 +159,7 @@
       "explicacion": "La norma enumera entre los conocimientos requeridos la importancia de mantener la trayectoria publicada y las velocidades máximas en operaciones RNP con tramos RF. Un arco de radio fijo volado más rápido exige más inclinación, y el avión se sale del arco.",
       "referencia": "FAA AC 90-105A, numeral 8.4.3, apartado 14",
       "metadatos": {
-        "tema": "P24"
+        "tema": "P23"
       }
     },
     {
@@ -175,7 +175,7 @@
       "explicacion": "Cumplir el requisito de control y alerta no implica un control automático del error técnico de vuelo. La función debe consistir al menos en un algoritmo de control y alerta del error del sistema de navegación y en una presentación de desviación lateral que permita a la tripulación vigilar el error técnico de vuelo.",
       "referencia": "FAA AC 90-105A, nota al numeral 4.2",
       "metadatos": {
-        "tema": "P28"
+        "tema": "P27"
       }
     },
     {
@@ -191,7 +191,7 @@
       "explicacion": "Los mínimos de circling de una carta RNAV pueden ser más bajos que la línea LNAV/VNAV, pero nunca más bajos que la línea LNAV de aproximación recta. Ocurre cuando los obstáculos determinantes son distintos o cuando otros factores elevan la MDA de LNAV.",
       "referencia": "FAA AIM 5-4-5, apartado de circling",
       "metadatos": {
-        "tema": "P18"
+        "tema": "P17"
       }
     },
     {
@@ -223,7 +223,7 @@
       "explicacion": "La circular pide confirmar la disponibilidad de la infraestructura requerida para las rutas, procedimientos o aproximaciones previstas, incluidas las contingencias no RNP, para el periodo de la operación prevista. El plan alternativo también necesita infraestructura disponible.",
       "referencia": "FAA AC 90-105A, Apéndice A, numeral A.7.1.7",
       "metadatos": {
-        "tema": "P38"
+        "tema": "P36"
       }
     },
     {
@@ -239,7 +239,7 @@
       "explicacion": "En A-RNP los tramos RF son función mínima obligatoria, junto con la RNP escalable y la trayectoria paralela desplazada. En RNP 1 la capacidad RF es opcional y hay que verla listada como característica del equipo.",
       "referencia": "FAA AIM 1-2-1, apartados A-RNP y RNP 1",
       "metadatos": {
-        "tema": "P16"
+        "tema": "P15"
       }
     },
     {
@@ -255,7 +255,7 @@
       "explicacion": "Las aeronaves elegibles para A-RNP no son automáticamente elegibles para RNP AR APCH ni RNP AR DP: esa elegibilidad exige determinación separada y autorización especial. Y el valor mínimo al que se puede volar lo fija la autorización del operador, no la carta.",
       "referencia": "FAA AIM 1-2-1, nota al apartado A-RNP; FAA AIM 5-4-18",
       "metadatos": {
-        "tema": "P23"
+        "tema": "P22"
       }
     },
     {
@@ -271,7 +271,7 @@
       "explicacion": "La simbología del punto fly-by proporciona al piloto conciencia de las acciones esperadas. Importa porque si el sistema no da la guía de anticipación, el piloto debe ejecutarla manualmente.",
       "referencia": "FAA AIM 5-4-5, apartado de waypoints",
       "metadatos": {
-        "tema": "P25"
+        "tema": "P24"
       }
     },
     {
@@ -287,7 +287,7 @@
       "explicacion": "El GPS es el sistema de navegación primario para RNP APCH y los sistemas basados en DME/DME no son aceptables. El segmento de frustrada, en cambio, puede basarse en una radioayuda convencional como VOR, DME o NDB.",
       "referencia": "FAA AC 90-105A, Apéndice A, numeral A.5.1",
       "metadatos": {
-        "tema": "P37"
+        "tema": "P35"
       }
     },
     {
@@ -319,7 +319,7 @@
       "explicacion": "El uso de Baro-VNAV hasta una DA no está autorizado con ajuste altimétrico remoto: se requiere ajuste local actual del aeropuerto de aterrizaje. Donde se publican mínimos con altímetro remoto, la función VNAV puede usarse solo hasta la MDA de LNAV publicada.",
       "referencia": "FAA AC 90-105A, Apéndice B, numeral B.4.4",
       "metadatos": {
-        "tema": "P19"
+        "tema": "P18"
       }
     },
     {
@@ -335,7 +335,7 @@
       "explicacion": "En el marco de la FAA los RNP APCH se titulan RNAV (GPS) y los RNP AR, RNAV (RNP); internacionalmente los RNP AR pueden aparecer como RNP RWY XX (AR). Lo que el procedimiento exige está en las notas y en el recuadro PBN.",
       "referencia": "FAA AIM 1-2-1 y 1-2-3; FAA AIM 5-4-18",
       "metadatos": {
-        "tema": "P17"
+        "tema": "P16"
       }
     },
     {
@@ -351,7 +351,7 @@
       "explicacion": "Entre los efectos posibles, la autoridad enumera el disparo poco fiable del TAWS. Es un buen recordatorio de que hay más sistemas colgados del GNSS de los que parece, y de que hay que evaluar qué sistemas de a bordo requieren entradas de GPS.",
       "referencia": "FAA AIM 1-2-4, lista de efectos de interferencia y suplantación",
       "metadatos": {
-        "tema": "P38"
+        "tema": "P36"
       }
     },
     {
@@ -367,7 +367,7 @@
       "explicacion": "Se asume cero por el proceso de integridad de la base de datos y los procedimientos de tripulación. No es un regalo: es un supuesto que se sostiene sobre esas dos cosas, y si alguna se relaja, deja de valer.",
       "referencia": "FAA AC 90-105A, nota al numeral 4.2",
       "metadatos": {
-        "tema": "P28"
+        "tema": "P27"
       }
     },
     {
@@ -399,7 +399,7 @@
       "explicacion": "La redundancia responde a continuidad. Cuando la operación típicamente requiere equipo redundante, quitarlo quita la operación aunque el sistema restante funcione perfectamente. No se pierde «toda» la capacidad PBN: se pierde la que exigía esa continuidad.",
       "referencia": "FAA AIM 5-4-18, apartado de frustradas con valor menor de 1.00 NM; FAA AC 90-101A, Apéndice, numeral 2, apartado c",
       "metadatos": {
-        "tema": "P46"
+        "tema": "P43"
       }
     },
     {
@@ -415,7 +415,7 @@
       "explicacion": "La R de la casilla 10 significa PBN aprobado y remite a la casilla 18, donde el indicador `PBN/` lleva los descriptores concretos, hasta 8 entradas y 16 caracteres. RVSM se declara con la W, que es otra letra.",
       "referencia": "OACI PANS-ATM, Apéndice 2, casilla 10 código R y casilla 18 indicador `PBN/`",
       "metadatos": {
-        "tema": "P45"
+        "tema": "P42"
       }
     },
     {
@@ -431,7 +431,7 @@
       "explicacion": "La circular fija ese punto: los pilotos deben confirmar que el sistema ha iniciado la transición de modo terminal a modo aproximación 2 NM antes del punto de aproximación final. Confirmarlo después deja sin margen para reaccionar.",
       "referencia": "FAA AC 90-105A, Apéndice A, numeral A.7.2.1",
       "metadatos": {
-        "tema": "P17"
+        "tema": "P16"
       }
     },
     {
@@ -447,7 +447,7 @@
       "explicacion": "Una vez establecido en la SID, si se vectorea al avión o se lo autoriza a desviarse, la SID se considera cancelada salvo que el controlador añada que se espere reanudarla, y las restricciones de altitud y velocidad quedan canceladas: el piloto recibirá una altitud que mantener y, si hace falta, una velocidad.",
       "referencia": "FAA AIM 5-2-9, apartado de vectores después de establecido en una SID",
       "metadatos": {
-        "tema": "P42"
+        "tema": "P39"
       }
     },
     {
@@ -463,7 +463,7 @@
       "explicacion": "La definición lo dice: la medida que expresa la performance de estimación de posición actual se conoce también como ANP o EPE en ciertas aeronaves. Ninguna de las tres es el error real: son una indicación estadística definida del error potencial.",
       "referencia": "FAA AC 90-105A, Apéndice J, definición de EPU; FAA AC 90-101A, numeral 3, apartado b",
       "metadatos": {
-        "tema": "P31"
+        "tema": "P30"
       }
     },
     {
@@ -479,7 +479,7 @@
       "explicacion": "Entre los conocimientos requeridos está saber cómo se aplican los desplazamientos, cuál es la funcionalidad del sistema propio y la necesidad de avisar al ATC si esa funcionalidad no está disponible. Improvisar el desplazamiento a rumbo no es lo que el controlador está separando.",
       "referencia": "FAA AC 90-105A, numeral 8.4.3, apartado 20",
       "metadatos": {
-        "tema": "P44"
+        "tema": "P41"
       }
     },
     {
@@ -495,7 +495,7 @@
       "explicacion": "Ante una interrupción planificada, por ejemplo publicada por NOTAM, se puede planificar volar a través de ella usando la red de radioayudas convencionales según corresponda y según lo autorice el ATC. La interferencia, en cambio, se detecta en vuelo y obliga a contrastar.",
       "referencia": "FAA AIM 1-1-17, apartado de interrupciones planificadas de GPS; FAA AIM 1-2-4",
       "metadatos": {
-        "tema": "P40"
+        "tema": "P38"
       }
     },
     {
@@ -527,7 +527,7 @@
       "explicacion": "El procedimiento se recupera de la base de datos y se verifica contra la carta. Si se publicó una enmienda que no está en la base, la base no debe usarse para conducir esa operación, y teclear la diferencia a mano no resuelve el problema.",
       "referencia": "FAA AC 90-105A, nota al numeral 10.4; FAA AIM 1-2-1",
       "metadatos": {
-        "tema": "P33"
+        "tema": "P32"
       }
     },
     {
@@ -559,7 +559,7 @@
       "explicacion": "La nota del AIM pide no confundir un valor en carta de 0.30 o inferior con el nombre de la especificación «RNP 0.3»: los valores en carta de 0.30 o menores llevan dos decimales. Y las RNP AR tienen valores de 0.30 o menores, cada línea de mínimos con el suyo.",
       "referencia": "FAA AIM 1-2-1, nota sobre valores RNP en carta; FAA AIM 5-4-18",
       "metadatos": {
-        "tema": "P52"
+        "tema": "P48"
       }
     },
     {
@@ -575,7 +575,7 @@
       "explicacion": "Las discrepancias que invalidan un procedimiento deben reportarse al proveedor de la base de datos, y el uso de los procedimientos afectados debe prohibirse mediante un aviso del operador a su tripulación. El procedimiento vuelve a estar disponible solo cuando el operador lo restablece.",
       "referencia": "FAA AC 90-105A, numeral 10.7, apartado 5",
       "metadatos": {
-        "tema": "P33"
+        "tema": "P32"
       }
     },
     {
@@ -607,7 +607,7 @@
       "explicacion": "Las RNP AR pueden requerir velocidades de aproximación o gradientes de ascenso en frustrada no estándar, la carta los refleja y los pilotos deben confirmar que pueden cumplirlos antes de comenzar la aproximación.",
       "referencia": "FAA AIM 5-4-18, apartado de velocidades y gradientes no estándar",
       "metadatos": {
-        "tema": "P22"
+        "tema": "P21"
       }
     },
     {
@@ -623,7 +623,7 @@
       "explicacion": "Hay que contrastar con una fuente independiente. La propia autoridad recomienda comprobaciones rutinarias de posición contra información de VOR o DME, y lista la posición inexacta en la presentación de navegación, incluidos mapa móvil y tableta electrónica, entre los efectos posibles.",
       "referencia": "FAA AIM 1-2-4, recomendaciones durante el vuelo",
       "metadatos": {
-        "tema": "P41"
+        "tema": "P38"
       }
     },
     {
@@ -639,7 +639,7 @@
       "explicacion": "La norma exige que los datos sean actuales y apropiados para la región de la operación prevista y que incluyan radioayudas, puntos y los procedimientos codificados de terminal pertinentes para la salida, la llegada y los aeródromos de alternativa.",
       "referencia": "FAA AC 90-105A, numeral 10.2",
       "metadatos": {
-        "tema": "P33"
+        "tema": "P32"
       }
     },
     {
@@ -655,7 +655,7 @@
       "explicacion": "La circular incluye entre las fallas que cuentan la reversión a una navegación distinta de las admitidas, aunque no se exija al piloto vigilar la fuente de actualización. La precisión de la navegación resultante no es el criterio: el criterio es la especificación.",
       "referencia": "FAA AC 90-100A, numeral 10, apartado d",
       "metadatos": {
-        "tema": "P49"
+        "tema": "P45"
       }
     },
     {
@@ -687,7 +687,7 @@
       "explicacion": "Aviar, navegar, comunicar. Primero se vuela el avión, se identifica y se contrasta, se aplican QRH y SOP, se determina qué capacidad queda y se concluye si todavía se cumple lo exigido; el aviso al ATC llega con la propuesta.",
       "referencia": "FAA AC 90-105A, Apéndice A, numeral A.7.1.8; numeral 8.4.3, apartado 23",
       "metadatos": {
-        "tema": "P49"
+        "tema": "P45"
       }
     },
     {
@@ -703,7 +703,7 @@
       "explicacion": "Cuando el ajuste altimétrico en el que se basa la aproximación no está disponible, la aproximación no está autorizada. Que la fuente sea no local es otra cosa: si la carta la publica, se puede usar, con mínimos posiblemente más altos y sin Baro-VNAV hasta la DA.",
       "referencia": "FAA AIM 5-4-5, apartado de fuentes de ajuste altimétrico",
       "metadatos": {
-        "tema": "P21"
+        "tema": "P18"
       }
     },
     {
@@ -719,7 +719,7 @@
       "explicacion": "La autorización la da el ATC, la elegibilidad está en el AFM, y la carta es la referencia de verificación: dice cómo es el procedimiento y qué exige. El FMS no valida nada: muestra lo que pudo construir con los datos que tenía.",
       "referencia": "FAA AIM 1-2-1; FAA AC 90-105A, numeral 8.4.4",
       "metadatos": {
-        "tema": "P36"
+        "tema": "P34"
       }
     },
     {
@@ -751,7 +751,7 @@
       "explicacion": "La lista puede prohibir expresamente una combinación que admite por separado, y el efecto conjunto sobre la capacidad PBN puede no coincidir con el de ninguno de los dos aislados. La respuesta está en la MEL, no en la aritmética.",
       "referencia": "RAC 121, numeral 121.995, apartado (b)(1)(iii); práctica estándar de listas de equipo mínimo",
       "metadatos": {
-        "tema": "P46"
+        "tema": "P43"
       }
     },
     {
@@ -767,7 +767,7 @@
       "explicacion": "La verificación vale porque la hace otro par de ojos. El reparto concreto es del SOP del operador, que la norma le exige documentar junto con los requisitos de calificación y competencia de la tripulación.",
       "referencia": "RAC 121, numeral 121.995, apartado (b)(2); FAA AC 90-105A, capítulo 8",
       "metadatos": {
-        "tema": "P47"
+        "tema": "P44"
       }
     },
     {
@@ -783,7 +783,7 @@
       "explicacion": "En RNP APCH el segmento de frustrada puede basarse en una radioayuda convencional. Lo dice la carta del procedimiento, y de ahí sale la necesidad de sintonizarla y verificarla antes, no durante la frustrada.",
       "referencia": "FAA AC 90-105A, Apéndice A, numeral A.5.1",
       "metadatos": {
-        "tema": "P29"
+        "tema": "P28"
       }
     },
     {
@@ -800,6 +800,262 @@
       "referencia": "RAC 91, numeral 91.1015; RAC 121, numeral 121.995; FAA AC 90-105A, numeral 8.4.4 y Apéndice A, numeral A.7.1.7",
       "metadatos": {
         "tema": "P11"
+      }
+    },
+    {
+      "id": "ev-51",
+      "enunciado": "Pierdes el GNSS en ruta y el segmento que estás volando exige RNAV 5. ¿Qué determina si conservas la capacidad?",
+      "opciones": [
+        "Nada: sin GNSS no hay capacidad PBN de ningún tipo.",
+        "Si queda otra fuente de posición admitida y declarada para esa especificación, porque RNAV 5 acepta también DME/DME, VOR/DME e inerciales.",
+        "Que el ATC confirme vigilancia radar continua.",
+        "Que el FMS siga mostrando la ruta dibujada."
+      ],
+      "correcta": 1,
+      "explicacion": "Los códigos de la casilla 18 lo dicen sin ambigüedad: hay un descriptor por sensor, de B1 a B6, y entre ellos figuran DME/DME, VOR/DME e INS o IRS como fuentes declarables por sí solas. Es la especificación de la familia donde una pérdida de GNSS tiene más probabilidades de no costar la capacidad.",
+      "referencia": "OACI PANS-ATM, Apéndice 2, códigos `PBN/` B1 a B6",
+      "metadatos": {
+        "tema": "P12"
+      }
+    },
+    {
+      "id": "ev-52",
+      "enunciado": "En una entrevista te dicen: «ya no se usan radioayudas, todo es satelital». ¿Cómo respondes con precisión?",
+      "opciones": [
+        "Es correcto para espacio continental.",
+        "Es incorrecto: varias especificaciones admiten posicionamiento por DME/DME o VOR/DME, el ILS sigue siendo el patrón de la aproximación de precisión y la reversión a navegación convencional es la contingencia más común.",
+        "Es correcto desde que existe la aumentación satelital.",
+        "Depende de que el operador tenga aprobación RNP AR."
+      ],
+      "correcta": 1,
+      "explicacion": "La navegación convencional no quedó superada: es fuente admitida en varias especificaciones y es el plan B cuando se degrada el GNSS. Un candidato que la trate como obsoleta está describiendo un sistema que no existe, y además se queda sin explicar qué haría en la contingencia más frecuente del concepto.",
+      "referencia": "FAA AC 90-100A, numeral 8; FAA AC 90-105A, capítulo 6",
+      "metadatos": {
+        "tema": "P02"
+      }
+    },
+    {
+      "id": "ev-53",
+      "enunciado": "Tu avión es elegible para RNP 1 y el operador está autorizado. Llegas a un aeropuerto donde el procedimiento RNP 1 requiere tramos RF y tu equipo no los lista. ¿Qué falta?",
+      "opciones": [
+        "Nada: la elegibilidad RNP 1 incluye los tramos RF.",
+        "Falta la pieza de infraestructura y equipo del día: la especificación es un contrato de dos partes y la funcionalidad que el procedimiento exige tiene que estar disponible hoy.",
+        "Falta la autorización del ATC para el tramo curvo.",
+        "Falta declarar el código en la casilla 18."
+      ],
+      "correcta": 1,
+      "explicacion": "El concepto se apoya en tres piezas, y ser elegible sobre el papel no es poder volarlo hoy. En RNP 1 la capacidad de tramo RF es opcional, así que hay que verla listada como característica del equipo: si el procedimiento la pide y el avión no la tiene, el procedimiento no se vuela como está publicado.",
+      "referencia": "RAC 91, definición de especificación para la navegación",
+      "metadatos": {
+        "tema": "P03"
+      }
+    },
+    {
+      "id": "ev-54",
+      "enunciado": "Se degrada el GNSS en crucero. ¿Cuál es la pregunta correcta que debe hacerse la tripulación?",
+      "opciones": [
+        "«¿Perdí la capacidad PBN?»",
+        "«¿Qué especificación necesito para el segmento que estoy volando y qué me queda para cumplirla?»",
+        "«¿Puedo seguir con el piloto automático acoplado?»",
+        "«¿Está el procedimiento todavía en la base de datos?»"
+      ],
+      "correcta": 1,
+      "explicacion": "Preguntar por «la capacidad PBN» en bloque no tiene respuesta, porque la elegibilidad se lista por especificación y cada una admite fuentes distintas. La pregunta útil acota el problema al segmento concreto y a lo que sigue disponible, y de ahí sale si se continúa igual o si hay que pedir otra autorización.",
+      "referencia": "FAA AIM 1-2-1; RAC 121, numeral 121.995",
+      "metadatos": {
+        "tema": "P04"
+      }
+    },
+    {
+      "id": "ev-55",
+      "enunciado": "¿Qué distingue a una especificación RNAV de una RNP en cuanto a requisitos?",
+      "opciones": [
+        "La precisión lateral que describe el número.",
+        "Que la especificación RNAV no incluye el requisito de control y alerta de la performance a bordo.",
+        "Que RNAV solo se aplica en ruta y RNP en terminal.",
+        "Que RNAV admite GNSS y RNP no."
+      ],
+      "correcta": 1,
+      "explicacion": "La definición de la norma es la que zanja la pregunta: una especificación RNAV es la que no incluye el requisito de control y alerta de la performance a bordo. El número no separa familias, porque RNAV 1 y RNP 1 describen la misma precisión lateral y se diferencian justamente en ese requisito.",
+      "referencia": "RAC 91, definición de especificación para navegación de área (RNAV)",
+      "metadatos": {
+        "tema": "P06"
+      }
+    },
+    {
+      "id": "ev-56",
+      "enunciado": "Un candidato afirma que el número de una especificación es el margen dentro del cual se le permite desviarse. ¿Qué está mal?",
+      "opciones": [
+        "Nada: es exactamente eso.",
+        "Que el número es la precisión lateral esperada al menos el 95 % del tiempo de vuelo por la población de aeronaves que opera ahí, y la expectativa operacional sigue siendo mantener el eje.",
+        "Que el número solo aplica a la aproximación final.",
+        "Que el número mide el error vertical y no el lateral."
+      ],
+      "correcta": 1,
+      "explicacion": "Es una cifra estadística sobre un conjunto de aeronaves, no un permiso individual de desviación. Tratarla como margen disponible invierte su sentido: lo que se espera es volar el eje, y el valor describe la precisión que el sistema debe conseguir para que el procedimiento siga estando protegido.",
+      "referencia": "FAA AC 90-105A, numeral 6.2",
+      "metadatos": {
+        "tema": "P09"
+      }
+    },
+    {
+      "id": "ev-57",
+      "enunciado": "Vuelas una RNP APCH completa. ¿Cómo cambia el valor RNP a lo largo del procedimiento?",
+      "opciones": [
+        "Se mantiene en 0.3 desde la inicial hasta la frustrada.",
+        "Es 1 en la inicial e intermedia, 0.3 en la aproximación final y vuelve a 1 en la frustrada.",
+        "Es 1 en todo el procedimiento y 0.3 solo si la carta lo publica.",
+        "Lo fija la tripulación según la visibilidad."
+      ],
+      "correcta": 1,
+      "explicacion": "El valor cambia por fase de vuelo dentro del mismo procedimiento, y esa es una de las ideas que más se falla. La final es el tramo que estrecha a 0.3 y la frustrada recupera el 1, lo que explica por qué el segmento de frustrada tiene requisitos propios y no hereda los de la final.",
+      "referencia": "FAA AC 90-105A, numeral 5.1 y Tabla 5-1",
+      "metadatos": {
+        "tema": "P10"
+      }
+    },
+    {
+      "id": "ev-58",
+      "enunciado": "La carta de una LNAV/VNAV publica una limitación de temperatura baja y la temperatura real está por debajo. Tu avión no tiene compensación aprobada. ¿Qué haces?",
+      "opciones": [
+        "Vuelas a la DA de LNAV/VNAV: la nota es un margen conservador.",
+        "Vuelas a la MDA de LNAV, que está publicada en la misma carta.",
+        "Solicitas al ATC una aproximación de precisión.",
+        "Aplicas una corrección de altitud calculada a mano sobre la DA."
+      ],
+      "correcta": 1,
+      "explicacion": "La limitación es parte del procedimiento, no una advertencia de confort del equipo, y la alternativa correcta viene publicada al lado. La limitación dejaría de aplicar solo si la aproximación se volara a esos mínimos con guía vertical satelital y el avión tuviera esa aprobación de aeronavegabilidad.",
+      "referencia": "FAA AC 90-105A, Apéndice B, numeral B.4.2; FAA AIM 5-4-5",
+      "metadatos": {
+        "tema": "P19"
+      }
+    },
+    {
+      "id": "ev-59",
+      "enunciado": "Vuelas el tramo final de un NPA en descenso continuo, con guía VNAV de asesoramiento que calcula tu propio equipo. ¿Qué operación es y a qué mínimo vas?",
+      "opciones": [
+        "Operación 2D, y vas a la MDA.",
+        "Operación 3D, y el procedimiento pasa a ser APV con DA.",
+        "Operación 3D, pero el procedimiento sigue siendo un NPA y vas a la MDA.",
+        "Operación 3D solo si el operador tiene aprobación específica."
+      ],
+      "correcta": 2,
+      "explicacion": "La norma separa las dos cosas que aquí se confunden. Con guía de asesoramiento calculada a bordo la operación se clasifica como tridimensional, y con cálculo manual de la velocidad vertical, como bidimensional; pero ninguna de las dos convierte el procedimiento en otra cosa ni mueve el mínimo, que sigue siendo la altitud mínima de descenso.",
+      "referencia": "RAC 91 y RAC 121, nota a la definición de procedimiento de aproximación que no es de precisión (NPA)",
+      "metadatos": {
+        "tema": "P20"
+      }
+    },
+    {
+      "id": "ev-60",
+      "enunciado": "Comparando la carta con el FMS encuentras que un tramo está codificado con un terminador distinto del que describe el procedimiento publicado. ¿Cómo lo tratas?",
+      "opciones": [
+        "Como una variante aceptable del proveedor de datos.",
+        "Como una discrepancia seria: el proveedor no debe sustituir terminadores por otros distintos de los especificados en los datos originales del AIP del Estado.",
+        "Como un asunto de codificación que no afecta al piloto.",
+        "Como un error de la carta, porque el FMS se actualiza más a menudo."
+      ],
+      "correcta": 1,
+      "explicacion": "La prohibición de sustituir terminadores es lo que garantiza que el procedimiento codificado corresponda al publicado. Cuando esa correspondencia se rompe, el avión va a volar una geometría que la carta no describe, y eso entra en el circuito de discrepancias de datos de navegación, no en el de curiosidades.",
+      "referencia": "FAA AC 90-105A, Apéndice A, numeral A.4.2",
+      "metadatos": {
+        "tema": "P25"
+      }
+    },
+    {
+      "id": "ev-61",
+      "enunciado": "Pasas de la fase de ruta a la aproximación final vigilando la desviación lateral en la presentación de cabina. ¿Qué hay que tener en cuenta?",
+      "opciones": [
+        "Que la escala de la presentación es fija durante todo el vuelo.",
+        "Que la sensibilidad de la presentación cambia con la fase, así que hay que saber qué escala se está mirando para interpretar la desviación.",
+        "Que por debajo del FAF la desviación lateral deja de presentarse.",
+        "Que el sistema alerta automáticamente de cualquier desviación lateral."
+      ],
+      "correcta": 1,
+      "explicacion": "La misma aguja desplazada lo mismo significa distancias distintas según la escala activa, y por eso la norma incluye la interpretación de la presentación entre los conocimientos exigidos. Esa vigilancia es además la que le corresponde a la tripulación: el sistema alerta de su propia estimación de posición, no del error de pilotaje.",
+      "referencia": "FAA AC 90-105A, numeral 8.4.3, apartado 13",
+      "metadatos": {
+        "tema": "P26"
+      }
+    },
+    {
+      "id": "ev-62",
+      "enunciado": "Un candidato dice que si el FMS dibuja la trayectoria completa es porque el procedimiento está bien. ¿Qué le falta entender?",
+      "opciones": [
+        "Que el FMS solo dibuja procedimientos autorizados.",
+        "Que el FMS es un sistema integrado que hace lo que se le programó: lo que muestra se verifica contra la carta, no se acepta.",
+        "Que el FMS no puede calcular tramos curvos.",
+        "Que el dibujo depende de la escala del mapa seleccionada."
+      ],
+      "correcta": 1,
+      "explicacion": "El sistema integra sensores, receptor, computador y bases de datos, y con eso construye lo que puede construir. Que el resultado se vea completo y continuo habla de los datos que tenía, no de que el procedimiento sea el publicado, ni de que esté autorizado, ni de que el avión pueda volarlo.",
+      "referencia": "FAA AC 90-105A, numeral 8.4.4; FAA AIM 1-2-1",
+      "metadatos": {
+        "tema": "P29"
+      }
+    },
+    {
+      "id": "ev-63",
+      "enunciado": "Recibes una alerta de que la performance estimada ya no cumple la RNP requerida. ¿Qué es esa alerta y de dónde sale la acción concreta?",
+      "opciones": [
+        "Es una orden de frustrada inmediata, escrita en la norma.",
+        "Es información de que el sistema ya no puede garantizar la performance requerida; el mensaje concreto y su acción asociada están en el FCOM y el QRH de la flota, y la decisión es de la tripulación.",
+        "Es un aviso de mantenimiento sin efecto operacional.",
+        "Es una indicación de que el ATC perderá la traza radar."
+      ],
+      "correcta": 1,
+      "explicacion": "La norma exige que el sistema avise, no que el avión decida. Lo que hay que hacer con el aviso depende del mensaje exacto, de la flota y del procedimiento en curso, y eso vive en la documentación del avión y del operador: por eso este módulo no publica una acción única para una alerta genérica.",
+      "referencia": "FAA AC 90-105A, Apéndice A, numeral A.7.1.8",
+      "metadatos": {
+        "tema": "P31"
+      }
+    },
+    {
+      "id": "ev-64",
+      "enunciado": "Despegas con la base de datos de navegación vigente y el ciclo AIRAC cambia durante el vuelo. ¿Qué corresponde?",
+      "opciones": [
+        "Nada: basta con que fuera vigente en la salida.",
+        "Los datos deben seguir siendo actuales y apropiados durante todo el vuelo, así que hay que aplicar un procedimiento que asegure la exactitud de los datos de navegación para el resto de la operación.",
+        "Declarar la pérdida de capacidad PBN al ATC.",
+        "Cargar el ciclo nuevo a mano desde la carta."
+      ],
+      "correcta": 1,
+      "explicacion": "La exigencia no se agota en el despacho: cubre la operación entera, y el cambio de ciclo en vuelo es el caso previsto. Tampoco se resuelve con un «no go» automático ni teclando datos: lo que corresponde es el procedimiento que el operador tiene documentado para asegurar la exactitud durante el resto del vuelo.",
+      "referencia": "FAA AC 90-105A, numerales 10.4 y 10.7, apartado 4",
+      "metadatos": {
+        "tema": "P33"
+      }
+    },
+    {
+      "id": "ev-65",
+      "enunciado": "¿Qué diferencia hay entre RAIM y FDE?",
+      "opciones": [
+        "Ninguna: son dos nombres del mismo algoritmo.",
+        "El RAIM verifica la integridad de la posición; el FDE además excluye automáticamente un satélite defectuoso cuando hay mediciones redundantes suficientes.",
+        "El RAIM es de a bordo y el FDE es una función del segmento terrestre.",
+        "El FDE sustituye al RAIM en aeronaves con aumentación satelital."
+      ],
+      "correcta": 1,
+      "explicacion": "Detectar y excluir no son lo mismo. El primero avisa de que la posición dejó de ser confiable; el segundo, con mediciones de sobra, aparta el satélite que falla y permite continuar. Las aeronaves modernas pueden además apoyarse en otras arquitecturas y en aumentación para conseguir la integridad.",
+      "referencia": "FAA AC 90-105A, Apéndice J, definición de FDE",
+      "metadatos": {
+        "tema": "P37"
+      }
+    },
+    {
+      "id": "ev-66",
+      "enunciado": "Pierdes la capacidad de cumplir la especificación que exige la ruta. ¿Qué le transmites al ATC?",
+      "opciones": [
+        "Solo la falla, y esperas instrucciones.",
+        "La pérdida de capacidad junto con el curso de acción que propones, lo antes posible.",
+        "Nada hasta llegar a un punto de notificación obligatoria.",
+        "Una declaración de emergencia."
+      ],
+      "correcta": 1,
+      "explicacion": "La obligación tiene dos mitades y la segunda es la que se olvida: además de decir qué se perdió, hay que decir qué se propone hacer. Un controlador que solo recibe la falla tiene que construir la solución sin saber qué puede volar la aeronave, y eso alarga justo el momento en que conviene ser breve.",
+      "referencia": "FAA AC 90-100A, numeral 10, apartado d; FAA AC 90-105A, Apéndice A, numeral A.7.1.8",
+      "metadatos": {
+        "tema": "P46"
       }
     }
   ]

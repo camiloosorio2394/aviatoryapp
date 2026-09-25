@@ -280,8 +280,8 @@ function App() {
               <Route path="/app/aerolinea/rvsm/practica" element={<RvsmPractice />} />
               <Route path="/app/aerolinea/rvsm/evaluacion" element={<RvsmExam />} />
 
-              {/* Tema PBN: cincuenta y dos capítulos, la práctica con el quiz de
-                  cada uno y la evaluación de cincuenta preguntas del servidor. */}
+              {/* Tema PBN: cuarenta y ocho capítulos, la práctica con el quiz de
+                  cada uno y la evaluación de sesenta y seis preguntas del servidor. */}
               <Route path="/app/aerolinea/pbn" element={<Pbn />} />
               <Route path="/app/aerolinea/pbn/practica" element={<PbnPractice />} />
               <Route path="/app/aerolinea/pbn/evaluacion" element={<PbnExam />} />
