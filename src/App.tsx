@@ -94,6 +94,12 @@ const AerodinamicaExam = page(() => import("@/pages/AerodinamicaExam"), "Aerodin
 const Performance = page(() => import("@/pages/Performance"), "Performance")
 const PerformanceLeccion = page(() => import("@/pages/PerformanceLeccion"), "PerformanceLeccion")
 const PerformanceExam = page(() => import("@/pages/PerformanceExam"), "PerformanceExam")
+const Rac = page(() => import("@/pages/Rac"), "Rac")
+const RacLeccion = page(() => import("@/pages/RacLeccion"), "RacLeccion")
+const RacExam = page(() => import("@/pages/RacExam"), "RacExam")
+const Combustible = page(() => import("@/pages/Combustible"), "Combustible")
+const CombustibleLeccion = page(() => import("@/pages/CombustibleLeccion"), "CombustibleLeccion")
+const CombustibleExam = page(() => import("@/pages/CombustibleExam"), "CombustibleExam")
 const PsychTests = page(() => import("@/pages/PsychTests"), "PsychTests")
 const PsicoHub = page(() => import("@/pages/PsicoHub"), "PsicoHub")
 const PsicoPractica = page(() => import("@/pages/PsicoSesion"), "PsicoPractica")
@@ -186,6 +192,8 @@ function App() {
               <Route path="/app/aerolinea/mercancias/aprende" element={<MercanciasLeccion />} />
               <Route path="/app/aerolinea/aerodinamica/aprende" element={<AerodinamicaLeccion />} />
               <Route path="/app/aerolinea/performance/aprende" element={<PerformanceLeccion />} />
+              <Route path="/app/aerolinea/rac/aprende" element={<RacLeccion />} />
+              <Route path="/app/aerolinea/combustible/aprende" element={<CombustibleLeccion />} />
               <Route path="/app/aerolinea/aeropuertos/aprende" element={<AeropuertosLeccion />} />
               <Route path="/app/aerolinea/comunicaciones/aprende" element={<ComunicacionesLeccion />} />
             </Route>
@@ -248,6 +256,13 @@ function App() {
                   escenarios viven dentro de los temas 38 y 40 de la lección. */}
               <Route path="/app/aerolinea/performance" element={<Performance />} />
               <Route path="/app/aerolinea/performance/evaluacion" element={<PerformanceExam />} />
+              {/* Temas RAC y Gestión del combustible. Tampoco llevan práctica
+                  aparte: las preguntas viven al final de cada unidad o capítulo,
+                  junto a lo que ponen a prueba. */}
+              <Route path="/app/aerolinea/rac" element={<Rac />} />
+              <Route path="/app/aerolinea/rac/evaluacion" element={<RacExam />} />
+              <Route path="/app/aerolinea/combustible" element={<Combustible />} />
+              <Route path="/app/aerolinea/combustible/evaluacion" element={<CombustibleExam />} />
               <Route path="/app/aerolinea/simulacro" element={<AirlineMockExam />} />
               {/* Tema Pruebas Psicotécnicas. El hub, los dos modos con filtro y el
                   simulacro; la lección va aparte porque no lleva reloj. */}

@@ -12,6 +12,7 @@
 
 import { useState } from "react"
 import type { CSSProperties } from "react"
+import { useMarcarPractica } from "@/components/lesson/practicaContexto"
 import { BookMarked, ChevronDown, ClipboardList, Globe2, HelpCircle, MapPin, Quote } from "lucide-react"
 import type {
   CasoRealBlock,
@@ -429,8 +430,16 @@ function Pregunta({
   pregunta: PonAPruebaBlock["preguntas"][number]
 }) {
   const [picked, setPicked] = useState<number | null>(null)
+  const marcarPractica = useMarcarPractica()
   const correcta = pregunta.opciones.findIndex((o) => o.ok)
   const acerto = picked !== null && picked === correcta
+
+  // Cuenta al responder, acierte o no: la práctica mide que se pensó la
+  // pregunta, no que se adivinó. Solo la primera vez, que es cuando cambia algo.
+  function responder(i: number) {
+    if (picked === null && pregunta.clave) marcarPractica(pregunta.clave)
+    setPicked(i)
+  }
 
   return (
     <div>
@@ -453,7 +462,7 @@ function Pregunta({
             <li key={i}>
               <button
                 type="button"
-                onClick={() => setPicked(i)}
+                onClick={() => responder(i)}
                 aria-pressed={elegida}
                 className="w-full rounded-lg border px-3.5 py-2.5 text-left text-[15px] leading-[1.55] transition-colors"
                 style={{

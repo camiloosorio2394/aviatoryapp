@@ -1781,6 +1781,79 @@
   outline-color: #D9B6E1;
 }
 
+/* RAC: azul pizarra, la tinta de un documento oficial.
+   Los matices azules de la app estaban ocupados de lejos (264 en NOTAM, 250 en
+   Aerodinámica), así que este se separa por croma y no por matiz: 0,045 contra
+   0,22 y 0,075. Lee como gris azulado, no como azul, que es justo el tono de un
+   reglamento: sobrio, sin querer llamar la atención al lado de sus vecinos.
+   Los hex del lector, más abajo, salen de estos mismos oklch. */
+:root {
+  --av-rc-500: oklch(0.520 0.045 255);
+  --av-rc-600: oklch(0.445 0.042 255);
+  --av-rc-700: oklch(0.370 0.038 255);
+  --av-rc-fg: oklch(0.345 0.035 255);
+}
+.dark {
+  --av-rc-500: oklch(0.680 0.042 255);
+  --av-rc-600: oklch(0.590 0.042 255);
+  --av-rc-700: oklch(0.490 0.040 255);
+  --av-rc-fg: oklch(0.800 0.032 255);
+}
+
+/* Gestión del combustible: petróleo.
+   El 180 es el hueco que quedaba entre el 155 del verde de «correcto» y el 205
+   de Meteorología, y se separa de los dos: 25 grados de cada uno y la mitad de
+   croma que el verde. No es el verde del acierto ni el turquesa del tiempo.
+   Los hex del lector, más abajo, salen de estos mismos oklch. */
+:root {
+  --av-cb-500: oklch(0.560 0.085 180);
+  --av-cb-600: oklch(0.475 0.080 180);
+  --av-cb-700: oklch(0.395 0.070 181);
+  --av-cb-fg: oklch(0.365 0.062 181);
+}
+.dark {
+  --av-cb-500: oklch(0.700 0.080 180);
+  --av-cb-600: oklch(0.605 0.080 180);
+  --av-cb-700: oklch(0.500 0.072 180);
+  --av-cb-fg: oklch(0.805 0.060 180);
+}
+
+.lector-notam.lector-rc {
+  --ln-primary: #3B4657;
+  --ln-primary-hover: #2B3442;
+  --ln-bright: #75839A;
+  --ln-tint: #EDF0F5;
+  --ln-pill: #47525F;
+  --ln-focus: #6E7D95;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-rc .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+/* En el índice navy el foco pizarra se perdería contra el propio navy: ahí va
+   el escalón claro, que sí se despega del fondo. */
+.lector-notam.lector-rc .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #B8C3D4;
+}
+
+.lector-notam.lector-cb {
+  --ln-primary: #1D5652;
+  --ln-primary-hover: #134340;
+  --ln-bright: #4C8F89;
+  --ln-tint: #E4F2F0;
+  --ln-pill: #24605B;
+  --ln-focus: #3F857F;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-cb .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+.lector-notam.lector-cb .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #9ED3CE;
+}
+
 /* ============================================================
  * Táctil: el hover no existe, pero el navegador lo simula
  *

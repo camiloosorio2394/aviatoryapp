@@ -156,9 +156,9 @@ archivo, insertada después para que `db push` no las vea pendientes.
 
 ### La regla del orden, que es la que muerde
 
-<!-- ULTIMA_APLICADA: 20260926010000 -->
+<!-- ULTIMA_APLICADA: 20260928000000 -->
 
-**Toda migración nueva lleva una versión posterior a `20260926010000`.**
+**Toda migración nueva lleva una versión posterior a `20260928000000`.**
 
 No es burocracia. Seis funciones se republican enteras en cada migración de
 módulo —`private.secciones_leidas`, `private.practicas_hechas`,
@@ -173,3 +173,42 @@ progreso cuenta cero y su tarjeta desaparece del panel.
 la última migración que publica cada función conoce todos los módulos del
 catálogo, y que no hay archivos pendientes con versión anterior a la marca de
 arriba. Al aplicar una tanda, se actualiza esa marca.
+
+## 25 de septiembre: Comunicaciones aplicada, y RAC y Combustible pendientes
+
+Las tres de Comunicaciones ATC (`20260927000000`, `20260927010000` y
+`20260927020000`) ya están en la base: la marca de arriba pasó de
+`20260926010000` a `20260927020000`, que es lo que devuelve
+`schema_migrations`. La marca se había quedado atrás.
+
+`20260928000000_modulos_rac_y_combustible.sql` **ya está aplicada**.
+Monta los dos módulos enteros: tablas de progreso con su RPC, catálogo,
+umbrales, tablas de intentos, reglas de las dos evaluaciones, ocho logros con
+sus disparadores, y las seis funciones compartidas republicadas con los nueve
+módulos.
+
+Sus copias de las seis funciones no se escribieron a mano: se sacaron enteras de
+`20260927010000` y `20260927020000` con un script y se les insertaron las ramas
+nuevas encima, comprobando después que cada una nombra los nueve módulos. Es la
+misma comprobación que hace `funciones-compartidas.test.ts`, pero en el momento
+de generarla.
+
+`supabase db push` no sirve aquí: el conector registró sus migraciones con la
+hora a la que las corrió, así que el CLI ve versiones remotas que no existen en
+la carpeta y se niega a seguir. Se aplica por el editor de SQL o por el
+conector.
+
+Se aplicó por el conector, en cuatro tramos (`modulos_rac_y_combustible_1` a
+`_4`), porque `db push` sigue bloqueado por el desfase de versiones. Después se
+insertó la fila `20260928000000` para que la carpeta y el historial coincidan,
+igual que con las tandas anteriores.
+
+Comprobado contra la base ya migrada: las seis funciones nombran los nueve
+módulos, y `panel_tarjetas` conserva `plan`, `postulaciones`, `licencias` y
+`preparacion`.
+
+**Queda por sembrar**: los bancos `rac_evaluacion` (50 preguntas) y
+`combustible_evaluacion` (40). Hasta que se corran, las dos evaluaciones no
+tienen de dónde sortear. El SQL sale de
+`node scripts/bancos/sembrar.mjs rac_evaluacion` y su equivalente de
+combustible.

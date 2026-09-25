@@ -172,6 +172,13 @@ export interface PonAPruebaBlock {
     q: string
     /** Artículo que respalda la respuesta. */
     ref?: string
+    /**
+     * Clave de práctica, para los módulos que llevan la práctica dentro de la
+     * lección. Con ella, responder cuenta en el progreso; sin ella la pregunta
+     * se pinta igual pero no suma. Sale del documento («u01-q1», «c14-q2»), no
+     * se escribe a mano: la base solo acepta claves que estén en el catálogo.
+     */
+    clave?: string
     opciones: { t: string; ok?: boolean; fb: string }[]
   }[]
 }

@@ -7,41 +7,40 @@ import { FilaAvance } from "@/components/modulo/FilaAvance"
 import { EspacioVideo } from "@/components/modulo/EspacioVideo"
 import { useSession } from "@/hooks/useSession"
 import {
-  PERF_APRENDE,
-  PERF_EVALUACION,
-  PERF_EXAM_PER_ATTEMPT,
-  PERF_LECTURA_MINUTOS,
-  PERF_LECTURA_TOTAL,
-  PERF_PASS_SCORE,
-  PERF_PRACTICA_TOTAL,
-  PERF_TITULO,
-  resumirPerformance,
-} from "@/lib/performance"
-import { fetchPerformanceProgress, pushPendingPerformance, readPerformanceLocal } from "@/lib/performanceProgress"
+  CB_APRENDE,
+  CB_EVALUACION,
+  CB_EXAM_PER_ATTEMPT,
+  CB_LECTURA_MINUTOS,
+  CB_LECTURA_TOTAL,
+  CB_PASS_SCORE,
+  CB_PRACTICA_TOTAL,
+  CB_TITULO,
+  resumirCombustible,
+} from "@/lib/combustible"
+import { fetchCombustibleProgress, pushPendingCombustible, readCombustibleLocal } from "@/lib/combustibleProgress"
 
 /**
- * Hub del tema Performance (módulo Ingreso a aerolínea).
- * Ruta: /app/aerolinea/performance
+ * Hub del tema Gestión del combustible (módulo Ingreso a aerolínea).
+ * Ruta: /app/aerolinea/combustible
  *
- * La misma casa que los demás hubs: hero con velo navy, el panel de avance con
- * sus tres filas y las puertas numeradas. Lo propio es el acento, que aquí es
- * el bronce, y que todavía no hay fotos: el hero va sobre el navy liso y las
- * tarjetas muestran su hueco rotulado, que es lo que pinta `CourseCard` cuando
- * no le pasan portada. Cuando existan las imágenes, se les pasa `photo` y el
- * hueco desaparece solo.
+ * La misma casa que los demás hubs: hero con velo navy, el hueco del video de
+ * apertura, el panel de avance con sus tres filas y las puertas numeradas. Lo
+ * propio es el acento, que aquí es el petróleo, y que todavía no hay fotos:
+ * el hero va sobre el navy liso y las tarjetas muestran su hueco rotulado, que
+ * es lo que pinta `CourseCard` cuando no le pasan portada. Cuando existan las
+ * imágenes se les pasa `photo` y el hueco desaparece solo.
  *
- * La práctica no tiene puerta propia: los dieciocho ejercicios resueltos y los
- * diez escenarios viven dentro de los temas 38 y 40, y la fila de avance de
- * práctica lleva allí.
+ * La práctica no tiene puerta propia: las tres preguntas de cada capítulo viven
+ * al final del capítulo, y la fila de avance de práctica lleva a la primera.
  */
 
-const ACENTO = "var(--av-pf-700)"
+const ACENTO = "var(--av-cb-700)"
 
-export function Performance() {
+export function Combustible() {
   const { user, isLoading: sessionLoading } = useSession()
   // Arranca con el respaldo local para no mostrar cero mientras carga, y se
   // completa con la base, que es la verdad entre dispositivos.
-  const [progreso, setProgreso] = useState(() => readPerformanceLocal())
+  const [progreso, setProgreso] = useState(() => readCombustibleLocal())
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -54,9 +53,9 @@ export function Performance() {
         return
       }
       try {
-        const traido = await fetchPerformanceProgress(user.id)
+        const traido = await fetchCombustibleProgress(user.id)
         if (!traido || cancelado) return
-        const remoto = await pushPendingPerformance(traido)
+        const remoto = await pushPendingCombustible(traido)
         if (!cancelado) setProgreso({ ...remoto, bestScore: traido.bestScore })
       } finally {
         if (!cancelado) setLoading(false)
@@ -68,42 +67,44 @@ export function Performance() {
     }
   }, [user, sessionLoading])
 
-  const resumen = useMemo(() => resumirPerformance(progreso), [progreso])
+  const resumen = useMemo(() => resumirCombustible(progreso), [progreso])
 
   const partes: CourseCardProps[] = [
     {
-      to: PERF_APRENDE,
+      to: CB_APRENDE,
       densidad: "compacta" as const,
       photoAspect: "5/2" as const,
       icon: BookOpen,
       color: ACENTO,
-      meta: `${PERF_LECTURA_TOTAL} temas · ${PERF_LECTURA_MINUTOS} min`,
+      meta: `${CB_LECTURA_TOTAL} capítulos · ${CB_LECTURA_MINUTOS} min`,
       title: "1. Aprende",
       blurb:
-        "De qué es la performance a cómo se lee un resultado del EFB: V₁, campo equilibrado, segundo segmento, obstáculos y aterrizaje.",
+        "Del block fuel al MAYDAY COMBUSTIBLE: qué carga cada componente, cómo se vigila en vuelo y cuándo hay que decidir, con el vuelo de referencia de punta a punta.",
       cta: "Iniciar formación",
-      photoHueco: "PERF-HUB-01 · Portada · 5:2 · 1200×480 · Cabina en carrera de despegue, vista desde atrás de los asientos",
+      photoHueco:
+        "CB-HUB-01 · Portada · 5:2 · 1200×480 · Indicador de combustible y plan operacional de vuelo sobre el pedestal, en cabina",
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
-          : resumen.lessonRead >= PERF_LECTURA_TOTAL
+          : resumen.lessonRead >= CB_LECTURA_TOTAL
             ? "Lección completa"
-            : `${resumen.lessonRead} de ${PERF_LECTURA_TOTAL} temas leídos`,
+            : `${resumen.lessonRead} de ${CB_LECTURA_TOTAL} capítulos leídos`,
       progress: resumen.lessonPct,
-      done: resumen.lessonRead >= PERF_LECTURA_TOTAL,
+      done: resumen.lessonRead >= CB_LECTURA_TOTAL,
     },
     {
-      to: PERF_EVALUACION,
+      to: CB_EVALUACION,
       densidad: "compacta" as const,
       photoAspect: "5/2" as const,
       icon: GraduationCap,
       color: ACENTO,
-      meta: `${PERF_EXAM_PER_ATTEMPT} preguntas · ${PERF_PASS_SCORE}% para aprobar`,
+      meta: `${CB_EXAM_PER_ATTEMPT} preguntas · ${CB_PASS_SCORE}% para aprobar`,
       title: "2. Evalúate",
       blurb:
-        "Sesenta preguntas sobre los cuarenta temas; cada intento toma veinticinco al azar. El resultado dice qué temas repasar.",
+        "Cuarenta preguntas sobre los veintitrés capítulos; cada intento toma veinte al azar. El resultado dice qué capítulo repasar.",
       cta: "Presentar la evaluación",
-      photoHueco: "PERF-HUB-02 · Portada · 5:2 · 1200×480 · Tableta de performance en cabina, con la pista al fondo desenfocada",
+      photoHueco:
+        "CB-HUB-02 · Portada · 5:2 · 1200×480 · Tripulación comparando el combustible a bordo con el plan, en crucero",
       status: resumen.best === null ? "Sin intentos" : `Mejor: ${resumen.best} / 100`,
       progress: resumen.examPct,
       done: resumen.passed,
@@ -120,7 +121,7 @@ export function Performance() {
       </Link>
 
       {/* Sin foto todavía: el navy liso es la base del hero de todos los módulos
-          y aguanta solo hasta que exista PERF-HUB-00. */}
+          y aguanta solo hasta que exista CB-HUB-00. */}
       <section className="relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
         <div
           className="pointer-events-none absolute inset-0"
@@ -136,9 +137,9 @@ export function Performance() {
             <div className="flex flex-wrap items-center gap-3">
               <span
                 className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em]"
-                style={{ color: "var(--av-pf-500)" }}
+                style={{ color: "var(--av-cb-500)" }}
               >
-                Módulo 6
+                Módulo 9
               </span>
               <span className="h-3 w-px bg-white/20" aria-hidden />
               <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
@@ -147,13 +148,12 @@ export function Performance() {
             </div>
 
             <h1 className="nh-display mt-4 text-[38px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[46px] lg:text-[54px]">
-              {PERF_TITULO}
+              {CB_TITULO}
             </h1>
 
             <p className="mt-4 max-w-[56ch] text-[16px] leading-[1.55] text-white/80">
-              Qué decide si el avión puede despegar, subir y aterrizar hoy, con este peso y esta
-              pista. Cuarenta temas sobre aeronaves de categoría transporte, con los ejercicios de
-              número y los errores que se pagan caro en una entrevista técnica.
+              Cuánto combustible lleva el vuelo, por qué, y qué haces cuando en el aire deja
+              de alcanzar. Veintitrés capítulos con el RAC 91 y el RAC 121 al lado de cada cifra.
             </p>
 
             <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
@@ -161,28 +161,28 @@ export function Performance() {
                   paso del módulo, no un extra al final del hero. El día que
                   existan el mp4 y su cartel, el reproductor sale solo. */}
               <EspacioVideo
-                src="/modulos/performance/intro.mp4"
-                portada="/modulos/performance/intro-poster.webp"
+                src="/modulos/combustible/intro.mp4"
+                portada="/modulos/combustible/intro-poster.webp"
                 duracion="1 min"
-                titulo="Qué decide si el avión puede despegar hoy"
-                continuarA={PERF_APRENDE}
+                titulo="Con cuánto aterrizo, y dónde"
+                continuarA={CB_APRENDE}
                 continuarTexto="Empezar la lección"
-                claveVisto="aviatory.performance.video"
-                acento="#E8B88A"
-                rotulo="PERF-VID-01 · Video de apertura · 16:9 · 60 s"
-                descripcion="El video del módulo, con la misma serie que NOTAM y Mercancías: ocho escenas, un minuto, con el avatar y la voz propios del curso. Abre con lo que decide un despegue: peso, pista y el día que tienes delante. Se guarda como intro.mp4 y su primer cuadro como intro-poster.webp; en cuanto estén, el reproductor aparece aquí solo."
+                claveVisto="aviatory.combustible.video"
+                acento="#8FD4CE"
+                rotulo="CB-VID-01 · Video de apertura · 16:9 · 60 s"
+                descripcion="El video del módulo, con la misma serie que NOTAM y Mercancías: ocho escenas, un minuto, con el avatar y la voz propios del curso. Cuenta por qué la pregunta no es cuánto llevas sino con cuánto aterrizas. Se guarda como intro.mp4 y su primer cuadro como intro-poster.webp; en cuanto estén, el reproductor aparece aquí solo."
               />
 
               <div className="flex flex-wrap gap-3">
                 <Link
-                  to={PERF_APRENDE}
+                  to={CB_APRENDE}
                   className="inline-flex min-h-[48px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-[filter] hover:brightness-110"
                   style={{ background: ACENTO }}
                 >
                   <BookOpen className="h-4 w-4" /> Empezar la lección
                 </Link>
                 <Link
-                  to={PERF_EVALUACION}
+                  to={CB_EVALUACION}
                   className="inline-flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-[10px] border border-white/25 px-5 text-[15px] font-medium text-white/90 transition-colors hover:border-white/60 hover:text-white"
                 >
                   <GraduationCap className="h-4 w-4" /> Ir a la evaluación
@@ -215,11 +215,11 @@ export function Performance() {
                     aria-valuenow={resumen.overall}
                     aria-valuemin={0}
                     aria-valuemax={100}
-                    aria-label="Avance del módulo Performance"
+                    aria-label="Avance del módulo Gestión del combustible"
                   >
                     <div
                       className="h-full rounded-sm transition-[width]"
-                      style={{ width: `${resumen.overall}%`, background: "var(--av-pf-500)" }}
+                      style={{ width: `${resumen.overall}%`, background: "var(--av-cb-500)" }}
                     />
                   </div>
                 </>
@@ -234,23 +234,23 @@ export function Performance() {
             <div className="border-t border-white/10 p-1">
               <FilaAvance
                 titulo="Lección"
-                to={PERF_APRENDE}
-                valor={`${resumen.lessonRead} / ${PERF_LECTURA_TOTAL}`}
+                to={CB_APRENDE}
+                valor={`${resumen.lessonRead} / ${CB_LECTURA_TOTAL}`}
                 pct={resumen.lessonPct}
-                color="var(--av-pf-500)"
+                color="var(--av-cb-500)"
                 cargando={loading}
               />
               <FilaAvance
-                titulo="Ejercicios"
-                to={`${PERF_APRENDE}?l=40`}
-                valor={`${resumen.practiceDone} / ${PERF_PRACTICA_TOTAL}`}
+                titulo="Preguntas"
+                to={`${CB_APRENDE}?l=1`}
+                valor={`${resumen.practiceDone} / ${CB_PRACTICA_TOTAL}`}
                 pct={resumen.practicePct}
                 color="var(--av-cyan-400)"
                 cargando={loading}
               />
               <FilaAvance
                 titulo="Evaluación"
-                to={PERF_EVALUACION}
+                to={CB_EVALUACION}
                 valor={resumen.best === null ? "Sin intentos" : `${resumen.best} / 100`}
                 aviso={resumen.best === null}
                 pct={resumen.examPct}

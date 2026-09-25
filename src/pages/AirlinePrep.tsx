@@ -7,8 +7,11 @@ import {
   ClipboardCheck,
   ClipboardList,
   CloudSun,
+  Fuel,
   Gauge,
   Headset,
+  Play,
+  Scale,
   Wind,
   TowerControl,
 } from "lucide-react"
@@ -16,7 +19,6 @@ import { AerodromeIcon } from "@/components/icons/aero"
 import { fechaDeUltimaActividad } from "@/lib/activity"
 import { TarjetaModulo } from "@/components/aerolinea/TarjetaModulo"
 import { TEMAS_EN_CAMINO } from "@/components/aerolinea/carasDeModulo"
-import { HuecoDeVideo } from "@/components/modulo/HuecoDeVideo"
 import type { TarjetaModuloProps } from "@/components/aerolinea/TarjetaModulo"
 import { appButtonClass } from "@/lib/buttonStyles"
 import { traerMejoresPuntajesDeExamen } from "@/services/aerolineas"
@@ -81,6 +83,24 @@ import {
   resumirPerformance,
 } from "@/lib/performance"
 import { fetchPerformanceProgress, readPerformanceLocal } from "@/lib/performanceProgress"
+import {
+  RAC_HUB,
+  RAC_LECTURA_MINUTOS,
+  RAC_LECTURA_TOTAL,
+  RAC_PRACTICA_TOTAL,
+  RAC_TITULO,
+  resumirRac,
+} from "@/lib/rac"
+import { fetchRacProgress, readRacLocal } from "@/lib/racProgress"
+import {
+  CB_HUB,
+  CB_LECTURA_MINUTOS,
+  CB_LECTURA_TOTAL,
+  CB_PRACTICA_TOTAL,
+  CB_TITULO_CORTO,
+  resumirCombustible,
+} from "@/lib/combustible"
+import { fetchCombustibleProgress, readCombustibleLocal } from "@/lib/combustibleProgress"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
 import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
@@ -183,6 +203,8 @@ export function AirlinePrep() {
   const [aeropuertosProgreso, setAeropuertosProgreso] = useState(() => readAeropuertosLocal())
   const [comunicacionesProgreso, setComunicacionesProgreso] = useState(() => readComunicacionesLocal())
   const [performanceProgreso, setPerformanceProgreso] = useState(() => readPerformanceLocal())
+  const [racProgreso, setRacProgreso] = useState(() => readRacLocal())
+  const [combustibleProgreso, setCombustibleProgreso] = useState(() => readCombustibleLocal())
   const [mejorPsico, setMejorPsico] = useState<number | null>(
     () => leerPsicoLocal().mejorSimulacro
   )
@@ -203,19 +225,33 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, pfRes, psicoRes] =
-        await Promise.all([
-          fetchNotamProgress(user.id),
-          fetchMetarProgress(user.id),
-          traerMejoresPuntajesDeExamen(user.id),
-          fetchMejorPuntajeSimulacro(user.id),
-          fetchMercanciasProgress(user.id),
-          fetchAerodinamicaProgress(user.id),
-          fetchAeropuertosProgress(user.id),
-          fetchComunicacionesProgress(user.id),
-          fetchPerformanceProgress(user.id),
-          mejorSimulacroRemoto(user.id),
-        ])
+      const [
+        notamRes,
+        metarRes,
+        mejoresExamen,
+        mockRes,
+        mpRes,
+        aeRes,
+        apRes,
+        cmRes,
+        pfRes,
+        racRes,
+        cbRes,
+        psicoRes,
+      ] = await Promise.all([
+        fetchNotamProgress(user.id),
+        fetchMetarProgress(user.id),
+        traerMejoresPuntajesDeExamen(user.id),
+        fetchMejorPuntajeSimulacro(user.id),
+        fetchMercanciasProgress(user.id),
+        fetchAerodinamicaProgress(user.id),
+        fetchAeropuertosProgress(user.id),
+        fetchComunicacionesProgress(user.id),
+        fetchPerformanceProgress(user.id),
+        fetchRacProgress(user.id),
+        fetchCombustibleProgress(user.id),
+        mejorSimulacroRemoto(user.id),
+      ])
       if (cancelled) return
 
       if (notamRes) {
@@ -248,6 +284,8 @@ export function AirlinePrep() {
       if (apRes) setAeropuertosProgreso(apRes)
       if (cmRes) setComunicacionesProgreso(cmRes)
       if (pfRes) setPerformanceProgreso(pfRes)
+      if (racRes) setRacProgreso(racRes)
+      if (cbRes) setCombustibleProgreso(cbRes)
 
       // La última vez que tocó CUALQUIER tema: la más reciente de las cuatro
       // filas de progreso. Se compara en ISO, que ordena igual que la fecha.
@@ -261,6 +299,8 @@ export function AirlinePrep() {
         apRes?.remoto.actualizado,
         cmRes?.remoto.actualizado,
         pfRes?.remoto.actualizado,
+        racRes?.remoto.actualizado,
+        cbRes?.remoto.actualizado,
       ].filter((f): f is string => typeof f === "string" && f.length > 0)
       setUltimaActividad(fechas.length > 0 ? fechas.reduce((a, b) => (a > b ? a : b)) : null)
       // Se queda con el mayor entre la base y el respaldo local: si el mejor
@@ -287,6 +327,8 @@ export function AirlinePrep() {
   const aeropuertos = useMemo(() => resumirAeropuertos(aeropuertosProgreso), [aeropuertosProgreso])
   const comunicaciones = useMemo(() => resumirComunicaciones(comunicacionesProgreso), [comunicacionesProgreso])
   const performance = useMemo(() => resumirPerformance(performanceProgreso), [performanceProgreso])
+  const rac = useMemo(() => resumirRac(racProgreso), [racProgreso])
+  const combustible = useMemo(() => resumirCombustible(combustibleProgreso), [combustibleProgreso])
 
   // Los estados van en cifras cortas («9/9 secciones») porque la tarjeta de
   // cuatro columnas les da un renglón. Los que decían «13 secciones cortas» o
@@ -440,6 +482,55 @@ export function AirlinePrep() {
               : `${performance.lessonRead}/${PERF_LECTURA_TOTAL} temas · ${performance.practiceDone}/${PERF_PRACTICA_TOTAL} ejercicios`,
         },
       },
+      // RAC: el reglamento, unidad por unidad. Su práctica tampoco tiene
+      // pantalla: las preguntas viven al final de cada unidad.
+      {
+        nombre: RAC_TITULO,
+        to: RAC_HUB,
+        pct: rac.overall,
+        card: {
+          to: RAC_HUB,
+          icon: Scale,
+          color: "var(--av-rc-700)",
+          titulo: RAC_TITULO,
+          meta: `${RAC_LECTURA_TOTAL} unidades · ${RAC_LECTURA_MINUTOS} min de lectura`,
+          descripcion: "Las diecinueve normas de la Aerocivil que te tocan a ti, con su numeral.",
+          fotoHueco:
+            "RAC-TEM-01 · 2:1 · 1200×600 · Licencia de piloto y certificado médico sobre la mesa de despacho, junto al manual de operaciones",
+          cta: ctaDeTema(rac.overall),
+          avance: rac.overall,
+          completo: rac.overall >= 100,
+          estado: rac.empty
+            ? "Sin empezar"
+            : rac.overall >= 100
+              ? "Tema completo"
+              : `${rac.lessonRead}/${RAC_LECTURA_TOTAL} unidades · ${rac.practiceDone}/${RAC_PRACTICA_TOTAL} preguntas`,
+        },
+      },
+      // Gestión del combustible: lo mismo, por capítulos.
+      {
+        nombre: CB_TITULO_CORTO,
+        to: CB_HUB,
+        pct: combustible.overall,
+        card: {
+          to: CB_HUB,
+          icon: Fuel,
+          color: "var(--av-cb-700)",
+          titulo: CB_TITULO_CORTO,
+          meta: `${CB_LECTURA_TOTAL} capítulos · ${CB_LECTURA_MINUTOS} min de lectura`,
+          descripcion: "Con cuánto aterrizas, y dónde: del block fuel al MAYDAY COMBUSTIBLE.",
+          fotoHueco:
+            "CB-TEM-01 · 2:1 · 1200×600 · Indicador de combustible y plan operacional de vuelo sobre el pedestal, en cabina",
+          cta: ctaDeTema(combustible.overall),
+          avance: combustible.overall,
+          completo: combustible.overall >= 100,
+          estado: combustible.empty
+            ? "Sin empezar"
+            : combustible.overall >= 100
+              ? "Tema completo"
+              : `${combustible.lessonRead}/${CB_LECTURA_TOTAL} capítulos · ${combustible.practiceDone}/${CB_PRACTICA_TOTAL} preguntas`,
+        },
+      },
       // Comunicaciones ATC: lección, práctica con audio y evaluación, como
       // Aeropuertos.
       {
@@ -544,7 +635,7 @@ export function AirlinePrep() {
       .map((t, i) => ({ t, i }))
       .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
       .map(({ t }) => t)
-  }, [notam, metar, mercancias, aero, aeropuertos, performance, comunicaciones, mejorSimulacro, mejorPsico])
+  }, [notam, metar, mercancias, aero, aeropuertos, performance, rac, combustible, comunicaciones, mejorSimulacro, mejorPsico])
 
   const cursables = temas.filter((t) => !t.herramienta)
   const herramientas = temas.filter((t) => t.herramienta)
@@ -622,8 +713,18 @@ export function AirlinePrep() {
                   Aquí había un botón de «Seguir con …». No se reemplaza por
                   otro: la acción de retomar vive en la tarjeta del tema, que ya
                   va marcada «En curso» y es la primera de la rejilla. */}
-              <div className="mt-5">
-                <HuecoDeVideo especificacion="IA-VID-01 · Presentación del módulo · ~60 s · con su cartel 16:9" />
+              <div className="mt-5 flex w-full max-w-[380px] items-center gap-3.5 rounded-[12px] border border-dashed border-white/20 bg-white/[0.05] p-2 pr-4 text-left">
+                <span className="grid h-[52px] w-[92px] shrink-0 place-items-center rounded-[8px] border border-dashed border-white/20 bg-white/[0.06]">
+                  <Play className="h-4 w-4 text-white/35" aria-hidden />
+                </span>
+                <span className="min-w-0">
+                  <span className="nh-display block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                    Espacio reservado
+                  </span>
+                  <span className="mt-1 block text-[13px] font-medium leading-[1.4] text-white/78">
+                    IA-VID-01 · Presentación del módulo · ~60 s · con su cartel 16:9
+                  </span>
+                </span>
               </div>
             </div>
 

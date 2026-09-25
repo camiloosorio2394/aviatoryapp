@@ -20,6 +20,8 @@ export type TablaDeIntentos =
   | "user_aeropuertos_exam_attempts"
   | "user_performance_exam_attempts"
   | "user_comunicaciones_exam_attempts"
+  | "user_rac_exam_attempts"
+  | "user_combustible_exam_attempts"
 
 /** Cuántos intentos trae la lista del historial. */
 export const INTENTOS_EN_LA_LISTA = 10
@@ -167,5 +169,31 @@ export function traerHistorialComunicaciones(
     "taken_at",
     userId,
     "comunicaciones: historial de evaluación",
+  )
+}
+
+/** RAC. */
+export function traerHistorialRac(
+  userId: string,
+): Promise<Historial<FilaIntentoMercancias> | null> {
+  return traerHistorial<FilaIntentoMercancias>(
+    "user_rac_exam_attempts",
+    "id,score,correct,total,taken_at",
+    "taken_at",
+    userId,
+    "rac: historial de evaluación",
+  )
+}
+
+/** Y Gestión del combustible. */
+export function traerHistorialCombustible(
+  userId: string,
+): Promise<Historial<FilaIntentoMercancias> | null> {
+  return traerHistorial<FilaIntentoMercancias>(
+    "user_combustible_exam_attempts",
+    "id,score,correct,total,taken_at",
+    "taken_at",
+    userId,
+    "combustible: historial de evaluación",
   )
 }

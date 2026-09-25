@@ -26,6 +26,8 @@ import { AP_PRACTICA_CLAVES } from "@/lib/aeropuertosPractica"
 import { PERF_LECCION_TOTAL, PERF_PRACTICA_CLAVES } from "@/lib/performanceLeccion"
 import { CM_LECCION_TOTAL } from "@/lib/comunicacionesLeccion"
 import { CM_PRACTICA_CLAVES } from "@/lib/comunicacionesPracticaGrupos"
+import { RAC_LECCION_TOTAL, RAC_PRACTICA_CLAVES } from "@/lib/racLeccion"
+import { CB_LECCION_TOTAL, CB_PRACTICA_CLAVES } from "@/lib/combustibleLeccion"
 import { MODULOS_AEROLINEA } from "@/lib/modulosAerolinea"
 
 /**
@@ -77,6 +79,17 @@ function catalogoDesdeContenido() {
     comunicaciones: {
       lecciones: CM_LECCION_TOTAL,
       practicas: CM_PRACTICA_CLAVES,
+    },
+    // RAC y Combustible: las claves son los ids de las preguntas del final de
+    // cada unidad, tal como los escribe el documento («u01-q1», «c14-q2»), y
+    // las saca el conversor. No hay lista escrita a mano que se pueda desfasar.
+    rac: {
+      lecciones: RAC_LECCION_TOTAL,
+      practicas: RAC_PRACTICA_CLAVES,
+    },
+    combustible: {
+      lecciones: CB_LECCION_TOTAL,
+      practicas: CB_PRACTICA_CLAVES,
     },
   }
 }

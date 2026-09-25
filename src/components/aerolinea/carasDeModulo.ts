@@ -1,5 +1,5 @@
 import type { ComponentType } from "react"
-import { AlertTriangle, CloudSun, Gauge, Headset, TowerControl, Wind } from "lucide-react"
+import { AlertTriangle, CloudSun, Fuel, Gauge, Headset, Scale, TowerControl, Wind } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
 import { AP_ACENTO } from "@/lib/aeropuertos"
 import type { ClaveModulo } from "@/lib/modulosAerolinea"
@@ -94,5 +94,20 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     color: "var(--av-cm-700)",
     fotoHueco: "CM-TEM-01 · 2:1 · 1200×600 · Piloto con auriculares y la mano en el selector de frecuencia",
     descripcion: "Escuchar, interpretar, confirmar y responder al ATC, de la rampa al océano.",
+  },
+  rac: {
+    // Una balanza no: el módulo no va de justicia sino de la norma escrita.
+    icon: Scale,
+    color: "var(--av-rc-700)",
+    fotoHueco:
+      "RAC-TEM-01 · 2:1 · 1200×600 · Licencia de piloto y certificado médico sobre la mesa de despacho, junto al manual de operaciones",
+    descripcion: "Las diecinueve normas de la Aerocivil que te tocan a ti, con su numeral.",
+  },
+  combustible: {
+    icon: Fuel,
+    color: "var(--av-cb-700)",
+    fotoHueco:
+      "CB-TEM-01 · 2:1 · 1200×600 · Indicador de combustible y plan operacional de vuelo sobre el pedestal, en cabina",
+    descripcion: "Con cuánto aterrizas, y dónde: del block fuel al MAYDAY COMBUSTIBLE.",
   },
 }

@@ -12,6 +12,31 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       achievements: {
@@ -50,6 +75,7 @@ export type Database = {
           content: string
           conversation_id: string
           created_at: string
+          failed: boolean
           feedback: string | null
           feedback_at: string | null
           id: number
@@ -66,6 +92,7 @@ export type Database = {
           content: string
           conversation_id?: string
           created_at?: string
+          failed?: boolean
           feedback?: string | null
           feedback_at?: string | null
           id?: number
@@ -82,6 +109,7 @@ export type Database = {
           content?: string
           conversation_id?: string
           created_at?: string
+          failed?: boolean
           feedback?: string | null
           feedback_at?: string | null
           id?: number
@@ -663,6 +691,48 @@ export type Database = {
           },
         ]
       }
+      banco_preguntas: {
+        Row: {
+          activa: boolean
+          actualizada_en: string
+          banco: string
+          clave_externa: string
+          correcta: number
+          enunciado: string
+          explicacion: string
+          id: string
+          metadatos: Json
+          opciones: Json
+          referencia: string | null
+        }
+        Insert: {
+          activa?: boolean
+          actualizada_en?: string
+          banco: string
+          clave_externa: string
+          correcta: number
+          enunciado: string
+          explicacion?: string
+          id?: string
+          metadatos?: Json
+          opciones: Json
+          referencia?: string | null
+        }
+        Update: {
+          activa?: boolean
+          actualizada_en?: string
+          banco?: string
+          clave_externa?: string
+          correcta?: number
+          enunciado?: string
+          explicacion?: string
+          id?: string
+          metadatos?: Json
+          opciones?: Json
+          referencia?: string | null
+        }
+        Relationships: []
+      }
       checklist_items: {
         Row: {
           category: string | null
@@ -837,24 +907,34 @@ export type Database = {
       }
       community_reactions: {
         Row: {
+          channel_id: number
           created_at: string
           emoji: string
           message_id: number
           user_id: string
         }
         Insert: {
+          channel_id: number
           created_at?: string
           emoji: string
           message_id: number
           user_id: string
         }
         Update: {
+          channel_id?: number
           created_at?: string
           emoji?: string
           message_id?: number
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "community_reactions_channel_id_fkey"
+            columns: ["channel_id"]
+            isOneToOne: false
+            referencedRelation: "community_channels"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "community_reactions_message_id_fkey"
             columns: ["message_id"]
@@ -863,6 +943,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      content_reports: {
+        Row: {
+          contexto: Json
+          created_at: string
+          detalle: string | null
+          ejercicio_id: string | null
+          estado: string
+          id: string
+          modulo: string
+          motivo: string
+          user_id: string | null
+        }
+        Insert: {
+          contexto?: Json
+          created_at?: string
+          detalle?: string | null
+          ejercicio_id?: string | null
+          estado?: string
+          id?: string
+          modulo: string
+          motivo: string
+          user_id?: string | null
+        }
+        Update: {
+          contexto?: Json
+          created_at?: string
+          detalle?: string | null
+          ejercicio_id?: string | null
+          estado?: string
+          id?: string
+          modulo?: string
+          motivo?: string
+          user_id?: string | null
+        }
+        Relationships: []
       }
       daily_activity: {
         Row: {
@@ -890,6 +1006,174 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      errores_cliente: {
+        Row: {
+          contexto: string
+          creado_en: string
+          detalle: string | null
+          id: number
+          mensaje: string
+          navegador: string | null
+          ruta: string | null
+          user_id: string
+          version_app: string | null
+        }
+        Insert: {
+          contexto: string
+          creado_en?: string
+          detalle?: string | null
+          id?: number
+          mensaje: string
+          navegador?: string | null
+          ruta?: string | null
+          user_id: string
+          version_app?: string | null
+        }
+        Update: {
+          contexto?: string
+          creado_en?: string
+          detalle?: string | null
+          id?: number
+          mensaje?: string
+          navegador?: string | null
+          ruta?: string | null
+          user_id?: string
+          version_app?: string | null
+        }
+        Relationships: []
+      }
+      evaluacion_fuentes: {
+        Row: {
+          banco: string
+          cupo: number | null
+          etiqueta: string | null
+          evaluacion: string
+        }
+        Insert: {
+          banco: string
+          cupo?: number | null
+          etiqueta?: string | null
+          evaluacion: string
+        }
+        Update: {
+          banco?: string
+          cupo?: number | null
+          etiqueta?: string | null
+          evaluacion?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evaluacion_fuentes_evaluacion_fkey"
+            columns: ["evaluacion"]
+            isOneToOne: false
+            referencedRelation: "evaluaciones"
+            referencedColumns: ["clave"]
+          },
+        ]
+      }
+      evaluacion_sesiones: {
+        Row: {
+          aprobada: boolean | null
+          correctas: number
+          evaluacion: string
+          id: string
+          iniciada_en: string
+          orden_opciones: Json
+          preguntas: string[]
+          puntaje: number | null
+          respuestas: Json
+          terminada_en: string | null
+          user_id: string
+          vence_en: string
+        }
+        Insert: {
+          aprobada?: boolean | null
+          correctas?: number
+          evaluacion: string
+          id?: string
+          iniciada_en?: string
+          orden_opciones: Json
+          preguntas: string[]
+          puntaje?: number | null
+          respuestas?: Json
+          terminada_en?: string | null
+          user_id: string
+          vence_en: string
+        }
+        Update: {
+          aprobada?: boolean | null
+          correctas?: number
+          evaluacion?: string
+          id?: string
+          iniciada_en?: string
+          orden_opciones?: Json
+          preguntas?: string[]
+          puntaje?: number | null
+          respuestas?: Json
+          terminada_en?: string | null
+          user_id?: string
+          vence_en?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evaluacion_sesiones_evaluacion_fkey"
+            columns: ["evaluacion"]
+            isOneToOne: false
+            referencedRelation: "evaluaciones"
+            referencedColumns: ["clave"]
+          },
+        ]
+      }
+      evaluaciones: {
+        Row: {
+          activa: boolean
+          aprobacion: number
+          barajar_opciones: boolean
+          clave: string
+          creada_en: string
+          destino: string
+          minutos_vigencia: number
+          modulo_leccion: string | null
+          preguntas_por_intento: number
+          retroalimentacion: string
+          titulo: string
+        }
+        Insert: {
+          activa?: boolean
+          aprobacion: number
+          barajar_opciones?: boolean
+          clave: string
+          creada_en?: string
+          destino: string
+          minutos_vigencia?: number
+          modulo_leccion?: string | null
+          preguntas_por_intento: number
+          retroalimentacion: string
+          titulo: string
+        }
+        Update: {
+          activa?: boolean
+          aprobacion?: number
+          barajar_opciones?: boolean
+          clave?: string
+          creada_en?: string
+          destino?: string
+          minutos_vigencia?: number
+          modulo_leccion?: string | null
+          preguntas_por_intento?: number
+          retroalimentacion?: string
+          titulo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evaluaciones_modulo_leccion_fkey"
+            columns: ["modulo_leccion"]
+            isOneToOne: false
+            referencedRelation: "modulos_contenido"
+            referencedColumns: ["modulo"]
+          },
+        ]
       }
       exam_report_topics: {
         Row: {
@@ -1822,6 +2106,27 @@ export type Database = {
         }
         Relationships: []
       }
+      modulos_contenido: {
+        Row: {
+          actualizado_en: string
+          lecciones: number
+          modulo: string
+          practicas: string[]
+        }
+        Insert: {
+          actualizado_en?: string
+          lecciones: number
+          modulo: string
+          practicas?: string[]
+        }
+        Update: {
+          actualizado_en?: string
+          lecciones?: number
+          modulo?: string
+          practicas?: string[]
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           action_url: string | null
@@ -1995,6 +2300,8 @@ export type Database = {
       }
       pilot_state: {
         Row: {
+          horas_previas_pic: number | null
+          horas_previas_total: number | null
           hours_pic: number | null
           icao_english_level: number | null
           licenses: Json | null
@@ -2006,6 +2313,8 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          horas_previas_pic?: number | null
+          horas_previas_total?: number | null
           hours_pic?: number | null
           icao_english_level?: number | null
           licenses?: Json | null
@@ -2017,6 +2326,8 @@ export type Database = {
           user_id: string
         }
         Update: {
+          horas_previas_pic?: number | null
+          horas_previas_total?: number | null
           hours_pic?: number | null
           icao_english_level?: number | null
           licenses?: Json | null
@@ -2028,6 +2339,83 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      plan_de_estudio: {
+        Row: {
+          actualizado_en: string
+          creado_en: string
+          dias: number[]
+          hora: string
+          minutos_meta: number
+          user_id: string
+          zona: string
+        }
+        Insert: {
+          actualizado_en?: string
+          creado_en?: string
+          dias: number[]
+          hora: string
+          minutos_meta?: number
+          user_id: string
+          zona?: string
+        }
+        Update: {
+          actualizado_en?: string
+          creado_en?: string
+          dias?: number[]
+          hora?: string
+          minutos_meta?: number
+          user_id?: string
+          zona?: string
+        }
+        Relationships: []
+      }
+      postulaciones: {
+        Row: {
+          actualizada_en: string
+          aerolinea: string | null
+          airline_id: number | null
+          creada_en: string
+          estado: Database["public"]["Enums"]["estado_postulacion"]
+          etapa_final: Database["public"]["Enums"]["etapa_proceso"] | null
+          id: number
+          nota: string | null
+          postulada_en: string
+          user_id: string
+        }
+        Insert: {
+          actualizada_en?: string
+          aerolinea?: string | null
+          airline_id?: number | null
+          creada_en?: string
+          estado?: Database["public"]["Enums"]["estado_postulacion"]
+          etapa_final?: Database["public"]["Enums"]["etapa_proceso"] | null
+          id?: number
+          nota?: string | null
+          postulada_en?: string
+          user_id: string
+        }
+        Update: {
+          actualizada_en?: string
+          aerolinea?: string | null
+          airline_id?: number | null
+          creada_en?: string
+          estado?: Database["public"]["Enums"]["estado_postulacion"]
+          etapa_final?: Database["public"]["Enums"]["etapa_proceso"] | null
+          id?: number
+          nota?: string | null
+          postulada_en?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "postulaciones_airline_id_fkey"
+            columns: ["airline_id"]
+            isOneToOne: false
+            referencedRelation: "airlines"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -2062,6 +2450,57 @@ export type Database = {
           referral_code?: string | null
           referred_by?: string | null
           username?: string | null
+        }
+        Relationships: []
+      }
+      psico_sesiones: {
+        Row: {
+          acumulado: Json
+          categoria: string
+          id: string
+          iniciada_en: string
+          limites: number[]
+          modo: string
+          nivel: string
+          preguntas: string[]
+          reloj_desde: string
+          respuestas: Json
+          resultado: Json | null
+          terminada_en: string | null
+          user_id: string
+          vence_en: string
+        }
+        Insert: {
+          acumulado?: Json
+          categoria: string
+          id?: string
+          iniciada_en?: string
+          limites: number[]
+          modo: string
+          nivel: string
+          preguntas: string[]
+          reloj_desde?: string
+          respuestas?: Json
+          resultado?: Json | null
+          terminada_en?: string | null
+          user_id: string
+          vence_en: string
+        }
+        Update: {
+          acumulado?: Json
+          categoria?: string
+          id?: string
+          iniciada_en?: string
+          limites?: number[]
+          modo?: string
+          nivel?: string
+          preguntas?: string[]
+          reloj_desde?: string
+          respuestas?: Json
+          resultado?: Json | null
+          terminada_en?: string | null
+          user_id?: string
+          vence_en?: string
         }
         Relationships: []
       }
@@ -2354,6 +2793,7 @@ export type Database = {
       streaks: {
         Row: {
           current_streak: number
+          gracia_usada_en: string | null
           last_activity_date: string | null
           longest_streak: number
           updated_at: string
@@ -2361,6 +2801,7 @@ export type Database = {
         }
         Insert: {
           current_streak?: number
+          gracia_usada_en?: string | null
           last_activity_date?: string | null
           longest_streak?: number
           updated_at?: string
@@ -2368,6 +2809,7 @@ export type Database = {
         }
         Update: {
           current_streak?: number
+          gracia_usada_en?: string | null
           last_activity_date?: string | null
           longest_streak?: number
           updated_at?: string
@@ -2486,6 +2928,102 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_aerodinamica_exam_attempts: {
+        Row: {
+          correct: number
+          id: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          id?: string
+          score: number
+          taken_at?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          id?: string
+          score?: number
+          taken_at?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_aerodinamica_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_aeropuertos_exam_attempts: {
+        Row: {
+          correct: number
+          id: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          id?: string
+          score: number
+          taken_at?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          id?: string
+          score?: number
+          taken_at?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_aeropuertos_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       user_airline_mock_attempts: {
         Row: {
@@ -2625,6 +3163,102 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_combustible_exam_attempts: {
+        Row: {
+          correct: number
+          id: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          id?: string
+          score: number
+          taken_at?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          id?: string
+          score?: number
+          taken_at?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_combustible_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_comunicaciones_exam_attempts: {
+        Row: {
+          correct: number
+          id: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          id?: string
+          score: number
+          taken_at?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          id?: string
+          score?: number
+          taken_at?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_comunicaciones_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       user_icao_attempts: {
         Row: {
@@ -2891,150 +3525,6 @@ export type Database = {
           },
         ]
       }
-      user_aerodinamica_exam_attempts: {
-        Row: {
-          correct: number
-          id: string
-          score: number
-          taken_at: string
-          total: number
-          user_id: string
-        }
-        Insert: {
-          correct?: number
-          id?: string
-          score: number
-          taken_at?: string
-          total?: number
-          user_id: string
-        }
-        Update: {
-          correct?: number
-          id?: string
-          score?: number
-          taken_at?: string
-          total?: number
-          user_id?: string
-        }
-        Relationships: []
-      }
-      user_aerodinamica_progress: {
-        Row: {
-          lesson_screens: number[]
-          practice_done: string[]
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          lesson_screens?: number[]
-          practice_done?: string[]
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          lesson_screens?: number[]
-          practice_done?: string[]
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      user_aeropuertos_exam_attempts: {
-        Row: {
-          correct: number
-          id: string
-          score: number
-          taken_at: string
-          total: number
-          user_id: string
-        }
-        Insert: {
-          correct?: number
-          id?: string
-          score: number
-          taken_at?: string
-          total?: number
-          user_id: string
-        }
-        Update: {
-          correct?: number
-          id?: string
-          score?: number
-          taken_at?: string
-          total?: number
-          user_id?: string
-        }
-        Relationships: []
-      }
-      user_aeropuertos_progress: {
-        Row: {
-          lesson_screens: number[]
-          practice_done: string[]
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          lesson_screens?: number[]
-          practice_done?: string[]
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          lesson_screens?: number[]
-          practice_done?: string[]
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      user_comunicaciones_exam_attempts: {
-        Row: {
-          correct: number
-          id: string
-          score: number
-          taken_at: string
-          total: number
-          user_id: string
-        }
-        Insert: {
-          correct?: number
-          id?: string
-          score: number
-          taken_at?: string
-          total?: number
-          user_id: string
-        }
-        Update: {
-          correct?: number
-          id?: string
-          score?: number
-          taken_at?: string
-          total?: number
-          user_id?: string
-        }
-        Relationships: []
-      }
-      user_comunicaciones_progress: {
-        Row: {
-          lesson_screens: number[]
-          practice_done: string[]
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          lesson_screens?: number[]
-          practice_done?: string[]
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          lesson_screens?: number[]
-          practice_done?: string[]
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       user_mercancias_exam_attempts: {
         Row: {
           correct: number
@@ -3188,54 +3678,6 @@ export type Database = {
         }
         Relationships: []
       }
-      user_performance_exam_attempts: {
-        Row: {
-          correct: number
-          id: string
-          score: number
-          taken_at: string
-          total: number
-          user_id: string
-        }
-        Insert: {
-          correct?: number
-          id?: string
-          score: number
-          taken_at?: string
-          total?: number
-          user_id: string
-        }
-        Update: {
-          correct?: number
-          id?: string
-          score?: number
-          taken_at?: string
-          total?: number
-          user_id?: string
-        }
-        Relationships: []
-      }
-      user_performance_progress: {
-        Row: {
-          lesson_screens: number[]
-          practice_done: string[]
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          lesson_screens?: number[]
-          practice_done?: string[]
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          lesson_screens?: number[]
-          practice_done?: string[]
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       user_pca_exam_attempts: {
         Row: {
           correct_count: number | null
@@ -3318,6 +3760,96 @@ export type Database = {
           },
         ]
       }
+      user_performance_exam_attempts: {
+        Row: {
+          correct: number
+          id: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          id?: string
+          score: number
+          taken_at?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          id?: string
+          score?: number
+          taken_at?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_performance_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_psico_attempts: {
+        Row: {
+          categoria: string
+          correctas: number
+          global: number
+          id: string
+          modo: string
+          nivel: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+          velocidad: number
+        }
+        Insert: {
+          categoria: string
+          correctas?: number
+          global?: number
+          id?: string
+          modo: string
+          nivel: string
+          score: number
+          taken_at?: string
+          total: number
+          user_id: string
+          velocidad?: number
+        }
+        Update: {
+          categoria?: string
+          correctas?: number
+          global?: number
+          id?: string
+          modo?: string
+          nivel?: string
+          score?: number
+          taken_at?: string
+          total?: number
+          user_id?: string
+          velocidad?: number
+        }
+        Relationships: []
+      }
       user_psych_attempts: {
         Row: {
           attempted_at: string | null
@@ -3358,6 +3890,54 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_rac_exam_attempts: {
+        Row: {
+          correct: number
+          id: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          id?: string
+          score: number
+          taken_at?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          id?: string
+          score?: number
+          taken_at?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_rac_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       vault_access_log: {
         Row: {
@@ -3454,6 +4034,7 @@ export type Database = {
       }
       vault_sessions: {
         Row: {
+          answered_positions: number[]
           answers_given: string[] | null
           completed_at: string | null
           correct_count: number | null
@@ -3466,6 +4047,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          answered_positions?: number[]
           answers_given?: string[] | null
           completed_at?: string | null
           correct_count?: number | null
@@ -3478,6 +4060,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          answered_positions?: number[]
           answers_given?: string[] | null
           completed_at?: string | null
           correct_count?: number | null
@@ -3491,8 +4074,80 @@ export type Database = {
         }
         Relationships: []
       }
+      verificaciones_horas: {
+        Row: {
+          creado_en: string
+          estado: Database["public"]["Enums"]["estado_verificacion"]
+          evidencia: string
+          horas_pic: number
+          horas_total: number
+          id: number
+          nota_piloto: string | null
+          nota_revision: string | null
+          revisado_en: string | null
+          revisado_por: string | null
+          user_id: string
+        }
+        Insert: {
+          creado_en?: string
+          estado?: Database["public"]["Enums"]["estado_verificacion"]
+          evidencia: string
+          horas_pic: number
+          horas_total: number
+          id?: number
+          nota_piloto?: string | null
+          nota_revision?: string | null
+          revisado_en?: string | null
+          revisado_por?: string | null
+          user_id: string
+        }
+        Update: {
+          creado_en?: string
+          estado?: Database["public"]["Enums"]["estado_verificacion"]
+          evidencia?: string
+          horas_pic?: number
+          horas_total?: number
+          id?: number
+          nota_piloto?: string | null
+          nota_revision?: string | null
+          revisado_en?: string | null
+          revisado_por?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
+      bitacora_resumen: {
+        Row: {
+          aterrizajes: number | null
+          aterrizajes_ultimos_90_dias: number | null
+          minutos_ifr: number | null
+          minutos_noche: number | null
+          minutos_pic: number | null
+          minutos_sic: number | null
+          minutos_total: number | null
+          minutos_travesia: number | null
+          minutos_ultimos_30_dias: number | null
+          minutos_ultimos_365_dias: number | null
+          minutos_ultimos_90_dias: number | null
+          ultimo_vuelo: string | null
+          user_id: string | null
+          vuelos: number | null
+        }
+        Relationships: []
+      }
+      horas_verificadas: {
+        Row: {
+          cubre_lo_declarado: boolean | null
+          estado: Database["public"]["Enums"]["estado_verificacion"] | null
+          horas_pic: number | null
+          horas_total: number | null
+          revisado_en: string | null
+          user_id: string | null
+        }
+        Relationships: []
+      }
       user_pca_readiness: {
         Row: {
           attempts_60d: number | null
@@ -3511,6 +4166,36 @@ export type Database = {
         Args: { p_code: string; p_user_id: string }
         Returns: number
       }
+      aerodinamica_mark_progress: {
+        Args: { p_lesson_screen?: number; p_practice_id?: string }
+        Returns: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_aerodinamica_progress"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      aeropuertos_mark_progress: {
+        Args: { p_lesson_screen?: number; p_practice_id?: string }
+        Returns: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_aeropuertos_progress"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       ai_usage_this_month: { Args: never; Returns: number }
       bump_library_item_views: {
         Args: { p_item_id: number }
@@ -3525,6 +4210,51 @@ export type Database = {
         Args: { p_username: string }
         Returns: boolean
       }
+      combustible_mark_progress: {
+        Args: { p_lesson_screen?: number; p_practice_id?: string }
+        Returns: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_combustible_progress"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      comunicaciones_mark_progress: {
+        Args: { p_lesson_screen?: number; p_practice_id?: string }
+        Returns: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_comunicaciones_progress"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      comunidad_autores: {
+        Args: { p_user_ids: string[] }
+        Returns: {
+          current_streak: number
+          id: string
+          photo_url: string
+          username: string
+        }[]
+      }
+      evaluacion_iniciar: { Args: { p_evaluacion: string }; Returns: Json }
+      evaluacion_responder: {
+        Args: { p_opcion: number; p_posicion: number; p_sesion: string }
+        Returns: Json
+      }
+      evaluacion_terminar: { Args: { p_sesion: string }; Returns: Json }
       get_activity_heatmap: {
         Args: never
         Returns: {
@@ -3560,19 +4290,10 @@ export type Database = {
         Returns: {
           current_streak: number
           stage: string
-          user_id: string
           username: string
         }[]
       }
       get_pilot_cv: { Args: { p_username: string }; Returns: Json }
-      get_profile_avatars: {
-        Args: { p_user_ids: string[] }
-        Returns: {
-          id: string
-          photo_url: string
-          username: string
-        }[]
-      }
       get_referral_stats: {
         Args: never
         Returns: {
@@ -3606,53 +4327,14 @@ export type Database = {
           total_questions: number
         }[]
       }
+      icao_progreso: { Args: never; Returns: Json }
+      icao_quiz_responder: {
+        Args: { p_pregunta: number; p_respuesta: string }
+        Returns: Json
+      }
       increment_streak: { Args: never; Returns: undefined }
+      latido: { Args: never; Returns: string }
       mark_all_notifications_read: { Args: never; Returns: number }
-      aerodinamica_mark_progress: {
-        Args: { p_lesson_screen?: number; p_practice_id?: string }
-        Returns: {
-          lesson_screens: number[]
-          practice_done: string[]
-          updated_at: string
-          user_id: string
-        }
-        SetofOptions: {
-          from: "*"
-          to: "user_aerodinamica_progress"
-          isOneToOne: true
-          isSetofReturn: false
-        }
-      }
-      aeropuertos_mark_progress: {
-        Args: { p_lesson_screen?: number; p_practice_id?: string }
-        Returns: {
-          lesson_screens: number[]
-          practice_done: string[]
-          updated_at: string
-          user_id: string
-        }
-        SetofOptions: {
-          from: "*"
-          to: "user_aeropuertos_progress"
-          isOneToOne: true
-          isSetofReturn: false
-        }
-      }
-      comunicaciones_mark_progress: {
-        Args: { p_lesson_screen?: number; p_practice_id?: string }
-        Returns: {
-          lesson_screens: number[]
-          practice_done: string[]
-          updated_at: string
-          user_id: string
-        }
-        SetofOptions: {
-          from: "*"
-          to: "user_comunicaciones_progress"
-          isOneToOne: true
-          isSetofReturn: false
-        }
-      }
       mercancias_mark_progress: {
         Args: { p_lesson_screen?: number; p_practice_id?: string }
         Returns: {
@@ -3698,6 +4380,9 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      panel_inicio: { Args: never; Returns: Json }
+      panel_tarjetas: { Args: never; Returns: Json }
+      pca_stats: { Args: never; Returns: Json }
       performance_mark_progress: {
         Args: { p_lesson_screen?: number; p_practice_id?: string }
         Returns: {
@@ -3713,10 +4398,63 @@ export type Database = {
           isSetofReturn: false
         }
       }
-      pca_stats: { Args: never; Returns: Json }
+      psico_aplazar: {
+        Args: { p_posicion: number; p_sesion: string }
+        Returns: undefined
+      }
+      psico_iniciar: {
+        Args: {
+          p_cantidad: number
+          p_categoria: string
+          p_modo: string
+          p_nivel: string
+        }
+        Returns: Json
+      }
+      psico_responder: {
+        Args: {
+          p_opcion: number
+          p_posicion: number
+          p_segundos: number
+          p_sesion: string
+        }
+        Returns: Json
+      }
+      psico_terminar: { Args: { p_sesion: string }; Returns: Json }
+      rac_mark_progress: {
+        Args: { p_lesson_screen?: number; p_practice_id?: string }
+        Returns: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_rac_progress"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       recalc_pilot_hours: { Args: { p_user_id: string }; Returns: undefined }
       record_daily_activity: {
         Args: { p_correct?: number; p_minutes?: number; p_questions?: number }
+        Returns: undefined
+      }
+      reportar_error_cliente: {
+        Args: {
+          p_contexto: string
+          p_detalle?: string
+          p_mensaje: string
+          p_navegador?: string
+          p_ruta?: string
+          p_version?: string
+        }
+        Returns: boolean
+      }
+      retirar_verificacion_horas: { Args: never; Returns: boolean }
+      revisar_verificacion_horas: {
+        Args: { p_aprobada: boolean; p_id: number; p_nota?: string }
         Returns: undefined
       }
       unread_notifications_count: { Args: never; Returns: number }
@@ -3770,6 +4508,26 @@ export type Database = {
           questions_remaining: number
         }[]
       }
+      wingman_cerrar: {
+        Args: {
+          p_mensaje_id: number
+          p_modelo: string
+          p_texto: string
+          p_tokens_input: number
+          p_tokens_output: number
+        }
+        Returns: number
+      }
+      wingman_estado: { Args: never; Returns: Json }
+      wingman_reservar: {
+        Args: {
+          p_conversation_id: string
+          p_kind: string
+          p_mensaje: string
+          p_user_id: string
+        }
+        Returns: Json
+      }
     }
     Enums: {
       aerocivil_region:
@@ -3783,6 +4541,21 @@ export type Database = {
         | "bucaramanga"
         | "otra"
       channel_type: "general" | "stage" | "subject" | "airline"
+      estado_postulacion:
+        | "postulada"
+        | "en_proceso"
+        | "contratado"
+        | "no_quedo"
+        | "retirada"
+      estado_verificacion: "pendiente" | "verificada" | "rechazada" | "retirada"
+      etapa_proceso:
+        | "hoja_de_vida"
+        | "psicotecnicas"
+        | "entrevista"
+        | "simulador"
+        | "ingles"
+        | "medico"
+        | "otra"
       license_type:
         | "medical_class_1"
         | "medical_class_2"
@@ -3804,6 +4577,8 @@ export type Database = {
         | "expiry_warning"
         | "community_mention"
         | "wingman_insight"
+        | "plan_reminder"
+        | "postulacion_seguimiento"
       pilot_stage:
         | "student_ppl"
         | "ppl"
@@ -3836,12 +4611,12 @@ export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -3865,11 +4640,11 @@ export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -3890,11 +4665,11 @@ export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -3915,11 +4690,11 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -3932,11 +4707,11 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never) = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -3946,6 +4721,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       aerocivil_region: [
@@ -3960,6 +4738,23 @@ export const Constants = {
         "otra",
       ],
       channel_type: ["general", "stage", "subject", "airline"],
+      estado_postulacion: [
+        "postulada",
+        "en_proceso",
+        "contratado",
+        "no_quedo",
+        "retirada",
+      ],
+      estado_verificacion: ["pendiente", "verificada", "rechazada", "retirada"],
+      etapa_proceso: [
+        "hoja_de_vida",
+        "psicotecnicas",
+        "entrevista",
+        "simulador",
+        "ingles",
+        "medico",
+        "otra",
+      ],
       license_type: [
         "medical_class_1",
         "medical_class_2",
@@ -3982,6 +4777,8 @@ export const Constants = {
         "expiry_warning",
         "community_mention",
         "wingman_insight",
+        "plan_reminder",
+        "postulacion_seguimiento",
       ],
       pilot_stage: [
         "student_ppl",
