@@ -203,11 +203,22 @@ hora a la que las corrió, así que el CLI ve versiones remotas que no existen e
 la carpeta y se niega a seguir. Se aplica por el editor de SQL o por el
 conector.
 
-Los dos bancos, `rac_evaluacion` (50 preguntas) y `combustible_evaluacion`
-(40), quedaron sembrados el mismo día, en tramos de catorce preguntas porque el
+Los bancos `rac_evaluacion` (50 preguntas) y `combustible_evaluacion` (40)
+quedaron sembrados el mismo día, en tramos de catorce preguntas porque el
 conector no traga el archivo entero. Se comprobaron con una huella md5 sobre
 `id|enunciado|correcta`, calculada igual en Postgres y en node: las dos
 coincidieron exactas.
+
+Quedaron dos diferencias con el repo, que arregla
+`20260930000000_evaluacion_entrega_el_tema_del_banco` (pendiente de correr):
+las dos evaluaciones sin `modulo_leccion` y el catálogo de Combustible con 66
+prácticas en vez de 76 (sin los diez escenarios). Ver
+`docs/RAC_COMBUSTIBLE_ESTADO.md`, «La base».
+
+Y la rama `claude/modulo-mel` trae tres migraciones que empiezan en
+`20260928000000`, la misma versión que la de RAC y Combustible: hay que
+renumerarlas por encima de la marca y copiar las funciones compartidas de la
+última publicada, con las ramas de RAC, Combustible y RVSM.
 
 ## 25 de septiembre: RVSM
 
@@ -244,9 +255,9 @@ archivo y en la base (`puerta_de_leccion_de_rvsm`).
 `supabase/tests/rvsm.sql` se corrió contra la base ya migrada y pasó:
 `PRUEBA_DESHECHA` con los veintiún puntos, y nada quedó escrito.
 
-**Ojo con RAC y Gestión del combustible**: el archivo del repo les pone
-`modulo_leccion`, pero en la base están en null, porque lo aplicado fue la
-migración de la otra sesión. Sus dos evaluaciones abren hoy sin la lección
-completa, y por eso `supabase/tests/rac_y_combustible.sql` falla en su primera
-comprobación. Se arregla con un update de dos líneas, pero **es un cambio de
-comportamiento para quien ya esté a medio módulo**, así que se decide aparte.
+**El PR #277 se mergeó con una migración en la misma versión que esta**
+(`20260929000000_evaluacion_entrega_el_tema_del_banco`), escrita sin saber que
+RVSM ya estaba aplicado. La versión `20260929000000` la tiene registrada la base
+para `modulo_rvsm`, así que la otra, que está pendiente de correr, se renumeró a
+`20260930000000` y la marca de arriba pasó a `20260929000000`. Cuando se corra,
+hay que mover la marca otra vez.
