@@ -1,0 +1,276 @@
+import { useEffect, useMemo, useState } from "react"
+import { Link } from "react-router-dom"
+import { ArrowLeft, BookOpen, GraduationCap, Target } from "lucide-react"
+import { CourseCard } from "@/components/ui/course-card"
+import type { CourseCardProps } from "@/components/ui/course-card"
+import { FilaAvance } from "@/components/modulo/FilaAvance"
+import { useSession } from "@/hooks/useSession"
+import {
+  RAC_APRENDE,
+  RAC_EVALUACION,
+  RAC_EXAM_PER_ATTEMPT,
+  RAC_LECTURA_MINUTOS,
+  RAC_LECTURA_TOTAL,
+  RAC_PASS_SCORE,
+  RAC_PRACTICA_RUTA,
+  RAC_PRACTICA_TOTAL,
+  RAC_TITULO,
+  RAC_TITULO_LARGO,
+  RAC_VIGENCIA,
+  resumirRac,
+} from "@/lib/rac"
+import { fetchRacProgress, pushPendingRac, readRacLocal } from "@/lib/racProgress"
+
+/**
+ * Hub del tema RAC (módulo Ingreso a aerolínea).
+ * Ruta: /app/aerolinea/rac
+ *
+ * La misma casa que los demás hubs: hero con velo navy, el panel de avance con
+ * sus tres filas y las puertas numeradas. Lo propio es el acento grafito y que
+ * todavía no hay fotos: el hero va sobre el navy liso y las tarjetas muestran
+ * su hueco rotulado, que es lo que pinta `CourseCard` sin portada.
+ */
+
+const ACENTO = "var(--av-rac-700)"
+const ACENTO_CLARO = "var(--av-rac-500)"
+
+export function Rac() {
+  const { user, isLoading: sessionLoading } = useSession()
+  // Arranca con el respaldo local para no mostrar cero mientras carga, y se
+  // completa con la base, que es la verdad entre dispositivos.
+  const [progreso, setProgreso] = useState(() => readRacLocal())
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (sessionLoading) return
+    let cancelado = false
+
+    void (async () => {
+      if (!user) {
+        if (!cancelado) setLoading(false)
+        return
+      }
+      try {
+        const traido = await fetchRacProgress(user.id)
+        if (!traido || cancelado) return
+        const remoto = await pushPendingRac(traido)
+        if (!cancelado) setProgreso({ ...remoto, bestScore: traido.bestScore })
+      } finally {
+        if (!cancelado) setLoading(false)
+      }
+    })()
+
+    return () => {
+      cancelado = true
+    }
+  }, [user, sessionLoading])
+
+  const resumen = useMemo(() => resumirRac(progreso), [progreso])
+
+  const partes: CourseCardProps[] = [
+    {
+      to: RAC_APRENDE,
+      densidad: "compacta" as const,
+      photoAspect: "5/2" as const,
+      icon: BookOpen,
+      color: ACENTO,
+      meta: `${RAC_LECTURA_TOTAL} unidades · ${RAC_LECTURA_MINUTOS} min`,
+      title: "1. Aprende",
+      blurb:
+        "Una unidad por reglamento: qué regula, qué te toca como piloto, los datos que se preguntan y el numeral de cada uno.",
+      cta: "Iniciar formación",
+      photoHueco: "RAC-HUB-01 · Portada · 5:2 · 1200×480 · Manual de operaciones y RAC impresos sobre el pedestal de una cabina",
+      status:
+        resumen.lessonRead === 0
+          ? "Sin empezar"
+          : resumen.lessonRead >= RAC_LECTURA_TOTAL
+            ? "Lección completa"
+            : `${resumen.lessonRead} de ${RAC_LECTURA_TOTAL} unidades leídas`,
+      progress: resumen.lessonPct,
+      done: resumen.lessonRead >= RAC_LECTURA_TOTAL,
+    },
+    {
+      to: RAC_PRACTICA_RUTA,
+      densidad: "compacta" as const,
+      photoAspect: "5/2" as const,
+      icon: Target,
+      color: ACENTO,
+      meta: `${RAC_PRACTICA_TOTAL} preguntas · corrección inmediata`,
+      title: "2. Practica",
+      blurb:
+        "Preguntas de situación sobre cada unidad, con la explicación y el numeral de la respuesta al instante.",
+      cta: "Practicar",
+      photoHueco: "RAC-HUB-02 · Portada · 5:2 · 1200×480 · Piloto estudiando con la tableta en el briefing, antes del vuelo",
+      status:
+        resumen.practiceDone === 0
+          ? "Sin empezar"
+          : `${resumen.practiceDone} de ${RAC_PRACTICA_TOTAL} respondidas`,
+      progress: resumen.practicePct,
+      done: resumen.practiceDone >= RAC_PRACTICA_TOTAL,
+    },
+    {
+      to: RAC_EVALUACION,
+      densidad: "compacta" as const,
+      photoAspect: "5/2" as const,
+      icon: GraduationCap,
+      color: ACENTO,
+      meta: `${RAC_EXAM_PER_ATTEMPT} preguntas · ${RAC_PASS_SCORE}% para aprobar`,
+      title: "3. Evalúate",
+      blurb:
+        "Cincuenta preguntas sobre las diecinueve unidades; cada intento toma veinte al azar. El resultado dice qué reglamentos repasar.",
+      cta: "Presentar la evaluación",
+      photoHueco: "RAC-HUB-03 · Portada · 5:2 · 1200×480 · Licencia y certificado médico sobre la mesa de un examen",
+      status: resumen.best === null ? "Sin intentos" : `Mejor: ${resumen.best} / 100`,
+      progress: resumen.examPct,
+      done: resumen.passed,
+    },
+  ]
+
+  return (
+    <div className="@container notam-hub px-5 sm:px-8 py-9 sm:py-11 pb-24 max-w-[1600px] mx-auto">
+      <Link
+        to="/app/aerolinea"
+        className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+      >
+        <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
+      </Link>
+
+      {/* Sin foto todavía: el navy liso es la base del hero de todos los módulos. */}
+      <section className="relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(105deg, rgba(8,20,36,.93) 0%, rgba(8,20,36,.79) 42%, rgba(8,20,36,.53) 72%, rgba(8,20,36,.38) 100%)",
+          }}
+          aria-hidden
+        />
+
+        <div className="relative grid gap-7 px-7 pb-7 pt-7 sm:px-12 sm:pb-8 sm:pt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,248px)] lg:gap-10">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-3">
+              <span
+                className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em]"
+                style={{ color: ACENTO_CLARO }}
+              >
+                Módulo 8
+              </span>
+              <span className="h-3 w-px bg-white/20" aria-hidden />
+              <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
+                Ingreso a aerolínea
+              </span>
+            </div>
+
+            <h1 className="nh-display mt-4 text-[38px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[46px] lg:text-[54px]">
+              {RAC_TITULO}
+            </h1>
+            <div className="mt-2 text-[15px] font-medium text-white/70">{RAC_TITULO_LARGO}</div>
+
+            <p className="mt-4 max-w-[56ch] text-[16px] leading-[1.55] text-white/80">
+              Lo que un piloto necesita de cada reglamento, sin cientos de páginas: licencia y médico,
+              reglas de vuelo, la aerolínea, mercancías peligrosas, investigación y sanciones. Hoy las
+              licencias siguen por el RAC 2; el RAC 61 aplica desde el 31 de agosto de 2027.
+            </p>
+            <p className="mt-3 text-[12px] text-white/55">{RAC_VIGENCIA}</p>
+
+            <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  to={RAC_APRENDE}
+                  className="inline-flex min-h-[48px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-[filter] hover:brightness-110"
+                  style={{ background: ACENTO }}
+                >
+                  <BookOpen className="h-4 w-4" /> Empezar la lección
+                </Link>
+                <Link
+                  to={RAC_PRACTICA_RUTA}
+                  className="inline-flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-[10px] border border-white/25 px-5 text-[15px] font-medium text-white/90 transition-colors hover:border-white/60 hover:text-white"
+                >
+                  <Target className="h-4 w-4" /> Ir a la práctica
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] lg:mt-[33px] lg:min-w-[210px]">
+            <div className="px-3.5 pb-3 pt-3.5">
+              <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+                Tu avance
+              </div>
+              {loading ? (
+                <>
+                  <div className="mt-2.5 h-6 w-16 animate-pulse rounded bg-white/15" />
+                  <div className="mt-3 h-1 animate-pulse rounded-sm bg-white/15" />
+                </>
+              ) : (
+                <>
+                  <div className="mt-1.5 flex items-baseline gap-2">
+                    <span className="nh-display tabular text-[23px] font-bold leading-none text-white">
+                      {resumen.overall}%
+                    </span>
+                    <span className="text-[11px] text-white/60">del módulo</span>
+                  </div>
+                  <div
+                    className="mt-3 h-1 overflow-hidden rounded-sm bg-white/15"
+                    role="progressbar"
+                    aria-valuenow={resumen.overall}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-label="Avance del módulo RAC"
+                  >
+                    <div
+                      className="h-full rounded-sm transition-[width]"
+                      style={{ width: `${resumen.overall}%`, background: ACENTO_CLARO }}
+                    />
+                  </div>
+                </>
+              )}
+              {!sessionLoading && !user && (
+                <p className="mt-2 text-[10.5px] leading-[1.5] text-white/55">
+                  Inicia sesión para guardar tu avance en la cuenta.
+                </p>
+              )}
+            </div>
+
+            <div className="border-t border-white/10 p-1">
+              <FilaAvance
+                titulo="Lección"
+                to={RAC_APRENDE}
+                valor={`${resumen.lessonRead} / ${RAC_LECTURA_TOTAL}`}
+                pct={resumen.lessonPct}
+                color={ACENTO_CLARO}
+                cargando={loading}
+              />
+              <FilaAvance
+                titulo="Práctica"
+                to={RAC_PRACTICA_RUTA}
+                valor={`${resumen.practiceDone} / ${RAC_PRACTICA_TOTAL}`}
+                pct={resumen.practicePct}
+                color="var(--av-cyan-400)"
+                cargando={loading}
+              />
+              <FilaAvance
+                titulo="Evaluación"
+                to={RAC_EVALUACION}
+                valor={resumen.best === null ? "Sin intentos" : `${resumen.best} / 100`}
+                aviso={resumen.best === null}
+                pct={resumen.examPct}
+                color={resumen.passed ? "var(--av-green-400)" : "var(--av-amber-400)"}
+                cargando={loading}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Las tres puertas */}
+      <section className="pt-10">
+        <div className="grid gap-4 @xl:grid-cols-3">
+          {partes.map((p) => (
+            <CourseCard key={p.title} {...p} statusLoading={loading} />
+          ))}
+        </div>
+      </section>
+    </div>
+  )
+}

@@ -21,6 +21,8 @@ export type ClaveEvaluacion =
   | "aeropuertos_evaluacion"
   | "performance_evaluacion"
   | "comunicaciones_evaluacion"
+  | "rac_evaluacion"
+  | "combustible_evaluacion"
   | "simulacro_aerolinea"
 
 export type Retroalimentacion = "inmediata" | "al_final"

@@ -1,5 +1,5 @@
 import type { ComponentType } from "react"
-import { AlertTriangle, CloudSun, Gauge, Headset, TowerControl, Wind } from "lucide-react"
+import { AlertTriangle, CloudSun, Fuel, Gauge, Headset, Scale, TowerControl, Wind } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
 import { AP_ACENTO } from "@/lib/aeropuertos"
 import type { ClaveModulo } from "@/lib/modulosAerolinea"
@@ -90,5 +90,17 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     color: "var(--av-cm-700)",
     fotoHueco: "CM-TEM-01 · 2:1 · 1200×600 · Piloto con auriculares y la mano en el selector de frecuencia",
     descripcion: "Escuchar, interpretar, confirmar y responder al ATC, de la rampa al océano.",
+  },
+  rac: {
+    icon: Scale,
+    color: "var(--av-rac-700)",
+    fotoHueco: "RAC-TEMA · Portada de tema · 3:2 · 1200×800 · Licencia de piloto y certificado médico sobre el manual de operaciones, en cabina",
+    descripcion: "Licencias, médico, reglas de vuelo, aerolínea y sanciones: lo que dice cada RAC y lo que te toca a ti.",
+  },
+  combustible: {
+    icon: Fuel,
+    color: "var(--av-cb-700)",
+    fotoHueco: "CB-TEMA · Portada de tema · 3:2 · 1200×800 · Página de combustible del FMS con la predicción al destino y al alterno",
+    descripcion: "Block fuel, reserva final, fuel check, combustible mínimo y MAYDAY: decidir antes de que falte.",
   },
 }

@@ -23,6 +23,18 @@ import { CM_LECTURA_TOTAL, CM_NIVELES } from "@/lib/comunicaciones"
 import { CM_LECCIONES, CM_LECCION_TOTAL } from "@/lib/comunicacionesLeccion"
 import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
 import { CM_PRACTICA_TOTAL } from "@/lib/comunicacionesPracticaGrupos"
+import { RAC_LECTURA_MINUTOS, RAC_LECTURA_TOTAL, RAC_PRACTICA_TOTAL, RAC_UNIDADES } from "@/lib/rac"
+import { RAC_LECCIONES, RAC_LECCION_TOTAL, RAC_MINUTOS } from "@/lib/racLeccion"
+import { RAC_PRACTICA_CLAVES } from "@/lib/racPractica"
+import { CB_CAPITULO_ESCENARIOS, CB_LECTURA_MINUTOS, CB_LECTURA_TOTAL, CB_PRACTICA_TOTAL } from "@/lib/combustible"
+import {
+  CB_ESCENARIO_CLAVES,
+  CB_FIGURAS_PENDIENTES,
+  CB_LECCIONES,
+  CB_LECCION_TOTAL,
+  CB_MINUTOS,
+} from "@/lib/combustibleLeccion"
+import { CB_PRACTICA_CLAVES } from "@/lib/combustiblePractica"
 import migracionComunicaciones from "../../supabase/migrations/20260927000000_progreso_de_comunicaciones.sql?raw"
 
 /**
@@ -70,6 +82,31 @@ describe("conteos fijos de las lecciones", () => {
     // Veinte figuras sin generar. El día que existan, este número baja y la
     // prueba avisa de que el inventario del documento cambió.
     expect(PERF_FIGURAS_PENDIENTES).toHaveLength(20)
+  })
+
+  it("RAC: unidades, minutos, claves de práctica y el reglamento de cada unidad", () => {
+    expect(RAC_LECTURA_TOTAL).toBe(RAC_LECCION_TOTAL)
+    expect(RAC_LECTURA_MINUTOS).toBe(RAC_MINUTOS)
+    expect(RAC_PRACTICA_TOTAL).toBe(RAC_PRACTICA_CLAVES.length)
+    // El resultado de la evaluación nombra la unidad por su reglamento: si el
+    // orden del documento cambia, «repasa el RAC 91» apuntaría a otra.
+    expect(RAC_UNIDADES).toHaveLength(RAC_LECCION_TOTAL)
+    RAC_UNIDADES.forEach((rac, i) => {
+      expect(RAC_LECCIONES[i]?.title.startsWith(`${rac} `)).toBe(true)
+    })
+  })
+
+  it("Gestión del combustible: capítulos, minutos, práctica y figuras", () => {
+    expect(CB_LECTURA_TOTAL).toBe(CB_LECCION_TOTAL)
+    expect(CB_LECTURA_MINUTOS).toBe(CB_MINUTOS)
+    // La práctica cuenta las preguntas de los capítulos y los escenarios del 23.
+    expect(CB_PRACTICA_TOTAL).toBe(CB_PRACTICA_CLAVES.length)
+    for (const clave of CB_ESCENARIO_CLAVES) expect(CB_PRACTICA_CLAVES).toContain(clave)
+    // Los escenarios viven en el capítulo que la práctica enlaza.
+    const escenarios = JSON.stringify(CB_LECCIONES[CB_CAPITULO_ESCENARIOS - 1]?.blocks ?? [])
+    for (const clave of CB_ESCENARIO_CLAVES) expect(escenarios).toContain(`"clave":"${clave}"`)
+    // Quince figuras sin generar. El día que existan, este número baja.
+    expect(CB_FIGURAS_PENDIENTES).toHaveLength(15)
   })
 
   it("Aeropuertos: lecciones y ejercicios de práctica", () => {

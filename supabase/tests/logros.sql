@@ -114,6 +114,46 @@ begin
   end if;
   x_log := x_log || ' comunicaciones_con_catalogo';
 
+  -- RAC (20260928000000): la lección cuenta contra su catálogo de 19, no
+  -- contra lo que haya en la fila, y la práctica no se gana con claves que el
+  -- catálogo no tiene.
+  insert into public.user_rac_progress (user_id, lesson_screens, practice_done)
+  values (x_b, (select array_agg(i::smallint) from generate_series(1, 18) i) || '{20,99}'::smallint[], '{u99-q9}')
+  on conflict (user_id) do update
+    set lesson_screens = excluded.lesson_screens, practice_done = excluded.practice_done;
+  if exists (select 1 from public.user_achievements ua join public.achievements a on a.id = ua.achievement_id
+             where ua.user_id = x_b and a.code in ('rac_lesson', 'rac_practice')) then
+    raise exception 'FALLO rac ganó logros con 18 lecciones y claves viejas';
+  end if;
+  update public.user_rac_progress
+  set lesson_screens = (select array_agg(i::smallint) from generate_series(1, 19) i)
+  where user_id = x_b;
+  if not exists (select 1 from public.user_achievements ua join public.achievements a on a.id = ua.achievement_id
+                 where ua.user_id = x_b and a.code = 'rac_lesson') then
+    raise exception 'FALLO rac_lesson no se ganó con las 19 lecciones';
+  end if;
+  x_log := x_log || ' rac_con_catalogo';
+
+  -- Gestión del combustible (20260928000000): la lección cuenta contra su catálogo de 23, no
+  -- contra lo que haya en la fila, y la práctica no se gana con claves que el
+  -- catálogo no tiene.
+  insert into public.user_combustible_progress (user_id, lesson_screens, practice_done)
+  values (x_b, (select array_agg(i::smallint) from generate_series(1, 22) i) || '{24,99}'::smallint[], '{c99-q9}')
+  on conflict (user_id) do update
+    set lesson_screens = excluded.lesson_screens, practice_done = excluded.practice_done;
+  if exists (select 1 from public.user_achievements ua join public.achievements a on a.id = ua.achievement_id
+             where ua.user_id = x_b and a.code in ('combustible_lesson', 'combustible_practice')) then
+    raise exception 'FALLO combustible ganó logros con 22 lecciones y claves viejas';
+  end if;
+  update public.user_combustible_progress
+  set lesson_screens = (select array_agg(i::smallint) from generate_series(1, 23) i)
+  where user_id = x_b;
+  if not exists (select 1 from public.user_achievements ua join public.achievements a on a.id = ua.achievement_id
+                 where ua.user_id = x_b and a.code = 'combustible_lesson') then
+    raise exception 'FALLO combustible_lesson no se ganó con las 23 lecciones';
+  end if;
+  x_log := x_log || ' combustible_con_catalogo';
+
   -- Cada disparador evalúa su grupo: un mensaje no revisa first_step.
   delete from public.user_achievements ua using public.achievements a
   where ua.user_id = x_a and a.id = ua.achievement_id and a.code in ('first_step', 'community_hello');

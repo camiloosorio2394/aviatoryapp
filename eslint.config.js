@@ -71,6 +71,26 @@ const CONTENIDO = [
     permitido: ['src/pages/ComunicacionesPractice.tsx'],
     message: 'Trae la práctica completa de Comunicaciones ATC. Su total está en CM_PRACTICA_CONTEO (@/lib/comunicacionesConteo).',
   },
+  {
+    name: '@/lib/racLeccion',
+    permitido: ['src/pages/RacLeccion.tsx'],
+    message: 'Trae las 19 unidades del módulo RAC. Rutas, conteos y resumen están en @/lib/rac.',
+  },
+  {
+    name: '@/lib/racPractica',
+    permitido: ['src/pages/RacPractice.tsx'],
+    message: 'Trae la práctica completa del módulo RAC. Su total está en RAC_PRACTICA_TOTAL (@/lib/rac).',
+  },
+  {
+    name: '@/lib/combustibleLeccion',
+    permitido: ['src/pages/CombustibleLeccion.tsx'],
+    message: 'Trae los 23 capítulos de Gestión del combustible. Rutas, conteos y resumen están en @/lib/combustible.',
+  },
+  {
+    name: '@/lib/combustiblePractica',
+    permitido: ['src/pages/CombustiblePractice.tsx'],
+    message: 'Trae la práctica completa de Gestión del combustible. Su total está en CB_PRACTICA_TOTAL (@/lib/combustible).',
+  },
 ]
 
 const CLIENTE_SUPABASE = {
