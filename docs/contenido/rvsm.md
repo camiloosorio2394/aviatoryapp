@@ -73,7 +73,7 @@ La FAA lo define como «espacio aéreo de calificación especial» (*special qua
 
 ### Lo que debe saber el piloto
 
-Reducir la separación de 2.000 a 1.000 ft no se consigue volando con más cuidado. Se consigue porque el sistema entero —avión, operador, tripulación y vigilancia— garantiza que el error vertical se mantiene dentro de márgenes muy estrechos. Sobre esas cuatro patas se sostiene:
+Reducir la separación de 2.000 a 1.000 ft no se consigue volando con más cuidado. Se consigue porque el sistema entero (avión, operador, tripulación y vigilancia) garantiza que el error vertical se mantiene dentro de márgenes muy estrechos. Sobre esas cuatro patas se sostiene:
 
 #### Precisión altimétrica
 
@@ -89,7 +89,7 @@ El avión debe cumplir unos requisitos de equipo, y el operador debe estar autor
 
 #### Procedimientos, entrenamiento y monitorización
 
-La tripulación tiene procedimientos propios —chequeos altimétricos, fraseología, contingencias— y la performance altimétrica de las flotas se monitoriza de forma continua.
+La tripulación tiene procedimientos propios (chequeos altimétricos, fraseología, contingencias) y la performance altimétrica de las flotas se monitoriza de forma continua.
 
 ### En operación de aerolínea
 
@@ -325,7 +325,7 @@ Debe estar entrenada en los procedimientos RVSM: chequeos altimétricos, procedi
 
 ### En operación de aerolínea
 
-Al piloto de línea esto le llega resuelto: vuela un avión aprobado, de un operador autorizado, y su entrenamiento periódico incluye RVSM. Lo que sí le toca es saber que la capacidad puede perderse —por un ítem de MEL o por una falla en vuelo— y reconocer cuándo ha ocurrido.
+Al piloto de línea esto le llega resuelto: vuela un avión aprobado, de un operador autorizado, y su entrenamiento periódico incluye RVSM. Lo que sí le toca es saber que la capacidad puede perderse (por un ítem de MEL o por una falla en vuelo) y reconocer cuándo ha ocurrido.
 
 ### ¿Qué verifica la tripulación?
 
@@ -419,7 +419,7 @@ Que los cuatro estén operativos antes de entrar, y que lo sigan estando mientra
 
 ### ¿Qué pasa si falla?
 
-Depende de cuál. La regla general —y la respuesta correcta en entrevista— es que **no se asume**: se consulta la MEL y el QRH. Pero hay un núcleo que la FAA deja escrito: para entrar a espacio RVSM deben estar operando normalmente los dos sistemas primarios de medición de altitud, un sistema automático de control de altitud y un dispositivo de alerta de altitud.
+Depende de cuál. La regla general (y la respuesta correcta en entrevista) es que **no se asume**: se consulta la MEL y el QRH. Pero hay un núcleo que la FAA deja escrito: para entrar a espacio RVSM deben estar operando normalmente los dos sistemas primarios de medición de altitud, un sistema automático de control de altitud y un dispositivo de alerta de altitud.
 
 ### Error frecuente
 
@@ -428,7 +428,7 @@ Contar el TCAS entre el equipo requerido para RVSM. No lo es. El requisito de tr
 [ESPACIO PARA IMAGEN]
 
 IMAGEN SUGERIDA:
-Rejilla de cuatro tarjetas iguales, dispuestas en dos filas de dos, cada una con un icono sencillo arriba, el nombre del sistema en el centro y una línea de consecuencia abajo. Tarjeta 1: dos altímetros lado a lado — «DOS SISTEMAS INDEPENDIENTES DE ALTITUD» — «permiten comparar». Tarjeta 2: antena emitiendo — «TRANSPONDEDOR CON REPORTE DE ALTITUD» — «el ATC ve tu nivel». Tarjeta 3: campana — «ALERTA DE ALTITUD» — «avisa si te apartas». Tarjeta 4: mando de piloto automático — «CONTROL AUTOMÁTICO DE ALTITUD» — «mantiene el nivel». Bajo la rejilla, una banda rotulada: «Los cuatro, operativos, antes de entrar».
+Rejilla de cuatro tarjetas iguales, dispuestas en dos filas de dos, cada una con un icono sencillo arriba, el nombre del sistema en el centro y una línea de consecuencia abajo. Tarjeta 1: dos altímetros lado a lado: «DOS SISTEMAS INDEPENDIENTES DE ALTITUD»: «permiten comparar». Tarjeta 2: antena emitiendo: «TRANSPONDEDOR CON REPORTE DE ALTITUD»: «el ATC ve tu nivel». Tarjeta 3: campana: «ALERTA DE ALTITUD»: «avisa si te apartas». Tarjeta 4: mando de piloto automático: «CONTROL AUTOMÁTICO DE ALTITUD»: «mantiene el nivel». Bajo la rejilla, una banda rotulada: «Los cuatro, operativos, antes de entrar».
 
 OBJETIVO:
 Que el piloto pueda enumerar de memoria los cuatro sistemas y decir en una línea para qué sirve cada uno.
@@ -582,7 +582,7 @@ Hay cuatro momentos, y cada uno tiene su referencia.
 
 #### Antes del despegue
 
-Con los altímetros en QNH, deben mostrar una elevación conocida —típicamente la del aeródromo— dentro de los límites del manual del avión. La FAA fija un tope: **la diferencia entre la elevación conocida y la mostrada no debe exceder 75 ft**.
+Con los altímetros en QNH, deben mostrar una elevación conocida (típicamente la del aeródromo) dentro de los límites del manual del avión. La FAA fija un tope: **la diferencia entre la elevación conocida y la mostrada no debe exceder 75 ft**.
 
 Además, las dos primarias deben coincidir entre sí dentro de los límites del manual de operación o del AFM. Ese segundo límite **depende del avión**: la FAA no da un número único y remite al manual.
 
@@ -602,7 +602,7 @@ Contrastar las primarias con el altímetro de reserva. La FAA matiza cómo se ha
 
 - El barrido normal de instrumentos suele bastar en la mayoría de los vuelos.
 - En espacio con vigilancia (radar o ADS-B), el primer chequeo se hace **después de nivelar**.
-- En espacio oceánico o remoto, se hace y **se registra** en las proximidades del punto donde empieza la navegación oceánica —por ejemplo, al salir a la costa—, anotando las lecturas de las primarias y de la de reserva.
+- En espacio oceánico o remoto, se hace y **se registra** en las proximidades del punto donde empieza la navegación oceánica (por ejemplo, al salir a la costa), anotando las lecturas de las primarias y de la de reserva.
 
 ### En operación de aerolínea
 
@@ -730,7 +730,7 @@ ANOTACIONES:
 → FLECHA 3: al anunciador de modo vertical y al de piloto automático acoplado en el FMA. EXPLICACIÓN: RVSM exige que el sistema automático esté operativo y acoplado en crucero nivelado, no solo disponible.
 
 OBJETIVO PEDAGÓGICO:
-Relacionar tres cosas que el piloto mira por separado —nivel autorizado, altitud real y estado del automático— como la única verificación que sostiene la separación de 1.000 ft.
+Relacionar tres cosas que el piloto mira por separado (nivel autorizado, altitud real y estado del automático) como la única verificación que sostiene la separación de 1.000 ft.
 
 ### En pocas palabras
 
@@ -854,7 +854,7 @@ Hay una regla operacional, corta y muy citable en entrevista:
 
 Dicho de otro modo: **lo que el avión sigue y lo que el avión transmite deben venir de la misma fuente**. Si el piloto automático se guía por el sistema 1 y el transpondedor transmite el sistema 2, y los dos discrepan, el avión está volando un nivel y enseñando otro. El ATC separa con lo que ve.
 
-De ahí también que la diferencia asignada —la AAD— se defina contra lo transmitido: es la diferencia entre la altitud que transmite el transpondedor en modo C y la altitud o nivel asignado.
+De ahí también que la diferencia asignada (la AAD) se defina contra lo transmitido: es la diferencia entre la altitud que transmite el transpondedor en modo C y la altitud o nivel asignado.
 
 ### En operación de aerolínea
 
@@ -1074,7 +1074,7 @@ Los seis puntos de arriba. Y una comprobación de coherencia que se olvida: **qu
 - C) Únicamente los NOTAM del aeródromo de salida y de destino.
 - D) Nada: la capacidad RVSM la verifica el despacho antes de entregar el plan.
 **Correcta:** B · **Tema:** R12 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2
-**Explicación:** La comprobación es más amplia que el estado del avión: incluye lo diferido, la ruta que cruza espacio RVSM, la coherencia del plan de vuelo, la meteorología en ruta —turbulencia y onda de montaña— y los NOTAM.
+**Explicación:** La comprobación es más amplia que el estado del avión: incluye lo diferido, la ruta que cruza espacio RVSM, la coherencia del plan de vuelo, la meteorología en ruta (turbulencia y onda de montaña) y los NOTAM.
 
 **r12-q2** · El avión perdió capacidad RVSM por un ítem de MEL. ¿Qué pasa con el plan de vuelo?
 - A) No cambia: el plan declara la capacidad de diseño de la aeronave.
@@ -1199,7 +1199,7 @@ Mirar el libro técnico y las formas para conocer el estado del equipo requerido
 
 Prestar atención particular al estado de las **tomas estáticas**, al estado del revestimiento del fuselaje **cerca de cada toma estática**, y a cualquier otro componente que afecte la precisión del sistema altimétrico.
 
-Este punto merece detenerse. Es el único momento del vuelo en que el piloto puede ver con sus ojos algo que afecta directamente la precisión altimétrica: una abolladura, una reparación mal acabada o una cinta cerca de una toma estática cambia el flujo de aire y con él la presión que el sistema mide. La FAA admite que lo haga otra persona calificada y autorizada —un mecánico, un ingeniero de vuelo—, pero alguien tiene que mirarlo.
+Este punto merece detenerse. Es el único momento del vuelo en que el piloto puede ver con sus ojos algo que afecta directamente la precisión altimétrica: una abolladura, una reparación mal acabada o una cinta cerca de una toma estática cambia el flujo de aire y con él la presión que el sistema mide. La FAA admite que lo haga otra persona calificada y autorizada (un mecánico, un ingeniero de vuelo), pero alguien tiene que mirarlo.
 
 #### 3. Antes del despegue, los dos chequeos altimétricos
 
@@ -1299,7 +1299,7 @@ Y la nota que la acompaña: el requisito de transpondedor operativo y de TCAS ha
 
 El ascenso a crucero es un momento cargado: cambio de frecuencia, ajuste de altímetros en la transición, aceleración, retracción. La verificación RVSM se engancha ahí y por eso conviene tenerla como una secuencia corta y siempre igual.
 
-#### Resumen educativo — seguir siempre el SOP, el FCOM y el QRH del operador
+#### Resumen educativo: seguir siempre el SOP, el FCOM y el QRH del operador
 
 Esta secuencia no sustituye ninguna lista de chequeo certificada. Es un orden mental para estudiar:
 
@@ -1330,7 +1330,7 @@ Entrar igual «porque ya casi estamos en nivel» y resolverlo arriba. La norma p
 [ESPACIO PARA IMAGEN]
 
 IMAGEN SUGERIDA:
-Perfil de ascenso de izquierda a derecha, con una aeronave subiendo hacia el crucero. Una línea horizontal de trazo grueso cruzando el perfil, rotulada «FL 290 · PUERTA DE ENTRADA RVSM». Justo antes de esa línea, un recuadro vertical con la secuencia de verificación numerada del 1 al 7, en texto corto. Al pie del recuadro, en tipografía menor y en cursiva: «Resumen educativo — seguir siempre el SOP, el FCOM y el QRH del operador». A la derecha de la línea, en el espacio RVSM, la aeronave ya nivelada.
+Perfil de ascenso de izquierda a derecha, con una aeronave subiendo hacia el crucero. Una línea horizontal de trazo grueso cruzando el perfil, rotulada «FL 290 · PUERTA DE ENTRADA RVSM». Justo antes de esa línea, un recuadro vertical con la secuencia de verificación numerada del 1 al 7, en texto corto. Al pie del recuadro, en tipografía menor y en cursiva: «Resumen educativo: seguir siempre el SOP, el FCOM y el QRH del operador». A la derecha de la línea, en el espacio RVSM, la aeronave ya nivelada.
 
 OBJETIVO:
 Fijar que la capacidad se confirma ANTES de cruzar la puerta, y que lo que ocurre después ya se gestiona con otras reglas.
@@ -1587,7 +1587,7 @@ Cada región tiene su agencia de monitorización. En Sudamérica y el Caribe es 
 
 ### En operación de aerolínea
 
-Al piloto no le toca el trámite entre agencias. Le toca entender que **lo que pasa en su cabina se cuenta**: una desviación grande no se queda en el avión, entra en una estadística que sostiene —o retira— la aprobación RVSM de su operador.
+Al piloto no le toca el trámite entre agencias. Le toca entender que **lo que pasa en su cabina se cuenta**: una desviación grande no se queda en el avión, entra en una estadística que sostiene (o retira) la aprobación RVSM de su operador.
 
 ### ¿Qué verifica la tripulación?
 
@@ -1595,7 +1595,7 @@ Nada específico aquí. La contribución de la tripulación a este capítulo es 
 
 ### Error frecuente
 
-Pensar que una desviación grande sin consecuencias —sin tráfico cerca, sin llamada del ATC— es un no-evento. Se cuenta igual, y precisamente por eso el sistema puede seguir siendo seguro.
+Pensar que una desviación grande sin consecuencias (sin tráfico cerca, sin llamada del ATC) es un no-evento. Se cuenta igual, y precisamente por eso el sistema puede seguir siendo seguro.
 
 [ESPACIO PARA IMAGEN]
 
@@ -1756,7 +1756,7 @@ Creer que colacionar equivale a verificar. Colacionar es repetir al ATC; verific
 [ESPACIO PARA IMAGEN]
 
 IMAGEN SUGERIDA:
-Diagrama de flujo vertical, de arriba hacia abajo, con siete bloques conectados por flechas y una etiqueta de responsable a la derecha de cada uno. Bloque 1: «AUTORIZACIÓN ATC» — los dos escuchan. Bloque 2: «COLACIÓN» — PM. Bloque 3: «SELECCIÓN DE ALTITUD» — PM. Bloque 4, destacado con borde más grueso y color: «VERIFICACIÓN CRUZADA» — PF y PM, con una nota al lado: «el eslabón que más se salta». Bloque 5: «EJECUCIÓN» — PF. Bloque 6: «NIVELACIÓN · dentro de 150 ft» — PF. Bloque 7: «VIGILANCIA DEL NIVEL» — los dos.
+Diagrama de flujo vertical, de arriba hacia abajo, con siete bloques conectados por flechas y una etiqueta de responsable a la derecha de cada uno. Bloque 1: «AUTORIZACIÓN ATC»: los dos escuchan. Bloque 2: «COLACIÓN»: PM. Bloque 3: «SELECCIÓN DE ALTITUD»: PM. Bloque 4, destacado con borde más grueso y color: «VERIFICACIÓN CRUZADA»: PF y PM, con una nota al lado: «el eslabón que más se salta». Bloque 5: «EJECUCIÓN»: PF. Bloque 6: «NIVELACIÓN · dentro de 150 ft»: PF. Bloque 7: «VIGILANCIA DEL NIVEL»: los dos.
 
 OBJETIVO:
 Mostrar que evitar un level bust es una secuencia con responsables, no una cuestión de atención individual, y señalar visualmente cuál es el eslabón débil.
@@ -1996,7 +1996,7 @@ Y qué hace, según la tabla de contingencias de la FAA:
 
 Por su parte, el controlador proporciona **2.000 ft de separación vertical** o la separación horizontal apropiada, y saca a la aeronave del espacio RVSM salvo que la situación operacional indique otra cosa.
 
-Esa respuesta —volver a 2.000 ft— es reveladora: cuando el sistema no puede garantizar las condiciones de RVSM, lo que hace es devolver el margen que RVSM había reducido.
+Esa respuesta (volver a 2.000 ft) es reveladora: cuando el sistema no puede garantizar las condiciones de RVSM, lo que hace es devolver el margen que RVSM había reducido.
 
 ### En operación de aerolínea
 
@@ -2094,7 +2094,7 @@ Qué falló exactamente, qué dice el QRH, si la aeronave conserva o no la capac
 
 ### Error frecuente
 
-«Si pierdo RVSM debo declarar MAYDAY.» No. Perder la capacidad RVSM no es, por sí misma, una emergencia: es una incapacidad de cumplir unos requisitos, que se comunica y se coordina. Puede haber una emergencia detrás —depende de qué falló—, pero la pérdida de RVSM no la declara.
+«Si pierdo RVSM debo declarar MAYDAY.» No. Perder la capacidad RVSM no es, por sí misma, una emergencia: es una incapacidad de cumplir unos requisitos, que se comunica y se coordina. Puede haber una emergencia detrás (depende de qué falló), pero la pérdida de RVSM no la declara.
 
 ### En pocas palabras
 
@@ -2358,7 +2358,7 @@ Presentar una sola de estas como «lo que hace el ATC» es un error: depende del
 
 #### Las aeronaves no RVSM
 
-Una aeronave u operador que no cumple los requisitos —incluida una aeronave sin equipo RVSM operativo— se denomina **no RVSM**. Para ellas:
+Una aeronave u operador que no cumple los requisitos (incluida una aeronave sin equipo RVSM operativo) se denomina **no RVSM**. Para ellas:
 
 - El operador o el despachador **no declaran** el código de equipo RVSM en el plan de vuelo.
 - El piloto **debe informar al controlador** de la falta de aprobación, con la fraseología del capítulo 26.
@@ -2642,7 +2642,7 @@ Tratar la pérdida de RVSM como un asunto cerrado en cuanto el ATC asigna un niv
 [ESPACIO PARA IMAGEN]
 
 IMAGEN SUGERIDA:
-Cadena horizontal de cinco eslabones conectados por flechas, cada uno con un icono y un rótulo corto. Eslabón 1: falla de sistema — «PÉRDIDA DE CAPACIDAD RVSM». Eslabón 2: perfil de vuelo bajando — «SALIDA DEL ESPACIO · normalmente por debajo de FL 290». Eslabón 3: indicador de consumo — «MAYOR CONSUMO POR HORA». Eslabón 4: cifra de combustible con flecha descendente — «PREDICCIÓN AL DESTINO REVISADA». Eslabón 5, en forma de rombo — «¿CONSERVA ALTERNO + RESERVA FINAL?» con dos salidas: «SÍ · continuar vigilando» y «NO · replanificar con el despacho».
+Cadena horizontal de cinco eslabones conectados por flechas, cada uno con un icono y un rótulo corto. Eslabón 1: falla de sistema: «PÉRDIDA DE CAPACIDAD RVSM». Eslabón 2: perfil de vuelo bajando: «SALIDA DEL ESPACIO · normalmente por debajo de FL 290». Eslabón 3: indicador de consumo: «MAYOR CONSUMO POR HORA». Eslabón 4: cifra de combustible con flecha descendente: «PREDICCIÓN AL DESTINO REVISADA». Eslabón 5, en forma de rombo: «¿CONSERVA ALTERNO + RESERVA FINAL?» con dos salidas: «SÍ · continuar vigilando» y «NO · replanificar con el despacho».
 
 OBJETIVO:
 Mostrar que una falla técnica en crucero termina siendo una decisión de combustible, y enlazar este módulo con el de Gestión del combustible.

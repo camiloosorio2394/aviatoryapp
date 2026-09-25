@@ -68,7 +68,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Reducir la separación de 2.000 a 1.000 ft no se consigue volando con más cuidado. Se consigue porque el sistema entero —avión, operador, tripulación y vigilancia— garantiza que el error vertical se mantiene dentro de márgenes muy estrechos. Sobre esas cuatro patas se sostiene:"
+        "text": "Reducir la separación de 2.000 a 1.000 ft no se consigue volando con más cuidado. Se consigue porque el sistema entero (avión, operador, tripulación y vigilancia) garantiza que el error vertical se mantiene dentro de márgenes muy estrechos. Sobre esas cuatro patas se sostiene:"
       },
       {
         "kind": "sub",
@@ -100,7 +100,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "La tripulación tiene procedimientos propios —chequeos altimétricos, fraseología, contingencias— y la performance altimétrica de las flotas se monitoriza de forma continua."
+        "text": "La tripulación tiene procedimientos propios (chequeos altimétricos, fraseología, contingencias) y la performance altimétrica de las flotas se monitoriza de forma continua."
       },
       {
         "kind": "titulo",
@@ -383,7 +383,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Al piloto de línea esto le llega resuelto: vuela un avión aprobado, de un operador autorizado, y su entrenamiento periódico incluye RVSM. Lo que sí le toca es saber que la capacidad puede perderse —por un ítem de MEL o por una falla en vuelo— y reconocer cuándo ha ocurrido."
+        "text": "Al piloto de línea esto le llega resuelto: vuela un avión aprobado, de un operador autorizado, y su entrenamiento periódico incluye RVSM. Lo que sí le toca es saber que la capacidad puede perderse (por un ítem de MEL o por una falla en vuelo) y reconocer cuándo ha ocurrido."
       },
       {
         "kind": "titulo",
@@ -514,7 +514,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Depende de cuál. La regla general —y la respuesta correcta en entrevista— es que **no se asume**: se consulta la MEL y el QRH. Pero hay un núcleo que la FAA deja escrito: para entrar a espacio RVSM deben estar operando normalmente los dos sistemas primarios de medición de altitud, un sistema automático de control de altitud y un dispositivo de alerta de altitud."
+        "text": "Depende de cuál. La regla general (y la respuesta correcta en entrevista) es que **no se asume**: se consulta la MEL y el QRH. Pero hay un núcleo que la FAA deja escrito: para entrar a espacio RVSM deben estar operando normalmente los dos sistemas primarios de medición de altitud, un sistema automático de control de altitud y un dispositivo de alerta de altitud."
       },
       {
         "kind": "titulo",
@@ -527,7 +527,7 @@ export const RV_LECCIONES: DocScreen[] = [
       {
         "kind": "hueco",
         "rotulo": "RV-04 · Figura · 16:9 · 1600×900",
-        "descripcion": "Rejilla de cuatro tarjetas iguales, dispuestas en dos filas de dos, cada una con un icono sencillo arriba, el nombre del sistema en el centro y una línea de consecuencia abajo. Tarjeta 1: dos altímetros lado a lado — «DOS SISTEMAS INDEPENDIENTES DE ALTITUD» — «permiten comparar». Tarjeta 2: antena emitiendo — «TRANSPONDEDOR CON REPORTE DE ALTITUD» — «el ATC ve tu nivel». Tarjeta 3: campana — «ALERTA DE ALTITUD» — «avisa si te apartas». Tarjeta 4: mando de piloto automático — «CONTROL AUTOMÁTICO DE ALTITUD» — «mantiene el nivel». Bajo la rejilla, una banda rotulada: «Los cuatro, operativos, antes de entrar».",
+        "descripcion": "Rejilla de cuatro tarjetas iguales, dispuestas en dos filas de dos, cada una con un icono sencillo arriba, el nombre del sistema en el centro y una línea de consecuencia abajo. Tarjeta 1: dos altímetros lado a lado: «DOS SISTEMAS INDEPENDIENTES DE ALTITUD»: «permiten comparar». Tarjeta 2: antena emitiendo: «TRANSPONDEDOR CON REPORTE DE ALTITUD»: «el ATC ve tu nivel». Tarjeta 3: campana: «ALERTA DE ALTITUD»: «avisa si te apartas». Tarjeta 4: mando de piloto automático: «CONTROL AUTOMÁTICO DE ALTITUD»: «mantiene el nivel». Bajo la rejilla, una banda rotulada: «Los cuatro, operativos, antes de entrar».",
         "pie": "Que el piloto pueda enumerar de memoria los cuatro sistemas y decir en una línea para qué sirve cada uno.",
         "alto": 260,
         "ratio": "16 / 9"
@@ -701,7 +701,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Con los altímetros en QNH, deben mostrar una elevación conocida —típicamente la del aeródromo— dentro de los límites del manual del avión. La FAA fija un tope: **la diferencia entre la elevación conocida y la mostrada no debe exceder 75 ft**."
+        "text": "Con los altímetros en QNH, deben mostrar una elevación conocida (típicamente la del aeródromo) dentro de los límites del manual del avión. La FAA fija un tope: **la diferencia entre la elevación conocida y la mostrada no debe exceder 75 ft**."
       },
       {
         "kind": "p",
@@ -740,7 +740,7 @@ export const RV_LECCIONES: DocScreen[] = [
         "items": [
           "El barrido normal de instrumentos suele bastar en la mayoría de los vuelos.",
           "En espacio con vigilancia (radar o ADS-B), el primer chequeo se hace **después de nivelar**.",
-          "En espacio oceánico o remoto, se hace y **se registra** en las proximidades del punto donde empieza la navegación oceánica —por ejemplo, al salir a la costa—, anotando las lecturas de las primarias y de la de reserva."
+          "En espacio oceánico o remoto, se hace y **se registra** en las proximidades del punto donde empieza la navegación oceánica (por ejemplo, al salir a la costa), anotando las lecturas de las primarias y de la de reserva."
         ]
       },
       {
@@ -929,7 +929,7 @@ export const RV_LECCIONES: DocScreen[] = [
         "kind": "hueco",
         "rotulo": "RV-07 · Figura · 16:9 · 1600×900 · anotada",
         "descripcion": "PFD genérico en crucero, con la cinta de altitud a la derecha, la altitud seleccionada en la ventana superior, y la fila de anunciadores del modo de vuelo (FMA) en la parte alta. ANOTACIONES: → FLECHA 1: a la altitud seleccionada en la ventana superior. EXPLICACIÓN: el nivel autorizado, tal como quedó tras la colación. Es la cifra que el otro piloto verifica. → FLECHA 2: a la altitud actual en la cinta. EXPLICACIÓN: lo que el avión hace. En crucero estable y sin turbulencia, el sistema aprobado la mantiene dentro de ±65 ft. → FLECHA 3: al anunciador de modo vertical y al de piloto automático acoplado en el FMA. EXPLICACIÓN: RVSM exige que el sistema automático esté operativo y acoplado en crucero nivelado, no solo disponible.",
-        "pie": "Relacionar tres cosas que el piloto mira por separado —nivel autorizado, altitud real y estado del automático— como la única verificación que sostiene la separación de 1.000 ft.",
+        "pie": "Relacionar tres cosas que el piloto mira por separado (nivel autorizado, altitud real y estado del automático) como la única verificación que sostiene la separación de 1.000 ft.",
         "alto": 260,
         "ratio": "16 / 9"
       },
@@ -1068,7 +1068,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "De ahí también que la diferencia asignada —la AAD— se defina contra lo transmitido: es la diferencia entre la altitud que transmite el transpondedor en modo C y la altitud o nivel asignado."
+        "text": "De ahí también que la diferencia asignada (la AAD) se defina contra lo transmitido: es la diferencia entre la altitud que transmite el transpondedor en modo C y la altitud o nivel asignado."
       },
       {
         "kind": "titulo",
@@ -1481,7 +1481,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Este punto merece detenerse. Es el único momento del vuelo en que el piloto puede ver con sus ojos algo que afecta directamente la precisión altimétrica: una abolladura, una reparación mal acabada o una cinta cerca de una toma estática cambia el flujo de aire y con él la presión que el sistema mide. La FAA admite que lo haga otra persona calificada y autorizada —un mecánico, un ingeniero de vuelo—, pero alguien tiene que mirarlo."
+        "text": "Este punto merece detenerse. Es el único momento del vuelo en que el piloto puede ver con sus ojos algo que afecta directamente la precisión altimétrica: una abolladura, una reparación mal acabada o una cinta cerca de una toma estática cambia el flujo de aire y con él la presión que el sistema mide. La FAA admite que lo haga otra persona calificada y autorizada (un mecánico, un ingeniero de vuelo), pero alguien tiene que mirarlo."
       },
       {
         "kind": "sub",
@@ -1633,7 +1633,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "sub",
-        "text": "Resumen educativo — seguir siempre el SOP, el FCOM y el QRH del operador"
+        "text": "Resumen educativo: seguir siempre el SOP, el FCOM y el QRH del operador"
       },
       {
         "kind": "p",
@@ -1687,7 +1687,7 @@ export const RV_LECCIONES: DocScreen[] = [
       {
         "kind": "hueco",
         "rotulo": "RV-11 · Figura · 16:9 · 1600×900",
-        "descripcion": "Perfil de ascenso de izquierda a derecha, con una aeronave subiendo hacia el crucero. Una línea horizontal de trazo grueso cruzando el perfil, rotulada «FL 290 · PUERTA DE ENTRADA RVSM». Justo antes de esa línea, un recuadro vertical con la secuencia de verificación numerada del 1 al 7, en texto corto. Al pie del recuadro, en tipografía menor y en cursiva: «Resumen educativo — seguir siempre el SOP, el FCOM y el QRH del operador». A la derecha de la línea, en el espacio RVSM, la aeronave ya nivelada.",
+        "descripcion": "Perfil de ascenso de izquierda a derecha, con una aeronave subiendo hacia el crucero. Una línea horizontal de trazo grueso cruzando el perfil, rotulada «FL 290 · PUERTA DE ENTRADA RVSM». Justo antes de esa línea, un recuadro vertical con la secuencia de verificación numerada del 1 al 7, en texto corto. Al pie del recuadro, en tipografía menor y en cursiva: «Resumen educativo: seguir siempre el SOP, el FCOM y el QRH del operador». A la derecha de la línea, en el espacio RVSM, la aeronave ya nivelada.",
         "pie": "Fijar que la capacidad se confirma ANTES de cruzar la puerta, y que lo que ocurre después ya se gestiona con otras reglas.",
         "alto": 260,
         "ratio": "16 / 9"
@@ -2024,7 +2024,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Al piloto no le toca el trámite entre agencias. Le toca entender que **lo que pasa en su cabina se cuenta**: una desviación grande no se queda en el avión, entra en una estadística que sostiene —o retira— la aprobación RVSM de su operador."
+        "text": "Al piloto no le toca el trámite entre agencias. Le toca entender que **lo que pasa en su cabina se cuenta**: una desviación grande no se queda en el avión, entra en una estadística que sostiene (o retira) la aprobación RVSM de su operador."
       },
       {
         "kind": "titulo",
@@ -2040,7 +2040,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Pensar que una desviación grande sin consecuencias —sin tráfico cerca, sin llamada del ATC— es un no-evento. Se cuenta igual, y precisamente por eso el sistema puede seguir siendo seguro."
+        "text": "Pensar que una desviación grande sin consecuencias (sin tráfico cerca, sin llamada del ATC) es un no-evento. Se cuenta igual, y precisamente por eso el sistema puede seguir siendo seguro."
       },
       {
         "kind": "hueco",
@@ -2244,7 +2244,7 @@ export const RV_LECCIONES: DocScreen[] = [
       {
         "kind": "hueco",
         "rotulo": "RV-14 · Figura · 16:9 · 1600×900",
-        "descripcion": "Diagrama de flujo vertical, de arriba hacia abajo, con siete bloques conectados por flechas y una etiqueta de responsable a la derecha de cada uno. Bloque 1: «AUTORIZACIÓN ATC» — los dos escuchan. Bloque 2: «COLACIÓN» — PM. Bloque 3: «SELECCIÓN DE ALTITUD» — PM. Bloque 4, destacado con borde más grueso y color: «VERIFICACIÓN CRUZADA» — PF y PM, con una nota al lado: «el eslabón que más se salta». Bloque 5: «EJECUCIÓN» — PF. Bloque 6: «NIVELACIÓN · dentro de 150 ft» — PF. Bloque 7: «VIGILANCIA DEL NIVEL» — los dos.",
+        "descripcion": "Diagrama de flujo vertical, de arriba hacia abajo, con siete bloques conectados por flechas y una etiqueta de responsable a la derecha de cada uno. Bloque 1: «AUTORIZACIÓN ATC»: los dos escuchan. Bloque 2: «COLACIÓN»: PM. Bloque 3: «SELECCIÓN DE ALTITUD»: PM. Bloque 4, destacado con borde más grueso y color: «VERIFICACIÓN CRUZADA»: PF y PM, con una nota al lado: «el eslabón que más se salta». Bloque 5: «EJECUCIÓN»: PF. Bloque 6: «NIVELACIÓN · dentro de 150 ft»: PF. Bloque 7: «VIGILANCIA DEL NIVEL»: los dos.",
         "pie": "Mostrar que evitar un level bust es una secuencia con responsables, no una cuestión de atención individual, y señalar visualmente cuál es el eslabón débil.",
         "alto": 260,
         "ratio": "16 / 9"
@@ -2531,7 +2531,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Esa respuesta —volver a 2.000 ft— es reveladora: cuando el sistema no puede garantizar las condiciones de RVSM, lo que hace es devolver el margen que RVSM había reducido."
+        "text": "Esa respuesta (volver a 2.000 ft) es reveladora: cuando el sistema no puede garantizar las condiciones de RVSM, lo que hace es devolver el margen que RVSM había reducido."
       },
       {
         "kind": "titulo",
@@ -2663,7 +2663,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "«Si pierdo RVSM debo declarar MAYDAY.» No. Perder la capacidad RVSM no es, por sí misma, una emergencia: es una incapacidad de cumplir unos requisitos, que se comunica y se coordina. Puede haber una emergencia detrás —depende de qué falló—, pero la pérdida de RVSM no la declara."
+        "text": "«Si pierdo RVSM debo declarar MAYDAY.» No. Perder la capacidad RVSM no es, por sí misma, una emergencia: es una incapacidad de cumplir unos requisitos, que se comunica y se coordina. Puede haber una emergencia detrás (depende de qué falló), pero la pérdida de RVSM no la declara."
       },
       {
         "kind": "titulo",
@@ -2991,7 +2991,7 @@ export const RV_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Una aeronave u operador que no cumple los requisitos —incluida una aeronave sin equipo RVSM operativo— se denomina **no RVSM**. Para ellas:"
+        "text": "Una aeronave u operador que no cumple los requisitos (incluida una aeronave sin equipo RVSM operativo) se denomina **no RVSM**. Para ellas:"
       },
       {
         "kind": "list",
@@ -3365,7 +3365,7 @@ export const RV_LECCIONES: DocScreen[] = [
       {
         "kind": "hueco",
         "rotulo": "RV-19 · Figura · 16:9 · 1600×900",
-        "descripcion": "Cadena horizontal de cinco eslabones conectados por flechas, cada uno con un icono y un rótulo corto. Eslabón 1: falla de sistema — «PÉRDIDA DE CAPACIDAD RVSM». Eslabón 2: perfil de vuelo bajando — «SALIDA DEL ESPACIO · normalmente por debajo de FL 290». Eslabón 3: indicador de consumo — «MAYOR CONSUMO POR HORA». Eslabón 4: cifra de combustible con flecha descendente — «PREDICCIÓN AL DESTINO REVISADA». Eslabón 5, en forma de rombo — «¿CONSERVA ALTERNO + RESERVA FINAL?» con dos salidas: «SÍ · continuar vigilando» y «NO · replanificar con el despacho».",
+        "descripcion": "Cadena horizontal de cinco eslabones conectados por flechas, cada uno con un icono y un rótulo corto. Eslabón 1: falla de sistema: «PÉRDIDA DE CAPACIDAD RVSM». Eslabón 2: perfil de vuelo bajando: «SALIDA DEL ESPACIO · normalmente por debajo de FL 290». Eslabón 3: indicador de consumo: «MAYOR CONSUMO POR HORA». Eslabón 4: cifra de combustible con flecha descendente: «PREDICCIÓN AL DESTINO REVISADA». Eslabón 5, en forma de rombo: «¿CONSERVA ALTERNO + RESERVA FINAL?» con dos salidas: «SÍ · continuar vigilando» y «NO · replanificar con el despacho».",
         "pie": "Mostrar que una falla técnica en crucero termina siendo una decisión de combustible, y enlazar este módulo con el de Gestión del combustible.",
         "alto": 260,
         "ratio": "16 / 9"

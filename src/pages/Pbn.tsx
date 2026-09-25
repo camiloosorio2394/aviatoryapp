@@ -21,6 +21,7 @@ import {
   resumirPbn,
 } from "@/lib/pbn"
 import { fetchPbnProgress, pushPendingPbn, readPbnLocal } from "@/lib/pbnProgress"
+import { PBN_EVALUACION_META } from "@/lib/pbnEvaluacion"
 
 /**
  * Hub del tema PBN (módulo Ingreso a aerolínea).
@@ -80,10 +81,10 @@ export function Pbn() {
       meta: `${PBN_LECTURA_TOTAL} capítulos · ${PBN_LECTURA_MINUTOS} min`,
       title: "1. Aprende",
       blurb:
-        "Qué exige PBN, qué verifica la tripulación, qué se monitoriza y qué se hace cuando algo falla. Con veinte diagramas y la fraseología literal.",
+        "Qué exige cada especificación, qué verifica la tripulación en la carta y en el FMS, qué se vigila en vuelo y qué se le dice al ATC cuando se pierde la capacidad.",
       cta: "Iniciar formación",
       photoHueco:
-        "PBN-HUB-01 · Portada · 5:2 · 1200×480 · Cabina en crucero sobre capa, con los dos PFD mostrando el nivel de vuelo",
+        "PBN-HUB-01 · Portada · 5:2 · 1200×480 · Cabina en aproximación RNP, con la desviación lateral en la presentación de navegación y la pista a la vista",
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -102,10 +103,10 @@ export function Pbn() {
       meta: `${PBN_PRACTICA_TOTAL} preguntas · corrección inmediata`,
       title: "2. Practica",
       blurb:
-        "Preguntas de situación sobre cada capítulo, con la explicación y la fuente de la respuesta al instante. Y doce escenarios de decisión en el capítulo 52.",
+        `Preguntas de situación sobre cada capítulo, con la explicación y la fuente de la respuesta al instante. Y doce escenarios de decisión en el capítulo ${PBN_LECTURA_TOTAL}.`,
       cta: "Practicar",
       photoHueco:
-        "PBN-HUB-02 · Portada · 5:2 · 1200×480 · Tripulación comparando altímetros en crucero, con el altímetro de reserva a la vista",
+        "PBN-HUB-02 · Portada · 5:2 · 1200×480 · Piloto comparando la página de plan de vuelo del FMS con la carta de salida, antes de ejecutar",
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -122,10 +123,10 @@ export function Pbn() {
       meta: `${PBN_EXAM_PER_ATTEMPT} preguntas · ${PBN_PASS_SCORE}% para aprobar`,
       title: "3. Evalúate",
       blurb:
-        "Cuarenta preguntas sobre los treinta y dos capítulos; cada intento toma veinte al azar. El resultado dice qué capítulos repasar.",
+        `${PBN_EVALUACION_META.total} preguntas, al menos una por cada uno de los ${PBN_LECTURA_TOTAL} capítulos; cada intento toma ${PBN_EXAM_PER_ATTEMPT} al azar. El resultado dice qué capítulos repasar.`,
       cta: "Presentar la evaluación",
       photoHueco:
-        "PBN-HUB-03 · Portada · 5:2 · 1200×480 · Piloto repasando notas antes de una entrevista técnica, con el perfil de un vuelo en la tableta",
+        "PBN-HUB-03 · Portada · 5:2 · 1200×480 · Piloto repasando una carta de aproximación RNP antes de una entrevista técnica",
       status: resumen.best === null ? "Sin intentos" : `Mejor: ${resumen.best} / 100`,
       progress: resumen.examPct,
       done: resumen.passed,
@@ -173,9 +174,9 @@ export function Pbn() {
             <div className="mt-2 text-[15px] font-medium text-white/70">{PBN_TITULO_LARGO}</div>
 
             <p className="mt-4 max-w-[56ch] text-[16px] leading-[1.55] text-white/80">
-              Mil pies de separación entre FL 290 y FL 410, y todo lo que hace falta para que sean
-              seguros: qué equipo debe estar operativo, qué compara la tripulación y con qué cifra,
-              qué se le dice al ATC cuando algo falla y qué cuesta perder la capacidad en crucero.
+              Navegar con un requisito de performance y no con una radioayuda: qué significa el
+              número de cada especificación, cómo se lee la carta, qué verifica la tripulación en el
+              FMS y qué se le dice al ATC cuando el avión ya no puede cumplir lo que se le exige.
             </p>
             <p className="mt-3 text-[12px] text-white/55">{PBN_VIGENCIA}</p>
 
@@ -187,13 +188,13 @@ export function Pbn() {
                 src="/modulos/pbn/intro.mp4"
                 portada="/modulos/pbn/intro-poster.webp"
                 duracion="1 min"
-                titulo="Mil pies, y lo que hace falta para que sean seguros"
+                titulo="Volar la trayectoria, y saber cuándo ya no se puede"
                 continuarA={PBN_APRENDE}
                 continuarTexto="Empezar la lección"
                 claveVisto="aviatory.pbn.video"
-                acento="#8FB6E0"
+                acento="#D6BA96"
                 rotulo="PBN-VID-01 · Video de apertura · 16:9 · 60 s"
-                descripcion="El video del módulo, con la misma serie que NOTAM y Mercancías: ocho escenas, un minuto, con el avatar y la voz propios del curso. Abre con el perfil vertical de 2.000 ft frente a 1.000 ft y termina en lo que se le dice al ATC cuando algo falla. Se guarda como intro.mp4 y su primer cuadro como intro-poster.webp; en cuanto estén, el reproductor aparece aquí solo."
+                descripcion="El video del módulo, con la misma serie que NOTAM y Mercancías: ocho escenas, un minuto, con el avatar y la voz propios del curso. Abre con la misma llegada volada VOR a VOR y waypoint a waypoint, y termina en lo que se le dice al ATC cuando se pierde la capacidad. Se guarda como intro.mp4 y su primer cuadro como intro-poster.webp; en cuanto estén, el reproductor aparece aquí solo."
               />
 
               <div className="flex flex-wrap gap-3">
