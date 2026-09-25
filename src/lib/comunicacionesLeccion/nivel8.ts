@@ -114,24 +114,6 @@ function escenario65(c: {
   return out
 }
 
-/** Un ejemplo del capítulo 67: la transmisión, sus cinco pasos y la colación. */
-function orden67(c: {
-  titulo: string
-  atc: string
-  pasos: [string, string][]
-  pilot: string[]
-  fuente?: string
-}): DocBlockData[] {
-  const out: DocBlockData[] = [
-    { kind: "sub", text: c.titulo },
-    { kind: "code", text: `ATC: ${c.atc}` },
-    { kind: "pasos", items: c.pasos.map(([rotulo, texto]) => ({ rotulo, texto })) },
-    { kind: "code", text: c.pilot.join("\n") },
-  ]
-  if (c.fuente) out.push({ kind: "p", text: c.fuente })
-  return out
-}
-
 /** Una frase del repaso: número, [V] o [P], significado y ejemplo. */
 type Frase = { n: number; frase: string; significado: string; ejemplo: string; pendiente?: string }
 
@@ -148,14 +130,6 @@ function fichasFrases(titulo: string, frases: Frase[]): DocBlockData {
       ...(f.pendiente ? { nota: `VERIFICAR: ${f.pendiente}` } : {}),
     })),
   }
-}
-
-/** Cómo leer los ejemplos: va al empezar cada lección. */
-const COMO_LEER: DocBlockData = {
-  kind: "callout",
-  tone: "info",
-  title: "Cómo leer los ejemplos",
-  text: "`AVIATORY 452` es un distintivo **ficticio** (`AVIATORY 425` y `AVIATORY 542` se usan como distintivos parecidos). Estaciones, pistas, frecuencias, códigos, niveles y altitudes son didácticos; los puntos GIKOS, TOLEX, RAPUD, MUVAN y ORSEK son **ficticios**. **(VERIFICAR)**: fraseología que no está en las fuentes cargadas; no la tomes como verificada hasta confirmarla. **PLAIN LANGUAGE**: lenguaje claro, no fraseología normalizada. Ninguna respuesta de este nivel reemplaza el SOP de tu aerolínea.",
 }
 
 /** Las convenciones de todo el nivel (nivel-8.md). */
@@ -942,203 +916,100 @@ export const NIVEL_8: DocScreen[] = [
   {
     n: 67,
     title: "Qué escuchar primero",
-    kicker: "Distintivo, acción, valor, condición y lo siguiente",
-    minutes: 10,
+    kicker: "Destinatario, acción, dato y condición antes de actuar",
+    minutes: 18,
     blocks: [
       {
         kind: "p",
-        text: "En una frecuencia congestionada, el cerebro no alcanza a procesar todo con el mismo peso. No se trata de escuchar menos, sino de escuchar **en orden**. Este es el orden de trabajo:",
+        text: "Una instrucción ATC puede llegar cuando la tripulación también cambia configuración, verifica una restricción o prepara una aproximación. La solución no es oír solo la primera cifra. Es construir una imagen completa del mensaje y separar **a quién va dirigido, qué acción exige, qué dato la define, cuándo aplica y qué ocurrirá después**. Este orden es una herramienta didáctica del módulo; no sustituye la fraseología ni las reglas de colación del Estado y del explotador.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-67-01.svg",
+        alt: "Secuencia de cinco preguntas para escuchar una instrucción ATC: destinatario, acción, dato, condición y paso siguiente.",
+        ancho: 1600,
+        alto: 900,
+        pie: "La condición puede cambiar el sentido de toda la instrucción. El piloto confirma los elementos críticos antes de programar y ejecutar; el otro piloto coteja y ambos escuchan el hearback.",
       },
       {
         kind: "table",
-        head: ["#", "Qué buscas", "Pregunta que te haces"],
+        head: ["Pregunta de escucha", "Qué debe quedar claro", "Error que evita"],
         rows: [
-          ["1", "**CALL SIGN**", "¿Es para mí? ¿Es exactamente mi distintivo?"],
-          ["2", "**CLEARANCE / ACTION**", "¿Qué verbo? climb, descend, turn, hold, contact, cleared…"],
-          ["3", "**VALUE**", "¿Qué número? nivel, rumbo, velocidad, frecuencia, pista"],
-          ["4", "**CONDITION / LIMIT**", "¿Hasta dónde, cuándo, con qué restricción? by, until, when passing, behind"],
-          ["5", "**NEXT ACTION**", "¿Qué tengo que hacer o notificar después? report, expect, then"],
+          ["1 · ¿Para quién?", "Distintivo completo; si hay otro parecido, detener la atribución automática.", "Ejecutar una instrucción destinada a otro avión."],
+          ["2 · ¿Qué acción?", "Verbo de autorización, instrucción, información o expectativa.", "Confundir EXPECT con CLEARED, CONTACT con MONITOR o STANDBY con permiso."],
+          ["3 · ¿Qué dato?", "Pista, nivel, rumbo, velocidad, frecuencia, punto u otro valor crítico.", "Programar la cifra esperada en vez de la recibida."],
+          ["4 · ¿Qué condición?", "Antes, después, al pasar, hasta, detrás de, por encima o por debajo.", "Ejecutar demasiado pronto o ignorar una restricción."],
+          ["5 · ¿Qué sigue?", "Reporte, transferencia, verificación de capacidad o espera de una autorización adicional.", "Terminar la colación y perder el próximo paso."],
         ],
       },
+      { kind: "sub", text: "Un ciclo de cabina, no solo una técnica de memoria" },
       {
-        kind: "p",
-        text: "Si fallas el paso 1, lo demás no importa: o no es para ti, o te pierdes una instrucción tuya. Si fallas el 4, cumples el valor en el lugar equivocado.",
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Herramienta didáctica",
-        text: "El orden de escucha de cinco pasos es una herramienta didáctica de este módulo, no una norma OACI.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "CM-67-01 · Diagrama · 16:9 · 1600×900 px",
-        descripcion:
-          "Imagen sugerida: Una transmisión ATC escrita en una sola línea («Aviatory 452, descend flight level two four zero, be level by GIKOS»), con cada tramo subrayado en un color distinto y numerado 1 a 5: distintivo, acción, valor, condición/límite, siguiente acción (vacío en este ejemplo, marcado «no hay»). Debajo, una flecha hacia la colación del piloto con los mismos colores. Fondo papel, acento del módulo. Objetivo: Que el piloto vea que una transmisión se descompone en piezas con distinto peso y que la colación devuelve las mismas piezas en el mismo orden.",
-        alto: 300,
-        ratio: "16 / 9",
-      },
-      COMO_LEER,
-      ...orden67({
-        titulo: "67.1 El ejemplo base (VERIFICAR)",
-        atc: `"Aviatory 452, descend flight level two four zero, be level by GIKOS."`,
-        pasos: [
-          ["1 · CALL SIGN", "Aviatory 452. Es para mí."],
-          ["2 · ACTION", "descend."],
-          ["3 · VALUE", "flight level two four zero."],
-          ["4 · CONDITION / LIMIT", "estar nivelado **en** GIKOS, no solo empezar a bajar."],
-          ["5 · NEXT ACTION", "ninguna explícita. Implícita: calcular si llegas; si no, decirlo ya."],
-        ],
-        pilot: [`PILOT:             "Descend flight level two four zero, level by GIKOS, Aviatory 452."`, `PILOT (si no llegas): "Unable level by GIKOS, Aviatory 452."`],
-        fuente: "UNABLE: Doc 9432, 2.6 y 2.8.3.10.",
-      }),
-      {
-        kind: "p",
-        text: "Nota: «be level by» es la forma del ejemplo de este módulo. La restricción de cruzar un punto a un nivel está en el Doc 9432 («cross WICKEN FL 150 or above», 2.8.3.10; «cross A1 at WICKEN FL 70», 2.8.3.7). La forma OACI para «alcanzar un nivel antes de un punto» está en fraseología no cargada.",
-      },
-      verificar("«Be level by (point)» y la forma OACI «to reach (level) by (point)»: Doc 4444 cap. 12 (no cargado)."),
-      ...orden67({
-        titulo: "67.2 Transferencia con condición",
-        atc: `"Aviatory 452, when passing flight level eight zero, contact Bogota Control one two nine decimal one."`,
-        pasos: [
-          ["1 · CALL SIGN", "Aviatory 452."],
-          ["2 · ACTION", "contact."],
-          ["3 · VALUE", "Bogota Control, 129.1."],
-          ["4 · CONDITION", "when passing FL 80. No antes."],
-          ["5 · NEXT ACTION", "llamar con nivel en el primer contacto."],
-        ],
-        pilot: [`PILOT: "When passing flight level eight zero, one two nine decimal one, Aviatory 452."`],
-        fuente: "Modelo del Doc 9432, 2.8.2.1.",
-      }),
-      ...orden67({
-        titulo: "67.3 Rumbo con límite",
-        atc: `"Aviatory 452, turn right heading zero four zero until passing flight level seven zero, then direct GIKOS."`,
-        pasos: [
-          ["1 · CALL SIGN", "Aviatory 452."],
-          ["2 · ACTION", "turn right."],
-          ["3 · VALUE", "heading 040."],
-          ["4 · CONDITION", "until passing FL 70."],
-          ["5 · NEXT ACTION", "then direct GIKOS."],
-        ],
-        pilot: [`PILOT: "Right heading zero four zero until passing flight level seven zero, then direct GIKOS, Aviatory 452."`],
-        fuente: "Doc 9432, 7.1.2.",
-      }),
-      ...orden67({
-        titulo: "67.4 Cruce con alternativa",
-        atc: `"Aviatory 452, cleared to Cali flight level two nine zero, cross TOLEX flight level one five zero or above, if unable, maintain flight level one three zero."`,
-        pasos: [
-          ["1 · CALL SIGN", "Aviatory 452."],
-          ["2 · ACTION", "cleared to Cali; cross."],
-          ["3 · VALUE", "FL 290; FL 150."],
-          ["4 · CONDITION", "TOLEX or above. Y una salida: if unable, FL 130."],
-          ["5 · NEXT ACTION", "decidir ya si puedes cruzar."],
-        ],
-        pilot: [`PILOT (si no puedes): "Unable to cross TOLEX flight level one five zero due weight, maintaining flight level one three zero, Aviatory 452."`],
-        fuente: "Modelo del Doc 9432, 2.8.3.10.",
-      }),
-      ...orden67({
-        titulo: "67.5 Ascenso con régimen",
-        atc: `"Aviatory 452, climb to flight level two four zero, expedite until passing flight level one eight zero."`,
-        pasos: [
-          ["1 · CALL SIGN", "Aviatory 452."],
-          ["2 · ACTION", "climb; expedite."],
-          ["3 · VALUE", "FL 240."],
-          ["4 · LIMIT", "until passing FL 180. Después, régimen normal."],
-          ["5 · NEXT ACTION", "ninguna."],
-        ],
-        pilot: [`PILOT: "Climbing to flight level two four zero, expediting until passing flight level one eight zero, Aviatory 452."`],
-        fuente: "Doc 9432, 3.3.3.3.",
-      }),
-      ...orden67({
-        titulo: "67.6 Descenso diferido",
-        atc: `"Aviatory 452, after passing RAPUD descend to flight level eight zero."`,
-        pasos: [
-          ["1 · CALL SIGN", "Aviatory 452."],
-          ["2 · ACTION", "descend."],
-          ["3 · VALUE", "FL 80."],
-          ["4 · CONDITION", "after passing RAPUD. Si bajas antes, rompes la separación que el ATC planeó."],
-          ["5 · NEXT ACTION", "ninguna."],
-        ],
-        pilot: [`PILOT: "After RAPUD descend to flight level eight zero, Aviatory 452."`],
-        fuente: "Doc 9432, 3.3.3.1.",
-      }),
-      ...orden67({
-        titulo: "67.7 Condicional en pista",
-        atc: `"Aviatory 452, behind the landing Airbus, line up and wait behind."`,
-        pasos: [
-          ["1 · CALL SIGN", "Aviatory 452."],
-          ["2 · ACTION", "line up and wait."],
-          ["3 · VALUE", "la pista en uso."],
-          ["4 · CONDITION", "behind the landing Airbus. Aquí la condición va **primero** y es lo más importante."],
-          ["5 · NEXT ACTION", "esperar la autorización de despegue."],
-        ],
-        pilot: [`PILOT: "Behind the Airbus, line up and wait behind, Aviatory 452."`],
-        fuente: "Doc 9432, 4.5.7.",
-      }),
-      {
-        kind: "p",
-        text: "**Por qué este ejemplo rompe el orden:** en las condicionales el Doc 9432 pone la condición antes de la autorización (4.5.7). Si escuchas solo «line up», te falta la mitad.",
-      },
-      ...orden67({
-        titulo: "67.8 Aproximación con varios elementos",
-        atc: `"Aviatory 452, descend to four thousand feet, QNH one zero zero five, transition level five zero, expect ILS approach runway two four."`,
-        pasos: [
-          ["1 · CALL SIGN", "Aviatory 452."],
-          ["2 · ACTION", "descend."],
-          ["3 · VALUE", "4 000 ft, QNH 1005, nivel de transición 50."],
-          ["4 · LIMIT", "4 000 ft es altitud (QNH), no nivel de vuelo."],
-          ["5 · NEXT ACTION", "expect ILS 24: preparar la aproximación."],
-        ],
-        pilot: [
-          `PILOT: "Descending to four thousand feet, QNH one zero zero five, transition level five zero, expecting ILS approach runway two four, Aviatory 452."`,
-        ],
-        fuente: "Doc 9432, 7.3.1.",
-      }),
-      ...orden67({
-        titulo: "67.9 Despegue con instrucción de salida",
-        atc: `"Aviatory 452, climb straight ahead until two thousand five hundred feet before turning right, runway two four, cleared for take-off."`,
-        pasos: [
-          ["1 · CALL SIGN", "Aviatory 452."],
-          ["2 · ACTION", "cleared for take-off; climb straight ahead; turn right."],
-          ["3 · VALUE", "runway 24; 2 500 ft."],
-          ["4 · LIMIT", "until 2 500 ft."],
-          ["5 · NEXT ACTION", "viraje a la derecha después."],
-        ],
-        pilot: [`PILOT: "Straight ahead two thousand five hundred feet, right turn, runway two four, cleared for take-off, Aviatory 452."`],
-        fuente: "Doc 9432, 4.5.9.",
-      }),
-      ...orden67({
-        titulo: "67.10 Rodaje con pista intermedia",
-        atc: `"Aviatory 452, taxi to holding point runway one three left via Alpha, hold short of runway one three right."`,
-        pasos: [
-          ["1 · CALL SIGN", "Aviatory 452."],
-          ["2 · ACTION", "taxi; hold short."],
-          ["3 · VALUE", "holding point 13L; via Alpha."],
-          ["4 · LIMIT", "hold short of 13R. Es el dato que evita una incursión en pista."],
-          ["5 · NEXT ACTION", "esperar autorización de cruce."],
-        ],
-        pilot: [`PILOT: "Taxi to holding point runway one three left via Alpha, hold short of runway one three right, Aviatory 452."`],
-        fuente: "Doc 9432, 4.4.2.",
-      }),
-      { kind: "sub", text: "67.11 Distintivo parecido en la misma frecuencia" },
-      { kind: "code", text: `ATC: "Aviatory 542, turn left heading three one zero, descend flight level one two zero."` },
-      {
-        kind: "pasos",
+        kind: "list",
+        ordered: true,
         items: [
-          { rotulo: "1 · CALL SIGN", texto: "Aviatory **542**. No es 452. Te detienes aquí." },
-          { rotulo: "2 a 5", texto: "No aplican: no es tu instrucción." },
+          "El piloto que atiende la radio identifica el distintivo completo. Si la transmisión está bloqueada, incompleta o podría ser para otro avión, no ejecuta y pide repetición.",
+          "Descompone el mensaje en acción, valor y condición. El piloto que vuela conserva el control de trayectoria; el otro puede anotar y anticipar el ajuste, pero no convierte una expectativa en autorización.",
+          "Comprueba si la maniobra puede cumplirse con las limitaciones reales. Si no, comunica UNABLE oportunamente y solicita una alternativa; una colación literal no demuestra capacidad.",
+          "Colaciona los elementos que lo requieren con el distintivo. Mantiene el orden de las restricciones cuando ayuda a detectar errores. La FAA AIM §4-4-7 pide repetir niveles, restricciones y vectores en la secuencia recibida para esa operación estadounidense.",
+          "Ambos comparan autorización, pantalla y trayectoria. Escuchan la respuesta del controlador a la colación; si corrige un dato, actualizan el plan antes de actuar.",
         ],
       },
       {
-        kind: "p",
-        text: "**Qué haces:** nada, salvo que no estés seguro del número. En ese caso preguntas (ver 65.7). Escuchar primero el distintivo es lo que evita que ejecutes el viraje de otro.",
+        kind: "escenario",
+        titulo: "La cifra correcta con el momento incorrecto",
+        situacion: "Ejercicio didáctico, no transcripción real. La tripulación recibe un descenso a [nivel asignado] que empieza **después de [punto publicado o autorizado]**. El piloto que programa oye bien el nivel, pero omite la condición temporal y selecciona el descenso de inmediato.",
+        preguntas: [
+          { q: "¿Cuál era el elemento de mayor riesgo?", a: "La condición «después de». El valor de nivel era correcto, pero iniciar antes transforma la instrucción y puede afectar la separación." },
+          { q: "¿Cómo se protege la tripulación?", a: "Colaciona nivel y condición, verifica el punto y retiene el nivel previo hasta cumplir la condición. Si existe duda sobre el punto o la capacidad, solicita aclaración antes de iniciar." },
+        ],
+        concepto: "La condición no es una nota accesoria de la autorización.",
       },
-      fuentes(
-        "Doc 9432",
-        "Doc 9432 (4.ª ed.) 2.6, 2.8.2.1, 2.8.3.7, 2.8.3.10, 3.3.3.1, 3.3.3.3, 4.4.2, 4.5.7, 4.5.9, 7.1.2, 7.3.1.",
-        ["VERIFICAR: «be level by (point)» y la forma OACI «to reach (level) by (point)» contra Doc 4444 cap. 12 (no cargado)."],
-        ["El orden de escucha de cinco pasos es una herramienta didáctica de este módulo, no una norma OACI."],
-      ),
+      {
+        kind: "escenario",
+        titulo: "Pista y límite de rodaje",
+        situacion: "Ejercicio didáctico, no transcripción real. La autorización incluye una ruta de rodaje y una instrucción de mantener fuera de [pista]. En la cabina se recuerda la ruta, pero el límite queda oculto al final de una transmisión larga.",
+        preguntas: [
+          { q: "¿Qué se colaciona y verifica?", a: "Ruta aplicable, pista involucrada y límite de mantener fuera. El piloto que no conduce el avión señala el punto de detención y comprueba que nadie lo sobrepase sin autorización específica." },
+          { q: "¿Qué hacer si la última parte quedó tapada?", a: "Detener el avance en un lugar seguro, pedir repetición de la instrucción de límite y no inferir permiso de cruce desde la ruta general de rodaje." },
+        ],
+        concepto: "La autorización de rodaje no concede por sí sola el cruce de una pista.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Dos distintivos parecidos",
+        situacion: "Ejercicio didáctico, no transcripción real. ATC transmite una instrucción de viraje a un avión cuyo distintivo se parece al propio. La tripulación reconoce el rumbo que esperaba y está a punto de seleccionarlo.",
+        preguntas: [
+          { q: "¿Cuál es el primer filtro?", a: "El distintivo completo, antes del verbo y de la cifra. Una instrucción plausible no necesariamente pertenece al propio vuelo." },
+          { q: "¿Qué se comunica si persiste la duda?", a: "Se solicita confirmación del destinatario con el propio distintivo. Mientras no se aclare, se mantiene la autorización previa y se vigila la trayectoria." },
+        ],
+        concepto: "La expectativa no reemplaza la identificación.",
+      },
+      { kind: "sub", text: "Excepciones que cambian la prioridad" },
+      {
+        kind: "p",
+        text: "El orden de cinco preguntas no obliga a procesar siempre en secuencia rígida. Una condición de pista, una instrucción de evitar tránsito o una emergencia puede exigir atención inmediata; el piloto primero mantiene el control del avión y evita el peligro. Tampoco se debe esperar a reconstruir un mensaje entero para pedir SAY AGAIN si una parte crítica quedó cubierta. La técnica ordena la memoria, pero **la seguridad determina la prioridad**.",
+      },
+      {
+        kind: "summary",
+        title: "En pocas palabras",
+        items: [
+          "Primero comprueba que la transmisión sea para ti; luego acción, dato, condición y paso siguiente.",
+          "Una cifra bien oída con una condición omitida sigue siendo una autorización mal entendida.",
+          "Colacionar, verificar en cabina, escuchar la corrección y monitorizar la trayectoria forman un mismo ciclo.",
+          "Los escenarios usan campos entre corchetes: no representan una ruta, frecuencia ni transmisión real.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "FAA AIM §4-4-7 · OACI Doc 9432",
+        bloques: [
+          { kind: "p", text: "FAA, Aeronautical Information Manual §4-4-7: registro de autorizaciones IFR, colación de niveles, restricciones, vectores y pistas, identificación del avión, y responsabilidad del piloto de aceptar o rechazar una autorización: https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap4_section_4.html" },
+          { kind: "p", text: "FAA, Aeronautical Information Manual §4-2: contacto, identificación y técnicas generales de radiotelefonía: https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap4_section_2.html" },
+          { kind: "p", text: "OACI, Manual of Radiotelephony, Doc 9432, 4.ª edición: referencia de fraseología y colación, no fuente de las situaciones inventadas de esta lección: https://store.icao.int/en/manual-of-radiotelephony-doc-9432" },
+          { kind: "p", text: "Para procedimientos, frecuencias, puntos y cartas vigentes en Colombia, consultar solo Aerocivil/eAIP. La foto, el esquema y los escenarios son didácticos: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+        ],
+      },
     ],
   },
   // ── 68 ──────────────────────────────────────────────────────────────────
