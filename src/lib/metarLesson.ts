@@ -840,43 +840,69 @@ const CODIGO: DocScreen[] = [
   {
     n: 8,
     title: "Tendencias y comentarios",
-    kicker: "Lo que viene en las próximas 2 horas",
+    kicker: "Pronóstico corto y grupos suplementarios",
     minutes: 3,
     blocks: [
       {
         kind: "p",
-        text: "Al final del informe, el observador te dice qué espera para las **próximas dos horas**. Es la miniatura del TAF (el pronóstico de aeródromo, que merece su propia lección):",
+        text: "**En la portada:** un banco de nubes se acerca a un sector del aeropuerto, pero una foto no permite saber si el cambio se establecerá o será pasajero. Para eso se consulta el pronóstico de tendencia cuando esté incluido en el METAR y se contrasta con observaciones posteriores.",
+      },
+      {
+        kind: "p",
+        text: "La **tendencia** es un pronóstico corto para las **dos horas siguientes a la hora de observación** del METAR o SPECI, cuando el servicio la emite. No todas las estaciones la incluyen. `NOSIG` (no significant change) indica que no se prevé un cambio meteorológico significativo dentro de sus criterios; si se espera uno, la tendencia usa `BECMG` (becoming) o `TEMPO` (temporary):",
       },
       {
         kind: "kv",
         items: [
-          { k: "NOSIG", v: "sin cambio significativo. El mejor final posible." },
-          { k: "BECMG", v: "cambio esperado: BECMG 1216 = entre las 12:00 y las 16:00 UTC" },
-          { k: "TEMPO", v: "fluctuaciones temporales: TEMPO 0306 = ratos con esa condición entre las 03 y las 06" },
-          { k: "PROB40", v: "probabilidad del 40 por ciento" },
-          { k: "FM", v: "cambio significativo desde una hora dada" },
-          { k: "NSW", v: "fin del tiempo significativo" },
-          { k: "RMK", v: "comentario libre del observador. Después de RMK, lee con calma" },
+          { k: "NOSIG", v: "no se prevé cambio significativo en el periodo de tendencia; no equivale a buen tiempo ni sustituye el TAF" },
+          { k: "BECMG", v: "cambio gradual o irregular que llega a las condiciones pronosticadas dentro del periodo" },
+          { k: "TEMPO", v: "fluctuaciones temporales: cada episodio dura menos de una hora y, sumados, ocupan menos de la mitad del periodo indicado" },
+          { k: "FM / TL / AT", v: "from / till / at: en una tendencia delimitan desde, hasta o a una hora concreta, seguidos de hora y minutos UTC: FM1200 TL1300" },
+          { k: "NSW", v: "no significant weather: sin tiempo significativo previsto tras el cambio correspondiente; no significa ausencia de todo fenómeno futuro" },
         ],
       },
       {
-        kind: "list",
-        items: [
-          "**AUTO**: observación automatizada, sin observador humano. Algunas estaciones no discriminan el tipo de precipitación (reportan UP).",
-          "**COR**: corrección a una observación ya publicada.",
+        kind: "callout",
+        tone: "warn",
+        title: "No mezcles TREND, TAF y comentarios",
+        text: "No uses `BECMG 1216` ni `TEMPO 0306` como modelos de tendencia: cuando se delimita el cambio, `FM`/`TL`/`AT` llevan hora y minutos UTC dentro de sus dos horas de validez. `PROB40` (probability 40 percent) y un `FM` usado como grupo de cambio independiente pertenecen al TAF. `RMK` introduce información suplementaria, no una tendencia. `AUTO` y `COR` tampoco son tendencias.",
+      },
+      {
+        kind: "table",
+        head: ["Grupo ilustrativo", "Cómo leerlo", "Qué cambia en tu decisión"],
+        rows: [
+          ["`NOSIG`", "No se prevé cambio significativo en las dos horas posteriores a la observación", "Comprueba hora y vigencia; el tiempo actual puede seguir siendo adverso"],
+          ["`BECMG FM1200 TL1300 3000 BR`", "Entre 12:00 y 13:00 UTC se espera que la visibilidad pase a 3000 m con neblina", "Planifica con la condición que se establecerá y confirma observaciones nuevas"],
+          ["`TEMPO FM1200 TL1300 3000 BR`", "Dentro de esa hora puede haber episodios temporales de 3000 m con neblina", "La condición puede coincidir con tu llegada aunque entre episodios mejore"],
         ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t20-01-tendencias.webp",
+        alt: "Línea temporal didáctica de dos horas: BECMG evoluciona hacia una condición que permanece; TEMPO muestra dos episodios breves que vuelven a la condición base",
+        ancho: 1600,
+        alto: 800,
+        pie: "Ejemplo temporal, no pronóstico real: BECMG establece una condición; TEMPO aparece por episodios. Las horas exactas de un vuelo se toman del producto vigente.",
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** dos líneas temporales sobre un mismo periodo de dos horas. **Cómo lo reconoces:** en `BECMG` la condición nueva permanece tras la transición; en `TEMPO` hay episodios con regreso a la condición base. **Qué decides:** situar tu hora de llegada dentro de la ventana, verificar si el grupo es de tendencia o TAF y actualizar el informe; el esquema no es un pronóstico utilizable.",
+      },
+      {
+        kind: "p",
+        text: "**Grupos aparte:** `RMK` (remarks) precede comentarios o información suplementaria según el país; interpreta las abreviaturas con la clave del formato local. `AUTO` (automated) indica observación automatizada y `COR` (corrected), un informe corregido. Una estación automática puede tener limitaciones para identificar ciertos fenómenos; revisa el dato publicado y las fuentes complementarias sin suponer que todos los reportes automáticos son iguales.",
       },
       {
         kind: "check",
-        question: "¿Qué diferencia hay entre `BECMG 1216 3000 BR` y `TEMPO 1216 3000 BR`?",
+        question: "¿Qué diferencia hay entre `BECMG FM1200 TL1300 3000 BR` y `TEMPO FM1200 TL1300 3000 BR` en una tendencia válida para esa hora?",
         options: [
-          "Ninguna: las dos anuncian 3 km con neblina entre las 12:00 y las 16:00 UTC",
-          "`BECMG` es un cambio que se instala y se queda; `TEMPO` son ratos que van y vienen",
-          "`BECMG` es más probable que `TEMPO`",
+          "Ninguna: ambas garantizan 3000 m durante toda la hora",
+          "`BECMG` establece la nueva condición; `TEMPO` describe episodios temporales durante la ventana",
+          "`BECMG` expresa una probabilidad de 40 % y `TEMPO` de 60 %",
         ],
         answer: 1,
         explain:
-          "`BECMG` describe una transición: en algún momento de esa ventana la condición cambia y a partir de ahí se mantiene. `TEMPO` son fluctuaciones temporales dentro de la ventana, y entre ellas se vuelve a lo anterior. Para planear un alterno no da lo mismo.",
+          "`BECMG` pronostica una transición hacia la nueva condición; `TEMPO`, fluctuaciones que aparecen por ratos y regresan a la condición base entre episodios. `FM1200 TL1300` delimita de 12:00 a 13:00 UTC dentro de la tendencia. Comprueba siempre la hora de observación y la validez real.",
       },
       {
         kind: "entrevista",
@@ -885,22 +911,22 @@ const CODIGO: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué es el grupo de tendencia de un METAR y cuánto cubre?",
             respuesta:
-              "Es el pronóstico corto que va al final del METAR y cubre las dos horas siguientes a la observación. Puede decir NOSIG, que no se esperan cambios significativos, o traer BECMG para un cambio que va a establecerse, o TEMPO para uno temporal que dura menos de una hora cada vez y menos de la mitad del periodo.",
-            claves: ["Dos horas", "NOSIG, BECMG, TEMPO", "Va dentro del propio METAR"],
+              "Cuando se incluye, es un pronóstico corto asociado al METAR o SPECI y válido para las dos horas siguientes a la hora de observación. `NOSIG` indica que no se prevé un cambio significativo; `BECMG` anuncia una transición hacia otras condiciones y `TEMPO` fluctuaciones temporales. No confundas esta sección con comentarios `RMK` ni con la validez más amplia del TAF.",
+            claves: ["Dos horas desde la observación", "NOSIG, BECMG, TEMPO", "No confundir con TAF o RMK"],
           },
           {
             nivel: "interpretacion",
             q: "¿Qué diferencia hay entre BECMG y TEMPO?",
             respuesta:
-              "BECMG es un cambio que llega y se queda: a partir de ese momento las condiciones son las nuevas. TEMPO es un cambio que va y viene: aparece por ratos, cada uno de menos de una hora, sin sumar más de la mitad del periodo. Para planificar, un TEMPO de visibilidad baja significa que puede pillarme justo cuando llegue, aunque el resto del tiempo esté bien.",
-            claves: ["BECMG se establece", "TEMPO va y viene", "El TEMPO puede coincidir con mi llegada"],
+              "`BECMG` pronostica que las condiciones alcanzarán los valores indicados durante la ventana de cambio. `TEMPO` anuncia episodios de menos de una hora cada uno, que en conjunto ocupan menos de la mitad del periodo indicado; entre ellos se espera la condición base. Un episodio de baja visibilidad puede coincidir con mi llegada, aunque no dure toda la ventana.",
+            claves: ["BECMG establece otra condición", "TEMPO va y viene", "Comparar la ventana con la llegada"],
           },
           {
             nivel: "situacion",
             q: "El METAR de tu destino trae `NOSIG` pero llevas dos horas de vuelo por delante. ¿Te sirve?",
             respuesta:
-              "Solo en parte. NOSIG cubre las dos horas siguientes a la observación, no a mi llegada, y esa observación puede tener ya media hora cuando la leo. Si mi llegada cae fuera de esa ventana, el que manda es el TAF, y en ruta pediré el METAR actualizado. NOSIG tranquiliza, no exime de mirar el pronóstico.",
-            claves: ["Cubre 2 h desde la observación, no desde ahora", "Fuera de la ventana manda el TAF", "Pedir METAR actualizado en ruta"],
+              "Solo si mi llegada aún está dentro de las dos horas posteriores a la observación, y aun así `NOSIG` no dice que el tiempo sea bueno. Si llego fuera de esa ventana, consulto el TAF que cubra mi ETA y obtengo METAR/SPECI nuevos en ruta, además de avisos y mínimos aplicables. No extiendo la vigencia de `NOSIG` desde la hora en que yo lo leí.",
+            claves: ["Dos horas desde la observación", "NOSIG no significa buen tiempo", "TAF y observaciones actualizadas"],
           },
         ],
       },
