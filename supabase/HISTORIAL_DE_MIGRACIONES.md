@@ -203,6 +203,20 @@ hora a la que las corrió, así que el CLI ve versiones remotas que no existen e
 la carpeta y se niega a seguir. Se aplica por el editor de SQL o por el
 conector.
 
-**Queda por sembrar**: los bancos `rac_evaluacion` (50 preguntas) y
-`combustible_evaluacion` (40). Hasta que se corran, las dos evaluaciones no
-tienen de dónde sortear las preguntas.
+Los bancos `rac_evaluacion` (50 preguntas) y `combustible_evaluacion` (40)
+ya están sembrados: comprobado contra la base el 24-sep, todas activas.
+
+Quedaron dos diferencias con el repo, que arregla
+`20260929000000_evaluacion_entrega_el_tema_del_banco` (pendiente de correr):
+las dos evaluaciones sin `modulo_leccion` y el catálogo de Combustible con 66
+prácticas en vez de 76 (sin los diez escenarios). Ver
+`docs/RAC_COMBUSTIBLE_ESTADO.md`, «La base».
+
+**En la base hay además un módulo RVSM** (`rvsm_evaluacion`, umbral
+`rvsm_lesson` de 32 y el destino `rvsm`) que no está en ninguna rama del repo.
+Quien lo haya aplicado tiene que subir sus migraciones: sin ellas, la próxima
+migración de módulo republica las funciones compartidas sin la rama de RVSM y
+su progreso deja de contar. Y la rama `claude/modulo-mel` trae tres migraciones
+que empiezan en `20260928000000`, la misma versión que la de RAC y
+Combustible: hay que renumerarlas por encima de la marca y copiar las funciones
+compartidas de la última publicada, con las ramas de RAC y Combustible.

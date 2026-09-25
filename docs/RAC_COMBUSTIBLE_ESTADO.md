@@ -69,23 +69,33 @@ la respuesta cuenta como práctica hecha.
   `supabase/seeds/`. Prueba en `supabase/tests/rac_y_combustible.sql` y casos
   nuevos en `logros.sql`.
 
-## Lo que falta correr en la base
+## La base
 
-**Nada de esto está aplicado.** Va **después de los pasos de Comunicaciones**
-(`docs/COMUNICACIONES_ESTADO.md`, «Lo que le queda por correr a Camilo»),
-porque copia las funciones compartidas de sus migraciones. Cada paso en **su
-propia ejecución** del SQL Editor:
+**Aplicado** (lo hizo otra sesión, ver
+`supabase/HISTORIAL_DE_MIGRACIONES.md`, «25 de septiembre»): la migración
+`20260928000000_modulos_rac_y_combustible.sql` y los dos bancos. Comprobado
+contra la base el 24-sep, solo leyendo: `rac_evaluacion` con 50 preguntas
+activas y `combustible_evaluacion` con 40, las dos con su tema.
+
+Lo que se aplicó no era exactamente el archivo del repo (dos sesiones montaron
+lo mismo a la vez). Quedaron dos diferencias, que arregla la migración de abajo:
+
+- `rac_evaluacion` y `combustible_evaluacion` sin `modulo_leccion`: el
+  servidor no exigía la lección completa, solo la pantalla.
+- El catálogo de Combustible con 66 prácticas y no 76: faltaban los diez
+  escenarios (`esc-01` a `esc-10`), así que la base rechazaba esas marcas y
+  ese avance quedaba solo en el navegador.
+
+**Falta correr** `supabase/migrations/20260929000000_evaluacion_entrega_el_tema_del_banco.sql`,
+que además hace que la evaluación entregue el tema de cada pregunta (ver
+«Los temas a repasar», abajo). No depende de nada más. Cada paso en su propia
+ejecución del SQL Editor:
 
 | # | Qué se pega en el SQL Editor | Resultado esperado |
 |---|---|---|
-| 1 | `supabase/migrations/20260928000000_modulos_rac_y_combustible.sql` | Sin error (avisos de «does not exist, skipping» por políticas y disparadores, normales) |
-| 2 | `supabase/seeds/rac_evaluacion.sql` (50 preguntas) | Sin error |
-| 3 | `supabase/seeds/combustible_evaluacion.sql` (40 preguntas) | Sin error |
-| 4 | Las pruebas, una por ejecución: `supabase/tests/rac_y_combustible.sql`, `logros.sql`, `permisos.sql`, `panel.sql` | Cada una termina en el error `PRUEBA_DESHECHA …` (eso es pasar) |
-
-El catálogo de la práctica (las 54 y las 76 claves) ya va dentro de la
-migración; no hace falta `scripts/catalogo/sembrar.mjs` salvo que el contenido
-cambie después.
+| 1 | `supabase/migrations/20260929000000_evaluacion_entrega_el_tema_del_banco.sql` | Sin error. Si dice «evaluacion_iniciar en la base no es la de 20260911194440», alguien la cambió: no se aplica nada y hay que comparar |
+| 2 | `supabase/tests/evaluacion_temas.sql` | `PRUEBA_DESHECHA funcion_y_permisos rac_y_combustible_como_el_repo rac_cerrada_con_18 rac_con_tema combustible_con_tema aerodinamica_con_tema performance_con_tema notam_sin_tema simulacro_con_etiqueta` |
+| 3 | `supabase/tests/rac_y_combustible.sql`, `logros.sql`, `permisos.sql`, `panel.sql`, una por ejecución | Cada una en `PRUEBA_DESHECHA …` |
 
 Lo que tiene que decir `rac_y_combustible.sql`, por cada módulo (`rac:` y
 `combustible:`): `catalogo_N_y_umbrales reglas_20_y_80 banco_N_bien_formado
@@ -93,39 +103,35 @@ permisos leccion_fuera leccion_cero practica_inventada clave_ajena
 rpc_idempotente sin_update_directo sin_intento_a_mano puerta_cerrada_con_N-1
 puerta_abierta_con_N terminar_escribe_en_su_tabla sin_sesion conteos
 logros_los_cuatro`, y al final `modulos_de_antes terminar_enruta_a_todos
-panel_con_los_nueve grupos_de_logros`. `logros.sql`: la lista de antes con
-`rac_con_catalogo combustible_con_catalogo` después de
-`comunicaciones_con_catalogo`.
+panel_con_los_nueve grupos_de_logros`. Antes de la migración de arriba falla en
+la evaluación de RAC (sin lección exigida) o en el catálogo de Combustible: es
+lo esperado. **Las dos pruebas se escribieron sin base donde correrlas**: si
+fallan por un nombre o un tipo, se corrige la prueba; si por una regla, la
+migración.
 
-**La prueba se escribió sin base donde correrla**: sigue línea por línea la de
-Comunicaciones. Si falla por un nombre o un tipo, se corrige la prueba; si falla
-por una regla, la migración.
-
-Qué pasa si se cambia el orden:
-
-- La migración antes que las de Comunicaciones: las funciones se crean igual,
-  pero nombran tablas de Comunicaciones que todavía no existen y el panel de
-  todos se caería al usarlas. **El orden no es opcional.**
-- Una migración de Comunicaciones (o de Aeropuertos) corrida **después** de
-  esta: republica las funciones compartidas sin las ramas de RAC y Combustible,
-  y el panel y los logros los pierden. Se arregla corriendo esta otra vez (se
-  puede: todo es `if not exists`, `on conflict` o `create or replace`).
-- Semillas antes que la migración: funcionan (el banco no depende de ella), pero
-  la evaluación no abre hasta que existan sus reglas.
-- Mientras no se aplique: las pantallas funcionan, el progreso se guarda en el
-  navegador y la evaluación no abre.
-
-Después de aplicar:
+Después de aplicar, el archivo se renombra con la versión que registró la base:
 
 ```sql
 select version, name from supabase_migrations.schema_migrations
-where name = 'modulos_rac_y_combustible';
+where name = 'evaluacion_entrega_el_tema_del_banco';
 ```
 
-El archivo se renombra con esa versión (y las dos menciones en
-`src/lib/racProgress.ts` y `src/lib/combustibleProgress.ts`, y las de
-`supabase/tests/`), y `ULTIMA_APLICADA` sube en
-`supabase/HISTORIAL_DE_MIGRACIONES.md`.
+y `ULTIMA_APLICADA` sube en `supabase/HISTORIAL_DE_MIGRACIONES.md`.
+
+### Los temas a repasar
+
+Cada pregunta de los bancos de RAC y Combustible lleva su unidad o capítulo en
+los metadatos (`U05`, `C16`), y las pantallas de evaluación saben convertirlo
+en «RAC 91» o «Capítulo 16» con su enlace. Pero `evaluacion_iniciar` entregaba
+como tema solo la etiqueta de la fuente, que solo tiene el simulacro: en los
+módulos de un solo banco el tema llegaba nulo y el resultado nunca decía qué
+repasar. Pasaba igual en Aerodinámica (`S04`) y Performance (`12`), que ya
+estaban en producción, y en RVSM (`R07`).
+
+La migración cambia esa sola línea: `coalesce(ef.etiqueta, bp.metadatos ->> 'tema')`.
+Los demás no cambian: los bancos de NOTAM, Meteorología, Mercancías, Aeropuertos
+y Comunicaciones no traen tema, y el simulacro conserva su etiqueta. La prueba
+comprueba las dos cosas.
 
 ## Pendiente
 
@@ -138,12 +144,9 @@ El archivo se renombra con esa versión (y las dos menciones en
       capítulos (`CB_FIGURAS_PENDIENTES`).
 - [ ] **Video de apertura** de cada módulo, con la serie de HyperFrames (ver
       CLAUDE.md, «Trampa del idioma de la voz»).
-- [ ] **Los temas a repasar de la evaluación.** `evaluacion_iniciar` entrega el
-      tema de cada pregunta desde `evaluacion_fuentes.etiqueta`, no desde
-      `metadatos.tema`. Con un solo banco y etiqueta nula, el resultado no dice
-      qué unidades repasar (pasa también con Performance). Propuesta:
-      `coalesce(ef.etiqueta, bp.metadatos ->> 'tema')` en `evaluacion_iniciar`.
-      Es un cambio que toca a todos los módulos: va aparte, con su prueba.
+- [ ] **Correr la migración de los temas** (arriba, «La base»). En cuanto
+      esté, el resultado de la evaluación de RAC, Combustible, Aerodinámica y
+      Performance dice qué unidades repasar, sin tocar la app.
 
 ## Lo que el convertidor simplifica
 
