@@ -567,7 +567,11 @@ const CODIGO: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "Las capas de nubes se reportan con una sigla de cobertura, medida en **octavos de cielo**, más la altura de la base en **centenares de pies** sobre el aeródromo:",
+        text: "**En vuelo:** una capa dispersa, un techo y un cumulonimbo no significan lo mismo. La imagen de portada muestra nubes desde cabina, pero no permite medir octavos, bases ni declarar CAVOK para un aeródromo. Esos datos se obtienen del informe vigente y se contrastan con la operación.",
+      },
+      {
+        kind: "p",
+        text: "Las capas de nubes se reportan con una sigla de cobertura, medida en **octavos de cielo**, más la altura de la base en **centenares de pies** sobre la elevación del aeródromo:",
       },
       {
         kind: "kv",
@@ -575,32 +579,32 @@ const CODIGO: DocScreen[] = [
           { k: "SKC", v: "despejado (0/8)" },
           { k: "FEW", v: "escasas (1/8 a 2/8): FEW010 = escasas a 1000 ft" },
           { k: "SCT", v: "dispersas (3/8 a 4/8)" },
-          { k: "BKN", v: "fragmentadas (5/8 a 7/8): la primera capa BKN u OVC define el techo" },
+          { k: "BKN", v: "fragmentadas (5/8 a 7/8): la primera capa BKN u OVC puede definir el techo" },
           { k: "OVC", v: "cubierto (8/8): OVC220 = cubierto a 22 000 ft" },
         ],
       },
       {
         kind: "list",
         items: [
-          "**CB** (cumulonimbos) y **TCU** (torrecúmulos) se anotan pegados a la capa: `BKN015CB`. Son las nubes convectivas: precipitación fuerte, tormenta, granizo y turbulencia severa.",
-          "**`VV002`**: visibilidad vertical de 200 ft. El cielo está oscurecido (niebla, humo) y no hay base de nube definida.",
-          "**El techo** es la base de la capa más baja que cubra más de la mitad del cielo (BKN u OVC). Es uno de los números que decide si el vuelo puede ser VFR.",
+          "**CB** (cumulonimbo) y **TCU** (cúmulo en torre) identifican convección en el grupo de capa, por ejemplo `BKN015CB`. Alertan sobre posibles tormentas, precipitación intensa, granizo, engelamiento y turbulencia; la foto o la sigla solas no ubican cada amenaza.",
+          "**`VV002`**: visibilidad vertical de 200 ft cuando el cielo está oscurecido y no se distingue una base. Es un techo indefinido, no una capa `BKN` a 200 ft.",
+          "**El techo** es la base de la capa más baja `BKN` u `OVC`; con cielo oscurecido, se usa la visibilidad vertical reportada. Es un dato relevante, pero las reglas de vuelo y la aproximación dependen también de visibilidad, mínimos y procedimientos.",
         ],
       },
       {
         kind: "p",
-        text: "**CAVOK** (ceiling and visibility OK): techo y visibilidad OK. El briefing del curso lo define como cielo despejado con visibilidad horizontal mayor de 10 000 metros. Cuando aparece, reemplaza a los grupos de visibilidad, tiempo presente y nubes.",
+        text: "**CAVOK** (ceiling and visibility OK) resume tres condiciones simultáneas en el aeródromo: visibilidad de **10 km o más**; ningún fenómeno de tiempo presente significativo para la aviación; y ninguna nube por debajo de **5000 ft sobre el aeródromo o de la altitud mínima de sector, la que sea mayor**, sin `CB` ni `TCU` a ninguna altura. Sustituye a los grupos de visibilidad, tiempo presente y nubes. Puede haber nubes altas: **no significa cielo despejado**.",
       },
       {
         kind: "callout",
         tone: "info",
-        title: "La condición completa",
-        text: "La clave OACI exige además que no haya nubes por debajo de 5000 ft ni CB/TCU a ninguna altura. Ese detalle no está en la bibliografía del curso: valídalo con tu instructor antes de la entrevista.",
+        title: "CAVOK no es una autorización operacional",
+        text: "CAVOK describe lo observado en un lugar y una hora. No elimina el análisis de viento, pista, pronóstico, ruta, mínimos, alternos ni cambios posteriores. Tampoco equivale a ausencia de nubes en todo el cielo.",
       },
       {
         kind: "breakdown",
         caption:
-          "Tres letras de cobertura, tres dígitos de altura y, si aplica, el tipo de nube pegado al final. Nunca se separan.",
+          "En este ejemplo: cobertura, base en centenares de pies y tipo de nube convectiva al final del mismo grupo.",
         parts: [
           { token: "BKN", label: "cobertura", detail: "Fragmentadas: de 5/8 a 7/8 del cielo. Cuenta como techo." },
           {
@@ -611,7 +615,7 @@ const CODIGO: DocScreen[] = [
           {
             token: "CB",
             label: "tipo de nube",
-            detail: "Cumulonimbo. `TCU` es torrecúmulo. Solo se anotan estos dos, y solo porque cambian la decisión.",
+            detail: "Cumulonimbo. `TCU` indica cúmulo en torre. Ambos señalan convección que exige evaluación específica.",
           },
         ],
       },
@@ -619,16 +623,16 @@ const CODIGO: DocScreen[] = [
         kind: "callout",
         tone: "warn",
         title: "Error común: leer la altura como pies directos",
-        text: "`FEW010` no son 10 000 ft, son 1000. Es el error que más se repite y el que más rápido descarta a un candidato en la entrevista técnica.",
+        text: "`FEW010` indica base a 1000 ft sobre la elevación del aeródromo, no a 10 000 ft. Multiplica los tres dígitos por 100 y conserva esa referencia vertical al comparar con altitudes publicadas.",
       },
       {
         kind: "summary",
         items: [
           "Cobertura en octavos: `SKC` 0/8, `FEW` 1 a 2, `SCT` 3 a 4, `BKN` 5 a 7, `OVC` 8/8.",
           "La altura va en **centenares de pies** sobre el aeródromo.",
-          "El **techo** es la base de la primera capa `BKN` u `OVC`.",
-          "`CB` y `TCU` pegados a la capa son convección: cambian la decisión aunque el techo sea alto.",
-          "`VV002` significa cielo oscurecido sin base definida, con 200 ft de visibilidad vertical.",
+          "El **techo** es la base de la primera capa `BKN` u `OVC`, o la visibilidad vertical si el cielo está oscurecido.",
+          "`CB` y `TCU` señalan convección: evalúa su posición, evolución y riesgos, aunque el techo sea alto.",
+          "`VV002` significa cielo oscurecido sin base definida, con 200 ft de visibilidad vertical; CAVOK no exige cielo totalmente despejado.",
         ],
       },
       {
@@ -641,34 +645,50 @@ const CODIGO: DocScreen[] = [
         ],
         answer: 1,
         explain:
-          "El techo es la base de la primera capa que cubra **más de la mitad** del cielo, o sea la primera `BKN` u `OVC`: aquí `BKN025`, 2500 ft. Las `FEW` y `SCT` de abajo no cuentan para el techo. Y ojo al `CB` pegado: hay convección, que pesa más que el techo mismo.",
+          "El techo lo da la primera capa que cubre **más de la mitad** del cielo: aquí `BKN025`, 2500 ft sobre el aeródromo. `FEW` y `SCT` no forman el techo, pero `CB` advierte convección que se evalúa por separado; el techo no decide por sí solo la operación.",
       },
       {
         kind: "infografia",
         nombre: "meteo-cobertura",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-img-01-cumulonimbo-desde-el-aire.webp",
-        alt: "Masa nubosa convectiva vista desde altitud de crucero, con torres de cúmulo de bordes duros en la parte baja y nubosidad extendida por encima.",
-        ancho: 1600,
-        alto: 900,
-        pie: "Así se ve la convección desde crucero: abajo las torres, con relieve y bordes duros, y encima la masa que ya se extendió. Eso es lo que hay detrás de un `CB` en el código.",
+        kind: "p",
+        text: "**Qué ves:** el esquema compara coberturas representativas en octavos. **Cómo lo reconoces:** `FEW` y `SCT` dejan mayor parte del cielo libre, mientras `BKN` y `OVC` cubren más de la mitad o todo. **Qué decides:** identificar el primer `BKN`/`OVC` como techo cuando la base está definida; el dibujo no mide la cobertura real de un aeródromo.",
+      },
+      {
+        kind: "reconoce",
+        titulo: "Anatomía visual de un cumulonimbo",
+        intro: "Escena ilustrativa de convección desarrollada: su forma ayuda a reconocer el riesgo, pero no proporciona altura, ubicación ni intensidad certificadas para un vuelo.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-t18-01-cumulonimbo.webp",
+          alt: "Cumulonimbo aislado con torre vertical, yunque extendido y cortina de precipitación bajo su base",
+          ancho: 1600,
+          alto: 800,
+        },
+        puntos: [
+          { x: 29, y: 31, que: "Torre convectiva", significa: "El crecimiento vertical y los bordes definidos muestran una nube en fuerte desarrollo.", piloto: "Busca posición, desplazamiento y separación respecto de la ruta con radar, avisos y reportes disponibles." },
+          { x: 74, y: 18, que: "Yunque", significa: "La cima se extiende lateralmente en niveles altos; la amenaza no se limita al núcleo oscuro bajo la nube.", piloto: "No interpretes un corredor visual junto al yunque como distancia segura sin evaluación meteorológica." },
+          { x: 46, y: 73, que: "Precipitación bajo la base", significa: "La cortina bajo la nube indica precipitación localizada; la foto no mide su intensidad ni prueba que alcance una pista.", piloto: "Comprueba tiempo presente, viento, radar y tendencia antes de planificar el paso o la aproximación." },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** una torre, un yunque extendido y precipitación bajo la base. **Cómo lo reconoces:** el gran desarrollo vertical y la expansión superior distinguen un cumulonimbo maduro de nubes bajas dispersas. **Qué decides:** evaluar convección con información actual de ruta y aeródromo; ni la foto ni `CB` por sí solos fijan una separación o autorizan atravesarla.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "En aproximación, mínimos de 600 pies",
         situacion:
-          "El METAR trae **`SCT007 BKN015 OVC030`**. Vas a una aproximación cuyos mínimos están en 600 pies sobre el aeródromo.",
-        pregunta: "¿Cuál de las tres capas decide, y por qué?",
+          "El METAR trae **`SCT007 BKN015 OVC030`**. Estás preparando una aproximación con una altura mínima publicada equivalente a 600 pies sobre el aeródromo.",
+        pregunta: "¿Qué capa forma el techo y qué más necesitas antes de decidir?",
         claves: [
-          "**El techo es BKN015**, 1.500 pies: la primera capa de 5 octavos o más. SCT007 no es techo aunque esté más bajo, porque con 3 o 4 octavos todavía se ve el suelo entre nubes.",
-          "1.500 pies está por encima de mis 600: **la aproximación es viable** según ese informe.",
-          "Pero **SCT007 no se ignora**: a 700 pies voy a entrar y salir de nubes justo en el tramo final, con la referencia visual apareciendo y desapareciendo.",
-          "Y las alturas del METAR son **sobre el aeródromo**, no sobre el mar. Sumar la elevación es el error clásico y suele costar una aproximación frustrada.",
+          "**El techo es BKN015**, 1500 ft sobre el aeródromo: es la primera capa `BKN`/`OVC`. `SCT007` está más baja, pero no forma el techo.",
+          "Que el techo reportado esté por encima de 600 ft **no demuestra que la aproximación sea viable**. Faltan visibilidad o RVR, mínimos publicados completos, estado de pista, capacidad de la aeronave y condiciones actuales.",
+          "`SCT007` puede afectar las referencias visuales según su posición y evolución; no permite afirmar que la aeronave entrará y saldrá de nube exactamente a 700 ft.",
+          "Las bases del METAR están referidas a la elevación del aeródromo. Para compararlas con altitudes sobre el nivel medio del mar, respeta la referencia y el procedimiento publicado.",
         ],
         cierre:
-          "Techo y capa más baja no son lo mismo. El techo decide si se puede; la capa más baja decide cómo va a sentirse.",
+          "Techo y capa más baja no son lo mismo. Ninguno, aislado, sustituye la comparación con los mínimos ni las referencias visuales exigidas para continuar.",
       },
       {
         kind: "entrevista",
@@ -677,22 +697,22 @@ const CODIGO: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué significan FEW, SCT, BKN y OVC y qué es el techo?",
             respuesta:
-              "Son la cobertura del cielo en octavos: FEW de 1 a 2, SCT de 3 a 4, BKN de 5 a 7 y OVC los 8. El techo es la altura de la capa más baja de BKN u OVC, es decir la primera que cubre cinco octavos o más, y se expresa en centenas de pies sobre la elevación del aeródromo.",
-            claves: ["Octavos de cielo", "Techo = primera BKN u OVC", "Centenas de pies sobre el aeródromo"],
+              "Son coberturas en octavos: FEW de 1 a 2, SCT de 3 a 4, BKN de 5 a 7 y OVC los 8. Con base definida, el techo es la primera capa BKN u OVC; si el cielo está oscurecido, se reporta visibilidad vertical como techo indefinido. Las bases se expresan en centenares de pies sobre la elevación del aeródromo.",
+            claves: ["Octavos de cielo", "Techo = primera BKN/OVC o VV", "Centenas de pies sobre el aeródromo"],
           },
           {
             nivel: "interpretacion",
             q: "¿Qué es CAVOK y qué tiene que cumplirse para que aparezca?",
             respuesta:
-              "Es la abreviatura de ceiling and visibility OK, y sustituye a los grupos de visibilidad, tiempo presente y nubes. Para que aparezca tienen que darse tres cosas a la vez: visibilidad de 10 km o más, ningún fenómeno significativo, y ninguna nube por debajo de 5.000 pies o de la altitud mínima de sector, la que sea mayor, ni cumulonimbos ni cúmulos en torre a ninguna altura.",
+              "Es la abreviatura de ceiling and visibility OK, y sustituye a los grupos de visibilidad, tiempo presente y nubes. Requiere visibilidad de 10 km o más, ningún fenómeno significativo para la aviación, ninguna nube por debajo de 5000 ft sobre el aeródromo o de la altitud mínima de sector, la que sea mayor, y ningún CB ni TCU a ninguna altura. Puede haber nubes altas.",
             claves: ["Visibilidad 10 km o más", "Sin fenómenos significativos", "Sin nubes bajo 5.000 pies ni CB ni TCU"],
           },
           {
             nivel: "situacion",
             q: "En el METAR ves `BKN018CB`. ¿Qué cambia respecto a un `BKN018` normal?",
             respuesta:
-              "Cambia todo menos la altura. Las dos letras finales dicen que esa capa son cumulonimbos, y el CB trae turbulencia severa, cizalladura, granizo, engelamiento y rayos. El techo sigue estando a 1.800 pies, pero ya no es un techo cualquiera: es una nube de la que hay que separarse, no bajo la que se pasa.",
-            claves: ["CB = cumulonimbo", "Turbulencia, cizalladura, granizo, engelamiento", "Se evita, no se atraviesa"],
+              "La base reportada sigue siendo 1800 ft sobre el aeródromo y forma techo, pero `CB` identifica cumulonimbo. Puede asociarse con turbulencia, cizalladura, granizo, engelamiento y rayos. Evaluaría ubicación y desplazamiento con información actual y evitaría planificar un cruce de esa convección; no asumiría que todos esos fenómenos ocurren a la vez en la pista.",
+            claves: ["CB = cumulonimbo", "Amenazas posibles, no todas confirmadas", "Ubicación, evolución y evitación"],
           },
         ],
       },
