@@ -248,12 +248,11 @@ export const CB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C01 · Figura · 16:9 · 1600×900",
-        "descripcion": "Esquema general del proceso de gestión del combustible desde la planificación en tierra hasta el aterrizaje: despacho y OFP, briefing, carga y verificación, fuel checks en ruta, predicción al destino y al alterno, decisión antes del descenso y aterrizaje con la reserva final intacta. Flujo horizontal con una flecha de retorno que muestre que la predicción se actualiza durante todo el vuelo.",
-        "pie": "Mostrar que la gestión de combustible es un proceso continuo y no solamente un cálculo previo al vuelo.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C01.svg",
+        "alt": "Flujo horizontal de la gestión del combustible: despacho y OFP, briefing, carga y verificación, fuel checks en ruta, predicción al destino y al alterno, decisión antes del descenso, y aterrizaje con la reserva final intacta. Una flecha de retorno muestra que la predicción se actualiza durante todo el vuelo.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -309,12 +308,11 @@ export const CB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C02 · Figura · 16:9 · 1600×900",
-        "descripcion": "Corte esquemático de los tanques de un bimotor de fuselaje estrecho (ala izquierda, tanque central, ala derecha) con tres niveles coloreados: combustible total, combustible utilizable y una franja inferior de combustible no utilizable junto a los puntos de succión de las bombas. Rótulos en español con el término en inglés entre paréntesis.",
-        "pie": "Facilitar la comprensión de usable fuel y unusable fuel.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C02.svg",
+        "alt": "Corte esquemático de los tanques de un bimotor de fuselaje estrecho: ala izquierda, tanque central y ala derecha. Casi todo el volumen es combustible utilizable; abajo, junto a los puntos de succión de las bombas, una franja de combustible no utilizable. Una llave marca que la suma de los dos es el combustible total.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "sub",
@@ -573,13 +571,13 @@ export const CB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C03 · Figura · 9:14 · 900×1400",
-        "descripcion": "Barra vertical acumulativa, de abajo hacia arriba: reserva final (color de alerta, rotulada «protegida»), adicional, alterno, contingencias, trayecto, discrecional y rodaje, con la suma total rotulada «Block fuel». A la derecha, una llave que agrupe trayecto, contingencias, alterno, reserva final y adicional con el rótulo «combustible requerido para despegar (121.2645 (d))».",
-        "pie": "Visualizar la composición completa del combustible de despacho.",
-        "alto": 560,
-        "anchoMax": 400,
-        "ratio": "9 / 14"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C03.svg",
+        "alt": "Barra vertical acumulada, de abajo hacia arriba: reserva final, 1.150 kg, protegida; adicional, 0 kg; alterno, 1.100 kg; contingencias, 200 kg; trayecto, 3.000 kg; discrecional, 300 kg; y rodaje, 200 kg. El total es el block fuel, 5.950 kg. Una llave agrupa trayecto, contingencias, alterno, reserva final y adicional: el combustible requerido para despegar.",
+        "ancho": 900,
+        "alto": 1400,
+        "pie": "Cifras del vuelo de referencia del módulo: didácticas, no de un avión real.",
+        "anchoMax": 400
       },
       {
         "kind": "titulo",
@@ -674,12 +672,12 @@ export const CB_LECCIONES: DocScreen[] = [
         "text": "El RAC pide usar primero los **datos reales de consumo de ese avión**, si el explotador tiene un programa de seguimiento, y si no, los del fabricante (121.2645 (b)(1)). Encima van las condiciones del vuelo: peso previsto, NOTAM, meteorología, restricciones y demoras ATS previstas, y el efecto de los ítems diferidos de mantenimiento o de la lista de desviación de la configuración (CDL) (121.2645 (b)(2))."
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C04 · Figura · 16:9 · 1600×900",
-        "descripcion": "Infografía de bloques apilados tipo «suma»: siete bloques de colores con su nombre en español e inglés y el signo «+» entre ellos, que desembocan en un bloque mayor rotulado «BLOCK FUEL». Debajo, en gris, una segunda línea que muestre «Block fuel − rodaje = combustible de despegue» y «Combustible de despegue − trayecto = combustible previsto al aterrizaje».",
-        "pie": "Facilitar la memorización de los componentes.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C04.svg",
+        "alt": "Siete bloques con su nombre en español y en inglés y el signo más entre ellos: rodaje 200, trayecto 3.000, contingencias 200, alterno 1.100, reserva final 1.150, adicional 0 y discrecional 300, que desembocan en el block fuel, 5.950 kg. Debajo, en gris: block fuel menos rodaje es el combustible de despegue, 5.750 kg; y combustible de despegue menos trayecto es el combustible previsto al aterrizaje, 2.750 kg.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Cifras del vuelo de referencia del módulo: didácticas, no de un avión real."
       },
       {
         "kind": "titulo",
@@ -789,12 +787,11 @@ export const CB_LECCIONES: DocScreen[] = [
         "text": "Todo el perfil hasta el destino: **despegue, ascenso, crucero** (con sus cambios de nivel), **descenso, aproximación y aterrizaje**. No incluye el rodaje, que es componente aparte, ni la aproximación frustrada en destino, que está dentro del combustible para el alterno."
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C05 · Figura · 16:7 · 1600×700",
-        "descripcion": "Perfil vertical de un vuelo de origen a destino con las fases rotuladas (rodaje en gris, fuera del trip; despegue, ascenso, crucero con un escalón de nivel, descenso, aproximación y aterrizaje dentro de una llave «Trip fuel»). Después del aterrizaje, en línea punteada, una aproximación frustrada rotulada «no es trip: va en el combustible para el alterno».",
-        "pie": "Delimitar con precisión qué fases cubre el Trip Fuel y cuáles no.",
-        "alto": 260,
-        "ratio": "16 / 7"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C05.svg",
+        "alt": "Perfil de un vuelo de origen a destino. El rodaje va en gris, fuera del trip fuel. Despegue, ascenso, crucero con un escalón de nivel, descenso, aproximación y aterrizaje van dentro de una llave rotulada trip fuel. Desde la aproximación, en línea de puntos, una frustrada rotulada: no es trip, va en el combustible para el alterno.",
+        "ancho": 1600,
+        "alto": 700
       },
       {
         "kind": "sub",
@@ -986,12 +983,11 @@ export const CB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C06 · Figura · 16:9 · 1600×900",
-        "descripcion": "Gráfico de líneas «combustible a bordo contra distancia» con dos curvas: la planificada del OFP y la real, que se separa hacia abajo en tres eventos marcados con íconos (desvío de ruta por tormenta, viento de cara mayor al pronosticado y nivel de vuelo más bajo por tránsito). Una banda sombreada entre ambas curvas rotulada «consumo cubierto por la contingencia».",
-        "pie": "Mostrar por qué existe el combustible de contingencia.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C06.svg",
+        "alt": "Gráfico de combustible a bordo contra distancia con dos curvas: la planificada del OFP y la real, que se separa hacia abajo en tres eventos marcados: un desvío por tormenta, viento de cara mayor al pronosticado y un nivel de vuelo más bajo por tránsito. La banda entre las dos curvas está sombreada: el consumo cubierto por la contingencia.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -1072,12 +1068,11 @@ export const CB_LECCIONES: DocScreen[] = [
         "text": "Con **dos alternos**, se calcula para el que exige más combustible (121.2645 (c)(4)(ii))."
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C07 · Figura · 16:9 · 1600×900",
-        "descripcion": "Vista de perfil y de planta, lado a lado, del tramo destino → alterno: aproximación en el destino, frustrada en la altura de decisión, ascenso, crucero al alterno, descenso, aproximación y aterrizaje en el alterno, con cada tramo numerado del 1 al 5 igual que en el texto. Al final, un bloque rojo sobre la pista del alterno rotulado «aterriza con la reserva final intacta».",
-        "pie": "Mostrar las cinco partes que componen el Alternate Fuel y que la reserva final se conserva hasta el final.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C07.svg",
+        "alt": "Perfil y planta del tramo del destino al alterno, lado a lado, con los tramos numerados: 1, frustrada en el destino; 2, ascenso; 3, crucero al alterno; 4, descenso; y 5, aproximación y aterrizaje en el alterno. Sobre la pista del alterno, un bloque rojo: aterriza con la reserva final intacta.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "sub",
@@ -1261,13 +1256,12 @@ export const CB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C08 · Figura · 9:14 · 900×1400",
-        "descripcion": "Indicador de combustible estilizado (arco o barra vertical) con zonas de color: por encima, el combustible para operar (trayecto, contingencias, discrecional) en azul; en el medio, el combustible para el alterno; abajo, una zona roja rotulada «RESERVA FINAL · no se planifica para consumirse», separada por una línea gruesa tipo barrera. A un lado, los rótulos de los avisos: «pedir demoras» a la altura de alterno más reserva final, «COMBUSTIBLE MÍNIMO» cerca de la barrera y «MAYDAY COMBUSTIBLE» dentro de la zona roja.",
-        "pie": "Mostrar visualmente que la reserva final constituye una barrera operacional crítica.",
-        "alto": 560,
-        "anchoMax": 400,
-        "ratio": "9 / 14"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C08.svg",
+        "alt": "Indicador de combustible vertical con tres zonas. Arriba, en azul, el combustible para operar: trayecto, contingencias y discrecional. En el medio, el combustible para el alterno. Abajo, en rojo, la reserva final, que no se planifica para consumirse, separada por una línea gruesa como barrera. Al lado, los avisos: pedir demoras a la altura de alterno más reserva final; combustible mínimo cerca de la barrera; y MAYDAY combustible dentro de la zona roja.",
+        "ancho": 900,
+        "alto": 1400,
+        "anchoMax": 400
       },
       {
         "kind": "titulo",
@@ -1619,12 +1613,12 @@ export const CB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C11 · Figura · 16:9 · 1600×900",
-        "descripcion": "Dos perfiles de vuelo paralelos del mismo trayecto. Arriba, vuelo normal: avión con el combustible requerido y una etiqueta de consumo del trayecto. Abajo, vuelo con tankering: el mismo avión con un bloque adicional de combustible, una flecha que muestre el peso mayor al despegue y una etiqueta de consumo mayor, y al llegar un bloque menor que el cargado de más (la diferencia rotulada «combustible quemado por transportar combustible»).",
-        "pie": "Explicar visualmente que transportar combustible adicional también requiere consumir más combustible.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C11.svg",
+        "alt": "Dos perfiles del mismo trayecto. Arriba, el vuelo normal, con el combustible requerido y el consumo del trayecto. Abajo, con tankering: el mismo avión con un bloque adicional de combustible, más peso al despegue y más consumo; al llegar, el bloque que sobra es menor que el que se cargó de más, porque la diferencia se quemó para transportarlo.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Esquema cualitativo: cuánto se quema por transportar depende del avión, del trayecto y del peso."
       },
       {
         "kind": "titulo",
@@ -1768,12 +1762,12 @@ export const CB_LECCIONES: DocScreen[] = [
         "text": "El Doc 9976 de la OACI describe lo que suele incluir la verificación: comparar el consumo real con el planificado y el combustible usado y remanente con el plan, conciliar el FMS con el flujo de combustible y los indicadores, investigar las diferencias y calcular el combustible al aterrizar frente al del alterno más la reserva final (Doc 9976, 6.6)."
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C12 · Figura · 16:9 · 1600×900",
-        "descripcion": "Tabla de seguimiento de un vuelo en formato de OFP con columnas Waypoint, Hora, Planned Fuel (EFOB), Actual Fuel (FOB), Difference y Fuel Used, con cinco filas de puntos de la ruta. Las diferencias crecen de −40 a −200 kg y la columna Difference se colorea de verde a ámbar. Debajo, la línea «FOB + FU = FOB inicial» con su verificación marcada.",
-        "pie": "Mostrar cómo puede realizarse un fuel check durante el vuelo.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C12.svg",
+        "alt": "Tabla de seguimiento con formato de OFP: waypoint, hora, combustible planificado, combustible a bordo, diferencia y combustible usado, en cinco puntos de la ruta. Las diferencias crecen de menos 40 a menos 200 kg y la columna de diferencia pasa de verde a ámbar. Debajo, la comprobación: combustible a bordo más combustible usado igual al combustible inicial.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Cifras didácticas, con el combustible de despegue del vuelo de referencia (5.750 kg)."
       },
       {
         "kind": "titulo",
@@ -2327,12 +2321,11 @@ export const CB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C16 · Figura · 16:9 · 1600×900",
-        "descripcion": "Diagrama de decisión de izquierda a derecha con cuatro cajas conectadas por flechas y un color por estado: «Situación normal» (verde: la predicción mantiene alterno más reserva final); «Reducción de opciones» (amarillo: pedir información de demoras, 121.2553 (b)(1)); «COMBUSTIBLE MÍNIMO» (ámbar: obligado a un aeródromo, cualquier cambio deja bajo la reserva final); «MAYDAY COMBUSTIBLE» (rojo: aterrizaje calculado bajo la reserva final). Bajo cada caja, la condición que la dispara y el numeral.",
-        "pie": "Mostrar la progresión de una situación de combustible.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C16.svg",
+        "alt": "Cuatro cajas de izquierda a derecha, cada una de un color: situación normal, en verde, la predicción mantiene alterno más reserva final; reducción de opciones, en amarillo, pedir información de demoras, 121.2553 (b)(1); combustible mínimo, en ámbar, obligado a un aeródromo y cualquier cambio deja bajo la reserva final, 121.2553 (b)(2); y MAYDAY combustible, en rojo, aterrizaje calculado bajo la reserva final, 121.2553 (b)(3).",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -2471,12 +2464,11 @@ export const CB_LECCIONES: DocScreen[] = [
         "text": "En 1990, el Boeing 707 del vuelo Avianca 052 se quedó sin combustible cerca de Nueva York después de más de una hora de esperas. La NTSB concluyó que la tripulación no manejó adecuadamente el combustible y **no comunicó una situación de emergencia de combustible al ATC** antes de agotarlo. Señaló como factor contribuyente la falta de terminología normalizada y comprensible para pilotos y controladores sobre combustible mínimo y de emergencia, y recomendó crearla (NTSB AAR-91/04). Ese es el vacío que cubre la fraseología normalizada de este capítulo."
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C17 · Figura · 8:3 · 1600×600",
-        "descripcion": "Escala horizontal de tres franjas: «NORMAL» (verde: la predicción conserva alterno más reserva final), «COMBUSTIBLE MÍNIMO / MINIMUM FUEL» (ámbar: obligado a un aeródromo; cualquier cambio deja bajo la reserva final; no es emergencia) y «MAYDAY COMBUSTIBLE / MAYDAY FUEL» (rojo: aterrizaje calculado bajo la reserva final; emergencia). Bajo cada franja, la frase exacta que se dice por radio y el numeral del RAC 121.",
-        "pie": "Diferenciar claramente los tres estados operacionales.",
-        "alto": 260,
-        "ratio": "8 / 3"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C17.svg",
+        "alt": "Escala horizontal de tres franjas. Normal, en verde: la predicción conserva alterno más reserva final. Combustible mínimo, en ámbar: obligado a un aeródromo, cualquier cambio deja bajo la reserva final, y no es emergencia; se dice COMBUSTIBLE MÍNIMO o MINIMUM FUEL, 121.2553 (b)(2). MAYDAY combustible, en rojo: aterrizaje calculado bajo la reserva final, emergencia; se dice MAYDAY, MAYDAY, MAYDAY, COMBUSTIBLE, 121.2553 (b)(3).",
+        "ancho": 1600,
+        "alto": 600
       },
       {
         "kind": "titulo",
@@ -2643,12 +2635,12 @@ export const CB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C18 · Figura · 16:9 · 1600×900",
-        "descripcion": "Vista de planta de un circuito de espera junto a un reloj de arena con dos marcas: «combustible al entrar: 2.950 kg» arriba y «combustible para abandonar la espera hacia el alterno: 2.250 kg» abajo. Entre ambas, el tiempo disponible (17 min) y una flecha que sale de la espera hacia el alterno a la hora límite. Cifras rotuladas como ilustrativas.",
-        "pie": "Enseñar a calcular el tiempo disponible en espera antes de aceptarla.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C18.svg",
+        "alt": "Vista en planta de un circuito de espera junto a un reloj de arena. Arriba del reloj, el combustible al entrar: 2.950 kg. Abajo, el combustible para abandonar la espera hacia el alterno: 2.250 kg. Entre los dos, el tiempo disponible, 17 minutos, y una flecha que sale de la espera hacia el alterno a la hora límite. Cifras ilustrativas.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Cifras ilustrativas: (2.950 − 2.250) ÷ 40 kg/min = 17,5 min; se toman 17."
       },
       {
         "kind": "titulo",
@@ -2744,12 +2736,11 @@ export const CB_LECCIONES: DocScreen[] = [
         "text": "Si el alterno planificado se deteriora, el despacho se puede enmendar en ruta para incluir otro alterno dentro del alcance del avión (121.2625 (b)(2)), y quien lo enmienda lo registra (121.2625 (i)). Coordínalo con el despachador."
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C19 · Figura · 16:9 · 1600×900",
-        "descripcion": "Línea de tiempo de la llegada a un destino con tres bandas de combustible que se van consumiendo de izquierda a derecha (discrecional y contingencia, luego alterno, al final reserva final). Sobre la línea, tres marcas: «desvío temprano: todas las opciones», «último momento para ir al alterno con reserva final» y, a partir de allí, «comprometido con el destino». Debajo, un aeropuerto alterno que se va llenando de íconos de aviones desviados.",
-        "pie": "Mostrar por qué esperar demasiado en el destino reduce progresivamente las opciones del piloto.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C19.svg",
+        "alt": "Línea de tiempo de la llegada a un destino con tres bandas de combustible que se consumen de izquierda a derecha: discrecional y contingencia, luego alterno y al final reserva final. Tres marcas: desvío temprano, con todas las opciones; último momento para ir al alterno con la reserva final; y, desde ahí, comprometido con el destino. Debajo, el aeropuerto alterno se va llenando de aviones desviados.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -2894,12 +2885,11 @@ export const CB_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-C20 · Figura · 16:9 · 1600×900",
-        "descripcion": "Ruta horizontal de origen a destino final con un destino intermedio (aeródromo de reabastecimiento) debajo de la línea. Sobre la ruta, un rombo rotulado «punto de decisión / nueva planificación en vuelo». Antes del rombo, una zona sombreada «opciones: seguir o desviarse al intermedio». Después, dos flechas: «combustible suficiente → destino final» y «combustible insuficiente → destino intermedio». En una segunda línea más pequeña, la misma ruta con los símbolos del PNR y del CP para compararlos.",
-        "pie": "Facilitar la comprensión espacial de la toma de decisiones relacionada con combustible.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/combustible/IMG-C20.svg",
+        "alt": "Ruta horizontal del origen al destino final, con un destino intermedio para reabastecer debajo de la línea. Sobre la ruta, un rombo: punto de decisión, nueva planificación en vuelo. Antes del rombo, una zona sombreada: opciones, seguir o desviarse al intermedio. Después, dos flechas: con combustible suficiente, al destino final; con combustible insuficiente, al destino intermedio. Debajo, la misma ruta más pequeña con los símbolos del PNR y del CP para compararlos.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -3342,24 +3332,12 @@ CB_LECCIONES.forEach((s, i) => {
 export const CB_LECCION_TOTAL = CB_LECCIONES.length
 export const CB_MINUTOS = CB_LECCIONES.reduce((t, s) => t + s.minutes, 0)
 
-/** Los huecos de figura que quedan por llenar, para el inventario de imágenes. */
-export const CB_FIGURAS_PENDIENTES: string[] = [
-  "IMG-C01 · Figura · 16:9 · 1600×900",
-  "IMG-C02 · Figura · 16:9 · 1600×900",
-  "IMG-C03 · Figura · 9:14 · 900×1400",
-  "IMG-C04 · Figura · 16:9 · 1600×900",
-  "IMG-C05 · Figura · 16:7 · 1600×700",
-  "IMG-C06 · Figura · 16:9 · 1600×900",
-  "IMG-C07 · Figura · 16:9 · 1600×900",
-  "IMG-C08 · Figura · 9:14 · 900×1400",
-  "IMG-C11 · Figura · 16:9 · 1600×900",
-  "IMG-C12 · Figura · 16:9 · 1600×900",
-  "IMG-C16 · Figura · 16:9 · 1600×900",
-  "IMG-C17 · Figura · 8:3 · 1600×600",
-  "IMG-C18 · Figura · 16:9 · 1600×900",
-  "IMG-C19 · Figura · 16:9 · 1600×900",
-  "IMG-C20 · Figura · 16:9 · 1600×900"
-]
+/**
+ * Los huecos de figura que quedan por llenar, para el inventario de imágenes.
+ * Las dibujadas son SVG de public/modulos/combustible/ (node
+ * scripts/figuras/dibujar.mjs combustible).
+ */
+export const CB_FIGURAS_PENDIENTES: string[] = []
 
 /** Las claves de los diez escenarios del capítulo 23, que cuentan como práctica. */
 export const CB_ESCENARIO_CLAVES: string[] = [

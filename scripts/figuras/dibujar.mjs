@@ -37,7 +37,7 @@ const dirPng = iPng > 0 ? path.resolve(process.argv[iPng + 1]) : null
 const sharp = dirPng ? (await import("sharp")).default : null
 if (dirPng) fs.mkdirSync(dirPng, { recursive: true })
 
-const soloEstas = process.argv.slice(3).filter((a) => /^[A-Z]+-\d\d$/.test(a))
+const soloEstas = process.argv.slice(3).filter((a) => /^[A-Z]+-[A-Z]?\d\d$/.test(a))
 
 for (const f of FIGURAS) {
   if (soloEstas.length && !soloEstas.includes(f.codigo)) continue

@@ -105,8 +105,9 @@ describe("conteos fijos de las lecciones", () => {
     // Los escenarios viven en el capítulo que la práctica enlaza.
     const escenarios = JSON.stringify(CB_LECCIONES[CB_CAPITULO_ESCENARIOS - 1]?.blocks ?? [])
     for (const clave of CB_ESCENARIO_CLAVES) expect(escenarios).toContain(`"clave":"${clave}"`)
-    // Quince figuras sin generar. El día que existan, este número baja.
-    expect(CB_FIGURAS_PENDIENTES).toHaveLength(15)
+    // Las quince figuras están dibujadas en SVG: si vuelve a aparecer un
+    // hueco, es que el inventario del documento cambió.
+    expect(CB_FIGURAS_PENDIENTES).toHaveLength(0)
   })
 
   it("Aeropuertos: lecciones y ejercicios de práctica", () => {

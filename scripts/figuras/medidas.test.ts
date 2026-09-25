@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url"
 import { describe, expect, it } from "vitest"
 import { AERO_LECCIONES } from "@/lib/aerodinamicaLeccion"
 import { AP_LECCIONES } from "@/lib/aeropuertosLeccion"
+import { CB_LECCIONES } from "@/lib/combustibleLeccion"
 import { MP_LECCIONES } from "@/lib/mercanciasLeccion"
 import { METAR_LESSON } from "@/lib/metarLesson"
 import { LESSON_SCREENS } from "@/lib/notamLesson"
@@ -22,7 +23,7 @@ import { RV_LECCIONES } from "@/lib/rvsmLeccion"
  *
  * Se lee solo la cabecera del WebP, que trae el tamaño: son ciento y pico
  * archivos y no hace falta decodificar ninguno. Las figuras dibujadas (PBN,
- * RVSM, Performance) son SVG, y su medida es la de la etiqueta raíz.
+ * RVSM, Performance, Combustible) son SVG, y su medida es la de la etiqueta raíz.
  */
 
 const PUBLICO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../public")
@@ -66,6 +67,7 @@ const MODULOS: [string, { blocks: unknown[] }[]][] = [
   ["PBN", PB_LECCIONES],
   ["RVSM", RV_LECCIONES],
   ["Performance", PERF_LECCIONES],
+  ["Combustible", CB_LECCIONES],
 ]
 
 const fotos: Foto[] = []

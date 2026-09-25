@@ -25,8 +25,9 @@ export function figuraDibujada({ porCodigo, codigo, dirPublico, modulo, fallos }
   }
   const cabecera = fs.readFileSync(archivo, "utf8").slice(0, 300)
   const medida = /width="(\d+)" height="(\d+)"/.exec(cabecera)
-  if (!medida || Number(medida[1]) !== 1600 || Number(medida[2]) !== figura.alto) {
-    fallos.push(`${codigo}: el SVG no mide 1600 × ${figura.alto}; vuelve a dibujarlo`)
+  const ancho = figura.ancho ?? 1600
+  if (!medida || Number(medida[1]) !== ancho || Number(medida[2]) !== figura.alto) {
+    fallos.push(`${codigo}: el SVG no mide ${ancho} × ${figura.alto}; vuelve a dibujarlo`)
   }
   return figura
 }
@@ -42,9 +43,10 @@ export function bloquesDeFigura({ figura, codigo, src, anotaciones, fallos }) {
       kind: "figura",
       src,
       alt: figura.alt,
-      ancho: 1600,
+      ancho: figura.ancho ?? 1600,
       alto: figura.alto,
       ...(figura.pie ? { pie: figura.pie } : {}),
+      ...(figura.anchoMax ? { anchoMax: figura.anchoMax } : {}),
     },
   ]
   if (anotaciones) {
