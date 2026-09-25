@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cómo usar ATIS antes del contacto con ATC</title>
+  <desc id="desc">La tripulación obtiene ATIS por voz o por enlace de datos, comprueba la letra y los cambios, prepara la operación y comunica el identificador en el contacto inicial sin confundir el boletín con una autorización.</desc>
+  <rect width="1600" height="900" fill="#111e2b"/>
+  <g font-family="Arial,sans-serif">
+    <text x="95" y="108" fill="#f4fafb" font-size="51" font-weight="700">ATIS: información, no autorización</text>
+    <text x="97" y="159" fill="#b8cad3" font-size="28">La letra identifica una emisión; la cabina comprueba los datos vigentes</text>
+    <rect x="90" y="225" width="436" height="424" rx="27" fill="#213b49" stroke="#84ddce" stroke-width="4"/>
+    <text x="125" y="292" fill="#84ddce" font-size="31" font-weight="700">1  RECIBIR</text>
+    <text x="125" y="354" fill="#f4fafb" font-size="29">ATIS por voz o D-ATIS</text>
+    <text x="125" y="404" fill="#d6e3e7" font-size="26">Comprobar identificador</text>
+    <text x="125" y="442" fill="#d6e3e7" font-size="26">y hora de la emisión.</text>
+    <text x="125" y="536" fill="#b8cad3" font-size="25">Consultar el servicio</text>
+    <text x="125" y="570" fill="#b8cad3" font-size="25">publicado para ese lugar.</text>
+    <rect x="582" y="225" width="436" height="424" rx="27" fill="#263a4a" stroke="#9fb0bc" stroke-width="3"/>
+    <text x="617" y="292" fill="#84ddce" font-size="31" font-weight="700">2  COMPARAR</text>
+    <text x="617" y="354" fill="#f4fafb" font-size="29">Pista, tiempo, QNH,</text>
+    <text x="617" y="392" fill="#f4fafb" font-size="29">avisos y cambios.</text>
+    <text x="617" y="480" fill="#d6e3e7" font-size="26">Si cambia la letra, revisar</text>
+    <text x="617" y="518" fill="#d6e3e7" font-size="26">qué contenido cambió.</text>
+    <rect x="1074" y="225" width="436" height="424" rx="27" fill="#213b49" stroke="#84ddce" stroke-width="4"/>
+    <text x="1109" y="292" fill="#84ddce" font-size="31" font-weight="700">3  COMUNICAR</text>
+    <text x="1109" y="354" fill="#f4fafb" font-size="28">Indicar la letra vigente</text>
+    <text x="1109" y="392" fill="#f4fafb" font-size="28">en el contacto inicial.</text>
+    <text x="1109" y="480" fill="#d6e3e7" font-size="26">Colacionar instrucciones</text>
+    <text x="1109" y="518" fill="#d6e3e7" font-size="26">que dé el controlador.</text>
+    <text x="96" y="752" fill="#84ddce" font-size="31" font-weight="700">Una pista anunciada en ATIS no autoriza rodar, despegar ni aterrizar.</text>
+    <text x="96" y="801" fill="#b8cad3" font-size="26">Si no recibes el boletín o tu letra no coincide, pide información actual y aclara.</text>
+  </g>
+</svg>
