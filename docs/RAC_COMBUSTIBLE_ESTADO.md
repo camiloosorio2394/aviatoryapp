@@ -135,8 +135,9 @@ comprueba las dos cosas.
 
 ## Pendiente
 
-- [ ] **Imágenes.** Las tarjetas y el hub muestran sus huecos rotulados:
-      `RAC-TEMA`, `RAC-HUB-01..03`, `CB-TEMA`, `CB-HUB-01..03`. Las lecciones
+- [ ] **Imágenes.** El tema y el hub de Combustible ya tienen sus cinco fotos
+      (fase 2). Las cinco de RAC están en el PR #279, independiente de esta
+      rama. Las lecciones
       no tienen portada (`portadaAuto: false`); cuando existan, van a
       `public/modulos/rac/leccion-NN.webp` y
       `public/modulos/combustible/leccion-NN.webp` y se quita ese `false`.

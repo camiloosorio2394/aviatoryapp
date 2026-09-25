@@ -26,9 +26,7 @@ import { fetchCombustibleProgress, pushPendingCombustible, readCombustibleLocal 
  * Ruta: /app/aerolinea/combustible
  *
  * La misma casa que los demás hubs: hero con velo navy, el panel de avance con
- * sus tres filas y las puertas numeradas. Lo propio es el azul queroseno y que
- * todavía no hay fotos: el hero va sobre el navy liso y las tarjetas muestran
- * su hueco rotulado, que es lo que pinta `CourseCard` sin portada.
+ * sus tres filas y las puertas numeradas. Lo propio es el azul queroseno.
  */
 
 const ACENTO = "var(--av-cb-700)"
@@ -79,6 +77,7 @@ export function Combustible() {
       blurb:
         "De los componentes del block fuel a la reserva final, el fuel check, el combustible mínimo, el MAYDAY y diez escenarios para decidir.",
       cta: "Iniciar formación",
+      photo: "/modulos/combustible/hub-aprende.webp",
       photoHueco: "CB-HUB-01 · Portada · 5:2 · 1200×480 · Plan operacional de vuelo (OFP) con la tabla de combustible, sobre el pedestal",
       status:
         resumen.lessonRead === 0
@@ -100,6 +99,7 @@ export function Combustible() {
       blurb:
         "Tres preguntas por capítulo con corrección inmediata, y los diez escenarios del capítulo 23 para pensar sin opciones.",
       cta: "Practicar",
+      photo: "/modulos/combustible/hub-practica.webp",
       photoHueco: "CB-HUB-02 · Portada · 5:2 · 1200×480 · Página de combustible del FMS durante un fuel check en crucero",
       status:
         resumen.practiceDone === 0
@@ -119,7 +119,8 @@ export function Combustible() {
       blurb:
         "Cuarenta preguntas de situación sobre los veintidós capítulos; cada intento toma veinte al azar. El resultado dice qué capítulos repasar.",
       cta: "Presentar la evaluación",
-      photoHueco: "CB-HUB-03 · Portada · 5:2 · 1200×480 · Indicador de combustible de cabina con la reserva final marcada",
+      photo: "/modulos/combustible/hub-evaluacion.webp",
+      photoHueco: "CB-HUB-03 · Portada · 5:2 · 1200×480 · Indicación de combustible en cabina; la reserva final se calcula, no aparece marcada en el indicador",
       status: resumen.best === null ? "Sin intentos" : `Mejor: ${resumen.best} / 100`,
       progress: resumen.examPct,
       done: resumen.passed,
@@ -135,8 +136,14 @@ export function Combustible() {
         <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
       </Link>
 
-      {/* Sin foto todavía: el navy liso es la base del hero de todos los módulos. */}
+      {/* La foto conserva espacio oscuro para el texto a la izquierda. */}
       <section className="relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+        <img
+          src="/modulos/combustible/hub-hero.webp"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover object-[67%_center] lg:object-center"
+        />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
