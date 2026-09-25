@@ -144,9 +144,6 @@ El archivo se renombra con esa versión (y las dos menciones en
       qué unidades repasar (pasa también con Performance). Propuesta:
       `coalesce(ef.etiqueta, bp.metadatos ->> 'tema')` en `evaluacion_iniciar`.
       Es un cambio que toca a todos los módulos: va aparte, con su prueba.
-- [ ] **Performance no tiene tarjeta en «Ingreso a aerolínea»**: sigue en
-      `TEMAS_EN_CAMINO` («Performance y planificación») aunque el módulo ya
-      existe en `/app/aerolinea/performance`. Va aparte.
 
 ## Lo que el convertidor simplifica
 
