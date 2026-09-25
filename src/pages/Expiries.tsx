@@ -23,22 +23,7 @@ import {
 } from "@/components/ui/select"
 import { PageHeader } from "@/components/ui/page-header"
 import { CountUp } from "@/components/ui/count-up"
-
-const LICENSE_TYPE_LABEL: Record<LicenseType, string> = {
-  medical_class_1: "Médico clase 1",
-  medical_class_2: "Médico clase 2",
-  medical_class_3: "Médico clase 3",
-  ppl: "PPL · Piloto Privado",
-  cpl: "CPL · Piloto Comercial",
-  atpl: "ATPL · Línea Aérea",
-  ifr: "Habilitación IFR",
-  multi_engine: "Habilitación Multi-engine",
-  flight_instructor: "Instructor de vuelo",
-  type_rating: "Type Rating",
-  icao_english: "Inglés ICAO",
-  recurrent_check: "Recurrent check",
-  other: "Otra",
-}
+import { LICENSE_TYPE_LABEL } from "@/lib/licencias"
 
 const LICENSE_CATEGORY: Record<LicenseType, string> = {
   medical_class_1: "Médico",
