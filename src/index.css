@@ -1861,6 +1861,49 @@
   outline-color: #9FD6EC;
 }
 
+/* RVSM: verde azulado de cabina.
+   Con diez módulos la rueda de matices está casi llena, así que este entra en
+   el único hueco que quedaba entre el verde de «correcto» (155) y el turquesa
+   de Meteorología (205): el 172, a 17 grados del uno y a 33 del otro. Se
+   separa del verde además por croma, que aquí es la mitad, y de Meteorología
+   por valor: este es claramente más oscuro y más saturado. No se acerca al
+   ámbar ni al rojo, que son semántica.
+
+   Contraste, medido sobre el papel del lector (#FBFAF8): el 700 da 8,1:1 y el
+   blanco encima 7,4:1; el 500 sobre papel, 4,6:1. Los hex del lector, más
+   abajo, salen de estos mismos oklch. */
+:root {
+  --av-rv-500: oklch(0.545 0.085 172);
+  --av-rv-600: oklch(0.460 0.080 172);
+  --av-rv-700: oklch(0.385 0.070 173);
+  --av-rv-fg: oklch(0.355 0.062 173);
+}
+.dark {
+  --av-rv-500: oklch(0.690 0.080 172);
+  --av-rv-600: oklch(0.595 0.080 172);
+  --av-rv-700: oklch(0.495 0.072 172);
+  --av-rv-fg: oklch(0.800 0.060 172);
+}
+
+.lector-notam.lector-rv {
+  --ln-primary: #1C5750;
+  --ln-primary-hover: #13443E;
+  --ln-bright: #4B9089;
+  --ln-tint: #E5F3F1;
+  /* Sobre el navy del índice: 2:1 contra el fondo y 8,3:1 con el texto blanco. */
+  --ln-pill: #235F58;
+  --ln-focus: #3E857D;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-rv .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+/* En el índice navy el acento oscuro no se vería: ahí va el escalón claro. */
+.lector-notam.lector-rv .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #9CD2CB;
+}
+
 /* ============================================================
  * Táctil: el hover no existe, pero el navegador lo simula
  *

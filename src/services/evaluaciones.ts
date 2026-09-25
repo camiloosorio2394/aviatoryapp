@@ -23,6 +23,7 @@ export type ClaveEvaluacion =
   | "comunicaciones_evaluacion"
   | "rac_evaluacion"
   | "combustible_evaluacion"
+  | "rvsm_evaluacion"
   | "simulacro_aerolinea"
 
 export type Retroalimentacion = "inmediata" | "al_final"

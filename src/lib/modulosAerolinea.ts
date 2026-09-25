@@ -32,6 +32,13 @@ import { CM_HUB, CM_LECTURA_TOTAL, CM_PASS_SCORE } from "@/lib/comunicaciones"
 import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
 import { RAC_HUB, RAC_LECTURA_TOTAL, RAC_PASS_SCORE, RAC_PRACTICA_TOTAL } from "@/lib/rac"
 import { CB_HUB, CB_LECTURA_TOTAL, CB_PASS_SCORE, CB_PRACTICA_TOTAL } from "@/lib/combustible"
+import {
+  RVSM_HUB,
+  RVSM_LECTURA_TOTAL,
+  RVSM_PASS_SCORE,
+  RVSM_PRACTICA_TOTAL,
+  RVSM_TITULO,
+} from "@/lib/rvsm"
 
 /** Las claves son las de `contenido/catalogo/modulos.json`, y la prueba lo exige. */
 export type ClaveModulo =
@@ -44,6 +51,7 @@ export type ClaveModulo =
   | "comunicaciones"
   | "rac"
   | "combustible"
+  | "rvsm"
 
 export interface ModuloAerolinea {
   clave: ClaveModulo
@@ -164,6 +172,18 @@ export const MODULOS_AEROLINEA: ModuloAerolinea[] = [
       aprobacion: CB_PASS_SCORE,
     },
     promesa: "Planificar, vigilar y decidir antes de que el combustible sea la emergencia.",
+  },
+  {
+    clave: "rvsm",
+    titulo: RVSM_TITULO,
+    hub: RVSM_HUB,
+    acento: "var(--av-rv-500)",
+    totales: {
+      secciones: RVSM_LECTURA_TOTAL,
+      practicas: RVSM_PRACTICA_TOTAL,
+      aprobacion: RVSM_PASS_SCORE,
+    },
+    promesa: "Mil pies de separación: qué exige, qué verificas y qué dices si falla.",
   },
 ]
 

@@ -23,6 +23,7 @@ export type TablaDeIntentos =
   | "user_comunicaciones_exam_attempts"
   | "user_rac_exam_attempts"
   | "user_combustible_exam_attempts"
+  | "user_rvsm_exam_attempts"
 
 /** Cuántos intentos trae la lista del historial. */
 export const INTENTOS_EN_LA_LISTA = 10
@@ -194,5 +195,18 @@ export function traerHistorialCombustible(
     "taken_at",
     userId,
     "combustible: historial de evaluación",
+  )
+}
+
+/** Y RVSM. */
+export function traerHistorialRvsm(
+  userId: string,
+): Promise<Historial<FilaIntentoMercancias> | null> {
+  return traerHistorial<FilaIntentoMercancias>(
+    "user_rvsm_exam_attempts",
+    "id,score,correct,total,taken_at",
+    "taken_at",
+    userId,
+    "rvsm: historial de evaluación",
   )
 }

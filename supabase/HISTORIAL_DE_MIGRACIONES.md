@@ -156,9 +156,9 @@ archivo, insertada después para que `db push` no las vea pendientes.
 
 ### La regla del orden, que es la que muerde
 
-<!-- ULTIMA_APLICADA: 20260928000000 -->
+<!-- ULTIMA_APLICADA: 20260929000000 -->
 
-**Toda migración nueva lleva una versión posterior a `20260928000000`.**
+**Toda migración nueva lleva una versión posterior a `20260929000000`.**
 
 No es burocracia. Seis funciones se republican enteras en cada migración de
 módulo —`private.secciones_leidas`, `private.practicas_hechas`,
@@ -203,6 +203,50 @@ hora a la que las corrió, así que el CLI ve versiones remotas que no existen e
 la carpeta y se niega a seguir. Se aplica por el editor de SQL o por el
 conector.
 
-**Queda por sembrar**: los bancos `rac_evaluacion` (50 preguntas) y
-`combustible_evaluacion` (40). Hasta que se corran, las dos evaluaciones no
-tienen de dónde sortear las preguntas.
+Los dos bancos, `rac_evaluacion` (50 preguntas) y `combustible_evaluacion`
+(40), quedaron sembrados el mismo día, en tramos de catorce preguntas porque el
+conector no traga el archivo entero. Se comprobaron con una huella md5 sobre
+`id|enunciado|correcta`, calculada igual en Postgres y en node: las dos
+coincidieron exactas.
+
+## 25 de septiembre: RVSM
+
+`20260929000000_modulo_rvsm.sql` es el décimo módulo. Se aplicó por el conector
+en cinco tramos, y después se insertó la fila de la versión de archivo:
+
+| Tramo | Qué trae |
+| --- | --- |
+| `modulo_rvsm_1_tablas_catalogo_y_evaluacion` | las dos tablas de piloto, sus políticas, la fila del catálogo, la evaluación y su fuente |
+| `modulo_rvsm_2_conteos` | `private.secciones_leidas` y `private.practicas_hechas`, enteras |
+| `modulo_rvsm_3_evaluacion_terminar` | `public.evaluacion_terminar`, entera |
+| `modulo_rvsm_4_desbloquear_logros` | los cuatro logros y `private.desbloquear_logros` |
+| `modulo_rvsm_5_panel_y_repaso` | `public.check_and_unlock_achievements` y `public.panel_tarjetas` |
+
+`private.desbloquear_logros` pasa de las trescientas líneas y transcribirla a
+mano era el camino con más riesgo, así que el tramo 4 la lee con
+`pg_get_functiondef`, inserta sus dos bloques nuevos con una aserción por
+bloque y la vuelve a publicar. Si el texto que espera no está, el bloque falla y
+no escribe nada.
+
+Comprobado contra la base ya migrada: las seis funciones compartidas nombran los
+diez módulos, `panel_tarjetas` conserva `plan`, `postulaciones`, `licencias` y
+`preparacion`, y `desbloquear_logros` desbloquea los cuatro logros de RVSM
+leyendo `user_rvsm_exam_attempts` con el umbral `rvsm_pass`.
+
+El banco `rvsm_evaluacion` (40 preguntas) se sembró en tres tramos más su
+cierre, con la misma huella md5 de los otros dos: `19c940ed…` en la base y en el
+archivo.
+
+La evaluación había quedado con `modulo_leccion` en null, o sea que abría sin la
+lección completa. Todas las que dan nota la exigen, así que se corrigió en el
+archivo y en la base (`puerta_de_leccion_de_rvsm`).
+
+`supabase/tests/rvsm.sql` se corrió contra la base ya migrada y pasó:
+`PRUEBA_DESHECHA` con los veintiún puntos, y nada quedó escrito.
+
+**Ojo con RAC y Gestión del combustible**: el archivo del repo les pone
+`modulo_leccion`, pero en la base están en null, porque lo aplicado fue la
+migración de la otra sesión. Sus dos evaluaciones abren hoy sin la lección
+completa, y por eso `supabase/tests/rac_y_combustible.sql` falla en su primera
+comprobación. Se arregla con un update de dos líneas, pero **es un cambio de
+comportamiento para quien ya esté a medio módulo**, así que se decide aparte.

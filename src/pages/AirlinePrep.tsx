@@ -10,6 +10,7 @@ import {
   Fuel,
   Gauge,
   Headset,
+  MoveVertical,
   Play,
   Scale,
   Wind,
@@ -94,6 +95,14 @@ import { RAC_HUB, RAC_LECTURA_TOTAL, RAC_PRACTICA_TOTAL, RAC_TITULO, resumirRac 
 import { fetchRacProgress, readRacLocal } from "@/lib/racProgress"
 import { CB_HUB, CB_LECTURA_TOTAL, CB_PRACTICA_TOTAL, CB_TITULO, resumirCombustible } from "@/lib/combustible"
 import { fetchCombustibleProgress, readCombustibleLocal } from "@/lib/combustibleProgress"
+import {
+  RVSM_HUB,
+  RVSM_LECTURA_TOTAL,
+  RVSM_PRACTICA_TOTAL,
+  RVSM_TITULO,
+  resumirRvsm,
+} from "@/lib/rvsm"
+import { fetchRvsmProgress, readRvsmLocal } from "@/lib/rvsmProgress"
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.webp"
@@ -191,6 +200,7 @@ export function AirlinePrep() {
   const [performanceProgreso, setPerformanceProgreso] = useState(() => readPerformanceLocal())
   const [racProgreso, setRacProgreso] = useState(() => readRacLocal())
   const [combustibleProgreso, setCombustibleProgreso] = useState(() => readCombustibleLocal())
+  const [rvsmProgreso, setRvsmProgreso] = useState(() => readRvsmLocal())
   const [mejorPsico, setMejorPsico] = useState<number | null>(
     () => leerPsicoLocal().mejorSimulacro
   )
@@ -211,7 +221,7 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, pfRes, racRes, cbRes, psicoRes] =
+      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, pfRes, racRes, cbRes, rvRes, psicoRes] =
         await Promise.all([
           fetchNotamProgress(user.id),
           fetchMetarProgress(user.id),
@@ -224,6 +234,7 @@ export function AirlinePrep() {
           fetchPerformanceProgress(user.id),
           fetchRacProgress(user.id),
           fetchCombustibleProgress(user.id),
+          fetchRvsmProgress(user.id),
           mejorSimulacroRemoto(user.id),
         ])
       if (cancelled) return
@@ -260,6 +271,7 @@ export function AirlinePrep() {
       if (pfRes) setPerformanceProgreso(pfRes)
       if (racRes) setRacProgreso(racRes)
       if (cbRes) setCombustibleProgreso(cbRes)
+      if (rvRes) setRvsmProgreso(rvRes)
 
       // La última vez que tocó CUALQUIER tema: la más reciente de las cuatro
       // filas de progreso. Se compara en ISO, que ordena igual que la fecha.
@@ -275,6 +287,7 @@ export function AirlinePrep() {
         pfRes?.remoto.actualizado,
         racRes?.remoto.actualizado,
         cbRes?.remoto.actualizado,
+        rvRes?.remoto.actualizado,
       ].filter((f): f is string => typeof f === "string" && f.length > 0)
       setUltimaActividad(fechas.length > 0 ? fechas.reduce((a, b) => (a > b ? a : b)) : null)
       // Se queda con el mayor entre la base y el respaldo local: si el mejor
@@ -303,6 +316,7 @@ export function AirlinePrep() {
   const performance = useMemo(() => resumirPerformance(performanceProgreso), [performanceProgreso])
   const rac = useMemo(() => resumirRac(racProgreso), [racProgreso])
   const combustible = useMemo(() => resumirCombustible(combustibleProgreso), [combustibleProgreso])
+  const rvsm = useMemo(() => resumirRvsm(rvsmProgreso), [rvsmProgreso])
 
   // Los estados van en cifras cortas («9/9 secciones») porque la tarjeta de
   // cuatro columnas les da un renglón. Los que decían «13 secciones cortas» o
@@ -527,6 +541,31 @@ export function AirlinePrep() {
               : `${combustible.lessonRead}/${CB_LECTURA_TOTAL} capítulos · ${combustible.practiceDone}/${CB_PRACTICA_TOTAL} ejercicios`,
         },
       },
+      // RVSM: treinta y dos capítulos, práctica y evaluación. Es conocimiento
+      // avanzado de aerolínea, así que va después de los módulos de base.
+      {
+        nombre: RVSM_TITULO,
+        to: RVSM_HUB,
+        pct: rvsm.overall,
+        card: {
+          to: RVSM_HUB,
+          icon: MoveVertical,
+          color: "var(--av-rv-700)",
+          titulo: RVSM_TITULO,
+          meta: `${RVSM_LECTURA_TOTAL} capítulos · 10 escenarios`,
+          descripcion: "Mil pies entre FL 290 y FL 410: equipo, chequeos, fraseología y qué hacer si se pierde.",
+          fotoHueco:
+            "RVSM-TEMA · 3:2 · 1200×800 · Dos aeronaves en crucero en niveles adyacentes, vistas de costado, con la separación acotada",
+          cta: ctaDeTema(rvsm.overall),
+          avance: rvsm.overall,
+          completo: rvsm.overall >= 100,
+          estado: rvsm.empty
+            ? "Sin empezar"
+            : rvsm.overall >= 100
+              ? "Tema completo"
+              : `${rvsm.lessonRead}/${RVSM_LECTURA_TOTAL} capítulos · ${rvsm.practiceDone}/${RVSM_PRACTICA_TOTAL} preguntas`,
+        },
+      },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace
       // de avance es el mejor resultado del simulacro, que es lo único que
       // mide de verdad si ya estás listo para el proceso.
@@ -607,7 +646,20 @@ export function AirlinePrep() {
       .map((t, i) => ({ t, i }))
       .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
       .map(({ t }) => t)
-  }, [notam, metar, mercancias, aero, aeropuertos, performance, comunicaciones, rac, combustible, mejorSimulacro, mejorPsico])
+  }, [
+    notam,
+    metar,
+    mercancias,
+    aero,
+    aeropuertos,
+    performance,
+    comunicaciones,
+    rac,
+    combustible,
+    rvsm,
+    mejorSimulacro,
+    mejorPsico,
+  ])
 
   const cursables = temas.filter((t) => !t.herramienta)
   const herramientas = temas.filter((t) => t.herramienta)

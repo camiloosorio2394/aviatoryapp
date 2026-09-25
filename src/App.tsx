@@ -93,6 +93,10 @@ const Combustible = page(() => import("@/pages/Combustible"), "Combustible")
 const CombustibleLeccion = page(() => import("@/pages/CombustibleLeccion"), "CombustibleLeccion")
 const CombustiblePractice = page(() => import("@/pages/CombustiblePractice"), "CombustiblePractice")
 const CombustibleExam = page(() => import("@/pages/CombustibleExam"), "CombustibleExam")
+const Rvsm = page(() => import("@/pages/Rvsm"), "Rvsm")
+const RvsmLeccion = page(() => import("@/pages/RvsmLeccion"), "RvsmLeccion")
+const RvsmPractice = page(() => import("@/pages/RvsmPractice"), "RvsmPractice")
+const RvsmExam = page(() => import("@/pages/RvsmExam"), "RvsmExam")
 const MercanciasPractice = page(() => import("@/pages/MercanciasPractice"), "MercanciasPractice")
 const MercanciasExam = page(() => import("@/pages/MercanciasExam"), "MercanciasExam")
 const Aerodinamica = page(() => import("@/pages/Aerodinamica"), "Aerodinamica")
@@ -198,6 +202,7 @@ function App() {
               <Route path="/app/aerolinea/comunicaciones/aprende" element={<ComunicacionesLeccion />} />
               <Route path="/app/aerolinea/rac/aprende" element={<RacLeccion />} />
               <Route path="/app/aerolinea/combustible/aprende" element={<CombustibleLeccion />} />
+              <Route path="/app/aerolinea/rvsm/aprende" element={<RvsmLeccion />} />
             </Route>
 
             {/* Con sesión, dentro de la app. AppLayout es la ruta de layout: se monta
@@ -263,6 +268,12 @@ function App() {
               <Route path="/app/aerolinea/combustible" element={<Combustible />} />
               <Route path="/app/aerolinea/combustible/practica" element={<CombustiblePractice />} />
               <Route path="/app/aerolinea/combustible/evaluacion" element={<CombustibleExam />} />
+              {/* Tema RVSM: treinta y dos capítulos, la práctica con el quiz de
+                  cada capítulo (los diez escenarios viven en el 32) y la
+                  evaluación. */}
+              <Route path="/app/aerolinea/rvsm" element={<Rvsm />} />
+              <Route path="/app/aerolinea/rvsm/practica" element={<RvsmPractice />} />
+              <Route path="/app/aerolinea/rvsm/evaluacion" element={<RvsmExam />} />
               <Route path="/app/aerolinea/aerodinamica/practica" element={<AerodinamicaPractice />} />
               <Route path="/app/aerolinea/aerodinamica/evaluacion" element={<AerodinamicaExam />} />
               {/* Tema Performance. No lleva práctica aparte: los ejercicios y los

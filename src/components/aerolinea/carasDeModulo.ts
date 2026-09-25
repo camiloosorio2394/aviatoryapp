@@ -1,5 +1,15 @@
 import type { ComponentType } from "react"
-import { AlertTriangle, CloudSun, Fuel, Gauge, Headset, Scale, TowerControl, Wind } from "lucide-react"
+import {
+  AlertTriangle,
+  CloudSun,
+  Fuel,
+  Gauge,
+  Headset,
+  MoveVertical,
+  Scale,
+  TowerControl,
+  Wind,
+} from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
 import { AP_ACENTO } from "@/lib/aeropuertos"
 import type { ClaveModulo } from "@/lib/modulosAerolinea"
@@ -106,5 +116,14 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     color: "var(--av-cb-700)",
     fotoHueco: "CB-TEMA · Portada de tema · 3:2 · 1200×800 · Página de combustible del FMS con la predicción al destino y al alterno",
     descripcion: "Block fuel, reserva final, fuel check, combustible mínimo y MAYDAY: decidir antes de que falte.",
+  },
+  rvsm: {
+    // Dos flechas verticales encontradas: lo que RVSM reduce es exactamente
+    // esa distancia, y el icono lo dice sin texto.
+    icon: MoveVertical,
+    color: "var(--av-rv-700)",
+    fotoHueco:
+      "RVSM-TEMA · Portada de tema · 3:2 · 1200×800 · Dos aeronaves en crucero en niveles adyacentes, vistas de costado, con la separación acotada",
+    descripcion: "Mil pies entre FL 290 y FL 410: equipo, chequeos, fraseología y qué hacer si se pierde.",
   },
 }
