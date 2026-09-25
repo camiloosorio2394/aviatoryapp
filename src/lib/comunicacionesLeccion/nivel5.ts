@@ -904,136 +904,114 @@ export const NIVEL_5: DocScreen[] = [
   {
     n: 38,
     title: "TCAS/ACAS RA",
-    kicker: "Cumplir, informar y volver a la autorización",
-    minutes: 9,
+    kicker: "Responder, informar y recuperar la autorización",
+    minutes: 20,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "El ACAS es un «sistema de aeronave basado en señales de transpondedor del SSR que funciona independientemente del equipo instalado en tierra para proporcionar aviso al piloto sobre posibles conflictos entre aeronaves dotadas de transpondedores SSR» (Doc 4444 cap. 1). TCAS es el nombre del equipo que lo implementa en la mayoría de los aviones de transporte.",
+        text: "El sistema anticolisión de a bordo (ACAS, Airborne Collision Avoidance System) detecta encuentros con aeronaves dotadas de transpondedor sin depender del control terrestre. TCAS (Traffic Alert and Collision Avoidance System) es una familia de equipos que implementa esa función. Un aviso de tránsito (TA, Traffic Advisory) ayuda a buscarlo y prepararse; por sí solo no ordena una maniobra. Un aviso de resolución (RA, Resolution Advisory) exige la respuesta indicada, incluso si entra en conflicto con una instrucción del control de tránsito aéreo (ATC, Air Traffic Control), salvo que seguirlo comprometa la seguridad de la aeronave.",
       },
-      { kind: "p", text: "Da dos tipos de aviso (VERIFICAR definiciones, Doc 4444 cap. 1 edición vigente y Doc 8168 Vol. I):" },
       {
-        kind: "glosario",
-        items: [
-          { k: "TA (traffic advisory)", v: "aviso de tránsito. Alerta; no pide maniobra." },
-          {
-            k: "RA (resolution advisory)",
-            v: "aviso de resolución. Pide una maniobra vertical (o limitarla) para aumentar la separación.",
-          },
-        ],
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-38-01.svg",
+        alt: "Secuencia TA, respuesta a RA, aviso a ATC, libre de conflicto y regreso a la autorización.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Secuencia basada en EASA SERA.11014 y AMC1 SERA.14001. TA permite observar, no maniobrar por sí solo; ante RA se responde primero y se informa cuando la carga lo permite. Tras CLEAR OF CONFLICT se inicia el retorno y se confirma cuando la autorización está reanudada.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
+      { kind: "sub", text: "Prioridad de cabina y de radio" },
       {
         kind: "list",
+        ordered: true,
         items: [
-          "**Con un RA se sigue el RA**, incluso si contradice una instrucción del ATC, y se maniobra con prontitud (VERIFICAR, Doc 8168 Vol. I).",
-          "**No se maniobra con un TA solo.** El TA sirve para buscar el tránsito y prepararse.",
-          "**Se avisa al ATC en cuanto se pueda**, con la fraseología prevista. Primero el avión, luego la radio.",
-          "Mientras usted responde a un RA, el ATC no intenta cambiarle la trayectoria (VERIFICAR, Doc 4444 cap. 15).",
-          "**Al terminar** («clear of conflict»), se regresa con prontitud a la autorización y se le dice al ATC.",
-          "El ACAS depende del transpondedor de los dos aviones: un transpondedor en STBY o sin Modo C deja al otro sin RA (cap. 31).",
-          "La Tabla A del Doc 4444 registra que la 15.ª edición incorporó «procedimientos y fraseología relativos al ACAS». La fraseología exacta está en el cap. 12, que no está cargado.",
+          "**TA:** ambos pilotos buscan tránsito y mantienen conciencia situacional. No crean una desviación vertical solo por la indicación TA ni por una interpretación visual incierta del tráfico.",
+          "**RA:** el piloto que vuela (PF, pilot flying) sigue de inmediato la guía del equipo, incluida cualquier modificación posterior, y limita la desviación a lo necesario. Nunca maniobra en el sentido contrario al RA. La excepción reglamentaria es que seguirlo comprometa la seguridad del avión.",
+          "**Notificación:** el piloto que monitorea (PM, pilot monitoring) avisa a ATC tan pronto como la carga de trabajo lo permita cuando el RA exige desviarse de la autorización o instrucción vigente. La frase prevista es TCAS RA; no se retrasa la respuesta para formular una llamada larga.",
+          "**Conflicto con instrucción:** si ATC transmite una orden contraria, la tripulación sigue el RA y responde UNABLE, TCAS RA tan pronto como pueda. Un reconocimiento de ATC no sustituye la maniobra indicada.",
+          "**Recuperación:** al resolverse el conflicto, se vuelve prontamente a los términos de la autorización o se cumple una alternativa emitida por ATC. Se informa que se está regresando y, después, que ya se reanudó la autorización. Son dos estados distintos.",
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "CM-38-01 · Diagrama · 16:9 · 1600×900 px",
-        descripcion: "Imagen sugerida: Vista lateral de dos aeronaves en niveles cercanos con trayectorias convergentes. La de arriba recibe «DESCEND» y la de abajo «CLIMB» (flechas verticales con el texto del RA en mono). Una línea de tiempo abajo con cuatro momentos numerados: 1) TA: buscar tránsito; 2) RA: maniobra; 3) llamada «TCAS RA»; 4) «CLEAR OF CONFLICT, RETURNING TO…» y 5) «CLEAR OF CONFLICT, … RESUMED». Globos de diálogo cortos con el texto de cada llamada. Objetivo: Que el piloto vea el orden: maniobrar primero, informar después, y los dos avisos distintos al terminar.",
-        alto: 280,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-38-02.webp",
+        alt: "Historieta de tres paneles: tripulación observa tráfico, responde a RA y controlador coordina tras el aviso.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no un caso ni una transcripción real: 1) la tripulación observa un aviso de tránsito sin maniobrar solo por él; 2) PF responde al RA y PM avisa cuando la carga lo permite; 3) ATC coordina hasta recibir CLEAR OF CONFLICT. Las pantallas son ilustrativas y no muestran un RA, nivel ni ruta para uso operacional.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene fraseología y procedimientos que no están en las fuentes cargadas. «TCAS RA», «CLEAR OF CONFLICT, RETURNING TO (assigned clearance)», «CLEAR OF CONFLICT (assigned clearance) RESUMED», «UNABLE, TCAS RA» y la respuesta ATC «ROGER»: **Doc 4444 cap. 12** (maniobras ACAS) y **Doc 9432 11.6**. Seguir el RA aunque contradiga al ATC, no maniobrar por un TA y regresar pronto a la autorización: **Doc 8168 (PANS-OPS) Vol. I**. Que el ATC no modifique la trayectoria durante un RA: **Doc 4444 cap. 15**. Definiciones de TA y RA: **Doc 4444 cap. 1 vigente**. Piloto automático con RA: **manual del fabricante** del tipo.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · Aviso de RA (VERIFICAR)",
-        [`PILOT: "BOGOTA CONTROL, AVIATORY 452, TCAS RA."`, `ATC:   "AVIATORY 452, ROGER."`],
-        "Significado: usted inició la maniobra por un RA y se aparta de la autorización. El ATC acusa recibo; no le da instrucciones de trayectoria mientras dura el RA.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Terminó el RA y vuelve al nivel (VERIFICAR)",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, CLEAR OF CONFLICT, RETURNING TO FLIGHT LEVEL 350."`,
-          `ATC:   "AVIATORY 452, ROGER."`,
+      { kind: "sub", text: "Fraseología en su momento exacto" },
+      {
+        kind: "table",
+        head: ["Momento", "Mensaje de la tripulación", "Qué significa para ATC"],
+        rows: [
+          ["RA con desviación", "TCAS RA", "La tripulación responde a un RA; ATC acusa y no intenta modificar su trayectoria hasta CLEAR OF CONFLICT."],
+          ["Orden contraria al RA", "UNABLE, TCAS RA", "No puede cumplirse la instrucción; se sigue el RA."],
+          ["Conflicto resuelto; retorno iniciado", "CLEAR OF CONFLICT, RETURNING TO [autorización vigente]", "La respuesta al RA terminó y la aeronave está regresando; aún no dice que ya alcanzó lo asignado."],
+          ["Autorización recuperada", "CLEAR OF CONFLICT, [autorización vigente] RESUMED", "La aeronave volvió a la autorización; ATC acusa o emite y coordina una alternativa."],
         ],
-        "Significado: terminó el RA y está volviendo al nivel autorizado. (El ATC puede, en lugar de ROGER, dar otra instrucción.)",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · De nuevo en la autorización (VERIFICAR)",
-        [
-          `PILOT: "BOGOTA CONTROL, AVIATORY 452, CLEAR OF CONFLICT, FLIGHT LEVEL 350 RESUMED."`,
-          `ATC:   "AVIATORY 452, ROGER."`,
+      },
+      {
+        kind: "p",
+        text: "Los corchetes son campos que la tripulación completa con la autorización real. La fraseología anterior figura en EASA AMC1 SERA.14001. No se inserta un nivel ficticio para simular exactitud. Una RA puede modificarse durante el encuentro; el aviso a ATC no convierte la primera indicación en inmutable. Las acciones del piloto automático y del director de vuelo dependen del tipo de aeronave y del procedimiento del fabricante, no de una regla universal de esta lección.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Separación: dos hitos diferentes",
+        text: "Bajo EASA SERA.11014, cuando un RA induce desviación o se notifica, el controlador deja de ser responsable de separar a esa aeronave de las afectadas directamente por la maniobra. No intenta cambiar su trayectoria hasta CLEAR OF CONFLICT. Recupera esa responsabilidad cuando acusa que la aeronave ya reanudó la autorización, o cuando acusa que la está reanudando, emite otra autorización y la tripulación la acusa. Por eso RETURNING TO y RESUMED no son sinónimos.",
+      },
+      {
+        kind: "escenario",
+        titulo: "RA durante un cambio de nivel autorizado",
+        situacion: "Caso didáctico sin aeródromo, ruta, indicativo ni nivel inventados. Una aeronave está cambiando de nivel por autorización de ATC. Aparece un TA; la tripulación busca tránsito sin iniciar una maniobra adicional. Luego surge un RA cuya guía entra en conflicto con la instrucción vigente. PF responde al equipo y PM está ocupado verificando el cambio de trayectoria.",
+        preguntas: [
+          {
+            q: "¿Se llama antes de ejecutar el RA?",
+            a: "No. PF responde de inmediato al RA conforme al procedimiento del avión, salvo que hacerlo comprometiera su seguridad. PM informa TCAS RA en cuanto la carga de trabajo lo permite porque la respuesta implica apartarse de lo autorizado. No se maniobra en sentido contrario ni se espera permiso de ATC para obedecer el RA."
+          },
+          {
+            q: "ATC repite una instrucción incompatible, ¿cómo contesta PM?",
+            a: "UNABLE, TCAS RA. La tripulación continúa siguiendo la indicación vigente del RA y las modificaciones posteriores; ATC acusa y no intenta modificar la trayectoria hasta recibir CLEAR OF CONFLICT."
+          },
+          {
+            q: "Al anunciar el equipo fin del conflicto, ¿qué se comunica?",
+            a: "Se inicia el regreso oportuno a la autorización actual, si es ejecutable, y PM comunica CLEAR OF CONFLICT, RETURNING TO [autorización]. Cuando efectivamente se reanuda, comunica CLEAR OF CONFLICT, [autorización] RESUMED. Si ATC asigna una alternativa, la tripulación la verifica y acusa en vez de suponer que persiste un nivel anterior."
+          },
         ],
-        "Significado: ya está de nuevo en la autorización.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Una instrucción que el RA no deja cumplir (VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, CLIMB TO FLIGHT LEVEL 360."`,
-          `PILOT: "AVIATORY 452, UNABLE, TCAS RA."`,
-          `ATC:   "AVIATORY 452, ROGER."`,
-        ],
-        "Significado: recibió una instrucción que el RA no le deja cumplir. Se dice UNABLE, TCAS RA, y se sigue el RA.",
-      ),
-      ...ejemplo(
-        "Ejemplo 5 · Información de tránsito",
-        [
-          `ATC:   "AVIATORY 452, TRAFFIC 12 O'CLOCK 5 MILES OPPOSITE DIRECTION, 1000 FEET BELOW."`,
-          `PILOT: "AVIATORY 452, LOOKING OUT."`,
-        ],
-        "Significado: información de tránsito (Doc 9432 6.4). Si usted tiene un TA de ese tránsito, no maniobra por el TA: lo busca y espera.",
-      ),
-      ...ejemplo(
-        "Ejemplo 6 · Maniobra de evitación ordenada por el ATC",
-        [
-          `ATC:   "AVIATORY 452, TURN RIGHT IMMEDIATELY HEADING 110 TO AVOID TRAFFIC 12 O'CLOCK 4 MILES."`,
-          `PILOT: "RIGHT HEADING 110, AVIATORY 452."`,
-        ],
-        "Significado: maniobra de evitación ordenada por el ATC (Doc 9432 6.7.2). Si durante esa maniobra aparece un RA, manda el RA.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
+        concepto: "La secuencia es responder al RA, informar cuando se pueda y distinguir retorno iniciado de autorización ya recuperada.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Durante y después de un RA",
-        texto: "En cabina, el PF sigue el RA con las guías del PFD y el PM hace la llamada cuando la maniobra está en curso y el avión controlado; el reparto exacto lo fija el SOP del explotador. El piloto automático y el director de vuelo se manejan según el procedimiento del fabricante (en algunos aviones el piloto automático puede volar el RA; VERIFICAR según tipo). Después de un RA hay reporte obligatorio según el sistema de notificación del explotador y del Estado.",
+        momento: "Durante el encuentro y después",
+        texto: "PF controla la trayectoria con la guía aprobada para el avión; PM mantiene conciencia del tráfico, de la autorización y de las transmisiones. El procedimiento normalizado de operación (SOP, Standard Operating Procedures) especifica el reparto de tareas y el uso de automatismos. El conocimiento visual de un avión cercano no demuestra que sea el intruso causante del RA. Tras el encuentro se revisan la autorización vigente, la altitud real, cualquier modificación de ATC y los requisitos de notificación del explotador y del Estado aplicable; esta lección no inventa un reporte local obligatorio.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error("Seguir al ATC en contra del RA", "Seguir la instrucción del ATC en contra del RA."),
-      error("Maniobrar con un TA", "Maniobrar con un TA."),
-      error("Llamar antes de maniobrar", "Llamar al ATC antes de iniciar la maniobra."),
-      error(
-        "Olvidar CLEAR OF CONFLICT",
-        "Olvidar la segunda llamada (CLEAR OF CONFLICT): el ATC no sabe cuándo recupera la responsabilidad de separación.",
-      ),
-      error("Frases no estándar", "Usar frases no estándar («we had a TCAS», «traffic alert, climbing»)."),
-      error(
-        "Invertir el sentido del RA",
-        "Invertir el sentido del RA (subir cuando pide bajar) por una mala lectura bajo estrés.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Maniobrar por TA", text: "TA alerta y favorece la búsqueda de tránsito; no ordena por sí solo una maniobra. Una reacción vertical innecesaria puede crear otro conflicto." },
+      { kind: "callout", tone: "warn", title: "Dar preferencia a una orden contraria", text: "EASA SERA.11014 exige seguir el RA pese a una instrucción ATC incompatible, excepto si seguirlo compromete la seguridad del avión. PM informa UNABLE, TCAS RA cuando puede." },
+      { kind: "callout", tone: "warn", title: "Confundir RETURNING TO con RESUMED", text: "Una frase anuncia el retorno en curso; la otra confirma que ya se reanudó lo autorizado. ATC necesita el estado correcto para gestionar separación." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "TA: buscar y prepararse. RA: maniobrar.",
-          "El RA manda sobre la instrucción del ATC.",
-          "Primero se maniobra; después «TCAS RA».",
-          "Al terminar: «CLEAR OF CONFLICT, RETURNING TO…» y luego «… RESUMED».",
-          "Si no puede cumplir una instrucción por un RA: «UNABLE, TCAS RA».",
+          "TA: observar y prepararse; no maniobrar solo por el aviso.",
+          "RA: responder de inmediato, salvo riesgo mayor para la seguridad del propio avión.",
+          "Avisar TCAS RA cuando la carga lo permita y UNABLE, TCAS RA ante instrucción contraria.",
+          "CLEAR OF CONFLICT inicia la recuperación; RESUMED confirma que se volvió a lo autorizado.",
+          "Las pantallas, automatismos y reportes concretos dependen del avión, explotador y Estado.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432 · Doc 8168",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1, definición «Sistema anticolisión de a bordo (ACAS)»; preámbulo, Tabla A (15.ª edición: procedimientos y fraseología relativos al ACAS; 12.ª ed., Enm. 4: prestación de servicios ATS independientemente de la utilización del ACAS). Doc 9432 (4.ª ed.) 6.4 (información de tránsito, LOOKING OUT); 6.7.2 (maniobra de evitación ordenada por el ATC).",
-        [
-          "VERIFICAR: «TCAS RA», «CLEAR OF CONFLICT, RETURNING TO (assigned clearance)», «CLEAR OF CONFLICT (assigned clearance) RESUMED», «UNABLE, TCAS RA» y la respuesta ATC «ROGER» contra Doc 4444 cap. 12 (maniobras ACAS) y Doc 9432 11.6 (no cargados).",
-          "VERIFICAR: seguir el RA aunque contradiga al ATC, no maniobrar por un TA y regresar pronto a la autorización, contra Doc 8168 (PANS-OPS) Vol. I, procedimientos ACAS (no cargado).",
-          "VERIFICAR: el ATC no modifica la trayectoria de una aeronave que responde a un RA, contra Doc 4444 cap. 15 (no cargado).",
-          "VERIFICAR: definiciones de TA y RA contra Doc 4444 cap. 1 de la edición vigente.",
-          "VERIFICAR: modo de piloto automático con RA según tipo de aeronave (manual del fabricante).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "EASA SERA.11014 · AMC1 SERA.14001 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, SERA.11014 y GM3–GM6: prioridad del RA, aviso, recuperación, responsabilidad de separación y limitación de TA: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9921" },
+          { kind: "p", text: "EASA, misma publicación, AMC1 SERA.14001: TCAS RA, UNABLE, TCAS RA y las dos llamadas CLEAR OF CONFLICT: https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299" },
+          { kind: "p", text: "OACI, Airborne Collision Avoidance System Manual Doc 9863, copia oficial de referencia, secciones 5.2.1.15–18: https://www.icao.int/meetings/anconf12/document%20archive/9863_cons_en.pdf" },
+          { kind: "p", text: "Aerocivil, portal oficial AIP Colombia y eAIP para datos y procedimientos colombianos vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "La historieta y el escenario son didácticos, no transcripciones. Las fuentes europeas ilustran el marco y la fraseología, sin sustituir las reglas locales ni el manual del avión y del explotador." },
         ],
-      ),
+      },
     ],
   },
   // ── 39 ──────────────────────────────────────────────────────────────────
