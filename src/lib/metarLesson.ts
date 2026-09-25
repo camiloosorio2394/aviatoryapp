@@ -1082,41 +1082,54 @@ const CODIGO: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "El METAR te dice lo que **hay**. El TAF te dice lo que se **espera**. Esa es toda la diferencia, y de ella salen las dos preguntas que un piloto responde con cada uno: el METAR contesta «¿puedo aterrizar ahora?» y el TAF, «¿voy a poder aterrizar cuando llegue, y qué llevo de alterno?».",
+        text: "**En la portada:** un piloto revisa información meteorológica antes del vuelo mientras observa nubosidad y lluvia a distancia. **Cómo lo reconoces:** la pantalla no tiene datos legibles; la escena representa planificación, no un TAF real. **Qué decides:** obtener el pronóstico vigente del destino y del alterno, ubicar tu hora prevista de llegada y contrastar los cambios esperados con los mínimos y procedimientos aplicables.",
       },
       {
-        kind: "infografia",
-        nombre: "meteo-linea-tiempo",
+        kind: "p",
+        text: "El informe meteorológico de aeródromo, METAR, **observa** condiciones a una hora concreta. El pronóstico de aeródromo (TAF, Terminal Aerodrome Forecast) **anticipa** condiciones durante un periodo de validez. Ninguno responde por sí solo si puedes aterrizar: el primero no describe tu hora futura de llegada y el segundo no garantiza que se cumpla lo previsto. Úsalos junto con observaciones nuevas, avisos, mínimos, pista y política de alternos.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t22-01-observacion-pronostico.webp",
+        alt: "Línea temporal didáctica: un METAR observado a las 12:00 UTC es un punto; un TAF emitido a las 11:00 UTC cubre desde el día 12 a las 12:00 hasta el día 13 a las 18:00, con llegada prevista dentro de ese periodo",
+        ancho: 1600,
+        alto: 720,
+        pie: "Ejemplo de tiempos ficticios: METAR es una observación puntual y TAF un pronóstico para un intervalo. Ni el gráfico ni sus horas son productos meteorológicos vigentes.",
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** un instante de observación y una barra de validez más larga. **Cómo lo reconoces:** el TAF se emite antes de comenzar el periodo mostrado y la llegada prevista cae dentro de la barra, mientras el METAR solo corresponde a las 12:00 UTC. **Qué decides:** usar el tramo del pronóstico que cubra tu llegada y pedir observaciones posteriores en ruta; no prolongar la observación inicial hasta la llegada.",
       },
       { kind: "sub", text: "Cómo empieza un TAF" },
       {
         kind: "code",
         tabular: true,
-        text: `TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020 ...
+        text: `Ejemplo ficticio, no es un TAF vigente:
+TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
     │    │      │        │
     │    │      │        └─ validez: del día 12 a las 12Z al día 13 a las 18Z
-    │    │      └────────── emitido el día 12 a las 11:00 Zulú
-    │    └───────────────── estación
-    └────────────────────── tipo de informe`,
+    │    │      └────────── emisión: día 12 a las 11:00 UTC
+    │    └───────────────── aeródromo
+    └────────────────────── tipo de producto`,
       },
       {
         kind: "list",
         items: [
-          "**`TAF AMD`**: enmendado. El pronóstico anterior dejó de servir y este lo sustituye. Si ves un AMD, lo que tenías en el briefing ya no vale.",
-          "**`TAF COR`**: corregido, por un error en el anterior.",
-          "**`CNL`**: cancelado. No hay pronóstico para ese periodo.",
-          "**`NIL`**: no disponible. No es lo mismo que buen tiempo: es que no hay dato.",
+          "**`TAF AMD` (amended):** enmendado por cambios previstos u observados que vuelven inadecuado el pronóstico anterior. El nuevo sustituye al anterior para el resto de su periodo de validez: rehace la parte afectada del briefing.",
+          "**`TAF COR` (corrected):** corrige errores del producto emitido. Usa la versión corregida y verifica qué información cambió.",
+          "**`CNL` (cancelled):** cancela el TAF publicado; no interpretes las condiciones del texto anterior como un pronóstico todavía válido.",
+          "**`NIL`:** indica que falta el TAF para ese aeródromo en el boletín. Es ausencia de pronóstico, no señal de buen tiempo.",
         ],
       },
       {
         kind: "callout",
         tone: "verificar",
-        title: "Dos cifras que cambian según dónde vueles",
-        text: "El **periodo de validez** no es universal: los aeródromos internacionales suelen emitir TAF de 24 o 30 horas y otros de 9, y el intervalo de emisión también varía. Lo mismo pasa con el **área que cubre** el pronóstico, que es el entorno del aeródromo y no la región. Confirma los dos valores en la publicación de información aeronáutica del Estado y en el manual de tu explotador antes de citarlos en una entrevista.",
+        title: "Comprueba periodo y disponibilidad",
+        text: "La validez y frecuencia de emisión dependen del servicio establecido para cada aeródromo; el ejemplo de 30 horas no sirve para deducir la de todos. El TAF se refiere al aeródromo y su entorno pertinente, no a toda la ruta. Consulta el producto vigente y las publicaciones oficiales del Estado y del operador antes de aplicar requisitos de despacho o alternos.",
       },
       {
         kind: "p",
-        text: "Lo que sí es igual en todas partes: después de la cabecera, el TAF usa **los mismos grupos que ya sabes leer** del METAR. Viento, visibilidad, tiempo presente y nubes se codifican igual. Si sabes leer un METAR, ya sabes leer la mitad de un TAF.",
+        text: "Tras la cabecera, el TAF utiliza grupos familiares de viento, visibilidad predominante, tiempo significativo y nubes, además de grupos que indican **cuándo** se espera un cambio. La similitud del código no convierte un pronóstico en una observación: relaciona siempre cada condición con su tramo de validez.",
       },
       {
         kind: "check",
@@ -1129,7 +1142,7 @@ const CODIGO: DocScreen[] = [
         ],
         answer: 1,
         explain:
-          "Un TAF enmendado reemplaza al anterior para el resto de su validez. No se promedian ni se elige: el briefing que hiciste con el viejo hay que rehacerlo con el nuevo.",
+          "La enmienda sustituye al TAF previo durante el resto de su periodo de validez. Identifica qué cambió y actualiza la planificación del destino, alterno y combustible según tu operación; no elijas la versión más favorable.",
       },
       {
         kind: "entrevista",
@@ -1138,32 +1151,32 @@ const CODIGO: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué es un TAF?",
             respuesta:
-              "Es el pronóstico meteorológico de aeródromo: describe las condiciones que se esperan en el entorno de un aeródromo durante un periodo de validez definido. Trae los mismos grupos que el METAR (viento, visibilidad, tiempo presente y nubes) más los grupos de cambio que dicen cuándo y cómo se espera que evolucione.",
-            claves: ["Pronóstico, no observación", "Periodo de validez", "Mismos grupos que el METAR más los de cambio"],
+              "Es un pronóstico meteorológico de aeródromo para un periodo de validez definido. Presenta condiciones esperadas de viento, visibilidad predominante, tiempo significativo y nubes, junto con los cambios previstos. Su hora de emisión no es la hora en que comienzan todas las condiciones: hay que ubicar cada tramo de validez.",
+            claves: ["Pronóstico, no observación", "Emisión y validez", "Condiciones y grupos de cambio"],
           },
           {
             nivel: "interpretacion",
             q: "¿Para qué usas el TAF y para qué el METAR?",
             respuesta:
-              "El TAF para planificar: decidir si el destino va a estar utilizable a mi hora de llegada, si necesito alterno y cuál. El METAR para decidir en el momento: si puedo iniciar la aproximación ahora. En ruta pido METAR actualizado, pero la decisión de con cuánto combustible y con qué alterno salí la tomé con el TAF.",
-            claves: ["TAF para planificar y elegir alterno", "METAR para decidir ahora", "El METAR es el hecho"],
+              "Uso el TAF para anticipar condiciones durante mi llegada y planificar destino, alternos y combustible conforme a las reglas aplicables. El METAR/SPECI aporta una observación a una hora concreta y sirve para actualizar el panorama. En ruta comparo ambos con avisos y mínimos; el METAR reciente no autoriza por sí solo iniciar o continuar una aproximación.",
+            claves: ["TAF para anticipar la llegada", "METAR/SPECI con hora de observación", "Mínimos y procedimientos completan la decisión"],
           },
           {
             nivel: "situacion",
             q: "El TAF de tu destino viene como `NIL`. ¿Qué significa para tu planificación?",
             respuesta:
-              "Que no hay pronóstico disponible para ese aeródromo, y eso no es lo mismo que buen tiempo: es ausencia de información. Sin TAF no puedo justificar que el destino vaya a estar utilizable a mi llegada, así que la planificación se apoya en lo que sí tengo (METAR reciente, tendencia, pronósticos de área) y, según el manual del explotador y la norma nacional, normalmente obliga a llevar alterno.",
-            claves: ["NIL es ausencia de dato, no buen tiempo", "No se puede justificar el destino", "Consultar manual del explotador"],
+              "Indica ausencia del TAF en ese boletín, no buen tiempo. Confirmo si existe una versión vigente por otra fuente oficial y qué productos autorizados puedo usar. La falta de TAF puede cambiar la elegibilidad del aeródromo o los requisitos de alterno según norma y manual del operador; no aplico una regla universal sin consultarlos.",
+            claves: ["NIL es ausencia de pronóstico", "Confirmar fuentes oficiales", "Aplicar norma y manual del operador"],
           },
         ],
       },
       {
         kind: "summary",
         items: [
-          "METAR observa; TAF pronostica. Los dos se leen juntos y, cuando no coinciden, el METAR es el hecho.",
-          "Cabecera: tipo, estación, hora de emisión y periodo de validez.",
-          "AMD sustituye, COR corrige, CNL cancela y NIL es que no hay dato.",
-          "Los grupos de viento, visibilidad, tiempo y nubes se leen igual que en el METAR.",
+          "METAR observa a una hora; TAF pronostica un periodo. Cuando difieren, comprueba horas, cambios y observaciones posteriores.",
+          "Cabecera: tipo de producto, aeródromo, hora de emisión y periodo de validez; ubica tu llegada dentro de ese periodo.",
+          "AMD sustituye el pronóstico anterior, COR corrige, CNL cancela y NIL señala un TAF faltante en el boletín.",
+          "Los grupos meteorológicos son familiares desde METAR, pero en TAF describen condiciones previstas, no constatadas.",
         ],
       },
     ],
