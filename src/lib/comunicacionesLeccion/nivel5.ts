@@ -343,119 +343,107 @@ export const NIVEL_5: DocScreen[] = [
   // ── 33 ──────────────────────────────────────────────────────────────────
   {
     n: 33,
-    title: "La frecuencia de emergencia 121.5 MHz",
-    kicker: "Para qué es y para qué no",
-    minutes: 8,
+    title: "La frecuencia de emergencia 121,5 MHz",
+    kicker: "Canal de socorro, recuperación y escucha",
+    minutes: 17,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "121,5 MHz es el canal VHF de emergencia aeronáutico. Existe para que haya una frecuencia común, escuchada por dependencias ATS designadas y por muchas aeronaves, cuando los canales normales no sirven o no están disponibles. El Doc 9432 menciona que dentro del servicio móvil aeronáutico entran las radiobalizas de localización de siniestros que operan en las frecuencias de socorro y de urgencia designadas.",
+        text: "121,5 megahercios (MHz) es la frecuencia aeronáutica de emergencia en muy alta frecuencia (VHF, Very High Frequency). Es un canal común para comunicaciones de seguridad cuando el canal habitual no sirve o cuando las circunstancias requieren llegar a otras estaciones. No es una frecuencia de trabajo ordinaria. En una emergencia con contacto establecido, el primer mensaje se transmite normalmente en el canal aire–tierra en uso: el servicio de tránsito aéreo (ATS, Air Traffic Services) que ya conoce el vuelo puede actuar sin perder tiempo en una búsqueda de frecuencia.",
       },
-      { kind: "sub", text: "Lo que debe saber un piloto" },
-      { kind: "p", text: "**Para qué sirve (según el Anexo 10, VERIFICAR la lista exacta):**" },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-33-01.svg",
+        alt: "Comparación entre comunicar socorro o urgencia en el canal ATS en uso y usar 121,5 MHz cuando el contacto normal no está disponible.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Esquema didáctico: si el enlace con ATS funciona, el mensaje de socorro o urgencia va por el canal en uso. Si no hay contacto tras revisar radios y canales, 121,5 MHz puede ayudar a recuperarlo o pedir asistencia. La obligación de escucha depende de la normativa y del equipo; no se fija una regla universal para todo vuelo.",
+      },
+      { kind: "sub", text: "Tres usos que no deben confundirse" },
       {
         kind: "list",
         items: [
-          "Dar un canal libre entre una aeronave en socorro o urgencia y una estación en tierra cuando los canales normales están ocupados.",
-          "Comunicación con aeródromos que normalmente no usan los servicios internacionales, en caso de emergencia.",
-          "Canal común entre aeronaves civiles y militares, y con buques, en búsqueda y salvamento.",
-          "Comunicación con una aeronave cuando una falla de equipo le impide usar los canales normales.",
-          "Interceptación: el interceptor intenta comunicarse en 121,5 (Anexo 2, Apéndice 2; VERIFICAR).",
-          "Radiobalizas de emergencia (ELT): las modernas transmiten en 406 MHz y usan 121,5 como señal de localización (VERIFICAR).",
+          "**Mensaje de socorro o urgencia:** EASA SERA.14095 especifica el canal aire–tierra en uso para el mensaje inicial; su material explicativo permite usar 121,5 MHz u otro canal si es necesario o deseable. La prioridad es que el mensaje llegue, no completar una secuencia mecánica de sintonización.",
+          "**Recuperar contacto:** si la frecuencia asignada no responde, la tripulación revisa la cabina e intenta el canal anterior y otros medios apropiados, como se explica en la lección 32. El canal de emergencia puede servir para contactar una estación o responder a un llamado de búsqueda. Tras recuperar el enlace, se confirma con ATS la frecuencia y autorización vigentes.",
+          "**Escucha preventiva:** determinadas rutas o áreas exigen mantener escucha de 121,5 MHz en la medida permitida por el equipo y la carga de trabajo; otras operaciones la mantienen por procedimiento normalizado de operación (SOP, Standard Operating Procedures) del explotador. No se afirma que todos los vuelos deban dedicar siempre la segunda radio al canal de emergencia.",
         ],
       },
-      { kind: "p", text: "**Lo que 121,5 NO es:**" },
       {
-        kind: "list",
-        items: [
-          "No es «la frecuencia para cualquier cosa». No se usa para charla, para preguntar la frecuencia del siguiente sector por comodidad ni como canal aire-aire.",
-          "**No es el primer lugar donde se declara una emergencia.** El mensaje de socorro o urgencia va, en principio, en la frecuencia aire-tierra en uso, donde el controlador que ya lo tiene identificado puede actuar (VERIFICAR, Anexo 10 Vol. II cap. 5). 121,5 es la opción cuando esa frecuencia no funciona o usted no tiene contacto.",
-          "No reemplaza la revisión de cabina en una pérdida de comunicaciones (cap. 32).",
-        ],
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-33-02.webp",
+        alt: "Historieta de tres paneles: tripulación revisa la radio, controlador intenta contactar por el canal de emergencia y pilotos recuperan el enlace.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Historieta didáctica, no transcripción: 1) la tripulación comprueba la pérdida de contacto en el canal asignado; 2) ATS intenta localizarla por un canal de emergencia; 3) los pilotos reciben la llamada y coordinan el regreso al canal correcto. No se representan frecuencias operacionales adicionales, distintivos ni aeropuertos.",
       },
+      { kind: "sub", text: "Escuchar no equivale a haber comunicado" },
       {
         kind: "p",
-        text: "**Escucha de 121,5.** El Anexo 10 y el Anexo 6 piden que ciertas aeronaves mantengan escucha continua de 121,5 en determinadas zonas o vuelos (por ejemplo, largos trayectos sobre el agua o áreas designadas), en la medida de lo posible (VERIFICAR alcance exacto). Muchas aerolíneas la dejan en la segunda radio durante el crucero; es práctica del explotador, no regla universal. En pilotos de habla inglesa se escucha llamar a esta frecuencia «guard»; es jerga, no fraseología.",
+        text: "Tener 121,5 MHz sintonizada, escuchar una portadora o transmitir una vez sin respuesta no prueba que una estación haya recibido el mensaje. Si una tripulación oye un llamado dirigido a su aeronave, confirma la identidad, escucha la instrucción completa y responde de forma breve. Si sirve de retransmisor para otra aeronave, identifica claramente qué parte del mensaje procede de ella y qué información ha recibido de ATS. Una transmisión rutinaria innecesaria puede ocupar el canal cuando se necesita para socorro.",
       },
       {
-        kind: "p",
-        text: "**Por qué importa escucharla:** por ahí puede llegarle un llamado del ATC que lo perdió en su frecuencia, una aeronave en problemas que necesita retransmisión o un interceptor.",
+        kind: "callout",
+        tone: "info",
+        title: "La escucha tiene condiciones concretas",
+        text: "La regla europea SERA.14080 exige escucha continua en vuelos largos sobre agua y determinadas áreas, con excepciones por otros canales, equipo o tareas de cabina; también en rutas o áreas de posible interceptación cuando la autoridad competente lo haya establecido. Su material de orientación recomienda escucha en otros vuelos cuando sea posible. Esto describe Europa, no asigna una obligación colombiana. Para Colombia se verifica la eAIP de Aerocivil, el equipo y el SOP aplicable.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
-      COMO_LEER,
-      verificar(
-        "Esta lección tiene reglas que no están en las fuentes cargadas. Los usos del canal de emergencia 121,5 MHz: **Anexo 10 Vol. V** (asignación de frecuencias; canal de emergencia) y **Vol. II cap. 5**. Que el mensaje de socorro o urgencia vaya en principio en la frecuencia en uso: **Anexo 10 Vol. II cap. 5**. Requisitos de escucha de 121,5: **Anexo 10 Vol. II cap. 5 y Anexo 6 Parte I**. Interceptores en 121,5: **Anexo 2, Apéndice 2**; ELT 406 / 121,5: **Anexo 10 Vol. III y Anexo 6**. Cómo notificar una señal de ELT escuchada: **AIP de cada Estado**.",
-      ),
-      ...ejemplo(
-        "Ejemplo 1 · El ATC lo busca por 121,5 (PLAIN LANGUAGE en la forma de la llamada)",
-        [
-          `ATC (en 121,5):   "AVIATORY 452, BOGOTA CONTROL ON 121.5, CONTACT BOGOTA CONTROL 128.7."`,
-          `PILOT (en 121,5): "128.7, AVIATORY 452."`,
+      { kind: "sub", text: "Radiobalizas e interceptación: vínculo, no equivalencia" },
+      {
+        kind: "p",
+        text: "El transmisor localizador de emergencia (ELT, Emergency Locator Transmitter) y la comunicación de voz en 121,5 MHz cumplen funciones distintas. El manual de espectro de la Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization) señala que 121,5 MHz se usa también para localización de ELT y que el sistema satelital COSPAS–SARSAT ya no vigila esa frecuencia como canal de alerta. Una señal de baliza o un llamado de interceptación merecen atención, pero la respuesta se rige por los procedimientos aplicables; no se improvisa una posición o instrucción por oír una portadora.",
+      },
+      {
+        kind: "escenario",
+        titulo: "Sin respuesta en el canal asignado; un llamado en 121,5",
+        situacion: "Caso didáctico sin ruta, distintivo, frecuencia ATS, altitud ni aeródromo inventados. En crucero IFR, después de una transferencia, la tripulación no logra contacto en el canal asignado. El piloto que vuela (PF, pilot flying) mantiene la autorización colacionada; el piloto que monitorea (PM, pilot monitoring) revisa radio y audio. Tras reintentar el canal anterior, escucha en 121,5 MHz un llamado que podría ser para su aeronave.",
+        preguntas: [
+          {
+            q: "¿Cómo identifica si el llamado es suyo y qué responde?",
+            a: "PM escucha el distintivo completo y la instrucción. Si corresponde a su aeronave, contesta con su identificación y colaciona los datos que lo requieran; si el distintivo no es claro, pide aclaración en vez de asumirlo. Luego confirma con ATS el canal y la autorización efectivos."
+          },
+          {
+            q: "¿Qué cambia si, antes de perder contacto, aparece una condición de socorro?",
+            a: "Si el enlace asignado todavía funciona, la declaración de socorro se transmite allí, con la información esencial, para que ATS actúe. Si ese enlace falla o la situación hace preferible otro medio, 121,5 MHz está disponible. No se retrasa el mensaje urgente por una regla rígida de sintonización."
+          },
+          {
+            q: "¿Qué no prueba una llamada sin respuesta por 121,5?",
+            a: "No demuestra que ATS la haya recibido ni que haya una autorización nueva. La tripulación sigue buscando contacto por medios apropiados y, si no se recupera, aplica la norma de comunicaciones perdidas del espacio aéreo concreto."
+          },
         ],
-        "Significado: la instrucción CONTACT es normalizada (Doc 9432 2.8.2.1); la forma de la llamada en 121,5 es **PLAIN LANGUAGE**. El ATC lo perdió en la frecuencia asignada y lo busca por 121,5. Usted responde corto y cambia. No se discute en 121,5 por qué se perdió el contacto.",
-      ),
-      ...ejemplo(
-        "Ejemplo 2 · Usted pide frecuencia por 121,5 (PLAIN LANGUAGE)",
-        [
-          `PILOT (en 121,5): "BOGOTA CONTROL, AVIATORY 452 ON 121.5, UNABLE CONTACT ON 128.7, REQUEST FREQUENCY."`,
-          `ATC:              "AVIATORY 452, CONTACT BOGOTA CONTROL 126.3."`,
-          `PILOT:            "126.3, AVIATORY 452."`,
-        ],
-        "Significado: **PLAIN LANGUAGE**. Pérdida de contacto que no es emergencia: se usa 121,5 como último recurso, se resuelve en una o dos transmisiones y se sale.",
-      ),
-      ...ejemplo(
-        "Ejemplo 3 · MAYDAY en 121,5",
-        [`PILOT (en 121,5): "MAYDAY, MAYDAY, MAYDAY, BOGOTA CONTROL, AVIATORY 452, ..."`],
-        "Significado: solo cuando la frecuencia en uso no le sirve. La estructura del mensaje está en el cap. 34.",
-      ),
-      ...ejemplo(
-        "Ejemplo 4 · Lo que no se hace (PLAIN LANGUAGE)",
-        [`PILOT (en 121,5): "AVIATORY 425, AVIATORY 452 ON 121.5, CONFIRM YOU ARE ON THIS FREQUENCY."`],
-        "Significado: **PLAIN LANGUAGE**. Evite usar 121,5 para coordinar entre aeronaves de la misma empresa: cada transmisión que no es necesaria tapa una que sí podría serlo. Este ejemplo está aquí como lo que **no** se hace.",
-      ),
-      { kind: "sub", text: "Aplicación en aerolínea" },
+        concepto: "121,5 MHz es un recurso de seguridad, no un atajo para omitir el canal asignado ni una autorización implícita.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "En crucero, con la segunda radio en 121,5",
-        texto: "En crucero, la segunda radio suele quedar en 121,5 (según SOP). Cuando se escucha un llamado ahí, primero se comprueba si es para usted. Si otra aeronave pide ayuda y no tiene contacto con el ATC, usted puede servirle de relay en la frecuencia del ATC. Se escuchan portadoras de ELT activados sin intención: si lo nota, puede informarlo al ATC con el lugar y la hora aproximados (procedimiento local; VERIFICAR).",
+        momento: "Monitoreo en crucero y llamada inesperada",
+        texto: "PM conoce qué radio está dedicada al canal ATS y cuál, si el SOP lo indica, escucha 121,5 MHz. Cuando aparece una llamada en el canal de emergencia, no silencia sin más la escucha de control: comprueba el destinatario y coordina con PF la prioridad. Si la llamada permite restablecer el contacto, informa a ATS que el canal asignado no funcionó y confirma el permiso vigente. Ante un mensaje de otra aeronave en peligro, puede retransmitirlo con precisión si ayuda y si la carga de trabajo lo permite. Se evita usar el canal para comprobaciones o charla no esenciales.",
       },
-      { kind: "sub", text: "Error frecuente" },
-      error(
-        "Declarar primero en 121,5",
-        "Declarar primero en 121,5 cuando tenía contacto con el controlador en su frecuencia.",
-      ),
-      error("121,5 como canal de charla", "Usar 121,5 como canal de charla o de coordinación entre compañeros."),
-      error(
-        "El volumen de 121,5 abajo",
-        "Olvidar que el volumen de la radio en 121,5 está abajo y perder un llamado de interceptación o del ATC.",
-      ),
-      error(
-        "Creer que estar en 121,5 es haber avisado",
-        "Confundir «estar en 121,5» con «haber avisado al ATC»: si nadie responde, nadie lo escuchó.",
-      ),
+      { kind: "sub", text: "Errores que importan" },
+      { kind: "callout", tone: "warn", title: "Cambiar primero a 121,5 durante una emergencia con contacto ATS", text: "Si el controlador en el canal en uso ya recibe a la aeronave, declarar allí normalmente acelera la respuesta. Se usa el canal de emergencia cuando las circunstancias lo hagan necesario o deseable." },
+      { kind: "callout", tone: "warn", title: "Tratar la escucha como una transmisión confirmada", text: "La radio puede estar sintonizada y nadie haber recibido un mensaje. Se necesita acuse de recibo o acción comprobable y, si no lo hay, se siguen los procedimientos de recuperación." },
+      { kind: "callout", tone: "warn", title: "Ocupar el canal para coordinación rutinaria", text: "Una conversación no esencial puede interferir con comunicaciones de socorro, urgencia o recuperación de contacto." },
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "121,5 es el canal VHF de emergencia, con usos definidos por el Anexo 10.",
-          "El mensaje de socorro o urgencia va primero en la frecuencia en uso.",
-          "Sirve también para recuperar contacto, interceptación, búsqueda y salvamento y ELT.",
-          "No es canal aire-aire ni de charla.",
-          "Escúchela cuando la norma o el SOP lo pidan: por ahí pueden estar buscándolo.",
+          "121,5 MHz es una frecuencia aeronáutica de emergencia, no un canal rutinario.",
+          "El mensaje inicial de socorro o urgencia se transmite en el canal en uso cuando es posible.",
+          "Ayuda a recuperar contacto cuando fallan los canales normales.",
+          "La escucha depende de norma, área, equipo y SOP; no es idéntica en todos los vuelos.",
+          "Sintonizar o transmitir sin respuesta no equivale a haber informado a ATS.",
         ],
       },
-      fuentes(
-        "Doc 9432 · Doc 9835 · Anexo 10",
-        "Doc 9432 (4.ª ed.) cap. 1, definición «Servicio móvil aeronáutico» (radiobalizas en frecuencias de socorro y urgencia); 2.8.2.1 (CONTACT). Doc 9835 (2.ª ed.) 4.3.4 (el lenguaje común en emergencias, claro y conciso).",
-        [
-          "VERIFICAR: usos del canal de emergencia 121,5 MHz contra Anexo 10 Vol. V (asignación de frecuencias; canal de emergencia) y Vol. II cap. 5 (no cargados).",
-          "VERIFICAR: que el mensaje de socorro o urgencia se transmita en principio en la frecuencia en uso, contra Anexo 10 Vol. II cap. 5 (no cargado).",
-          "VERIFICAR: requisitos de escucha de 121,5 contra Anexo 10 Vol. II cap. 5 y Anexo 6 Parte I (no cargados).",
-          "VERIFICAR: comunicación con interceptores en 121,5 contra Anexo 2, Apéndice 2 (no cargado); ELT 406 / 121,5 contra Anexo 10 Vol. III y Anexo 6 (no cargados).",
-          "VERIFICAR: cómo notificar una señal de ELT escuchada, según AIP de cada Estado.",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y límites",
+        cita: "OACI Doc 9718 · EASA SERA.14080 y SERA.14095 · Aerocivil eAIP",
+        bloques: [
+          { kind: "p", text: "OACI, Handbook on Radio Frequency Spectrum Requirements for Civil Aviation, Doc 9718, Vol. I, edición anticipada 2026: 121,5 MHz como frecuencia aeronáutica de emergencia y su relación con ELT; la versión anticipada no sustituye el Anexo 10 vigente: https://www.icao.int/sites/default/files/FSMP/Doc9718_VolI_4th_Edition_2026_Advance_Unedited_Version.pdf" },
+          { kind: "p", text: "EASA, Easy Access Rules for SERA, revisión agosto de 2025, SERA.14080 (escucha) y SERA.14083 (recuperación de contacto): https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9832" },
+          { kind: "p", text: "EASA SERA.14095 (socorro y urgencia en el canal en uso y alternativas): https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9854" },
+          { kind: "p", text: "Aerocivil, portal oficial de la AIP Colombia y acceso a eAIP para requisitos y datos locales vigentes: https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/aip" },
+          { kind: "p", text: "La historieta y el escenario son didácticos, no transcripciones. No se inventan distintivos, sectores, frecuencias ATS, rutas ni un mandato de escucha colombiano." },
         ],
-      ),
+      },
     ],
   },
   // ── 34 ──────────────────────────────────────────────────────────────────
