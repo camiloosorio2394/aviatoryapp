@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { ArrowRight, ChevronDown, RotateCcw } from "lucide-react"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { FiguraEnunciado, FiguraOpcion } from "./FiguraPsico"
+import { ImagenPsicoAmpliable } from "./ImagenPsicoAmpliable"
 import { ReportarProblema } from "@/components/ReportarProblema"
 import {
   CATEGORIAS,
@@ -360,18 +361,10 @@ function FichaRepaso({ ejercicio, respuesta, solucion }: ItemRepaso) {
             </>
           ) : (
             ejercicio.imagen && (
-              // El recorte es papel escaneado y va sobre blanco también en tema
-              // oscuro: sobre una superficie oscura, un escaneo de papel se lee
-              // como un fallo de carga. Los ejercicios ya dibujados no tienen
-              // este problema y siguen al tema.
-              <div className="mt-3 overflow-x-auto rounded-xl border border-border bg-white p-3">
-                <img
-                  src={ejercicio.imagen}
-                  alt={ejercicio.imagenAlt ?? ejercicio.enunciado}
-                  className="mx-auto h-auto max-w-full"
-                  loading="lazy"
-                />
-              </div>
+              <ImagenPsicoAmpliable
+                src={ejercicio.imagen}
+                alt={ejercicio.imagenAlt ?? ejercicio.enunciado}
+              />
             )
           )}
 

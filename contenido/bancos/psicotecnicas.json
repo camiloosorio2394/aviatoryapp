@@ -714,7 +714,8 @@
                 {
                   "tipo": "pieza-punta",
                   "mira": "abajo",
-                  "relleno": "punteado"
+                  "relleno": "punteado",
+                  "barra": "vertical"
                 }
               ]
             },
@@ -724,7 +725,8 @@
                 {
                   "tipo": "pieza-punta",
                   "mira": "derecha",
-                  "relleno": "blanco"
+                  "relleno": "blanco",
+                  "barra": "horizontal"
                 }
               ]
             },
@@ -734,7 +736,30 @@
                 {
                   "tipo": "pieza-punta",
                   "mira": "abajo",
-                  "relleno": "punteado"
+                  "relleno": "punteado",
+                  "barra": "vertical"
+                }
+              ]
+            },
+            {
+              "marco": true,
+              "elementos": [
+                {
+                  "tipo": "pieza-punta",
+                  "mira": "derecha",
+                  "relleno": "blanco",
+                  "barra": "horizontal"
+                }
+              ]
+            },
+            {
+              "marco": true,
+              "elementos": [
+                {
+                  "tipo": "pieza-punta",
+                  "mira": "arriba",
+                  "relleno": "rayado-diagonal",
+                  "barra": "vertical"
                 }
               ]
             },
@@ -754,27 +779,8 @@
                 {
                   "tipo": "pieza-punta",
                   "mira": "arriba",
-                  "relleno": "rayado-diagonal"
-                }
-              ]
-            },
-            {
-              "marco": true,
-              "elementos": [
-                {
-                  "tipo": "pieza-punta",
-                  "mira": "derecha",
-                  "relleno": "blanco"
-                }
-              ]
-            },
-            {
-              "marco": true,
-              "elementos": [
-                {
-                  "tipo": "pieza-punta",
-                  "mira": "arriba",
-                  "relleno": "rayado-diagonal"
+                  "relleno": "rayado-diagonal",
+                  "barra": "vertical"
                 }
               ]
             },
@@ -1406,7 +1412,7 @@
         "subcategoria": "Patrones",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-08-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-08-didactico.webp",
         "imagenAlt": "Matriz de rectángulos cruzados por sus diagonales, con sectores rellenos en negro o en rayado vertical.",
         "opcionesEnImagen": true
       }
@@ -1591,7 +1597,7 @@
         "subcategoria": "Transformaciones",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-10-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-10-didactico.webp",
         "imagenAlt": "Matriz de rectángulos con líneas diagonales y un triángulo pequeño que cambia de posición y de relleno.",
         "opcionesEnImagen": true
       }
@@ -2001,7 +2007,7 @@
         "subcategoria": "Matrices",
         "nivel": "avanzado",
         "tiempo": 75,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-13-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-13-didactico.webp",
         "imagenAlt": "Matriz con un círculo cortado por una cuerda y tres formas pequeñas —triángulo, cuadrado y circunferencia— colocadas alrededor.",
         "opcionesEnImagen": true
       }
@@ -2024,7 +2030,7 @@
         "subcategoria": "Secuencias de figuras",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-14-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-14-didactico.webp",
         "imagenAlt": "Matriz de circunferencias divididas en sectores, con un número dentro y un sector negro que gira.",
         "opcionesEnImagen": true
       }
@@ -2047,7 +2053,7 @@
         "subcategoria": "Rotación de elementos",
         "nivel": "avanzado",
         "tiempo": 75,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-15-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-15-didactico.webp",
         "imagenAlt": "Matriz con una cruz de la que salen trazos cortos en los extremos, en distintas orientaciones.",
         "opcionesEnImagen": true
       }
@@ -2070,7 +2076,7 @@
         "subcategoria": "Patrones",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-16-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-16-didactico.webp",
         "imagenAlt": "Matriz de rectángulos partidos en cuatro cuadrantes, rellenos con rayado diagonal, cuadrícula o blanco.",
         "opcionesEnImagen": true
       }
@@ -2320,7 +2326,7 @@
         "subcategoria": "Matrices",
         "nivel": "avanzado",
         "tiempo": 75,
-        "imagen": "/psicotecnicas/abstracto/AB-A1-18-limpio.webp",
+        "imagen": "/psicotecnicas/abstracto/AB-A1-18-didactico.webp",
         "imagenAlt": "Matriz de rectángulos con diagonales, una letra (A, B o C), un triángulo negro y un punto que se desplazan.",
         "opcionesEnImagen": true
       }
@@ -3484,7 +3490,7 @@
         "subcategoria": "Aplicación del área",
         "nivel": "intermedio",
         "tiempo": 60,
-        "imagen": "/psicotecnicas/numerico/NU-N1-03.webp",
+        "imagen": "/psicotecnicas/numerico/NU-N1-03-didactico.svg",
         "imagenAlt": "Figura con forma de casa: un cuadrado de lado 2 con un triángulo encima; los cuatro lados marcados miden 2."
       }
     },
@@ -3718,7 +3724,7 @@
     },
     {
       "id": "NU-N1-17",
-      "enunciado": "Tengo 1600 contactos en mi red social, pero conozco solo al 25%, y solo chateo con el 10%. ¿Con cuántos no chateo?",
+      "enunciado": "Tengo 1600 contactos en mi red social, pero conozco solo al 25% y chateo con el 10% de quienes conozco. ¿Con cuántos no chateo?",
       "opciones": [
         "40",
         "400",
@@ -6605,25 +6611,6 @@
       }
     },
     {
-      "id": "NU-N2-08-04",
-      "enunciado": "Señala el número que sobra en la serie: 58, 53, 49, 46, 44, 43",
-      "opciones": [
-        "53",
-        "43",
-        "49",
-        "58"
-      ],
-      "correcta": 1,
-      "explicacion": "El número que sobra es 43: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
-      "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.4",
-      "metadatos": {
-        "categoria": "numerico",
-        "subcategoria": "Número que rompe la serie",
-        "nivel": "intermedio",
-        "tiempo": 60
-      }
-    },
-    {
       "id": "NU-N2-08-05",
       "enunciado": "Complete la serie: 6, 12, 18, 24, 54, 48, 16, …",
       "opciones": [
@@ -6728,7 +6715,7 @@
         "5"
       ],
       "correcta": 1,
-      "explicacion": "El número que sobra es 15: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+      "explicacion": "El 15 rompe el salto constante de +4: sin él queda 1, 5, 9, 13, 17, 21, 25.",
       "referencia": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.13",
       "metadatos": {
         "categoria": "numerico",

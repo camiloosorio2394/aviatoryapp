@@ -19,6 +19,7 @@ import { LAMINAS_LIMPIAS } from "./laminasLimpias"
 
 const ENUNCIADO = "¿Qué figura continúa la serie?"
 const OPCIONES = ["A", "B", "C", "D", "E"]
+const LAMINAS_DIDACTICAS = new Set(["AB-A1-08", "AB-A1-10", "AB-A1-13", "AB-A1-14", "AB-A1-15", "AB-A1-16", "AB-A1-18"])
 
 /** Todos comparten enunciado y formato, así que la ficha se arma con esto. */
 function serie(
@@ -36,7 +37,9 @@ function serie(
   // Mientras una lámina no esté dibujada se enseña su recorte, y del recorte
   // se enseña la versión sin el logotipo de Facebook cuando se pudo quitar sin
   // morder el ejercicio. El original se queda en el repositorio como prueba.
-  const lamina = LAMINAS_LIMPIAS.has(id) ? `${id}-limpio` : id
+  const lamina = LAMINAS_DIDACTICAS.has(id)
+    ? `${id}-didactico`
+    : LAMINAS_LIMPIAS.has(id) ? `${id}-limpio` : id
   return {
     id,
     categoria: "abstracto",

@@ -28,11 +28,11 @@ que respalda cada una, y con qué se comprueba:
 | E1 espacial | 14 | `verificar-claves.mjs` lee la clave del final del PDF y compara: los 14 coinciden |
 | E2 espacial | 4 | Revisadas mirando las páginas 10 a 13, que resaltan la opción correcta: las 4 coinciden. La 7 (27 − 6 = 21) y la 10 (dos dados suman 42 puntos, se ven 17) además cuadran por cuenta propia |
 | N1 numérico | 38 | `verificar-numerico.mjs` recalcula las 38 desde el enunciado —con la aritmética escrita y ejecutada, no leída— y las compara: cuadran |
-| N2 series | 162 | `verificar-series.mjs` las resuelve **de cero, sin mirar la respuesta**: 129 coinciden, 0 discrepan, 2 salen ambiguas y 31 usan reglas fuera de su familia |
+| N2 series | 161 | `verificar-series.mjs` las resuelve **de cero, sin mirar la respuesta**: 129 coinciden, 0 discrepan, 1 sale ambigua bajo varias reglas y 31 usan reglas fuera de su familia |
 
-En total, **205 de las 238 respuestas del banco están comprobadas por una vía
-independiente de quien las cargó**. Las 33 que faltan no están sin revisar: son
-2 series ambiguas en el propio original y 31 cuya regla no cubre el
+En total, **205 de las 237 respuestas del banco están comprobadas por una vía
+independiente de quien las cargó**. Las 32 que faltan no están sin revisar: son
+1 serie ambigua bajo reglas alternativas y 31 cuya regla no cubre el
 solucionador —tríos, ciclos sobre las diferencias, cosas así—. Se revisaron a
 mano por muestreo y salieron bien, pero eso no es lo mismo que estar
 comprobadas, y por eso se cuentan aparte.
@@ -94,6 +94,13 @@ veces «x2» e imprime como respuesta 6: es un 64 al que se le cayó el 4. Solo 
 corrige cuando la operación es la misma en toda la serie, porque ahí la regla no
 admite discusión. Con operaciones mezcladas, una discrepancia entre la regla y
 la respuesta impresa saca al ejercicio del banco en vez de corregirlo.
+
+**El 8.4 también salió del banco activo.** La fuente pide señalar un término
+sobrante de «58, 53, 49, 46, 44, 43» y marca 43, pero los saltos de toda la
+serie son −5, −4, −3, −2 y −1: no sobra ninguno. El 8.13 conserva la respuesta
+15 porque, al quitarlo, la regla didáctica simple es sumar 4 en cada paso; la
+explicación ahora muestra esa regla en vez de afirmar vagamente que solo hay
+una posible.
 
 ## Lo que quedó fuera, y por qué
 
@@ -220,6 +227,22 @@ marcada como giro horario de 90° cambia la disposición de las figuras pero
 no gira las siluetas de forma consistente. La nueva lámina diferencia un giro
 horario real, uno antihorario, un reflejo y una traslación. No se presenta como
 reproducción literal de esa pregunta.
+**AB-A1-08, 10, 13, 14, 15, 16 y 18** todavía dependen del recorte A1 porque
+sus reglas no están representadas por las figuras vectoriales. Ahora muestran
+una matriz y cinco alternativas a mayor escala, sin el encabezado del PDF;
+`node scripts/psicotecnicas/componer-a1-recortes.mjs` recompone los siete WebP
+didácticos a partir de los `-limpio.webp`, conservados como referencia. La
+geometría, las tramas y las claves no se modificaron.
+Las otras 13 láminas A1 son figuras vectoriales. `verificar-figuras.mjs` deduce
+las 13 respuestas desde sus atributos y coincide con la clave; para A1-02
+comprueba la progresión 1·2·3·4·3·2·1·2·3 brazos y acepta la única opción de
+tres brazos, sin suponer orientaciones. El cotejo visual con el cuadernillo
+sigue siendo una comprobación distinta del razonamiento de la clave.
+En A1-04 se restituyó la orientación vertical u horizontal de cada barra tal
+como aparece en la matriz original; antes el dibujo las uniformaba.
+**NU-N1-03** se redibujó en SVG con un cuadrado de lado 2 y un triángulo
+equilátero de lado 2 que comparten arista. El recorte original de 110 × 130
+píxeles queda en el repositorio para contraste; el área y la clave no cambian.
 
 ## Derechos
 

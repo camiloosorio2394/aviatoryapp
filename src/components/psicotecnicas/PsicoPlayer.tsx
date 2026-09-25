@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { AlertTriangle, Bookmark, CheckCircle2, ChevronRight, Loader2, XCircle } from "lucide-react"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { FiguraEnunciado, FiguraOpcion } from "./FiguraPsico"
+import { ImagenPsicoAmpliable } from "./ImagenPsicoAmpliable"
 import { ReportarProblema } from "@/components/ReportarProblema"
 import type { CorreccionPsico, SesionPsico } from "@/services/psicotecnicas"
 import type { ErrorEvaluacion } from "@/services/rpc"
@@ -252,15 +253,12 @@ export function PsicoPlayer({ sesion, onCorregir, onRegistrar, onAplazar, onTerm
           </div>
         ) : (
           ejercicio.imagen && (
-            <div className="mt-4 rounded-xl border border-border bg-white p-3 overflow-x-auto">
-              <img
-                src={ejercicio.imagen}
-                alt={ejercicio.imagenAlt ?? ejercicio.enunciado}
-                className="mx-auto max-w-full h-auto"
-                // El ejercicio es la imagen: si tarda, la pantalla no sirve.
-                loading="eager"
-              />
-            </div>
+            <ImagenPsicoAmpliable
+              key={ejercicio.posicion}
+              src={ejercicio.imagen}
+              alt={ejercicio.imagenAlt ?? ejercicio.enunciado}
+              loading="eager"
+            />
           )
         )}
 

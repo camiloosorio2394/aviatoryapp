@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/ui/page-header"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { PSICO_HUB } from "@/lib/psicotecnicas"
 import { EJEMPLOS_ESPACIAL, TEORIA_CUBO } from "@/data/psicotecnicas/aprende"
+import { ImagenPsicoAmpliable } from "@/components/psicotecnicas/ImagenPsicoAmpliable"
 
 /**
  * La lección del módulo: teoría del cubo y ejercicios ya resueltos.
@@ -41,14 +42,7 @@ export function PsicoAprende() {
           {TEORIA_CUBO.map((t) => (
             <section key={t.id} className="rounded-2xl surface p-5 sm:p-7">
               <h2 className="text-[19px] font-semibold tracking-[-0.01em]">{t.titulo}</h2>
-              <div className="mt-4 rounded-xl border border-border bg-white p-3 overflow-x-auto">
-                <img
-                  src={t.imagen}
-                  alt={t.imagenAlt}
-                  className="mx-auto max-w-full h-auto"
-                  loading="lazy"
-                />
-              </div>
+              <ImagenPsicoAmpliable src={t.imagen} alt={t.imagenAlt} />
               <p className="mt-3 text-[15px] leading-relaxed text-foreground/90">{t.pie}</p>
             </section>
           ))}
@@ -72,14 +66,7 @@ export function PsicoAprende() {
           {EJEMPLOS_ESPACIAL.map((e) => (
             <section key={e.id} className="rounded-2xl border border-border bg-card p-5">
               <h3 className="text-[15px] font-semibold">{e.titulo}</h3>
-              <div className="mt-3 rounded-xl border border-border bg-white p-3 overflow-x-auto">
-                <img
-                  src={e.imagen}
-                  alt={e.imagenAlt}
-                  className="mx-auto max-w-full h-auto"
-                  loading="lazy"
-                />
-              </div>
+              <ImagenPsicoAmpliable src={e.imagen} alt={e.imagenAlt} />
               <p className="mt-3 text-[15px] leading-relaxed text-foreground/90">{e.respuesta}</p>
               <p className="mt-2 text-[13px] text-muted-foreground">{e.fuente}</p>
             </section>

@@ -1,5 +1,5 @@
 /**
- * Resuelve las 162 series numéricas por cuenta propia y compara.
+ * Resuelve las 161 series numéricas por cuenta propia y compara.
  *
  * Por qué hace falta otro verificador. El que ya había, `verificar-respuestas`,
  * no resuelve nada: lee del PDF las operaciones que el propio documento declara

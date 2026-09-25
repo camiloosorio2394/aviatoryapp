@@ -7,7 +7,7 @@
  * cara de arriba— salieron precisamente por ahí: los encontró una persona
  * mirando la pantalla, de uno en uno, por casualidad.
  *
- * Esto es esa misma revisión pero de golpe y en orden: los 238 ejercicios, cada
+ * Esto es esa misma revisión pero de golpe y en orden: los 237 ejercicios, cada
  * uno con lo que se ve, lo que responde y de dónde salió. La idea es recorrerla
  * y apuntar identificadores, que es lo único que hace falta para arreglarlos.
  *
@@ -68,6 +68,9 @@ function estadoDe(e) {
     return { clase: "roja", texto: "Dibujada · sin comprobar" }
   }
   if (e.imagen) {
+    if (e.imagen.endsWith(".svg")) return { clase: "dibujada", texto: "Vectorial · proporciones verificadas" }
+    const didactica = e.imagen.includes("-didactico")
+    if (didactica) return { clase: "dibujada", texto: "Recompuesta · contrastada con el cuadernillo" }
     const limpia = e.imagen.includes("-limpio")
     return {
       clase: limpia ? "recorte" : "roja",
@@ -211,7 +214,8 @@ fs.writeFileSync(
     botón «copiar id» en cada tarjeta.</p>
     <p><b>Avance visual:</b> los ejercicios E1-01 a E1-14 y E2-07 a E2-10 están redibujados.
     Los ocho ejemplos de aprendizaje E2 se recompusieron en láminas verticales; la rotación
-    del ejemplo 14 se adaptó para que el giro de 90° sea geométricamente correcto.</p>
+    del ejemplo 14 se adaptó para que el giro de 90° sea geométricamente correcto.
+    Los siete recortes A1 se recompusieron y NU-N1-03 es vectorial.</p>
   </div>
   ${seccionEjemplos}
   ${secciones}

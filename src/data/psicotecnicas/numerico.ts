@@ -51,7 +51,7 @@ export const NUMERICO: EjercicioPsico[] = [
     subcategoria: "Aplicación del área",
     nivel: "intermedio",
     enunciado: "Observe la siguiente figura y determine el área:",
-    imagen: "/psicotecnicas/numerico/NU-N1-03.webp",
+    imagen: "/psicotecnicas/numerico/NU-N1-03-didactico.svg",
     imagenAlt:
       "Figura con forma de casa: un cuadrado de lado 2 con un triángulo encima; los cuatro lados marcados miden 2.",
     opciones: ["4 + (√3⁄2)", "4 + √3", "6", "10"],
@@ -230,7 +230,7 @@ export const NUMERICO: EjercicioPsico[] = [
     subcategoria: "Aplicación de porcentaje",
     nivel: "intermedio",
     enunciado:
-      "Tengo 1600 contactos en mi red social, pero conozco solo al 25%, y solo chateo con el 10%. ¿Con cuántos no chateo?",
+      "Tengo 1600 contactos en mi red social, pero conozco solo al 25% y chateo con el 10% de quienes conozco. ¿Con cuántos no chateo?",
     opciones: ["40", "400", "1200", "1560"],
     respuesta: 3,
     explicacion:

@@ -114,7 +114,7 @@ export type Elemento =
    * la punta, pero eso es cómo lo maquetaron: el atributo que el ejercicio
    * hace variar es hacia dónde apunta, y así todas se comparan igual.
    */
-  | { tipo: "pieza-punta"; mira: Sentido; relleno: Relleno }
+  | { tipo: "pieza-punta"; mira: Sentido; relleno: Relleno; barra?: "horizontal" | "vertical" }
   /**
    * El casco del ejercicio 17: un cuerpo rectangular con una punta a cada lado,
    * un remate encima y, en dos alternativas, una sombra negra por dentro.
@@ -1156,10 +1156,11 @@ function dibujarCelda(
         const punta = Math.min(ancho, alto) * 0.22
         const cx = x + ancho / 2
         const cy = y + alto / 2
-        const vertical = el.mira === "izquierda" || el.mira === "derecha"
-        // La barra va perpendicular a la punta.
-        const bw = vertical ? grueso : largo
-        const bh = vertical ? largo : grueso
+        const puntaLateral = el.mira === "izquierda" || el.mira === "derecha"
+        // En el original la barra no siempre es perpendicular a la punta.
+        const barraVertical = el.barra ? el.barra === "vertical" : puntaLateral
+        const bw = barraVertical ? grueso : largo
+        const bh = barraVertical ? largo : grueso
         const bx = cx - bw / 2
         const by = cy - bh / 2
         const relleno = pintura(el.relleno)
@@ -1167,7 +1168,7 @@ function dibujarCelda(
         // El triángulo cuelga del lado al que mira, con la base pegada a la
         // barra y algo más estrecha que ella: así se lee como una punta y no
         // como un tejado.
-        const base = (vertical ? bh : bw) * 0.72
+        const base = (puntaLateral ? bh : bw) * 0.72
         const [ax, ay] =
           el.mira === "arriba"
             ? [cx, by - punta]
@@ -1176,7 +1177,7 @@ function dibujarCelda(
               : el.mira === "izquierda"
                 ? [bx - punta, cy]
                 : [bx + bw + punta, cy]
-        const [e1, e2] = vertical
+        const [e1, e2] = puntaLateral
           ? [
               [el.mira === "izquierda" ? bx : bx + bw, cy - base / 2],
               [el.mira === "izquierda" ? bx : bx + bw, cy + base / 2],
