@@ -1606,6 +1606,7 @@ export const METAR_SOURCES: string[] = [
   "Para alternos y combustible: OACI, Anexo 6, Parte I (Operación de aeronaves); aplica la norma nacional y el manual aprobado del explotador en su versión vigente.",
   "Para fuentes de observación en altura: OMM, Sistema Mundial de Observación y programa AMDAR (observaciones automáticas de aeronaves).",
   "Para límites de radar y satélite: Servicio Meteorológico Nacional de EE. UU. (NOAA/NWS), guías de radar Doppler; OMM, OSCAR/Space y guía de observaciones satelitales. Comprueba el producto local vigente.",
+  "Para informes de piloto: OACI, Doc 8896, capítulo 7 (AIREP SPECIAL); FAA, Aeronautical Information Manual, capítulo 7 (ejemplo y campos del PIREP), y AC 00-45H (RAREP histórico reemplazado por RCM).",
 ]
 
 export type { LessonBlock }

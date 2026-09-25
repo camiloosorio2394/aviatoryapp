@@ -152,127 +152,118 @@ export const PARTE_SERVICIOS: DocScreen[] = [
   // ── 14 ──────────────────────────────────────────────────────────────────
   {
     n: 2,
-    title: "El PIREP y el RAREP",
-    kicker: "El único informe que escribes tú",
+    title: "El informe del piloto en ruta",
+    kicker: "PIREP y AIREP SPECIAL: observaciones en vuelo",
     minutes: 9,
     blocks: [
       {
         kind: "p",
-        text: "De todos los productos del briefing, el PIREP es el único que también se emite en la otra dirección. Todo lo demás lo lees; este lo escribes. Y como es la única fuente en tiempo real de turbulencia, engelamiento y altura de nubes, el que tú mandes es literalmente el dato que el siguiente va a usar para decidir.",
+        text: "**En la portada:** una tripulación observa nubes en ruta mientras un piloto transmite por radio. **Cómo lo reconoces:** el informe nace de una condición encontrada en vuelo, no de un pronóstico ni de la pantalla de radar. **Qué decides:** comunicar a la dependencia correspondiente ubicación, hora, nivel, tipo de aeronave y fenómeno con la precisión disponible, siguiendo el procedimiento del operador y del espacio aéreo.",
       },
       {
         kind: "sub",
-        text: "Qué aporta, y cuándo te lo van a pedir",
+        text: "Qué aporta un informe de aeronave",
       },
       {
         kind: "vinetas",
         items: [
-          "Confirma la altura de techos y de topes de nubes.",
-          "Ubica la cizalladura del viento y la turbulencia.",
-          "Ubica el engelamiento.",
-          "Con techo por debajo de 5.000 ft o visibilidad de cinco millas o menos, los controladores piden PIREP a los pilotos de la zona.",
-          "Y cuando encuentras condiciones inesperadas, se espera que informes aunque nadie te lo pida.",
+          "Describe lo que **realmente encontró esa aeronave**: turbulencia, engelamiento, cizalladura, topes o bases de nube, visibilidad en vuelo u otro peligro observado.",
+          "Incluye **posición, hora y nivel**; el tipo de aeronave ayuda a interpretar intensidad de turbulencia o engelamiento. Un reporte antiguo o lejano no equivale a tu trayectoria actual.",
+          "En el sistema de EE. UU., el PIREP (Pilot Report) puede ser rutinario `UA` o urgente `UUA`. La Organización de Aviación Civil Internacional (OACI; International Civil Aviation Organization, ICAO) contempla el informe especial de aeronave, **AIREP SPECIAL (Air Report Special)**.",
+          "Si encuentras un fenómeno peligroso, aplica el procedimiento de la tripulación y repórtalo sin esperar a que te lo soliciten. El canal y la prioridad se verifican en la norma y el manual aplicables.",
         ],
       },
       {
         kind: "p",
-        text: "Cuando presentas uno, el ATC o la dependencia correspondiente lo mete en la red: sirve para informar a otros pilotos y para emitir avisos en vuelo.",
+        text: "La dependencia de servicios de tránsito aéreo puede retransmitir el informe para que otras aeronaves y la oficina meteorológica lo usen. Un reporte no sustituye los avisos vigentes ni promete que el fenómeno conserve igual intensidad o ubicación.",
       },
       {
         kind: "sub",
-        text: "Interpretar: uno real, desarmado",
+        text: "Leer un ejemplo publicado por la Administración Federal de Aviación (Federal Aviation Administration, FAA)",
       },
       {
         kind: "code",
         grande: true,
-        text: "UA/OV GGG 090025/TM 1450/FL 060/TP C182/\nSK 080 OVC/WX FV 04R/TA 05/WV 270030/TB GT/RM HVY RAIN",
+        text: "KCMH UA /OV APE 230010/TM 1516/FL085/TP BE20/\nSK BKN065/WX FV03SM HZ FU/TA 20/TB LGT",
       },
       {
         kind: "kv",
         items: [
-          { k: "UA", v: "Informe de piloto de rutina" },
-          { k: "OV GGG 090025", v: "Ubicación: 25 NM en el radial 090 del VOR Gregg County" },
-          { k: "TM 1450", v: "Hora: 1450 Zulú" },
-          { k: "FL 060", v: "Altitud o nivel: 6.000 ft" },
-          { k: "TP C182", v: "Tipo de aeronave: Cessna 182" },
-          { k: "SK 080 OVC", v: "Cielo: cubierto a 8.000" },
-          { k: "WX FV 04R", v: "Visibilidad y tiempo: 4 millas en lluvia" },
-          { k: "TA 05", v: "Temperatura: 5 °C" },
-          { k: "WV 270030", v: "Viento: 270° a 30 kt" },
-          { k: "TB GT", v: "Turbulencia: ligera" },
-          { k: "RM HVY RAIN", v: "Observaciones: la lluvia es fuerte" },
+          { k: "KCMH UA", v: "Estación de referencia y PIREP rutinario en el formato estadounidense" },
+          { k: "/OV APE 230010", v: "Posición: a 10 millas náuticas en el radial 230 del radiofaro APE" },
+          { k: "/TM 1516", v: "Hora de observación: 15:16 UTC" },
+          { k: "/FL085", v: "Altitud reportada: 8.500 ft" },
+          { k: "/TP BE20", v: "Tipo de aeronave: Beechcraft BE200" },
+          { k: "/SK BKN065", v: "Base de nubes fragmentadas a 6.500 ft, según el ejemplo FAA" },
+          { k: "/WX FV03SM HZ FU", v: "Visibilidad en vuelo de 3 millas terrestres, calima y humo" },
+          { k: "/TA 20 /TB LGT", v: "Temperatura de 20 °C y turbulencia ligera" },
         ],
       },
       {
         kind: "callout",
         tone: "tip",
-        title: "Los cinco primeros son obligatorios",
-        text: "En el formulario, los elementos 1 a 5 son información requerida, más al menos un fenómeno meteorológico encontrado. O sea: dónde, cuándo, a qué nivel, con qué avión, y qué te pasó. Lo demás suma. Un PIREP no se deja de mandar por no acordarse del formato completo.",
+        title: "Formato de muestra, no mensaje vigente",
+        text: "El mensaje anterior procede de un ejemplo educativo del Manual de Información Aeronáutica de la FAA; no describe tiempo actual ni un aeródromo colombiano. El formulario estadounidense solicita tipo, posición, hora, nivel y aeronave, además del fenómeno. Si debes reportar de inmediato, comunica lo esencial en lenguaje claro por el canal disponible y sigue el formato local.",
       },
       {
-        kind: "infografia",
-        nombre: "meteo-pirep",
-      },
-      {
-        kind: "check",
-        codigo: "UA/OV GGG 180040/TM 1615/FL 100/TP B738/SK 120 BKN/TA 05/WV 250045/TB MOD",
-        question:
-          "¿Dónde y a qué nivel se encontró esa turbulencia moderada?",
-        options: [
-          "A 40 NM en el radial 180 del VOR GGG, a 10.000 ft",
-          "A 180 NM en el radial 040 del VOR GGG, a 100 ft",
-          "Sobre el VOR GGG a 1.615 ft, con viento del 250 a 45 kt",
-        ],
-        answer: 0,
-        explain:
-          "En `OV GGG 180040` los tres primeros dígitos son el radial y los dos últimos la distancia: radial 180, 40 NM. `FL 100` son 10.000 ft, no 100. Y `TM 1615` es la hora Zulú, no una altura. Dónde, cuándo y a qué nivel son tres de los cinco elementos obligatorios del informe, y son justo los que hacen que le sirva a otro.",
-      },
-      {
-        kind: "sub",
-        text: "El RAREP, que es lo que ve el radar",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t27-01-reporte-piloto.webp",
+        alt: "Secuencia de un informe de piloto en ruta: observar fenómeno, situarlo en posición hora y nivel, transmitirlo y contrastarlo con otros productos",
+        ancho: 1600,
+        alto: 720,
+        pie: "La secuencia vale para el briefing y el reporte oral; los códigos PIREP de la FAA y AIREP SPECIAL de OACI tienen formatos propios.",
       },
       {
         kind: "p",
-        text: "Los informes meteorológicos de radar (RAREP, o detecciones de tormenta) los emiten las estaciones de radar **a los 35 minutos después de la hora**, con informes especiales cuando hacen falta. Dan tipo, intensidad y localización del eco de la parte superior de la precipitación, y pueden incluir dirección y velocidad de la zona de precipitación y la altura de la base y del tope, en cientos de pies sobre el nivel del mar.",
+        text: "**Qué ves:** un reporte útil conecta fenómeno con posición, hora, nivel y tipo de aeronave antes de circular a otros pilotos. **Cómo lo reconoces:** cada campo responde dónde, cuándo y en qué condiciones se encontró. **Qué decides:** emitirlo con prontitud y evaluar los reportes recibidos según cercanía, antigüedad y compatibilidad con el resto del briefing.",
       },
       {
-        kind: "fichas",
-        columnas: 3,
-        titulo: "Los tres patrones de eco",
-        items: [
-          {
-            titulo: "Línea (LN)",
-            puntos: [
-              "Línea de ecos de al menos 30 km de largo.",
-              "Al menos cuatro veces más larga que ancha.",
-              "Con al menos un 25 % de cobertura dentro de la línea.",
-            ],
-          },
-          {
-            titulo: "Área (AREA)",
-            puntos: ["Un grupo de ecos del mismo tipo que no llega a clasificarse como línea."],
-          },
-          {
-            titulo: "Célula (CELL)",
-            puntos: ["Un único eco convectivo aislado, como un chubasco."],
-          },
+        kind: "piensaComoPiloto",
+        momento: "En ruta, después de una zona de turbulencia no pronosticada",
+        situacion:
+          "Tu tripulación encuentra turbulencia moderada durante varios minutos a nivel de vuelo 220. La aeronave está bajo control y el fenómeno no figura en el briefing disponible.",
+        pregunta: "¿Qué haces en la cabina y qué información transmites para que el reporte sirva a otros?",
+        claves: [
+          "Primero sigo los procedimientos de turbulencia y coordino a la tripulación; el reporte no sustituye la gestión inmediata del vuelo.",
+          "Comunico posición, hora UTC del encuentro, nivel, tipo de aeronave, intensidad, duración y evolución observadas, sin atribuir una causa que no comprobé.",
+          "Reviso avisos y reportes nuevos y considero un cambio de nivel o ruta con control y despacho según el combustible y las limitaciones de la operación.",
+          "El formato final y el canal dependen de los servicios de tránsito aéreo y del procedimiento aprobado para la ruta.",
         ],
       },
       {
-        kind: "vinetas",
-        items: [
-          "El azimut va referido al norte verdadero y la distancia en millas náuticas desde el radar.",
-          "Para líneas y áreas hay dos pares de azimut y distancia; para células, uno solo.",
-          "El movimiento se codifica solo para células: no se codifica para líneas ni para áreas.",
-          "El tope máximo de la precipitación va con «MT», o con «MTS» si además se usaron datos de satélite.",
-          "Si aparece «AUTO», el informe está automatizado con datos de radar WSR-88D.",
+        kind: "check",
+        question:
+          "En el ejemplo de la FAA, ¿qué datos permiten situar una condición encontrada antes de compararla con tu ruta?",
+        options: [
+          "Solo `UA`: indica que el tiempo sigue igual",
+          "`/OV`, `/TM` y `/FL`: posición, hora y nivel del encuentro",
+          "Solo `/TA`: la temperatura determina el lugar",
         ],
+        answer: 1,
+        explain:
+          "La ubicación `/OV`, la hora `/TM` y la altitud `/FL` anclan el informe en el espacio y el tiempo. El fenómeno y tipo de aeronave completan el contexto. No proyectes ese dato puntual a toda la ruta sin revisar evolución y otras fuentes.",
+      },
+      {
+        kind: "sub",
+        text: "La forma OACI: AIREP SPECIAL",
+      },
+      {
+        kind: "p",
+        text: "OACI usa el informe especial de aeronave para fenómenos relevantes como turbulencia o engelamiento moderado o severo, onda de montaña severa, tormentas, ceniza volcánica y otros peligros definidos. La tripulación comunica la observación a servicios de tránsito aéreo; la dependencia meteorológica la distribuye según el procedimiento aplicable. La prioridad es una posición, hora, nivel y descripción inequívocos, no memorizar un formulario extranjero.",
+      },
+      {
+        kind: "code",
+        text: "ARS VA812 SEV MTW OBS AT 1215Z N2020W07005 FL180",
+      },
+      {
+        kind: "p",
+        text: "Este es el **ejemplo publicado por OACI en el Doc 8896**, con operador ficticio identificado por la propia fuente: un informe especial (`ARS`) de onda de montaña severa (`SEV MTW`), observada a las 12:15 UTC en la posición indicada y a nivel de vuelo 180. Es un ejemplo de formato, no un aviso vigente ni una carta de navegación.",
       },
       {
         kind: "callout",
-        tone: "warn",
-        title: "Y otra vez la misma advertencia",
-        text: "El RAREP es especialmente valioso para planificar evitando zonas de tiempo severo. Pero sale del radar, así que arrastra su límite: bases y topes de nubes, techos y visibilidad no aparecen ahí. Un RAREP no sustituye a un METAR ni a un PIREP; los complementa.",
+        tone: "verificar",
+        title: "RAREP es histórico, no el producto que debes esperar hoy",
+        text: "RAREP (Radar Report) era un informe manual de radar del sistema estadounidense. La FAA documenta que lo reemplazó el mensaje codificado de radar RCM (Radar Coded Message) con la red NEXRAD (Next Generation Weather Radar); no enseñamos sus horarios ni códigos como si fueran un producto vigente en Latinoamérica. Para desviar alrededor de convección, usa el radar y los avisos oficiales disponibles para tu ruta y revisa su hora y cobertura.",
       },
       {
         kind: "entrevista",
@@ -280,24 +271,24 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         preguntas: [
           {
             nivel: "concepto",
-            q: "¿Qué información aporta un PIREP que no se puede obtener de otra fuente?",
+            q: "¿Qué aporta un informe de piloto frente a un pronóstico?",
             respuesta:
-              "Las condiciones que realmente existen en el aire: confirmación de techos y de topes de nubes, ubicación de cizalladura y turbulencia, y ubicación de engelamiento. Junto con la radiosonda es una de las dos únicas formas de observar el tiempo en altura, y es la única fuente en tiempo real de turbulencia, engelamiento y altura de nubes.",
-            claves: ["Condiciones reales en el aire", "Turbulencia, engelamiento y altura de nubes", "Única en tiempo real"],
+              "Aporta una observación directa de la condición encontrada por una aeronave, con posición, hora, nivel y tipo de aeronave. Puede confirmar o matizar turbulencia, engelamiento o nubes pronosticadas, pero sigue siendo una muestra puntual que debo contrastar con otros reportes y avisos.",
+            claves: ["Observación directa", "Posición, hora y nivel", "Muestra puntual"],
           },
           {
             nivel: "interpretacion",
-            q: "¿Cuándo le van a pedir un PIREP, y cuándo debería mandarlo sin que se lo pidan?",
+            q: "¿Cuándo comunicas un fenómeno sin esperar que control lo solicite?",
             respuesta:
-              "Los controladores los solicitan cuando el techo está por debajo de 5.000 ft o la visibilidad es de cinco millas o menos. Y sin que lo pidan, siempre que encuentre condiciones inesperadas, porque ese informe se incorpora a la red y sirve para avisar a otros pilotos.",
-            claves: ["Techo bajo 5.000 ft", "Visibilidad 5 millas o menos", "Condiciones inesperadas"],
+              "Cuando observo un fenómeno peligroso o inesperado que puede afectar a otras aeronaves, después de atender primero la seguridad del vuelo. Transmito condición, posición, hora, nivel y aeronave por el canal y con la prioridad previstos en el procedimiento local; no espero un umbral estadounidense de techo o visibilidad.",
+            claves: ["Peligro observado", "Seguridad primero", "Reporte oportuno por canal local"],
           },
           {
             nivel: "situacion",
-            q: "¿Qué NO le va a decir un informe de radar?",
+            q: "Un radar no muestra ecos y otro piloto reporta engelamiento a tu nivel. ¿Qué haces?",
             respuesta:
-              "Bases y topes de nubes, techos y visibilidad. El radar solo detecta objetos lo bastante grandes como para considerarse precipitación, así que un eco limpio no significa cielo despejado ni condiciones VFR.",
-            claves: ["Solo detecta precipitación", "No ve nubes, techos ni visibilidad"],
+              "No descarto el reporte por la pantalla limpia. Reviso su ubicación, hora y nivel, lo comparo con pronósticos y avisos, y considero una ruta o nivel alternativo dentro de las limitaciones de la aeronave y los procedimientos de la tripulación.",
+            claves: ["Radar sin ecos no descarta hielo", "Contexto del informe", "Opciones seguras"],
           },
         ],
       },
