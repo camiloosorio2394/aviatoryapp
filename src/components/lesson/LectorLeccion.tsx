@@ -407,10 +407,14 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
                   )}
                   {leccion.blocks.map((block, i) => {
                     /* Donde no hay portada automática, el primer bloque hace de
-                       portada: en Aeropuertos es la foto de cabecera de la
-                       lección, o el hueco que la espera. Se sale de la columna
-                       igual que la portada de los demás módulos. */
-                    const deAncho = BLOQUES_ANCHOS.has(block.kind) || (modulo.portadaAuto === false && i === 0)
+                       portada si es una imagen: en Aeropuertos es la foto de
+                       cabecera de la lección, o el hueco que la espera. Se sale
+                       de la columna igual que la portada de los demás módulos.
+                       Un párrafo no: RAC, Combustible y Performance abren con
+                       texto, y a lo ancho quedaba desalineado del resto. */
+                    const deAncho =
+                      BLOQUES_ANCHOS.has(block.kind) ||
+                      (modulo.portadaAuto === false && i === 0 && PORTADA_EN_CONTENIDO.has(block.kind))
 
                     if (block.kind === "interactivo") {
                       return (
@@ -780,6 +784,9 @@ const PORTADA_RATIO = "8 / 3"
  * una figura tenga que ser más pequeña todavía, es `anchoMax` quien lo dice.
  */
 const BLOQUES_ANCHOS = new Set(["infografia"])
+
+/** Los bloques que pueden hacer de portada cuando el módulo no la pone sola. */
+const PORTADA_EN_CONTENIDO = new Set(["figura", "hueco"])
 
 function Portada({
   dir,

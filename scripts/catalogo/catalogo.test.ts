@@ -26,6 +26,10 @@ import { AP_PRACTICA_CLAVES } from "@/lib/aeropuertosPractica"
 import { PERF_LECCION_TOTAL, PERF_PRACTICA_CLAVES } from "@/lib/performanceLeccion"
 import { CM_LECCION_TOTAL } from "@/lib/comunicacionesLeccion"
 import { CM_PRACTICA_CLAVES } from "@/lib/comunicacionesPracticaGrupos"
+import { RAC_LECCION_TOTAL } from "@/lib/racLeccion"
+import { RAC_PRACTICA_CLAVES } from "@/lib/racPractica"
+import { CB_LECCION_TOTAL } from "@/lib/combustibleLeccion"
+import { CB_PRACTICA_CLAVES } from "@/lib/combustiblePractica"
 import { MODULOS_AEROLINEA } from "@/lib/modulosAerolinea"
 
 /**
@@ -77,6 +81,18 @@ function catalogoDesdeContenido() {
     comunicaciones: {
       lecciones: CM_LECCION_TOTAL,
       practicas: CM_PRACTICA_CLAVES,
+    },
+    // Las preguntas del quiz de cada unidad (u01-q1…), que salen del documento
+    // con scripts/rac/convertir.mjs.
+    rac: {
+      lecciones: RAC_LECCION_TOTAL,
+      practicas: RAC_PRACTICA_CLAVES,
+    },
+    // Las del quiz de cada capítulo (c01-q1…) y los diez escenarios del
+    // capítulo 23 (esc-01…), de scripts/combustible/convertir.mjs.
+    combustible: {
+      lecciones: CB_LECCION_TOTAL,
+      practicas: CB_PRACTICA_CLAVES,
     },
   }
 }

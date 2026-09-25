@@ -7,8 +7,10 @@ import {
   ClipboardCheck,
   ClipboardList,
   CloudSun,
+  Fuel,
   Gauge,
   Headset,
+  Scale,
   Wind,
   TowerControl,
 } from "lucide-react"
@@ -88,6 +90,10 @@ import { fetchMercanciasProgress, readMercanciasLocal } from "@/lib/mercanciasPr
 import { fetchAeropuertosProgress } from "@/lib/aeropuertosProgress"
 import { fetchComunicacionesProgress } from "@/lib/comunicacionesProgress"
 import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
+import { RAC_HUB, RAC_LECTURA_TOTAL, RAC_PRACTICA_TOTAL, RAC_TITULO, resumirRac } from "@/lib/rac"
+import { fetchRacProgress, readRacLocal } from "@/lib/racProgress"
+import { CB_HUB, CB_LECTURA_TOTAL, CB_PRACTICA_TOTAL, CB_TITULO, resumirCombustible } from "@/lib/combustible"
+import { fetchCombustibleProgress, readCombustibleLocal } from "@/lib/combustibleProgress"
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.webp"
@@ -183,6 +189,8 @@ export function AirlinePrep() {
   const [aeropuertosProgreso, setAeropuertosProgreso] = useState(() => readAeropuertosLocal())
   const [comunicacionesProgreso, setComunicacionesProgreso] = useState(() => readComunicacionesLocal())
   const [performanceProgreso, setPerformanceProgreso] = useState(() => readPerformanceLocal())
+  const [racProgreso, setRacProgreso] = useState(() => readRacLocal())
+  const [combustibleProgreso, setCombustibleProgreso] = useState(() => readCombustibleLocal())
   const [mejorPsico, setMejorPsico] = useState<number | null>(
     () => leerPsicoLocal().mejorSimulacro
   )
@@ -203,7 +211,7 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, pfRes, psicoRes] =
+      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, pfRes, racRes, cbRes, psicoRes] =
         await Promise.all([
           fetchNotamProgress(user.id),
           fetchMetarProgress(user.id),
@@ -214,6 +222,8 @@ export function AirlinePrep() {
           fetchAeropuertosProgress(user.id),
           fetchComunicacionesProgress(user.id),
           fetchPerformanceProgress(user.id),
+          fetchRacProgress(user.id),
+          fetchCombustibleProgress(user.id),
           mejorSimulacroRemoto(user.id),
         ])
       if (cancelled) return
@@ -248,6 +258,8 @@ export function AirlinePrep() {
       if (apRes) setAeropuertosProgreso(apRes)
       if (cmRes) setComunicacionesProgreso(cmRes)
       if (pfRes) setPerformanceProgreso(pfRes)
+      if (racRes) setRacProgreso(racRes)
+      if (cbRes) setCombustibleProgreso(cbRes)
 
       // La última vez que tocó CUALQUIER tema: la más reciente de las cuatro
       // filas de progreso. Se compara en ISO, que ordena igual que la fecha.
@@ -261,6 +273,8 @@ export function AirlinePrep() {
         apRes?.remoto.actualizado,
         cmRes?.remoto.actualizado,
         pfRes?.remoto.actualizado,
+        racRes?.remoto.actualizado,
+        cbRes?.remoto.actualizado,
       ].filter((f): f is string => typeof f === "string" && f.length > 0)
       setUltimaActividad(fechas.length > 0 ? fechas.reduce((a, b) => (a > b ? a : b)) : null)
       // Se queda con el mayor entre la base y el respaldo local: si el mejor
@@ -287,6 +301,8 @@ export function AirlinePrep() {
   const aeropuertos = useMemo(() => resumirAeropuertos(aeropuertosProgreso), [aeropuertosProgreso])
   const comunicaciones = useMemo(() => resumirComunicaciones(comunicacionesProgreso), [comunicacionesProgreso])
   const performance = useMemo(() => resumirPerformance(performanceProgreso), [performanceProgreso])
+  const rac = useMemo(() => resumirRac(racProgreso), [racProgreso])
+  const combustible = useMemo(() => resumirCombustible(combustibleProgreso), [combustibleProgreso])
 
   // Los estados van en cifras cortas («9/9 secciones») porque la tarjeta de
   // cuatro columnas les da un renglón. Los que decían «13 secciones cortas» o
@@ -464,6 +480,53 @@ export function AirlinePrep() {
               : `${comunicaciones.lessonRead}/${CM_LECTURA_TOTAL} lecciones · ${comunicaciones.practiceDone}/${CM_PRACTICA_CONTEO} ejercicios`,
         },
       },
+      // RAC: una unidad por reglamento, práctica de opción múltiple y
+      // evaluación. Sin portada todavía: la tarjeta lleva su hueco rotulado.
+      {
+        nombre: RAC_TITULO,
+        to: RAC_HUB,
+        pct: rac.overall,
+        card: {
+          to: RAC_HUB,
+          icon: Scale,
+          color: "var(--av-rac-700)",
+          titulo: RAC_TITULO,
+          meta: `${RAC_LECTURA_TOTAL} unidades · 5 bloques`,
+          descripcion: "Licencias, médico, reglas de vuelo, aerolínea y sanciones: lo que te toca de cada RAC.",
+          fotoHueco: "RAC-TEMA · 3:2 · 1200×800 · Licencia de piloto y certificado médico sobre el manual de operaciones, en cabina",
+          cta: ctaDeTema(rac.overall),
+          avance: rac.overall,
+          completo: rac.overall >= 100,
+          estado: rac.empty
+            ? "Sin empezar"
+            : rac.overall >= 100
+              ? "Tema completo"
+              : `${rac.lessonRead}/${RAC_LECTURA_TOTAL} unidades · ${rac.practiceDone}/${RAC_PRACTICA_TOTAL} preguntas`,
+        },
+      },
+      // Gestión del combustible: veintitrés capítulos, práctica y evaluación.
+      {
+        nombre: CB_TITULO,
+        to: CB_HUB,
+        pct: combustible.overall,
+        card: {
+          to: CB_HUB,
+          icon: Fuel,
+          color: "var(--av-cb-700)",
+          titulo: CB_TITULO,
+          meta: `${CB_LECTURA_TOTAL} capítulos · 10 escenarios`,
+          descripcion: "Block fuel, reserva final, fuel check, combustible mínimo y MAYDAY: decidir antes de que falte.",
+          fotoHueco: "CB-TEMA · 3:2 · 1200×800 · Página de combustible del FMS con la predicción al destino y al alterno",
+          cta: ctaDeTema(combustible.overall),
+          avance: combustible.overall,
+          completo: combustible.overall >= 100,
+          estado: combustible.empty
+            ? "Sin empezar"
+            : combustible.overall >= 100
+              ? "Tema completo"
+              : `${combustible.lessonRead}/${CB_LECTURA_TOTAL} capítulos · ${combustible.practiceDone}/${CB_PRACTICA_TOTAL} ejercicios`,
+        },
+      },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace
       // de avance es el mejor resultado del simulacro, que es lo único que
       // mide de verdad si ya estás listo para el proceso.
@@ -544,7 +607,7 @@ export function AirlinePrep() {
       .map((t, i) => ({ t, i }))
       .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
       .map(({ t }) => t)
-  }, [notam, metar, mercancias, aero, aeropuertos, performance, comunicaciones, mejorSimulacro, mejorPsico])
+  }, [notam, metar, mercancias, aero, aeropuertos, performance, comunicaciones, rac, combustible, mejorSimulacro, mejorPsico])
 
   const cursables = temas.filter((t) => !t.herramienta)
   const herramientas = temas.filter((t) => t.herramienta)

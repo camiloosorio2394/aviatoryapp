@@ -85,6 +85,14 @@ const Comunicaciones = page(() => import("@/pages/Comunicaciones"), "Comunicacio
 const ComunicacionesLeccion = page(() => import("@/pages/ComunicacionesLeccion"), "ComunicacionesLeccion")
 const ComunicacionesPractice = page(() => import("@/pages/ComunicacionesPractice"), "ComunicacionesPractice")
 const ComunicacionesExam = page(() => import("@/pages/ComunicacionesExam"), "ComunicacionesExam")
+const Rac = page(() => import("@/pages/Rac"), "Rac")
+const RacLeccion = page(() => import("@/pages/RacLeccion"), "RacLeccion")
+const RacPractice = page(() => import("@/pages/RacPractice"), "RacPractice")
+const RacExam = page(() => import("@/pages/RacExam"), "RacExam")
+const Combustible = page(() => import("@/pages/Combustible"), "Combustible")
+const CombustibleLeccion = page(() => import("@/pages/CombustibleLeccion"), "CombustibleLeccion")
+const CombustiblePractice = page(() => import("@/pages/CombustiblePractice"), "CombustiblePractice")
+const CombustibleExam = page(() => import("@/pages/CombustibleExam"), "CombustibleExam")
 const MercanciasPractice = page(() => import("@/pages/MercanciasPractice"), "MercanciasPractice")
 const MercanciasExam = page(() => import("@/pages/MercanciasExam"), "MercanciasExam")
 const Aerodinamica = page(() => import("@/pages/Aerodinamica"), "Aerodinamica")
@@ -188,6 +196,8 @@ function App() {
               <Route path="/app/aerolinea/performance/aprende" element={<PerformanceLeccion />} />
               <Route path="/app/aerolinea/aeropuertos/aprende" element={<AeropuertosLeccion />} />
               <Route path="/app/aerolinea/comunicaciones/aprende" element={<ComunicacionesLeccion />} />
+              <Route path="/app/aerolinea/rac/aprende" element={<RacLeccion />} />
+              <Route path="/app/aerolinea/combustible/aprende" element={<CombustibleLeccion />} />
             </Route>
 
             {/* Con sesión, dentro de la app. AppLayout es la ruta de layout: se monta
@@ -242,6 +252,17 @@ function App() {
               <Route path="/app/aerolinea/comunicaciones" element={<Comunicaciones />} />
               <Route path="/app/aerolinea/comunicaciones/practica" element={<ComunicacionesPractice />} />
               <Route path="/app/aerolinea/comunicaciones/evaluacion" element={<ComunicacionesExam />} />
+              {/* Tema RAC: una unidad por reglamento, la práctica con el quiz de
+                  cada unidad y la evaluación. */}
+              <Route path="/app/aerolinea/rac" element={<Rac />} />
+              <Route path="/app/aerolinea/rac/practica" element={<RacPractice />} />
+              <Route path="/app/aerolinea/rac/evaluacion" element={<RacExam />} />
+              {/* Tema Gestión del combustible: veintitrés capítulos, la práctica
+                  con el quiz de cada capítulo (los escenarios viven en el 23) y
+                  la evaluación. */}
+              <Route path="/app/aerolinea/combustible" element={<Combustible />} />
+              <Route path="/app/aerolinea/combustible/practica" element={<CombustiblePractice />} />
+              <Route path="/app/aerolinea/combustible/evaluacion" element={<CombustibleExam />} />
               <Route path="/app/aerolinea/aerodinamica/practica" element={<AerodinamicaPractice />} />
               <Route path="/app/aerolinea/aerodinamica/evaluacion" element={<AerodinamicaExam />} />
               {/* Tema Performance. No lleva práctica aparte: los ejercicios y los

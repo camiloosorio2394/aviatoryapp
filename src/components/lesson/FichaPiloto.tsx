@@ -137,9 +137,14 @@ export function Ficha({
   pie?: ReactNode
   children: ReactNode
 }) {
+  // Con la píldora a la derecha (desde sm), la pestaña le deja su sitio: un
+  // momento largo («Escenario 1 · La espera que se come la reserva») pasaba por
+  // debajo de ella. Corto, la pestaña mide lo suyo y esto no cambia nada.
   const pestana = (
     <div
-      className="inline-flex max-w-[calc(100%-12px)] items-center gap-2.5 py-2.5 pl-5 pr-10 text-white sm:pl-7"
+      className={`inline-flex max-w-[calc(100%-12px)] items-center gap-2.5 py-2.5 pl-5 pr-10 text-white sm:pl-7${
+        rotulo ? " sm:max-w-[calc(100%-224px)]" : ""
+      }`}
       style={{ background: PRIMARIO, clipPath: "polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%)" }}
     >
       <AvionRelleno className="h-[17px] w-[17px] shrink-0" />

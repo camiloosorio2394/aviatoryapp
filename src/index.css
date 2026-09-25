@@ -1781,6 +1781,86 @@
   outline-color: #D9B6E1;
 }
 
+/* RAC: grafito pizarra.
+   Los matices que quedaban libres ya dicen algo: una frambuesa (350) queda al
+   lado del vinotinto de «respuesta incorrecta» de las evaluaciones (14), y un
+   oliva (110) es de la familia del verde de correcto. Así que el RAC se
+   distingue por croma y no por matiz: un gris azulado casi neutro, sobrio como
+   un expediente, que no compite con el azul carta de NOTAM (croma 0,22) ni con
+   el acero de Aerodinámica (0,075).
+
+   Contraste, medido: el primario del lector da 8,8:1 sobre el papel y 9,2:1
+   con el blanco encima; el foco, 5,1:1 sobre el papel. */
+:root {
+  --av-rac-500: oklch(0.560 0.030 255);
+  --av-rac-600: oklch(0.470 0.030 255);
+  --av-rac-700: oklch(0.400 0.030 255);
+  --av-rac-fg: oklch(0.365 0.028 255);
+}
+.dark {
+  --av-rac-500: oklch(0.720 0.030 255);
+  --av-rac-600: oklch(0.630 0.030 255);
+  --av-rac-700: oklch(0.520 0.030 255);
+  --av-rac-fg: oklch(0.820 0.022 255);
+}
+.lector-notam.lector-rac {
+  --ln-primary: #3D4958;
+  --ln-primary-hover: #2B3645;
+  --ln-bright: #7A8799;
+  --ln-tint: #F1F4F7;
+  /* La pastilla de la lección abierta, sobre el navy: 1,9:1 contra el índice
+     (como la de NOTAM) y 8,5:1 con el texto blanco. */
+  --ln-pill: #424E5E;
+  --ln-focus: #606D7D;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-rac .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+/* En el índice navy: 10,9:1 sobre el navy y 5,6:1 sobre la pastilla. */
+.lector-notam.lector-rac .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #C9D3DF;
+}
+
+/* Gestión del combustible: azul queroseno.
+   El matiz 228 cae entre el turquesa de Meteorología (205) y el acero de
+   Aerodinámica (250), y se separa de los dos por croma: 0,10 contra 0,075. Es
+   el azul del AvGas 100LL, el único combustible de aviación que lleva color.
+
+   Contraste, medido: el primario del lector da 8,4:1 sobre el papel y 8,8:1
+   con el blanco encima; el foco, 4,9:1 sobre el papel. */
+:root {
+  --av-cb-500: oklch(0.585 0.105 228);
+  --av-cb-600: oklch(0.500 0.100 228);
+  --av-cb-700: oklch(0.420 0.090 228);
+  --av-cb-fg: oklch(0.385 0.080 228);
+}
+.dark {
+  --av-cb-500: oklch(0.720 0.095 228);
+  --av-cb-600: oklch(0.630 0.095 228);
+  --av-cb-700: oklch(0.530 0.090 228);
+  --av-cb-fg: oklch(0.820 0.070 228);
+}
+.lector-notam.lector-cb {
+  --ln-primary: #005071;
+  --ln-primary-hover: #003D5D;
+  --ln-bright: #2F92B8;
+  --ln-tint: #E8F6FD;
+  /* Sobre el navy: 2:1 contra el índice y 8,1:1 con el texto blanco. */
+  --ln-pill: #005677;
+  --ln-focus: #0E7699;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-cb .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+/* En el índice navy: 10,4:1 sobre el navy y 5,1:1 sobre la pastilla. */
+.lector-notam.lector-cb .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #9FD6EC;
+}
+
 /* ============================================================
  * Táctil: el hover no existe, pero el navegador lo simula
  *

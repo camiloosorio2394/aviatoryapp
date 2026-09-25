@@ -30,6 +30,8 @@ import { PERF_HUB, PERF_LECTURA_TOTAL, PERF_PASS_SCORE, PERF_PRACTICA_TOTAL } fr
 
 import { CM_HUB, CM_LECTURA_TOTAL, CM_PASS_SCORE } from "@/lib/comunicaciones"
 import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
+import { RAC_HUB, RAC_LECTURA_TOTAL, RAC_PASS_SCORE, RAC_PRACTICA_TOTAL } from "@/lib/rac"
+import { CB_HUB, CB_LECTURA_TOTAL, CB_PASS_SCORE, CB_PRACTICA_TOTAL } from "@/lib/combustible"
 
 /** Las claves son las de `contenido/catalogo/modulos.json`, y la prueba lo exige. */
 export type ClaveModulo =
@@ -40,6 +42,8 @@ export type ClaveModulo =
   | "aeropuertos"
   | "performance"
   | "comunicaciones"
+  | "rac"
+  | "combustible"
 
 export interface ModuloAerolinea {
   clave: ClaveModulo
@@ -136,6 +140,30 @@ export const MODULOS_AEROLINEA: ModuloAerolinea[] = [
       aprobacion: CM_PASS_SCORE,
     },
     promesa: "Escuchar, interpretar, confirmar y responder al ATC.",
+  },
+  {
+    clave: "rac",
+    titulo: "RAC",
+    hub: RAC_HUB,
+    acento: "var(--av-rac-500)",
+    totales: {
+      secciones: RAC_LECTURA_TOTAL,
+      practicas: RAC_PRACTICA_TOTAL,
+      aprobacion: RAC_PASS_SCORE,
+    },
+    promesa: "Los reglamentos que te preguntan: licencia, médico, reglas de vuelo y aerolínea.",
+  },
+  {
+    clave: "combustible",
+    titulo: "Gestión del combustible",
+    hub: CB_HUB,
+    acento: "var(--av-cb-500)",
+    totales: {
+      secciones: CB_LECTURA_TOTAL,
+      practicas: CB_PRACTICA_TOTAL,
+      aprobacion: CB_PASS_SCORE,
+    },
+    promesa: "Planificar, vigilar y decidir antes de que el combustible sea la emergencia.",
   },
 ]
 
