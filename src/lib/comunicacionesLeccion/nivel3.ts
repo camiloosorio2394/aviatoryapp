@@ -601,228 +601,135 @@ export const NIVEL_3: DocScreen[] = [
   {
     n: 16,
     title: "Rodaje",
-    kicker: "Calles, puntos de espera y cruces de pista",
-    minutes: 13,
+    kicker: "Límites, puntos de espera y cruces de pista",
+    minutes: 18,
     blocks: [
-      { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "El **rodaje** es el movimiento autopropulsado de una aeronave sobre la superficie del aeródromo, excluidos el despegue y el aterrizaje (Doc 4444, cap. 1). La **autorización de rodaje** le dice por dónde ir y **hasta dónde**. Ese «hasta dónde» es lo que evita las incursiones en pista.",
+        text: "El rodaje no es solo seguir una línea amarilla hasta la cabecera. La autorización debe interpretarse como una ruta y una sucesión de límites: por dónde puede avanzar la aeronave, en qué punto debe detenerse y qué pista no puede ocupar sin una instrucción específica. En una tripulación de aerolínea, ambos pilotos deben compartir ese modelo antes de iniciar el movimiento; una colación correcta que nadie contrasta con la posición real no evita por sí sola una incursión.",
       },
-
-      { kind: "sub", text: "Lo que debe saber un piloto" },
-      { kind: "p", text: "**Cuatro reglas del Doc 9432 que no se negocian:**" },
+      { kind: "sub", text: "Preparación antes de mover" },
       {
         kind: "list",
         ordered: true,
         items: [
-          "**Toda instrucción de rodaje tiene un límite de autorización**: el punto donde debe detenerse hasta recibir otra autorización. Para la salida suele ser el punto de espera de la pista en uso, pero puede ser otro (4.4.1).",
-          "**Si el límite queda más allá de una pista, la autorización debe contener una autorización explícita para cruzarla o una instrucción de esperar fuera de ella** (4.4.2). Si no escuchó ni una ni otra, no la cruce: pregunte.",
-          "La fraseología del rodaje **no debe poder interpretarse** como autorización para entrar a la pista o despegar (4.5.2). Si a usted le parece que sí, pida confirmación.",
-          "**La pista queda libre** cuando toda la aeronave ha sobrepasado el punto de espera correspondiente (4.4, Nota).",
+          "**Ubicación confirmada.** Identificar el puesto o la posición actual en la carta vigente del aeródromo, no en un dibujo de clase. Si la posición es incierta, se resuelve antes de solicitar o ejecutar el rodaje.",
+          "**Ruta y límites.** Trazar mentalmente las calles recibidas, el punto de espera final y cada pista intermedia. Un límite situado más allá de una pista no convierte el cruce en implícito.",
+          "**Puntos críticos y cargas de trabajo.** Revisar los puntos críticos publicados y repartir radio, vigilancia exterior y seguimiento de la carta. Las listas o cambios de programación que distraigan se administran según el procedimiento operacional normalizado (SOP, standard operating procedures) del operador.",
+          "**Condiciones cambiantes.** Una ruta modificada, un desvío por obras o una instrucción que contradiga la carta exige reconstruir el plan. No se rueda por memoria hacia la pista.",
         ],
       },
       {
-        kind: "p",
-        text: "**Una autorización de rodaje no autoriza por sí sola a entrar ni a cruzar una pista cuando se requiere autorización específica.** Por eso existen:",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-16-01.svg",
+        alt: "Diagrama de decisión de rodaje: identificar el límite, detenerse en el punto de espera y cruzar una pista solo con instrucción explícita.",
+        ancho: 1600,
+        alto: 760,
+        pie: "Esquema conceptual, no carta de aeródromo ni ruta operativa: una autorización de rodaje lleva hasta su límite; ante una pista intermedia, se mantiene la espera hasta recibir y colacionar una autorización específica de cruce. Para un vuelo real, prevalecen la carta vigente, la instrucción de control de tránsito aéreo (ATC, air traffic control) y el SOP.",
       },
-      {
-        kind: "glosario",
-        items: [
-          {
-            k: "Punto de espera de la pista (holding point)",
-            v: "«punto designado destinado a proteger una pista, una superficie limitadora de obstáculos o un área crítica o sensible para los sistemas ILS/MLS, en el que las aeronaves en rodaje y los vehículos se detendrán y se mantendrán a la espera, a menos que la torre de control de aeródromo autorice otra cosa» (Doc 4444, cap. 1). En radiotelefonía se dice «holding point».",
-          },
-          {
-            k: "Punto crítico (hot spot)",
-            v: "Sitio del área de movimiento con antecedentes o riesgo potencial de colisión o de incursión en la pista, donde pilotos y conductores deben prestar más atención (Doc 4444, cap. 1). Están en la carta de aeródromo: repáselos en el briefing de rodaje.",
-          },
-          {
-            k: "Incursión en la pista",
-            v: "«todo suceso en un aeródromo que suponga la presencia incorrecta de una aeronave, vehículo o persona en la zona protegida de una superficie designada para el aterrizaje o despegue de una aeronave» (Doc 4444, cap. 1).",
-          },
-        ],
-      },
-      { kind: "p", text: "**Palabras del rodaje** (todas en el Doc 9432 salvo FOLLOW):" },
+      { kind: "sub", text: "Qué significa cada límite" },
       {
         kind: "table",
-        head: ["Palabra", "Qué le piden", "Cómo responde"],
+        head: ["Instrucción o situación", "Qué permite", "Qué no permite"],
         rows: [
-          ["TAXI TO (límite) VIA (calles)", "Rodar hasta el límite por esas calles", "Colación de límite, calles, pista y QNH"],
-          ["HOLD SHORT OF RUNWAY (nn)", "Detenerse antes del punto de espera de esa pista", "Colación; al llegar, «holding short»"],
-          ["CROSS RUNWAY (nn)", "Cruzar esa pista (solo esa)", "Colación; «runway vacated» si se lo piden"],
-          ["HOLD POSITION", "Detenerse donde está", "«Holding»"],
-          ["GIVE WAY TO (tránsito)", "Ceder el paso", "«Giving way to…»"],
-          ["EXPEDITE TAXI", "Rodar más rápido, con seguridad", "«Expediting»"],
-          ["BACKTRACK", "Rodar sobre la pista en sentido contrario", "Colación (es rodar sobre una pista)"],
-          ["FOLLOW (tránsito)", "Seguir a otra aeronave o vehículo", "Colación (ver VERIFICAR)"],
+          ["TAXI TO HOLDING POINT", "Rodar por la ruta indicada hasta el punto de espera designado.", "Entrar en la pista, alinearse o despegar."],
+          ["HOLD SHORT OF RUNWAY", "Acercarse sin rebasar el punto de espera de esa pista.", "Suponer que el límite desaparece porque el destino de rodaje está más adelante."],
+          ["CROSS RUNWAY", "Cruzar la pista identificada en la autorización, después de verificar que se entendió y es seguro ejecutar.", "Cruzar otra pista o alinearse en esta."],
+          ["HOLD POSITION", "Detener la aeronave en la posición actual y esperar instrucciones.", "Continuar lentamente mientras se consulta."],
+          ["FOLLOW o GIVE WAY", "Ordenar la interacción con otro tránsito dentro del límite propio.", "Heredar la autorización de pista del tránsito que va delante."],
         ],
       },
       {
         kind: "p",
-        text: "**Stand / gate**: el puesto de estacionamiento. Al llegar, la autorización de rodaje suele terminar en «stand 27» (Doc 9432, 4.9).",
+        text: "La fraseología publicada por la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency) diferencia TAXI TO HOLDING POINT, HOLD SHORT OF RUNWAY, CROSS RUNWAY y HOLD POSITION. Su apéndice de fraseología es una referencia verificable para estudiar el significado de estas instrucciones, no una publicación local colombiana. La publicación de información aeronáutica (AIP, Aeronautical Information Publication) vigente, el procedimiento del operador y la autorización recibida determinan el rodaje de un aeropuerto concreto.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-16-02.webp",
+        alt: "Historieta fotográfica en cuatro paneles: tripulación escucha, controlador responde, aeronave permanece detenida y los pilotos contrastan la carta.",
+        ancho: 1672,
+        alto: 941,
+        pie: "Secuencia didáctica, no transcripción ni representación de un aeropuerto real: 1) un piloto atiende la radio mientras el otro sigue la ruta; 2) control emite o aclara la instrucción; 3) ante el límite o una duda, la aeronave permanece detenida; 4) ambos pilotos verifican la instrucción contra la carta antes de continuar. La carta dibujada en la imagen no es utilizable para navegar. Amplía la imagen para leer la secuencia visual.",
+      },
+      { kind: "sub", text: "Secuencia operacional completa: una pista intermedia" },
+      {
+        kind: "p",
+        text: "El siguiente caso es **una simulación didáctica**, no una transcripción. No fija indicativo, frecuencia, calles ni pista de un aeródromo. La tripulación acaba de recibir una autorización de rodaje cuyo límite final está más allá de una pista intermedia; la autorización incluye una instrucción de mantener corto antes de esa pista. El piloto que lleva la radio colaciona el límite, la ruta y la restricción de pista; el otro piloto los señala en la carta y confirma que el punto de espera corresponde a la pista mencionada.",
+      },
+      {
+        kind: "list",
+        ordered: true,
+        items: [
+          "**Aproximación al punto de espera.** La tripulación reduce la carga de trabajo, localiza la señalización y detiene el avión antes del límite. No anticipa el cruce porque el control haya indicado un punto final más lejano.",
+          "**Comprobación de la instrucción.** Si la autorización de rodaje no incluyó ni cruce explícito ni espera antes de la pista intermedia, el piloto detiene la aeronave y solicita aclaración. La redacción ambigua no se interpreta a favor de avanzar.",
+          "**Cruce autorizado.** Cuando ATC identifica expresamente la pista que puede cruzarse, la tripulación colaciona ese número, confirma que corresponde a la pista situada delante, vigila la superficie y cruza sin detenerse sobre ella salvo necesidad de seguridad.",
+          "**Salida de la zona protegida.** La tripulación no comunica pista libre solo porque el tren de nariz haya pasado el borde. Comprueba que la aeronave completa está más allá de la marca de espera del lado de salida y comunica el estado si se le pidió.",
+          "**Continuación.** Se retoma el resto de la autorización de rodaje únicamente dentro de sus límites. Si hay otra pista más adelante, se necesita su instrucción específica; el cruce anterior no se extiende a ella.",
+        ],
       },
       {
         kind: "p",
-        text: "**Antes de mover el avión:** carta de aeródromo a la vista, ruta marcada, pistas que se cruzan y puntos críticos identificados, y los dos pilotos de acuerdo sobre dónde está el límite.",
+        text: "La Administración Federal de Aviación de Estados Unidos (FAA, Federal Aviation Administration) documenta que cada cruce de pista requiere autorización explícita y que una pista solo se considera libre cuando todas las partes de la aeronave han pasado la marca del punto de espera correspondiente. Es una referencia de seguridad de esa jurisdicción, no una autorización aplicable por sí misma en Colombia. El criterio local se consulta en la eAIP de Aerocivil y en las instrucciones de la dependencia competente.",
       },
-      {
-        kind: "hueco",
-        rotulo: "CM-16-01 · Diagrama · 16:9 · 1600×900 px",
-        descripcion:
-          "Imagen sugerida: aeródromo esquemático en planta, fondo claro. Pista principal 13/31 horizontal abajo y pista 18/36 que la corta en diagonal en el lado izquierdo. Plataforma arriba con puestos 22 a 28. Calles de rodaje A (paralela a la pista 13/31), B (de la plataforma hacia el umbral 13, cruzando la pista 18/36) y C (conector corto). Marcas de punto de espera como barras amarillas en: B antes de la pista 18 («HOLDING POINT RWY 18») y B antes del umbral 13 («HOLDING POINT RWY 13»). Un círculo magenta rotulado «HS 1» (hot spot) en el cruce B con la pista 18. Ruta de AVIATORY 452 dibujada en línea gruesa desde el puesto 24 por B, con un icono de «alto» en la barra de la pista 18 y el rótulo «hold short of runway 18», y el tramo siguiente punteado con «solo con CROSS RUNWAY 18». Todo ficticio. Objetivo: que el piloto vea que una misma ruta de rodaje tiene varios límites, que cada pista en el camino exige su propia autorización y dónde está el riesgo de incursión.",
-        alto: 300,
-        ratio: "16 / 9",
-      },
-      {
-        kind: "hueco",
-        rotulo: "CM-16-02 · Fotografía · 4:3 · 1200×900 px",
-        descripcion:
-          "Imagen sugerida: fotografía desde la cabina de un avión de línea detenido en una calle de rodaje, frente a la señal de punto de espera de la pista (líneas amarillas transversales) con el letrero rojo de designación de pista al costado y, si es posible, la barra de parada encendida. Sin logotipos de aerolínea ni nombres de aeropuerto visibles. Objetivo: que el piloto reconozca de vista el punto donde termina su autorización de rodaje y empieza la pista. El detalle de marcas, letreros y barras de parada debe verificarse (ver FUENTES).",
-        alto: 340,
-        ratio: "4 / 3",
-        anchoMax: 560,
-      },
-
-      { kind: "sub", text: "Fraseología OACI" },
-      {
-        kind: "callout",
-        tone: "verificar",
-        title: "Verificar",
-        text: "«FOLLOW (description of other aircraft or vehicle)» y «REQUEST DETAILED TAXI INSTRUCTIONS» no están comprobadas: consultar Doc 4444 cap. 12 (fraseología de rodaje), no cargado. La descripción de la señal de punto de espera, los letreros de designación de pista y las barras de parada (y la regla de no cruzar una barra de parada encendida): Anexo 14 Vol. I cap. 5 y Doc 4444 cap. 7, no cargados. Los puntos críticos (hot spots) y las rutas normalizadas de rodaje de cada aeropuerto: su AIP (AD 2.24, cartas de aeródromo).",
-      },
-      ...entrada(
-        "Ejemplo 1. Rodaje con ATIS y cesión de paso (Doc 9432, 4.4.3)",
-        [
-          `PILOT: "Bogota Ground, AVIATORY 452, request taxi, information Charlie."`,
-          `ATC:   "AVIATORY 452, taxi to holding point runway 13, give way to B747 passing left to right, QNH 1019."`,
-          `PILOT: "Holding point runway 13, QNH 1019, giving way to B747, AVIATORY 452."`,
-        ],
-        "Significado: con el ATIS acusado, el controlador no necesita repetir la información de salida (4.4.3). El límite es el punto de espera: no la pista.",
-      ),
-      ...entrada(
-        "Ejemplo 2. Ruta que atraviesa otra pista (Doc 9432, 4.4.2; estructura del ejemplo tras 4.4.2)",
-        [
-          `ATC:   "AVIATORY 452, taxi to holding point runway 13 via B, hold short of runway 18."`,
-          `PILOT: "Holding point runway 13 via B, hold short of runway 18, AVIATORY 452."`,
-        ],
-        "Significado: el límite final es el punto de espera 13, pero en el camino hay un límite intermedio: la pista 18.",
-      ),
-      ...entrada(
-        "Ejemplo 3. Llegar a la pista intermedia y cruzarla (Doc 9432, 4.4, ejemplo tras 4.4.2)",
-        [
-          `PILOT: "AVIATORY 452, holding short of runway 18."`,
-          `ATC:   "AVIATORY 452, cross runway 18, report vacated."`,
-          `PILOT: "Crossing runway 18, wilco, AVIATORY 452."`,
-          `PILOT: "AVIATORY 452, runway vacated."`,
-          `ATC:   "AVIATORY 452, roger."`,
-        ],
-        "Significado: «Runway vacated» se notifica cuando todo el avión pasó el punto de espera del otro lado.",
-      ),
+      { kind: "sub", text: "Colación y corrección del error" },
       {
         kind: "escenario",
-        titulo: "Ejemplo 4. Hold short omitido en la colación",
-        situacion:
-          "Escenario de práctica; corrección según Doc 9432, 2.8.3.9. ATC: `AVIATORY 452, taxi to holding point runway 13 via B, hold short of runway 18.` PILOT: `Holding point runway 13 via B, AVIATORY 452.`",
+        titulo: "La restricción quedó fuera de la colación",
+        situacion: "Simulación didáctica sin aeropuerto asignado: el controlador da una ruta hasta un punto final y añade HOLD SHORT OF RUNWAY con la pista intermedia identificada. La tripulación colaciona la ruta y el punto final, pero omite la restricción. El otro piloto observa la omisión antes de mover el avión.",
         preguntas: [
           {
-            q: "¿Qué falta en la colación y cómo se corrige?",
-            a: "ATC: `AVIATORY 452, negative, I say again, hold short of runway 18.` PILOT: `Hold short of runway 18, AVIATORY 452.` Sin la corrección, el avión habría llegado a la pista 18 con la idea de que «tenía rodaje hasta la 13».",
+            q: "¿Qué debe cambiar antes de continuar?",
+            a: "La tripulación corrige inmediatamente la colación, menciona la pista y confirma el límite entre ambos pilotos. Si no está segura del contenido exacto, permanece detenida y pide que se repita la instrucción. No se toma el silencio del controlador como autorización de cruce.",
+          },
+          {
+            q: "¿Qué ocurre si el avión precedente entra en la pista?",
+            a: "Nada cambia para la autorización propia. Seguir a otro tránsito o cederle el paso regula separación durante el rodaje, pero no concede entrada ni cruce de pista.",
           },
         ],
-        concepto: "Hold short y cross runway se colacionan siempre, con el número de pista.",
+        concepto: "Un límite de rodaje y una autorización de cruce son decisiones distintas que ambos pilotos deben haber escuchado y verificado.",
       },
-      ...entrada(
-        "Ejemplo 5. Detener el rodaje (Doc 9432, 2.8.3.7)",
-        [`ATC:   "AVIATORY 452, hold position."`, `PILOT: "Holding, AVIATORY 452."`],
-        "Significado: se detiene donde está, aunque no haya llegado al límite.",
-      ),
-      ...entrada(
-        "Ejemplo 6. Rodaje sobre la pista (backtrack) con límite (Doc 9432, 4.4, ejemplo tras 4.4.2)",
-        [
-          `PILOT: "AVIATORY 452, runway 06, QNH 1012, request taxiway B and backtrack."`,
-          `ATC:   "AVIATORY 452, approved, taxi via B, backtrack and line up runway 06, hold short of runway 14."`,
-          `PILOT: "B, backtrack and line up runway 06, hold short of runway 14, AVIATORY 452."`,
-          `PILOT: "AVIATORY 452, holding short of runway 14."`,
-        ],
-        "Significado: rodar sobre una pista se colaciona siempre (Doc 4444, 4.5.7.5.1 b). En el original es una aeronave ligera en un aeródromo pequeño; la estructura sirve igual.",
-      ),
-      ...entrada(
-        "Ejemplo 7. Apresurar el rodaje por tránsito en final (Doc 9432, 4.4, ejemplo tras 4.4.2)",
-        [
-          `ATC:   "AVIATORY 452, expedite taxi, traffic on final runway 24, report runway 24 vacated."`,
-          `PILOT: "AVIATORY 452, expediting."`,
-          `PILOT: "AVIATORY 452, runway vacated."`,
-        ],
-        "Significado: EXPEDITE es rapidez con seguridad, no correr. Si no puede, dígalo.",
-      ),
-      ...entrada(
-        "Ejemplo 8. Nuevo límite y rodar detrás de otro (Doc 9432, 4.4, ejemplo tras 4.4.2)",
-        [
-          `ATC:   "AVIATORY 452, recleared holding point runway 14, taxi behind Seneca coming from your left."`,
-          `PILOT: "Holding point runway 14, traffic in sight, AVIATORY 452."`,
-        ],
-        "Significado: nuevo límite. Si no ve el tránsito, no diga «in sight»: diga que lo está buscando o pida aclaración.",
-      ),
-      ...entrada(
-        "Ejemplo 9. Seguir a otro avión (escenario de práctica; ver VERIFICAR)",
-        [
-          `ATC:   "AVIATORY 452, follow the A320 ahead, taxi to holding point runway 13 via A."`,
-          `PILOT: "Following the A320, holding point runway 13 via A, AVIATORY 452."`,
-        ],
-        "Significado: FOLLOW no cambia el límite: seguir al A320 no lo autoriza a entrar a la pista si el A320 entra.",
-      ),
-      ...entrada(
-        "Ejemplo 10. Piloto con dudas sobre la ruta (Doc 9432, 2.8.1.4 y 2.8.3.7; PLAIN LANGUAGE en la segunda transmisión)",
-        [
-          `PILOT: "Bogota Ground, AVIATORY 452, holding position, say again taxi instructions."`,
-          `ATC:   "AVIATORY 452, taxi to holding point runway 13 via A and B, hold short of runway 18."`,
-          `PILOT: "Holding point runway 13 via A and B, hold short of runway 18, AVIATORY 452."`,
-        ],
-        "Significado: detenerse y preguntar es correcto. Rodar «mientras aclaro» cerca de una pista, no.",
-      ),
-      ...entrada("Ejemplo 11. Después del aterrizaje hasta el puesto (Doc 9432, 4.9)", [
-        `PILOT: "Bogota Ground, AVIATORY 452, runway vacated."`,
-        `ATC:   "AVIATORY 452, taxi to stand 27 via A."`,
-        `PILOT: "Stand 27 via A, AVIATORY 452."`,
-      ]),
-
-      { kind: "sub", text: "Aplicación en aerolínea" },
+      { kind: "sub", text: "Cuando la posición o la ruta se vuelven inciertas" },
+      {
+        kind: "p",
+        text: "Una instrucción rápida, un desvío no previsto, el brillo nocturno o varias calles convergentes pueden hacer que una tripulación pierda certeza sobre su posición. La acción profesional es detenerse en un lugar seguro, declarar la incertidumbre a ATC y solicitar instrucciones detalladas o confirmación de posición. Nunca se debe usar una historieta o un plano genérico para decidir el siguiente giro. Si ya hay proximidad a una pista, la prioridad es no franquear su punto de espera hasta resolver la situación.",
+      },
       {
         kind: "enLaOperacion",
-        momento: "Briefing de rodaje y cruces de pista",
-        texto:
-          "El briefing de rodaje se hace antes de mover el avión: ruta probable, pistas a cruzar, puntos críticos y dónde puede estar el límite. Durante el rodaje, muchos operadores piden que ambos pilotos confirmen en voz alta antes de cruzar o entrar a una pista y que las tareas de cabina que distraen (listas, programación del FMS) se hagan detenidos o en tramos sin pistas cerca. Los detalles son del SOP del operador; el principio es general: **nadie cruza una línea de punto de espera sin una autorización explícita que los dos pilotos escucharon**.",
+        momento: "Antes de cada cruce de pista",
+        texto: "El piloto a los mandos mantiene la trayectoria y verifica que la aeronave no rebase el límite prematuramente; el piloto que atiende la radio confirma que la pista nombrada por ATC coincide con la señalización y la carta. Ambos verbalizan la autorización aplicable conforme al SOP del operador. Si cualquiera detecta una discrepancia, se detienen y consultan. Una autorización para despegar, una autorización de rodaje y una autorización de cruce no son intercambiables.",
       },
-
-      { kind: "sub", text: "Error frecuente" },
-      error("Creer que «taxi to holding point runway 13» autoriza a cruzar la 18 que está en el camino."),
-      error("Colacionar el límite final y omitir el «hold short» intermedio."),
-      error("Seguir a otro avión hasta la pista porque «iba adelante»."),
-      error("Cruzar sin que el copiloto haya oído la autorización (uno estaba en otra frecuencia o en una lista)."),
-      error("Notificar «runway vacated» con la cola todavía dentro del área protegida."),
-      error("Rodar con dudas en vez de detenerse y preguntar."),
-
+      { kind: "sub", text: "Errores que importan" },
+      error("Tratar el punto de espera final como permiso para cruzar una pista intermedia."),
+      error("Omitir el HOLD SHORT en la colación y confiar en que el controlador detectará el error."),
+      error("Seguir al avión precedente a la pista sin una autorización propia."),
+      error("Informar pista libre mientras parte de la aeronave permanece en el área protegida."),
+      error("Seguir rodando mientras se intenta resolver una duda de posición o de ruta."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Toda autorización de rodaje tiene un límite: allí se detiene.",
-          "Si la ruta cruza una pista, le deben decir CROSS o HOLD SHORT; si no oyó ninguna, no cruza.",
-          "Hold short y cross runway se colacionan siempre, con el número de pista.",
-          "La pista está libre cuando todo el avión pasó el punto de espera.",
-          "Ante la duda, HOLD POSITION propio y SAY AGAIN.",
+          "Antes de mover, ambos pilotos identifican ruta, límite, pistas intermedias y puntos críticos en la carta vigente.",
+          "La ruta de rodaje no concede por sí sola entrada ni cruce de pista.",
+          "Cada cruce requiere una instrucción explícita que identifique la pista y una colación completa.",
+          "Una duda de posición o de autorización se resuelve con la aeronave detenida.",
+          "El aviso de pista libre exige que todo el avión haya salido del área protegida.",
         ],
       },
-      fuentes(
-        "Doc 4444 · Doc 9432",
-        "Doc 4444 (15.ª ed., Enm. 4) cap. 1 (Rodaje, Punto de espera de la pista, Punto crítico, Incursión en la pista), 4.5.7.5.1 b); Doc 9432 (4.ª ed.) 2.8.1.4, 2.8.3.7, 2.8.3.9, 4.4.1, 4.4.2 y ejemplos, 4.4 Nota, 4.4.3, 4.5.1, 4.5.2, 4.9.",
-        [
-          "VERIFICAR: «FOLLOW (description of other aircraft or vehicle)» y «REQUEST DETAILED TAXI INSTRUCTIONS» contra Doc 4444 cap. 12 (fraseología de rodaje), no cargado.",
-          "VERIFICAR: descripción de la señal de punto de espera, letreros de designación de pista y barras de parada (y la regla de no cruzar una barra de parada encendida) contra Anexo 14 Vol. I cap. 5 y Doc 4444 cap. 7 (no cargados).",
-          "VERIFICAR: puntos críticos (hot spots) y rutas normalizadas de rodaje de cada aeropuerto en su AIP (AD 2.24, cartas de aeródromo).",
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes y alcance",
+        cita: "EASA SERA.14001 · FAA AIM 4-3-18 y 2-3-5",
+        bloques: [
+          { kind: "sub", text: "Documentos oficiales consultados" },
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, Appendix 1 to AMC1 SERA.14001, fraseología de rodaje (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). FAA, Aeronautical Information Manual, 4-3-18 Taxiing (https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap4_section_3.html) y 2-3-5 Holding Position Markings (https://www.faa.gov/air_traffic/publications/aim_html/chap2_section_3.html). FAA, guía de cruce explícito de pista (https://www.faa.gov/airports/runway_safety/resources/taxi_to)." },
+          { kind: "sub", text: "Límite de aplicación" },
+          { kind: "list", items: [
+            "Las fuentes europeas y estadounidenses se presentan como material documental de estudio, no como reglamentación colombiana.",
+            "El esquema no es una carta de aeropuerto. Para un aeródromo colombiano se comprueban la eAIP vigente de Aerocivil, las instrucciones de ATC y el SOP del operador.",
+            "La historieta y el escenario son didácticos; no reproducen una grabación ni afirman la existencia de una ruta real.",
+          ] },
         ],
-      ),
+      },
     ],
   },
 
