@@ -517,7 +517,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "list",
         items: [
           "**Escuche antes de hablar.** Haga escucha en la frecuencia para no pisar otra transmisión.",
-          "**Piense antes de oprimir el PTT.** Tenga armado el mensaje (a quién, quién es, qué quiere) antes de hablar. Evite «humm», «este…» (2.2.1 g).",
+          "**Piense antes de oprimir el pulsador de transmisión (PTT, push-to-talk).** Tenga armado el mensaje (a quién, quién es, qué quiere) antes de hablar. Evite «humm», «este…» (2.2.1 g).",
           "**Oprima a fondo el PTT antes de empezar a hablar** y no lo suelte hasta terminar (2.2.1 j). Si habla antes o suelta antes, se corta la primera o la última palabra, que suele ser el distintivo.",
         ],
       },
@@ -570,16 +570,28 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**AVIATE, NAVIGATE, COMMUNICATE.** Es un principio de instrucción muy difundido en la formación de pilotos (no aparece en los documentos OACI cargados): primero controlar la aeronave, luego saber dónde está y hacia dónde va, luego comunicar. La comunicación es fundamental, pero **no desplaza el control de la aeronave**. Los propios documentos OACI reconocen la carga de trabajo: los controladores deberían evitar transmitir durante el despegue, el ascenso inicial, la última etapa de la aproximación final o el recorrido de aterrizaje, salvo por seguridad (Doc 9432, 4.1.2), y no deben dar autorizaciones a un piloto que está alineándose o despegando (Doc 9432, 2.8.3.2). Del lado del piloto, un «STANDBY» a tiempo es mejor que una colación hecha a medias mientras se pilota.",
+        text: "**AVIATE, NAVIGATE, COMMUNICATE.** Es un principio de instrucción muy difundido en la formación de pilotos (no aparece en los documentos cargados de la Organización de Aviación Civil Internacional —OACI; International Civil Aviation Organization, ICAO—): primero controlar la aeronave, luego saber dónde está y hacia dónde va, luego comunicar. La comunicación es fundamental, pero **no desplaza el control de la aeronave**. Los propios documentos OACI reconocen la carga de trabajo: los controladores deberían evitar transmitir durante el despegue, el ascenso inicial, la última etapa de la aproximación final o el recorrido de aterrizaje, salvo por seguridad (Doc 9432, 4.1.2), y no deben dar autorizaciones a un piloto que está alineándose o despegando (Doc 9432, 2.8.3.2). Del lado del piloto, un «STANDBY» a tiempo es mejor que una colación hecha a medias mientras se pilota.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-03-01 · Esquema · 4:5 · 1080×1350",
-        descripcion:
-          "Pirámide de tres niveles, de abajo hacia arriba: AVIATE (base ancha, «controle la aeronave»), NAVIGATE («sepa dónde está y hacia dónde va»), COMMUNICATE (vértice, «informe y coordine»). A la derecha de la pirámide, una columna de cuatro íconos con rótulo corto: ESCUCHE ANTES, PIENSE ANTES DEL PTT, PTT A FONDO, SUELTE Y VERIFIQUE. Colores del módulo, sin rojo ni ámbar. Objetivo: que el piloto fije el orden de prioridades y los cuatro hábitos de transmisión que evitan cortes y bloqueos.",
-        alto: 420,
-        ratio: "4 / 5",
-        anchoMax: 420,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-03-01.svg",
+        alt: "Pirámide de prioridades de vuelo: controlar la aeronave, asegurar posición y trayectoria, y después comunicar; cuatro hábitos para transmitir sin cortar ni bloquear la frecuencia.",
+        ancho: 1080,
+        alto: 1350,
+        pie: "La base de la pirámide es controlar la aeronave; comunicar no sustituye esa tarea. Al transmitir, escuche, prepare el mensaje, oprima el PTT antes de hablar y suéltelo al terminar. Amplíe el esquema para leer cada paso. «Aviate, navigate, communicate» es un principio de instrucción, no una autorización para omitir una llamada de seguridad ni una cita normativa de la OACI.",
+      },
+      { kind: "sub", text: "Aplicación en una cabina de línea" },
+      {
+        kind: "p",
+        text: "**La prioridad no es «contestar rápido», sino que la tripulación conserve una imagen correcta de lo que el avión está haciendo.** Cuando llega una llamada mientras se configura un cambio de trayectoria, el piloto que vuela mantiene el control y la conciencia de posición; el piloto que comunica escucha el distintivo, identifica qué cambió y contrasta la instrucción con el plan y las limitaciones del momento. Si no oyó el nivel, el rumbo o el punto completo, no lo reconstruye por expectativa: pide la parte que falta. Si necesita unos segundos para coordinar en cabina, lo comunica y vuelve a llamar. Una colación pronunciada con fluidez, pero basada en un dato incompleto, no aporta seguridad.",
+      },
+      {
+        kind: "p",
+        text: "**El vuelo US Airways 1549, presentado en la lección anterior, muestra por qué esta jerarquía importa de verdad.** Tras el impacto con aves y la pérdida de empuje, la tripulación tuvo que controlar una aeronave con energía limitada, valorar si alguna pista era alcanzable, trabajar en cabina y mantener informado al controlador. La primera transmisión de emergencia se superpuso con otra llamada y no llegó a salida, según el informe AAR-10/03, §1.1, de la Junta Nacional de Seguridad del Transporte de Estados Unidos (NTSB, National Transportation Safety Board). La lección para un aspirante no es memorizar una frase corta: es reconocer que la frecuencia es compartida, comprobar si el mensaje esencial llegó y expresar con claridad la capacidad real de la aeronave. Cuando una opción de retorno dejó de ser viable, comunicar «unable» permitió que control de tránsito aéreo entendiera el límite operacional en vez de interpretar una colación como aceptación.",
+      },
+      {
+        kind: "p",
+        text: "**Después de cada transmisión sigue habiendo trabajo.** El piloto que habló suelta el PTT, escucha la respuesta y verifica si el controlador corrigió un dato o transfirió la aeronave. El otro piloto coteja lo oído con la trayectoria y los selectores que correspondan; quién ejecuta cada acción depende de los procedimientos de la compañía. Si la frecuencia quedó bloqueada por un micrófono trabado, o si se perdió el inicio de la llamada, la solución no es seguir adelante suponiendo que ATC comprendió: hay que restablecer la comunicación por el medio disponible y dejar explícito qué autorización se recibió realmente. Esa disciplina conecta técnica de transmisión, gestión de carga de trabajo y toma de decisiones.",
       },
       { kind: "sub", text: "Fraseología OACI" },
       {
@@ -691,7 +703,7 @@ export const NIVEL_1: DocScreen[] = [
         ],
       },
       fuentes(
-        "Doc 9432 (4.ª ed.) 2.2.1 a) a k), 2.2.2, 2.6 (STANDBY), 2.8.1.4 a 2.8.1.8, 2.8.3.2, 2.8.4.1 a 2.8.4.3, 3.1.3, 3.1.4, 3.1.5, 3.2.4, 4.1.2, 6.3.2 (REPORT HEADING / HEADING 050 / ROGER CONTINUE HEADING 050).",
+        "Doc 9432 (4.ª ed.) 2.2.1 a) a k), 2.2.2, 2.6 (STANDBY), 2.8.1.4 a 2.8.1.8, 2.8.3.2, 2.8.4.1 a 2.8.4.3, 3.1.3, 3.1.4, 3.1.5, 3.2.4, 4.1.2, 6.3.2 (REPORT HEADING / HEADING 050 / ROGER CONTINUE HEADING 050). Caso US Airways 1549: NTSB AAR-10/03, §1.1 (https://www.ntsb.gov/investigations/accidentreports/reports/aar1003.pdf).",
         [
           "«AVIATE, NAVIGATE, COMMUNICATE» no está en los documentos cargados; citar su fuente en el manual de operaciones o FCTM del operador, o en material de instrucción de la autoridad (no cargado). No presentarlo como norma OACI.",
           "Que el piloto responda «STANDBY» a una solicitud del ATC como uso aceptado, contra Anexo 10 Vol. II cap. 5 (no cargado); el Doc 9432 2.6 define la palabra sin limitar quién la usa.",
