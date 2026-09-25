@@ -528,7 +528,7 @@ export const NIVEL_2: DocScreen[] = [
     n: 10,
     title: "Fraseología estándar y plain English",
     kicker: "Cuándo alcanza la frase estándar y cuándo no",
-    minutes: 9,
+    minutes: 13,
     blocks: [
       { kind: "sub", text: "¿Qué es?" },
       { kind: "p", text: "Dos registros que conviven en la frecuencia:" },
@@ -550,11 +550,11 @@ export const NIVEL_2: DocScreen[] = [
       { kind: "sub", text: "Lo que debe saber un piloto" },
       {
         kind: "p",
-        text: "**1. La fraseología va siempre primero.** El Doc 9835 (4.3.3) es explícito: que el Anexo 10 reconozca el lenguaje común «no significa que el lenguaje común se considere un sustituto suficiente de la fraseología normalizada de la OACI. La fraseología de la OACI debería utilizarse siempre en primera instancia».",
+        text: "**1. La fraseología va siempre primero.** El Doc 9835 (4.3.3) es explícito: que el Anexo 10 reconozca el lenguaje común no lo convierte en sustituto de la fraseología normalizada de la Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization). Esta debe emplearse en primera instancia cuando cubra el mensaje previsto.",
       },
       {
         kind: "p",
-        text: "**2. La fraseología no cubre todo.** El Doc 4444 cap. 12 (12.2, citado en Doc 9835 4.7.2) aclara que su lista no es exhaustiva ni elimina la necesidad del lenguaje común. El Doc 9835 (3.3.13) enumera casos típicos: un piloto que se pierde, un problema técnico, un pasajero que se indispone, una amenaza de bomba, una falla del equipo de ATC. Y no solo emergencias: también rutinas sin frase hecha, como preguntar quién va adelante en la secuencia (3.3.18) o pedir mantener alta velocidad (3.3.17).",
+        text: "**2. La fraseología no cubre todo.** El Doc 4444 cap. 12 (12.2, citado en Doc 9835 4.7.2) aclara que su lista no es exhaustiva ni elimina la necesidad del lenguaje común. El Doc 9835 (3.3.13) enumera casos típicos: un piloto que se pierde, un problema técnico, un pasajero que se indispone, una amenaza de bomba, una falla del equipo de control de tránsito aéreo (ATC, air traffic control). Y no solo emergencias: también rutinas sin frase hecha, como preguntar quién va adelante en la secuencia (3.3.18) o pedir mantener alta velocidad (3.3.17).",
       },
       { kind: "p", text: "**3. Cuándo usar lenguaje común** (Doc 9835 4.3.4):" },
       {
@@ -582,7 +582,7 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**6. Los dos registros se combinan.** Un mensaje en lenguaje común sigue empezando con el distintivo y usa las palabras normalizadas donde existan (REQUEST, UNABLE, CONFIRM, niveles en FL, rumbos en tres dígitos). Lo que cambia es la parte que no tiene fórmula.",
+        text: "**6. Los dos registros se combinan.** Un mensaje en lenguaje común sigue empezando con el distintivo y usa las palabras normalizadas donde existan (REQUEST, UNABLE, CONFIRM, niveles de vuelo —FL, flight level— y rumbos en tres dígitos). Lo que cambia es la parte que no tiene fórmula.",
       },
       {
         kind: "secuencia",
@@ -604,88 +604,47 @@ export const NIVEL_2: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "CM-10-01 · Diagrama · 4:5 · 1080×1350 px",
-        descripcion:
-          "Imagen sugerida: dos columnas sobre fondo papel. Izquierda, encabezado «FRASEOLOGÍA NORMALIZADA» con seis tarjetas cortas: solicitar descenso, colacionar pista, UNABLE + motivo, SAY AGAIN / CONFIRM, cambio de frecuencia, transpondedor. Derecha, encabezado «PLAIN ENGLISH» con seis tarjetas: falla técnica, pasajero enfermo, humo u olor, pregunta sin fórmula (secuencia), negociar alternativa, aclarar una instrucción. Una flecha de izquierda a derecha rotulada «solo cuando la fraseología no alcanza». Al pie, franja: «Plain English ≠ charla, jerga ni fraseología inventada». Objetivo: que el piloto decida en un segundo qué registro corresponde a cada situación.",
-        alto: 520,
-        ratio: "4 / 5",
-        anchoMax: 420,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-10-01.svg",
+        alt: "Dos columnas: cuando existe fraseología normalizada, se usa para solicitudes y colaciones previstas; cuando no cubre la situación, se explica la falla, limitación o necesidad en lenguaje común claro.",
+        ancho: 1080,
+        alto: 1350,
+        anchoMax: 540,
+        pie: "Reconoce primero si hay una frase normalizada. Si no cubre la información que necesitas transmitir, describe condición, capacidad, necesidad e intención en lenguaje común directo; confirma qué entendió la otra parte. Amplía la lámina para comparar los dos registros. Síntesis didáctica de Anexo 10, Vol. II, 5.1.1.1 y Doc 9835, 4.3.3–4.3.4.",
       },
 
-      { kind: "sub", text: "Fraseología OACI" },
+      { kind: "sub", text: "Decidir el registro antes de transmitir" },
       {
-        kind: "callout",
-        tone: "verificar",
-        title: "Verificar",
-        text: "«request descent due turbulence», «request progressive taxi», «request medical services on arrival» y «request priority for landing» se presentan como construcciones o PLAIN LANGUAGE, y la respuesta ATC «Aviatory 452, roger, maintain FL 150, report when ready to proceed» es construida: consultar Doc 4444 cap. 12. La fraseología de la señal de urgencia se consulta en el Anexo 10 Vol. II cap. 5 y el Doc 4444 cap. 15 (capítulo 35).",
+        kind: "p",
+        text: "**Solicitud prevista: fraseología primero.** El Doc 9432, 3.3.3.1, incluye la formulación **REQUEST DESCENT**. Es un fragmento de su modelo, no una transmisión completa ni permiso para abandonar un nivel. En la operación se añade el distintivo y el contexto necesario, se espera la autorización y se colacionan sus elementos pertinentes. La razón para conservar una frase conocida es que reduce el tiempo de decodificación del controlador; una paráfrasis larga sobre querer ir más abajo no mejora la solicitud.",
       },
-      ...entrada(
-        "Falla técnica compleja explicada en plain English (PLAIN LANGUAGE)",
-        [
-          `PILOT: "Bogota Control, Aviatory 452, we have a problem with the flaps. They are stuck at position 1 and will not retract. Our maximum speed is now 230 knots. We are able to maintain FL 150. Request to hold at present position for about fifteen minutes to run the checklist. Will advise intentions."`,
-          `ATC:   "Aviatory 452, roger, maintain FL 150, report when ready to proceed."`,
-          `PILOT: "Maintaining FL 150, wilco, Aviatory 452."`,
-        ],
-        "Significado: problema (flaps trabados), límite (230 nudos), capacidad (mantiene FL 150), necesidad (tiempo y espacio), intención (informará). El controlador no tiene que hacer preguntas para entender. MAINTAIN, REPORT y WILCO son palabras normalizadas dentro de un intercambio de lenguaje común. La respuesta ATC es (ejemplo construido).",
-      ),
-      ...entrada(
-        "El mismo caso mal dicho (PLAIN LANGUAGE incorrecto)",
-        [
-          `PILOT: "Bogota, 452, uh, we got a little issue here with the flaps, they're kinda stuck, so we'd like to just hang around for a bit if that's okay with you guys."`,
-        ],
-        "Significado: distintivo abreviado sin autorización, modismos («hang around», «kinda»), no dice velocidad límite ni nivel ni tiempo. El controlador tendrá que preguntar tres o cuatro cosas.",
-      ),
-      ...entrada(
-        "Pasajero enfermo (PLAIN LANGUAGE)",
-        [
-          `PILOT: "Bogota Approach, Aviatory 452, we have a passenger with severe chest pain. Request priority for landing. Request medical services on arrival."`,
-          `ATC:   "Aviatory 452, roger, (instrucciones de secuencia)."`,
-        ],
-        "Significado: tres frases: qué pasa, qué se necesita en el aire, qué se necesita en tierra. Si el caso amerita la señal de urgencia PAN PAN, se trabaja en el capítulo 35; aquí solo interesa el lenguaje.",
-      ),
-      ...entrada(
-        "Fraseología cuando existe: no reemplazarla por lenguaje común",
-        [
-          `PILOT (incorrecto): "Aviatory 452, we would like to go down to a lower altitude if possible, because of the turbulence."`,
-          `PILOT: "Aviatory 452, request descent due turbulence."`,
-        ],
-        "Significado: existía fraseología (REQUEST DESCENT) y el motivo cabe en dos palabras. Adaptado de Doc 9432 3.3.3.1. «Due turbulence» sigue el patrón «due weight» del Doc 9432 2.8.3.10; ver VERIFICAR.",
-      ),
-      ...entrada(
-        "Rutina sin fórmula: pedir mantener velocidad (PLAIN LANGUAGE)",
-        [
-          `ATC:   "Aviatory 452, radar contact, proceed direct GIKOS."`,
-          `PILOT: "Direct GIKOS, Aviatory 452. Request to maintain high speed on descent."`,
-          `ATC:   "Aviatory 452, for now, affirm."`,
-        ],
-        "Significado: basado en el intercambio real que cita el Doc 9835 3.3.17 («¿Podemos mantener alta velocidad?» / «Por el momento, sí»), donde el Doc señala que no hay fraseología OACI para esa solicitud. La redacción en inglés es (ejemplo construido).",
-      ),
-      ...entrada(
-        "Negociar cuando la instrucción no sirve (fraseología + PLAIN LANGUAGE)",
-        [
-          `ATC:   "Aviatory 452, climb to FL 370."`,
-          `PILOT: "Unable FL 370 due weight, Aviatory 452. We can accept FL 350."`,
-          `ATC:   "Aviatory 452, climb to FL 350."`,
-          `PILOT: "Climbing to FL 350, Aviatory 452."`,
-        ],
-        "Significado: UNABLE con motivo (normalizado) y una alternativa (lenguaje común). El controlador recibe lo que necesita para reorganizar. Patrón de UNABLE adaptado de Doc 9432 2.8.3.10.",
-      ),
-      ...entrada(
-        "Aclarar una instrucción (PLAIN LANGUAGE)",
-        [
-          `ATC:   "Aviatory 452, taxi to holding point runway 13 via A, B."`,
-          `PILOT: "Aviatory 452, confirm via A then B. We are not familiar with the airport, request progressive taxi."`,
-        ],
-        "Significado: CONFIRM normalizado para verificar la ruta y lenguaje común para explicar el motivo. La fraseología de rodaje progresivo y la colación completa de rodaje van en el capítulo 16.",
-      ),
+      {
+        kind: "p",
+        text: "**Falla no cubierta: condición, consecuencia y necesidad.** Imagina una indicación anormal de flaps durante el ascenso, sin asignar a esta situación un vuelo, nivel, velocidad o aeropuerto ficticios. Mientras la tripulación aplica el procedimiento correspondiente, el mensaje a ATC debe separar tres hechos: qué ocurre, cómo limita la operación y qué apoyo se solicita ahora. Si todavía no está claro cuánto tardará la lista o cuál será el destino, se comunica esa incertidumbre y se actualiza después. Llamarlo «un pequeño problema» o pedir «dar vueltas un rato» no le permite al controlador proteger espacio ni ordenar el tráfico.",
+      },
+      {
+        kind: "p",
+        text: "**Situación médica: una necesidad operativa, no una historia clínica.** Cuando una persona a bordo requiere atención, la tripulación transmite el hecho pertinente para la coordinación, la prioridad que necesita y la asistencia en tierra, siguiendo el procedimiento del explotador y la gravedad evaluada. No inventamos una respuesta ATC ni declaramos que toda urgencia médica sea automáticamente PAN PAN: la clasificación, la señal y la acción dependen del caso. El capítulo 35 aborda la comunicación de urgencia y socorro.",
+      },
+      {
+        kind: "p",
+        text: "**Rutina sin fórmula suficiente.** El Doc 9835, 3.3.17, cita un intercambio sobre mantener alta velocidad y explica que no existía fraseología OACI para formular esa solicitud concreta. Ese caso muestra por qué el lenguaje común también aparece fuera de las emergencias. Lo decisivo no es repetir una traducción inventada del intercambio, sino expresar la capacidad o preferencia real de la aeronave, escuchar la respuesta y no tratar una aceptación provisional como autorización ilimitada para continuar a cualquier velocidad.",
+      },
+      {
+        kind: "p",
+        text: "**Instrucción que no puede cumplirse.** **UNABLE** indica que no se puede acatar una solicitud, instrucción o autorización y normalmente va seguido de un motivo (Anexo 10, Vol. II, 5.2.1.8). Cuando sea oportuno, se comunica una alternativa que la aeronave sí pueda aceptar; luego se espera una nueva autorización. El piloto no cambia por cuenta propia al nivel o ruta que propone. Así se combinan una palabra normalizada y lenguaje común sin presentar una autorización ATC inventada como ejemplo de operación real.",
+      },
+      {
+        kind: "p",
+        text: "**Duda sobre el rodaje: aclarar antes de moverse.** La tripulación identifica exactamente qué tramo de la instrucción no entendió y pide confirmación o asistencia conforme a la fraseología vigente. No se avanza sobre la base de una ruta que «parece» correcta ni se improvisa aquí el trazado de calles de rodaje de un aeropuerto. La ruta publicada, la señalización y la autorización efectiva deben coincidir; el capítulo 16 desarrolla la colación y las situaciones de rodaje.",
+      },
 
       { kind: "sub", text: "Aplicación en aerolínea" },
       {
         kind: "enLaOperacion",
         momento: "En la aerolínea",
         texto:
-          "En un vuelo normal de aerolínea, la mayor parte de lo que se dice es fraseología: autorizaciones, colaciones, cambios de frecuencia. El lenguaje común aparece en lo imprevisto, y ahí es donde se nota el nivel real. Pero el Doc 9835 (3.3.17) advierte que también hace falta en situaciones ordinarias.\n\nEl Doc 9835 (3.3.19) cita el análisis de un diálogo con un avión liviano que no podía bajar el tren: el 60 % del diálogo fue en lenguaje común. En una falla real el piloto habla más lenguaje común de lo que espera.\n\nCon CPDLC existe la opción de texto libre; la disciplina es la misma (capítulo 43).\n\nEn la entrevista de aerolínea es frecuente el ejercicio «explíquele esta falla al controlador». Se evalúa exactamente lo de este capítulo: estructura, brevedad y que no invente fraseología.",
+          "En un vuelo normal de aerolínea, la mayor parte de lo que se dice es fraseología: autorizaciones, colaciones y cambios de frecuencia. El lenguaje común se vuelve imprescindible para explicar lo que la fórmula no contempla, y el Doc 9835 (3.3.17) recuerda que también puede hacer falta en situaciones ordinarias.\n\nEl Doc 9835 (3.3.19) analiza un intercambio sobre un avión liviano cuyo tren no extendía y señala que gran parte de ese diálogo fue lenguaje común. La enseñanza para una tripulación de aerolínea no es copiar aquel caso, sino preparar mensajes breves y actualizables cuando la condición técnica todavía evoluciona.\n\nEl enlace de datos controlador-piloto (CPDLC, Controller–Pilot Data Link Communications) permite también mensajes de texto libre; la disciplina de claridad permanece (capítulo 43).\n\nEn un ejercicio de selección que pida explicar una falla al controlador, muestra primero la consecuencia operacional, luego la ayuda necesaria y evita fingir una autorización que no has recibido.",
       },
 
       { kind: "sub", text: "Error frecuente" },
@@ -725,24 +684,21 @@ export const NIVEL_2: DocScreen[] = [
       {
         kind: "detalleTecnico",
         etiqueta: "Fuentes",
-        cita: "Doc 9835 · Doc 9432",
+        cita: "Anexo 10 · Doc 9835 · Doc 9432",
         bloques: [
           { kind: "sub", text: "Verificado" },
           {
             kind: "p",
-            text: "Doc 9835 (2.ª ed.) glosario «Lenguaje común» y Nota 1 (Anexo 10 Vol. II 5.1.1.1), 3.3.8, 3.3.13, 3.3.15 a 3.3.21, 4.3.3, 4.3.4, 4.7.2, 5.3.3.3, 5.3.3.4, 6.2.8.4; Doc 9432 (4.ª ed.) Preámbulo, 2.6 (MAINTAIN, REPORT, WILCO, CONFIRM, UNABLE), 2.8.3.10, 3.3.3.1.",
+            text: "Anexo 10, Vol. II, 5.1.1.1 y 5.2.1.8 (https://www.icao.int/Meetings/anconf12/Document%20Archive/AN10_V2_cons%5B1%5D.pdf); Doc 9835 (2.ª ed.) glosario «Lenguaje común», 3.3.8, 3.3.13, 3.3.15–3.3.21, 4.3.3–4.3.4, 4.7.2, 5.3.3.3–5.3.3.4 y 6.2.8.4 (https://www4.icao.int/aelts/uploads/icao%20doc9835%202nd%20edition.pdf); Doc 9432 (4.ª ed.) 2.6 y 3.3.3.1.",
           },
           { kind: "sub", text: "Por verificar" },
           {
             kind: "list",
             items: [
-              "VERIFICAR: «request descent due turbulence», «request progressive taxi», «request medical services on arrival», «request priority for landing» contra Doc 4444 cap. 12 (no cargado). Se presentan como construcciones o PLAIN LANGUAGE.",
-              "VERIFICAR: «Aviatory 452, roger, maintain FL 150, report when ready to proceed» (respuesta ATC construida) contra Doc 4444 cap. 12 (no cargado).",
-              "VERIFICAR: la fraseología de la señal de urgencia contra Anexo 10 Vol. II cap. 5 y Doc 4444 cap. 15 (no cargados; capítulo 35).",
+              "VERIFICAR: la fraseología concreta para rodaje, asistencia, secuencia y autorizaciones en el Doc 4444 y las publicaciones vigentes del Estado antes de usarla en vuelo.",
+              "VERIFICAR: la señal y fraseología de urgencia o socorro contra el Anexo 10, Vol. II, cap. 5, y el Doc 4444, cap. 15 (capítulo 35).",
             ],
           },
-          { kind: "sub", text: "Convenciones de los ejemplos" },
-          CONVENCIONES,
         ],
       },
     ],
