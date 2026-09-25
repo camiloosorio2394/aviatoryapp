@@ -966,7 +966,7 @@ export const NIVEL_1: DocScreen[] = [
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "Es la forma normalizada de pronunciar y agrupar números en radiotelefonía: niveles, rumbos, pistas, frecuencias, códigos SSR, viento, QNH, hora, altitudes. Casi todo lo que se colaciona tiene un número.",
+        text: "Es la forma normalizada de pronunciar y agrupar números en radiotelefonía: niveles, rumbos, pistas, frecuencias, códigos del radar secundario de vigilancia (SSR, Secondary Surveillance Radar), viento, reglaje QNH, hora y altitudes. Casi todo lo que se colaciona tiene un número. **El objetivo para una tripulación de línea no es repetir cifras aisladas:** es recibir una autorización completa, distinguir qué elementos cambian, colacionar los que corresponden y comprobar que la aeronave quedó configurada de acuerdo con lo recibido.",
       },
       { kind: "sub", text: "Lo que debe saber un piloto" },
       {
@@ -1065,13 +1065,25 @@ export const NIVEL_1: DocScreen[] = [
         text: "**Hora** (Doc 9432, 2.5.1). Normalmente bastan los minutos, dígito por dígito; si hay riesgo de confusión, se incluye la hora. 0920 → «two zero» o «zero nine two zero»; 1643 → «four three» o «one six four three». La dependencia ATS da la verificación de hora redondeada al medio minuto más próximo (2.5.2).",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-05-01 · Esquema · 9:16 · 1080×1920",
-        descripcion:
-          "Tarjeta vertical en dos bloques. Arriba: los diez dígitos 0 a 9 grandes, cada uno con su transcripción del Doc 9432 2.4.1 debajo (SI-RO, UAN, TU, TRI, FO-ar, FA-IF, SIKS, SEV'N, EIT, NAI-na), resaltando 3, 5 y 9 con un borde del acento del módulo. Abajo: dos columnas «DÍGITO POR DÍGITO» (FL, rumbo, pista, SSR, QNH, frecuencia) y «HUNDRED / THOUSAND» (altitud, nubes, visibilidad, RVR), cada una con un ejemplo. Objetivo: que el piloto sepa de un vistazo cómo suena cada dígito y cuándo se agrupa en centenas y millares.",
-        alto: 560,
-        ratio: "9 / 16",
-        anchoMax: 360,
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-05-01.svg",
+        alt: "Guía ampliable de pronunciación de los diez dígitos, distinción entre cifras dígito por dígito y millares, y tres pasos de comprobación tras una autorización.",
+        ancho: 1080,
+        alto: 1920,
+        pie: "La lámina es una referencia de pronunciación, no un ejercicio de colacionar solo el QNH. En una autorización, escuche todos los elementos modificados; colacione lo exigido, atienda la respuesta del controlador y coteje selectores y trayectoria en cabina. Amplíe para leer las formas del Doc 9432, §§2.4.1–2.4.3. «RVR» significa alcance visual en pista (Runway Visual Range).",
+      },
+      { kind: "sub", text: "Una autorización se procesa como conjunto" },
+      {
+        kind: "p",
+        text: "**Piense en una llegada, no en una ficha de vocabulario.** Aproximación puede cambiar el límite vertical, el rumbo o la velocidad y, además, transmitir el reglaje QNH o información sobre la pista prevista. El piloto que comunica escucha primero el distintivo y la instrucción entera; si una parte se superpone con otra transmisión, solicita repetición de esa parte. El piloto que vuela conserva la trayectoria mientras ambos identifican qué cambió respecto de la autorización anterior. La colación de nivel o altitud, rumbo, velocidad, pista y reglaje se hace según corresponda al mensaje recibido; no se extrae el QNH y se repite como si eso, por sí solo, demostrara comprensión de la autorización.",
+      },
+      {
+        kind: "p",
+        text: "**El número se verifica en dos lugares: en la radio y en el avión.** Al pronunciar la colación, la tripulación distingue «FLIGHT LEVEL» de una altitud en pies, dice las cifras con la agrupación correcta y permite que el controlador detecte una discrepancia. Después confirma que el selector de altitud, rumbo, velocidad o radio que corresponda coincide con lo autorizado y que el modo de guiado hará lo esperado. El reparto exacto de tareas depende de los procedimientos del operador. Un «four thousand feet» correcto, mientras queda seleccionado otro límite vertical, no es una buena comunicación operacional. Tampoco lo es seleccionar el valor que uno esperaba oír antes de confirmar la instrucción.",
+      },
+      {
+        kind: "p",
+        text: "**Si la nueva instrucción parece incompatible con una restricción, una carta o el rendimiento disponible, no se resuelve adivinando.** Se solicita aclaración, se declara que no se puede cumplir cuando corresponda y se mantiene explícita la última autorización comprendida. En entrevista o simulador, esa secuencia —escucha, colación, hearback, configuración y cotejo cruzado— muestra más competencia que recitar «QNH one zero one two» sin contexto. Los microejercicios numéricos de abajo sirven para automatizar la pronunciación; no sustituyen el manejo completo de una autorización.",
       },
       { kind: "sub", text: "Fraseología OACI" },
       {
