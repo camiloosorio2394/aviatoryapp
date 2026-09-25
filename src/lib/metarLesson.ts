@@ -1604,6 +1604,8 @@ export const METAR_SOURCES: string[] = [
   "Leyenda para lectura de METAR y TAF, Volar3.com (material de curso).",
   "Norma de referencia: OACI, Anexo 3 (Servicio meteorológico para la navegación aérea internacional) y OMM, Manual de claves No. 306. Confirma contra la edición vigente.",
   "Para alternos y combustible: OACI, Anexo 6, Parte I (Operación de aeronaves); aplica la norma nacional y el manual aprobado del explotador en su versión vigente.",
+  "Para fuentes de observación en altura: OMM, Sistema Mundial de Observación y programa AMDAR (observaciones automáticas de aeronaves).",
+  "Para límites de radar y satélite: Servicio Meteorológico Nacional de EE. UU. (NOAA/NWS), guías de radar Doppler; OMM, OSCAR/Space y guía de observaciones satelitales. Comprueba el producto local vigente.",
 ]
 
 export type { LessonBlock }

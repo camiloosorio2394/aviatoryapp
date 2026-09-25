@@ -33,11 +33,11 @@ export const PARTE_SERVICIOS: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "Todo lo que lees en el briefing (cada pronóstico, cada aviso, cada informe) sale de observaciones. Saber de cuál sale cada cosa te dice de antemano qué puede y qué no puede decirte. El ejemplo que más cuesta caro: el radar no ve nubes.",
+        text: "**En la portada:** una estación meteorológica de superficie registra condiciones cerca de un aeródromo; al fondo se ve un radomo de radar. **Cómo lo reconoces:** los sensores están expuestos al aire y el radar observa a distancia. **Qué decides:** antes de usar un dato, comprueba qué mide, dónde, cuándo y con qué limitaciones. Una pantalla de radar sin ecos no demuestra que el cielo esté libre de nubes o engelamiento.",
       },
       {
         kind: "definicion",
-        text: "Los datos de observaciones en superficie y en altura son la base de todos los pronósticos, avisos e informes. Hay cuatro tipos de observación: en superficie, en altitud, radar y satélite.",
+        text: "El briefing combina observaciones locales, perfiles en altura, teledetección por radar y satélite, informes de aeronaves y pronósticos. Estas cuatro familias son una guía de lectura, no un inventario exhaustivo: cada producto tiene alcance, hora de emisión y límites propios.",
       },
       {
         kind: "fichas",
@@ -46,39 +46,38 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         items: [
           {
             titulo: "En superficie",
-            ref: "es el METAR",
+            ref: "estación y METAR",
             puntos: [
-              "Compilación de los elementos del tiempo en una estación de tierra concreta.",
-              "Cubren un radio de unas cinco millas del aeropuerto.",
-              "Las hace una persona, una estación automática, o una automática mejorada por un observador.",
-              "Cubren poco radio cada una, pero mirando muchas estaciones a la vez se arma la imagen de una zona amplia.",
+              "Los sensores y observadores del aeródromo miden viento, visibilidad, nubes, temperatura y presión conforme al producto publicado.",
+              "El METAR (Meteorological Aerodrome Report) resume condiciones representativas del aeródromo; no garantiza lo mismo en toda la ruta ni en cada punto de la pista.",
+              "Compara la hora de observación y los informes especiales con la tendencia y el pronóstico; una estación sola no describe una región completa.",
             ],
           },
           {
             titulo: "En altitud",
-            ref: "radiosonda y PIREP, y no hay más",
+            ref: "sondeos y aeronaves",
             puntos: [
-              "Solo hay dos métodos de observar el tiempo en altura: la radiosonda y el informe del piloto.",
-              "La radiosonda es una caja de instrumentos colgada de un globo de dos metros lleno de helio o hidrógeno.",
-              "Sube a unos 1.000 ft por minuto, puede volar más de dos horas, llegar a 115.000 ft y derivar hasta 200 km.",
-              "Mide temperatura, presión, velocidad y dirección del viento y lo transmite a tierra.",
+              "Una radiosonda suspendida de un globo mide perfiles de temperatura, humedad y presión; su posición permite calcular el viento.",
+              "Las aeronaves aportan observaciones automáticas de viento y temperatura mediante AMDAR (Aircraft Meteorological Data Relay), cuando están equipadas y el sistema está disponible.",
+              "Un PIREP (Pilot Report), informe de piloto, añade lo que la tripulación encontró en un lugar, nivel y momento: por ejemplo turbulencia o engelamiento.",
             ],
-            nota: "Cuando el globo se estira más de 6 metros de diámetro, estalla, y la radiosonda baja en paracaídas.",
+            nota: "No extrapoles un sondeo o informe puntual a toda la ruta ni lo trates como una garantía futura.",
           },
           {
             titulo: "Radar",
             puntos: [
-              "Informa de precipitación, viento y sistemas.",
-              "Detecta solo objetos lo bastante grandes como para considerarse precipitación.",
+              "Los productos de reflectividad muestran principalmente ecos de precipitación y ayudan a ubicar su intensidad y evolución.",
+              "Según el equipo y producto, el Doppler aporta movimiento de blancos; ecos débiles también pueden provenir de insectos, polvo u otros blancos no precipitantes.",
+              "Cobertura, altura del haz, bloqueo por terreno, atenuación, actualización y ajuste de antena limitan la interpretación.",
             ],
-            nota: "Y aquí está lo que hay que retener: las bases y topes de nubes, los techos y la visibilidad NO los detecta el radar.",
+            nota: "El radar meteorológico de precipitación no determina por sí solo base de nube, techo, visibilidad ni engelamiento a tu nivel.",
           },
           {
             titulo: "Satélite",
             puntos: [
-              "Da tiempo actualizado de forma continua a cualquier altitud, sin depender del alcance de la radio ni de la geografía.",
-              "Rompe el cuello de botella de la radio: cuando el tiempo se pone dudoso, la frecuencia se congestiona y el personal solo puede hablar con un piloto a la vez.",
-              "Se recibe en dispositivos certificados o en receptores portátiles.",
+              "Las imágenes visible e infrarroja muestran extensión y evolución de nubosidad; otras bandas ayudan a seguir vapor de agua y estimar propiedades de topes.",
+              "La imagen visible depende de la luz solar y ningún canal muestra por sí solo el techo o la visibilidad en una aproximación.",
+              "Comprueba hora de adquisición, resolución, cobertura y demora de distribución antes de usarla en vuelo.",
             ],
           },
         ],
@@ -86,8 +85,8 @@ export const PARTE_SERVICIOS: DocScreen[] = [
       {
         kind: "callout",
         tone: "warn",
-        title: "Lo que el radar no ve",
-        text: "El radar detecta precipitación. No detecta bases ni topes de nubes, ni techos, ni visibilidad. Una pantalla limpia no significa cielo limpio: significa que no hay precipitación con eco suficiente. Toda la información de nubes y techos tiene que venir de otra fuente.",
+        title: "Una pantalla sin ecos no despeja la ruta",
+        text: "Los radares de precipitación pueden mostrar retornos no precipitantes en ciertos modos, pero su pantalla no certifica ausencia de nube, techo bajo, visibilidad reducida, engelamiento o turbulencia. Incluso la precipitación puede pasar inadvertida por geometría, bloqueo, atenuación o configuración. Cruza el radar con informes, pronósticos y observación directa.",
       },
       {
         kind: "sub",
@@ -95,49 +94,57 @@ export const PARTE_SERVICIOS: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "El capítulo lo dice sin adornos: los pilotos **siguen siendo la única fuente de información en tiempo real sobre turbulencia, engelamiento y altura de nubes**. Juntas, las radiosondas y los informes de pilotos son lo que hay sobre el aire en altura.",
+        text: "El informe de piloto aporta una observación directa de turbulencia, engelamiento o nubes en un lugar y momento concretos. También existen datos automáticos de aeronaves, sondeos, sensores remotos y productos de pronóstico; ninguno sustituye por sí solo el reporte cualitativo de una tripulación que acaba de encontrar el fenómeno.",
       },
       {
         kind: "check",
         question:
-          "Por una zona no ha pasado tráfico en las últimas horas. ¿Qué fuente te puede decir si hay engelamiento a FL180?",
+          "El radar de precipitación no muestra ecos cerca de tu ruta, pero un piloto reportó engelamiento moderado a tu nivel hace veinte minutos. ¿Qué concluyes?",
         options: [
-          "El radar: el engelamiento va con humedad, y la humedad da eco",
-          "La radiosonda, que sube midiendo y puede llegar a 115.000 ft",
-          "Ninguna: turbulencia, engelamiento y altura de nubes solo los reporta en tiempo real un piloto",
+          "No hay riesgo: el radar sin ecos descarta engelamiento",
+          "El informe es relevante; compruebo ubicación, hora, nivel, pronóstico y procedimientos de mi aeronave",
+          "La radiosonda demuestra que ya terminó el engelamiento",
         ],
-        answer: 2,
+        answer: 1,
         explain:
-          "La radiosonda mide temperatura, presión, velocidad y dirección del viento, no engelamiento. El radar detecta precipitación, y el agua superenfriada dentro de una nube puede no dar eco. El capítulo lo dice sin adornos: los pilotos siguen siendo la única fuente de información en tiempo real sobre turbulencia, engelamiento y altura de nubes. Por eso tu PIREP no es un trámite: en muchos tramos es el único dato que va a existir.",
+          "Un radar sin ecos no descarta nubes con gotas superenfriadas ni prueba condiciones seguras a tu nivel. El informe de piloto es evidencia reciente del fenómeno, pero hay que cotejar su posición y nivel con las condiciones y procedimientos de la ruta.",
       },
       {
         kind: "callout",
         tone: "info",
-        title: "Y en una aerolínea, además, automático",
-        text: "Muchas líneas aéreas tienen aeronaves equipadas con instrumentos que transmiten observaciones meteorológicas en vuelo por DataLink al despachador, que las difunde a las autoridades de pronóstico. Es decir: si vuelas para una compañía así, tu avión ya está reportando. Eso no sustituye tu PIREP de turbulencia o de engelamiento, que es un juicio y no una medición.",
+        title: "También hay observaciones automáticas en aerolínea",
+        text: "En aeronaves participantes, AMDAR transmite datos medidos por sensores de a bordo, sobre todo temperatura y viento, hacia los servicios meteorológicos a través de enlaces de datos. Algunas flotas aportan otras variables. Eso no implica que toda aeronave reporte ni reemplaza un informe especial de turbulencia o engelamiento cuando corresponde.",
       },
       {
-        kind: "infografia",
-        nombre: "meteo-fuentes",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t26-01-cuatro-fuentes.webp",
+        alt: "Montaje didáctico de cuatro fuentes meteorológicas: estación de superficie, globo con radiosonda, radomo de radar y satélite",
+        ancho: 1600,
+        alto: 800,
+        pie: "Montaje fotográfico conceptual: la estación aporta condiciones locales; el sondeo perfila la atmósfera; el radar observa ecos; el satélite sigue nubosidad a escala amplia. No representa datos meteorológicos vigentes.",
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** cuatro fuentes con alcances distintos. **Cómo lo reconoces:** el sensor de superficie está en el aeródromo, el globo asciende, el radar barre a distancia y el satélite observa desde órbita. **Qué decides:** seleccionar y contrastar la fuente que realmente responde a la pregunta operacional, con su hora, ubicación y limitaciones.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "En ruta, mirando la pantalla",
         situacion:
-          "El radar meteorológico está limpio en los próximos 80 NM. El PIREP más reciente de un tráfico que va veinte minutos por delante reporta engelamiento moderado en el ascenso a tu nivel.",
-        pregunta: "¿Cuál de los dos datos pesa más y por qué?",
+          "El radar meteorológico de a bordo no muestra ecos significativos en la zona que exploras. Un PIREP reciente de otra aeronave reporta engelamiento moderado a un nivel cercano al tuyo, veinte minutos antes y por delante de tu posición.",
+        pregunta: "¿Qué información cambia tu decisión y qué verificas antes de continuar?",
         claves: [
-          "El radar detecta precipitación. El engelamiento se da en agua superenfriada dentro de nube, que puede no dar eco.",
-          "Una pantalla limpia no dice nada sobre nubes ni sobre hielo.",
-          "El PIREP es la única fuente en tiempo real de engelamiento, y viene de una aeronave que acaba de pasar por donde vas.",
-          "Los dos datos no se contradicen: están midiendo cosas distintas, y el que responde a tu pregunta es el PIREP.",
+          "El informe aporta evidencia directa de engelamiento reciente; ubico su posición, hora, altitud, intensidad y tipo de aeronave si se indican.",
+          "Reviso pronósticos y avisos de engelamiento, temperatura y nubes; el radar sin ecos no invalida el reporte.",
+          "Compruebo capacidades y limitaciones antihielo de mi aeronave y coordino una ruta o nivel alternativo conforme a los procedimientos de la tripulación y del operador.",
+          "Si encuentro el fenómeno, aplico el procedimiento y reporto lo observado para quienes vuelan detrás.",
         ],
       },
       {
         kind: "callout",
         tone: "verificar",
-        title: "Qué radar tienes tú",
-        text: "El capítulo describe el radar NEXRAD (WSR-88D) de los Estados Unidos, con sus modos de aire claro y precipitación. La red de radares meteorológicos de tu país, su cobertura y qué productos publica los define el servicio meteorológico de ese Estado. Lo general es lo de arriba: qué puede ver un radar y qué no. Lo particular, en la publicación de información aeronáutica de tu país.",
+        title: "Comprueba la fuente y la cobertura aplicables",
+        text: "El radar de a bordo y una red terrestre no son intercambiables: difieren en barrido, actualización y cobertura. Consulta los productos oficiales vigentes del Estado y el manual de tu equipo; no supongas que un mapa estadounidense o una imagen recibida con demora representa las condiciones actuales en tu ruta.",
       },
     ],
   },
