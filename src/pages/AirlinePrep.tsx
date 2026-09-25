@@ -10,6 +10,7 @@ import {
   Fuel,
   Gauge,
   Headset,
+  ListChecks,
   MoveVertical,
   Route as RouteIcon,
   Play,
@@ -91,6 +92,17 @@ import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgres
 import { fetchMercanciasProgress, readMercanciasLocal } from "@/lib/mercanciasProgress"
 import { fetchAeropuertosProgress } from "@/lib/aeropuertosProgress"
 import { fetchComunicacionesProgress } from "@/lib/comunicacionesProgress"
+import {
+  MEL_ACENTO,
+  MEL_HUB,
+  MEL_LECTURA_TOTAL,
+  MEL_NIVELES,
+  MEL_TITULO_CORTO,
+  readMelLocal,
+  resumirMel,
+} from "@/lib/mel"
+import { fetchMelProgress } from "@/lib/melProgress"
+import { MEL_PRACTICA_CONTEO } from "@/lib/melConteo"
 import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
 import { RAC_HUB, RAC_LECTURA_TOTAL, RAC_PRACTICA_TOTAL, RAC_TITULO, resumirRac } from "@/lib/rac"
 import { fetchRacProgress, readRacLocal } from "@/lib/racProgress"
@@ -227,6 +239,7 @@ export function AirlinePrep() {
   const [combustibleProgreso, setCombustibleProgreso] = useState(() => readCombustibleLocal())
   const [rvsmProgreso, setRvsmProgreso] = useState(() => readRvsmLocal())
   const [pbnProgreso, setPbnProgreso] = useState(() => readPbnLocal())
+  const [melProgreso, setMelProgreso] = useState(() => readMelLocal())
   const [mejorPsico, setMejorPsico] = useState<number | null>(
     () => leerPsicoLocal().mejorSimulacro
   )
@@ -247,7 +260,7 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, pfRes, racRes, cbRes, rvRes, pbRes, psicoRes] =
+      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, pfRes, racRes, cbRes, rvRes, pbRes, melRes, psicoRes] =
         await Promise.all([
           fetchNotamProgress(user.id),
           fetchMetarProgress(user.id),
@@ -262,6 +275,7 @@ export function AirlinePrep() {
           fetchCombustibleProgress(user.id),
           fetchRvsmProgress(user.id),
           fetchPbnProgress(user.id),
+          fetchMelProgress(user.id),
           mejorSimulacroRemoto(user.id),
         ])
       if (cancelled) return
@@ -300,6 +314,7 @@ export function AirlinePrep() {
       if (cbRes) setCombustibleProgreso(cbRes)
       if (rvRes) setRvsmProgreso(rvRes)
       if (pbRes) setPbnProgreso(pbRes)
+      if (melRes) setMelProgreso(melRes)
 
       // La última vez que tocó CUALQUIER tema: la más reciente de las cuatro
       // filas de progreso. Se compara en ISO, que ordena igual que la fecha.
@@ -316,6 +331,7 @@ export function AirlinePrep() {
         racRes?.remoto.actualizado,
         cbRes?.remoto.actualizado,
         rvRes?.remoto.actualizado,
+        melRes?.remoto.actualizado,
       ].filter((f): f is string => typeof f === "string" && f.length > 0)
       setUltimaActividad(fechas.length > 0 ? fechas.reduce((a, b) => (a > b ? a : b)) : null)
       // Se queda con el mayor entre la base y el respaldo local: si el mejor
@@ -346,6 +362,7 @@ export function AirlinePrep() {
   const combustible = useMemo(() => resumirCombustible(combustibleProgreso), [combustibleProgreso])
   const rvsm = useMemo(() => resumirRvsm(rvsmProgreso), [rvsmProgreso])
   const pbn = useMemo(() => resumirPbn(pbnProgreso), [pbnProgreso])
+  const mel = useMemo(() => resumirMel(melProgreso), [melProgreso])
 
   // Los estados van en cifras cortas («9/9 secciones») porque la tarjeta de
   // cuatro columnas les da un renglón. Los que decían «13 secciones cortas» o
@@ -617,6 +634,29 @@ export function AirlinePrep() {
               : `${pbn.lessonRead}/${PBN_LECTURA_TOTAL} capítulos · ${pbn.practiceDone}/${PBN_PRACTICA_TOTAL} preguntas`,
         },
       },
+      // MEL: lección, práctica y evaluación, como Comunicaciones ATC.
+      {
+        nombre: MEL_TITULO_CORTO,
+        to: MEL_HUB,
+        pct: mel.overall,
+        card: {
+          to: MEL_HUB,
+          icon: ListChecks,
+          color: MEL_ACENTO,
+          titulo: "Minimum Equipment List",
+          meta: `${MEL_LECTURA_TOTAL} lecciones · ${MEL_NIVELES.length} niveles`,
+          descripcion: "Leer una entrada, cumplir el (M) y el (O) y decidir si el avión sale.",
+          fotoHueco: "MEL-TEM-01 · 2:1 · 1200×600 · Etiqueta INOP sobre un mando de cabina, con la MEL abierta al lado",
+          cta: ctaDeTema(mel.overall),
+          avance: mel.overall,
+          completo: mel.overall >= 100,
+          estado: mel.empty
+            ? "Sin empezar"
+            : mel.overall >= 100
+              ? "Tema completo"
+              : `${mel.lessonRead}/${MEL_LECTURA_TOTAL} lecciones · ${mel.practiceDone}/${MEL_PRACTICA_CONTEO} ejercicios`,
+        },
+      },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace
       // de avance es el mejor resultado del simulacro, que es lo único que
       // mide de verdad si ya estás listo para el proceso.
@@ -715,6 +755,7 @@ export function AirlinePrep() {
     combustible,
     rvsm,
     pbn,
+    mel,
     mejorSimulacro,
     mejorPsico,
   ])

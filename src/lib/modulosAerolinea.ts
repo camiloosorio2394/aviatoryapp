@@ -40,6 +40,8 @@ import {
   RVSM_TITULO,
 } from "@/lib/rvsm"
 import { PBN_HUB, PBN_LECTURA_TOTAL, PBN_PASS_SCORE, PBN_PRACTICA_TOTAL, PBN_TITULO } from "@/lib/pbn"
+import { MEL_HUB, MEL_LECTURA_TOTAL, MEL_PASS_SCORE } from "@/lib/mel"
+import { MEL_PRACTICA_CONTEO } from "@/lib/melConteo"
 
 /** Las claves son las de `contenido/catalogo/modulos.json`, y la prueba lo exige. */
 export type ClaveModulo =
@@ -54,6 +56,7 @@ export type ClaveModulo =
   | "combustible"
   | "rvsm"
   | "pbn"
+  | "mel"
 
 export interface ModuloAerolinea {
   clave: ClaveModulo
@@ -198,6 +201,18 @@ export const MODULOS_AEROLINEA: ModuloAerolinea[] = [
       aprobacion: PBN_PASS_SCORE,
     },
     promesa: "RNAV, RNP y el número: qué exige cada especificación y cómo se verifica.",
+  },
+  {
+    clave: "mel",
+    titulo: "MEL",
+    hub: MEL_HUB,
+    acento: "var(--av-mel-500)",
+    totales: {
+      secciones: MEL_LECTURA_TOTAL,
+      practicas: MEL_PRACTICA_CONTEO,
+      aprobacion: MEL_PASS_SCORE,
+    },
+    promesa: "Leer la entrada, cumplir lo que pide y decidir si el avión sale.",
   },
 ]
 

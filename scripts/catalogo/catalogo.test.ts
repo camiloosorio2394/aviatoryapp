@@ -32,6 +32,8 @@ import { RV_LECCION_TOTAL, RV_PRACTICA_CLAVES } from "@/lib/rvsmLeccion"
 import { PB_LECCION_TOTAL, PB_PRACTICA_CLAVES } from "@/lib/pbnLeccion"
 import { CB_LECCION_TOTAL } from "@/lib/combustibleLeccion"
 import { CB_PRACTICA_CLAVES } from "@/lib/combustiblePractica"
+import { MEL_LECCION_TOTAL } from "@/lib/melLeccion"
+import { MEL_PRACTICA_CLAVES } from "@/lib/melPracticaGrupos"
 import { MODULOS_AEROLINEA } from "@/lib/modulosAerolinea"
 
 /**
@@ -109,6 +111,12 @@ function catalogoDesdeContenido() {
     pbn: {
       lecciones: PB_LECCION_TOTAL,
       practicas: PB_PRACTICA_CLAVES,
+    },
+    // Las claves salen de claveEjercicioMel sobre los ejercicios
+    // (melPracticaGrupos.ts): cambian los ejercicios, cambia esto.
+    mel: {
+      lecciones: MEL_LECCION_TOTAL,
+      practicas: MEL_PRACTICA_CLAVES,
     },
   }
 }

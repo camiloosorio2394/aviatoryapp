@@ -1655,6 +1655,36 @@
   --av-cm-fg: oklch(0.800 0.075 320);
 }
 
+/* MEL: grafito de bitácora.
+   El círculo ya no tiene huecos: 256 es NOTAM, 250 Aerodinámica, 205
+   Meteorología, 180 el menta del lector de Aeropuertos, 287 su token, 84
+   Mercancías, 45 Performance (el cobre y la terracota ya son suyos), 320
+   Comunicaciones y 295 psicotécnicas; 25, 70 y 155 son error, alerta y
+   correcto. Un gris pizarra azulado (230) quedaba a ΔE 0,03 de Aerodinámica
+   y de Meteorología, que es casi nada: tres tarjetas del mismo azul apagado.
+   Este se separa por CROMA, no por matiz: 0,02, la cuarta parte del más
+   apagado de los otros, con un tinte cálido (60) que lo aleja del azul de
+   NOTAM y del navy del índice. Es el lápiz sobre el papel del tech log, que
+   es donde vive un defecto. Por croma queda a ΔE 0,08 o más de todos los
+   demás acentos, y tan desaturado que no se lee como el ámbar del 70.
+
+   Contraste, medido: 700 sobre el papel del lector (#FBFAF8) da 8,9:1 y el
+   blanco encima 9,3:1; 500 sobre papel 4,7:1. En oscuro, el blanco sobre el
+   700 da 6,0:1 y el fg sobre las tarjetas oscuras 9,6:1. Los hex del lector,
+   más abajo, salen de estos mismos oklch. */
+:root {
+  --av-mel-500: oklch(0.550 0.022 60);
+  --av-mel-600: oklch(0.470 0.020 60);
+  --av-mel-700: oklch(0.400 0.020 60);
+  --av-mel-fg: oklch(0.370 0.018 60);
+}
+.dark {
+  --av-mel-500: oklch(0.700 0.022 60);
+  --av-mel-600: oklch(0.610 0.020 60);
+  --av-mel-700: oklch(0.500 0.020 60);
+  --av-mel-fg: oklch(0.800 0.018 60);
+}
+
 /* El lector de Mercancías es el de NOTAM con el acento cambiado: el papel, la
    tinta y el navy del índice son los mismos, y solo lo que era azul carta
    pasa a amarillo. Los --av-blue-* re-anclados heredan el cambio, así que los
@@ -1963,6 +1993,31 @@
 /* En el índice navy el acento oscuro no se vería: ahí va el escalón claro. */
 .lector-notam.lector-pbn .ln-side :where(a, button, [role="button"]):focus-visible {
   outline-color: #D2BC93;
+}
+
+/* Y el de MEL, en grafito de bitácora. Los hex salen de los mismos oklch de
+   los tokens --av-mel-* de arriba (matiz 60, croma 0,02): primario #50453D
+   (0.40), 8,9:1 sobre el papel; el foco #7C6F65 (0.55) da 4,7:1 sobre el
+   papel y 4,2:1 sobre --ln-sunk, por encima del 3:1 que pide un indicador. */
+.lector-notam.lector-mel {
+  --ln-primary: #50453D;
+  --ln-primary-hover: #3D332B;
+  --ln-bright: #918379;
+  --ln-tint: #F9F2ED;
+  /* La pastilla de la lección abierta, sobre el navy: 2,3:1 contra el índice
+     (la de NOTAM da 1,9) y 7,2:1 con el texto blanco. */
+  --ln-pill: #61564D;
+  --ln-focus: #7C6F65;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-mel .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+/* En el índice navy el foco oscuro no se vería (3,4:1): ahí va un grafito
+   claro, #D4C8BF, que da 10:1 sobre el navy y 4,4:1 sobre la pastilla. */
+.lector-notam.lector-mel .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #D4C8BF;
 }
 
 /* ============================================================

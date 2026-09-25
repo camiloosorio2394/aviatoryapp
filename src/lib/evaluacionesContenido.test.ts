@@ -6,6 +6,7 @@ import { CB_EVALUACION_META } from "@/lib/combustibleEvaluacion"
 import { CB_EXAM_PER_ATTEMPT } from "@/lib/combustible"
 import { RAC_EVALUACION_META } from "@/lib/racEvaluacion"
 import { RAC_EXAM_PER_ATTEMPT } from "@/lib/rac"
+import { MEL_EVALUACION_META } from "@/lib/melEvaluacion"
 import { MP_EVALUACION_META } from "@/lib/mercanciasEvaluacion"
 import { METAR_EXAM_TOTAL } from "@/lib/metar"
 import { TOTALS } from "@/lib/notam"
@@ -46,6 +47,8 @@ describe("evaluaciones: la app y los bancos del servidor", () => {
     expect(CB_EVALUACION_META.total).toBe(banco("combustible_evaluacion").preguntas.length)
     expect(CB_EVALUACION_META.porIntento).toBe(CB_EXAM_PER_ATTEMPT)
     expect(CB_EVALUACION_META.porIntento).toBeLessThanOrEqual(CB_EVALUACION_META.total)
+    expect(MEL_EVALUACION_META.total).toBe(banco("mel_evaluacion").preguntas.length)
+    expect(MEL_EVALUACION_META.porIntento).toBeLessThanOrEqual(MEL_EVALUACION_META.total)
     expect(BANCO_TOTAL).toBe(TEMAS_SIMULACRO.reduce((s, t) => s + t.preguntas, 0))
     expect(EXAM_PER_ATTEMPT).toBeLessThanOrEqual(TOTALS.examQuestions)
   })
@@ -60,6 +63,7 @@ describe("evaluaciones: la app y los bancos del servidor", () => {
       "comunicaciones_evaluacion",
       "rac_evaluacion",
       "combustible_evaluacion",
+      "mel_evaluacion",
     ]
       .flatMap((nombre) => banco(nombre).preguntas.map((p) => p.enunciado))
       // Los enunciados muy cortos ("¿Qué significa RWY?") pueden coincidir con

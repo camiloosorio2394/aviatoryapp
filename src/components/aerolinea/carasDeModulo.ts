@@ -5,6 +5,7 @@ import {
   Fuel,
   Gauge,
   Headset,
+  ListChecks,
   MoveVertical,
   Route as RouteIcon,
   Scale,
@@ -136,5 +137,12 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     // Esquema dibujado en SVG (scripts/figuras/portadas.mjs), no foto.
     foto: "/modulos/pbn/tema-pbn.svg",
     descripcion: "RNAV y RNP, el número, la carta, el FMS y qué decir cuando se pierde la capacidad.",
+  },
+  mel: {
+    // El mismo icono que su tarjeta en Ingreso a aerolínea.
+    icon: ListChecks,
+    color: "var(--av-mel-700)",
+    fotoHueco: "MEL-TEM-01 · 2:1 · 1200×600 · Etiqueta INOP sobre un mando de cabina, con la MEL abierta al lado",
+    descripcion: "Leer una entrada, cumplir el (M) y el (O) y decidir si el avión sale.",
   },
 }
