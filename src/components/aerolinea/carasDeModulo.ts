@@ -55,6 +55,7 @@ export interface CaraDeModulo {
  * desde la app no había forma de llegar a él.
  */
 export const TEMAS_EN_CAMINO: readonly string[] = [
+  "ETOPS/EDTO",
   "Sistemas y motor a reacción",
   "Entrevista técnica",
   "Entrevista HR y CRM",
