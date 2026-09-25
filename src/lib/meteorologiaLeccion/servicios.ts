@@ -6,7 +6,7 @@
  * desde 1; su posición en la lección la calcula metarLesson.ts.
  *
  * Solo lo que NO se solapa con METAR y TAF, que ya están en la parte del
- * código: las observaciones y sus fuentes, el PIREP y el RAREP, las
+ * código: las observaciones y sus fuentes, los informes de piloto, las
  * advertencias en vuelo (AIRMET, SIGMET, SIGMET convectivo), los pronósticos
  * de área y de viento en altura, y las cartas.
  *
@@ -299,162 +299,111 @@ export const PARTE_SERVICIOS: DocScreen[] = [
   {
     n: 3,
     title: "Los avisos en vuelo",
-    kicker: "AIRMET, SIGMET y el convectivo",
+    kicker: "Qué avisa cada producto y cómo afecta la ruta",
     minutes: 9,
     blocks: [
       {
         kind: "p",
-        text: "Las advertencias meteorológicas en vuelo son pronósticos que detallan tiempo potencialmente peligroso. Se dan a las aeronaves en ruta y también están disponibles antes de salir, para planificar. Hay tres niveles y la diferencia entre ellos no es de tono: es de a quién le afecta.",
-      },
-      {
-        kind: "fichas",
-        columnas: 3,
-        titulo: "Los tres del capítulo, que son los de Estados Unidos",
-        items: [
-          {
-            titulo: "AIRMET (WA)",
-            ref: "en EE. UU., para aeronaves ligeras y de capacidad operativa limitada",
-            puntos: [
-              "Engelamiento moderado.",
-              "Turbulencia moderada.",
-              "Vientos de superficie sostenidos de 30 kt o más.",
-              "Grandes zonas con techos por debajo de 1.000 ft y/o visibilidad menor de tres millas.",
-              "Oscurecimiento de montaña extenso.",
-            ],
-          },
-          {
-            titulo: "SIGMET (WS)",
-            ref: "para TODAS las aeronaves; en EE. UU., solo tiempo no convectivo",
-            puntos: [
-              "Engelamiento severo no asociado a tormentas.",
-              "Turbulencia severa o extrema, o turbulencia en aire claro, no asociadas a tormentas.",
-              "Tormentas de polvo o de arena que bajan la visibilidad a menos de tres millas.",
-              "Ceniza volcánica.",
-            ],
-            nota: "Válido 4 horas. Si se refiere a huracanes, 6 horas.",
-          },
-          {
-            titulo: "SIGMET convectivo (WST)",
-            ref: "solo existe en EE. UU.: allí la convección va aparte",
-            puntos: [
-              "Tormentas fuertes con viento en superficie de más de 50 kt.",
-              "Granizo en superficie de ¾ de pulgada de diámetro o más.",
-              "Tornados.",
-              "También para tormentas mezcladas, líneas de tormentas o tormentas con precipitación fuerte o mayor.",
-            ],
-          },
-        ],
+        text: "**En la portada:** una línea de cumulonimbos y cortinas de precipitación aparece junto a la ruta. **Cómo lo reconoces:** la convección sobresale de las capas vecinas y puede extenderse mucho más allá de lo que muestra una sola ventana. **Qué decides:** revisar los avisos vigentes, la extensión vertical y horizontal del fenómeno, y las opciones de desvío antes de acercarte.",
       },
       {
         kind: "fichas",
         columnas: 2,
-        titulo: "Y como los define la OACI (Anexo 3), que es lo que usa la región",
+        titulo: "Dos avisos que no cumplen la misma función",
         items: [
           {
-            titulo: "SIGMET",
-            ref: "para todas las aeronaves en ruta",
+            titulo: "SIGMET (Significant Meteorological Information)",
+            ref: "fenómenos significativos en ruta para las operaciones aéreas",
             puntos: [
-              "Tormentas, dentro del mismo SIGMET: oscurecidas (OBSC), incrustadas (EMBD), frecuentes (FRQ) o en línea (SQL), con GR si traen granizo.",
-              "Turbulencia severa, engelamiento severo (también por lluvia engelante) y onda de montaña severa.",
-              "Tempestad fuerte de polvo o de arena, y nube radiactiva.",
-              "La ceniza volcánica y los ciclones tropicales tienen su propio SIGMET.",
+              "Puede advertir tormentas oscurecidas, incrustadas, frecuentes o en línea, además de turbulencia o engelamiento severos, onda de montaña severa, ceniza volcánica y otros fenómenos especificados.",
+              "Indica región de información de vuelo, fenómeno, ubicación, niveles cuando corresponda, movimiento o evolución, y período de validez.",
+              "No equivale por sí solo a una autorización ni a una ruta libre de peligro fuera del polígono.",
             ],
-            nota: "Válido hasta 4 horas; los de ceniza volcánica y ciclón tropical, hasta 6. No existe un SIGMET convectivo aparte.",
+            nota: "Validez máxima usual: 4 horas; para ceniza volcánica y ciclón tropical, hasta 6 horas. Lee siempre las horas impresas en el aviso.",
           },
           {
-            titulo: "AIRMET",
-            ref: "para los vuelos a baja altura",
+            titulo: "AIRMET (Airmen's Meteorological Information)",
+            ref: "información suplementaria para vuelos a baja altura donde se emite",
             puntos: [
-              "Por debajo de FL100, o de FL150 en zonas montañosas.",
-              "Fenómenos que afectan a esos vuelos y no estaban ya en su pronóstico: engelamiento o turbulencia moderados, tormentas aisladas u ocasionales, montañas oscurecidas, techos bajos o visibilidad reducida en zonas amplias.",
+              "Según la OACI, complementa el pronóstico de área para vuelos a baja altura con fenómenos no incluidos allí que pueden afectar su seguridad.",
+              "La capa de referencia suele llegar a FL100; en áreas montañosas puede extenderse a FL150 o más, según lo acordado localmente.",
+              "Su emisión depende de acuerdos regionales y del tránsito a baja altura: no supongas que estará disponible en cada región de información de vuelo.",
             ],
+            nota: "Si se emite, la validez máxima es de 4 horas. Para una aerolínea en crucero, el SIGMET suele ser el aviso más relevante; el AIRMET puede importar en ascenso, descenso o desvío.",
           },
         ],
       },
       {
         kind: "callout",
         tone: "tip",
-        title: "La distinción que hay que tener clara",
-        text: "En la OACI, que es lo que usa la región, la diferencia es de altura y de alcance: el SIGMET avisa de lo peligroso para todas las aeronaves en ruta, y el AIRMET, de lo que afecta a los vuelos a baja altura. La definición «para aviones ligeros» es la de Estados Unidos. Si en la entrevista te preguntan la diferencia y contestas solo «uno es más fuerte que el otro», no has contestado.",
+        title: "No los ordenes como tres grados de severidad",
+        text: "El marco OACI incluye tormentas significativas en SIGMET. Estados Unidos publica además el producto propio «Convective SIGMET» para convección; su clasificación y los designadores Sierra, Tango y Zulu no se trasladan sin más a Colombia o a otro Estado. Comprueba los productos de la región que vas a volar.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t28-01-avisos-ruta.webp",
+        alt: "Diagrama conceptual que contrasta SIGMET para fenómenos significativos en ruta y AIRMET para vuelos a baja altura donde se emite; ambos llevan a revisar ubicación, tiempo, niveles y alternativas",
+        ancho: 1600,
+        alto: 720,
+        pie: "Esquema didáctico, no carta ni aviso vigente. La disponibilidad del AIRMET y el formato de los mensajes dependen del Estado y del acuerdo regional.",
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** los avisos tienen destinatarios y condiciones de emisión diferentes; el SIGMET cubre fenómenos significativos en ruta y el AIRMET complementa el pronóstico de baja altura donde está previsto. **Cómo lo reconoces:** identifica primero el tipo de mensaje y su región, luego fenómeno, período y niveles. **Qué decides:** si tu trayectoria coincide en espacio y tiempo, prepara con despacho y control de tránsito aéreo una ruta, un nivel o un aeropuerto alterno compatible con combustible, performance y procedimientos.",
       },
       {
         kind: "sub",
-        text: "Cómo se nombran",
+        text: "Leer un aviso antes de tomar una decisión",
       },
       {
         kind: "kv",
         items: [
-          { k: "AIRMET Sierra", v: "condiciones IFR y oscurecimiento de montaña" },
-          { k: "AIRMET Tango", v: "turbulencia, vientos fuertes de superficie y cizalladura a bajo nivel" },
-          { k: "AIRMET Zulu", v: "engelamiento y niveles de congelación" },
-          { k: "SIGMET", v: "letra de November a Yankee, saltando Sierra y Tango" },
-          { k: "Primera emisión de un SIGMET", v: "se designa como SIGMET de Clima Urgente (UWS)" },
+          { k: "Dónde", v: "Región de información de vuelo y extensión horizontal; compara con tu ruta y sus alternativas." },
+          { k: "Cuándo", v: "Emisión, inicio y fin de validez en UTC; comprueba actualizaciones y cancelaciones." },
+          { k: "Qué y a qué nivel", v: "Fenómeno, intensidad, base/cima o niveles afectados cuando estén indicados; contrasta radar, satélite y reportes." },
+          { k: "Cómo cambia", v: "Movimiento, intensidad prevista y tendencia; una posición anterior no asegura un corredor libre." },
+          { k: "Con qué margen", v: "Combustible, performance, procedimientos de la empresa, aeropuerto alterno y coordinación con control." },
         ],
-      },
-      {
-        kind: "p",
-        text: "Los SIGMET que se vuelven a publicar por el mismo fenómeno se numeran de forma consecutiva hasta que el fenómeno termina. Los AIRMET llevan designador alfanumérico fijo, numerado secuencialmente desde la primera emisión del día.",
-      },
-      {
-        kind: "sub",
-        text: "Uno real, desarmado",
-      },
-      {
-        kind: "code",
-        grande: true,
-        text: "SFOR WS 100130\nSIGMET ROME02 VALID UNTIL 100530\nOR WA\nFROM SEA TO PDT TO EUG TO SEA\nOCNL MOGR CAT BTN 280 AND 350 EXPCD DUE TO JTSTR.\nCONDS BGNG AFT 0200Z CONTG BYD 0530Z.",
-      },
-      {
-        kind: "p",
-        text: "Es el SIGMET Romeo 2, segunda emisión para este fenómeno, válido hasta el día 10 a las 0530Z. Cubre Oregón y Washington, en un área definida por Seattle, Portland, Eugene y Seattle. Anuncia **turbulencia en aire claro ocasional moderada o mayor entre 28.000 y 35.000 ft por la corriente en chorro**, empezando después de las 0200Z y continuando más allá del final de este pronóstico.",
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Fíjate en lo que hace útil ese mensaje",
-        text: "Te da el fenómeno, la banda de niveles exacta, la causa y la ventana de tiempo. Con eso se decide un nivel de crucero distinto sin llamar a nadie. Un aviso que solo dijera «turbulencia en la zona» no serviría para nada operativo.",
-      },
-      {
-        kind: "check",
-        question:
-          "Un SIGMET anuncia turbulencia en aire claro ocasional moderada o mayor entre 28.000 y 35.000 ft por la corriente en chorro, con las condiciones empezando después de las 0200Z. Vas a cruzar la zona a FL310. ¿Qué haces?",
-        options: [
-          "Nada: el aviso es de turbulencia en aire claro, y el aire claro no se ve ni se esquiva",
-          "Pides un nivel fuera de la banda de 28.000 a 35.000 ft, que es donde el aviso la sitúa",
-          "Esperas a las 0200Z, porque hasta esa hora el aviso todavía no está en vigor",
-        ],
-        answer: 1,
-        explain:
-          "El valor del aviso está en que da la banda exacta, la causa y la ventana de tiempo. FL310 cae dentro de la banda, así que el nivel es lo primero que se mueve, y eso se decide sin llamar a nadie. Ojo con la hora: las condiciones empiezan después de las 0200Z, no terminan, así que esperar a esa hora es entrar en ellas.",
-      },
-      {
-        kind: "sub",
-        text: "Y uno convectivo",
-      },
-      {
-        kind: "code",
-        grande: true,
-        text: "MKCC WST 221855\nCONVECTIVE SIGMET 21C\nVALID UNTIL 2055\nKS OK TX\nVCNTY GLD-CDS LINE\nNO SGFNT TSTMS RPRTD\nLINE TSTMS DVLPG BY 1955Z WILL MOV EWD 30-35 KT THRU 2055Z\nHAIL TO 2 IN PSBL",
-      },
-      {
-        kind: "p",
-        text: "SIGMET convectivo número 21C (el 21 consecutivo de la región central), emitido el día 22 a las 1855Z y válido dos horas, hasta las 2055Z. Cubre de Kansas a Oklahoma y Texas, cerca de la línea Goodland a Childress. No hay tormentas significativas reportadas todavía, pero **se va a desarrollar una línea de tormentas a las 1955Z que se moverá al este a 30 a 35 kt**, con granizo posible de hasta 2 pulgadas.",
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "Dos pulgadas de granizo",
-        text: "En la lección de tormentas quedó dicho que piedras de más de media pulgada dañan una aeronave en pocos segundos. Este aviso anuncia cuatro veces ese tamaño, con hora y con dirección de movimiento. No es información de contexto: es una zona y una ventana horaria que no se cruzan.",
+        title: "Un nivel diferente no siempre resuelve el riesgo",
+        text: "Una zona convectiva puede crecer, desplazarse y ocupar varios niveles. No deduzcas un paso seguro solo porque el aviso nombra una banda, ni cambies por tu cuenta una ruta o nivel controlado. La tripulación contrasta información actualizada y coordina la alternativa conforme a sus autorizaciones y procedimientos.",
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Antes de entrar a una región de información de vuelo",
+        situacion: "El briefing muestra un SIGMET de tormentas incrustadas con desplazamiento hacia tu ruta y validez durante el tramo previsto. La pantalla de radar aún no define un corredor libre.",
+        pregunta: "¿Qué verificas y cómo preparas una alternativa antes de entrar a la zona?",
+        claves: [
+          "Comparo el período, la ubicación y el movimiento del SIGMET con la hora estimada y la ruta.",
+          "Contrasto los avisos con observaciones y reportes recientes; una pantalla sin un corredor definido no demuestra paso seguro.",
+          "Evalúo margen lateral, combustible, performance y alternos, y coordino el desvío con despacho y control según el procedimiento.",
+        ],
+      },
+      {
+        kind: "sub",
+        text: "Comprobación de criterio",
+      },
+      {
+        kind: "check",
+        question:
+          "Un SIGMET válido describe tormentas incrustadas que se desplazan hacia tu tramo de ruta. ¿Qué haces antes de entrar?",
+        options: [
+          "Descartarlo porque no hay un SIGMET convectivo separado en el sistema OACI.",
+          "Comparar ubicación, validez, movimiento y niveles con la ruta; preparar y coordinar una alternativa segura.",
+          "Subir automáticamente sobre la nube sin consultar performance ni autorización.",
+        ],
+        answer: 1,
+        explain:
+          "Las tormentas pueden aparecer dentro de un SIGMET OACI. La ruta, el momento y la evolución importan tanto como el nombre del producto; cualquier modificación se coordina y se evalúa con márgenes operacionales.",
       },
       {
         kind: "callout",
         tone: "verificar",
-        title: "Los nombres son de allá; el concepto es de todos",
-        text: "Sierra, Tango y Zulu son los designadores del sistema estadounidense, igual que la codificación de las regiones. La OACI estandariza que exista el aviso SIGMET y su contenido, y cada Estado publica los suyos a través de su servicio meteorológico y su oficina de vigilancia. Antes de volar en un espacio aéreo, mira en la publicación de información aeronáutica de ese país qué productos se emiten, quién los emite y por qué canal llegan.",
-      },
-      {
-        kind: "infografia",
-        nombre: "meteo-avisos",
+        title: "Consulta la publicación vigente, no un ejemplo de clase",
+        text: "La oficina de vigilancia meteorológica y el servicio de información aeronáutica de cada Estado publican la disponibilidad y distribución de sus productos. Una evaluación regional de OACI registró diferencias en la emisión internacional de AIRMET entre Estados sudamericanos; no conviertas una ficha de Estados Unidos en una regla local. Para un vuelo real, usa el AIP/eAIP y los avisos actuales de las regiones de información de vuelo de tu ruta.",
       },
       {
         kind: "entrevista",
@@ -464,22 +413,22 @@ export const PARTE_SERVICIOS: DocScreen[] = [
             nivel: "concepto",
             q: "Diferencie AIRMET y SIGMET.",
             respuesta:
-              "Según la OACI, en el Anexo 3, el SIGMET avisa de fenómenos en ruta peligrosos para todas las aeronaves: tormentas oscurecidas, incrustadas, frecuentes o en línea, con o sin granizo; turbulencia severa; engelamiento severo; onda de montaña severa; tempestades fuertes de polvo o de arena; y nube radiactiva. La ceniza volcánica y los ciclones tropicales tienen su propio SIGMET. El AIRMET es para los vuelos a baja altura, por debajo de FL100 o de FL150 en zonas montañosas, con los fenómenos que no estaban ya en su pronóstico. En Estados Unidos, que es el sistema del capítulo, el AIRMET se define para aeronaves ligeras y el SIGMET convectivo va aparte.",
-            claves: ["SIGMET: todas las aeronaves, tormentas incluidas", "AIRMET: vuelos por debajo de FL100", "En EE. UU. el convectivo va aparte"],
+              "SIGMET describe fenómenos significativos en ruta que pueden afectar la seguridad de las operaciones, incluidas tormentas de los tipos previstos por OACI. AIRMET complementa el pronóstico de área para vuelos a baja altura donde un acuerdo regional dispone su emisión; no es una escala menor del mismo aviso. Primero confirmo qué se publica en la región de mi vuelo.",
+            claves: ["SIGMET: riesgo significativo en ruta", "AIRMET: baja altura donde se emite", "Confirmar disponibilidad local"],
           },
           {
             nivel: "interpretacion",
-            q: "¿Existe el SIGMET convectivo en la región?",
+            q: "¿Dónde buscarías las tormentas si no hay un producto convectivo separado?",
             respuesta:
-              "Como producto aparte, no. El SIGMET convectivo es del sistema de Estados Unidos, donde el SIGMET normal cubre solo lo no convectivo. Con la OACI las tormentas van dentro del SIGMET normal, codificadas como OBSC, EMBD, FRQ o SQL TS, y con GR si hay granizo. Leer un aviso de la región buscando un «convectivo» aparte es perderse las tormentas.",
-            claves: ["El convectivo aparte es de EE. UU.", "OACI: las tormentas van dentro del SIGMET", "OBSC, EMBD, FRQ o SQL TS"],
+              "En el marco OACI, las tormentas significativas pueden formar parte del SIGMET de la región. Estados Unidos maneja un Convective SIGMET separado. Leo el fenómeno y la región del mensaje vigente, no doy por hecho que todos los países usan la misma familia de productos.",
+            claves: ["Tormentas en SIGMET OACI", "Producto separado en EE. UU.", "Leer mensaje vigente"],
           },
           {
             nivel: "situacion",
-            q: "¿Cuánto tiempo es válido un SIGMET?",
+            q: "¿Qué datos del SIGMET te permiten decidir un desvío?",
             respuesta:
-              "Hasta cuatro horas. Los de ceniza volcánica y los de ciclón tropical, hasta seis. Los SIGMET convectivos de Estados Unidos, como el del ejemplo del capítulo, valen dos horas.",
-            claves: ["Hasta 4 horas", "6 si es ceniza volcánica o ciclón tropical"],
+              "Identifico región, fenómeno, período de validez, ubicación, niveles y evolución. Comparo esos datos con mi ruta y hora estimada; verifico actualizaciones y contrasto con observaciones. Después evalúo desvíos, combustible, performance y alternos con despacho y control según corresponda. La validez máxima general es de cuatro horas, o seis para ceniza volcánica y ciclón tropical, pero manda el período del aviso concreto.",
+            claves: ["Lugar, tiempo y niveles", "Movimiento y actualización", "Alternativa coordinada"],
           },
         ],
       },
