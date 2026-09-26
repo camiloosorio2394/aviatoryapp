@@ -249,29 +249,31 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
         ))}
       </nav>
 
-      {/* Pro, sobre el cielo con el ala. */}
+      {/* Pro, sobre el cielo con el ala. Compacta a propósito: a 19 px de
+          titular y con la línea de filete la tarjeta medía 136 px y se comía
+          el remate de la barra; a 15 px y sin adornos es una estampa de unos
+          90 px que se lee igual y deja respirar al menú. */}
       <div className="flex-shrink-0 px-3.5 pb-3 pt-2">
         <Link
           to="/pricing"
           onClick={onClose}
           title={expanded ? undefined : "Aviatory Pro · Ver planes"}
-          className="group relative block overflow-hidden rounded-2xl outline-none transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[var(--rail-active-mark)]"
-          style={{ background: "var(--rail-promo)", boxShadow: "0 10px 24px -14px rgb(11 30 58 / 55%)" }}
+          className="group relative block overflow-hidden rounded-xl outline-none transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[var(--rail-active-mark)]"
+          style={{ background: "var(--rail-promo)", boxShadow: "0 8px 20px -14px rgb(11 30 58 / 55%)" }}
         >
           {expanded ? (
             <>
               <CieloConAla className="absolute inset-0 h-full w-full" />
-              <div className="relative px-5 pb-4 pt-4 [@media(min-height:960px)]:pb-5 [@media(min-height:960px)]:pt-5">
-                <p className="versalitas m-0 text-[9.5px] text-white/70">Aviatory Pro</p>
-                <p className="titular m-0 mt-1.5 text-[19px] font-medium leading-[1.15] text-white [@media(min-height:960px)]:text-[23px]">
+              <div className="relative px-4 pb-3.5 pt-3">
+                <p className="versalitas m-0 text-[9px] leading-none text-white/65">Aviatory Pro</p>
+                <p className="titular m-0 mt-1.5 text-[15px] font-medium leading-[1.2] text-white">
                   Lleva tu carrera
                   <br />
                   más lejos.
                 </p>
-                <span aria-hidden className="mt-3 hidden h-px w-8 bg-white/70 [@media(min-height:960px)]:block" />
-                <span className="mt-2.5 inline-flex items-center gap-1.5 text-[12.5px] font-medium text-white/90 [@media(min-height:960px)]:mt-3">
+                <span className="mt-2 inline-flex items-center gap-1 text-[11.5px] font-medium leading-none text-white/85">
                   Ver planes
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5" aria-hidden />
+                  <ArrowRight className="h-3 w-3 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5" aria-hidden />
                 </span>
               </div>
             </>
