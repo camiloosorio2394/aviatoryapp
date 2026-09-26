@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "TotalJobsCount": 21,
+      "requisitionList": [
+        {
+          "Id": "12608",
+          "Title": "Analista Senior de Despacho Temporal",
+          "PostedDate": "2026-09-21",
+          "PrimaryLocation": "Panama",
+          "PrimaryLocationCountry": "PA"
+        },
+        {
+          "Id": "12380",
+          "Title": "Primer Oficial",
+          "PostedDate": "2026-02-10",
+          "PrimaryLocation": "Panamá, Panama",
+          "PrimaryLocationCountry": "PA"
+        },
+        {
+          "Id": "12379",
+          "Title": "Capitan",
+          "PostedDate": "2026-02-05",
+          "PrimaryLocation": "Panamá, Panama",
+          "PrimaryLocationCountry": "PA"
+        }
+      ]
+    }
+  ]
+}

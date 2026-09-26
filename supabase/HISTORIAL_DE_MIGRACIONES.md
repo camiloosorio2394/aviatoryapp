@@ -164,9 +164,9 @@ seis funciones compartidas con los siete módulos del catálogo.
 
 ### La regla del orden, que es la que muerde
 
-<!-- ULTIMA_APLICADA: 20261001020000 -->
+<!-- ULTIMA_APLICADA: 20261001040000 -->
 
-**Toda migración nueva lleva una versión posterior a `20261001020000`.**
+**Toda migración nueva lleva una versión posterior a `20261001040000`.**
 
 No es burocracia. Seis funciones se republican enteras en cada migración de
 módulo —`private.secciones_leidas`, `private.practicas_hechas`,
@@ -184,7 +184,7 @@ arriba. Al aplicar una tanda, se actualiza esa marca.
 
 ### La excepción: lo que ya se aplicó por debajo de la marca
 
-<!-- APLICADAS_BAJO_LA_MARCA: 20260925152412 20260925152815 -->
+<!-- APLICADAS_BAJO_LA_MARCA: 20260925152412 20260925152815 20261001030000 -->
 
 El peligro de arriba es de las migraciones **pendientes**: la base las correría
 después de las que ya tiene. Una que ya está aplicada no se vuelve a correr
@@ -437,3 +437,17 @@ con `apply_migration`, que se deshace entero cuando la prueba termina en
 `evaluacion_temas.sql`, `permisos.sql`, `panel.sql` (con la tarjeta de
 MEL), `mel_evaluacion.sql` y `mel.sql`. Todas en `PRUEBA_DESHECHA` con la
 lista completa de lo verificado.
+
+## 26 de septiembre, mañana: las convocatorias
+
+| Filas del conector | Qué hizo |
+| --- | --- |
+| `convocatorias_de_pilotos` | El archivo `20261001030000`: `convocatorias` y `convocatorias_revisiones` (con RLS), `private.convocatoria_manual`, la página de pilotos de LATAM con sus requisitos y la tarea `aviatory_convocatorias` de pg_cron. Activa `pg_net`. |
+| `convocatorias_con_llave` | El archivo `20261001040000`: la llave `convocatorias_llave` nace en el Vault, `convocatorias_llave_valida()` solo para `service_role`, y la tarea la manda en `x-llave`. |
+| `registrar_version_de_archivo_convocatorias`, `_con_llave` | Las dos filas con la versión de archivo. |
+| `primera_revision_de_convocatorias` | Llama la función una vez, como lo hará pg_cron, para llenar la tabla. |
+
+La función de borde `revisar-convocatorias` se publicó con el conector (`verify_jwt = false`,
+como dice `supabase/config.toml`). Pruebas contra la base ya migrada: `convocatorias.sql` y
+`permisos.sql`, las dos en `PRUEBA_DESHECHA` con la lista completa. Antes de aplicarla, la
+migración se ensayó entera dentro de una transacción que se deshizo.
