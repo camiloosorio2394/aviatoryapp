@@ -24,6 +24,7 @@ import {
 import { PageHeader } from "@/components/ui/page-header"
 import { CountUp } from "@/components/ui/count-up"
 import { LICENSE_TYPE_LABEL } from "@/lib/licencias"
+import { registrarAutorizacion } from "@/services/cuenta"
 
 const LICENSE_CATEGORY: Record<LicenseType, string> = {
   medical_class_1: "Médico",
@@ -447,12 +448,19 @@ function NewLicenseDialog({
   const [notes, setNotes] = useState("")
 
   const needsCustomName = licenseType === "type_rating" || licenseType === "other"
+  // El certificado médico es un dato de salud (dato sensible, Ley 1581): se
+  // guarda solo con una autorización aparte, explícita y voluntaria.
+  const esMedico = licenseType.startsWith("medical_class")
+  const [autorizaMedico, setAutorizaMedico] = useState(false)
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     if (!user) return
     setSaving(true)
     try {
+      // La constancia va antes que el dato. Si la base todavía no las guarda,
+      // no se bloquea: la casilla ya se marcó y el servidor tampoco la exige.
+      if (esMedico) await registrarAutorizacion("dato_sensible_medico")
       await guardarLicencia({
         userId: user.id,
         licenseType,
@@ -553,13 +561,28 @@ function NewLicenseDialog({
               />
             </div>
           </div>
+          {esMedico && (
+            <label className="mx-6 mb-4 flex items-start gap-2.5 text-[13px] leading-relaxed text-muted-foreground">
+              <input
+                type="checkbox"
+                checked={autorizaMedico}
+                onChange={(e) => setAutorizaMedico(e.target.checked)}
+                className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--av-blue-500)]"
+              />
+              <span>
+                Autorizo a Aviatory a tratar este dato de salud (la clase y el vencimiento de mi
+                certificado médico) solo para avisarme antes de que venza. Es voluntario y solo lo
+                ves tú.
+              </span>
+            </label>
+          )}
           <footer className="flex items-center justify-end gap-2 px-6 pt-4 pb-24 sm:pb-4 border-t border-border">
             <Button type="button" variant="ghost" onClick={onClose} disabled={saving} className="rounded-full">
               Cancelar
             </Button>
             <Button
               type="submit"
-              disabled={saving}
+              disabled={saving || (esMedico && !autorizaMedico)}
               size="lg"
               className="rounded-xl h-11 px-6 border-0 text-white transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}

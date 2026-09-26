@@ -14,6 +14,12 @@ export interface RegistroNuevo {
   username: string
   /** Código de quien lo invitó, si llegó por un enlace de referidos. */
   referralCode?: string | null
+  /**
+   * La versión de los Términos y la Política que aceptó al marcar la casilla.
+   * Viaja en los metadatos de la cuenta: es la constancia desde el primer
+   * momento, antes incluso de confirmar el correo.
+   */
+  autorizacion?: string
 }
 
 /**
@@ -42,6 +48,9 @@ export async function registrarPiloto(datos: RegistroNuevo): Promise<{ haySesion
       data: {
         username: datos.username,
         ...(datos.referralCode ? { referral_code: datos.referralCode } : {}),
+        ...(datos.autorizacion
+          ? { autorizacion_version: datos.autorizacion, autorizacion_en: new Date().toISOString() }
+          : {}),
       },
     },
   })
@@ -94,4 +103,12 @@ export async function cambiarClave(clave: string): Promise<void> {
 export async function cerrarSesion(): Promise<string | null> {
   const { error } = await supabase.auth.signOut()
   return error?.message ?? null
+}
+
+/**
+ * Cierra la sesión solo en este equipo. Es lo que queda después de eliminar la
+ * cuenta: en el servidor ya no hay sesión que cerrar, y pedirlo daría error.
+ */
+export async function cerrarSesionLocal(): Promise<void> {
+  await supabase.auth.signOut({ scope: "local" })
 }

@@ -451,3 +451,19 @@ La función de borde `revisar-convocatorias` se publicó con el conector (`verif
 como dice `supabase/config.toml`). Pruebas contra la base ya migrada: `convocatorias.sql` y
 `permisos.sql`, las dos en `PRUEBA_DESHECHA` con la lista completa. Antes de aplicarla, la
 migración se ensayó entera dentro de una transacción que se deshizo.
+
+## 26 de septiembre: la auditoría de prelanzamiento
+
+`20261002000000_autorizaciones_y_eliminacion_de_cuenta` (**pendiente de correr**).
+Hace tres cosas:
+
+- La autorización de tratamiento, con constancia de versión y fecha.
+- El consentimiento aparte para el certificado médico, que un disparador exige.
+- `eliminar_mi_cuenta`, con la política para que el piloto borre sus
+  archivos de bitácora y las dos llaves foráneas que impedían borrar a un
+  revisor.
+
+No republica ninguna de las seis funciones compartidas. Prueba:
+`supabase/tests/autorizaciones_y_eliminacion.sql`. Cuando se corra, se
+renombra con la versión registrada y sube la marca.
+

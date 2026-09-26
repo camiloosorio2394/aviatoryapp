@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      autorizaciones: {
+        Row: {
+          aceptada_en: string
+          documento: string
+          id: number
+          user_id: string
+          version: string
+        }
+        Insert: {
+          aceptada_en?: string
+          documento: string
+          id?: number
+          user_id: string
+          version: string
+        }
+        Update: {
+          aceptada_en?: string
+          documento?: string
+          id?: number
+          user_id?: string
+          version?: string
+        }
+        Relationships: []
+      }
       achievements: {
         Row: {
           code: string
@@ -3668,6 +3692,14 @@ export type Database = {
       check_username_available: {
         Args: { p_username: string }
         Returns: boolean
+      }
+      eliminar_mi_cuenta: {
+        Args: { p_confirmacion: string }
+        Returns: Json
+      }
+      registrar_autorizacion: {
+        Args: { p_documento: string; p_version: string }
+        Returns: undefined
       }
       get_activity_heatmap: {
         Args: never

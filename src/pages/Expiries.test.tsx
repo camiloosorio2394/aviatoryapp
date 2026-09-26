@@ -15,6 +15,8 @@ const errores = vi.hoisted(() => ({ reportarError: vi.fn() }))
 const sesion = vi.hoisted(() => ({ user: { id: "piloto-1" }, session: null, isLoading: false }))
 
 vi.mock("@/services/documentos", () => servicio)
+const cuenta = vi.hoisted(() => ({ registrarAutorizacion: vi.fn() }))
+vi.mock("@/services/cuenta", () => cuenta)
 vi.mock("sonner", () => ({ toast: avisos }))
 vi.mock("@/lib/errores", () => errores)
 vi.mock("@/hooks/useSession", () => ({ useSession: () => sesion }))
@@ -114,7 +116,11 @@ describe("los vencimientos del piloto", () => {
     await escribir(campo("Emitida"), "2026-03-01")
     await escribir(campo("Vence el"), "2027-03-01")
     await escribir(campo("Notas (opcional)"), "  Renovar en Bogotá  ")
+    // El médico es un dato de salud: sin la casilla no se guarda.
+    expect(boton("Guardar").disabled).toBe(true)
+    await clic(document.querySelector("form input[type=checkbox]") as HTMLElement)
     await clic(boton("Guardar"))
+    expect(cuenta.registrarAutorizacion).toHaveBeenCalledWith("dato_sensible_medico")
 
     expect(servicio.guardarLicencia).toHaveBeenCalledWith({
       userId: "piloto-1",
@@ -136,6 +142,7 @@ describe("los vencimientos del piloto", () => {
 
     await clic(boton("Agregar"))
     await escribir(campo("Vence el"), "2027-03-01")
+    await clic(document.querySelector("form input[type=checkbox]") as HTMLElement)
     await clic(boton("Guardar"))
 
     expect(errores.reportarError).toHaveBeenCalledWith("vencimientos: guardar", fallo)
