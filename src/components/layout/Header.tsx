@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { LogoIsotype } from "@/components/Logo"
+import { Isotipo } from "@/components/marca/Isotipo"
 import { useSession } from "@/hooks/useSession"
 
 const navLinks = [
@@ -57,17 +57,12 @@ export function Header() {
           className="flex items-center gap-3 transition-transform hover:scale-[1.02]"
           aria-label="Aviatory: inicio"
         >
-          {/*
-            Isotipo circular de marca: el asset trae su propio circulo con gradiente,
-            asi que va solo, sin caja ni gradiente extra. El rounded-full solo
-            asegura que la sombra siga la forma del circulo.
-          */}
-          <LogoIsotype
-            variant="color"
-            alt=""
-            className="h-11 w-11 flex-shrink-0 rounded-full shadow-md"
-          />
-          <span className="text-[24px] font-semibold tracking-tight">Aviatory</span>
+          {/* La marca: el isotipo y el nombre en Playfair, en el navy de la
+              marca (claro en modo oscuro). */}
+          <Isotipo className="h-10 w-10 flex-shrink-0" style={{ color: "var(--marca-tinta)" }} />
+          <span className="titular text-[26px] font-bold leading-none" style={{ color: "var(--marca-tinta)" }}>
+            Aviatory
+          </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">

@@ -1,102 +1,71 @@
 import { Fragment, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
-import {
-  LayoutDashboard,
-  BookOpen,
-  Radio,
-  Briefcase,
-  Radar,
-  Clock,
-  Calendar,
-  Users,
-  Map,
-  Plane,
-  Gift,
-  GraduationCap,
-  User,
-  ArrowRight,
-  Sparkles,
-  X,
-  Library as LibraryIcon,
-  Video,
-  Pin,
-  PinOff,
-} from "lucide-react"
-import { LogoIsotype } from "@/components/Logo"
+import { ArrowRight, ChevronsLeft, ChevronsRight, Sparkles, X } from "lucide-react"
+import { Isotipo } from "@/components/marca/Isotipo"
+import { CieloConAla } from "@/components/marca/CieloConAla"
+import { IconoMarca } from "@/components/marca/Icono"
+import type { NombreIcono } from "@/components/marca/iconos"
 
 interface NavItem {
   to: string
   label: string
-  icon: React.ComponentType<{ className?: string; size?: number; strokeWidth?: number; style?: React.CSSProperties }>
+  /** El ícono de la hoja de Camilo (src/assets/iconos). */
+  icono: NombreIcono
   end?: boolean
-  /** Módulo en construcción (página placeholder) — muestra chip "Pronto". */
-  soon?: boolean
 }
 
 interface NavSection {
-  /** Section header; omit on first group (Dashboard standalone). */
+  /** Rótulo del grupo; el primero (Inicio) va sin rótulo. */
   label?: string
   items: NavItem[]
 }
 
+/** Ancho del rail abierto. AppLayout empuja el contenido lo mismo (`lg:pl-[264px]`). */
+const ANCHO_BARRA_ABIERTA = 264
+
 /**
- * El menú separa lo que se ESTUDIA de lo que se USA.
+ * El menú separa lo que se ESTUDIA de lo que se USA, como la propuesta de
+ * Camilo del 25-sep-2026:
  *
- * "Módulos" es el catálogo académico: los cursos que ofrece Aviatory, y nada
- * más. Es la vitrina del producto, así que cada curso nuevo entra ahí y la
- * lista crece sola. Los que todavía no tienen contenido van al final del
- * grupo con su «Pronto».
- *
- * Todo lo demás son herramientas que operan sobre datos del piloto o de la
- * comunidad. "Qué cayó en el examen" y "Para cuál calificas" parecen contenido
- * de un módulo pero no lo son: no se estudian, se consultan.
- *
- * Antes el menú agrupaba por tipo de actividad (Estudio, Carrera, Operación) y
- * contaba una historia distinta de la del producto: doce entradas planas donde
- * hay cuatro cursos y un puñado de utilidades.
+ * - **Formación**: los tres cursos. Materias generales y Entrevistas salieron
+ *   del menú mientras no tengan contenido: un «Pronto» en la navegación es una
+ *   promesa en el sitio donde el piloto busca lo que ya puede usar.
+ * - **Herramientas**: lo que opera sobre sus datos. «Para cuál calificas» pasa
+ *   a llamarse Elegibilidad. «Qué cayó en el examen» sigue en Mi ruta y en el
+ *   Examen PCA, y Referidos en el perfil y al aprobar.
+ * - **Comunidad** y **Cuenta**. Logros va en Cuenta: es la página de la
+ *   colección y la actividad, que salió del panel.
  */
 const navSections: NavSection[] = [
+  { items: [{ to: "/app", label: "Inicio", icono: "navegacion", end: true }] },
   {
-    items: [{ to: "/app", label: "Inicio", icon: LayoutDashboard, end: true }],
-  },
-  {
-    label: "Módulos",
+    label: "Formación",
     items: [
-      { to: "/app/pca", label: "Examen PCA", icon: BookOpen },
-      { to: "/app/icao", label: "Inglés ICAO", icon: Radio },
-      { to: "/app/aerolinea", label: "Ingreso a aerolínea", icon: Briefcase },
-      // Psicotécnicas no está aquí a propósito: es un tema **dentro** de
-      // Ingreso a aerolínea, igual que NOTAM, meteorología y mercancías, y
-      // ninguno de esos tiene entrada propia. Tenerla la vendía como un quinto
-      // curso, y encima la entrada llevaba al panorama de assessment —nueve
-      // categorías, seis todavía vacías— en vez de al tema con los ejercicios.
-      // El panorama sigue existiendo, ahora colgando del propio tema.
-      { to: "/app/materias", label: "Materias generales", icon: GraduationCap, soon: true },
-      // Entrevistas vivía sola en un grupo plegable «Próximamente». Con un
-      // único módulo, la cabecera del pliegue ocupaba lo mismo que el módulo y
-      // pedía un clic de más para verlo.
-      { to: "/app/entrevistas", label: "Entrevistas", icon: Video, soon: true },
+      { to: "/app/pca", label: "Examen PCA", icono: "examen-pca" },
+      { to: "/app/icao", label: "Inglés ICAO", icono: "ingles-icao" },
+      // Psicotécnicas no tiene entrada propia a propósito: es un tema dentro
+      // de Ingreso a aerolínea, igual que NOTAM, meteorología y mercancías.
+      { to: "/app/aerolinea", label: "Ingreso a aerolínea", icono: "ingreso-aerolinea" },
     ],
   },
   {
     label: "Herramientas",
     items: [
-      // La Biblioteca ocupa el sitio que tenía "Banco oficial": ese documento se
-      // mudó a ella, así que el menú queda igual de largo.
-      { to: "/app/biblioteca", label: "Biblioteca", icon: LibraryIcon },
-      { to: "/app/examenes", label: "Qué cayó en el examen", icon: Radar },
-      { to: "/app/match", label: "Para cuál calificas", icon: Plane },
-      { to: "/app/logbook", label: "Logbook", icon: Clock },
-      { to: "/app/vencimientos", label: "Vencimientos", icon: Calendar },
-      { to: "/app/ruta", label: "Mi ruta", icon: Map },
+      { to: "/app/biblioteca", label: "Biblioteca", icono: "biblioteca" },
+      { to: "/app/logbook", label: "Logbook", icono: "logbook" },
+      { to: "/app/vencimientos", label: "Vencimientos", icono: "vencimientos" },
+      { to: "/app/ruta", label: "Mi ruta", icono: "mi-ruta" },
+      { to: "/app/match", label: "Elegibilidad", icono: "elegibilidad" },
     ],
   },
+  { label: "Comunidad", items: [{ to: "/app/comunidad", label: "Comunidad", icono: "comunidad" }] },
   {
     label: "Cuenta",
     items: [
-      { to: "/app/comunidad", label: "Comunidad", icon: Users },
-      { to: "/app/referidos", label: "Referidos", icon: Gift },
-      { to: "/app/perfil", label: "Mi perfil", icon: User },
+      { to: "/app/perfil", label: "Mi perfil", icono: "mi-perfil" },
+      // Las charreteras: los galones que se ganan. Es el ícono de «Materias
+      // generales» en la hoja, que ya no tiene entrada en el menú.
+      { to: "/app/logros", label: "Logros", icono: "materias" },
     ],
   },
 ]
@@ -109,27 +78,26 @@ interface Props {
   onHoverChange?: (hovered: boolean) => void
   /** Sidebar fijo (expandido siempre, sin depender del hover). */
   pinned?: boolean
-  /** Toggle del fijado (muestra el botón pin/soltar en el header desktop). */
+  /** Toggle del fijado (muestra el botón de contraer/fijar en el encabezado). */
   onPinChange?: (pinned: boolean) => void
 }
 
 /**
- * La navegación lateral: rail de 64 px que se abre a 240 al pasar el ratón, o
- * fijo abierto. En el teléfono es el cajón.
+ * La navegación lateral: rail de 64 px que se abre a 264 al pasar el ratón, o
+ * fija abierta. En el teléfono es el cajón.
  *
- * Habla como los hubs: el lienzo de fondo, el ítem activo como una tarjeta
- * blanca apoyada en él (en oscuro, una placa de luz), los grupos con el rótulo
- * en Archivo y el único navy en la tarjeta de Pro, el del velo de los heros.
- * Los colores viven en los tokens `--rail-*`; el componente no sabe en qué
- * tema está.
+ * Es la hoja de marca puesta en la app: el isotipo y el nombre en Playfair
+ * con el lema en versalitas, el papel blanco, el navy de la marca en el texto,
+ * lo activo en la niebla azul con la franja de acento pegada al borde, filetes
+ * finos entre grupos y, abajo, la tarjeta de Pro sobre el cielo con el ala.
  *
- * Las filas miden 32 px en escritorio para que el menú entero quepa en un
- * portátil de 768 px de alto sin desplazarse; en el cajón del teléfono, 44,
- * que es lo que pide un dedo.
+ * Las filas miden 36 px en escritorio y 44 en el cajón del teléfono, que es lo
+ * que pide un dedo. En pantallas de poca altura (un portátil de 768 px) la
+ * tarjeta de Pro se compacta y el lema del pie se esconde, para que el menú
+ * entero quepa sin desplazarse.
  *
- * Para que el topbar no se interponga con la expansión, el AppLayout consume
- * `onHoverChange` y empuja el contenido principal (incluido el topbar)
- * dinámicamente — el rail nunca se solapa con el header.
+ * Los colores viven en los tokens `--rail-*` y `--marca-*`: el componente no
+ * sabe en qué tema está.
  */
 export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinned = false, onPinChange }: Props) {
   const [hovered, setHovered] = useState(false)
@@ -137,9 +105,8 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
   const tactil = forceExpanded
 
   /**
-   * Fila de navegación. Cuando el rail está colapsado el nombre viaja en el
-   * atributo `title`: el tooltip flotante anterior nunca se veía porque el
-   * aside y el nav recortan todo lo que sale de sus 64px.
+   * Fila de navegación. Con el rail cerrado el nombre viaja en `title`: un
+   * tooltip flotante no se vería, el aside recorta lo que sale de sus 64 px.
    */
   const renderItem = (item: NavItem) => (
     <NavLink
@@ -147,49 +114,41 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
       to={item.to}
       end={item.end}
       onClick={onClose}
-      title={expanded ? undefined : item.soon ? `${item.label} · Pronto` : item.label}
-      className={`group relative flex items-center gap-3 rounded-[10px] px-2.5 font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[var(--rail-active-mark)] ${
-        tactil ? "h-11 text-[15px]" : "h-8 text-[13.5px]"
+      title={expanded ? undefined : item.label}
+      className={`group relative flex items-center gap-3.5 rounded-[12px] px-3 outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--rail-active-mark)] ${
+        tactil ? "h-11 text-[15px]" : "h-9 text-[14px]"
       }`}
       style={({ isActive }) =>
         isActive
-          ? {
-              color: "var(--rail-active-text)",
-              background: "var(--rail-active-bg)",
-              boxShadow: "var(--rail-active-shadow)",
-              fontWeight: 600,
-            }
-          : // Un módulo sin contenido va en el gris de los rótulos: se ve que
-            // existe y que todavía no es para hoy, y sigue pasando el contraste.
-            { color: item.soon ? "var(--rail-section-label)" : "var(--rail-text)" }
+          ? { color: "var(--rail-active-text)", background: "var(--rail-active-bg)", fontWeight: 600 }
+          : { color: "var(--rail-text)", fontWeight: 500 }
       }
     >
       {({ isActive }) => (
         <>
-          {/* El fondo del hover va en una capa aparte: así no pisa la tarjeta
-              del activo, que lleva su propio fondo en línea. */}
+          {/* La franja de acento, pegada al borde del rail (el nav tiene 14 px
+              de relleno, de ahí el -14). */}
+          {isActive && (
+            <span
+              aria-hidden
+              className="absolute -left-3.5 top-0 h-full w-1 rounded-r-full"
+              style={{ background: "var(--rail-active-mark)" }}
+            />
+          )}
           {!isActive && (
             <span
               aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-[10px] opacity-0 transition-opacity group-hover:opacity-100"
+              className="pointer-events-none absolute inset-0 rounded-[12px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
               style={{ background: "var(--rail-hover)" }}
             />
           )}
-          <item.icon
-            size={18}
-            strokeWidth={isActive ? 2 : 1.75}
-            className="relative flex-shrink-0 transition-colors"
-            style={{
-              color: isActive ? "var(--rail-active-mark)" : "currentColor",
-              // Un módulo sin contenido se ve a media luz en el rail cerrado;
-              // abierto, lo dice su «Pronto».
-              opacity: item.soon && !expanded ? 0.5 : 1,
-            }}
+          <IconoMarca
+            nombre={item.icono}
+            className={`relative flex-shrink-0 transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 ${
+              tactil ? "h-8 w-8" : "h-7 w-7"
+            }`}
           />
-          <span
-            className="relative min-w-0 flex-1 truncate transition-opacity duration-200"
-            style={{ opacity: expanded ? 1 : 0 }}
-          >
+          <span className="relative min-w-0 flex-1 truncate transition-opacity duration-200" style={{ opacity: expanded ? 1 : 0 }}>
             {item.label}
           </span>
         </>
@@ -209,148 +168,129 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
       }}
       className="flex h-full flex-col overflow-hidden"
       style={{
-        width: expanded ? 240 : 64,
+        width: expanded ? (tactil ? "100%" : ANCHO_BARRA_ABIERTA) : 64,
         background: "var(--rail)",
         color: "var(--rail-text)",
         borderRight: "1px solid var(--rail-border)",
       }}
     >
-      {/*
-        Logo — el isotype solo ocupa el ancho del rail colapsado (64px) para
-        no solaparse con el topbar cuando el sidebar se expande on-hover.
-        El wordmark "Aviatory" SOLO se muestra en el drawer mobile (forceExpanded)
-        donde el topbar no aparece — en desktop el topbar muestra el breadcrumb
-        "Aviatory · Sección".
-
-        64 px de alto, los mismos que la barra superior: con 60 los dos filetes
-        quedaban a distinta altura y se veía el escalón.
-      */}
-      <div
-        className="flex h-16 flex-shrink-0 items-center gap-2.5 px-3.5"
-        style={{ borderBottom: "1px solid var(--rail-border)" }}
-      >
-        <Link to="/app" onClick={onClose} className="flex min-w-0 flex-1 items-center gap-2.5">
-          {/*
-            El isotipo va solo: el asset ya trae su propio squircle azul. La caja
-            con gradiente que lo envolvía apilaba dos azules y dos radios.
-            36px dentro de px-3.5 deja el centro en 32px, o sea el eje exacto
-            del rail colapsado (64px).
-          */}
-          <LogoIsotype variant="color" className="h-9 w-9 flex-shrink-0 rounded-full" />
-          {forceExpanded && (
-            <div
-              className="rotulo whitespace-nowrap text-[18px] font-bold tracking-[-0.02em]"
-              style={{ color: "var(--rail-text-active)" }}
-            >
-              Aviatory
-            </div>
+      {/* La marca. Con el rail cerrado queda solo el isotipo, centrado en sus 64 px. */}
+      <div className={`relative flex flex-shrink-0 items-start gap-3 ${expanded ? "px-5 pb-4 pt-5" : "justify-center px-0 pb-4 pt-5"}`}>
+        <Link
+          to="/app"
+          onClick={onClose}
+          className="flex min-w-0 flex-1 items-center gap-3 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[var(--rail-active-mark)]"
+          style={{ color: "var(--marca-tinta)" }}
+          aria-label="Aviatory, inicio"
+        >
+          <Isotipo className={`flex-shrink-0 ${expanded ? "h-10 w-10" : "mx-auto h-9 w-9"}`} />
+          {expanded && (
+            <span className="min-w-0">
+              <span className="titular block whitespace-nowrap text-[27px] font-bold leading-none tracking-[-0.01em]">
+                Aviatory
+              </span>
+              <span
+                className="versalitas mt-1.5 block whitespace-nowrap text-[8px] leading-[1.6] tracking-[0.2em]"
+                style={{ color: "var(--rail-section-label)" }}
+              >
+                Tu siguiente destino,
+                <br />
+                más cerca
+              </span>
+            </span>
           )}
         </Link>
         {onClose && (
           <button
             type="button"
             onClick={onClose}
-            className="-mr-1 rounded-lg p-2 transition-colors hover:bg-[var(--rail-hover)] lg:hidden"
+            className="absolute right-2 top-3 rounded-lg p-2 transition-colors hover:bg-[var(--rail-hover)] lg:hidden"
             style={{ color: "var(--rail-text)" }}
             aria-label="Cerrar menú"
           >
             <X className="h-4 w-4" />
           </button>
         )}
-        {/* Pin / soltar (solo desktop, cuando está expandido) */}
         {onPinChange && !forceExpanded && expanded && (
           <button
             type="button"
             onClick={() => onPinChange(!pinned)}
-            className="-mr-1 hidden rounded-md p-1.5 transition-colors hover:bg-[var(--rail-hover)] lg:inline-flex"
+            className="absolute right-2 top-3 hidden rounded-lg p-1.5 transition-colors hover:bg-[var(--rail-hover)] lg:inline-flex"
             style={{ color: "var(--rail-text)" }}
-            aria-label={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
-            title={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
+            aria-label={pinned ? "Contraer la barra" : "Fijar la barra abierta"}
+            title={pinned ? "Contraer la barra" : "Fijar la barra abierta"}
           >
-            {pinned ? <PinOff className="h-4 w-4" /> : <Pin className="h-4 w-4" />}
+            {pinned ? <ChevronsLeft className="h-[18px] w-[18px]" strokeWidth={1.6} /> : <ChevronsRight className="h-[18px] w-[18px]" strokeWidth={1.6} />}
           </button>
         )}
       </div>
 
-      {/* Nav — agrupada en secciones */}
-      <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-2.5 pb-3 pt-2 [scrollbar-width:thin]">
-        {navSections.map((section, sectionIdx) => (
-          <Fragment key={section.label ?? `s-${sectionIdx}`}>
-            {/* El rótulo de los hubs; con el rail cerrado, un filete. */}
-            {section.label &&
-              (expanded ? (
-                <div
-                  className={`rotulo whitespace-nowrap px-2.5 text-[10.5px] font-semibold uppercase tracking-[0.16em] ${
-                    tactil ? "pb-2 pt-5" : "pb-1.5 pt-4"
-                  }`}
-                  style={{ color: "var(--rail-section-label)" }}
-                >
-                  {section.label}
-                </div>
-              ) : (
-                <div className="mx-2.5 my-2 h-px flex-shrink-0" style={{ background: "var(--rail-border)" }} />
-              ))}
-
-            {section.items.filter((i) => !i.soon).map(renderItem)}
-            {/* Lo que todavía no tiene contenido, al final del grupo y bajo su
-                propio rótulo. Con un chip «Pronto» en cada fila el nombre no
-                cabía: «Materias generales» se cortaba en «Materias gen…». */}
-            {expanded && section.items.some((i) => i.soon) && (
-              <div
-                className="rotulo flex items-center gap-2 px-2.5 pb-1 pt-2 text-[9.5px] font-semibold uppercase tracking-[0.14em]"
-                style={{ color: "var(--rail-section-label)" }}
-              >
-                Pronto
-                <span aria-hidden className="h-px flex-1" style={{ background: "var(--rail-border)" }} />
-              </div>
+      <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-3.5 pb-3 pt-1 [scrollbar-width:thin]" aria-label="Principal">
+        {navSections.map((section, i) => (
+          <Fragment key={section.label ?? "inicio"}>
+            {section.label && (
+              <>
+                {/* Filete entre grupos; el primero (Formación) cuelga directo de Inicio. */}
+                {i > 1 && <div aria-hidden className="mx-1 my-2.5 h-px flex-shrink-0" style={{ background: "var(--rail-border)" }} />}
+                {expanded ? (
+                  <div
+                    className={`versalitas whitespace-nowrap px-3 text-[10.5px] ${tactil ? "pb-2 pt-3" : i === 1 ? "pb-1.5 pt-4" : "pb-1.5 pt-1"}`}
+                    style={{ color: "var(--rail-section-label)" }}
+                  >
+                    {section.label}
+                  </div>
+                ) : (
+                  i === 1 && <div aria-hidden className="mx-1 my-2.5 h-px flex-shrink-0" style={{ background: "var(--rail-border)" }} />
+                )}
+              </>
             )}
-            {section.items.filter((i) => i.soon).map(renderItem)}
+            {section.items.map(renderItem)}
           </Fragment>
         ))}
       </nav>
 
-      {/* Pro: la única pieza navy del rail, la del velo de los heros. */}
-      <div className="flex-shrink-0 p-2.5">
+      {/* Pro, sobre el cielo con el ala. */}
+      <div className="flex-shrink-0 px-3.5 pb-3 pt-2">
         <Link
           to="/pricing"
           onClick={onClose}
-          title={expanded ? undefined : "Aviatory Pro · Prueba gratis"}
-          className="group relative block overflow-hidden rounded-xl outline-none transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[var(--rail-active-mark)]"
-          style={{
-            background: "var(--rail-promo)",
-            boxShadow: "0 1px 2px rgb(11 27 48 / 12%)",
-          }}
+          title={expanded ? undefined : "Aviatory Pro · Ver planes"}
+          className="group relative block overflow-hidden rounded-2xl outline-none transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[var(--rail-active-mark)]"
+          style={{ background: "var(--rail-promo)", boxShadow: "0 10px 24px -14px rgb(11 30 58 / 55%)" }}
         >
-          {/* Un brillo azul en la esquina, como la luz de la cabina de los heros. */}
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -right-8 -top-10 h-24 w-24 rounded-full opacity-60 blur-2xl"
-            style={{ background: "var(--av-blue-500)" }}
-          />
           {expanded ? (
-            <div className="relative flex items-center gap-3 px-3 py-2.5">
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1.5 whitespace-nowrap text-[13px] font-semibold text-white">
-                  <Sparkles className="h-3.5 w-3.5 flex-shrink-0 text-[#7FB2F2]" aria-hidden /> Aviatory Pro
-                </div>
-                <div className="mt-0.5 whitespace-nowrap text-[12px] leading-snug text-white/75">
-                  Pruébalo gratis · Ver planes
-                </div>
+            <>
+              <CieloConAla className="absolute inset-0 h-full w-full" />
+              <div className="relative px-5 pb-4 pt-4 [@media(min-height:960px)]:pb-5 [@media(min-height:960px)]:pt-5">
+                <p className="versalitas m-0 text-[9.5px] text-white/70">Aviatory Pro</p>
+                <p className="titular m-0 mt-1.5 text-[19px] font-medium leading-[1.15] text-white [@media(min-height:960px)]:text-[23px]">
+                  Lleva tu carrera
+                  <br />
+                  más lejos.
+                </p>
+                <span aria-hidden className="mt-3 hidden h-px w-8 bg-white/70 [@media(min-height:960px)]:block" />
+                <span className="mt-2.5 inline-flex items-center gap-1.5 text-[12.5px] font-medium text-white/90 [@media(min-height:960px)]:mt-3">
+                  Ver planes
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5" aria-hidden />
+                </span>
               </div>
-              {/* La flecha redonda de las tarjetas de módulo. */}
-              <span
-                aria-hidden
-                className="grid h-8 w-8 flex-shrink-0 place-items-center rounded-full bg-white text-[#0B1B30] transition-transform duration-200 group-hover:translate-x-0.5"
-              >
-                <ArrowRight className="h-4 w-4" />
-              </span>
-            </div>
+            </>
           ) : (
             <div className="relative flex h-10 items-center justify-center">
-              <Sparkles className="h-[18px] w-[18px] text-[#7FB2F2]" aria-hidden />
+              <Sparkles className="h-[18px] w-[18px] text-white/85" strokeWidth={1.6} aria-hidden />
             </div>
           )}
         </Link>
+        {expanded && (
+          <div className="mt-3 hidden flex-col items-center gap-2 [@media(min-height:960px)]:flex">
+            <p className="versalitas m-0 text-center text-[8.5px] leading-[1.7]" style={{ color: "var(--rail-section-label)" }}>
+              Mejores pilotos.
+              <br />
+              Más oportunidades.
+            </p>
+            <span aria-hidden className="h-px w-10" style={{ background: "var(--rail-border)" }} />
+          </div>
+        )}
       </div>
     </aside>
   )

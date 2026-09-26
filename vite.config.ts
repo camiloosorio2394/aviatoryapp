@@ -29,7 +29,7 @@ export default defineConfig({
         scope: '/',
         display: 'standalone',
         background_color: '#ffffff',
-        theme_color: '#2563eb',
+        theme_color: '#0B1E3A',
         lang: 'es-CO',
         orientation: 'portrait',
         categories: ['education', 'productivity'],

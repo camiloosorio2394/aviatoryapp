@@ -18,7 +18,7 @@ import { traerIdentidadEnLaBarra } from "@/services/perfil"
 import { cerrarSesion } from "@/services/sesion"
 import { useSession } from "@/hooks/useSession"
 import { UserAvatar } from "@/components/UserAvatar"
-import { LogoIsotype } from "@/components/Logo"
+import { Isotipo } from "@/components/marca/Isotipo"
 import { NotificationsBell } from "@/components/NotificationsBell"
 import { getThemePref, applyThemePref, isDark as themeIsDark, watchSystemTheme, type ThemePref } from "@/lib/theme"
 
@@ -32,7 +32,7 @@ const ROUTE_LABEL: Record<string, string> = {
   "/app/psicotecnicas": "Psicotécnicas",
   "/app/biblioteca": "Biblioteca",
   "/app/examenes": "Qué cayó en el examen",
-  "/app/match": "Para cuál calificas",
+  "/app/match": "Elegibilidad",
   "/app/materias": "Materias generales",
   "/app/logbook": "Logbook",
   "/app/vencimientos": "Vencimientos",
@@ -40,6 +40,7 @@ const ROUTE_LABEL: Record<string, string> = {
   "/app/ruta": "Mi ruta",
   "/app/referidos": "Referidos",
   "/app/perfil": "Mi perfil",
+  "/app/logros": "Logros",
 }
 
 interface Props {
@@ -158,12 +159,10 @@ export function AppTopbar({
           la única marca en pantalla.
         */}
         <div className="flex items-center gap-2 min-w-0 text-[13px]">
-          <LogoIsotype
-            variant="color"
-            alt="Aviatory"
-            className="h-6 w-6 rounded-full flex-shrink-0"
-          />
-          <span className="hidden sm:inline text-muted-foreground whitespace-nowrap">Aviatory</span>
+          <Isotipo titulo="Aviatory" className="h-6 w-6 flex-shrink-0" style={{ color: "var(--marca-tinta)" }} />
+          <span className="titular hidden sm:inline whitespace-nowrap text-[15px] font-bold" style={{ color: "var(--marca-tinta)" }}>
+            Aviatory
+          </span>
           <ChevronRight className="hidden sm:inline-block h-3 w-3 text-muted-foreground flex-shrink-0" />
           <span className="font-semibold text-foreground truncate">{label}</span>
         </div>

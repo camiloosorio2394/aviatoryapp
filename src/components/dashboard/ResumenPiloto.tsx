@@ -1,20 +1,25 @@
-import type { ComponentType, ReactNode } from "react"
+import type { ReactNode } from "react"
 import { Link } from "react-router-dom"
-import { ArrowRight, AudioLines, BarChart3, ChevronRight, Circle, FileText } from "lucide-react"
+import { ArrowRight, ChevronRight, Circle } from "lucide-react"
 import type { LicenseRow } from "@/components/dashboard/tipos"
 import { daysUntil } from "@/components/dashboard/plan"
 import { estadoDeDocumento, grupoDeDocumento, type EstadoDeDocumento, type GrupoDeDocumento } from "@/lib/licencias"
 import { ESTADO_VISUAL, horas, textoDeEstado } from "@/components/dashboard/portada"
+import { PlacaIcono } from "@/components/marca/Icono"
+import type { NombreIcono } from "@/components/marca/iconos"
 
-/** Tarjeta del panel: icono en su recuadro, título y el enlace a la pantalla del dato. */
+/**
+ * Tarjeta del panel: el ícono de la hoja en su placa, el título en Playfair y
+ * el enlace a la pantalla del dato.
+ */
 export function TarjetaPanel({
-  icon: Icon,
+  icono,
   titulo,
   to,
   children,
   className = "",
 }: {
-  icon: ComponentType<{ className?: string }>
+  icono: NombreIcono
   titulo: string
   to: string
   children: ReactNode
@@ -22,22 +27,18 @@ export function TarjetaPanel({
 }) {
   return (
     <div className={`flex min-w-0 flex-col rounded-2xl surface p-5 ${className}`}>
-      <div className="flex items-start gap-3.5">
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-muted text-foreground">
-          <Icon className="h-5 w-5" aria-hidden />
-        </span>
-        <h2 className="m-0 mt-2.5 min-w-0 flex-1 truncate text-[15px] font-semibold tracking-[-0.01em] text-foreground">
-          {titulo}
-        </h2>
+      <div className="flex items-center gap-3.5">
+        <PlacaIcono nombre={icono} className="h-12 w-12" />
+        <h2 className="titular m-0 min-w-0 flex-1 truncate text-[18px] font-semibold text-foreground">{titulo}</h2>
         <Link
           to={to}
           aria-label={`Ver ${titulo.toLowerCase()}`}
-          className="-mr-1 mt-1.5 grid h-8 w-8 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          className="-mr-1 grid h-8 w-8 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
           <ChevronRight className="h-4 w-4" aria-hidden />
         </Link>
       </div>
-      <div className="mt-3 flex min-w-0 flex-1 flex-col">{children}</div>
+      <div className="mt-4 flex min-w-0 flex-1 flex-col">{children}</div>
     </div>
   )
 }
@@ -72,13 +73,11 @@ export function TarjetaHoras({
   meta: number | null
 }) {
   return (
-    <TarjetaPanel icon={BarChart3} titulo="Horas totales" to="/app/logbook">
+    <TarjetaPanel icono="horas" titulo="Horas totales" to="/app/logbook">
       {total ? (
         <>
-          <div className="nh-display text-[34px] font-bold leading-none tracking-[-0.03em] text-foreground">
-            {horas.format(total)}
-          </div>
-          <div className="mt-1 text-[12.5px] text-muted-foreground">{pic ? `PIC ${horas.format(pic)}` : "PIC sin anotar"}</div>
+          <div className="titular tabular text-[40px] font-semibold leading-none text-foreground">{horas.format(total)}</div>
+          <div className="mt-1.5 text-[12.5px] text-muted-foreground">{pic ? `PIC ${horas.format(pic)}` : "PIC sin anotar"}</div>
           <div className="mt-auto pt-4">
             {meta ? (
               <>
@@ -99,7 +98,7 @@ export function TarjetaHoras({
         </>
       ) : (
         <>
-          <div className="nh-display text-[34px] font-bold leading-none text-muted-foreground">—</div>
+          <div className="titular text-[28px] font-semibold leading-none text-muted-foreground">Sin anotar</div>
           <Link to="/app/perfil" className="mt-auto inline-flex items-center gap-1 pt-4 text-[13px] font-semibold text-foreground">
             Anótalas en tu perfil <ArrowRight className="h-3.5 w-3.5" aria-hidden />
           </Link>
@@ -116,8 +115,8 @@ const OBJETIVO_ICAO = 4
 export function TarjetaIcao({ nivel, medirHref }: { nivel: number | null; medirHref: string }) {
   const medido = nivel !== null && nivel > 0
   return (
-    <TarjetaPanel icon={AudioLines} titulo="Inglés ICAO" to="/app/icao">
-      <div className="nh-display text-[30px] font-bold leading-none tracking-[-0.02em] text-foreground">
+    <TarjetaPanel icono="ingles-icao" titulo="Inglés ICAO" to="/app/icao">
+      <div className="titular text-[34px] font-semibold leading-none text-foreground">
         {medido ? `Nivel ${nivel}` : <span className="text-muted-foreground">Sin medir</span>}
       </div>
       {/* Los seis niveles en una regla: el actual relleno, el objetivo marcado. */}
@@ -165,7 +164,7 @@ const GRUPOS: { grupo: GrupoDeDocumento; nombre: string }[] = [
 
 export function TarjetaDocumentos({ documentos }: { documentos: LicenseRow[] }) {
   return (
-    <TarjetaPanel icon={FileText} titulo="Documentación" to="/app/vencimientos">
+    <TarjetaPanel icono="documentacion" titulo="Documentación" to="/app/vencimientos">
       <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
         {GRUPOS.map(({ grupo, nombre }) => {
           const delGrupo = documentos.filter((d) => grupoDeDocumento(d.license_type) === grupo)
@@ -203,33 +202,32 @@ export function TarjetaDocumentos({ documentos }: { documentos: LicenseRow[] }) 
 
 // ─── Progreso general ───────────────────────────────────────────────────────
 
+/** El avance de los módulos en un anillo. No lleva ícono de la hoja: el anillo es el ícono. */
 export function TarjetaProgreso({ pct, completos, total }: { pct: number; completos: number; total: number }) {
   const r = 34
   const c = 2 * Math.PI * r
   const v = Math.max(0, Math.min(100, Math.round(pct)))
   return (
     <div className="flex min-w-0 items-center gap-5 rounded-2xl surface p-5">
-      <svg viewBox="0 0 84 84" className="h-[92px] w-[92px] shrink-0" role="img" aria-label={`Progreso general: ${v} %`}>
-        <circle cx="42" cy="42" r={r} fill="none" stroke="var(--muted)" strokeWidth="7" />
+      <svg viewBox="0 0 84 84" className="h-[96px] w-[96px] shrink-0" role="img" aria-label={`Progreso general: ${v} %`}>
+        <circle cx="42" cy="42" r={r} fill="none" stroke="var(--muted)" strokeWidth="6" />
         <circle
           cx="42"
           cy="42"
           r={r}
           fill="none"
-          stroke="var(--foreground)"
-          strokeWidth="7"
+          stroke="var(--marca-acento)"
+          strokeWidth="6"
           strokeLinecap="round"
           strokeDasharray={`${(c * v) / 100} ${c}`}
           transform="rotate(-90 42 42)"
         />
-        <text x="42" y="47.5" textAnchor="middle" className="nh-display" fontSize="17" fontWeight="700" fill="var(--foreground)">
+        <text x="42" y="48.5" textAnchor="middle" className="titular" fontSize="19" fontWeight="600" fill="var(--foreground)">
           {v} %
         </text>
       </svg>
       <div className="min-w-0">
-        <div className="flex items-center justify-between gap-2">
-          <h2 className="m-0 text-[15px] font-semibold tracking-[-0.01em] text-foreground">Progreso general</h2>
-        </div>
+        <h2 className="titular m-0 text-[18px] font-semibold text-foreground">Progreso general</h2>
         <p className="m-0 mt-1.5 text-[13px] text-muted-foreground">
           {completos} de {total} módulos completados
         </p>
