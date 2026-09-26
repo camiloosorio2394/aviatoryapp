@@ -92,7 +92,7 @@ export function Hero() {
                   Simulacro TEA · Part 2
                 </span>
                 <span className="flex items-center gap-3">
-                  <span className="inline-flex items-center gap-1.5 text-[12px] font-bold" style={{ color: "var(--av-red-400)" }}>
+                  <span className="inline-flex items-center gap-1.5 text-[12px] font-bold text-destructive">
                     <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--av-red-400)" }} /> REC
                   </span>
                   <span className="inline-flex items-center gap-1 tabular-nums text-[12.5px] text-muted-foreground">
