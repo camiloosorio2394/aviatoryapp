@@ -6,12 +6,12 @@
       "id": "ev-01",
       "enunciado": "La presión dinámica es:",
       "opciones": [
+        "La presión del aire en reposo, la que usa el altímetro",
+        "La presión total que capta el tubo pitot, sin descontar la estática",
         "½ ρ V², la presión asociada al movimiento del aire",
-        "La presión a nivel del mar en atmósfera estándar",
-        "La presión del aire en reposo",
-        "La presión medida por la toma estática"
+        "La presión a nivel del mar en atmósfera estándar"
       ],
-      "correcta": 0,
+      "correcta": 2,
       "explicacion": "Es la presión asociada al movimiento. El sistema pitot-estático mide presión de impacto; a bajo Mach coincide aproximadamente con la presión dinámica, mientras que a mayor Mach requiere corrección de compresibilidad.",
       "metadatos": {
         "tema": "S01",
@@ -22,12 +22,12 @@
       "id": "ev-02",
       "enunciado": "La separación de la capa límite en el extradós:",
       "opciones": [
-        "Es producida por el tren de aterrizaje",
         "Aumenta la resistencia y reduce la sustentación; avanza hacia el borde de ataque al aumentar el ángulo de ataque",
-        "Solo ocurre a velocidades supersónicas",
-        "Reduce la resistencia y aumenta la sustentación"
+        "Reduce la resistencia y aumenta la sustentación; retrocede hacia el borde de salida al aumentar el ángulo de ataque",
+        "Solo ocurre por encima del Mach crítico, detrás de la onda de choque que se forma sobre el extradós",
+        "Aparece solo con hielo o suciedad en el ala; con el ala limpia el flujo sigue pegado hasta el borde de salida"
       ],
-      "correcta": 1,
+      "correcta": 0,
       "explicacion": "La separación es el mecanismo de la pérdida. Con más ángulo de ataque el punto de separación se mueve hacia adelante.",
       "metadatos": {
         "tema": "S01",
@@ -38,12 +38,12 @@
       "id": "ev-03",
       "enunciado": "En un descenso estabilizado a velocidad constante:",
       "opciones": [
-        "La sustentación es mucho mayor que el peso",
-        "Las fuerzas no están en equilibrio",
-        "Una componente del peso actúa hacia adelante en la trayectoria y el empuje es menor que la resistencia",
-        "El empuje es mayor que la resistencia"
+        "La sustentación es mayor que el peso, porque sostiene al avión mientras la trayectoria desciende",
+        "Las fuerzas no están en equilibrio, porque el avión pierde altura de forma continua aunque mantenga la velocidad",
+        "El empuje es mayor que la resistencia, para compensar la componente del peso que actúa hacia atrás en la trayectoria",
+        "Una componente del peso actúa hacia adelante en la trayectoria y el empuje es menor que la resistencia"
       ],
-      "correcta": 2,
+      "correcta": 3,
       "explicacion": "En descenso estabilizado hay equilibrio: la componente del peso a lo largo de la trayectoria reemplaza parte del empuje.",
       "metadatos": {
         "tema": "S02",
@@ -55,11 +55,11 @@
       "enunciado": "Un piloto sube la nariz en ascenso sin cambiar el empuje. Lo esperable es:",
       "opciones": [
         "Aumento sostenido de la tasa de ascenso sin cambio de velocidad",
-        "Reducción del ángulo de ataque",
-        "Aumento de velocidad",
-        "Mayor ángulo de trayectoria por un momento y disminución de velocidad"
+        "Mayor ángulo de trayectoria por un momento y disminución de velocidad",
+        "Menor ángulo de ataque, porque la trayectoria sube con la nariz",
+        "Aumento de velocidad, porque el ala produce más sustentación con más actitud de nariz arriba"
       ],
-      "correcta": 3,
+      "correcta": 1,
       "explicacion": "Sin más empuje, la altura se gana a costa de la velocidad; el ángulo de ataque tiende a aumentar.",
       "metadatos": {
         "tema": "S02",
@@ -70,12 +70,12 @@
       "id": "ev-05",
       "enunciado": "La teoría del \"tiempo de tránsito igual\":",
       "opciones": [
+        "Es válida por debajo del Mach crítico, mientras el aire se comporta como incompresible",
         "Es falsa: el aire del extradós llega antes al borde de salida",
-        "Es válida por encima del Mach crítico",
-        "Es la explicación correcta de la sustentación",
-        "Solo aplica a perfiles simétricos"
+        "Es la explicación correcta de la sustentación en un perfil con curvatura positiva",
+        "Solo aplica a perfiles simétricos que vuelan con ángulo de ataque positivo"
       ],
-      "correcta": 0,
+      "correcta": 1,
       "explicacion": "NASA la clasifica como teoría incorrecta. La sustentación se explica por el desvío del flujo y la distribución de presiones.",
       "metadatos": {
         "tema": "S03",
@@ -86,12 +86,12 @@
       "id": "ev-06",
       "enunciado": "En la ecuación L = ½ ρ V² S CL, el término ½ ρ V² corresponde a:",
       "opciones": [
-        "El peso",
-        "La presión dinámica",
-        "El coeficiente de sustentación",
-        "La superficie alar"
+        "La presión total",
+        "La superficie alar",
+        "La densidad",
+        "La presión dinámica"
       ],
-      "correcta": 1,
+      "correcta": 3,
       "explicacion": "Es la presión dinámica (q). A bajo Mach, la presión de impacto obtenida por el sistema pitot-estático la aproxima; a mayor Mach se corrige la compresibilidad para obtener EAS.",
       "metadatos": {
         "tema": "S03",
@@ -102,12 +102,12 @@
       "id": "ev-07",
       "enunciado": "El coeficiente de sustentación (CL) de un ala depende principalmente de:",
       "opciones": [
-        "Solo de la velocidad",
-        "Del peso del avión",
         "Del ángulo de ataque y la configuración, y también del Mach y la contaminación",
-        "Solo de la densidad"
+        "De la velocidad: a más velocidad, más CL en cualquier configuración",
+        "Del peso del avión, que fija el CL sin importar el ángulo de ataque",
+        "De la densidad del aire y la superficie alar, que el piloto no controla"
       ],
-      "correcta": 2,
+      "correcta": 0,
       "explicacion": "El CL resume la capacidad del ala en una condición: ángulo de ataque, forma y configuración; a gran velocidad lo afecta el Mach.",
       "metadatos": {
         "tema": "S03",
@@ -118,12 +118,12 @@
       "id": "ev-08",
       "enunciado": "¿Cuál afirmación es correcta?",
       "opciones": [
-        "Con empuje máximo no puede haber pérdida",
-        "Con la nariz abajo no puede haber pérdida",
-        "Un avión solo entra en pérdida a baja velocidad",
-        "Un avión puede entrar en pérdida a cualquier velocidad, actitud y potencia si supera su ángulo de ataque crítico"
+        "Con empuje máximo no puede haber pérdida, porque la velocidad sigue aumentando mientras el motor empuja",
+        "Con la nariz abajo no puede haber pérdida, porque el ala vuela siempre con poco ángulo de ataque",
+        "Un avión puede entrar en pérdida a cualquier velocidad, actitud y potencia si supera su ángulo de ataque crítico",
+        "Un avión solo entra en pérdida a baja velocidad, cuando cae por debajo de la velocidad de pérdida publicada en el AFM"
       ],
-      "correcta": 3,
+      "correcta": 2,
       "explicacion": "La pérdida depende del ángulo de ataque. Es la afirmación de la FAA (AC 61-67C, AFH).",
       "metadatos": {
         "tema": "S04",
@@ -134,12 +134,12 @@
       "id": "ev-09",
       "enunciado": "Con alas niveladas, un avión tiene 5° de pitch y 3° de trayectoria descendente. El ángulo de ataque aproximado es:",
       "opciones": [
+        "–3°",
         "2°",
         "5°",
-        "8°",
-        "–3°"
+        "8°"
       ],
-      "correcta": 2,
+      "correcta": 3,
       "explicacion": "AOA ≈ pitch – trayectoria = 5° – (–3°) = 8°.",
       "metadatos": {
         "tema": "S04",
@@ -150,12 +150,12 @@
       "id": "ev-10",
       "enunciado": "¿Qué condición **reduce** la velocidad de pérdida?",
       "opciones": [
-        "Extender flaps y slats",
         "Mayor peso",
-        "Viraje con 45° de alabeo",
-        "CG adelantado"
+        "Extender flaps y slats",
+        "CG adelantado",
+        "Escarcha en el ala"
       ],
-      "correcta": 0,
+      "correcta": 1,
       "explicacion": "Los hipersustentadores aumentan el CLmax. Las demás opciones aumentan la velocidad de pérdida.",
       "metadatos": {
         "tema": "S04",
@@ -166,12 +166,12 @@
       "id": "ev-11",
       "enunciado": "Según la AC 120-109A, durante la recuperación de una pérdida:",
       "opciones": [
-        "Se aplica siempre empuje máximo antes de bajar la nariz",
         "Se reduce el ángulo de ataque como prioridad y se acepta la pérdida de altitud",
         "Se busca perder la menor altitud posible aun manteniendo el ángulo de ataque",
-        "Se extienden speed brakes para controlar la velocidad"
+        "Se aplica siempre empuje máximo antes de bajar la nariz, para no perder altitud",
+        "Se extienden los speed brakes para que la velocidad no se escape al bajar la nariz"
       ],
-      "correcta": 1,
+      "correcta": 0,
       "explicacion": "Reducir el ángulo de ataque es lo prioritario. El empuje va según necesidad y los speed brakes se retraen.",
       "metadatos": {
         "tema": "S04",
@@ -182,12 +182,12 @@
       "id": "ev-12",
       "enunciado": "En un ala en flecha, la pérdida tiende a comenzar en:",
       "opciones": [
-        "La raíz, con nariz abajo",
         "Toda el ala al mismo tiempo, sin efecto de cabeceo",
-        "Las puntas, con tendencia de nariz arriba",
-        "El estabilizador horizontal"
+        "La raíz, con tendencia de nariz abajo",
+        "Las puntas, con tendencia de nariz abajo",
+        "Las puntas, con tendencia de nariz arriba"
       ],
-      "correcta": 2,
+      "correcta": 3,
       "explicacion": "La capa límite fluye hacia las puntas; al perder sustentación atrás, la resultante se desplaza hacia adelante y la nariz sube.",
       "metadatos": {
         "tema": "S04",
@@ -198,12 +198,12 @@
       "id": "ev-13",
       "enunciado": "Por debajo de la velocidad de mínima resistencia:",
       "opciones": [
-        "La resistencia total es cero",
-        "El avión no puede mantener vuelo nivelado en ningún caso",
-        "Domina la resistencia parásita",
-        "Domina la resistencia inducida y volar más lento exige más empuje"
+        "Domina la resistencia parásita y volar más lento exige menos empuje",
+        "Domina la resistencia inducida y volar más lento exige menos empuje",
+        "Domina la resistencia inducida y volar más lento exige más empuje",
+        "El avión no puede mantener vuelo nivelado aunque aumente el empuje"
       ],
-      "correcta": 3,
+      "correcta": 2,
       "explicacion": "Es el régimen de mando invertido: al frenar, la resistencia inducida crece más de lo que baja la parásita.",
       "metadatos": {
         "tema": "S05",
@@ -214,12 +214,12 @@
       "id": "ev-14",
       "enunciado": "¿Qué reduce la resistencia inducida?",
       "opciones": [
+        "Volar más lento con el mismo peso",
         "Winglets y mayor alargamiento del ala",
-        "Menor velocidad",
-        "Mayor factor de carga",
-        "Mayor peso"
+        "Más peso a la misma velocidad",
+        "Un factor de carga mayor"
       ],
-      "correcta": 0,
+      "correcta": 1,
       "explicacion": "Winglets y alargamiento reducen la intensidad de los vórtices de punta. Las demás opciones la aumentan.",
       "metadatos": {
         "tema": "S05",
@@ -230,12 +230,12 @@
       "id": "ev-15",
       "enunciado": "La velocidad de L/Dmax de un avión:",
       "opciones": [
-        "Disminuye con el peso",
         "Aumenta con el peso",
+        "Disminuye con el peso",
         "Coincide con VMO",
         "Es la misma para cualquier peso"
       ],
-      "correcta": 1,
+      "correcta": 0,
       "explicacion": "L/Dmax ocurre a un ángulo de ataque fijo; con más peso se necesita más presión dinámica para el mismo CL.",
       "metadatos": {
         "tema": "S05",
@@ -278,12 +278,12 @@
       "id": "ev-18",
       "enunciado": "El texto que 14 CFR 25.1583(a)(3) exige en el manual de vuelo advierte que:",
       "opciones": [
-        "Va solo aplica con flaps extendidos",
-        "Por debajo de Va se puede aplicar cualquier combinación de mandos",
-        "Las entradas grandes y alternadas, o completas en más de un eje al mismo tiempo, pueden producir falla estructural a cualquier velocidad, incluso por debajo de Va",
-        "Va es igual a VMO"
+        "Por debajo de Va se puede aplicar cualquier combinación de mandos, en uno o en varios ejes, sin exceder la carga límite",
+        "Va solo aplica con flaps extendidos; con flaps arriba, el límite para mover los mandos a fondo es VMO",
+        "Las entradas alternadas solo son peligrosas por encima de Va; por debajo, el ala entra en pérdida antes de romperse",
+        "Las entradas grandes y alternadas, o completas en más de un eje al mismo tiempo, pueden producir falla estructural a cualquier velocidad, incluso por debajo de Va"
       ],
-      "correcta": 2,
+      "correcta": 3,
       "explicacion": "La advertencia se reforzó tras AA587: Va no protege contra entradas alternadas ni multieje.",
       "metadatos": {
         "tema": "S06",
@@ -294,12 +294,12 @@
       "id": "ev-19",
       "enunciado": "En un avión de transporte, el límite de factor de carga positivo con flaps extendidos (14 CFR 25.345) es:",
       "opciones": [
-        "+6,0 G",
+        "+2,0 G",
+        "+2,5 G",
         "+3,8 G",
-        "+1,0 G",
-        "+2,0 G"
+        "+6,0 G"
       ],
-      "correcta": 3,
+      "correcta": 0,
       "explicacion": "Con flaps extendidos el requisito de maniobra es +2,0 G; con flaps arriba, al menos +2,5 G.",
       "metadatos": {
         "tema": "S06",
@@ -310,12 +310,12 @@
       "id": "ev-20",
       "enunciado": "Los slats y dispositivos de borde de ataque:",
       "opciones": [
+        "Aumentan el CLmax, pero reducen el ángulo de ataque crítico, igual que los flaps",
+        "Adelantan la separación para que el aviso de pérdida llegue antes",
         "Retrasan la separación y aumentan el ángulo de ataque crítico y el CLmax",
-        "Aumentan la resistencia parásita sin efecto en la pérdida",
-        "Reducen el ángulo de ataque crítico",
-        "Solo se usan en crucero"
+        "Aumentan la resistencia parásita sin efecto sobre la pérdida ni sobre el CLmax"
       ],
-      "correcta": 0,
+      "correcta": 2,
       "explicacion": "Energizan o protegen el flujo del borde de ataque y permiten más ángulo de ataque antes de la pérdida.",
       "metadatos": {
         "tema": "S07",
@@ -328,8 +328,8 @@
       "opciones": [
         "Aumentan la sustentación del ala que baja",
         "Ayudan al alabeo sin producir guiñada adversa",
-        "Controlan el cabeceo",
-        "Actúan como flaps"
+        "Frenan el avión sin efecto en el alabeo",
+        "Ayudan al alabeo, pero con más guiñada adversa que los alerones"
       ],
       "correcta": 1,
       "explicacion": "El spoiler del ala que debe bajar reduce su sustentación; como no aumenta la resistencia inducida del ala que sube, no genera guiñada adversa.",
@@ -342,12 +342,12 @@
       "id": "ev-22",
       "enunciado": "En un avión convencional, el estabilizador horizontal normalmente:",
       "opciones": [
-        "No genera fuerza en vuelo nivelado",
-        "Controla la guiñada",
-        "Genera una fuerza hacia abajo que equilibra el momento de nariz abajo del ala y el CG",
-        "Genera sustentación hacia arriba igual a la del ala"
+        "Genera sustentación hacia arriba que ayuda al ala a sostener el peso",
+        "Genera una fuerza hacia abajo que equilibra el momento de nariz arriba del ala",
+        "No genera fuerza en vuelo nivelado; solo actúa cuando se mueve el elevador",
+        "Genera una fuerza hacia abajo que equilibra el momento de nariz abajo del ala y el CG"
       ],
-      "correcta": 2,
+      "correcta": 3,
       "explicacion": "En la configuración convencional descrita, la cola genera fuerza hacia abajo para equilibrar el momento del conjunto ala-fuselaje y mantener el equilibrio alrededor del CG.",
       "metadatos": {
         "tema": "S07",
@@ -358,12 +358,12 @@
       "id": "ev-23",
       "enunciado": "Un avión estáticamente estable pero dinámicamente inestable, ante una perturbación:",
       "opciones": [
-        "Se aleja de inmediato del equilibrio",
-        "Vuelve sin oscilar",
-        "Se queda en la nueva posición",
-        "Tiende a volver, pero oscila con amplitud creciente"
+        "Tiende a volver, pero oscila con amplitud creciente",
+        "Tiende a volver y las oscilaciones se amortiguan con el tiempo",
+        "Se aleja del equilibrio de inmediato, sin oscilar",
+        "Tiende a volver y oscila siempre con la misma amplitud"
       ],
-      "correcta": 3,
+      "correcta": 0,
       "explicacion": "La tendencia inicial es volver (estática positiva), pero las oscilaciones crecen (dinámica negativa).",
       "metadatos": {
         "tema": "S08",
@@ -374,12 +374,12 @@
       "id": "ev-24",
       "enunciado": "Con el CG atrasado dentro de límites, respecto a uno adelantado:",
       "opciones": [
-        "Menor estabilidad longitudinal y fuerzas de mando más livianas",
-        "Mayor velocidad de pérdida",
-        "Mayor consumo",
-        "Mayor esfuerzo para rotar"
+        "Mayor velocidad de pérdida, por más carga hacia abajo en la cola",
+        "Mayor consumo, por la resistencia que añade la compensación",
+        "Mayor estabilidad longitudinal y más esfuerzo para rotar",
+        "Menor estabilidad longitudinal y fuerzas de mando más livianas"
       ],
-      "correcta": 0,
+      "correcta": 3,
       "explicacion": "Con CG atrasado baja la carga en la cola: menos resistencia y velocidad de pérdida, pero menos estabilidad y mandos más livianos.",
       "metadatos": {
         "tema": "S08",
@@ -390,12 +390,12 @@
       "id": "ev-25",
       "enunciado": "¿En qué condición es más probable que el piloto sobrecargue la estructura sin darse cuenta?",
       "opciones": [
-        "CG exactamente en el centro del rango",
+        "CG en el límite delantero, porque el ala sostiene más carga",
+        "CG exactamente en el centro del rango, donde el avión es más maniobrable",
         "CG en el límite trasero, por fuerzas de mando livianas",
-        "La posición del CG no influye",
-        "CG en el límite delantero"
+        "Ninguna: la posición del CG no cambia las fuerzas de mando"
       ],
-      "correcta": 1,
+      "correcta": 2,
       "explicacion": "Con mandos livianos es más fácil aplicar G de más (PHAK).",
       "metadatos": {
         "tema": "S08",
@@ -406,12 +406,12 @@
       "id": "ev-26",
       "enunciado": "Al salir del efecto suelo en el despegue, el avión:",
       "opciones": [
-        "Necesita menos ángulo de ataque para el mismo CL",
-        "No sufre cambios",
+        "Necesita menos ángulo de ataque para el mismo CL y su resistencia inducida baja",
         "Necesita más ángulo de ataque para el mismo CL y aumenta su resistencia inducida",
-        "Pierde resistencia parásita"
+        "Pierde resistencia parásita y acelera sin cambiar el ángulo de ataque",
+        "No sufre cambios, porque el efecto suelo solo actúa durante el aterrizaje y el flare"
       ],
-      "correcta": 2,
+      "correcta": 1,
       "explicacion": "Al alejarse del suelo se recuperan el downwash y los vórtices: sube la resistencia inducida y el ángulo de ataque requerido.",
       "metadatos": {
         "tema": "S09",
@@ -422,9 +422,9 @@
       "id": "ev-27",
       "enunciado": "En un avión de hélice que gira a la derecha (vista desde la cabina), con alta potencia y alto ángulo de ataque, el factor P produce:",
       "opciones": [
+        "Cabeceo de nariz arriba",
         "Guiñada a la derecha",
-        "Ningún efecto",
-        "Cabeceo nariz abajo",
+        "Alabeo a la izquierda",
         "Guiñada a la izquierda"
       ],
       "correcta": 3,
@@ -438,12 +438,12 @@
       "id": "ev-28",
       "enunciado": "La mayoría de los aviones se diseñan con:",
       "opciones": [
-        "Leve inestabilidad espiral, preferible al Dutch Roll",
+        "Leve Dutch Roll, preferible a la espiral",
         "Efecto diedro negativo",
-        "Fuerte tendencia al Dutch Roll",
+        "Leve inestabilidad espiral, preferible al Dutch Roll",
         "Estabilidad direccional nula"
       ],
-      "correcta": 0,
+      "correcta": 2,
       "explicacion": "Según el PHAK, la inestabilidad espiral leve es más fácil de manejar que el Dutch Roll.",
       "metadatos": {
         "tema": "S09",
@@ -454,12 +454,12 @@
       "id": "ev-29",
       "enunciado": "Cuando la velocidad supera el Mach crítico:",
       "opciones": [
-        "Desaparece la resistencia",
         "Aparecen zonas de flujo supersónico, ondas de choque y, poco después, aumento brusco de resistencia",
-        "El ángulo de ataque crítico aumenta",
-        "El avión alcanza Mach 1"
+        "El ángulo de ataque crítico aumenta y el ala tolera más carga antes del buffet",
+        "La resistencia baja, porque el flujo supersónico se separa menos del extradós",
+        "El avión completo pasa a vuelo supersónico y se forma la onda de choque de proa"
       ],
-      "correcta": 1,
+      "correcta": 0,
       "explicacion": "El Mach crítico es el primer Mach 1 local. La subida brusca de resistencia ocurre en el Mach de divergencia, 5–10 % por encima.",
       "metadatos": {
         "tema": "S10",
@@ -470,12 +470,12 @@
       "id": "ev-30",
       "enunciado": "La flecha del ala aumenta el Mach crítico porque:",
       "opciones": [
-        "Aumenta la curvatura del perfil",
-        "Reduce el peso del ala",
-        "Solo la componente del flujo perpendicular al borde de ataque determina la distribución de presión y es menor que la velocidad del avión",
-        "Aumenta la superficie alar"
+        "Aumenta la curvatura efectiva del perfil, y con ella el Mach al que aparece la onda de choque",
+        "Solo la componente del flujo perpendicular al borde de ataque determina las presiones, y es menor que la velocidad del avión",
+        "Aumenta el efecto diedro, y la estabilidad lateral que aporta retrasa la formación de la onda de choque sobre el extradós del ala",
+        "Aumenta la superficie alar, y con más superficie el ala vuela con menos ángulo de ataque y menos aceleración del flujo en el extradós"
       ],
-      "correcta": 2,
+      "correcta": 1,
       "explicacion": "Es la teoría de la flecha del PHAK y NASA: el ala \"ve\" una velocidad efectiva menor.",
       "metadatos": {
         "tema": "S10",
@@ -486,12 +486,12 @@
       "id": "ev-31",
       "enunciado": "A gran altitud el límite de velocidad máxima operativa se expresa normalmente como:",
       "opciones": [
-        "Va",
-        "VRA",
+        "VRA en KIAS",
         "VMO en KCAS",
-        "MMO en Mach"
+        "MMO en Mach",
+        "Va en KIAS"
       ],
-      "correcta": 3,
+      "correcta": 2,
       "explicacion": "Por encima de la altitud de cruce, el Mach máximo se alcanza antes que VMO; el límite es MMO.",
       "metadatos": {
         "tema": "S10",
@@ -503,9 +503,9 @@
       "enunciado": "El Mach Buffet se debe a:",
       "opciones": [
         "La separación del flujo detrás de una onda de choque",
-        "La reacción del torque de los motores",
-        "La turbulencia de la estela de otro avión",
-        "El tren de aterrizaje extendido"
+        "La estela turbulenta de otro avión",
+        "La onda de choque de proa al pasar Mach 1",
+        "La vibración de los motores a empuje máximo"
       ],
       "correcta": 0,
       "explicacion": "La onda de choque puede provocar separación de la capa límite y ese flujo separado hace vibrar la estructura.",
@@ -518,12 +518,12 @@
       "id": "ev-33",
       "enunciado": "¿Qué efecto tiene un aumento de peso sobre los límites de buffet a gran altitud?",
       "opciones": [
-        "Solo afecta el de alta velocidad",
-        "Sube el buffet de baja velocidad y baja el de alta: reduce el margen",
-        "No tiene efecto",
-        "Baja el buffet de baja velocidad y sube el de alta"
+        "Baja el buffet de baja velocidad y sube el de alta: amplía el margen",
+        "Solo sube el buffet de baja velocidad; el de alta depende solo del Mach",
+        "Ninguno: los límites de buffet dependen solo de la altitud y la temperatura",
+        "Sube el buffet de baja velocidad y baja el de alta: reduce el margen"
       ],
-      "correcta": 1,
+      "correcta": 3,
       "explicacion": "Más peso exige más ángulo de ataque, igual que más G (PHAK; AC 61-107A, cancelada).",
       "metadatos": {
         "tema": "S11",
@@ -534,12 +534,12 @@
       "id": "ev-34",
       "enunciado": "La altitud máxima de operación de un jet en un día dado es:",
       "opciones": [
-        "La mayor entre las tres",
-        "Siempre la altitud máxima certificada",
         "La menor entre la certificada, la limitada por empuje y la limitada por buffet",
-        "La altitud de cruce"
+        "La mayor entre la certificada, la limitada por empuje y la limitada por el buffet",
+        "Siempre la altitud máxima certificada, sin importar el peso ni la temperatura",
+        "La altitud de cruce, donde la referencia de velocidad pasa de VMO a MMO"
       ],
-      "correcta": 2,
+      "correcta": 0,
       "explicacion": "Es la definición de la AUPRTA; con más temperatura o peso, baja.",
       "metadatos": {
         "tema": "S11",
@@ -550,12 +550,12 @@
       "id": "ev-35",
       "enunciado": "Un margen de buffet de 1,3 G equivale aproximadamente a:",
       "opciones": [
-        "Un viraje nivelado de 25°",
-        "Un viraje nivelado de 60°",
         "Un viraje nivelado de 15°",
-        "Un viraje nivelado de 40°"
+        "Un viraje nivelado de 25°",
+        "Un viraje nivelado de 40°",
+        "Un viraje nivelado de 60°"
       ],
-      "correcta": 3,
+      "correcta": 2,
       "explicacion": "1/cos 40° ≈ 1,31 G.",
       "metadatos": {
         "tema": "S11",
@@ -566,12 +566,12 @@
       "id": "ev-36",
       "enunciado": "En Coffin Corner, el piloto:",
       "opciones": [
+        "Puede reducir o aumentar la velocidad con amplios márgenes, porque la TAS es alta",
         "Tiene un margen mínimo: desacelerar lleva al buffet de baja velocidad y acelerar al Mach buffet",
-        "Solo está limitado por VMO",
-        "Puede reducir o aumentar la velocidad con amplios márgenes",
-        "Está por debajo de la altitud de cruce"
+        "Solo está limitado por VMO: a esa altitud la IAS es baja y el Mach todavía no limita la velocidad",
+        "Está por debajo de la altitud de cruce, donde el límite de alta velocidad sigue siendo VMO y no MMO"
       ],
-      "correcta": 0,
+      "correcta": 1,
       "explicacion": "Es la convergencia de los límites aerodinámicos de baja y alta velocidad.",
       "metadatos": {
         "tema": "S11",
@@ -582,12 +582,12 @@
       "id": "ev-37",
       "enunciado": "Al aumentar la temperatura en crucero respecto a la ISA, la altitud máxima:",
       "opciones": [
-        "No cambia",
-        "Disminuye",
+        "No cambia: el buffet no depende de la temperatura",
         "Aumenta",
-        "Solo cambia si hay turbulencia"
+        "Solo cambia si hay turbulencia",
+        "Disminuye"
       ],
-      "correcta": 1,
+      "correcta": 3,
       "explicacion": "Con temperatura alta los motores entregan menos empuje: baja la altitud limitada por empuje y, con ella, la altitud máxima (AUPRTA). La altitud limitada por buffet no depende de la temperatura.",
       "metadatos": {
         "tema": "S11",
@@ -598,12 +598,12 @@
       "id": "ev-38",
       "enunciado": "A una misma IAS, al aumentar la altitud de densidad la TAS:",
       "opciones": [
-        "Depende solo del viento",
-        "Disminuye",
         "Aumenta",
-        "Es igual"
+        "Disminuye",
+        "Es igual, porque la IAS no cambia",
+        "Depende solo del viento"
       ],
-      "correcta": 2,
+      "correcta": 0,
       "explicacion": "Con menos densidad se necesita más velocidad verdadera para la misma presión dinámica.",
       "metadatos": {
         "tema": "S12",
@@ -614,12 +614,12 @@
       "id": "ev-39",
       "enunciado": "Para certificación de despegue en transporte, 14 CFR 25.105(d) considera:",
       "opciones": [
-        "Solo el viento cruzado",
-        "Ningún efecto del viento",
         "El 100 % del viento de frente y el 100 % del de cola",
-        "No más del 50 % del viento de frente y no menos del 150 % del de cola"
+        "No más del 50 % del viento de frente y no menos del 150 % del de cola",
+        "El 150 % del viento de frente y el 50 % del de cola",
+        "Solo el viento cruzado, sin crédito por el de frente"
       ],
-      "correcta": 3,
+      "correcta": 1,
       "explicacion": "Es un factor conservador: se da poco crédito al viento de frente y se penaliza más el de cola.",
       "metadatos": {
         "tema": "S12",
@@ -630,12 +630,12 @@
       "id": "ev-40",
       "enunciado": "¿Qué efecto tiene la humedad alta sobre la performance?",
       "opciones": [
-        "Empeora la performance porque el aire húmedo es menos denso",
         "Mejora la performance porque el aire húmedo es más denso",
-        "No tiene efecto",
-        "Solo afecta la visibilidad"
+        "No tiene efecto: solo cuentan la temperatura y la presión",
+        "Empeora la performance porque el aire húmedo es menos denso",
+        "Empeora la performance porque el aire húmedo es más denso y pesa más"
       ],
-      "correcta": 0,
+      "correcta": 2,
       "explicacion": "El vapor de agua es más liviano que el aire seco: sube la altitud de densidad.",
       "metadatos": {
         "tema": "S12",
