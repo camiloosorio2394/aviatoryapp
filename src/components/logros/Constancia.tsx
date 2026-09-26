@@ -56,7 +56,7 @@ export function TarjetaRacha({
   return (
     <section className="flex min-w-0 flex-col rounded-3xl surface p-5 sm:p-6" aria-labelledby="logros-racha">
       <div className="flex items-center justify-between gap-3">
-        <h2 id="logros-racha" className="logros-rotulo m-0 text-[11px] text-muted-foreground">
+        <h2 id="logros-racha" className="rotulo-mono m-0 text-[11px] text-muted-foreground">
           Racha
         </h2>
         {!cargando && dias > 0 && (
@@ -77,7 +77,7 @@ export function TarjetaRacha({
           <Llama className="racha-llama" />
         </div>
         <div className="min-w-0">
-          <p className="logros-display m-0 text-[46px] font-extrabold leading-none text-foreground">
+          <p className="display-archivo m-0 text-[46px] font-extrabold leading-none text-foreground">
             {cargando ? "…" : dias}
             <span className="ml-2 text-[16px] font-semibold text-muted-foreground">{dias === 1 ? "día" : "días"}</span>
           </p>
@@ -139,7 +139,7 @@ function Cifra({ rotulo, valor, nota }: { rotulo: string; valor: string; nota: s
     <div className="min-w-0">
       <dt className="truncate text-[11.5px] text-muted-foreground">{rotulo}</dt>
       <dd className="m-0 mt-1 flex items-baseline gap-1">
-        <span className="logros-display text-[24px] font-bold leading-none text-foreground">{valor}</span>
+        <span className="display-archivo text-[24px] font-bold leading-none text-foreground">{valor}</span>
         <span className="truncate text-[11.5px] text-muted-foreground">{nota}</span>
       </dd>
     </div>
@@ -163,7 +163,7 @@ export function Misiones({
   return (
     <section className="flex min-w-0 flex-col rounded-3xl surface p-5 sm:p-6" aria-labelledby="logros-misiones">
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <h2 id="logros-misiones" className="logros-rotulo m-0 text-[11px] text-muted-foreground">
+        <h2 id="logros-misiones" className="rotulo-mono m-0 text-[11px] text-muted-foreground">
           Próximas misiones
         </h2>
         <span className="text-[12px] text-muted-foreground">Lo que tienes más cerca</span>
@@ -195,7 +195,7 @@ export function Misiones({
                   <span className="min-w-0 flex-1">
                     <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
                       <span className="truncate text-[14.5px] font-semibold text-foreground">{logro.name}</span>
-                      <span className="logros-pastilla logros-rotulo rounded-full px-2 py-0.5 text-[9.5px]">+{XP_DE_NIVEL[logro.tier]} XP</span>
+                      <span className="logros-pastilla rotulo-mono rounded-full px-2 py-0.5 text-[9.5px]">+{XP_DE_NIVEL[logro.tier]} XP</span>
                     </span>
                     <span className="mt-0.5 block truncate text-[12.5px] text-muted-foreground">{m.detalle}</span>
                     <span

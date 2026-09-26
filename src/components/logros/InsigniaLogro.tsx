@@ -1,5 +1,5 @@
 import { createElement, useId } from "react"
-import { Lock } from "lucide-react"
+import { Lock, type LucideIcon } from "lucide-react"
 import {
   METAL_DE_NIVEL as METAL,
   cifraDeLogro,
@@ -43,6 +43,8 @@ export function InsigniaLogro({
   conseguido,
   tamano = 64,
   className = "",
+  icono,
+  forma,
 }: {
   code: string
   nivel: NivelDeLogro
@@ -50,10 +52,16 @@ export function InsigniaLogro({
   /** Lado en píxeles. */
   tamano?: number
   className?: string
+  /**
+   * Para dibujar algo que no es un logro con el mismo trazo (las categorías
+   * del foro): el glifo y la forma que el código no da.
+   */
+  icono?: LucideIcon
+  forma?: Exclude<TipoDeLogro, "dominio">
 }) {
   const id = useId().replace(/:/g, "")
-  const tipo = tipoDeLogro(code)
-  const cifra = cifraDeLogro(code)
+  const tipo = forma ?? tipoDeLogro(code)
+  const cifra = forma ? null : cifraDeLogro(code)
   const [sombra, cuerpo, brillo] = conseguido ? METAL[nivel] : ["#B9C0CA", "#D5DAE1", "#EEF1F4"]
   const centro = conseguido ? [`#1B3358`, `#0B1E3A`] : ["#F3F5F8", "#E6EAEF"]
   const esDominio = tipo === "dominio"
@@ -122,7 +130,7 @@ export function InsigniaLogro({
 
       {/* El glifo es un ícono de lucide que sale de una tabla, no un componente
           nuevo: createElement lo pinta sin declararlo dentro del render. */}
-      {createElement(glifoDeLogro(code), {
+      {createElement(icono ?? glifoDeLogro(code), {
         className: "absolute",
         strokeWidth: 1.7,
         style: {

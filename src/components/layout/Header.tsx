@@ -7,6 +7,7 @@ import { useSession } from "@/hooks/useSession"
 
 const navLinks = [
   { to: "/", label: "Inicio" },
+  { to: "/comunidad", label: "Comunidad" },
   { to: "/pricing", label: "Planes" },
   { to: "/contact", label: "Contacto" },
 ]

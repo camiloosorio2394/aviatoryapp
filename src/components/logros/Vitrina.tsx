@@ -32,7 +32,7 @@ export function Trofeo({
     >
       {nuevo && (
         <span
-          className="logros-rotulo absolute left-3 top-3 rounded-full px-2 py-[3px] text-[9px] text-white"
+          className="rotulo-mono absolute left-3 top-3 rounded-full px-2 py-[3px] text-[9px] text-white"
           style={{ background: "var(--marca-acento)" }}
         >
           Nuevo
@@ -46,7 +46,7 @@ export function Trofeo({
       <p className={`m-0 mt-5 text-[14px] font-semibold leading-snug ${ganado ? "text-foreground" : "text-foreground/80"}`}>{logro.name}</p>
       <p className="m-0 mt-1 line-clamp-2 text-[12px] leading-snug text-muted-foreground">{logro.description}</p>
       <div className="mt-auto flex flex-col items-center gap-2 pt-4">
-        <span className="logros-pastilla logros-rotulo rounded-full px-2.5 py-1 text-[9.5px]">
+        <span className="logros-pastilla rotulo-mono rounded-full px-2.5 py-1 text-[9.5px]">
           {NOMBRE_DEL_NIVEL[logro.tier]} · {XP_DE_NIVEL[logro.tier]} XP
         </span>
         {ganado ? (
@@ -96,11 +96,11 @@ export function RutaDeModulo({
         <div className="flex items-center justify-between gap-3">
           <span className="flex min-w-0 items-center gap-2.5">
             <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: modulo.acento }} aria-hidden />
-            <span className="logros-display truncate text-[17px] font-bold text-foreground">{modulo.titulo}</span>
+            <span className="display-archivo truncate text-[17px] font-bold text-foreground">{modulo.titulo}</span>
           </span>
           <span className="flex shrink-0 items-center gap-2.5">
             <span
-              className="logros-rotulo text-[10.5px]"
+              className="rotulo-mono text-[10.5px]"
               style={{ color: completo ? "var(--av-success-fg)" : "var(--muted-foreground)" }}
             >
               {hechos}/{suyos.length}
@@ -151,7 +151,7 @@ export function ComoSeGana() {
   ]
   return (
     <section className="min-w-0 rounded-3xl surface p-5 sm:p-6" aria-labelledby="logros-como">
-      <h2 id="logros-como" className="logros-rotulo m-0 text-[11px] text-muted-foreground">
+      <h2 id="logros-como" className="rotulo-mono m-0 text-[11px] text-muted-foreground">
         Cómo se lee un trofeo
       </h2>
       <ul className="m-0 mt-4 grid list-none grid-cols-5 gap-2 p-0">
@@ -169,7 +169,7 @@ export function ComoSeGana() {
             <InsigniaLogro code="nivel" nivel={nivel} conseguido tamano={28} />
             <span className="min-w-0">
               <span className="block text-[12px] font-semibold text-foreground">{NOMBRE_DEL_NIVEL[nivel]}</span>
-              <span className="logros-rotulo block text-[9.5px]" style={{ color: "var(--metal-texto)" }}>
+              <span className="rotulo-mono block text-[9.5px]" style={{ color: "var(--metal-texto)" }}>
                 {XP_DE_NIVEL[nivel]} XP
               </span>
             </span>

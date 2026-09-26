@@ -37,16 +37,16 @@ export function TarjetaPiloto({
     <section className="logros-hero rounded-[28px] p-6 sm:p-8 @4xl:p-10" aria-labelledby="logros-titulo">
       <div className="grid gap-9 @4xl:grid-cols-[minmax(0,1fr)_auto] @4xl:items-center @4xl:gap-10">
         <div className="min-w-0">
-          <p className="logros-rotulo m-0 text-[11px] text-white/55">Sala de trofeos</p>
-          <h1 id="logros-titulo" className="logros-display m-0 mt-2 text-[44px] font-extrabold leading-[0.95] sm:text-[58px]">
+          <p className="rotulo-mono m-0 text-[11px] text-white/55">Sala de trofeos</p>
+          <h1 id="logros-titulo" className="display-archivo m-0 mt-2 text-[44px] font-extrabold leading-[0.95] sm:text-[58px]">
             Logros
           </h1>
 
           <div className="mt-7 flex items-center gap-4">
             <EmblemaDeRango numero={cargando ? null : rango.numero} metal={rango.metal} />
             <div className="min-w-0">
-              {usuario && <p className="logros-rotulo m-0 truncate text-[10.5px] text-white/55">@{usuario}</p>}
-              <p className="logros-display m-0 mt-1 text-[28px] font-bold leading-none sm:text-[32px]">
+              {usuario && <p className="rotulo-mono m-0 truncate text-[10.5px] text-white/55">@{usuario}</p>}
+              <p className="display-archivo m-0 mt-1 text-[28px] font-bold leading-none sm:text-[32px]">
                 Nivel {cargando ? "…" : rango.numero}
               </p>
               <p className="m-0 mt-1.5 text-[13.5px] text-white/65">{cargando ? "Cargando tu colección" : rango.fase}</p>
@@ -55,7 +55,7 @@ export function TarjetaPiloto({
 
           <div className="mt-6 max-w-[520px]">
             <div className="flex items-baseline justify-between gap-3 text-[12.5px]">
-              <span className="logros-display text-white/75">
+              <span className="display-archivo text-white/75">
                 <span className="text-[18px] font-bold text-white">{cargando ? "…" : rango.xpEnRango}</span> / {XP_POR_RANGO} XP
               </span>
               {!cargando && (
@@ -101,11 +101,11 @@ export function TarjetaPiloto({
               >
                 <InsigniaLogro code="nivel" nivel={nivel} conseguido tamano={40} />
                 <div className="min-w-0">
-                  <p className="logros-display m-0 text-[22px] font-bold leading-none">
+                  <p className="display-archivo m-0 text-[22px] font-bold leading-none">
                     {cargando ? "…" : suyos}
                     <span className="text-[13px] font-medium text-white/45">/{delNivel}</span>
                   </p>
-                  <p className="logros-rotulo m-0 mt-1 text-[9.5px]" style={{ color: "var(--metal-brillo)" }}>
+                  <p className="rotulo-mono m-0 mt-1 text-[9.5px]" style={{ color: "var(--metal-brillo)" }}>
                     {NOMBRE_DEL_NIVEL[nivel]}
                   </p>
                 </div>
@@ -165,7 +165,7 @@ function Anillo({
         )}
       </svg>
       <div className="text-center" aria-hidden>
-        <p className="logros-display m-0 text-[36px] font-extrabold leading-none">
+        <p className="display-archivo m-0 text-[36px] font-extrabold leading-none">
           {cargando ? "…" : pct}
           <span className="text-[16px] font-bold text-white/55">%</span>
         </p>

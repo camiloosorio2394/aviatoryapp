@@ -30,13 +30,13 @@ export function ActivityHeatmap({ data, loading }: { data: ActivityDay[]; loadin
     <section className="flex h-full min-w-0 flex-col rounded-3xl surface p-5 sm:p-6" aria-labelledby="logros-actividad">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
-          <h2 id="logros-actividad" className="logros-rotulo m-0 text-[11px] text-muted-foreground">
+          <h2 id="logros-actividad" className="rotulo-mono m-0 text-[11px] text-muted-foreground">
             Actividad
           </h2>
           <p className="m-0 mt-1 text-[12.5px] text-muted-foreground">{total > 0 ? "Últimas 12 semanas" : "Esta semana"}</p>
         </div>
         <div className="shrink-0 text-right">
-          <div className="logros-display text-[30px] font-bold leading-none text-foreground">{total > 0 ? total : "0"}</div>
+          <div className="display-archivo text-[30px] font-bold leading-none text-foreground">{total > 0 ? total : "0"}</div>
           <div className="mt-1 text-[12px] text-muted-foreground">{total === 1 ? "actividad" : "actividades"}</div>
         </div>
       </div>
