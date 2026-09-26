@@ -31,20 +31,34 @@ export interface SubjectRowData {
  * lo que hace reconocible la fila antes de leer el nombre. Donde todavía no
  * hay foto queda el símbolo de carta de siempre, en su cuadrado de 32 px:
  * nunca un hueco.
+ *
+ * Con la foto, once filas de 112 px eran una columna de más de una pantalla
+ * para once datos. En contenedores anchos (@6xl) la lista va a dos columnas,
+ * dos materias por renglón, cada columna con su propia cabecera y una rejilla
+ * más apretada (foto de 92 px, preguntas y avance más cortos) para que los
+ * nombres largos sigan cabiendo. Por debajo de ese ancho, una sola columna.
  */
+const CABECERA =
+  "nh-display grid grid-cols-[1fr_96px_212px_36px] gap-4 px-5 py-3 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground @6xl:grid-cols-[1fr_56px_132px_24px] @6xl:gap-3"
+
 export function SubjectTable({ rows, enCurso }: { rows: SubjectRowData[]; enCurso?: string | null }) {
   return (
     <div className="overflow-hidden rounded-2xl surface">
-      <div className="nh-display hidden grid-cols-[1fr_96px_212px_36px] gap-4 border-b border-border px-5 py-3 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground @2xl:grid">
-        {/* La primera columna no lleva rótulo: el de la sección, justo encima,
-            ya dice «Materias», y «Materias» sobre «Materia» se leía repetido. */}
-        <span />
-        <span className="text-right">Preguntas</span>
-        <span>Tu avance</span>
-        <span />
+      <div className="hidden border-b border-border @2xl:grid @6xl:grid-cols-2 @6xl:divide-x @6xl:divide-border">
+        {/* Dos cabeceras iguales: la segunda solo existe cuando hay dos columnas.
+            La primera celda no lleva rótulo: el de la sección, justo encima, ya
+            dice «Materias», y «Materias» sobre «Materia» se leía repetido. */}
+        {[0, 1].map((columna) => (
+          <div key={columna} className={`${CABECERA}${columna === 1 ? " hidden @6xl:grid" : ""}`} aria-hidden={columna === 1}>
+            <span />
+            <span className="text-right">Preguntas</span>
+            <span>Tu avance</span>
+            <span />
+          </div>
+        ))}
       </div>
 
-      <ul className="m-0 list-none p-0">
+      <ul className="m-0 grid list-none p-0 @6xl:grid-cols-2">
         {rows.map((r, i) => (
           <SubjectRow
             key={r.slug}
@@ -52,7 +66,7 @@ export function SubjectTable({ rows, enCurso }: { rows: SubjectRowData[]; enCurs
             foto={subjectFoto(r.slug)}
             icon={subjectSymbol(r.slug)}
             enCurso={r.slug === enCurso}
-            last={i === rows.length - 1}
+            indice={i}
           />
         ))}
       </ul>
@@ -65,30 +79,43 @@ function SubjectRow({
   foto,
   icon: Simbolo,
   enCurso,
-  last,
+  indice,
 }: {
   data: SubjectRowData
   /** La miniatura de la materia; sin ella se pinta el símbolo. */
   foto?: string
   icon: ComponentType<{ className?: string }>
   enCurso: boolean
-  last: boolean
+  /** Posición en la lista: decide qué bordes lleva en una y en dos columnas. */
+  indice: number
 }) {
   const meta = getSubjectMeta(data.slug)
   const quizCount = Math.min(10, data.count)
   const pct = data.count > 0 ? Math.round((data.answered / data.count) * 100) : 0
   const entera = pct >= 100
 
+  // Borde superior en todas menos la primera; a dos columnas, la segunda
+  // comparte renglón con la primera y lo pierde, y las de la derecha (índice
+  // impar) ganan el borde izquierdo que separa las columnas.
+  const bordes = [
+    indice > 0 ? "border-t border-border" : "",
+    indice === 1 ? "@6xl:border-t-0" : "",
+    indice % 2 === 1 ? "@6xl:border-l @6xl:border-border" : "",
+  ]
+    .filter(Boolean)
+    .join(" ")
+
   return (
-    <li className={last ? "" : "border-b border-border"}>
+    <li className={bordes}>
       <Link
         to={`/app/pca/quiz/${data.slug}?module=pca&count=${quizCount}`}
-        className="group grid grid-cols-[1fr_36px] items-center gap-x-4 gap-y-2 px-5 py-3.5 transition-colors hover:bg-muted/60 @2xl:grid-cols-[1fr_96px_212px_36px]"
+        className="group grid grid-cols-[1fr_36px] items-center gap-x-4 gap-y-2 px-5 py-3.5 transition-colors hover:bg-muted/60 @2xl:grid-cols-[1fr_96px_212px_36px] @6xl:grid-cols-[1fr_56px_132px_24px] @6xl:gap-x-3"
       >
         <div className="flex min-w-0 items-center gap-3 @2xl:gap-4">
           {foto ? (
-            /* Decorativa: el nombre va al lado. En móvil se encoge a 92 px para
-               dejarle sitio al texto; la proporción es siempre la de la foto. */
+            /* Decorativa: el nombre va al lado. En móvil y a dos columnas se
+               encoge a 92 px para dejarle sitio al texto; la proporción es
+               siempre la de la foto. */
             <img
               src={foto}
               alt=""
@@ -96,7 +123,7 @@ function SubjectRow({
               height={84}
               loading="lazy"
               decoding="async"
-              className="h-[62px] w-[92px] shrink-0 rounded-[10px] object-cover @2xl:h-[84px] @2xl:w-[124px]"
+              className="h-[62px] w-[92px] shrink-0 rounded-[10px] object-cover @2xl:h-[84px] @2xl:w-[124px] @6xl:h-[62px] @6xl:w-[92px]"
             />
           ) : (
             <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-muted text-muted-foreground transition-colors group-hover:bg-foreground group-hover:text-background">
