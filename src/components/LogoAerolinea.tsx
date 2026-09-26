@@ -3,8 +3,9 @@ import type { Airline } from "@/services/aerolineas"
 
 /**
  * Los logos oficiales de las aerolíneas, por el código OACI de la tabla
- * `airlines`. Viven en public/aerolineas/: 36 KB los seis. Entran al precache
- * del service worker (el glob recoge los .svg), y está bien: salen en la portada.
+ * `airlines`. Viven en public/aerolineas/ (unos 100 KB los catorce). Entran al
+ * precache del service worker (el glob recoge los .svg), y está bien: salen en
+ * la portada.
  *
  * De dónde salieron (26-sep-2026, con permiso de Camilo):
  * - Avianca (el de 2023), Copa y Wingo: el logo del artículo de cada una en
@@ -12,6 +13,12 @@ import type { Airline } from "@/services/aerolineas"
  * - LATAM y JetSMART: Wikimedia Commons.
  * - SATENA: su propio sitio, satena.com/images/logo.svg (en Wikipedia solo
  *   había un GIF pequeño).
+ *
+ * Y las que entraron con las convocatorias, el mismo día:
+ * - Clic, Aerolíneas Argentinas y Aeroméxico: Wikipedia en inglés (el de Clic
+ *   en su color; el de su sitio es blanco, para fondo oscuro).
+ * - Sky, BoA, Volaris y Viva: Wikimedia Commons.
+ * - Arajet: el PNG de Wikipedia en inglés, pasado a WebP. Su SVG es blanco.
  *
  * Se revisaron antes de subirlos: ninguno trae scripts ni carga nada de afuera.
  * Una aerolínea que entre a la tabla sin logo aquí muestra su nombre en su
@@ -24,6 +31,14 @@ const LOGOS: Partial<Record<string, string>> = {
   GCO: "/aerolineas/wingo.svg",
   JES: "/aerolineas/jetsmart.svg",
   NSE: "/aerolineas/satena.svg",
+  EFY: "/aerolineas/clic.svg",
+  SKU: "/aerolineas/sky.svg",
+  BOV: "/aerolineas/boa.svg",
+  ARG: "/aerolineas/aerolineas-argentinas.svg",
+  DWI: "/aerolineas/arajet.webp",
+  VOI: "/aerolineas/volaris.svg",
+  VIV: "/aerolineas/viva.svg",
+  AMX: "/aerolineas/aeromexico.svg",
 }
 
 export function LogoAerolinea({

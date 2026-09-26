@@ -41,6 +41,11 @@ export interface PilotProfile {
   hoursPic: number | null
   icaoLevel: number | null
   licenses: string[]
+  /**
+   * El país del perfil (`profiles.country`, texto libre). Decide qué horas le
+   * aplican cuando una convocatoria distingue nacionales de extranjeros.
+   */
+  pais: string | null
 }
 
 export const PERFIL_VACIO: PilotProfile = {
@@ -48,6 +53,7 @@ export const PERFIL_VACIO: PilotProfile = {
   hoursPic: null,
   icaoLevel: null,
   licenses: [],
+  pais: null,
 }
 
 /**
@@ -66,12 +72,14 @@ export const PERFIL_VACIO: PilotProfile = {
 export function armarPerfilDePiloto(
   estado: PilotStateRow | null,
   nivelIcaoDelSimulacro: number | null,
+  pais: string | null = null,
 ): PilotProfile {
   return {
     totalHours: estado?.total_hours ?? null,
     hoursPic: estado?.hours_pic ?? null,
     icaoLevel: nivelIcaoDelSimulacro ?? estado?.icao_english_level ?? null,
     licenses: estado?.licenses ?? [],
+    pais: pais?.trim() || null,
   }
 }
 
@@ -83,7 +91,7 @@ export function armarPerfilDePiloto(
 export async function traerAerolineasYPiloto(
   userId: string | undefined,
 ): Promise<{ aerolineas: Airline[]; piloto: PilotProfile }> {
-  const [aerolineasRes, pilotRes, mockRes] = await Promise.all([
+  const [aerolineasRes, pilotRes, mockRes, perfilRes] = await Promise.all([
     supabase.from("airlines").select("*").order("order_index"),
     userId
       ? supabase
@@ -101,6 +109,7 @@ export async function traerAerolineasYPiloto(
           .limit(1)
           .maybeSingle()
       : Promise.resolve({ data: null }),
+    userId ? supabase.from("profiles").select("country").eq("id", userId).maybeSingle() : Promise.resolve({ data: null }),
   ])
 
   return {
@@ -108,6 +117,7 @@ export async function traerAerolineasYPiloto(
     piloto: armarPerfilDePiloto(
       pilotRes.data as PilotStateRow | null,
       (mockRes.data as { final_level: number | null } | null)?.final_level ?? null,
+      (perfilRes.data as { country: string | null } | null)?.country ?? null,
     ),
   }
 }

@@ -2,100 +2,70 @@ import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
 import type { Airline } from "@/services/aerolineas"
 import type { Convocatoria } from "@/services/convocatorias"
-import { LogoAerolinea } from "@/components/LogoAerolinea"
-import { AvisoConvocatoria, BotonRequisitos } from "@/components/convocatorias/Convocatoria"
-import { Barra, EncabezadoSeccion } from "@/components/dashboard/ResumenPiloto"
-import { horas } from "@/components/dashboard/portada"
-import { resumenDeConvocatorias } from "@/lib/convocatorias"
+import { TarjetaConvocatoria } from "@/components/convocatorias/Convocatoria"
+import { EncabezadoSeccion } from "@/components/dashboard/ResumenPiloto"
+import { convocatoriasAbiertas, esDeIngreso, type PerfilParaConvocatoria } from "@/lib/convocatorias"
 
 // ─── Tu perfil frente a aerolíneas ──────────────────────────────────────────
 
-function TarjetaAerolinea({
-  aerolinea,
-  horasPiloto,
-  convocatorias,
-}: {
-  aerolinea: Airline
-  horasPiloto: number | null
-  convocatorias: Convocatoria[]
-}) {
-  const requeridas = aerolinea.requirements.min_hours_total ?? null
-  const tiene = horasPiloto ?? 0
-  const faltan = requeridas ? Math.max(0, Math.ceil(requeridas - tiene)) : null
-  const resumen = resumenDeConvocatorias(aerolinea.id, convocatorias)
-  return (
-    <article className="surface flex min-w-0 flex-col rounded-2xl p-5">
-      <div className="flex items-center justify-between gap-2">
-        <LogoAerolinea aerolinea={aerolinea} />
-        <Link
-          to="/app/match"
-          aria-label={`Ver ${aerolinea.name} en Elegibilidad`}
-          className="-mr-1.5 grid h-8 w-8 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-        >
-          <ArrowRight className="h-4 w-4" aria-hidden />
-        </Link>
-      </div>
-      <div className="mt-2.5 flex flex-wrap items-center justify-between gap-2">
-        <AvisoConvocatoria resumen={resumen} />
-        <BotonRequisitos aerolinea={aerolinea} resumen={resumen} />
-      </div>
-      <p className="m-0 mt-4 text-[12.5px] text-muted-foreground">Primer oficial · horas requeridas</p>
-      <p className="cifra m-0 mt-1 text-[22px] leading-none text-foreground">
-        {requeridas ? horas.format(requeridas) : "Sin dato"}
-        {requeridas && <span className="ml-1 text-[13px] font-normal tracking-normal text-muted-foreground">h</span>}
-      </p>
-      {requeridas && (
-        <div className="mt-auto pt-4">
-          <Barra pct={(tiene / requeridas) * 100} etiqueta={`Horas frente a ${aerolinea.name}`} />
-          <div className="mt-2.5 flex items-baseline justify-between gap-2 text-[12px]">
-            <span className="tabular text-muted-foreground">
-              Tienes {horas.format(tiene)} h
-            </span>
-            {faltan === 0 ? (
-              <span className="font-medium" style={{ color: "var(--av-success-fg)" }}>
-                Cumples las horas
-              </span>
-            ) : (
-              <span className="tabular text-muted-foreground">Faltan {horas.format(faltan ?? 0)} h</span>
-            )}
-          </div>
-        </div>
-      )}
-    </article>
-  )
-}
-
+/**
+ * Solo las convocatorias de ingreso que están abiertas hoy (Camilo,
+ * 26-sep-2026: «en el perfil debe haber solo las que tengan abierta»), cada
+ * una con lo que pide frente a lo que tiene el piloto. Las de capitán y las
+ * aerolíneas sin convocatoria están en Elegibilidad.
+ */
 export function PerfilFrenteAerolineas({
   aerolineas,
-  horasPiloto,
   convocatorias,
+  piloto,
   cargando,
 }: {
-  /** Ya ordenadas: las que tienen convocatoria abierta van primero. */
   aerolineas: Airline[]
-  horasPiloto: number | null
   convocatorias: Convocatoria[]
+  piloto: PerfilParaConvocatoria
   cargando: boolean
 }) {
+  const porId = new Map(aerolineas.map((a) => [a.id, a]))
+  const abiertas = convocatoriasAbiertas(convocatorias).filter((c) => esDeIngreso(c) && porId.has(c.airlineId))
+  const total = convocatoriasAbiertas(convocatorias).filter((c) => porId.has(c.airlineId)).length
+  const otras = total - abiertas.length
   return (
     <section className="flex min-w-0 flex-col gap-4">
       <EncabezadoSeccion
         icono="aerolineas"
         titulo="Tu perfil frente a aerolíneas"
         bajada={
-          horasPiloto
-            ? `Con tus ${horas.format(horasPiloto)} horas, esto te falta para cada una.`
-            : "Anota tus horas en el perfil y verás cuánto te falta para cada una."
+          cargando
+            ? "Buscando convocatorias abiertas…"
+            : abiertas.length > 0
+              ? `${abiertas.length === 1 ? "Una convocatoria abierta" : `${abiertas.length} convocatorias abiertas`} para primer oficial, frente a tus horas y tu inglés.`
+              : "Hoy ninguna aerolínea tiene convocatoria abierta para primer oficial."
         }
-        accion={{ texto: "Ver todas", to: "/app/match" }}
+        accion={{ texto: otras > 0 ? `Ver todas (${total})` : "Ver todas", to: "/app/match" }}
       />
-      <div className="grid grid-cols-1 gap-4 @2xl:grid-cols-3">
-        {cargando
-          ? [0, 1, 2].map((i) => <div key={i} className="h-[212px] animate-pulse rounded-2xl bg-muted" />)
-          : aerolineas
-              .slice(0, 3)
-              .map((a) => <TarjetaAerolinea key={a.id} aerolinea={a} horasPiloto={horasPiloto} convocatorias={convocatorias} />)}
-      </div>
+      {cargando ? (
+        <div className="grid grid-cols-1 gap-4 @2xl:grid-cols-3">
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="h-[236px] animate-pulse rounded-2xl bg-muted" />
+          ))}
+        </div>
+      ) : abiertas.length > 0 ? (
+        <div className="grid grid-cols-1 gap-4 @2xl:grid-cols-2 @5xl:grid-cols-3">
+          {abiertas.slice(0, 6).map((c) => (
+            <TarjetaConvocatoria key={c.id} convocatoria={c} aerolinea={porId.get(c.airlineId) as Airline} piloto={piloto} />
+          ))}
+        </div>
+      ) : (
+        <div className="surface flex flex-col items-start gap-3 rounded-2xl p-5 @2xl:flex-row @2xl:items-center @2xl:justify-between">
+          <p className="m-0 text-[13.5px] text-muted-foreground">
+            Revisamos los portales de empleo de las aerolíneas cada 6 horas. En cuanto una abra, aparece aquí.
+          </p>
+          <Link to="/app/match" className="group inline-flex shrink-0 items-center gap-1 text-[13px] font-medium text-foreground">
+            Ver los requisitos de cada aerolínea
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+          </Link>
+        </div>
+      )}
     </section>
   )
 }
