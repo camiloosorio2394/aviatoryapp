@@ -164,9 +164,9 @@ seis funciones compartidas con los siete módulos del catálogo.
 
 ### La regla del orden, que es la que muerde
 
-<!-- ULTIMA_APLICADA: 20260929120000 -->
+<!-- ULTIMA_APLICADA: 20261001020000 -->
 
-**Toda migración nueva lleva una versión posterior a `20260929120000`.**
+**Toda migración nueva lleva una versión posterior a `20261001020000`.**
 
 No es burocracia. Seis funciones se republican enteras en cada migración de
 módulo —`private.secciones_leidas`, `private.practicas_hechas`,
@@ -376,8 +376,9 @@ Comprobado contra la base:
 (`20260929000000_evaluacion_entrega_el_tema_del_banco`), escrita sin saber que
 RVSM ya estaba aplicado. La versión `20260929000000` la tiene registrada la base
 para `modulo_rvsm`, así que la otra, que está pendiente de correr, se renumeró a
-`20260930000000` y la marca de arriba pasó a `20260929000000`. Cuando se corra,
-hay que mover la marca otra vez.
+`20260930000000` y la marca de arriba pasó a `20260929000000`. Se corrió el
+26 de septiembre, junto con las tres de MEL, y la marca quedó en
+`20261001020000` (ver la sección de ese día, al final).
 
 ## 25 de septiembre, noche: el banco de PBN deja de regalar la respuesta
 
@@ -405,3 +406,34 @@ habría calificado mal ese intento.
 Comprobado contra la base: 66 activas, y la huella md5 de id, enunciado,
 correcta, explicación, referencia y opciones da `4c4478c2…` en la base y en
 `contenido/bancos/pbn_evaluacion.json`.
+
+## 26 de septiembre, madrugada: la base al día
+
+Todo lo que estaba en main sin aplicar se corrió por el conector, en este
+orden, y cada banco se comprobó después con la huella md5 de id, enunciado,
+opciones, correcta, explicación, referencia y metadatos (calculada igual en
+Postgres y en node): **los trece bancos de evaluación y el de psicotécnicas
+quedaron idénticos a `contenido/bancos`**. Antes de tocar opciones se
+comprobó que no hubiera ninguna sesión abierta en `evaluacion_sesiones` ni en
+`psico_sesiones`. Nada se borró: lo que sobra queda con `activa = false`.
+
+| Filas del conector | Qué hizo |
+| --- | --- |
+| `sembrar_psicotecnicas_03`, `_04`, `_05_y_cierre` | Psicotécnicas como el repo: 174 preguntas actualizadas y 14 desactivadas (238 → 224 activas). |
+| `evaluacion_entrega_el_tema_del_banco_aplicada` | El archivo `20260930000000`. Prueba `evaluacion_temas.sql`: pasa entera. |
+| `modulo_mel_1_progreso`, `_2_evaluacion`, `_3_panel_y_logros` | Los archivos `20261001000000`, `010000` y `020000`. Antes de reemplazar las funciones compartidas se comparó lo que corría en producción: `evaluacion_terminar` tenía los once módulos y el simulacro y no traía el defecto del archivo de PBN, y `panel_tarjetas` y `desbloquear_logros` no tenían nada que el archivo de MEL no trajera. |
+| `sembrar_catalogo_mel` | 40 lecciones y 68 prácticas (`node scripts/catalogo/sembrar.mjs mel`). |
+| `sembrar_banco_mel_1`, `_2` | Las 70 preguntas, ya sin sesgo (#300). |
+| `registrar_version_de_archivo_tema_y_mel` | Las cuatro filas con la versión de archivo. |
+| `banco_rvsm_opciones_sin_sesgo` y siguientes | `opciones` y `correcta` de RVSM (#298), Aerodinámica (#299), RAC y Performance (#300), Meteorología (#301), NOTAM, Mercancías y su chequeo (#302). |
+| `banco_aerodinamica_explicaciones_de_la_auditoria` | Tres explicaciones de Aerodinámica (ev-01, ev-06, ev-22) que la auditoría de #235 cambió en el repo y nunca se sembraron. |
+| `banco_combustible_sin_easa_y_sin_sesgo` | Las nueve preguntas de Combustible que cambió #303 (ev-10 entera). |
+| `banco_comunicaciones_aerolineas_reales` | Las 30 preguntas que #290 pasó a AVIANCA. |
+| `logros_pbn_con_los_conteos_de_hoy` | Las descripciones de `pbn_lesson` y `pbn_practice` decían 52 capítulos y 156 preguntas; son 48 y 144. |
+
+Pruebas corridas contra la base ya migrada (las que escriben filas se corren
+con `apply_migration`, que se deshace entero cuando la prueba termina en
+`PRUEBA_DESHECHA`; `execute_sql` del conector es de solo lectura):
+`evaluacion_temas.sql`, `permisos.sql`, `panel.sql` (con la tarjeta de
+MEL), `mel_evaluacion.sql` y `mel.sql`. Todas en `PRUEBA_DESHECHA` con la
+lista completa de lo verificado.
