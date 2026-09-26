@@ -105,7 +105,7 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     // El mismo icono que su tarjeta en Ingreso a aerolínea.
     icon: Headset,
     color: "var(--av-cm-700)",
-    fotoHueco: "CM-TEM-01 · 2:1 · 1200×600 · Piloto con auriculares y la mano en el selector de frecuencia",
+    foto: "/modulos/comunicaciones/tema-comunicaciones.webp",
     descripcion: "Escuchar, interpretar, confirmar y responder al ATC, de la rampa al océano.",
   },
   rac: {
@@ -125,8 +125,8 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     // esa distancia, y el icono lo dice sin texto.
     icon: MoveVertical,
     color: "var(--av-rv-700)",
-    // Esquema dibujado en SVG (scripts/figuras/portadas.mjs), no foto.
-    foto: "/modulos/rvsm/tema-rvsm.svg",
+    // Foto de Camilo (26 de septiembre de 2026). Antes era un esquema en SVG.
+    foto: "/modulos/rvsm/tema-rvsm.webp",
     descripcion: "Mil pies entre FL 290 y FL 410: equipo, chequeos, fraseología y qué hacer si se pierde.",
   },
   pbn: {
@@ -134,8 +134,8 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     // depender de volar hacia una antena.
     icon: RouteIcon,
     color: "var(--av-pbn-700)",
-    // Esquema dibujado en SVG (scripts/figuras/portadas.mjs), no foto.
-    foto: "/modulos/pbn/tema-pbn.svg",
+    // Foto de Camilo (26 de septiembre de 2026). Antes era un esquema en SVG.
+    foto: "/modulos/pbn/tema-pbn.webp",
     descripcion: "RNAV y RNP, el número, la carta, el FMS y qué decir cuando se pierde la capacidad.",
   },
   mel: {

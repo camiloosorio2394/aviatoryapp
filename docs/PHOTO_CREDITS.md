@@ -102,3 +102,18 @@ que el resto de fotos de tarjeta.
 | `icao-entrevista.webp` | TEA · Parte 1 · Entrevista (diadema en cabina) |
 | `icao-comprension.webp` | TEA · Parte 2 · Comprensión interactiva (radio COM con forma de onda) |
 | `icao-descripcion-imagenes.webp` | TEA · Parte 3 · Descripción de imágenes (señalero en plataforma) |
+
+## Portadas de tema de Ingreso a aerolínea
+
+Las de PBN, RVSM y Comunicaciones ATC (`public/modulos/<modulo>/tema-<modulo>.webp`)
+las generó Camilo con IA el 26 de septiembre de 2026, a 1200 × 600, y van por
+ruta pública como el resto de imágenes de módulo. Sustituyen a los esquemas en
+SVG de PBN y RVSM que dibujaba `scripts/figuras/portadas.mjs`, retirado con
+ellos, y llenan el hueco CM-TEM-01 de Comunicaciones. `scripts/aerolinea/portadas-de-tema.test.ts`
+comprueba que cada portada registrada en `carasDeModulo.ts` existe.
+
+| Archivo | Tarjeta |
+|---|---|
+| `pbn/tema-pbn.webp` | PBN (43 KB) |
+| `rvsm/tema-rvsm.webp` | RVSM (23 KB) |
+| `comunicaciones/tema-comunicaciones.webp` | Comunicaciones ATC (30 KB) |
