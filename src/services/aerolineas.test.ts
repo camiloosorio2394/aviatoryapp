@@ -44,6 +44,7 @@ describe("la regla de prioridad del perfil", () => {
       hoursPic: 150,
       icaoLevel: 4,
       licenses: ["PPL", "CPL"],
+      pais: null,
     })
   })
 
@@ -57,6 +58,7 @@ describe("la regla de prioridad del perfil", () => {
       hoursPic: null,
       icaoLevel: null,
       licenses: [],
+      pais: null,
     })
   })
 })
@@ -76,11 +78,12 @@ describe("traer aerolíneas y perfil", () => {
     respuestas.set("airlines", { data: [AVIANCA], error: null })
     respuestas.set("pilot_state", { data: DECLARADO, error: null })
     respuestas.set("user_icao_mock_results", { data: { final_level: 5 }, error: null })
+    respuestas.set("profiles", { data: { country: " Colombia " }, error: null })
 
     const { aerolineas, piloto } = await traerAerolineasYPiloto("piloto")
 
     expect(aerolineas).toEqual([AVIANCA])
-    expect(piloto).toEqual({ totalHours: 300, hoursPic: 150, icaoLevel: 5, licenses: ["PPL", "CPL"] })
+    expect(piloto).toEqual({ totalHours: 300, hoursPic: 150, icaoLevel: 5, licenses: ["PPL", "CPL"], pais: "Colombia" })
   })
 
   it("sin sesión trae las aerolíneas igual, con el perfil vacío", async () => {
@@ -89,7 +92,7 @@ describe("traer aerolíneas y perfil", () => {
     const { aerolineas, piloto } = await traerAerolineasYPiloto(undefined)
 
     expect(aerolineas).toEqual([AVIANCA])
-    expect(piloto).toEqual({ totalHours: null, hoursPic: null, icaoLevel: null, licenses: [] })
+    expect(piloto).toEqual({ totalHours: null, hoursPic: null, icaoLevel: null, licenses: [], pais: null })
     expect(from).not.toHaveBeenCalledWith("pilot_state")
   })
 

@@ -3,7 +3,9 @@
 -- cliente, anon no ve nada, las revisiones están cerradas, la función manual
 -- solo corre desde el editor SQL (conserva los requisitos al cerrar), la
 -- llave del Vault solo la valida la función de borde y la tarea de pg_cron la
--- manda. Con 20261001030000 y 20261001040000 aplicadas.
+-- manda; las horas que le aplican a un piloto se eligen igual que en la app;
+-- la manual guarda los números y no los pierde al cerrar; y las aerolíneas
+-- nuevas están. Con 20261001030000 a 20261001060000 aplicadas.
 --
 -- Escribe filas de prueba y las deshace: termina en PRUEBA_DESHECHA con la
 -- lista de lo verificado, o en FALLO. Cómo se corre: supabase/tests/README.md.
@@ -20,22 +22,46 @@ begin
   -- La página de pilotos de LATAM quedó cargada, cerrada y con sus requisitos.
   select * into x_fila from public.convocatorias c
   where c.airline_id = (select id from public.airlines where code = 'LAN') and c.clave_externa = 'pagina-pilotos';
-  if x_fila.id is null or x_fila.abierta or x_fila.tipo <> 'pagina' or cardinality(x_fila.requisitos) <> 8 then
+  if x_fila.id is null or x_fila.abierta or x_fila.tipo <> 'pagina' or cardinality(x_fila.requisitos) <> 8
+     or x_fila.horas_minimas <> 150 or x_fila.nivel_icao <> 4 then
     raise exception 'FALLO la página de LATAM no quedó como se esperaba';
   end if;
   x_log := x_log || ' latam_cargada';
 
+  -- Las horas que le aplican a un piloto, igual que horasQueAplican() en la app.
+  if private.horas_que_aplican(150, null, null, 'Colombia', 'Colombia') <> 150
+    or private.horas_que_aplican(null, 250, 1000, 'Colombia', 'Panamá') <> 1000
+    or private.horas_que_aplican(null, 250, 1000, 'Panamá', 'Panama') <> 250
+    or private.horas_que_aplican(null, 250, 1000, null, 'Panamá') <> 1000
+    or private.horas_que_aplican(1500, 1000, null, 'Colombia', 'República Dominicana') <> 1500
+    or private.horas_que_aplican(1500, 1000, null, 'República Dominicana', 'Republica Dominicana') <> 1000
+    or private.horas_que_aplican(null, null, null, 'Colombia', 'Colombia') is not null then
+    raise exception 'FALLO horas_que_aplican no elige como la app';
+  end if;
+  if has_function_privilege('authenticated', 'private.horas_que_aplican(integer, integer, integer, text, text)', 'execute') then
+    raise exception 'FALLO el cliente ejecuta horas_que_aplican';
+  end if;
+  x_log := x_log || ' horas_como_la_app';
+
+  -- Las aerolíneas que entraron con 20261001060000, sin mínimos nuestros.
+  select count(*) into x_n from public.airlines
+  where code in ('EFY', 'DWI', 'SKU', 'BOV', 'VOI', 'VIV', 'AMX', 'ARG') and requirements = '{}'::jsonb;
+  if x_n <> 8 then raise exception 'FALLO faltan aerolíneas nuevas (%)', x_n; end if;
+  x_log := x_log || ' aerolineas_nuevas';
+
   -- A mano: abre, y al cerrar sin repetir requisitos los conserva.
   perform private.convocatoria_manual('CMP', 'Primer oficial (prueba)', 'https://ejemplo.com/vacante', true,
-    array['Uno', 'Dos'], 'Panamá', 'primer_oficial', 'prueba-1');
+    array['Uno', 'Dos'], 'Panamá', 'primer_oficial', 'prueba-1', p_horas => 300, p_nivel_icao => 4::smallint);
   select * into x_fila from public.convocatorias where clave_externa = 'prueba-1';
-  if not x_fila.abierta or x_fila.fuente <> 'manual' or x_fila.requisitos <> array['Uno', 'Dos'] or x_fila.cerrada_en is not null then
+  if not x_fila.abierta or x_fila.fuente <> 'manual' or x_fila.requisitos <> array['Uno', 'Dos'] or x_fila.cerrada_en is not null
+     or x_fila.horas_minimas <> 300 or x_fila.nivel_icao <> 4 then
     raise exception 'FALLO la función manual no abrió bien';
   end if;
   perform private.convocatoria_manual('CMP', 'Primer oficial (prueba)', 'https://ejemplo.com/vacante', false, p_clave => 'prueba-1');
   select * into x_fila from public.convocatorias where clave_externa = 'prueba-1';
-  if x_fila.abierta or x_fila.cerrada_en is null or x_fila.requisitos <> array['Uno', 'Dos'] or x_fila.pais <> 'Panamá' then
-    raise exception 'FALLO cerrar a mano perdió los requisitos, el país o la fecha';
+  if x_fila.abierta or x_fila.cerrada_en is null or x_fila.requisitos <> array['Uno', 'Dos'] or x_fila.pais <> 'Panamá'
+     or x_fila.horas_minimas <> 300 or x_fila.nivel_icao <> 4 then
+    raise exception 'FALLO cerrar a mano perdió los requisitos, los números, el país o la fecha';
   end if;
   x_log := x_log || ' manual_abre_y_cierra';
 

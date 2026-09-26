@@ -12,17 +12,38 @@ import {
   avianca,
   candidatosCopa,
   candidatosSitemap,
+  ARAJET_LISTA,
+  BOA_EMPLEOS,
+  CLIC_PAGINA,
+  VIVA_PILOTOS,
+  VIVA_RSS,
+  VOLARIS_REQUISITOS,
+  arajet,
+  paginaViva,
+  paginaVolaris,
+  requisitosClave,
+  vacantesViva,
+  viva,
+  volaris,
+  SKY_LISTA,
+  boa,
+  candidatosSky,
   cargoDelTitulo,
+  clic,
   copa,
   copaDetalle,
   fechaSuccessFactors,
   jetsmart,
   requisitosDelHtml,
   satena,
+  sky,
   textoPlano,
   vacanteCopa,
   vacanteSuccessFactors,
   vacanteWingo,
+  vacanteSky,
+  vacantesBoa,
+  vacantesClic,
   vacantesSatena,
   wingo,
   type Traer,
@@ -199,5 +220,210 @@ describe("SATENA", () => {
   it("si aparece una oferta de piloto, la toma", () => {
     const html = "<h2>Ofertas de Empleo</h2><div><a>Copiloto ATR 42</a></div><div><a>Auxiliar contable</a></div>"
     expect(vacantesSatena(html).map((v) => [v.clave, v.cargo])).toEqual([["copiloto-atr-42", "primer_oficial"]])
+  })
+})
+
+describe("Clic", () => {
+  it("hoy: cuatro vacantes de tierra, ninguna de piloto", async () => {
+    expect(await clic.leer(traerDe({ [CLIC_PAGINA]: "clic.html" }))).toEqual([])
+  })
+
+  it("octubre de 2024: «PILOTO 42/72 - 600» era para capitán, con sus requisitos en lista", () => {
+    const [v] = vacantesClic(muestra("clic-2024.html"))
+    expect(v).toMatchObject({
+      clave: "piloto-42-72-600-20241009",
+      cargo: "capitan",
+      titulo: "PILOTO 42/72 - 600",
+      pais: "Colombia",
+      ciudad: "Bogotá",
+      url: CLIC_PAGINA,
+      publicadaEn: "2024-10-09",
+      cierraEn: null,
+      abierta: true,
+    })
+    expect(v.requisitos).toContain("5.000 horas de vuelo, adjuntar certificado de horas voladas")
+    expect(v.requisitos).toContain("Certificado original examen de inglés, con nivel mínimo OACI 4")
+  })
+
+  it("los requisitos en párrafo con viñetas «°» también se leen", () => {
+    const html =
+      '<div class="accordion"><div class="accordion-item"><div class="mpre"> 01/11/2026 / Bogotá </div><div class="tit">Primer Oficial ATR</div>' +
+      "<h3>Requisitos:&nbsp;</h3><p><strong>&deg;</strong> Licencia PCA<br /><span>&deg;</span> 250 horas de vuelo<br />&deg; Inglés OACI 4</p></div></div>"
+    const [v] = vacantesClic(html)
+    expect(v.cargo).toBe("primer_oficial")
+    expect(v.requisitos).toEqual(["Licencia PCA", "250 horas de vuelo", "Inglés OACI 4"])
+  })
+})
+
+describe("Sky Airline (Genoma)", () => {
+  it("la lista de ese día no tenía avisos de piloto", () => {
+    expect(candidatosSky(muestra("sky-lista.json"))).toEqual([])
+  })
+
+  it("un aviso de piloto: país, fecha, enlace y requisitos en lista", () => {
+    const detalle = JSON.parse(muestra("sky-detalle.json"))
+    const piloto = {
+      ...detalle,
+      job_application: "Primer Oficial A320",
+      location_city: "Lima",
+      location_country: "PE",
+      description: "<p>Buscamos pilotos.</p><p><strong>Requisitos</strong></p><ul><li>Licencia de piloto comercial</li><li>250 horas de vuelo</li></ul>",
+    }
+    const v = vacanteSky(JSON.stringify(piloto))
+    expect(v).toMatchObject({ cargo: "primer_oficial", pais: "Perú", url: `https://jobs.genoma.work/sky-airline/${detalle.id}/` })
+    expect(v?.requisitos).toEqual(["Licencia de piloto comercial", "250 horas de vuelo"])
+    // Un aviso cerrado no cuenta.
+    expect(vacanteSky(JSON.stringify({ ...piloto, status: "CLOSE" }))).toBeNull()
+  })
+
+  it("una lista vacía es un fallo", () => {
+    expect(() => candidatosSky(JSON.stringify({ jobapplications: [] }))).toThrow(/vacía/)
+  })
+
+  it("la fuente entera: con la lista de ese día no descarga ningún detalle", async () => {
+    expect(await sky.leer(traerDe({ [SKY_LISTA]: "sky-lista.json" }))).toEqual([])
+  })
+})
+
+describe("BoA (WordPress)", () => {
+  it("la lista vacía de ese día es «no hay vacantes», no un fallo", async () => {
+    expect(await boa.leer(traerDe({ [BOA_EMPLEOS]: "boa-empleo.json" }))).toEqual([])
+  })
+
+  it("una entrada de piloto se lee con su enlace y sus requisitos", () => {
+    const [v] = vacantesBoa(
+      JSON.stringify([
+        {
+          id: 5120,
+          date: "2026-10-02T09:00:00",
+          link: "https://www.boa.gob.bo/empleo/primer-oficial-b737/",
+          title: { rendered: "Primer Oficial B737 &#8211; Cochabamba" },
+          content: { rendered: "<h3>Requisitos</h3><ul><li>Licencia de piloto comercial boliviana</li><li>500 horas de vuelo</li></ul>" },
+        },
+        { id: 5121, date: "2026-10-02T09:00:00", link: "https://www.boa.gob.bo/empleo/agente/", title: { rendered: "Agente de counter" } },
+      ]),
+    )
+    expect(v).toMatchObject({ clave: "boa-5120", cargo: "primer_oficial", pais: "Bolivia", publicadaEn: "2026-10-02" })
+    expect(v.titulo).toBe("Primer Oficial B737 – Cochabamba")
+    expect(v.requisitos).toEqual(["Licencia de piloto comercial boliviana", "500 horas de vuelo"])
+  })
+
+  it("lo que no es una lista es un fallo", () => {
+    expect(() => vacantesBoa(JSON.stringify({ code: "rest_no_route" }))).toThrow(/otra forma/)
+  })
+})
+
+describe("requisitosClave: las horas y el nivel, leídos de los requisitos", () => {
+  it("LATAM: 150 horas y OACI 4", () => {
+    expect(requisitosClave(["Haber acumulado 150 horas de vuelo o más", "Contar con Nivel de Inglés OACI 4 o Superior"])).toEqual({
+      horas: 150,
+      horasNacionales: null,
+      horasExtranjeros: null,
+      icao: 4,
+    })
+  })
+
+  it("Copa: panameños y extranjeros en renglones aparte, ICAO 5", () => {
+    expect(
+      requisitosClave([
+        "For Panamanians, minimum of 250 hours of total time in fixed wing aircraft",
+        "For foreign applicants: A minimum of 1,000 hours of total flight time in fixed-wing aircraft",
+        "Minimum ICAO English Language Proficiency level 5",
+      ]),
+    ).toEqual({ horas: null, horasNacionales: 250, horasExtranjeros: 1000, icao: 5 })
+  })
+
+  it("Arajet: las dos cifras en el mismo renglón, la de dominicanos entre paréntesis", () => {
+    expect(
+      requisitosClave(["Equal or more than 1,500 total hours (1,000 hours for Dominican candidates).", "ICAO Lv. 4 ENGLISH Language Proficiency", "No PIC hours requirement needed."]),
+    ).toEqual({ horas: 1500, horasNacionales: 1000, horasExtranjeros: null, icao: 4 })
+  })
+
+  it("las horas al mando, en jet o como capitán no son las totales", () => {
+    expect(
+      requisitosClave([
+        "3.000 horas de vuelo mínimo total.",
+        "1.000 h de vuelo como capitán en JET de línea aérea o 3.000 horas de vuelo como capitán en ATR.",
+        "1,000 hours of flight time as PIC on transport category aircraft over 100 passengers.",
+      ]).horas,
+    ).toBe(3000)
+    // Pero lo que viene después de la coma ya es otra cosa.
+    expect(requisitosClave(["1.800 horas, con mínimo 800 en jet"]).horas).toBe(1800)
+  })
+
+  it("Volaris y Viva: «220 hrs.», «Nivel de inglés 4» y «RTARI 4»", () => {
+    expect(requisitosClave(["Contar con mínimo 220 hrs. de vuelo certificadas en bitácora.", "Nivel de inglés 4 o superior con certificado de aviación."])).toMatchObject({
+      horas: 220,
+      icao: 4,
+    })
+    expect(requisitosClave(["RTARI 4 o superior.", "200 horas de vuelo real."])).toMatchObject({ horas: 200, icao: 4 })
+  })
+
+  it("Wingo no publica horas; un avión, una visa o un pasaporte no son horas ni nivel", () => {
+    expect(requisitosClave(["Copia del Examen TEA o EALTS mínimo nivel 4.", "Copia de la última hoja de la bitácora de vuelo."])).toEqual({
+      horas: null,
+      horasNacionales: null,
+      horasExtranjeros: null,
+      icao: 4,
+    })
+    expect(requisitosClave(["Curso de familiarización A320 (A320 FAM)", "Visa B1/B2 para EE.UU. vigente", "Pasaporte con vigencia de al menos 6 meses"])).toEqual({
+      horas: null,
+      horasNacionales: null,
+      horasExtranjeros: null,
+      icao: null,
+    })
+  })
+})
+
+describe("Arajet (Manatal)", () => {
+  it("First Officer y Captain, con sus requisitos en inglés; la paginación sigue hasta el final", async () => {
+    const vacantes = await arajet.leer(
+      traerDe({
+        [ARAJET_LISTA]: "arajet-1.json",
+        "https://www.careers-page.com/api/v1.0/c/arajetjobs/jobs/?page=2&page_size=20": "arajet-2.json",
+      }),
+    )
+    expect(vacantes.map((v) => [v.clave, v.cargo, v.pais])).toEqual([
+      ["QV5Y38X8", "capitan", "República Dominicana"],
+      ["W35R565W", "primer_oficial", "República Dominicana"],
+    ])
+    const fo = vacantes.find((v) => v.clave === "W35R565W")
+    expect(fo).toMatchObject({ idioma: "en", url: "https://www.careers-page.com/arajetjobs/job/W35R565W", publicadaEn: null })
+    expect(fo?.requisitos).toContain("Equal or more than 1,500 total hours (1,000 hours for Dominican candidates).")
+    expect(requisitosClave(fo?.requisitos ?? [])).toMatchObject({ horas: 1500, horasNacionales: 1000, icao: 4 })
+  })
+})
+
+describe("Volaris", () => {
+  it("su página fija de requisitos de copiloto, como página cerrada", () => {
+    const v = paginaVolaris(muestra("volaris-requisitos.html"))
+    expect(v).toMatchObject({ tipo: "pagina", abierta: false, cargo: "primer_oficial", pais: "México" })
+    expect(v.requisitos).toContain("Pasaporte mexicano / costarricense / salvadoreño vigente.")
+    expect(requisitosClave(v.requisitos)).toMatchObject({ horas: 220, icao: 4 })
+  })
+
+  it("la fuente entera: la página de requisitos y, del sitemap, ninguna vacante de piloto ese día", async () => {
+    const vacantes = await volaris.leer(
+      traerDe({ "https://jobs.volaris.com/sitemap.xml": "volaris-sitemap.xml", [VOLARIS_REQUISITOS]: "volaris-requisitos.html" }),
+    )
+    expect(vacantes.map((v) => v.clave)).toEqual(["requisitos-copiloto"])
+  })
+})
+
+describe("Viva", () => {
+  it("el RSS: «Piloto (TBD)» es un semillero y no cuenta", () => {
+    expect(vacantesViva(muestra("viva.rss"))).toEqual([])
+  })
+
+  it("la página del área: la ruta de Primer Oficial sin experiencia en jet, 200 horas y RTARI 4", () => {
+    const v = paginaViva(muestra("viva-pilotos.html"))
+    expect(v).toMatchObject({ tipo: "pagina", abierta: false, titulo: "Primer oficial sin experiencia en jet" })
+    expect(v.requisitos).toContain("Pasaporte Mexicano vigente.")
+    expect(requisitosClave(v.requisitos)).toMatchObject({ horas: 200, icao: 4 })
+  })
+
+  it("la fuente entera devuelve solo la página", async () => {
+    const vacantes = await viva.leer(traerDe({ [VIVA_RSS]: "viva.rss", [VIVA_PILOTOS]: "viva-pilotos.html" }))
+    expect(vacantes.map((v) => v.clave)).toEqual(["primer-oficial-sin-jet"])
   })
 })

@@ -27,6 +27,14 @@ export interface Convocatoria {
   idioma: "es" | "en"
   abierta: boolean
   cerradaEn: string | null
+  /**
+   * Lo que pide, ya leído de los requisitos al guardar (la función de borde, o
+   * a mano para LATAM). `null` es «no lo publica».
+   */
+  horasMinimas: number | null
+  horasNacionales: number | null
+  horasExtranjeros: number | null
+  nivelIcao: number | null
 }
 
 const CARGOS = new Set<CargoConvocatoria>(["primer_oficial", "cadete", "piloto", "capitan"])
@@ -34,6 +42,7 @@ const CARGOS = new Set<CargoConvocatoria>(["primer_oficial", "cadete", "piloto",
 type Crudo = Record<string, unknown>
 
 const texto = (v: unknown): string | null => (typeof v === "string" && v.trim() ? v : null)
+const numero = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) ? v : null)
 
 /**
  * La forma que llega se valida fila por fila. Una fila rara se descarta y se
@@ -70,6 +79,10 @@ export function leerConvocatorias(datos: unknown): Convocatoria[] {
       idioma: f.idioma === "en" ? "en" : "es",
       abierta: f.abierta,
       cerradaEn: texto(f.cerrada_en),
+      horasMinimas: numero(f.horas_minimas),
+      horasNacionales: numero(f.horas_nacionales),
+      horasExtranjeros: numero(f.horas_extranjeros),
+      nivelIcao: numero(f.nivel_icao),
     })
   }
   return salida
@@ -79,7 +92,9 @@ export function leerConvocatorias(datos: unknown): Convocatoria[] {
 export async function traerConvocatorias(): Promise<Convocatoria[]> {
   const { data, error } = await supabase
     .from("convocatorias")
-    .select("id, airline_id, cargo, tipo, titulo, pais, ciudad, url, publicada_en, cierra_en, requisitos, idioma, abierta, cerrada_en")
+    .select(
+      "id, airline_id, cargo, tipo, titulo, pais, ciudad, url, publicada_en, cierra_en, requisitos, idioma, abierta, cerrada_en, horas_minimas, horas_nacionales, horas_extranjeros, nivel_icao",
+    )
     .order("vista_por_ultima_vez", { ascending: false })
     .limit(300)
   if (error) throw error

@@ -226,10 +226,26 @@ antes de 50 minutos. Cada corrida queda en `convocatorias_revisiones` con lo que
   lector y `npx vitest run scripts/convocatorias` dice si lo de antes sigue.
 - **Nunca se borra una fila**: lo que desaparece se marca `abierta = false`, y la última convocatoria
   de cada aerolínea sigue sirviendo por sus requisitos. Un portal caído no cierra nada.
-- **LATAM se marca a mano** (su robots.txt prohíbe leer la lista): `private.convocatoria_manual()`
-  desde el editor SQL; el ejemplo está en la migración `20261001030000`.
+- **Once fuentes se leen solas** (Copa, Avianca, JetSMART, Wingo, SATENA, Clic, Sky, BoA, Arajet,
+  Volaris y Viva). **LATAM, Aeroméxico y Aerolíneas Argentinas se marcan a mano** (el robots.txt de
+  LATAM prohíbe leer la lista; Aeroméxico publica en el portal de su sindicato y Aerolíneas
+  Argentinas solo en LinkedIn): `private.convocatoria_manual()` desde el editor SQL. Esa función no
+  lee el texto: las horas y el nivel van en `p_horas`, `p_horas_nacionales`, `p_horas_extranjeros`
+  y `p_nivel_icao`, y al cerrar sin repetirlos se conservan.
+- **Las horas mínimas son las que pide cada convocatoria**, nunca un mínimo nuestro (`requirements`
+  de las aerolíneas nuevas va vacío). Se leen de los requisitos **una sola vez**, al guardar
+  (`requisitosClave()` en `lectores.ts`), y quedan en `horas_minimas`, `horas_nacionales`,
+  `horas_extranjeros` y `nivel_icao`. La app (`numerosDe`, `horasQueAplican`) y el aviso de la
+  meta de horas (`private.horas_que_aplican`) solo eligen entre esos números según el país del
+  piloto. Si una aerolínea escribe las horas de otra forma, se ajusta `requisitosClave()` con su
+  muestra, no la app.
 - **Los requisitos van tal como los publicó la aerolínea**, con su enlace. No se resumen ni se
-  traducen (Copa publica en inglés y la app lo dice).
+  traducen (Copa y Arajet publican en inglés y la app lo dice).
+- **Dónde se ve**: la portada muestra solo las convocatorias de ingreso abiertas (primer oficial,
+  cadete, piloto); Elegibilidad muestra todas, capitán incluido, agrupadas por país con su bandera
+  (`public/banderas/`), y aparte las aerolíneas sin convocatoria abierta.
+- SATENA y BoA sirven su certificado sin el intermedio; `index.ts` lo trae para esos dos hosts. Si
+  otro portal falla con «UnknownIssuer», es lo mismo.
 - Publicar la función: el conector de Supabase (`deploy_edge_function`) con los dos archivos y
   `verify_jwt: false`.
 

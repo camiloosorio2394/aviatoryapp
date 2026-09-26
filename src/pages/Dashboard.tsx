@@ -12,7 +12,7 @@ import { EstadoError } from "@/components/EstadoError"
 import { revisarVencimientos, traerInicioPanel, traerTarjetasPanel } from "@/services/panel"
 import { traerAerolineasYPiloto, type Airline } from "@/services/aerolineas"
 import { traerConvocatorias, type Convocatoria } from "@/services/convocatorias"
-import { resumenDeConvocatorias } from "@/lib/convocatorias"
+import { horasQueAplican, numerosDe, requisitosVigentes } from "@/lib/convocatorias"
 import type { PostulacionAbierta } from "@/services/panel"
 import type { PlanDeEstudio } from "@/services/planDeEstudio"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
@@ -100,6 +100,8 @@ export function Dashboard() {
   const [preparacionPca, setPreparacionPca] = useState<PcaReadiness | null>(null)
   const [aerolineas, setAerolineas] = useState<Airline[]>([])
   const [convocatorias, setConvocatorias] = useState<Convocatoria[]>([])
+  /** El país del perfil: decide qué horas le aplican cuando la convocatoria distingue. */
+  const [paisDelPiloto, setPaisDelPiloto] = useState<string | null>(null)
 
   useEffect(() => {
     if (!user) return
@@ -144,8 +146,10 @@ export function Dashboard() {
       // Las aerolíneas van aparte: si fallan, su tarjeta queda vacía y el resto
       // del panel sigue.
       traerAerolineasYPiloto(user?.id)
-        .then(({ aerolineas: lista }) => {
-          if (!cancelled) setAerolineas(lista)
+        .then(({ aerolineas: lista, piloto }) => {
+          if (cancelled) return
+          setAerolineas(lista)
+          setPaisDelPiloto(piloto.pais)
         })
         .catch((err) => reportarError("dashboard: aerolíneas", err))
       // Las convocatorias también: sin ellas, cada aerolínea sale «Pendiente por abrir».
@@ -238,23 +242,24 @@ export function Dashboard() {
       ? new Date(streak.last_activity_date + "T00:00:00").toDateString() !== new Date().toDateString()
       : false
 
-  /** El siguiente mínimo de horas entre las aerolíneas de la lista, por encima de lo que lleva. */
+  /**
+   * La siguiente meta de horas: el mínimo más bajo, por encima de lo que lleva,
+   * entre lo que piden hoy las aerolíneas en sus convocatorias (la abierta o la
+   * última que se les conoce). Nunca un número puesto por la app.
+   */
   const totalHoras = pilot?.total_hours ?? null
   const metaHoras =
-    [...new Set(aerolineas.map((a) => a.requirements.min_hours_total).filter((h): h is number => typeof h === "number"))]
+    [
+      ...new Set(
+        aerolineas
+          .map((a) => requisitosVigentes(a.id, convocatorias))
+          .map((c) => (c ? horasQueAplican(numerosDe(c), paisDelPiloto, c.pais) : null))
+          .filter((h): h is number => typeof h === "number"),
+      ),
+    ]
       .sort((a, b) => a - b)
       .find((h) => h > (totalHoras ?? 0)) ?? null
 
-  /**
-   * Las aerolíneas en su orden: primero las que tienen convocatoria abierta,
-   * después la que el piloto eligió como objetivo, y el resto como vienen.
-   */
-  const objetivoAerolinea = pilot?.target_airline?.toLowerCase() ?? null
-  const esObjetivo = (a: Airline) => (objetivoAerolinea ? a.name.toLowerCase().startsWith(objetivoAerolinea) : false)
-  const tieneAbierta = (a: Airline) => resumenDeConvocatorias(a.id, convocatorias).abiertas.length > 0
-  const aerolineasEnOrden = [...aerolineas].sort(
-    (a, b) => Number(tieneAbierta(b)) - Number(tieneAbierta(a)) || Number(esObjetivo(b)) - Number(esObjetivo(a)),
-  )
 
   /** El avance de cada módulo de Ingreso a aerolínea, en el orden de la lista. */
   const avances = MODULOS_AEROLINEA.map((m, i) => {
@@ -397,9 +402,9 @@ export function Dashboard() {
 
       <div className="mt-10">
         <PerfilFrenteAerolineas
-          aerolineas={aerolineasEnOrden}
-          horasPiloto={totalHoras}
+          aerolineas={aerolineas}
           convocatorias={convocatorias}
+          piloto={{ horas: totalHoras, icao: icaoMeasured ? icaoLevel : null, pais: paisDelPiloto }}
           cargando={deferredLoading}
         />
       </div>
