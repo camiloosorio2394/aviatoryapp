@@ -35,24 +35,28 @@ export interface SubjectRowData {
  * Con la foto, once filas de 112 px eran una columna de más de una pantalla
  * para once datos. En contenedores anchos (@6xl) la lista va a dos columnas,
  * dos materias por renglón, cada columna con su propia cabecera y una rejilla
- * más apretada (foto de 92 px, preguntas y avance más cortos) para que los
- * nombres largos sigan cabiendo. Por debajo de ese ancho, una sola columna.
+ * más apretada (foto de 92 px, preguntas a 88 px y avance a 140 px) para que
+ * los nombres largos sigan cabiendo. Por debajo de ese ancho, una sola columna.
+ *
+ * Los rótulos de la cabecera van en la letra de titulares de la marca
+ * (Playfair, `.titular`), centrados sobre su columna y a 15 px: el rótulo
+ * pequeño en mayúsculas se montaba con el vecino al estrecharse la columna y
+ * Camilo lo quería más grande y más elegante. La primera celda no lleva
+ * rótulo: el título de la sección ya dice «Materias».
  */
 const CABECERA =
-  "nh-display grid grid-cols-[1fr_96px_212px_36px] gap-4 px-5 py-3 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground @6xl:grid-cols-[1fr_56px_132px_24px] @6xl:gap-3"
+  "titular grid grid-cols-[1fr_96px_212px_36px] items-baseline gap-4 px-5 py-3 text-[15px] font-semibold text-foreground/75 @6xl:grid-cols-[1fr_88px_140px_24px] @6xl:gap-3"
 
 export function SubjectTable({ rows, enCurso }: { rows: SubjectRowData[]; enCurso?: string | null }) {
   return (
     <div className="overflow-hidden rounded-2xl surface">
       <div className="hidden border-b border-border @2xl:grid @6xl:grid-cols-2 @6xl:divide-x @6xl:divide-border">
-        {/* Dos cabeceras iguales: la segunda solo existe cuando hay dos columnas.
-            La primera celda no lleva rótulo: el de la sección, justo encima, ya
-            dice «Materias», y «Materias» sobre «Materia» se leía repetido. */}
+        {/* Dos cabeceras iguales: la segunda solo existe cuando hay dos columnas. */}
         {[0, 1].map((columna) => (
           <div key={columna} className={`${CABECERA}${columna === 1 ? " hidden @6xl:grid" : ""}`} aria-hidden={columna === 1}>
             <span />
-            <span className="text-right">Preguntas</span>
-            <span>Tu avance</span>
+            <span className="text-center">Preguntas</span>
+            <span className="text-center">Tu avance</span>
             <span />
           </div>
         ))}
@@ -109,7 +113,7 @@ function SubjectRow({
     <li className={bordes}>
       <Link
         to={`/app/pca/quiz/${data.slug}?module=pca&count=${quizCount}`}
-        className="group grid grid-cols-[1fr_36px] items-center gap-x-4 gap-y-2 px-5 py-3.5 transition-colors hover:bg-muted/60 @2xl:grid-cols-[1fr_96px_212px_36px] @6xl:grid-cols-[1fr_56px_132px_24px] @6xl:gap-x-3"
+        className="group grid grid-cols-[1fr_36px] items-center gap-x-4 gap-y-2 px-5 py-3.5 transition-colors hover:bg-muted/60 @2xl:grid-cols-[1fr_96px_212px_36px] @6xl:grid-cols-[1fr_88px_140px_24px] @6xl:gap-x-3"
       >
         <div className="flex min-w-0 items-center gap-3 @2xl:gap-4">
           {foto ? (
@@ -140,12 +144,14 @@ function SubjectRow({
           )}
         </div>
 
-        <div className="hidden text-right @2xl:block">
-          <span className="tabular text-[14px] text-foreground">{data.count}</span>
+        {/* Centrada bajo su rótulo, como el rótulo sobre ella. */}
+        <div className="hidden text-center @2xl:block">
+          <span className="tabular text-[15px] font-semibold text-foreground">{data.count}</span>
         </div>
 
-        {/* En móvil el avance baja a su propia línea, bajo el nombre. */}
-        <div className="col-span-2 row-start-2 @2xl:col-span-1 @2xl:row-start-auto">
+        {/* En móvil el avance baja a su propia línea, bajo el nombre; en ancho,
+            «Sin empezar» se centra bajo su rótulo y la barra ocupa la columna. */}
+        <div className="col-span-2 row-start-2 @2xl:col-span-1 @2xl:row-start-auto @2xl:text-center">
           {pct > 0 ? (
             <div className="flex items-center gap-3">
               {/* 6 px, extremo redondeado y cuadrado en la base, que es de

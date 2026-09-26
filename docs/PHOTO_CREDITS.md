@@ -112,6 +112,11 @@ SVG de PBN y RVSM que dibujaba `scripts/figuras/portadas.mjs`, retirado con
 ellos, y llenan el hueco CM-TEM-01 de Comunicaciones. `scripts/aerolinea/portadas-de-tema.test.ts`
 comprueba que cada portada registrada en `carasDeModulo.ts` existe.
 
+Los dos SVG (`pbn/tema-pbn.svg`, `rvsm/tema-rvsm.svg`) se quedan aunque ya nada
+los referencie: la PWA se actualiza con `registerType: prompt`, y un piloto que
+siga con el bundle anterior los pide; sin ellos veía la tarjeta rota. Cuando
+ese bundle haya desaparecido de los navegadores se pueden borrar.
+
 | Archivo | Tarjeta |
 |---|---|
 | `pbn/tema-pbn.webp` | PBN (43 KB) |

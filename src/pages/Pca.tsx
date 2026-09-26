@@ -190,14 +190,17 @@ export function Pca() {
       </section>
 
       <section id="materias" className="mt-8 scroll-mt-6" aria-labelledby="pca-materias">
-        <div className="flex items-baseline justify-between gap-4">
-          <h2 id="pca-materias" className={ROTULO}>
+        {/* El título de la tabla va centrado, grande y en la letra de titulares
+            de la marca, con el conteo debajo: es la pieza principal de la
+            pantalla y Camilo la quería con más presencia que un rótulo. */}
+        <div className="text-center">
+          <h2 id="pca-materias" className="titular m-0 text-[28px] font-semibold leading-none text-foreground">
             Materias
           </h2>
           {!subjectsLoading && !error && rows.length > 0 && (
-            <span className="tabular text-[12.5px] text-muted-foreground">
+            <p className="tabular m-0 mt-2 text-[13px] text-muted-foreground">
               {rows.length} abiertas · {miles.format(bankTotal)} preguntas
-            </span>
+            </p>
           )}
         </div>
 
