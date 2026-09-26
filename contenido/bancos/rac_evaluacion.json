@@ -8,7 +8,7 @@
       "opciones": [
         "Sí: los dos tienen menos de 65, que es el tope del RAC 2",
         "Sí, si el comandante es PTL y el copiloto tiene PCA vigente",
-        "Sí: el tope es 65 y la regla de 60 solo aplica a vuelos internacionales",
+        "Sí: el tope es 65 y la regla de 60 es solo internacional",
         "No: en tripulación de más de un piloto solo uno puede pasar de 60 años"
       ],
       "correcta": 3,
@@ -60,7 +60,7 @@
         "Pierde validez el 31/12/2026 y debes tramitar la del RAC 61 pagando los derechos",
         "Sigue válida y, a más tardar el 31/08/2027, se reemplaza de oficio y sin costo por la del RAC 61",
         "Solo valía hasta el 31/07/2026; desde entonces queda suspendida hasta que pidas el reemplazo",
-        "Sigue rigiéndose por el RAC 2 sin fecha límite, porque se expidió antes de iniciar la transición"
+        "Sigue rigiéndose por el RAC 2 sin fecha límite, porque se expidió antes de que iniciara la transición"
       ],
       "correcta": 1,
       "explicacion": "Las licencias ya expedidas siguen válidas hasta el 31/08/2027 mientras mantengas sus requisitos, y a más tardar esa fecha la Aerocivil las reemplaza de oficio por las del RAC 61, en formato digital y sin costo. El 31/07/2026 era la fecha anterior a la ampliación.",
@@ -76,7 +76,7 @@
       "opciones": [
         "Sí: en tripulación de más de un piloto, menos de 65 si el copiloto es menor de 60",
         "No: con PTL, el PIC en transporte comercial siempre debe tener menos de 60 años",
-        "Solo en vuelos nacionales, porque en internacionales el límite del PIC es 60 años",
+        "Solo en vuelos nacionales, porque en los internacionales el límite del PIC es 60 años",
         "Sí, sin condiciones: el tope de 65 años no depende de la edad del copiloto"
       ],
       "correcta": 0,
@@ -126,7 +126,7 @@
       "enunciado": "Tu certificado Clase 1 vence el 30 de junio y haces el examen de renovación el 1 de junio. Según el RAC 67, ¿desde cuándo se cuenta la nueva vigencia?",
       "opciones": [
         "Desde el 1 de junio, la fecha del examen, y pierdes esos 29 días",
-        "Desde el 30 de junio, solo si renuevas dentro de los 15 días previos",
+        "Desde el 30 de junio, pero solo si renuevas dentro de los 15 días previos",
         "Desde el 30 de junio, porque renovaste dentro de los 45 días previos",
         "Desde el día en que la Aerocivil registre el nuevo certificado"
       ],
@@ -178,7 +178,7 @@
       "opciones": [
         "Puedes tomar lo recetado; alcohol dentro de 2 h y lo demás dentro de 8 h",
         "No consumes ninguna sustancia hasta la prueba; alcohol dentro de 8 h y lo demás en 32 h",
-        "Solo se hace si un supervisor del programa documenta por escrito una sospecha justificada",
+        "Solo se hace si un supervisor documenta por escrito una sospecha justificada",
         "Se hace al día siguiente, para no demorar la atención médica que necesites"
       ],
       "correcta": 1,
@@ -196,7 +196,7 @@
         "Al menos 1 año de solicitudes rechazadas y suspensión o cancelación inmediata de atribuciones",
         "Una amonestación escrita de la empresa y una nueva prueba programada al mes siguiente",
         "Suspensión de la licencia por 60 días, sin ningún efecto sobre tu certificado médico",
-        "Ninguna, si dentro de las 48 horas siguientes entregas una prueba negativa hecha en otro laboratorio"
+        "Ninguna, si en 48 horas entregas una prueba negativa de otro laboratorio"
       ],
       "correcta": 0,
       "explicacion": "Negarte acarrea el rechazo de cualquier solicitud de licencia o habilitación por al menos un año, la suspensión o cancelación inmediata de tus atribuciones y la suspensión de tu aptitud psicofísica. La empresa notifica la negativa a la Aerocivil en máximo 48 horas (120.105).",
@@ -229,7 +229,7 @@
       "opciones": [
         "MAYDAY MAYDAY MAYDAY COMBUSTIBLE, porque ya es una emergencia",
         "COMBUSTIBLE MÍNIMO, que no es una situación de emergencia",
-        "PAN PAN PAN COMBUSTIBLE, porque es una situación de urgencia",
+        "PAN PAN PAN COMBUSTIBLE, por ser una urgencia",
         "Nada todavía: solo se declara al empezar a usar la reserva final"
       ],
       "correcta": 1,
@@ -262,7 +262,7 @@
       "enunciado": "Vas a salir VFR de un aeródromo dentro de una zona de control. El techo es de 1.200 ft y la visibilidad en tierra, de 6 km. Según el RAC 91, ¿puedes despegar?",
       "opciones": [
         "Solo con autorización ATC: el techo es inferior a 1.500 ft",
-        "Sí, porque la visibilidad en tierra es superior a 5 km",
+        "Sí, porque la visibilidad en tierra es superior a 5 km y eso basta",
         "Sí, porque el techo es superior a 1.000 ft sobre el terreno",
         "No, en ningún caso: el VFR exige un techo de 3.000 ft"
       ],
@@ -279,7 +279,7 @@
       "enunciado": "Eres piloto comercial sin habilitación IFR y quieres hacer un vuelo VFR nocturno entre dos aeródromos iluminados de una misma área autorizada. Según el RAC 91, ¿puedes hacerlo como PIC?",
       "opciones": [
         "Sí, porque los dos aeródromos tienen la iluminación reglamentaria",
-        "Sí, si llevas la reserva final de 45 minutos del VFR nocturno",
+        "Sí, si llevas la reserva final de 45 minutos que exige el VFR nocturno",
         "No: necesitas habilitación IFR y chequeo de instrumentos vigente",
         "No: en Colombia no existe ningún tipo de vuelo VFR de noche"
       ],
@@ -313,7 +313,7 @@
       "enunciado": "Te autorizan a aterrizar, pero no aterrizas y la torre pierde el contacto contigo. Según el RAC 211, ¿cuándo se declara la fase de alerta (ALERFA)?",
       "opciones": [
         "De inmediato, al perderse el contacto con la torre",
-        "Si no aterrizas en 30 minutos tras la hora prevista de llegada",
+        "Si no aterrizas en 30 minutos tras la hora prevista de llegada al aeródromo",
         "Si no aterrizas en 5 minutos tras la hora prevista de aterrizaje",
         "Si no aterrizas dentro de los 15 minutos siguientes a la autorización"
       ],
@@ -364,7 +364,7 @@
       "enunciado": "Tu explotador necesita probar un ELT durante 40 segundos en una revisión. Según el RAC 212, ¿qué debe hacer?",
       "opciones": [
         "Avisar al RCC por correo con al menos 24 horas de antelación",
-        "Nada especial: el límite de 20 segundos solo aplica en vuelo",
+        "Nada especial: el límite de 20 s solo aplica en vuelo",
         "Avisar a la torre por radio justo antes de iniciar la prueba",
         "Avisar a la Aerocivil por escrito con al menos 10 días de antelación"
       ],
@@ -618,12 +618,12 @@
       "id": "ev-37",
       "enunciado": "Tu vuelo fue objeto de un acto de interferencia ilícita y ya aterrizaste. Como PIC, ¿qué te corresponde según el RAC 121 y el RAC 160?",
       "opciones": [
-        "Presentar sin demora un informe sobre el acto a la Aerocivil.",
+        "Esperar a que el explotador lo incluya en su informe anual de seguridad.",
         "Notificar el hecho a la OACI dentro de los 30 días siguientes.",
         "Informar a los medios para tranquilizar a los familiares de los pasajeros.",
-        "Esperar a que el explotador lo incluya en su informe anual de seguridad."
+        "Presentar sin demora un informe sobre el acto a la Aerocivil."
       ],
-      "correcta": 0,
+      "correcta": 3,
       "explicacion": "Después de un acto de interferencia ilícita, el PIC presenta sin demora un informe a la Aerocivil. Las notificaciones a la OACI y la información a los medios corresponden en forma exclusiva al Director General de la Aerocivil.",
       "referencia": "RAC 121, 121.6125; RAC 160, 160.1745 (a)",
       "metadatos": {

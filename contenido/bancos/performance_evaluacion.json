@@ -38,12 +38,12 @@
       "id": "ev-03",
       "enunciado": "¿Qué describe la altitud de densidad?",
       "opciones": [
-        "La altitud de presión corregida por temperatura",
+        "La altitud máxima que el avión puede sostener hoy",
         "La elevación corregida por el QNH del momento",
         "La altitud que marca el altímetro con 1013 puesto",
-        "La altitud máxima que el avión puede sostener hoy"
+        "La altitud de presión corregida por temperatura"
       ],
-      "correcta": 0,
+      "correcta": 3,
       "explicacion": "Es la altitud a la que, en atmósfera estándar, encontrarías la densidad que hay hoy aquí. No se introduce en ningún cálculo: el sistema trabaja con presión y temperatura por separado. Sirve para entender la penalización. Lo que marca el altímetro con 1013 es la altitud de presión.",
       "metadatos": {
         "nivel": 1,
@@ -56,7 +56,7 @@
       "opciones": [
         "A la ASDA, porque ayuda a detener el avión",
         "A la TODA, porque es aire despejado para subir",
-        "A la TORA, porque alarga la carrera disponible",
+        "A la TORA, porque alarga la carrera de despegue disponible",
         "A la LDA, porque protege la aproximación"
       ],
       "correcta": 1,
@@ -102,7 +102,7 @@
       "id": "ev-07",
       "enunciado": "En la demostración de VMCG, ¿con qué se mantiene el avión sobre el eje?",
       "opciones": [
-        "Con timón y frenos diferenciales",
+        "Con timón y frenos",
         "Con timón y dirección de rueda de nariz",
         "Con timón, alerones y empuje asimétrico",
         "Solo con el timón de dirección"
@@ -151,11 +151,11 @@
       "enunciado": "¿Qué garantiza la velocidad de rotación elegida en el cálculo?",
       "opciones": [
         "Que el tren se pueda retraer sin sobrecarga",
-        "Que el avión alcance V2 antes de los 35 ft",
+        "Que el avión despegue por encima de VMBE",
         "Que la carrera no supere el 115 % de la disponible",
-        "Que el avión despegue por encima de VMBE"
+        "Que el avión alcance V2 antes de los 35 ft"
       ],
-      "correcta": 1,
+      "correcta": 3,
       "explicacion": "VR está elegida para que la trayectoria certificada se cumpla: con un motor menos, el avión tiene que llegar a 35 ft con V2. Además no puede ser menor que V1 ni que el 105 % de VMC. Por eso rotar antes o más lento que lo previsto consume pista que el cálculo no tenía.",
       "metadatos": {
         "nivel": 2,
@@ -184,10 +184,10 @@
       "opciones": [
         "Adelanta el despegue y acorta la carrera disponible",
         "No cambia nada mientras el avión alcance V2 ya en el aire",
-        "Sube la resistencia y puede no llegar a la velocidad exigida",
-        "Mejora el gradiente porque el ala empieza a trabajar antes"
+        "Mejora el gradiente porque el ala empieza a trabajar antes",
+        "Sube la resistencia y puede no llegar a la velocidad exigida"
       ],
-      "correcta": 2,
+      "correcta": 3,
       "explicacion": "Levantar la nariz antes de tiempo aumenta la resistencia y el avión puede no tener la velocidad exigida al pasar los 35 ft, además del riesgo de golpear la cola. Los números suponen una rotación a la velocidad y al ritmo usados en la certificación.",
       "metadatos": {
         "nivel": 2,
@@ -199,11 +199,11 @@
       "enunciado": "La distancia de aceleración y parada incluye un tramo equivalente a dos segundos rodando a V1. ¿Qué representa?",
       "opciones": [
         "El tiempo que tarda el piloto en reconocer la falla",
-        "Un margen que añade la norma sobre la maniobra demostrada",
+        "El tiempo de respuesta del sistema de frenos",
         "El retardo en desplegar los spoilers automáticos",
-        "El tiempo de respuesta del sistema de frenos"
+        "Un margen que añade la norma sobre la maniobra demostrada"
       ],
-      "correcta": 1,
+      "correcta": 3,
       "explicacion": "El tiempo de reconocimiento ya está contado entre VEF y V1. Esos dos segundos son un margen añadido por la norma para cubrir las demoras y la dispersión de una operación real frente a la maniobra de ensayo, y se suman a la distancia de parada.",
       "metadatos": {
         "nivel": 2,
@@ -214,12 +214,12 @@
       "id": "ev-14",
       "enunciado": "En pista seca, ¿qué papel tiene la reversa en la distancia de aceleración y parada certificada?",
       "opciones": [
-        "Ninguno: no se acredita como medio de desaceleración",
+        "Se acredita igual que en pista mojada",
         "Se acredita al 50 % de su efecto demostrado",
         "Se acredita solo si hay dos reversas operativas",
-        "Se acredita igual que en pista mojada"
+        "Ninguno: no se acredita como medio de desaceleración"
       ],
-      "correcta": 0,
+      "correcta": 3,
       "explicacion": "En seco la distancia se demuestra solo con frenos y spoilers. La reversa es margen que tienes pero que el número no te vendió. En mojado cambia: ahí sí puede acreditarse con los procedimientos recomendados, y entonces una reversa inoperativa sí afecta el cálculo.",
       "metadatos": {
         "nivel": 2,
@@ -231,11 +231,11 @@
       "enunciado": "Vas a despegar de una pista mojada con una reversa desactivada por lista de desviaciones. ¿Por qué importa más que en seco?",
       "opciones": [
         "Porque en mojado el frenado automático no funciona",
-        "Porque en mojado la reversa puede estar dentro del cálculo",
+        "Porque en mojado V1 se calcula sin margen de parada",
         "Porque en mojado la reversa sustituye a los spoilers",
-        "Porque en mojado V1 se calcula sin margen de parada"
+        "Porque en mojado la reversa puede estar dentro del cálculo"
       ],
-      "correcta": 1,
+      "correcta": 3,
       "explicacion": "En seco la reversa nunca estuvo contabilizada, así que perderla no cambia el número. En mojado puede estar acreditada como medio adicional de desaceleración, y entonces perder una sí alarga la distancia de parada calculada.",
       "metadatos": {
         "nivel": 2,
@@ -294,7 +294,7 @@
       "id": "ev-19",
       "enunciado": "¿Por qué un despegue rechazado a alta velocidad es tan crítico?",
       "opciones": [
-        "Porque los spoilers pierden efecto por encima de cierta velocidad",
+        "Porque los spoilers pierden su efecto por encima de cierta velocidad",
         "Porque la energía a disipar crece con el cuadrado de la velocidad",
         "Porque la reversa deja de acreditarse a alta velocidad",
         "Porque el timón pierde autoridad al frenar fuerte"
@@ -310,7 +310,7 @@
       "id": "ev-20",
       "enunciado": "¿Con cuál de las trayectorias de despegue se comprueba que el avión libra un obstáculo?",
       "opciones": [
-        "Con la trayectoria real de ese día",
+        "Con la real de ese día",
         "Con la demostrada en certificación",
         "Con la neta, que viene degradada",
         "Con el promedio de la real y la demostrada"
@@ -374,12 +374,12 @@
       "id": "ev-24",
       "enunciado": "Hasta 400 ft sobre la superficie, ¿qué exige la norma durante el despegue?",
       "opciones": [
-        "Mantener la velocidad lo más cerca posible de V2 sin bajar de ella",
+        "Reducir a empuje de ascenso en cuanto se libra el obstáculo",
         "Retraer los flaps en cuanto el tren esté arriba",
         "Acelerar hasta la velocidad de configuración limpia",
-        "Reducir a empuje de ascenso en cuanto se libra el obstáculo"
+        "Mantener la velocidad lo más cerca posible de V2 sin bajar de ella"
       ],
-      "correcta": 0,
+      "correcta": 3,
       "explicacion": "Hasta 400 ft no se hace ningún cambio de empuje que requiera acción del piloto y la velocidad se mantiene lo más cerca posible de V2, nunca por debajo. La aceleración y la retracción de flaps vienen después, en el segmento de aceleración.",
       "metadatos": {
         "nivel": 3,
@@ -440,10 +440,10 @@
       "opciones": [
         "Que lo diseñó el control de tránsito para separar tráfico",
         "Que se vuela con todos los motores a empuje reducido",
-        "Que está pensado para librar terreno con un motor menos",
-        "Que solo aplica de noche o en baja visibilidad"
+        "Que solo aplica de noche o en baja visibilidad",
+        "Que está pensado para librar terreno con un motor menos"
       ],
-      "correcta": 2,
+      "correcta": 3,
       "explicacion": "La salida publicada se diseñó para ordenar el tránsito con todos los motores, y supone gradientes que un avión con uno menos puede no sostener. El procedimiento con motor inoperativo lo diseña el operador para librar el terreno y puede llevarte por otro lado.",
       "metadatos": {
         "nivel": 3,
@@ -455,7 +455,7 @@
       "enunciado": "El cálculo devuelve un peso máximo por cada limitación. ¿Cuál manda?",
       "opciones": [
         "El menor de todos",
-        "El promedio de todos",
+        "El promedio",
         "El estructural, siempre",
         "El de pista, salvo que haya obstáculos"
       ],
@@ -471,11 +471,11 @@
       "enunciado": "Para que un despegue sea legal por longitud de pista, ¿qué debe cumplirse?",
       "opciones": [
         "Que la carrera hasta la rotación quepa en la TORA",
-        "Que parar quepa en la ASDA y continuar quepa en la TODA",
+        "Que la TODA sea mayor que la ASDA",
         "Que la distancia de parada quepa en la TORA",
-        "Que la TODA sea mayor que la ASDA"
+        "Que parar quepa en la ASDA y continuar quepa en la TODA"
       ],
-      "correcta": 1,
+      "correcta": 3,
       "explicacion": "Son dos condiciones a la vez, y ninguna sustituye a la otra: la distancia de aceleración y parada tiene que caber en la ASDA, y la de aceleración y continuación en la TODA. Además hay que comparar con el caso de todos los motores afectado por el 115 %.",
       "metadatos": {
         "nivel": 4,
@@ -614,7 +614,7 @@
       "id": "ev-39",
       "enunciado": "¿Cuándo se considera contaminada una pista?",
       "opciones": [
-        "Cuando hay humedad visible sobre cualquier parte del pavimento",
+        "Cuando hay humedad visible sobre el pavimento",
         "Cuando el contaminante cubre más del 25 % del área evaluada",
         "Cuando hay más de 1 mm de agua en cualquier punto de la superficie",
         "Cuando el frenado reportado baja de bueno a medio en algún tercio"
@@ -630,12 +630,12 @@
       "id": "ev-40",
       "enunciado": "¿Por qué la nieve fundente castiga el despegue más que una pista simplemente mojada?",
       "opciones": [
-        "Porque degrada el frenado y además frena la aceleración",
+        "Porque eleva la velocidad mínima de control en tierra",
         "Porque impide acreditar la reversa en el cálculo",
         "Porque obliga a usar la configuración de flaps máxima",
-        "Porque eleva la velocidad mínima de control en tierra"
+        "Porque degrada el frenado y además frena la aceleración"
       ],
-      "correcta": 0,
+      "correcta": 3,
       "explicacion": "El contaminante suelto añade resistencia mientras aceleras, así que llegas más tarde a V1 y a VR, y encima el frenado está degradado. Toca los dos lados del cálculo. Una pista mojada afecta sobre todo al frenado.",
       "metadatos": {
         "nivel": 4,
@@ -678,12 +678,12 @@
       "id": "ev-43",
       "enunciado": "Falla un motor en crucero y el avión no puede sostener el nivel. ¿Qué ocurre?",
       "opciones": [
-        "Desciende hasta una altitud que el empuje restante sí sostiene",
+        "Debe descender de inmediato a la altitud de transición",
         "Cae con régimen constante hasta el nivel mínimo de sector",
         "Mantiene el nivel reduciendo velocidad hasta la de mejor planeo",
-        "Debe descender de inmediato a la altitud de transición"
+        "Desciende hasta una altitud que el empuje restante sí sostiene"
       ],
-      "correcta": 0,
+      "correcta": 3,
       "explicacion": "Desciende lentamente, a una velocidad que optimiza el descenso, hasta la altitud donde el empuje que queda vuelve a igualar a la resistencia. Cuanto más pesa el avión, más baja queda esa altitud, y ahí está el problema de las rutas con terreno alto.",
       "metadatos": {
         "nivel": 5,
@@ -713,7 +713,7 @@
         "Sobre todo por la resistencia aerodinámica que generan",
         "Matando la sustentación y cargando el peso sobre las ruedas",
         "Desviando el flujo hacia los frenos para enfriarlos",
-        "Aumentando el ángulo de ataque para frenar por sustentación"
+        "Aumentando el ángulo de ataque para frenar con la sustentación"
       ],
       "correcta": 1,
       "explicacion": "El efecto principal no es aerodinámico: al destruir la sustentación ponen el peso del avión sobre los neumáticos, que es lo que permite a los frenos morder de verdad. Sin ellos, los frenos trabajan con mucha menos carga vertical.",
@@ -726,7 +726,7 @@
       "id": "ev-46",
       "enunciado": "¿Desde dónde se mide la distancia de aterrizaje certificada?",
       "opciones": [
-        "Desde el punto de toma de contacto",
+        "Desde la toma de contacto",
         "Desde 50 ft sobre el umbral",
         "Desde el umbral, a nivel del pavimento",
         "Desde 35 ft sobre el umbral"
@@ -889,7 +889,7 @@
         "Nada: la limitación no es de pista",
         "Algo de peso, porque la carrera se acorta",
         "Peso solo si además cambias la configuración de flaps",
-        "Una V1 más alta y más margen de parada"
+        "Más V1 y más margen de parada"
       ],
       "correcta": 0,
       "explicacion": "Lo que falta es capacidad de ascenso con un motor inoperativo, y la pista no interviene. Lo que sí movería el resultado es menos peso, menos flaps o menos temperatura. Si en cambio la limitación fuera de pista, esa pista más larga sería exactamente la solución.",

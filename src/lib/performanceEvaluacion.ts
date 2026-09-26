@@ -20,7 +20,9 @@
  *     donde la FAA y EASA difieren se dice cuál es cuál.
  *   - La correcta no se delata por larga. Medido sobre las sesenta: la razón
  *     entre la correcta y la siguiente más larga tiene mediana 0,94 y máximo
- *     1,14, y la correcta es la más larga en 24 y la más corta en 22.
+ *     1,14, y la correcta es la más larga en 21 y la más corta en 16 (contando
+ *     empates: en cinco de cálculo las cuatro cifras miden lo mismo). Cada
+ *     letra es la correcta en 15.
  */
 
 export const PERF_EVALUACION_META = {

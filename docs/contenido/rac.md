@@ -281,7 +281,7 @@ Hasta 10 h de las de doble comando pueden ser en planeador, si el programa lo ap
 
 **u01-q2** · Según el RAC 2, ¿con qué periodicidad deben hacer repaso, entrenamiento y chequeo de proeficiencia los PTL y los pilotos y copilotos PCA?
 - A) Una vez cada 12 meses calendario, en el mes de su cumpleaños
-- B) Dos veces cada 12 meses calendario, con intervalos de 3 a 9 meses
+- B) Dos veces cada 12 meses, con intervalos de 3 a 9 meses
 - C) Una vez cada 24 meses calendario, con un repaso de tierra anual
 - D) Dos veces cada 12 meses calendario, con intervalos de 5 a 7 meses
 **Correcta:** D · **Tema:** U01 · **Referencia:** RAC 2, 2.2.1.1.4 (b)
@@ -446,7 +446,7 @@ Los tiempos de vuelo, servicio y descanso de las tripulaciones de aerolínea no 
 **u02-q3** · Según el RAC 61, que aplica desde el 31/08/2027: vas a actuar como PIC en un vuelo IFR y no tienes una verificación de competencia reciente. ¿Qué experiencia por instrumentos necesitas?
 - A) 3 horas de instrumentos y 3 aproximaciones en los últimos 90 días
 - B) 6 aproximaciones en los últimos 90 días, sin un mínimo de horas
-- C) 12 horas de instrumentos y 12 aproximaciones en los últimos 12 meses
+- C) 12 horas y 12 aproximaciones en los últimos 12 meses
 - D) 6 horas en 6 meses, 3 en la categoría, con al menos 6 aproximaciones
 **Correcta:** D · **Tema:** U02 · **Referencia:** RAC 61, 61.140 (c)(1)
 **Explicación:** Para ser PIC en IFR necesitas, en los últimos 6 meses, 6 horas de vuelo por instrumentos (3 en la categoría de la aeronave) con al menos 6 aproximaciones, o una verificación de competencia en esa categoría. Los 90 días son de la recencia de despegues y aterrizajes (61.140(a)).
@@ -603,7 +603,7 @@ Límites de edad para volar en aerolínea: no están en el RAC 67. Este tema se 
 **u03-q3** · Una lesión te deja con reposo médico de 25 días, sin hospitalización ni medicamentos continuos. Según el RAC 67, ¿debes informarlo a Medicina Aeronáutica de la Aerocivil?
 - A) Sí: se informa toda disminución de aptitud de más de 20 días
 - B) No: solo se informa cuando hubo hospitalización
-- C) No: solo se informa si la incapacidad médica supera los 45 días
+- C) No: solo si la incapacidad médica supera los 45 días
 - D) Solo si tu certificado médico vence durante la incapacidad
 **Correcta:** A · **Tema:** U03 · **Referencia:** RAC 67, 67.040 (d)
 **Explicación:** Debes informar toda disminución de aptitud de más de 20 días, la que exija tratamiento continuo con medicamentos recetados o la que haya requerido hospitalización: basta una de las tres. Además, dejas de ejercer apenas sepas que tu aptitud disminuyó (67.040(a)).
@@ -711,7 +711,7 @@ La empresa no te deja cumplir funciones sensibles hasta que la Aerocivil decida 
 **u04-q1** · Tienes vuelo a las 06:00 y anoche tomaste vino en una cena. Según el RAC 120, ¿cuántas horas mínimas deben pasar entre la última bebida y el inicio de tus funciones?
 - A) 8 horas desde la última bebida, sin importar la cantidad
 - B) 12 horas desde la última bebida, sin importar la cantidad
-- C) 24 horas si tomaste más de dos copas, y 12 horas si fueron menos
+- C) 24 horas si tomaste más de dos copas; 12 si fueron menos
 - D) No fija horas: debes dar negativo y no estar bajo su efecto
 **Correcta:** D · **Tema:** U04 · **Referencia:** RAC 120, 120.025 (a) y 120.001 (Nivel de aceptación; Resultado positivo, Nota)
 **Explicación:** El RAC 120 no fija horas entre la última bebida y el servicio: prohíbe estar bajo el efecto de cualquier sustancia psicoactiva en funciones, y el nivel aceptado es un resultado negativo (corte de alcohol: 20 mg/dL). Si tu aerolínea fija un plazo en su manual, también lo cumples.
@@ -719,7 +719,7 @@ La empresa no te deja cumplir funciones sensibles hasta que la Aerocivil decida 
 **u04-q2** · Según el RAC 120, ¿qué sustancias deben buscarse como mínimo en los exámenes toxicológicos del personal aeronáutico?
 - A) Alcohol, opioides, cannabinoides, cocaína, anfetaminas y cafeína
 - B) Alcohol, opioides, cannabinoides, cocaína, anfetaminas y benzodiacepinas
-- C) Alcohol, cannabinoides, cocaína, tabaco, anfetaminas, opioides y cafeína
+- C) Alcohol, cannabinoides, cocaína, tabaco, anfetaminas, opioides y la cafeína
 - D) Solo alcohol y cannabinoides; lo demás queda a criterio de la empresa
 **Correcta:** B · **Tema:** U04 · **Referencia:** RAC 120, 120.310 (a)
 **Explicación:** El 120.310(a) fija como mínimo alcohol, opioides, cannabinoides, cocaína, anfetaminas y benzodiacepinas, y la empresa puede buscar más. El tabaco y la cafeína están excluidos de la definición de sustancias psicoactivas (120.001).
@@ -907,14 +907,14 @@ En clase A los valores son solo orientación: no se aceptan vuelos VFR. En F y G
 
 **u05-q3** · Vuelas IFR en IMC, en espacio aéreo con radar, y pierdes las comunicaciones. Pones 7600. Según el RAC 91, ¿durante cuánto tiempo mantienes el último nivel y velocidad asignados antes de ajustarlos al plan de vuelo?
 - A) 7 minutos, desde lo último entre alcanzar el nivel, poner 7600 o no notificar
-- B) 20 minutos, desde que dejaste de notificar un punto de notificación obligatoria
+- B) 20 minutos, desde que dejaste de notificar un punto obligatorio
 - C) 3 minutos, contados desde que pusiste el código 7600 en el transpondedor
 - D) 30 minutos, contados desde la última hora prevista de aproximación recibida
 **Correcta:** A · **Tema:** U05 · **Referencia:** RAC 91, 91.265 (b)(2)(ii)
 **Explicación:** Donde se usa radar, mantienes el último nivel y velocidad asignados (o la altitud mínima, si es mayor) durante 7 minutos, contados desde lo que ocurra más tarde entre alcanzar el nivel, poner 7600 o dejar de notificar un punto obligatorio. Los 20 minutos aplican donde no se usa radar.
 
 **u05-q4** · En una aproximación por instrumentos, todavía antes del tramo de aproximación final y a 2.000 ft sobre la elevación del aeródromo, te informan un RVR de control inferior al mínimo. Según el RAC 91, ¿qué aplica?
-- A) Puedes seguir hasta la DA/H, porque ya estás establecido en la aproximación
+- A) Puedes seguir hasta la DA/H: ya estás establecido en la aproximación
 - B) No puedes continuar por debajo de 500 ft sobre la elevación del aeródromo
 - C) Solo puedes seguir si el techo reportado está por encima de 1.000 ft
 - D) No puedes continuar por debajo de 1.000 ft sobre la elevación del aeródromo
@@ -1044,11 +1044,11 @@ Organiza el espacio aéreo colombiano y fija cómo se prestan los servicios de t
 **Explicación:** En la tabla colombiana, los VFR necesitan autorización ATC en las clases B, C y D, pero no en E, F ni G. El error típico es creer que la clase E la exige a todos: solo se la exige a los IFR.
 
 **u06-q2** · La torre te transmite por voz varias instrucciones y datos. Según el RAC 211, ¿cuál de estos elementos debes colacionar obligatoriamente?
-- A) El viento en la superficie
+- A) El reglaje de altímetro
 - B) La información de tránsito
-- C) El reglaje de altímetro
+- C) El viento en la superficie
 - D) La temperatura del aeródromo
-**Correcta:** C · **Tema:** U06 · **Referencia:** RAC 211, 211.555 (d)(1)(iii)
+**Correcta:** A · **Tema:** U06 · **Referencia:** RAC 211, 211.555 (d)(1)(iii)
 **Explicación:** Se colacionan siempre las autorizaciones de ruta, las de entrar, aterrizar, despegar, esperar, cruzar o regresar en una pista, y la pista en uso, el reglaje de altímetro, los códigos SSR, las instrucciones de nivel, rumbo y velocidad y los niveles de transición. Lo demás se colaciona o se acusa recibo de forma que quede claro que se entendió.
 
 **u06-q3** · Según el RAC 211, ¿entre qué niveles de vuelo se aplica en Colombia la separación vertical mínima reducida (RVSM) de 1.000 ft?
@@ -1180,7 +1180,7 @@ Los símbolos miden **al menos 2,5 m (8 ft)** (Apéndice 1, 2.3).
 ### Quiz · U07 · RAC 212
 
 **u07-q1** · De día, sobrevuelas a unos supervivientes que hicieron una señal en tierra y la entendiste. Según el RAC 212, ¿cómo se lo indicas desde el aire?
-- A) Describiendo un círculo sobre ellos
+- A) Volando en círculo sobre ellos
 - B) Cabeceando el morro varias veces
 - C) Con dos destellos de los faros de aterrizaje
 - D) Alabeando las alas de la aeronave
@@ -1279,7 +1279,7 @@ Y cualquier otra cosa que el **piloto al mando** estime que puede afectar la seg
 **Explicación:** Obligan a una observación especial la turbulencia y el engelamiento moderados o fuertes, la onda orográfica fuerte, ciertas tormentas, las tempestades fuertes de polvo o arena, las cenizas y la actividad volcánica, y el frenado peor que el notificado. Lo ligero y la onda orográfica moderada no están en la lista.
 
 **u08-q2** · En el despacho te entregan un SIGMET por cenizas volcánicas que afecta tu ruta. Según el RAC 203, ¿cuál es el período máximo de validez de ese tipo de SIGMET?
-- A) 4 horas, igual que cualquier otro SIGMET
+- A) 4 horas, como cualquier SIGMET
 - B) 2 horas, igual que un pronóstico de tendencia
 - C) 12 horas, contadas desde que se emite
 - D) 6 horas, por ser de cenizas volcánicas
@@ -1351,7 +1351,7 @@ Si un inspector acreditado de la Aerocivil se presenta ante el **piloto al mando
 
 **u09-q2** · Una empresa quiere hacer vuelos regulares de pasajeros con un turborreactor de 12 asientos y 5.600 kg de peso máximo de despegue. Según el RAC 119, ¿bajo qué reglamento debe operar?
 - A) RAC 135, porque tiene 19 asientos o menos
-- B) RAC 135, porque no supera los 5.700 kg de peso
+- B) RAC 135, porque no supera 5.700 kg
 - C) RAC 121, porque es un turborreactor regular
 - D) RAC 91, porque es un avión pequeño
 **Correcta:** C · **Tema:** U09 · **Referencia:** RAC 119, 119.110 (a)(1)(i)
@@ -1898,7 +1898,7 @@ Es la norma colombiana de seguridad de la aviación (AVSEC), basada en el Anexo 
 
 **u13-q3** · Según el RAC 160, ¿en qué condiciones puede un explotador comercial transportar armas y municiones?
 - A) Solo en bodega, descargadas, con legalidad verificada y en un lugar inaccesible durante el vuelo.
-- B) En la cabina de pasajeros, siempre que las porte personal armado autorizado por la empresa aérea.
+- B) En la cabina de pasajeros, siempre que las porte personal armado autorizado por la propia empresa aérea.
 - C) En la cabina de mando, bajo la custodia directa del piloto al mando.
 - D) En el equipaje de mano, si el pasajero presenta su permiso de porte vigente.
 **Correcta:** A · **Tema:** U13 · **Referencia:** RAC 160, 160.1400 (b) y 160.1415 (a)
@@ -1982,7 +1982,7 @@ Entre otros: explotadores **RAC 121** y **RAC 135**, operadores de aviación gen
 - A) Instrucción, comunicación, gestión del cambio y mejora continua.
 - B) Política y objetivos, gestión de riesgos, aseguramiento y promoción de la seguridad.
 - C) Prevención, investigación, sanción y divulgación de los sucesos.
-- D) Identificación de peligros, notificación obligatoria, auditoría y análisis de datos de vuelo.
+- D) Identificación de peligros, notificación, auditoría y análisis de datos.
 **Correcta:** B · **Tema:** U14 · **Referencia:** RAC 219, 219.105
 **Explicación:** El SMS tiene 4 componentes y 12 elementos. Instrucción, comunicación, gestión del cambio y mejora continua son elementos dentro de los componentes de aseguramiento y promoción, no componentes.
 
@@ -2079,9 +2079,9 @@ Ejemplos que **pueden** ser incidente grave (Adjunto C): cuasi colisiones que ex
 
 **u15-q1** · Según el RAC 114, ¿cuál es el único objetivo de investigar un accidente o incidente de aviación?
 - A) Prevenir futuros accidentes e incidentes.
-- B) Determinar la culpa y la responsabilidad de los involucrados.
+- B) Determinar la culpa de los involucrados.
 - C) Fijar la sanción que corresponde al explotador o a la tripulación.
-- D) Establecer el monto de las indemnizaciones del seguro.
+- D) Fijar las indemnizaciones del seguro.
 **Correcta:** A · **Tema:** U15 · **Referencia:** RAC 114, 114.200 (a)
 **Explicación:** El único objetivo es la prevención; la investigación no busca determinar culpa ni responsabilidad. Si el investigador detecta una posible infracción, la traslada a la dependencia sancionadora, que actúa por separado (RAC 13, 13.1020).
 
@@ -2212,7 +2212,7 @@ Si acumulas **más de un período de vacaciones** sin disfrutar, quedas **suspen
 **u16-q1** · Cometiste una infracción técnica que no tuvo consecuencias. Según el RAC 13, ¿cuál de estas actuaciones tuyas cuenta como atenuante?
 - A) Haberla cometido para ocultar otra falta anterior.
 - B) Presentarte voluntariamente ante la autoridad e informar la falta.
-- C) Haber aprovechado una situación de calamidad o infortunio para cometerla.
+- C) Haber aprovechado una calamidad o infortunio para cometerla.
 - D) Haber actuado en coparticipación con otro tripulante.
 **Correcta:** B · **Tema:** U16 · **Referencia:** RAC 13, 13.300 (a)(2) y parágrafo; 13.300 (b)
 **Explicación:** Presentarse voluntariamente e informar la falta es atenuante y reduce la multa un 16,66 %. Las otras tres son agravantes, que la aumentan.
@@ -2353,7 +2353,7 @@ El RAC 1 es el diccionario oficial de todos los RAC: fija el significado de los 
 **Explicación:** Si hay discrepancia, prevalece la definición del RAC particular sobre la del RAC 1, pero solo para los asuntos propios de ese RAC. Si un RAC no define una palabra, se entiende como la define el RAC 1.
 
 **u17-q2** · Según las definiciones del RAC 1, ¿cuál es la diferencia entre la altitud de decisión (DA) y la altura de decisión (DH)?
-- A) La DA se usa en aproximaciones que no son de precisión y la DH en las de precisión.
+- A) La DA se usa en aproximaciones de no precisión y la DH en las de precisión.
 - B) La DA va referida al nivel medio del mar; la DH, a la zona de toma de contacto.
 - C) La DA se expresa en metros y la DH en pies, pero indican el mismo punto.
 - D) La DA va referida a la elevación del aeródromo y la DH al nivel medio del mar.
@@ -2497,7 +2497,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 **ev-01** · En una aerolínea de transporte público regular te programan como copiloto, con 61 años, junto a un comandante de 63. Según el RAC 2, ¿es válida esa tripulación?
 - A) Sí: los dos tienen menos de 65, que es el tope del RAC 2
 - B) Sí, si el comandante es PTL y el copiloto tiene PCA vigente
-- C) Sí: el tope es 65 y la regla de 60 solo aplica a vuelos internacionales
+- C) Sí: el tope es 65 y la regla de 60 es solo internacional
 - D) No: en tripulación de más de un piloto solo uno puede pasar de 60 años
 **Correcta:** D · **Tema:** U01 · **Referencia:** RAC 2, 2.2.1.11
 **Explicación:** En servicios aéreos comerciales de transporte público nadie actúa como comandante o copiloto una vez cumplidos 65 años y, en tripulaciones de más de un piloto, solo uno puede tener más de 60. Con 63 y 61 años, los dos pasan de 60.
@@ -2522,14 +2522,14 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 - A) Pierde validez el 31/12/2026 y debes tramitar la del RAC 61 pagando los derechos
 - B) Sigue válida y, a más tardar el 31/08/2027, se reemplaza de oficio y sin costo por la del RAC 61
 - C) Solo valía hasta el 31/07/2026; desde entonces queda suspendida hasta que pidas el reemplazo
-- D) Sigue rigiéndose por el RAC 2 sin fecha límite, porque se expidió antes de iniciar la transición
+- D) Sigue rigiéndose por el RAC 2 sin fecha límite, porque se expidió antes de que iniciara la transición
 **Correcta:** B · **Tema:** U01 · **Referencia:** RAC 61, Normas de transición (c) y (d), en el texto de la Res. 02543 de 2026
 **Explicación:** Las licencias ya expedidas siguen válidas hasta el 31/08/2027 mientras mantengas sus requisitos, y a más tardar esa fecha la Aerocivil las reemplaza de oficio por las del RAC 61, en formato digital y sin costo. El 31/07/2026 era la fecha anterior a la ampliación.
 
 **ev-05** · Según el RAC 61, que aplica desde el 31/08/2027: eres PTL, tienes 62 años y te programan como PIC en un vuelo comercial internacional con un copiloto de 57. ¿Puedes ser el PIC?
 - A) Sí: en tripulación de más de un piloto, menos de 65 si el copiloto es menor de 60
 - B) No: con PTL, el PIC en transporte comercial siempre debe tener menos de 60 años
-- C) Solo en vuelos nacionales, porque en internacionales el límite del PIC es 60 años
+- C) Solo en vuelos nacionales, porque en los internacionales el límite del PIC es 60 años
 - D) Sí, sin condiciones: el tope de 65 años no depende de la edad del copiloto
 **Correcta:** A · **Tema:** U02 · **Referencia:** RAC 61, 61.835 (a)(2)
 **Explicación:** El PTL puede ser PIC en transporte comercial con menos de 60 años o, en operaciones nacionales e internacionales con más de un piloto, con menos de 65 si el copiloto tiene menos de 60. El límite de 60 en vuelos internacionales es del PCA que vuela solo (61.635(a)(1)).
@@ -2552,7 +2552,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 
 **ev-08** · Tu certificado Clase 1 vence el 30 de junio y haces el examen de renovación el 1 de junio. Según el RAC 67, ¿desde cuándo se cuenta la nueva vigencia?
 - A) Desde el 1 de junio, la fecha del examen, y pierdes esos 29 días
-- B) Desde el 30 de junio, solo si renuevas dentro de los 15 días previos
+- B) Desde el 30 de junio, pero solo si renuevas dentro de los 15 días previos
 - C) Desde el 30 de junio, porque renovaste dentro de los 45 días previos
 - D) Desde el día en que la Aerocivil registre el nuevo certificado
 **Correcta:** C · **Tema:** U03 · **Referencia:** RAC 67, 67.025 (h) y Nota del párrafo (i)
@@ -2577,7 +2577,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 **ev-11** · Volabas el avión cuando ocurrió un incidente en el aterrizaje y hay condiciones para hacer las pruebas. Según el RAC 120, ¿qué aplica al examen toxicológico posincidente?
 - A) Puedes tomar lo recetado; alcohol dentro de 2 h y lo demás dentro de 8 h
 - B) No consumes ninguna sustancia hasta la prueba; alcohol dentro de 8 h y lo demás en 32 h
-- C) Solo se hace si un supervisor del programa documenta por escrito una sospecha justificada
+- C) Solo se hace si un supervisor documenta por escrito una sospecha justificada
 - D) Se hace al día siguiente, para no demorar la atención médica que necesites
 **Correcta:** B · **Tema:** U04 · **Referencia:** RAC 120, 120.320 (c)(1) a (c)(5)
 **Explicación:** Tras un accidente o incidente se examina a todos los involucrados que hacían funciones sensibles; no consumen ninguna sustancia hasta la prueba, que debe hacerse dentro de 8 horas para alcohol y de 32 horas para las demás. La prueba nunca puede demorar la atención médica.
@@ -2586,7 +2586,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 - A) Al menos 1 año de solicitudes rechazadas y suspensión o cancelación inmediata de atribuciones
 - B) Una amonestación escrita de la empresa y una nueva prueba programada al mes siguiente
 - C) Suspensión de la licencia por 60 días, sin ningún efecto sobre tu certificado médico
-- D) Ninguna, si dentro de las 48 horas siguientes entregas una prueba negativa hecha en otro laboratorio
+- D) Ninguna, si en 48 horas entregas una prueba negativa de otro laboratorio
 **Correcta:** A · **Tema:** U04 · **Referencia:** RAC 120, 120.100 (a)
 **Explicación:** Negarte acarrea el rechazo de cualquier solicitud de licencia o habilitación por al menos un año, la suspensión o cancelación inmediata de tus atribuciones y la suspensión de tu aptitud psicofísica. La empresa notifica la negativa a la Aerocivil en máximo 48 horas (120.105).
 
@@ -2601,7 +2601,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 **ev-14** · Tienes que aterrizar en un aeródromo específico y calculas que cualquier cambio en tu autorización te haría aterrizar con menos del combustible de reserva final previsto. Según el RAC 91, ¿qué declaras al ATC?
 - A) MAYDAY MAYDAY MAYDAY COMBUSTIBLE, porque ya es una emergencia
 - B) COMBUSTIBLE MÍNIMO, que no es una situación de emergencia
-- C) PAN PAN PAN COMBUSTIBLE, porque es una situación de urgencia
+- C) PAN PAN PAN COMBUSTIBLE, por ser una urgencia
 - D) Nada todavía: solo se declara al empezar a usar la reserva final
 **Correcta:** B · **Tema:** U05 · **Referencia:** RAC 91, 91.637 (b) y (c)
 **Explicación:** COMBUSTIBLE MÍNIMO avisa que las opciones se redujeron a un aeródromo y que cualquier cambio puede hacerte aterrizar con menos de la reserva final; no es una emergencia. MAYDAY MAYDAY MAYDAY COMBUSTIBLE se declara cuando lo calculado al aterrizar en el aeródromo seguro más cercano ya es inferior a la reserva final.
@@ -2616,7 +2616,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 
 **ev-16** · Vas a salir VFR de un aeródromo dentro de una zona de control. El techo es de 1.200 ft y la visibilidad en tierra, de 6 km. Según el RAC 91, ¿puedes despegar?
 - A) Solo con autorización ATC: el techo es inferior a 1.500 ft
-- B) Sí, porque la visibilidad en tierra es superior a 5 km
+- B) Sí, porque la visibilidad en tierra es superior a 5 km y eso basta
 - C) Sí, porque el techo es superior a 1.000 ft sobre el terreno
 - D) No, en ningún caso: el VFR exige un techo de 3.000 ft
 **Correcta:** A · **Tema:** U05 · **Referencia:** RAC 91, 91.300 (b)
@@ -2624,7 +2624,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 
 **ev-17** · Eres piloto comercial sin habilitación IFR y quieres hacer un vuelo VFR nocturno entre dos aeródromos iluminados de una misma área autorizada. Según el RAC 91, ¿puedes hacerlo como PIC?
 - A) Sí, porque los dos aeródromos tienen la iluminación reglamentaria
-- B) Sí, si llevas la reserva final de 45 minutos del VFR nocturno
+- B) Sí, si llevas la reserva final de 45 minutos que exige el VFR nocturno
 - C) No: necesitas habilitación IFR y chequeo de instrumentos vigente
 - D) No: en Colombia no existe ningún tipo de vuelo VFR de noche
 **Correcta:** C · **Tema:** U05 · **Referencia:** RAC 91, 91.112 (a) y Apéndice 19 (a)(4)
@@ -2640,7 +2640,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 
 **ev-19** · Te autorizan a aterrizar, pero no aterrizas y la torre pierde el contacto contigo. Según el RAC 211, ¿cuándo se declara la fase de alerta (ALERFA)?
 - A) De inmediato, al perderse el contacto con la torre
-- B) Si no aterrizas en 30 minutos tras la hora prevista de llegada
+- B) Si no aterrizas en 30 minutos tras la hora prevista de llegada al aeródromo
 - C) Si no aterrizas en 5 minutos tras la hora prevista de aterrizaje
 - D) Si no aterrizas dentro de los 15 minutos siguientes a la autorización
 **Correcta:** C · **Tema:** U06 · **Referencia:** RAC 211, 211.720 (b)(2)
@@ -2664,7 +2664,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 
 **ev-22** · Tu explotador necesita probar un ELT durante 40 segundos en una revisión. Según el RAC 212, ¿qué debe hacer?
 - A) Avisar al RCC por correo con al menos 24 horas de antelación
-- B) Nada especial: el límite de 20 segundos solo aplica en vuelo
+- B) Nada especial: el límite de 20 s solo aplica en vuelo
 - C) Avisar a la torre por radio justo antes de iniciar la prueba
 - D) Avisar a la Aerocivil por escrito con al menos 10 días de antelación
 **Correcta:** A · **Tema:** U07 · **Referencia:** RAC 212, 212.455 (a) y (b)
@@ -2783,11 +2783,11 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 **Explicación:** El PIC tiene autoridad para negar el transporte o desembarcar a quien ponga en peligro el vuelo, y la negación debe basarse en la conducta o el comportamiento que suscite grave preocupación por la seguridad. Si la autoridad lo pide, el explotador explica por escrito los motivos (160.605 (e)).
 
 **ev-37** · Tu vuelo fue objeto de un acto de interferencia ilícita y ya aterrizaste. Como PIC, ¿qué te corresponde según el RAC 121 y el RAC 160?
-- A) Presentar sin demora un informe sobre el acto a la Aerocivil.
+- A) Esperar a que el explotador lo incluya en su informe anual de seguridad.
 - B) Notificar el hecho a la OACI dentro de los 30 días siguientes.
 - C) Informar a los medios para tranquilizar a los familiares de los pasajeros.
-- D) Esperar a que el explotador lo incluya en su informe anual de seguridad.
-**Correcta:** A · **Tema:** U13 · **Referencia:** RAC 121, 121.6125; RAC 160, 160.1745 (a)
+- D) Presentar sin demora un informe sobre el acto a la Aerocivil.
+**Correcta:** D · **Tema:** U13 · **Referencia:** RAC 121, 121.6125; RAC 160, 160.1745 (a)
 **Explicación:** Después de un acto de interferencia ilícita, el PIC presenta sin demora un informe a la Aerocivil. Las notificaciones a la OACI y la información a los medios corresponden en forma exclusiva al Director General de la Aerocivil.
 
 **ev-38** · Reportas por el sistema voluntario de tu aerolínea un error tuyo que no tuvo consecuencias. Según el RAC 219, salvo excepción concedida por la Aerocivil, ¿para qué no puede usarse ese reporte?
