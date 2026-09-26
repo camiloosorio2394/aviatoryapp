@@ -197,6 +197,25 @@ antes de 50 minutos. Cada corrida queda en `convocatorias_revisiones` con lo que
 - Publicar la función: el conector de Supabase (`deploy_edge_function`) con los dos archivos y
   `verify_jwt: false`.
 
+## Comunidad (el foro)
+
+La comunidad es un foro al estilo de Reddit enfocado en entrar a una aerolínea: seis categorías
+(convocatorias, entrevistas, avisos rápidos, cursos, preguntas y vida en aerolínea), votos,
+comentarios en dos niveles y avisos que los demás confirman («¿sigue vigente?», como en Waze).
+Vive en `/app/comunidad` (`src/pages/foro`, `src/components/foro`, `src/services/foro.ts`,
+`src/lib/foro.ts`). Las salas de chat de antes siguen en `/app/comunidad/salas`.
+
+- **Solo con sesión.** Todavía no se quiere aparecer en Google: nada de páginas públicas,
+  sitemap ni datos estructurados. La versión con lectura pública y SEO espera en la rama
+  `pendiente/comunidad-publica-seo` para la fase final.
+- Las tablas `foro_*` no dan permisos al cliente: todo va por funciones `security definer`
+  (`foro_feed`, `foro_publicar`, `foro_votar`…). Las lecturas nunca devuelven ids de usuario: el
+  autor sale por su nombre de usuario o como anónimo.
+- Las categorías están en la migración y en `CATEGORIAS_FORO`; `src/lib/foro.test.ts` falla si
+  no coinciden. Sus glifos, en `src/lib/foroGlifos.ts`, con el trazo de las insignias de Logros
+  (`InsigniaLogro` con `icono` y `forma`).
+- Mientras la migración `20261003010000` no se aplique, `/app/comunidad` muestra las salas.
+
 ## Cabeceras de seguridad (vercel.json)
 
 La app sale con una **Content-Security-Policy estricta**: scripts solo del propio dominio (y el

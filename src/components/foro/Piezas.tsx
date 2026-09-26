@@ -1,10 +1,9 @@
 import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
 import { ArrowBigDown, ArrowBigUp, Check, Flame, Link2, UserRound } from "lucide-react"
 import { toast } from "sonner"
 import { InsigniaLogro } from "@/components/logros/InsigniaLogro"
 import { UserAvatar } from "@/components/UserAvatar"
-import { formatearPuntos, nombreDeAutor, rutaEquivalente, type AutorForo } from "@/lib/foro"
+import { formatearPuntos, nombreDeAutor, type AutorForo } from "@/lib/foro"
 import { glifoDeCategoria } from "@/lib/foroGlifos"
 
 /**
@@ -106,13 +105,13 @@ export function Autor({ autor, destacado = false }: { autor: AutorForo | null; d
 }
 
 /**
- * Compartir la dirección pública, que es la que abre sin cuenta y la que
- * Google indexa. En el celular, el menú de compartir del sistema.
+ * Compartir la dirección de la publicación (quien la abra tiene que entrar a
+ * su cuenta). En el celular, el menú de compartir del sistema.
  */
 export function BotonCompartir({ ruta, titulo }: { ruta: string; titulo: string }) {
   const [copiado, setCopiado] = useState(false)
   async function compartir() {
-    const url = `${window.location.origin}${rutaEquivalente(ruta, "publica")}`
+    const url = `${window.location.origin}${ruta}`
     try {
       if (navigator.share && window.matchMedia?.("(pointer: coarse)").matches) {
         await navigator.share({ title: titulo, url })
@@ -135,43 +134,5 @@ export function BotonCompartir({ ruta, titulo }: { ruta: string; titulo: string 
       {copiado ? <Check className="h-3.5 w-3.5" aria-hidden /> : <Link2 className="h-3.5 w-3.5" aria-hidden />}
       Compartir
     </button>
-  )
-}
-
-/**
- * La invitación a entrar, donde lo público se acaba. Vuelve a donde estaba
- * después de entrar (Login lee `state.from`), ya dentro de la app.
- */
-export function InvitacionSesion({ titulo, texto, compacta = false }: { titulo: string; texto: string; compacta?: boolean }) {
-  const location = useLocation()
-  const destino = { from: { pathname: rutaEquivalente(location.pathname, "app") } }
-  return (
-    <div
-      className={`relative overflow-hidden rounded-3xl text-white ${compacta ? "p-5" : "p-6 sm:p-7"}`}
-      style={{
-        background:
-          "radial-gradient(90% 120% at 0% 0%, rgb(58 110 165 / 55%), transparent 60%), linear-gradient(160deg, #10284a, #0b1e3a 60%, #07152a)",
-      }}
-    >
-      <p className="rotulo-mono m-0 text-[10.5px] text-white/60">Comunidad de pilotos</p>
-      <p className={`display-archivo m-0 mt-2 font-bold leading-tight ${compacta ? "text-[19px]" : "text-[23px]"}`}>{titulo}</p>
-      <p className="m-0 mt-2 text-[13.5px] leading-relaxed text-white/70">{texto}</p>
-      <div className="mt-4 flex flex-wrap gap-2">
-        <Link
-          to="/login?mode=signup"
-          state={destino}
-          className="inline-flex h-10 items-center rounded-full bg-white px-5 text-[13.5px] font-semibold text-[#0b1e3a] transition-opacity hover:opacity-90"
-        >
-          Crear cuenta gratis
-        </Link>
-        <Link
-          to="/login"
-          state={destino}
-          className="inline-flex h-10 items-center rounded-full px-4 text-[13.5px] font-semibold text-white ring-1 ring-inset ring-white/30 transition-colors hover:bg-white/10"
-        >
-          Ya tengo cuenta
-        </Link>
-      </div>
-    </div>
   )
 }

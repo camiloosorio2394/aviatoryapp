@@ -1,47 +1,41 @@
 import { useEffect, useState } from "react"
-import { Link, Navigate, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom"
+import { Link, Navigate, useParams, useSearchParams } from "react-router-dom"
 import { PenLine, RotateCcw, X } from "lucide-react"
 import { toast } from "sonner"
-import { Seo } from "@/components/Seo"
 import { EstadoError } from "@/components/EstadoError"
 import { useSession } from "@/hooks/useSession"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
-import { InvitacionSesion, PlacaCategoria } from "@/components/foro/Piezas"
+import { PlacaCategoria } from "@/components/foro/Piezas"
 import { TarjetaPublicacion } from "@/components/foro/TarjetaPublicacion"
 import { CabeceraForo, MenuCategorias, PanelLateral } from "@/components/foro/Laterales"
 import { confirmarAviso, traerFeed, traerTendencias, votar } from "@/services/foro"
+import { traerIdentidadEnLaBarra } from "@/services/perfil"
 import {
   ORDENES_FORO,
   categoriaForo,
   conConfirmacion,
   conVoto,
   rutaCategoria,
-  rutaEquivalente,
   type OrdenForo,
   type PublicacionForo,
   type TendenciasForo,
 } from "@/lib/foro"
-import { metaDeComunidad } from "@/lib/foroSeo"
 import { Community } from "@/pages/Community"
 
 const ORDENES = new Set<string>(ORDENES_FORO.map((o) => o.clave))
 
 /**
- * La comunidad: el feed de publicaciones, con sus categorías a un lado y los
- * avisos activos al otro. La misma pantalla sirve afuera (/comunidad, sin
- * cuenta, lo que Google indexa) y adentro (/app/comunidad, con la barra).
+ * La comunidad: el feed de publicaciones, con las categorías arriba (o a un
+ * lado en pantallas muy anchas) y los avisos activos al otro lado.
  *
- * Mientras la base no tenga el foro (migración 20261003010000), adentro se
- * ven las salas de chat de siempre y afuera, que la comunidad abre pronto.
+ * Mientras la base no tenga el foro (migración 20261003010000), se ven las
+ * salas de chat de siempre.
  */
-export function Foro({ donde }: { donde: "publica" | "app" }) {
+export function Foro() {
   const { categoria: claveParam } = useParams()
   const [params, setParams] = useSearchParams()
-  const navigate = useNavigate()
-  const location = useLocation()
   const { user } = useSession()
-  const sesion = Boolean(user)
-  const usuario = typeof user?.user_metadata?.username === "string" ? (user.user_metadata.username as string) : null
+  const [identidad, setIdentidad] = useState<{ username: string | null; photoUrl: string | null } | null>(null)
 
   const categoria = claveParam ? (categoriaForo(claveParam) ?? null) : null
   const ordenParam = params.get("orden") ?? ""
@@ -51,7 +45,6 @@ export function Foro({ donde }: { donde: "publica" | "app" }) {
   const [carga, setCarga] = useState<{ consulta: string; estado: "listo" | "sin_foro" | "error" } | null>(null)
   const [publicaciones, setPublicaciones] = useState<PublicacionForo[]>([])
   const [hayMas, setHayMas] = useState(false)
-  const [requiereSesion, setRequiereSesion] = useState(false)
   const [pagina, setPagina] = useState(0)
   const [cargandoMas, setCargandoMas] = useState(false)
   const [tendencias, setTendencias] = useState<TendenciasForo | null>(null)
@@ -60,8 +53,8 @@ export function Foro({ donde }: { donde: "publica" | "app" }) {
   const clave = categoria?.clave ?? null
 
   // «Cargando» mientras lo que hay no sea de esta consulta: así no hace falta
-  // apagar nada al cambiar de categoría, de orden o de sesión.
-  const consulta = [clave, orden, aerolinea, sesion, intento].join("|")
+  // apagar nada al cambiar de categoría, de orden o de aerolínea.
+  const consulta = [clave, orden, aerolinea, intento].join("|")
   const estado = carga?.consulta === consulta ? carga.estado : "cargando"
 
   useEffect(() => {
@@ -71,7 +64,6 @@ export function Foro({ donde }: { donde: "publica" | "app" }) {
       if (r.estado === "listo") {
         setPublicaciones(r.datos.publicaciones)
         setHayMas(r.datos.hay_mas)
-        setRequiereSesion(r.datos.requiere_sesion)
         setPagina(0)
       }
       setCarga({ consulta, estado: r.estado })
@@ -89,24 +81,32 @@ export function Foro({ donde }: { donde: "publica" | "app" }) {
     return () => {
       cancelado = true
     }
-  }, [sesion])
+  }, [])
 
-  if (claveParam && !categoria) return <Navigate to={rutaCategoria(null, donde)} replace />
-  if (estado === "sin_foro") return donde === "app" ? <Community /> : <ForoPronto />
+  // El usuario y la foto del compositor, los mismos de la barra.
+  const userId = user?.id
+  useEffect(() => {
+    if (!userId) return
+    let cancelado = false
+    void traerIdentidadEnLaBarra(userId).then((i) => {
+      if (!cancelado && i) setIdentidad(i)
+    })
+    return () => {
+      cancelado = true
+    }
+  }, [userId])
+
+  if (claveParam && !categoria) return <Navigate to={rutaCategoria(null)} replace />
+  if (estado === "sin_foro") return <Community />
 
   const actualizar = (id: number, cambio: (p: PublicacionForo) => PublicacionForo) =>
     setPublicaciones((lista) => lista.map((p) => (p.id === id ? cambio(p) : p)))
 
-  const pedirSesion = () =>
-    navigate("/login", { state: { from: { pathname: rutaEquivalente(location.pathname, "app") } } })
-
   function alVotar(p: PublicacionForo, valor: -1 | 0 | 1) {
-    if (!sesion) return pedirSesion()
     actualizar(p.id, (x) => conVoto(x, valor))
     void votar(p.id, valor).then((r) => {
-      if (r.ok) {
-        actualizar(p.id, (x) => ({ ...x, puntos: r.datos.puntos, mi_voto: r.datos.mi_voto }))
-      } else {
+      if (r.ok) actualizar(p.id, (x) => ({ ...x, puntos: r.datos.puntos, mi_voto: r.datos.mi_voto }))
+      else {
         actualizar(p.id, () => p)
         toast.error(r.mensaje)
       }
@@ -114,7 +114,6 @@ export function Foro({ donde }: { donde: "publica" | "app" }) {
   }
 
   function alConfirmar(p: PublicacionForo, sigue: boolean | null) {
-    if (!sesion) return pedirSesion()
     actualizar(p.id, (x) => conConfirmacion(x, sigue))
     void confirmarAviso(p.id, sigue).then((r) => {
       if (r.ok) actualizar(p.id, (x) => ({ ...x, ...r.datos }))
@@ -136,7 +135,6 @@ export function Foro({ donde }: { donde: "publica" | "app" }) {
     // Una publicación nueva corre el orden: se evita repetir la que ya está.
     setPublicaciones((lista) => [...lista, ...r.datos.publicaciones.filter((n) => !lista.some((p) => p.id === n.id))])
     setHayMas(r.datos.hay_mas)
-    setRequiereSesion(r.datos.requiere_sesion)
     setPagina((n) => n + 1)
   }
 
@@ -157,19 +155,14 @@ export function Foro({ donde }: { donde: "publica" | "app" }) {
     tendencias?.aerolineas.find((a) => a.id === aerolinea)?.nombre ??
     publicaciones.find((p) => p.aerolinea?.id === aerolinea)?.aerolinea?.nombre ??
     "la aerolínea"
-  const meta = metaDeComunidad(clave)
 
   return (
     <div className="@container mx-auto max-w-[1400px] px-4 py-5 pb-24 sm:px-8 sm:py-8">
-      {donde === "publica" && meta && (
-        <Seo title={meta.titulo} description={meta.descripcion} path={meta.ruta} />
-      )}
-
-      <CabeceraForo categoria={categoria} donde={donde} sesion={sesion} usuario={usuario} foto={null} />
+      <CabeceraForo categoria={categoria} usuario={identidad?.username ?? null} foto={identidad?.photoUrl ?? null} />
 
       <div className="mt-6 grid grid-cols-1 gap-6 @5xl:grid-cols-[minmax(0,1fr)_300px] @7xl:grid-cols-[210px_minmax(0,1fr)_300px]">
         <div className="min-w-0 @5xl:col-span-2 @7xl:sticky @7xl:top-24 @7xl:col-span-1 @7xl:self-start">
-          <MenuCategorias donde={donde} activa={clave} tendencias={tendencias} />
+          <MenuCategorias activa={clave} tendencias={tendencias} />
         </div>
 
         <section className="min-w-0" aria-label="Publicaciones">
@@ -219,17 +212,12 @@ export function Foro({ donde }: { donde: "publica" | "app" }) {
               />
             </div>
           ) : publicaciones.length === 0 ? (
-            <Vacio categoria={categoria?.clave ?? null} nombre={categoria?.nombre ?? null} sesion={sesion} />
+            <Vacio categoria={clave} nombre={categoria?.nombre ?? null} />
           ) : (
             <ol className="m-0 mt-4 flex list-none flex-col gap-3 p-0">
               {publicaciones.map((p) => (
                 <li key={p.id}>
-                  <TarjetaPublicacion
-                    publicacion={p}
-                    donde={donde}
-                    onVotar={(v) => alVotar(p, v)}
-                    onConfirmar={(s) => alConfirmar(p, s)}
-                  />
+                  <TarjetaPublicacion publicacion={p} onVotar={(v) => alVotar(p, v)} onConfirmar={(s) => alConfirmar(p, s)} />
                 </li>
               ))}
             </ol>
@@ -247,26 +235,17 @@ export function Foro({ donde }: { donde: "publica" | "app" }) {
               </button>
             </div>
           )}
-
-          {estado === "listo" && requiereSesion && (
-            <div className="mt-5">
-              <InvitacionSesion
-                titulo="Hay mucho más adentro"
-                texto="Crea tu cuenta gratis para ver todas las publicaciones, comentar, votar y confirmar los avisos de otros pilotos."
-              />
-            </div>
-          )}
         </section>
 
         <div className="min-w-0 @7xl:sticky @7xl:top-24 @7xl:self-start">
-          <PanelLateral donde={donde} sesion={sesion} tendencias={tendencias} />
+          <PanelLateral tendencias={tendencias} />
         </div>
       </div>
     </div>
   )
 }
 
-function Vacio({ categoria, nombre, sesion }: { categoria: string | null; nombre: string | null; sesion: boolean }) {
+function Vacio({ categoria, nombre }: { categoria: string | null; nombre: string | null }) {
   return (
     <div className="mt-4 flex flex-col items-center rounded-3xl surface px-6 py-12 text-center">
       {categoria ? <PlacaCategoria clave={categoria} tamano={64} /> : null}
@@ -276,27 +255,13 @@ function Vacio({ categoria, nombre, sesion }: { categoria: string | null; nombre
       <p className="m-0 mt-2 max-w-[420px] text-[14px] leading-relaxed text-muted-foreground">
         La primera la puedes escribir tú: lo que te pasó en un proceso, un curso que te sirvió o una pregunta que tengas.
       </p>
-      {sesion ? (
-        <Link
-          to={`/app/comunidad/publicar${categoria ? `?categoria=${categoria}` : ""}`}
-          className={`${appButtonClass({ size: "lg" })} mt-5`}
-          style={appButtonStyle()}
-        >
-          <PenLine className="h-4 w-4" /> Escribir la primera
-        </Link>
-      ) : null}
-    </div>
-  )
-}
-
-function ForoPronto() {
-  return (
-    <div className="mx-auto max-w-[720px] px-5 py-16">
-      <Seo title="Comunidad de pilotos" description="La comunidad de pilotos de Aviatory abre muy pronto." path="/comunidad" noindex />
-      <InvitacionSesion
-        titulo="La comunidad abre muy pronto"
-        texto="Convocatorias, entrevistas y avisos de pilotos que van para el mismo lado que tú. Crea tu cuenta y entra primero."
-      />
+      <Link
+        to={`/app/comunidad/publicar${categoria ? `?categoria=${categoria}` : ""}`}
+        className={`${appButtonClass({ size: "lg" })} mt-5`}
+        style={appButtonStyle()}
+      >
+        <PenLine className="h-4 w-4" /> Escribir la primera
+      </Link>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react"
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
-import { ArrowLeft, Globe2, MapPin } from "lucide-react"
+import { ArrowLeft, MapPin, UsersRound } from "lucide-react"
 import { toast } from "sonner"
 import { PlacaCategoria } from "@/components/foro/Piezas"
 import { LogoDeAerolinea } from "@/components/foro/TarjetaPublicacion"
@@ -15,8 +15,8 @@ const MAXIMO_CUERPO = 10000
 /**
  * Publicar en la comunidad. Primero de qué se trata (la categoría pide su
  * propio título y texto); los avisos rápidos piden además la aerolínea.
- * Lo publicado lo puede leer cualquiera, también sin cuenta, y así se dice
- * antes de publicar.
+ * Lo publicado lo leen todos los pilotos de Aviatory, y así se dice antes de
+ * publicar.
  */
 export function PublicarForo() {
   const [params] = useSearchParams()
@@ -71,7 +71,7 @@ export function PublicarForo() {
       return
     }
     toast.success("Publicado en la comunidad")
-    navigate(rutaPublicacion({ id: r.datos, titulo: titulo.trim() }, "app"), { replace: true })
+    navigate(rutaPublicacion({ id: r.datos, titulo: titulo.trim() }), { replace: true })
   }
 
   return (
@@ -81,8 +81,8 @@ export function PublicarForo() {
       </Link>
       <h1 className="display-archivo m-0 mt-4 text-[30px] font-extrabold leading-tight text-foreground sm:text-[36px]">Publicar</h1>
       <p className="m-0 mt-2 inline-flex items-start gap-2 text-[13.5px] leading-relaxed text-muted-foreground">
-        <Globe2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
-        La comunidad es pública: cualquiera puede leer lo que publiques, también sin cuenta y desde Google.
+        <UsersRound className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+        Lo que publiques lo leen todos los pilotos de Aviatory, con tu usuario o sin él.
       </p>
 
       <form onSubmit={(e) => void enviar(e)} className="mt-6 flex flex-col gap-5">

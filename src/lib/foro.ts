@@ -5,13 +5,11 @@
  * conversación útil (procesos, entrevistas, cursos, vida en línea) y los
  * avisos rápidos «como en Waze», que los demás confirman o desmienten.
  *
- * Todo lo publicado se lee sin cuenta en /comunidad, para que Google lo
- * encuentre; sin sesión se ve la primera página y tres comentarios por
- * publicación. Dentro de la app vive en /app/comunidad. La base está en la
- * migración 20261003010000 y el servicio en src/services/foro.ts.
- *
- * Sin íconos ni React a propósito: el middleware de Vercel lo importa (por
- * lib/foroSeo.ts) y corre en el borde. Los glifos están en lib/foroGlifos.ts.
+ * Vive dentro de la app, en /app/comunidad, y pide sesión: todavía no se
+ * quiere aparecer en Google (decisión del 26-sep-2026). La versión con
+ * lectura pública y SEO espera en la rama pendiente/comunidad-publica-seo.
+ * La base está en la migración 20261003010000 y el servicio en
+ * src/services/foro.ts. Los glifos de las categorías, en lib/foroGlifos.ts.
  */
 export type ClaveCategoria = "convocatorias" | "entrevistas" | "avisos" | "cursos" | "preguntas" | "vida-en-linea"
 
@@ -146,15 +144,12 @@ export interface ComentarioForo {
 export interface FeedForo {
   publicaciones: PublicacionForo[]
   hay_mas: boolean
-  /** Sin sesión y con más páginas: para seguir hay que entrar. */
-  requiere_sesion: boolean
 }
 
 export interface DetalleForo {
   publicacion: PublicacionForo
   comentarios: ComentarioForo[]
   total_comentarios: number
-  requiere_sesion: boolean
 }
 
 export interface TendenciasForo {
@@ -179,24 +174,13 @@ export function slugDeTitulo(titulo: string): string {
   )
 }
 
-/**
- * La dirección de una publicación. La pública es la que se comparte y la que
- * Google indexa; dentro de la app se abre la misma con la barra y Wingman.
- */
-export function rutaPublicacion(p: Pick<PublicacionForo, "id" | "titulo">, donde: "publica" | "app"): string {
-  const base = donde === "app" ? "/app/comunidad" : "/comunidad"
-  return `${base}/p/${p.id}/${slugDeTitulo(p.titulo)}`
+/** La dirección de una publicación, con el título en letras para que se lea. */
+export function rutaPublicacion(p: Pick<PublicacionForo, "id" | "titulo">): string {
+  return `/app/comunidad/p/${p.id}/${slugDeTitulo(p.titulo)}`
 }
 
-export function rutaCategoria(clave: ClaveCategoria | null, donde: "publica" | "app"): string {
-  const base = donde === "app" ? "/app/comunidad" : "/comunidad"
-  return clave ? `${base}/c/${clave}` : base
-}
-
-/** Lo mismo de la app, en su versión pública, y al revés. */
-export function rutaEquivalente(pathname: string, a: "publica" | "app"): string {
-  if (a === "app") return pathname.replace(/^\/comunidad(?=\/|$)/, "/app/comunidad")
-  return pathname.replace(/^\/app\/comunidad(?=\/|$)/, "/comunidad")
+export function rutaCategoria(clave: ClaveCategoria | null): string {
+  return clave ? `/app/comunidad/c/${clave}` : "/app/comunidad"
 }
 
 // ── Lo que cambia al votar o confirmar, antes de que conteste la base ──────

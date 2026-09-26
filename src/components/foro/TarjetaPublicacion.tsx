@@ -19,8 +19,8 @@ export function LogoDeAerolinea({ aerolinea, className = "h-5" }: { aerolinea: A
 
 /**
  * Texto de un piloto: respeta los saltos de línea y vuelve enlaces las
- * direcciones, sin innerHTML. Los enlaces salen `nofollow ugc`: son de
- * usuarios, y Google pide marcarlos así.
+ * direcciones, sin innerHTML. Los enlaces salen `nofollow ugc noopener`:
+ * los escribió un usuario, no Aviatory.
  */
 export function TextoConEnlaces({ texto, className = "" }: { texto: string; className?: string }) {
   return (
@@ -111,17 +111,15 @@ export function AvisoVigencia({
  */
 export function TarjetaPublicacion({
   publicacion: p,
-  donde,
   onVotar,
   onConfirmar,
 }: {
   publicacion: PublicacionForo
-  donde: "publica" | "app"
   onVotar: (valor: -1 | 0 | 1) => void
   onConfirmar: (sigue: boolean | null) => void
 }) {
   const categoria = categoriaForo(p.categoria)
-  const ruta = rutaPublicacion(p, donde)
+  const ruta = rutaPublicacion(p)
   const esAviso = p.categoria === "avisos"
   return (
     <article
@@ -131,7 +129,7 @@ export function TarjetaPublicacion({
     >
       <div className="flex min-w-0 items-center gap-2 text-[12.5px] text-muted-foreground">
         <PlacaCategoria clave={p.categoria} tamano={26} />
-        <Link to={rutaCategoria(p.categoria, donde)} className="relative z-10 shrink-0 font-semibold text-foreground hover:underline">
+        <Link to={rutaCategoria(p.categoria)} className="relative z-10 shrink-0 font-semibold text-foreground hover:underline">
           {categoria?.nombre ?? p.categoria}
         </Link>
         <span aria-hidden>·</span>

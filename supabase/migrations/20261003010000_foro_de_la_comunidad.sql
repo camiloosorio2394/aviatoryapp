@@ -6,20 +6,23 @@
 -- del 3 de agosto contó cero mensajes). Nico pidió otra cosa el 26 de
 -- septiembre de 2026: un foro al estilo de Reddit enfocado en entrar a una
 -- aerolínea, con experiencias de procesos y entrevistas, avisos rápidos «como
--- en Waze», votos y comentarios. Y que se pueda leer sin cuenta para que
--- Google lo encuentre, pero que para ver más haya que entrar.
+-- en Waze», votos y comentarios.
+--
+-- Solo con sesión. La lectura pública para Google se decidió dejar para la
+-- fase final («todavía no queremos aparecer»): las funciones de lectura ya
+-- saben qué mostrar sin sesión (la primera página y tres comentarios), pero
+-- anon no puede ejecutarlas. Abrirla es un grant, con su razón en
+-- supabase/tests/permisos.sql; el cliente público espera en la rama
+-- pendiente/comunidad-publica-seo.
 --
 -- Cómo queda:
 --   1. foro_categorias: seis, fijas, las escribe esta migración.
 --   2. foro_publicaciones, foro_comentarios, sus votos, las confirmaciones de
 --      los avisos y los reportes. RLS encendido, sin políticas y sin permisos:
 --      el cliente no toca las tablas, todo va por funciones.
---   3. Leer, con o sin sesión: foro_feed, foro_publicacion, foro_tendencias y
---      foro_mapa. Son la primera lectura abierta a anon que tiene la base, y
---      por eso devuelven solo lo publicado y nunca un id de usuario: el autor
---      sale por su nombre de usuario, o como anónimo. Sin sesión se ve la
---      primera página del feed y los tres comentarios con más puntos de cada
---      publicación; lo demás pide entrar.
+--   3. Leer: foro_feed, foro_publicacion, foro_tendencias y foro_mapa.
+--      Devuelven solo lo publicado y nunca un id de usuario: el autor sale
+--      por su nombre de usuario, o como anónimo.
 --   4. Escribir, con sesión: publicar, editar, borrar, votar, confirmar un
 --      aviso, comentar, votar un comentario, borrar un comentario y reportar.
 --      Borrar cambia el estado; la fila se queda.
@@ -345,7 +348,7 @@ revoke all on function private.foro_comentario(public.foro_comentarios, uuid, uu
 revoke all on function private.foro_avisar(uuid, uuid, text, text, bigint) from public;
 revoke all on function private.foro_primer_paso(uuid) from public;
 
--- ── 5 · Leer: con o sin sesión ─────────────────────────────────────────────
+-- ── 5 · Leer ───────────────────────────────────────────────────────────────
 
 create or replace function public.foro_feed(
   p_categoria text default null,
@@ -965,11 +968,12 @@ revoke all on function public.foro_votar_comentario(bigint, integer) from public
 revoke all on function public.foro_borrar_comentario(bigint) from public, anon, authenticated;
 revoke all on function public.foro_reportar(bigint, bigint, text, text) from public, anon, authenticated;
 
--- Leer, también sin sesión: es lo que Google indexa (ver supabase/tests/permisos.sql).
-grant execute on function public.foro_feed(text, text, bigint, integer) to anon, authenticated;
-grant execute on function public.foro_publicacion(bigint) to anon, authenticated;
-grant execute on function public.foro_tendencias() to anon, authenticated;
-grant execute on function public.foro_mapa() to anon, authenticated;
+-- Solo con sesión. Para la fase pública bastaría con sumar anon a estas
+-- cuatro (y justificarlo en supabase/tests/permisos.sql).
+grant execute on function public.foro_feed(text, text, bigint, integer) to authenticated;
+grant execute on function public.foro_publicacion(bigint) to authenticated;
+grant execute on function public.foro_tendencias() to authenticated;
+grant execute on function public.foro_mapa() to authenticated;
 
 grant execute on function public.foro_publicar(text, text, text, bigint, text, boolean) to authenticated;
 grant execute on function public.foro_editar(bigint, text) to authenticated;

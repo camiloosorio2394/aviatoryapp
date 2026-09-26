@@ -2,7 +2,8 @@
 -- El foro de la comunidad. Migraciones 20261003000000 y 20261003010000.
 --
 -- Comprueba que:
---   · el cliente no toca las tablas, y anon solo ejecuta las lecturas;
+--   · el cliente no toca las tablas, y anon no ejecuta nada del foro (la
+--     lectura pública quedó para la fase final);
 --   · publicar nace con el voto del autor y gana «Hola comunidad»;
 --   · votar mueve los puntos por diferencia (bajar, cambiar, quitar);
 --   · comentar suma al contador, avisa al autor una sola vez y la respuesta a
@@ -10,9 +11,9 @@
 --   · un aviso pide aerolínea, no lo confirma su autor, y confirmar o
 --     desmentir mueve sus cuentas;
 --   · reportar cuenta una vez por piloto;
---   · sin sesión se lee el feed y la publicación, sin ids de usuario ni el
---     autor de lo anónimo; la segunda página pide entrar; de los comentarios
---     se ven tres; y no se puede publicar;
+--   · lo que las lecturas devuelven sin sesión (para cuando se abra): el feed
+--     y la publicación sin ids de usuario ni el autor de lo anónimo, la
+--     segunda página vacía, tres comentarios; y sin sesión no se publica;
 --   · borrar saca la publicación del feed y de su página;
 --   · el tope de 10 publicaciones al día.
 --
@@ -50,11 +51,12 @@ begin
      or has_table_privilege('authenticated', 'public.foro_reportes', 'select') then
     raise exception 'FALLO el cliente toca las tablas del foro';
   end if;
-  if not has_function_privilege('anon', 'public.foro_feed(text, text, bigint, integer)', 'execute')
-     or not has_function_privilege('anon', 'public.foro_publicacion(bigint)', 'execute')
+  if has_function_privilege('anon', 'public.foro_feed(text, text, bigint, integer)', 'execute')
+     or has_function_privilege('anon', 'public.foro_publicacion(bigint)', 'execute')
+     or has_function_privilege('anon', 'public.foro_tendencias()', 'execute')
      or has_function_privilege('anon', 'public.foro_publicar(text, text, text, bigint, text, boolean)', 'execute')
-     or has_function_privilege('anon', 'public.foro_votar(bigint, integer)', 'execute') then
-    raise exception 'FALLO los permisos de anon en el foro';
+     or not has_function_privilege('authenticated', 'public.foro_feed(text, text, bigint, integer)', 'execute') then
+    raise exception 'FALLO los permisos del foro: anon no debe ejecutar nada y authenticated sí leer';
   end if;
   x_log := x_log || ' tablas_cerradas';
 
@@ -147,8 +149,20 @@ begin
   x_log := x_log || ' comentar_confirmar_reportar';
 
   -- ── Sin sesión ────────────────────────────────────────────────────────────
+  -- anon no entra todavía.
   perform set_config('request.jwt.claims', json_build_object('role', 'anon')::text, true);
   set local role anon;
+  begin
+    perform public.foro_feed();
+    raise exception 'FALLO anon lee el foro';
+  exception when insufficient_privilege then
+    x_log := x_log || ' anon_no_entra';
+  end;
+  reset role;
+
+  -- Lo que las lecturas devuelven sin sesión, para cuando se abra la lectura
+  -- pública: se llaman sin credenciales, como su dueño.
+  perform set_config('request.jwt.claims', '', true);
   x_j := public.foro_feed();
   if jsonb_array_length(x_j -> 'publicaciones') < 3 then
     raise exception 'FALLO sin sesión no se ve el feed: %', x_j;
@@ -173,10 +187,10 @@ begin
   begin
     perform public.foro_publicar('preguntas', 'Publicación sin sesión');
     raise exception 'FALLO publicó sin sesión';
-  exception when insufficient_privilege then
+  exception when others then
+    if sqlerrm <> 'sin_sesion' then raise; end if;
     x_log := x_log || ' sin_sesion_solo_lee';
   end;
-  reset role;
 
   -- ── A borra y llega al tope ───────────────────────────────────────────────
   perform set_config('request.jwt.claims', json_build_object('sub', x_a, 'role', 'authenticated')::text, true);

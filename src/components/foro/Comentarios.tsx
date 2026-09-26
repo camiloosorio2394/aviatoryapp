@@ -169,13 +169,11 @@ interface NodoComentario {
  */
 export function ListaComentarios({
   comentarios,
-  sesion,
   onResponder,
   onVotar,
   onBorrar,
 }: {
   comentarios: ComentarioForo[]
-  sesion: boolean
   onResponder: (padre: number, texto: string, anonimo: boolean) => Promise<boolean>
   onVotar: (comentario: ComentarioForo, valor: -1 | 0 | 1) => void
   onBorrar: (comentario: ComentarioForo) => void
@@ -201,7 +199,6 @@ export function ListaComentarios({
         <ItemComentario
           key={comentario.id}
           comentario={comentario}
-          sesion={sesion}
           onResponder={onResponder}
           onVotar={onVotar}
           onBorrar={onBorrar}
@@ -212,7 +209,6 @@ export function ListaComentarios({
                 <ItemComentario
                   key={r.id}
                   comentario={r}
-                  sesion={sesion}
                   // Responder a una respuesta cuelga del mismo raíz, como en la base.
                   padreDeRespuesta={comentario.id}
                   onResponder={onResponder}
@@ -230,7 +226,6 @@ export function ListaComentarios({
 
 function ItemComentario({
   comentario: c,
-  sesion,
   padreDeRespuesta,
   onResponder,
   onVotar,
@@ -238,7 +233,6 @@ function ItemComentario({
   children,
 }: {
   comentario: ComentarioForo
-  sesion: boolean
   padreDeRespuesta?: number
   onResponder: (padre: number, texto: string, anonimo: boolean) => Promise<boolean>
   onVotar: (comentario: ComentarioForo, valor: -1 | 0 | 1) => void
@@ -258,27 +252,24 @@ function ItemComentario({
       {visible && (
         <div className="-ml-1 mt-1.5 flex flex-wrap items-center gap-0.5">
           <Votos puntos={c.puntos} miVoto={c.mi_voto} onVotar={(v) => onVotar(c, v)} compacto />
-          {sesion && (
+          <button
+            type="button"
+            onClick={() => setRespondiendo((r) => !r)}
+            className="inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 text-[12px] font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
+          >
+            <MessageCircle className="h-3.5 w-3.5" aria-hidden /> Responder
+          </button>
+          {c.es_mio ? (
             <button
               type="button"
-              onClick={() => setRespondiendo((r) => !r)}
+              onClick={() => onBorrar(c)}
               className="inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 text-[12px] font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
             >
-              <MessageCircle className="h-3.5 w-3.5" aria-hidden /> Responder
+              <Trash2 className="h-3.5 w-3.5" aria-hidden /> Borrar
             </button>
+          ) : (
+            <ReportarForo objetivo={{ comentario: c.id }} compacto />
           )}
-          {sesion &&
-            (c.es_mio ? (
-              <button
-                type="button"
-                onClick={() => onBorrar(c)}
-                className="inline-flex h-7 items-center gap-1.5 rounded-full px-2.5 text-[12px] font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
-              >
-                <Trash2 className="h-3.5 w-3.5" aria-hidden /> Borrar
-              </button>
-            ) : (
-              <ReportarForo objetivo={{ comentario: c.id }} compacto />
-            ))}
         </div>
       )}
       {respondiendo && (

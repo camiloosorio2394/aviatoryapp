@@ -5,4 +5,3 @@ Disallow: /onboarding
 Disallow: /login
 
 Sitemap: https://aviatoryapp-mu.vercel.app/sitemap.xml
-Sitemap: https://aviatoryapp-mu.vercel.app/sitemap-comunidad.xml

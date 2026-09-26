@@ -3,7 +3,7 @@ import { CircleHelp, MessageSquareQuote, MessagesSquare, PenLine, Radar, ShieldC
 import { InsigniaLogro } from "@/components/logros/InsigniaLogro"
 import { IconoMarca } from "@/components/marca/Icono"
 import { UserAvatar } from "@/components/UserAvatar"
-import { InvitacionSesion, PlacaCategoria } from "@/components/foro/Piezas"
+import { PlacaCategoria } from "@/components/foro/Piezas"
 import { LogoDeAerolinea } from "@/components/foro/TarjetaPublicacion"
 import {
   CATEGORIAS_FORO,
@@ -18,14 +18,10 @@ import {
 /** La portada de la comunidad, o la de una categoría. */
 export function CabeceraForo({
   categoria,
-  donde,
-  sesion,
   usuario,
   foto,
 }: {
   categoria: CategoriaForo | null
-  donde: "publica" | "app"
-  sesion: boolean
   usuario: string | null
   foto: string | null
 }) {
@@ -52,7 +48,7 @@ export function CabeceraForo({
           <div className="min-w-0">
             <p className="rotulo-mono m-0 text-[10.5px] text-muted-foreground">
               {categoria ? (
-                <Link to={rutaCategoria(null, donde)} className="hover:underline">
+                <Link to={rutaCategoria(null)} className="hover:underline">
                   Comunidad
                 </Link>
               ) : (
@@ -71,30 +67,18 @@ export function CabeceraForo({
         </div>
       </div>
 
-      {/* El compositor, a un toque. Sin sesión, la misma barra invita a entrar. */}
+      {/* El compositor, a un toque. */}
       <div className="relative mt-5 flex flex-col gap-2.5 @2xl:flex-row @2xl:items-center">
         <Link
-          to={sesion ? publicar(categoria?.clave) : "/login?mode=signup"}
-          state={sesion ? undefined : { from: { pathname: "/app/comunidad/publicar" } }}
+          to={publicar(categoria?.clave)}
           className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl border border-border bg-background px-3.5 py-3 text-[14px] text-muted-foreground transition-colors hover:border-foreground/25"
         >
-          {sesion ? (
-            <UserAvatar username={usuario} photoUrl={foto} size="sm" />
-          ) : (
-            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-muted">
-              <PenLine className="h-4 w-4" aria-hidden />
-            </span>
-          )}
-          <span className="truncate">
-            {sesion
-              ? categoria
-                ? `Publica en ${categoria.nombre}`
-                : "¿Qué quieres contarle a los pilotos?"
-              : "Crea tu cuenta gratis para publicar y comentar"}
-          </span>
+          <UserAvatar username={usuario} photoUrl={foto} size="sm" />
+          <span className="truncate">{categoria ? `Publica en ${categoria.nombre}` : "¿Qué quieres contarle a los pilotos?"}</span>
+          <PenLine className="ml-auto h-4 w-4 shrink-0" aria-hidden />
         </Link>
-        {sesion && !categoria && (
-          <div className="flex gap-2 overflow-x-auto">
+        {!categoria && (
+          <div className="flex gap-2 overflow-x-auto pr-10 [mask-image:linear-gradient(to_right,#000_calc(100%-48px),transparent)] @2xl:pr-0 @2xl:[mask-image:none]">
             {[
               { clave: "avisos" as const, nombre: "Aviso rápido", icono: Radar },
               { clave: "entrevistas" as const, nombre: "Experiencia", icono: MessageSquareQuote },
@@ -118,11 +102,9 @@ export function CabeceraForo({
 
 /** El menú de categorías: columna en pantallas anchas, fila deslizable en el celular. */
 export function MenuCategorias({
-  donde,
   activa,
   tendencias,
 }: {
-  donde: "publica" | "app"
   activa: ClaveCategoria | null
   tendencias: TendenciasForo | null
 }) {
@@ -133,11 +115,12 @@ export function MenuCategorias({
     }`
   return (
     <nav aria-label="Categorías de la comunidad" className="min-w-0">
-      {/* Hasta pantallas muy anchas: fila de pastillas. */}
-      <ul className="m-0 flex list-none gap-2 overflow-x-auto p-0 pb-1 @7xl:hidden">
+      {/* Hasta pantallas muy anchas: fila de pastillas que se desliza. El
+          borde derecho se desvanece para que se vea que sigue. */}
+      <ul className="m-0 flex list-none gap-2 overflow-x-auto p-0 pb-1 pr-12 [mask-image:linear-gradient(to_right,#000_calc(100%-56px),transparent)] @7xl:hidden">
         <li className="shrink-0">
           <Link
-            to={rutaCategoria(null, donde)}
+            to={rutaCategoria(null)}
             className={`inline-flex h-10 items-center gap-2 rounded-full border px-3.5 text-[13px] font-semibold ${
               activa === null ? "border-foreground bg-foreground text-background" : "border-border bg-card text-foreground"
             }`}
@@ -148,7 +131,7 @@ export function MenuCategorias({
         {CATEGORIAS_FORO.map((c) => (
           <li key={c.clave} className="shrink-0">
             <Link
-              to={rutaCategoria(c.clave, donde)}
+              to={rutaCategoria(c.clave)}
               className={`inline-flex h-10 items-center gap-2 rounded-full border pl-1.5 pr-3.5 text-[13px] font-semibold ${
                 activa === c.clave ? "border-foreground bg-foreground text-background" : "border-border bg-card text-foreground"
               }`}
@@ -165,7 +148,7 @@ export function MenuCategorias({
         <p className="rotulo-mono m-0 px-2.5 text-[10.5px] text-muted-foreground">Categorías</p>
         <ul className="m-0 mt-2 flex list-none flex-col gap-0.5 p-0">
           <li>
-            <NavLink to={rutaCategoria(null, donde)} end className={({ isActive }) => clase(isActive && activa === null)}>
+            <NavLink to={rutaCategoria(null)} end className={({ isActive }) => clase(isActive && activa === null)}>
               <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-muted text-foreground">
                 <Sparkles className="h-4 w-4" aria-hidden />
               </span>
@@ -174,7 +157,7 @@ export function MenuCategorias({
           </li>
           {CATEGORIAS_FORO.map((c) => (
             <li key={c.clave}>
-              <Link to={rutaCategoria(c.clave, donde)} className={clase(activa === c.clave)} aria-current={activa === c.clave ? "page" : undefined}>
+              <Link to={rutaCategoria(c.clave)} className={clase(activa === c.clave)} aria-current={activa === c.clave ? "page" : undefined}>
                 <PlacaCategoria clave={c.clave} tamano={32} />
                 <span className="min-w-0 flex-1 truncate">{c.nombre}</span>
                 {(semana.get(c.clave) ?? 0) > 0 && (
@@ -194,7 +177,7 @@ export function MenuCategorias({
               {tendencias.aerolineas.map((a) => (
                 <li key={a.id}>
                   <Link
-                    to={`${rutaCategoria(activa, donde)}?aerolinea=${a.id}`}
+                    to={`${rutaCategoria(activa)}?aerolinea=${a.id}`}
                     className="flex items-center justify-between gap-2 rounded-2xl px-2.5 py-2 transition-colors hover:bg-muted"
                   >
                     <LogoDeAerolinea aerolinea={a} className="h-[18px]" />
@@ -206,39 +189,22 @@ export function MenuCategorias({
           </>
         )}
 
-        {donde === "app" && (
-          <Link
-            to="/app/comunidad/salas"
-            className="mt-7 flex items-center gap-2.5 rounded-2xl px-2.5 py-2 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          >
-            <MessagesSquare className="h-4 w-4" aria-hidden /> Salas de chat
-          </Link>
-        )}
+        <Link
+          to="/app/comunidad/salas"
+          className="mt-7 flex items-center gap-2.5 rounded-2xl px-2.5 py-2 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          <MessagesSquare className="h-4 w-4" aria-hidden /> Salas de chat
+        </Link>
       </div>
     </nav>
   )
 }
 
-/** A la derecha: la invitación (sin sesión), los avisos que siguen vigentes y las normas. */
-export function PanelLateral({
-  donde,
-  sesion,
-  tendencias,
-}: {
-  donde: "publica" | "app"
-  sesion: boolean
-  tendencias: TendenciasForo | null
-}) {
+/** A la derecha: los avisos que siguen vigentes y las normas. */
+export function PanelLateral({ tendencias }: { tendencias: TendenciasForo | null }) {
   const avisos = tendencias?.avisos ?? []
   return (
     <aside className="flex min-w-0 flex-col gap-4" aria-label="Avisos y normas de la comunidad">
-      {!sesion && (
-        <InvitacionSesion
-          compacta
-          titulo="Únete a la comunidad"
-          texto="Publica, comenta y confirma avisos. Es gratis y te toma un minuto."
-        />
-      )}
 
       <section className="rounded-3xl surface p-5" aria-labelledby="foro-avisos">
         <div className="flex items-center gap-2.5">
@@ -255,7 +221,7 @@ export function PanelLateral({
           <ol className="m-0 mt-3 flex list-none flex-col gap-1 p-0">
             {avisos.map((a) => (
               <li key={a.id}>
-                <Link to={rutaPublicacion(a, donde)} className="block rounded-2xl p-2.5 transition-colors hover:bg-muted">
+                <Link to={rutaPublicacion(a)} className="block rounded-2xl p-2.5 transition-colors hover:bg-muted">
                   {a.aerolinea && <LogoDeAerolinea aerolinea={a.aerolinea} className="h-4" />}
                   <span className="mt-1.5 line-clamp-2 block text-[13px] font-semibold leading-snug text-foreground">{a.titulo}</span>
                   <span className="mt-1 block text-[11.5px] text-muted-foreground">
@@ -269,15 +235,13 @@ export function PanelLateral({
             ))}
           </ol>
         )}
-        {sesion && (
-          <Link
-            to="/app/comunidad/publicar?categoria=avisos"
-            className="mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold hover:underline"
-            style={{ color: "var(--marca-acento)" }}
-          >
-            <Radar className="h-3.5 w-3.5" aria-hidden /> Dar un aviso
-          </Link>
-        )}
+        <Link
+          to="/app/comunidad/publicar?categoria=avisos"
+          className="mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold hover:underline"
+          style={{ color: "var(--marca-acento)" }}
+        >
+          <Radar className="h-3.5 w-3.5" aria-hidden /> Dar un aviso
+        </Link>
       </section>
 
       <section className="rounded-3xl surface p-5" aria-labelledby="foro-normas">

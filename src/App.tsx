@@ -46,10 +46,8 @@ const RoutePage = page(() => import("@/pages/Route"), "Route")
 const Airlines = page(() => import("@/pages/Airlines"), "Airlines")
 const Profile = page(() => import("@/pages/Profile"), "Profile")
 const Community = page(() => import("@/pages/Community"), "Community")
-const ForoPublico = page(() => import("@/pages/foro/Rutas"), "ForoPublico")
-const PublicacionPublica = page(() => import("@/pages/foro/Rutas"), "PublicacionPublica")
-const ForoApp = page(() => import("@/pages/foro/Rutas"), "ForoApp")
-const PublicacionApp = page(() => import("@/pages/foro/Rutas"), "PublicacionApp")
+const Foro = page(() => import("@/pages/foro/Foro"), "Foro")
+const PublicacionForo = page(() => import("@/pages/foro/PublicacionForoPagina"), "PublicacionForoPagina")
 const PublicarForo = page(() => import("@/pages/foro/PublicarForo"), "PublicarForo")
 const CommunityChannel = page(() => import("@/pages/CommunityChannel"), "CommunityChannel")
 const Logbook = page(() => import("@/pages/Logbook"), "Logbook")
@@ -191,12 +189,6 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/terminos" element={<Terms />} />
             <Route path="/privacidad" element={<Privacy />} />
-            {/* La comunidad se lee sin cuenta: es lo que Google indexa. Con
-                sesión, cada una pasa a su misma dirección dentro de la app. */}
-            <Route path="/comunidad" element={<ForoPublico />} />
-            <Route path="/comunidad/c/:categoria" element={<ForoPublico />} />
-            <Route path="/comunidad/p/:id" element={<PublicacionPublica />} />
-            <Route path="/comunidad/p/:id/:slug" element={<PublicacionPublica />} />
             <Route path="/login" element={<Login />} />
             {/* Recuperar la contraseña va por fuera de RequireAuth a propósito:
                 Supabase entrega el enlace del correo como una sesión ya iniciada, y
@@ -339,10 +331,12 @@ function App() {
               <Route path="/app/referidos" element={<Referrals />} />
               <Route path="/app/examenes" element={<ExamTracker />} />
               <Route path="/app/examenes/:slug" element={<ExamTrackerSubject />} />
-              <Route path="/app/comunidad" element={<ForoApp />} />
-              <Route path="/app/comunidad/c/:categoria" element={<ForoApp />} />
-              <Route path="/app/comunidad/p/:id" element={<PublicacionApp />} />
-              <Route path="/app/comunidad/p/:id/:slug" element={<PublicacionApp />} />
+              {/* El foro. Solo con sesión: todavía no se quiere aparecer en
+                  Google (la lectura pública espera en pendiente/comunidad-publica-seo). */}
+              <Route path="/app/comunidad" element={<Foro />} />
+              <Route path="/app/comunidad/c/:categoria" element={<Foro />} />
+              <Route path="/app/comunidad/p/:id" element={<PublicacionForo />} />
+              <Route path="/app/comunidad/p/:id/:slug" element={<PublicacionForo />} />
               <Route path="/app/comunidad/publicar" element={<PublicarForo />} />
               {/* Las salas de chat de antes del foro siguen, un paso más adentro. */}
               <Route path="/app/comunidad/salas" element={<Community />} />
