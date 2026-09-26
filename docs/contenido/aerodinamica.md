@@ -1454,22 +1454,22 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 
 ### ent-04 · Pitch vs ángulo de ataque
 **Pregunta:** ¿Cuál es la diferencia entre pitch y ángulo de ataque?
-- A) El pitch se mide respecto al viento relativo; el ángulo de ataque, respecto al horizonte
-- B) El ángulo de ataque siempre es mayor que el pitch
-- C) El pitch se mide respecto al horizonte; el ángulo de ataque, respecto al viento relativo
-- D) Son el mismo ángulo medido con instrumentos diferentes
-**Respuesta correcta:** C
+- A) Son el mismo ángulo: uno lo muestra el horizonte artificial y el otro, el indicador de AOA
+- B) El pitch se mide respecto al horizonte; el ángulo de ataque, respecto al viento relativo
+- C) El pitch se mide respecto al viento relativo; el ángulo de ataque, respecto al horizonte
+- D) El ángulo de ataque siempre es mayor que el pitch, porque se le suma el ángulo de trayectoria
+**Respuesta correcta:** B
 **Explicación:** Con alas niveladas, pitch ≈ ángulo de ataque + ángulo de trayectoria. En descenso con nariz arriba, el ángulo de ataque puede ser mucho mayor que el pitch.
 **Punto que debes recordar:** Una nariz arriba no garantiza ni ascenso ni ala fuera de pérdida.
 **Tema:** S04
 
 ### ent-05 · Stall
 **Pregunta:** ¿Qué es una pérdida aerodinámica (Stall)?
-- A) La detención de los motores por falta de aire
-- B) La pérdida total de sustentación del ala
-- C) La velocidad mínima publicada en el manual
-- D) La situación en que el ala supera su ángulo de ataque crítico, el flujo se separa y el CL cae
-**Respuesta correcta:** D
+- A) La situación en que el ala supera su ángulo de ataque crítico, el flujo se separa y el CL cae
+- B) La pérdida total de sustentación del ala cuando la velocidad cae por debajo de la de pérdida
+- C) El momento en que la velocidad cae por debajo de la velocidad mínima publicada en el manual del avión
+- D) La pérdida de empuje de los motores cuando se interrumpe el flujo de aire que entra al compresor
+**Respuesta correcta:** A
 **Explicación:** Al superar el ángulo crítico, el flujo se separa del extradós, cae el CL y aumenta la resistencia. El ala no deja de producir sustentación por completo.
 **Punto que debes recordar:** La pérdida es un problema de ángulo de ataque.
 **Tema:** S04
@@ -1511,11 +1511,11 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 
 ### ent-11 · Flaps
 **Pregunta:** ¿Qué hacen los flaps?
-- A) Aumentan la curvatura (y en algunos tipos la superficie), el CLmax y la resistencia, y reducen la velocidad de pérdida
-- B) Aumentan el ángulo de ataque crítico sin cambiar la resistencia
-- C) Reducen la resistencia para despegar más rápido
-- D) Solo sirven para frenar en tierra
-**Respuesta correcta:** A
+- A) Aumentan el ángulo de ataque crítico y el CLmax sin cambiar la resistencia, igual que los slats
+- B) Reducen la resistencia para despegar más rápido y acortar la carrera, por eso se usan en el despegue
+- C) Aumentan el CLmax y reducen la resistencia, por eso en el despegue siempre conviene extender la mayor posición de flaps
+- D) Aumentan la curvatura (y en algunos tipos la superficie), el CLmax y la resistencia, y reducen la velocidad de pérdida
+**Respuesta correcta:** D
 **Explicación:** Permiten volar más lento con una actitud de nariz más baja y un ángulo de descenso mayor. Los flaps de borde de salida reducen el ángulo de ataque crítico aunque suben el CLmax.
 **Punto que debes recordar:** Flaps = más CLmax y más resistencia.
 **Tema:** S07
@@ -1567,11 +1567,11 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 
 ### ent-18 · Fuerzas en ascenso
 **Pregunta:** En un ascenso estabilizado, la sustentación es:
-- A) Cero
-- B) Ligeramente menor que el peso
-- C) Igual al peso
-- D) Mayor que el peso
-**Respuesta correcta:** B
+- A) Igual al peso, como en vuelo recto y nivelado
+- B) Mayor que el peso, que es lo que hace subir al avión
+- C) Ligeramente menor que el peso
+- D) Ligeramente mayor que el peso
+**Respuesta correcta:** C
 **Explicación:** Una componente del peso actúa hacia atrás a lo largo de la trayectoria y la compensa el empuje. La sustentación solo equilibra la componente del peso perpendicular a la trayectoria.
 **Punto que debes recordar:** El avión sube por exceso de empuje, no por exceso de sustentación.
 **Tema:** S02
@@ -1592,11 +1592,11 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 
 ### ent-21 · Velocidad de maniobra
 **Pregunta:** ¿Cuál afirmación sobre la velocidad de maniobra (Va) es correcta?
-- A) Por debajo de Va el avión está protegido contra cualquier entrada de mando
-- B) Va es la velocidad de penetración de turbulencia en todo avión de transporte
-- C) Por debajo de Va, la deflexión completa de un mando en un eje no debería exceder la carga límite; las entradas alternadas o en varios ejes pueden causar falla estructural incluso por debajo de Va
-- D) Va aumenta cuando el peso disminuye
-**Respuesta correcta:** C
+- A) Por debajo de Va, un mando a fondo en un solo eje no debería exceder la carga límite; alternar o combinar ejes sí puede causar falla estructural
+- B) Por debajo de Va el avión está protegido contra cualquier entrada de mando, en cualquier eje, en cualquier secuencia y con cualquier recorrido del mando
+- C) Va es la velocidad de penetración de turbulencia en todo avión de transporte, y la que el AFM publica para volar en aire turbulento
+- D) Va aumenta cuando el peso disminuye, porque el avión más liviano soporta más G antes de entrar en pérdida y de llegar a la carga límite de diseño
+**Respuesta correcta:** A
 **Explicación:** Es el contenido exigido por 14 CFR 25.1583(a)(3) en el manual de vuelo, reforzado tras el accidente de AA587. En turbulencia, en transporte, se usa VRA/MRA.
 **Punto que debes recordar:** Va: un mando, un eje, sin alternar.
 **Tema:** S06
@@ -1617,11 +1617,11 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 
 ### ent-24 · Planeo y peso
 **Pregunta:** Si un avión pesa más, ¿planea más o menos distancia?
-- A) Menos distancia
-- B) La misma distancia a la misma velocidad
-- C) Más distancia
-- D) La misma distancia a L/Dmax, pero a mayor velocidad y mayor régimen de descenso
-**Respuesta correcta:** D
+- A) Menos distancia, porque el peso extra aumenta el régimen de descenso
+- B) La misma distancia a L/Dmax, pero a mayor velocidad y mayor régimen de descenso
+- C) Más distancia, porque el avión pesado lleva más energía al planear
+- D) La misma distancia y a la misma velocidad que el avión liviano
+**Respuesta correcta:** B
 **Explicación:** La relación de planeo depende de L/D. El peso cambia la velocidad a la que se obtiene L/Dmax, no su valor.
 **Punto que debes recordar:** El peso no cambia la distancia de planeo; cambia la velocidad.
 **Tema:** S05
@@ -1649,11 +1649,11 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 
 ### ent-28 · CG adelantado y atrasado
 **Pregunta:** Con el CG en el límite delantero, respecto al límite trasero:
-- A) Mayor velocidad de pérdida, mayores fuerzas de mando, más estabilidad y más consumo
-- B) Menor velocidad de pérdida, menor consumo y mandos más livianos
-- C) Menor estabilidad y mayor riesgo de golpe de cola
-- D) Ningún cambio aerodinámico, solo estructural
-**Respuesta correcta:** A
+- A) Menor velocidad de pérdida, menor consumo, mandos más livianos y menos estabilidad
+- B) Menor estabilidad y mayor riesgo de golpe de cola en la rotación
+- C) Mayor velocidad de pérdida y más consumo, pero mandos más livianos y menos estabilidad
+- D) Mayor velocidad de pérdida, mayores fuerzas de mando, más estabilidad y más consumo
+**Respuesta correcta:** D
 **Explicación:** El CG adelantado exige más fuerza hacia abajo en la cola: más sustentación en el ala, más ángulo de ataque y más resistencia. El atrasado reduce la estabilidad y dificulta la recuperación de pérdidas.
 **Punto que debes recordar:** Adelantado: estable y costoso. Atrasado: eficiente y delicado.
 **Tema:** S08
@@ -1674,11 +1674,11 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 
 ### ent-31 · High, hot, heavy
 **Pregunta:** ¿Qué efecto tiene la combinación alta elevación + alta temperatura + alto peso en el despegue?
-- A) No tiene efecto si se usa la misma IAS
-- B) Aumenta la TAS y la GS de rotación, reduce el empuje y aumenta la distancia de despegue; empeora el ascenso
-- C) Mejora el ascenso por menor resistencia
-- D) Reduce la IAS de rotación
-**Respuesta correcta:** B
+- A) No tiene efecto si se usa la misma IAS: el ala vuela igual, así que la distancia de despegue y el ascenso no cambian
+- B) Reduce la IAS de rotación, porque el aire menos denso ofrece menos resistencia y el avión acelera antes en la carrera
+- C) Aumenta la TAS y la GS de rotación, reduce el empuje y aumenta la distancia de despegue; empeora el ascenso
+- D) Mejora el ascenso por la menor resistencia del aire poco denso, aunque la carrera de despegue sea algo más larga
+**Respuesta correcta:** C
 **Explicación:** Menos densidad exige más TAS para la misma presión dinámica; los motores producen menos empuje; el peso aumenta la velocidad de despegue. Según el PHAK, +10 % de peso ≈ +21 % o más de distancia de despegue.
 **Punto que debes recordar:** High, hot, heavy: más pista, menos ascenso.
 **Tema:** S12
@@ -1724,11 +1724,11 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 
 ### ent-37 · Low-speed buffet vs Mach buffet
 **Pregunta:** ¿Cuál es la diferencia entre el buffet de baja velocidad y el Mach Buffet?
-- A) El buffet de baja velocidad solo ocurre con flaps extendidos
-- B) No hay diferencia; ambos se deben al tren de aterrizaje
-- C) El de baja velocidad se debe a alto ángulo de ataque cerca de la pérdida; el Mach Buffet, a la separación detrás de ondas de choque a alta velocidad
-- D) El Mach Buffet ocurre solo por debajo de FL100
-**Respuesta correcta:** C
+- A) No hay diferencia: los dos son la misma vibración por separación del flujo y solo cambia el nombre según la fase
+- B) El de baja velocidad se debe a alto ángulo de ataque cerca de la pérdida; el Mach Buffet, a la separación detrás de ondas de choque a alta velocidad
+- C) El de baja velocidad solo ocurre con flaps extendidos, en la aproximación; el Mach Buffet, solo en crucero, con el ala limpia y siempre por encima de MMO
+- D) El Mach Buffet ocurre solo por debajo de FL100, donde la presión dinámica es mayor; el de baja velocidad, solo por encima de FL300, cerca del techo máximo
+**Respuesta correcta:** B
 **Explicación:** A gran altitud ambos pueden tener relación con la compresibilidad: con alto ángulo de ataque, el flujo sobre el extradós se acelera y puede formar ondas de choque incluso a baja IAS (el PHAK lo llama buffet de Mach de baja velocidad).
 **Punto que debes recordar:** Uno por demasiado lento para el peso y la altitud; el otro por demasiado rápido.
 **Tema:** S11
@@ -1777,11 +1777,11 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 
 ### ent-44 · Q-Corner y altitud de cruce
 **Pregunta:** ¿Cuál afirmación es correcta?
-- A) Q-Corner es el factor de carga máximo en turbulencia
-- B) Q-Corner es la altitud donde VMO y MMO son iguales
-- C) Coffin Corner y altitud de cruce son lo mismo
-- D) Q-Corner es otro nombre de Coffin Corner; la altitud donde una CAS y un Mach dados coinciden es la altitud de cruce (Crossover Altitude)
-**Respuesta correcta:** D
+- A) Q-Corner es otro nombre de Coffin Corner; la altitud donde una CAS y un Mach dados coinciden es la altitud de cruce (Crossover Altitude)
+- B) Q-Corner es la altitud donde VMO y MMO son iguales, y no tiene relación con Coffin Corner
+- C) Coffin Corner y altitud de cruce son lo mismo: la altitud donde una CAS y un Mach dados coinciden
+- D) Q-Corner es el factor de carga máximo que admite la estructura en turbulencia a gran altitud
+**Respuesta correcta:** A
 **Explicación:** La AC 61-107B usa "Q-Corner or Coffin Corner". La altitud de cruce es otro concepto: marca el paso del límite VMO al MMO.
 **Punto que debes recordar:** Q-Corner = Coffin Corner. Crossover = cambio de IAS a Mach.
 **Tema:** S11
@@ -1831,123 +1831,123 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 ---
 
 **ev-01** · La presión dinámica es:
-- A) ½ ρ V², la presión asociada al movimiento del aire
-- B) La presión a nivel del mar en atmósfera estándar
-- C) La presión del aire en reposo
-- D) La presión medida por la toma estática
-**Correcta:** A · **Tema:** S01
+- A) La presión del aire en reposo, la que usa el altímetro
+- B) La presión total que capta el tubo pitot, sin descontar la estática
+- C) ½ ρ V², la presión asociada al movimiento del aire
+- D) La presión a nivel del mar en atmósfera estándar
+**Correcta:** C · **Tema:** S01
 **Explicación:** Es la presión asociada al movimiento. El sistema pitot-estático mide presión de impacto; a bajo Mach coincide aproximadamente con la presión dinámica, mientras que a mayor Mach requiere corrección de compresibilidad.
 
 **ev-02** · La separación de la capa límite en el extradós:
-- A) Es producida por el tren de aterrizaje
-- B) Aumenta la resistencia y reduce la sustentación; avanza hacia el borde de ataque al aumentar el ángulo de ataque
-- C) Solo ocurre a velocidades supersónicas
-- D) Reduce la resistencia y aumenta la sustentación
-**Correcta:** B · **Tema:** S01
+- A) Aumenta la resistencia y reduce la sustentación; avanza hacia el borde de ataque al aumentar el ángulo de ataque
+- B) Reduce la resistencia y aumenta la sustentación; retrocede hacia el borde de salida al aumentar el ángulo de ataque
+- C) Solo ocurre por encima del Mach crítico, detrás de la onda de choque que se forma sobre el extradós
+- D) Aparece solo con hielo o suciedad en el ala; con el ala limpia el flujo sigue pegado hasta el borde de salida
+**Correcta:** A · **Tema:** S01
 **Explicación:** La separación es el mecanismo de la pérdida. Con más ángulo de ataque el punto de separación se mueve hacia adelante.
 
 **ev-03** · En un descenso estabilizado a velocidad constante:
-- A) La sustentación es mucho mayor que el peso
-- B) Las fuerzas no están en equilibrio
-- C) Una componente del peso actúa hacia adelante en la trayectoria y el empuje es menor que la resistencia
-- D) El empuje es mayor que la resistencia
-**Correcta:** C · **Tema:** S02
+- A) La sustentación es mayor que el peso, porque sostiene al avión mientras la trayectoria desciende
+- B) Las fuerzas no están en equilibrio, porque el avión pierde altura de forma continua aunque mantenga la velocidad
+- C) El empuje es mayor que la resistencia, para compensar la componente del peso que actúa hacia atrás en la trayectoria
+- D) Una componente del peso actúa hacia adelante en la trayectoria y el empuje es menor que la resistencia
+**Correcta:** D · **Tema:** S02
 **Explicación:** En descenso estabilizado hay equilibrio: la componente del peso a lo largo de la trayectoria reemplaza parte del empuje.
 
 **ev-04** · Un piloto sube la nariz en ascenso sin cambiar el empuje. Lo esperable es:
 - A) Aumento sostenido de la tasa de ascenso sin cambio de velocidad
-- B) Reducción del ángulo de ataque
-- C) Aumento de velocidad
-- D) Mayor ángulo de trayectoria por un momento y disminución de velocidad
-**Correcta:** D · **Tema:** S02
+- B) Mayor ángulo de trayectoria por un momento y disminución de velocidad
+- C) Menor ángulo de ataque, porque la trayectoria sube con la nariz
+- D) Aumento de velocidad, porque el ala produce más sustentación con más actitud de nariz arriba
+**Correcta:** B · **Tema:** S02
 **Explicación:** Sin más empuje, la altura se gana a costa de la velocidad; el ángulo de ataque tiende a aumentar.
 
 **ev-05** · La teoría del "tiempo de tránsito igual":
-- A) Es falsa: el aire del extradós llega antes al borde de salida
-- B) Es válida por encima del Mach crítico
-- C) Es la explicación correcta de la sustentación
-- D) Solo aplica a perfiles simétricos
-**Correcta:** A · **Tema:** S03
+- A) Es válida por debajo del Mach crítico, mientras el aire se comporta como incompresible
+- B) Es falsa: el aire del extradós llega antes al borde de salida
+- C) Es la explicación correcta de la sustentación en un perfil con curvatura positiva
+- D) Solo aplica a perfiles simétricos que vuelan con ángulo de ataque positivo
+**Correcta:** B · **Tema:** S03
 **Explicación:** NASA la clasifica como teoría incorrecta. La sustentación se explica por el desvío del flujo y la distribución de presiones.
 
 **ev-06** · En la ecuación L = ½ ρ V² S CL, el término ½ ρ V² corresponde a:
-- A) El peso
-- B) La presión dinámica
-- C) El coeficiente de sustentación
-- D) La superficie alar
-**Correcta:** B · **Tema:** S03
+- A) La presión total
+- B) La superficie alar
+- C) La densidad
+- D) La presión dinámica
+**Correcta:** D · **Tema:** S03
 **Explicación:** Es la presión dinámica (q). A bajo Mach, la presión de impacto obtenida por el sistema pitot-estático la aproxima; a mayor Mach se corrige la compresibilidad para obtener EAS.
 
 **ev-07** · El coeficiente de sustentación (CL) de un ala depende principalmente de:
-- A) Solo de la velocidad
-- B) Del peso del avión
-- C) Del ángulo de ataque y la configuración, y también del Mach y la contaminación
-- D) Solo de la densidad
-**Correcta:** C · **Tema:** S03
+- A) Del ángulo de ataque y la configuración, y también del Mach y la contaminación
+- B) De la velocidad: a más velocidad, más CL en cualquier configuración
+- C) Del peso del avión, que fija el CL sin importar el ángulo de ataque
+- D) De la densidad del aire y la superficie alar, que el piloto no controla
+**Correcta:** A · **Tema:** S03
 **Explicación:** El CL resume la capacidad del ala en una condición: ángulo de ataque, forma y configuración; a gran velocidad lo afecta el Mach.
 
 **ev-08** · ¿Cuál afirmación es correcta?
-- A) Con empuje máximo no puede haber pérdida
-- B) Con la nariz abajo no puede haber pérdida
-- C) Un avión solo entra en pérdida a baja velocidad
-- D) Un avión puede entrar en pérdida a cualquier velocidad, actitud y potencia si supera su ángulo de ataque crítico
-**Correcta:** D · **Tema:** S04
+- A) Con empuje máximo no puede haber pérdida, porque la velocidad sigue aumentando mientras el motor empuja
+- B) Con la nariz abajo no puede haber pérdida, porque el ala vuela siempre con poco ángulo de ataque
+- C) Un avión puede entrar en pérdida a cualquier velocidad, actitud y potencia si supera su ángulo de ataque crítico
+- D) Un avión solo entra en pérdida a baja velocidad, cuando cae por debajo de la velocidad de pérdida publicada en el AFM
+**Correcta:** C · **Tema:** S04
 **Explicación:** La pérdida depende del ángulo de ataque. Es la afirmación de la FAA (AC 61-67C, AFH).
 
 **ev-09** · Con alas niveladas, un avión tiene 5° de pitch y 3° de trayectoria descendente. El ángulo de ataque aproximado es:
-- A) 2°
-- B) 5°
-- C) 8°
-- D) –3°
-**Correcta:** C · **Tema:** S04
+- A) –3°
+- B) 2°
+- C) 5°
+- D) 8°
+**Correcta:** D · **Tema:** S04
 **Explicación:** AOA ≈ pitch – trayectoria = 5° – (–3°) = 8°.
 
 **ev-10** · ¿Qué condición **reduce** la velocidad de pérdida?
-- A) Extender flaps y slats
-- B) Mayor peso
-- C) Viraje con 45° de alabeo
-- D) CG adelantado
-**Correcta:** A · **Tema:** S04
+- A) Mayor peso
+- B) Extender flaps y slats
+- C) CG adelantado
+- D) Escarcha en el ala
+**Correcta:** B · **Tema:** S04
 **Explicación:** Los hipersustentadores aumentan el CLmax. Las demás opciones aumentan la velocidad de pérdida.
 
 **ev-11** · Según la AC 120-109A, durante la recuperación de una pérdida:
-- A) Se aplica siempre empuje máximo antes de bajar la nariz
-- B) Se reduce el ángulo de ataque como prioridad y se acepta la pérdida de altitud
-- C) Se busca perder la menor altitud posible aun manteniendo el ángulo de ataque
-- D) Se extienden speed brakes para controlar la velocidad
-**Correcta:** B · **Tema:** S04
+- A) Se reduce el ángulo de ataque como prioridad y se acepta la pérdida de altitud
+- B) Se busca perder la menor altitud posible aun manteniendo el ángulo de ataque
+- C) Se aplica siempre empuje máximo antes de bajar la nariz, para no perder altitud
+- D) Se extienden los speed brakes para que la velocidad no se escape al bajar la nariz
+**Correcta:** A · **Tema:** S04
 **Explicación:** Reducir el ángulo de ataque es lo prioritario. El empuje va según necesidad y los speed brakes se retraen.
 
 **ev-12** · En un ala en flecha, la pérdida tiende a comenzar en:
-- A) La raíz, con nariz abajo
-- B) Toda el ala al mismo tiempo, sin efecto de cabeceo
-- C) Las puntas, con tendencia de nariz arriba
-- D) El estabilizador horizontal
-**Correcta:** C · **Tema:** S04
+- A) Toda el ala al mismo tiempo, sin efecto de cabeceo
+- B) La raíz, con tendencia de nariz abajo
+- C) Las puntas, con tendencia de nariz abajo
+- D) Las puntas, con tendencia de nariz arriba
+**Correcta:** D · **Tema:** S04
 **Explicación:** La capa límite fluye hacia las puntas; al perder sustentación atrás, la resultante se desplaza hacia adelante y la nariz sube.
 
 **ev-13** · Por debajo de la velocidad de mínima resistencia:
-- A) La resistencia total es cero
-- B) El avión no puede mantener vuelo nivelado en ningún caso
-- C) Domina la resistencia parásita
-- D) Domina la resistencia inducida y volar más lento exige más empuje
-**Correcta:** D · **Tema:** S05
+- A) Domina la resistencia parásita y volar más lento exige menos empuje
+- B) Domina la resistencia inducida y volar más lento exige menos empuje
+- C) Domina la resistencia inducida y volar más lento exige más empuje
+- D) El avión no puede mantener vuelo nivelado aunque aumente el empuje
+**Correcta:** C · **Tema:** S05
 **Explicación:** Es el régimen de mando invertido: al frenar, la resistencia inducida crece más de lo que baja la parásita.
 
 **ev-14** · ¿Qué reduce la resistencia inducida?
-- A) Winglets y mayor alargamiento del ala
-- B) Menor velocidad
-- C) Mayor factor de carga
-- D) Mayor peso
-**Correcta:** A · **Tema:** S05
+- A) Volar más lento con el mismo peso
+- B) Winglets y mayor alargamiento del ala
+- C) Más peso a la misma velocidad
+- D) Un factor de carga mayor
+**Correcta:** B · **Tema:** S05
 **Explicación:** Winglets y alargamiento reducen la intensidad de los vórtices de punta. Las demás opciones la aumentan.
 
 **ev-15** · La velocidad de L/Dmax de un avión:
-- A) Disminuye con el peso
-- B) Aumenta con el peso
+- A) Aumenta con el peso
+- B) Disminuye con el peso
 - C) Coincide con VMO
 - D) Es la misma para cualquier peso
-**Correcta:** B · **Tema:** S05
+**Correcta:** A · **Tema:** S05
 **Explicación:** L/Dmax ocurre a un ángulo de ataque fijo; con más peso se necesita más presión dinámica para el mismo CL.
 
 **ev-16** · Un viraje nivelado coordinado de 30° de alabeo produce un factor de carga aproximado de:
@@ -1967,187 +1967,187 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 **Explicación:** n = 2; √2 ≈ 1,41; 140 × 1,41 ≈ 198 kt.
 
 **ev-18** · El texto que 14 CFR 25.1583(a)(3) exige en el manual de vuelo advierte que:
-- A) Va solo aplica con flaps extendidos
-- B) Por debajo de Va se puede aplicar cualquier combinación de mandos
-- C) Las entradas grandes y alternadas, o completas en más de un eje al mismo tiempo, pueden producir falla estructural a cualquier velocidad, incluso por debajo de Va
-- D) Va es igual a VMO
-**Correcta:** C · **Tema:** S06
+- A) Por debajo de Va se puede aplicar cualquier combinación de mandos, en uno o en varios ejes, sin exceder la carga límite
+- B) Va solo aplica con flaps extendidos; con flaps arriba, el límite para mover los mandos a fondo es VMO
+- C) Las entradas alternadas solo son peligrosas por encima de Va; por debajo, el ala entra en pérdida antes de romperse
+- D) Las entradas grandes y alternadas, o completas en más de un eje al mismo tiempo, pueden producir falla estructural a cualquier velocidad, incluso por debajo de Va
+**Correcta:** D · **Tema:** S06
 **Explicación:** La advertencia se reforzó tras AA587: Va no protege contra entradas alternadas ni multieje.
 
 **ev-19** · En un avión de transporte, el límite de factor de carga positivo con flaps extendidos (14 CFR 25.345) es:
-- A) +6,0 G
-- B) +3,8 G
-- C) +1,0 G
-- D) +2,0 G
-**Correcta:** D · **Tema:** S06
+- A) +2,0 G
+- B) +2,5 G
+- C) +3,8 G
+- D) +6,0 G
+**Correcta:** A · **Tema:** S06
 **Explicación:** Con flaps extendidos el requisito de maniobra es +2,0 G; con flaps arriba, al menos +2,5 G.
 
 **ev-20** · Los slats y dispositivos de borde de ataque:
-- A) Retrasan la separación y aumentan el ángulo de ataque crítico y el CLmax
-- B) Aumentan la resistencia parásita sin efecto en la pérdida
-- C) Reducen el ángulo de ataque crítico
-- D) Solo se usan en crucero
-**Correcta:** A · **Tema:** S07
+- A) Aumentan el CLmax, pero reducen el ángulo de ataque crítico, igual que los flaps
+- B) Adelantan la separación para que el aviso de pérdida llegue antes
+- C) Retrasan la separación y aumentan el ángulo de ataque crítico y el CLmax
+- D) Aumentan la resistencia parásita sin efecto sobre la pérdida ni sobre el CLmax
+**Correcta:** C · **Tema:** S07
 **Explicación:** Energizan o protegen el flujo del borde de ataque y permiten más ángulo de ataque antes de la pérdida.
 
 **ev-21** · En vuelo, los spoilers usados de forma asimétrica:
 - A) Aumentan la sustentación del ala que baja
-- B) Ayudan al alabeo sin producir guiñada adversa
-- C) Controlan el cabeceo
-- D) Actúan como flaps
-**Correcta:** B · **Tema:** S07
+- B) Ayudan al alabeo, pero con más guiñada adversa que los alerones
+- C) Frenan el avión sin efecto en el alabeo
+- D) Ayudan al alabeo sin producir guiñada adversa
+**Correcta:** D · **Tema:** S07
 **Explicación:** El spoiler del ala que debe bajar reduce su sustentación; como no aumenta la resistencia inducida del ala que sube, no genera guiñada adversa.
 
 **ev-22** · En un avión convencional, el estabilizador horizontal normalmente:
-- A) No genera fuerza en vuelo nivelado
-- B) Controla la guiñada
-- C) Genera una fuerza hacia abajo que equilibra el momento de nariz abajo del ala y el CG
-- D) Genera sustentación hacia arriba igual a la del ala
-**Correcta:** C · **Tema:** S07
+- A) Genera sustentación hacia arriba que ayuda al ala a sostener el peso
+- B) Genera una fuerza hacia abajo que equilibra el momento de nariz abajo del ala y el CG
+- C) No genera fuerza en vuelo nivelado; solo actúa cuando se mueve el elevador
+- D) Genera una fuerza hacia abajo que equilibra el momento de nariz arriba del ala
+**Correcta:** B · **Tema:** S07
 **Explicación:** En la configuración convencional descrita, la cola genera fuerza hacia abajo para equilibrar el momento del conjunto ala-fuselaje y mantener el equilibrio alrededor del CG.
 
 **ev-23** · Un avión estáticamente estable pero dinámicamente inestable, ante una perturbación:
-- A) Se aleja de inmediato del equilibrio
-- B) Vuelve sin oscilar
-- C) Se queda en la nueva posición
-- D) Tiende a volver, pero oscila con amplitud creciente
-**Correcta:** D · **Tema:** S08
+- A) Tiende a volver, pero oscila con amplitud creciente
+- B) Tiende a volver y las oscilaciones se amortiguan con el tiempo
+- C) Se aleja del equilibrio de inmediato, sin oscilar
+- D) Tiende a volver y oscila siempre con la misma amplitud
+**Correcta:** A · **Tema:** S08
 **Explicación:** La tendencia inicial es volver (estática positiva), pero las oscilaciones crecen (dinámica negativa).
 
 **ev-24** · Con el CG atrasado dentro de límites, respecto a uno adelantado:
-- A) Menor estabilidad longitudinal y fuerzas de mando más livianas
-- B) Mayor velocidad de pérdida
-- C) Mayor consumo
-- D) Mayor esfuerzo para rotar
-**Correcta:** A · **Tema:** S08
+- A) Mayor velocidad de pérdida, por más carga hacia abajo en la cola
+- B) Mayor consumo, por la resistencia que añade la compensación
+- C) Menor estabilidad longitudinal y fuerzas de mando más livianas
+- D) Mayor estabilidad longitudinal y más esfuerzo para rotar
+**Correcta:** C · **Tema:** S08
 **Explicación:** Con CG atrasado baja la carga en la cola: menos resistencia y velocidad de pérdida, pero menos estabilidad y mandos más livianos.
 
 **ev-25** · ¿En qué condición es más probable que el piloto sobrecargue la estructura sin darse cuenta?
-- A) CG exactamente en el centro del rango
-- B) CG en el límite trasero, por fuerzas de mando livianas
-- C) La posición del CG no influye
-- D) CG en el límite delantero
-**Correcta:** B · **Tema:** S08
+- A) CG en el límite delantero, porque el ala sostiene más carga
+- B) CG exactamente en el centro del rango, donde el avión es más maniobrable
+- C) Ninguna: la posición del CG no cambia las fuerzas de mando
+- D) CG en el límite trasero, por fuerzas de mando livianas
+**Correcta:** D · **Tema:** S08
 **Explicación:** Con mandos livianos es más fácil aplicar G de más (PHAK).
 
 **ev-26** · Al salir del efecto suelo en el despegue, el avión:
-- A) Necesita menos ángulo de ataque para el mismo CL
-- B) No sufre cambios
-- C) Necesita más ángulo de ataque para el mismo CL y aumenta su resistencia inducida
-- D) Pierde resistencia parásita
-**Correcta:** C · **Tema:** S09
+- A) Necesita menos ángulo de ataque para el mismo CL y su resistencia inducida baja
+- B) Necesita más ángulo de ataque para el mismo CL y aumenta su resistencia inducida
+- C) Pierde resistencia parásita y acelera sin cambiar el ángulo de ataque
+- D) No sufre cambios, porque el efecto suelo solo actúa durante el aterrizaje y el flare
+**Correcta:** B · **Tema:** S09
 **Explicación:** Al alejarse del suelo se recuperan el downwash y los vórtices: sube la resistencia inducida y el ángulo de ataque requerido.
 
 **ev-27** · En un avión de hélice que gira a la derecha (vista desde la cabina), con alta potencia y alto ángulo de ataque, el factor P produce:
-- A) Guiñada a la derecha
-- B) Ningún efecto
-- C) Cabeceo nariz abajo
-- D) Guiñada a la izquierda
-**Correcta:** D · **Tema:** S09
+- A) Guiñada a la izquierda
+- B) Guiñada a la derecha
+- C) Alabeo a la izquierda
+- D) Cabeceo de nariz arriba
+**Correcta:** A · **Tema:** S09
 **Explicación:** La pala descendente (lado derecho) tiene mayor ángulo de ataque y más empuje; la nariz guiña a la izquierda.
 
 **ev-28** · La mayoría de los aviones se diseñan con:
-- A) Leve inestabilidad espiral, preferible al Dutch Roll
+- A) Leve Dutch Roll, preferible a la espiral
 - B) Efecto diedro negativo
-- C) Fuerte tendencia al Dutch Roll
+- C) Leve inestabilidad espiral, preferible al Dutch Roll
 - D) Estabilidad direccional nula
-**Correcta:** A · **Tema:** S09
+**Correcta:** C · **Tema:** S09
 **Explicación:** Según el PHAK, la inestabilidad espiral leve es más fácil de manejar que el Dutch Roll.
 
 **ev-29** · Cuando la velocidad supera el Mach crítico:
-- A) Desaparece la resistencia
-- B) Aparecen zonas de flujo supersónico, ondas de choque y, poco después, aumento brusco de resistencia
-- C) El ángulo de ataque crítico aumenta
-- D) El avión alcanza Mach 1
-**Correcta:** B · **Tema:** S10
+- A) El avión completo pasa a vuelo supersónico y se forma la onda de choque de proa
+- B) El ángulo de ataque crítico aumenta y el ala tolera más carga antes del buffet
+- C) La resistencia baja, porque el flujo supersónico se separa menos del extradós
+- D) Aparecen zonas de flujo supersónico, ondas de choque y, poco después, aumento brusco de resistencia
+**Correcta:** D · **Tema:** S10
 **Explicación:** El Mach crítico es el primer Mach 1 local. La subida brusca de resistencia ocurre en el Mach de divergencia, 5–10 % por encima.
 
 **ev-30** · La flecha del ala aumenta el Mach crítico porque:
-- A) Aumenta la curvatura del perfil
-- B) Reduce el peso del ala
-- C) Solo la componente del flujo perpendicular al borde de ataque determina la distribución de presión y es menor que la velocidad del avión
-- D) Aumenta la superficie alar
-**Correcta:** C · **Tema:** S10
+- A) Aumenta la curvatura efectiva del perfil, y con ella el Mach al que aparece la onda de choque
+- B) Solo la componente del flujo perpendicular al borde de ataque determina las presiones, y es menor que la velocidad del avión
+- C) Aumenta el efecto diedro, y la estabilidad lateral que aporta retrasa la formación de la onda de choque sobre el extradós del ala
+- D) Aumenta la superficie alar, y con más superficie el ala vuela con menos ángulo de ataque y menos aceleración del flujo en el extradós
+**Correcta:** B · **Tema:** S10
 **Explicación:** Es la teoría de la flecha del PHAK y NASA: el ala "ve" una velocidad efectiva menor.
 
 **ev-31** · A gran altitud el límite de velocidad máxima operativa se expresa normalmente como:
-- A) Va
-- B) VRA
-- C) VMO en KCAS
-- D) MMO en Mach
-**Correcta:** D · **Tema:** S10
+- A) MMO en Mach
+- B) VMO en KCAS
+- C) VRA en KIAS
+- D) Va en KIAS
+**Correcta:** A · **Tema:** S10
 **Explicación:** Por encima de la altitud de cruce, el Mach máximo se alcanza antes que VMO; el límite es MMO.
 
 **ev-32** · El Mach Buffet se debe a:
-- A) La separación del flujo detrás de una onda de choque
-- B) La reacción del torque de los motores
-- C) La turbulencia de la estela de otro avión
-- D) El tren de aterrizaje extendido
-**Correcta:** A · **Tema:** S10
+- A) La onda de choque de proa al pasar Mach 1
+- B) La estela turbulenta de otro avión
+- C) La separación del flujo detrás de una onda de choque
+- D) La vibración de los motores a empuje máximo
+**Correcta:** C · **Tema:** S10
 **Explicación:** La onda de choque puede provocar separación de la capa límite y ese flujo separado hace vibrar la estructura.
 
 **ev-33** · ¿Qué efecto tiene un aumento de peso sobre los límites de buffet a gran altitud?
-- A) Solo afecta el de alta velocidad
-- B) Sube el buffet de baja velocidad y baja el de alta: reduce el margen
-- C) No tiene efecto
-- D) Baja el buffet de baja velocidad y sube el de alta
-**Correcta:** B · **Tema:** S11
+- A) Baja el buffet de baja velocidad y sube el de alta: amplía el margen
+- B) Solo sube el buffet de baja velocidad; el de alta depende solo del Mach
+- C) Ninguno: los límites de buffet dependen solo de la altitud y la temperatura
+- D) Sube el buffet de baja velocidad y baja el de alta: reduce el margen
+**Correcta:** D · **Tema:** S11
 **Explicación:** Más peso exige más ángulo de ataque, igual que más G (PHAK; AC 61-107A, cancelada).
 
 **ev-34** · La altitud máxima de operación de un jet en un día dado es:
-- A) La mayor entre las tres
-- B) Siempre la altitud máxima certificada
-- C) La menor entre la certificada, la limitada por empuje y la limitada por buffet
-- D) La altitud de cruce
-**Correcta:** C · **Tema:** S11
+- A) La menor entre la certificada, la limitada por empuje y la limitada por buffet
+- B) La mayor entre la certificada, la limitada por empuje y la limitada por el buffet
+- C) Siempre la altitud máxima certificada, sin importar el peso ni la temperatura
+- D) La altitud de cruce, donde la referencia de velocidad pasa de VMO a MMO
+**Correcta:** A · **Tema:** S11
 **Explicación:** Es la definición de la AUPRTA; con más temperatura o peso, baja.
 
 **ev-35** · Un margen de buffet de 1,3 G equivale aproximadamente a:
-- A) Un viraje nivelado de 25°
-- B) Un viraje nivelado de 60°
-- C) Un viraje nivelado de 15°
-- D) Un viraje nivelado de 40°
-**Correcta:** D · **Tema:** S11
+- A) Un viraje nivelado de 15°
+- B) Un viraje nivelado de 25°
+- C) Un viraje nivelado de 40°
+- D) Un viraje nivelado de 60°
+**Correcta:** C · **Tema:** S11
 **Explicación:** 1/cos 40° ≈ 1,31 G.
 
 **ev-36** · En Coffin Corner, el piloto:
-- A) Tiene un margen mínimo: desacelerar lleva al buffet de baja velocidad y acelerar al Mach buffet
-- B) Solo está limitado por VMO
-- C) Puede reducir o aumentar la velocidad con amplios márgenes
-- D) Está por debajo de la altitud de cruce
-**Correcta:** A · **Tema:** S11
+- A) Puede reducir o aumentar la velocidad con amplios márgenes, porque la TAS es alta
+- B) Tiene un margen mínimo: desacelerar lleva al buffet de baja velocidad y acelerar al Mach buffet
+- C) Solo está limitado por VMO: a esa altitud la IAS es baja y el Mach todavía no limita la velocidad
+- D) Está por debajo de la altitud de cruce, donde el límite de alta velocidad sigue siendo VMO y no MMO
+**Correcta:** B · **Tema:** S11
 **Explicación:** Es la convergencia de los límites aerodinámicos de baja y alta velocidad.
 
 **ev-37** · Al aumentar la temperatura en crucero respecto a la ISA, la altitud máxima:
-- A) No cambia
-- B) Disminuye
-- C) Aumenta
-- D) Solo cambia si hay turbulencia
-**Correcta:** B · **Tema:** S11
+- A) No cambia: el buffet no depende de la temperatura
+- B) Aumenta
+- C) Solo cambia si hay turbulencia
+- D) Disminuye
+**Correcta:** D · **Tema:** S11
 **Explicación:** Con temperatura alta los motores entregan menos empuje: baja la altitud limitada por empuje y, con ella, la altitud máxima (AUPRTA). La altitud limitada por buffet no depende de la temperatura.
 
 **ev-38** · A una misma IAS, al aumentar la altitud de densidad la TAS:
-- A) Depende solo del viento
+- A) Aumenta
 - B) Disminuye
-- C) Aumenta
-- D) Es igual
-**Correcta:** C · **Tema:** S12
+- C) Es igual, porque la IAS no cambia
+- D) Depende solo del viento
+**Correcta:** A · **Tema:** S12
 **Explicación:** Con menos densidad se necesita más velocidad verdadera para la misma presión dinámica.
 
 **ev-39** · Para certificación de despegue en transporte, 14 CFR 25.105(d) considera:
-- A) Solo el viento cruzado
-- B) Ningún efecto del viento
-- C) El 100 % del viento de frente y el 100 % del de cola
-- D) No más del 50 % del viento de frente y no menos del 150 % del de cola
-**Correcta:** D · **Tema:** S12
+- A) El 100 % del viento de frente y el 100 % del de cola
+- B) No más del 50 % del viento de frente y no menos del 150 % del de cola
+- C) El 150 % del viento de frente y el 50 % del de cola
+- D) Solo el viento cruzado, sin crédito por el de frente
+**Correcta:** B · **Tema:** S12
 **Explicación:** Es un factor conservador: se da poco crédito al viento de frente y se penaliza más el de cola.
 
 **ev-40** · ¿Qué efecto tiene la humedad alta sobre la performance?
-- A) Empeora la performance porque el aire húmedo es menos denso
-- B) Mejora la performance porque el aire húmedo es más denso
-- C) No tiene efecto
-- D) Solo afecta la visibilidad
-**Correcta:** A · **Tema:** S12
+- A) Mejora la performance porque el aire húmedo es más denso
+- B) No tiene efecto: solo cuentan la temperatura y la presión
+- C) Empeora la performance porque el aire húmedo es menos denso
+- D) Empeora la performance porque el aire húmedo es más denso y pesa más
+**Correcta:** C · **Tema:** S12
 **Explicación:** El vapor de agua es más liviano que el aire seco: sube la altitud de densidad.
 
 ---

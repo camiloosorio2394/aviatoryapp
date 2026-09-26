@@ -323,12 +323,12 @@ export const AERO_ENTREVISTA: PreguntaEntrevistaAero[] = [
     "titulo": "Pitch vs ángulo de ataque",
     "pregunta": "¿Cuál es la diferencia entre pitch y ángulo de ataque?",
     "opciones": [
-      "El pitch se mide respecto al viento relativo; el ángulo de ataque, respecto al horizonte",
-      "El ángulo de ataque siempre es mayor que el pitch",
+      "Son el mismo ángulo: uno lo muestra el horizonte artificial y el otro, el indicador de AOA",
       "El pitch se mide respecto al horizonte; el ángulo de ataque, respecto al viento relativo",
-      "Son el mismo ángulo medido con instrumentos diferentes"
+      "El pitch se mide respecto al viento relativo; el ángulo de ataque, respecto al horizonte",
+      "El ángulo de ataque siempre es mayor que el pitch, porque se le suma el ángulo de trayectoria"
     ],
-    "correcta": 2,
+    "correcta": 1,
     "respuesta": "El pitch se mide respecto al horizonte; el ángulo de ataque, respecto al viento relativo",
     "explicacion": "Con alas niveladas, pitch ≈ ángulo de ataque + ángulo de trayectoria. En descenso con nariz arriba, el ángulo de ataque puede ser mucho mayor que el pitch.",
     "punto": "Una nariz arriba no garantiza ni ascenso ni ala fuera de pérdida.",
@@ -342,12 +342,12 @@ export const AERO_ENTREVISTA: PreguntaEntrevistaAero[] = [
     "titulo": "Stall",
     "pregunta": "¿Qué es una pérdida aerodinámica (Stall)?",
     "opciones": [
-      "La detención de los motores por falta de aire",
-      "La pérdida total de sustentación del ala",
-      "La velocidad mínima publicada en el manual",
-      "La situación en que el ala supera su ángulo de ataque crítico, el flujo se separa y el CL cae"
+      "La situación en que el ala supera su ángulo de ataque crítico, el flujo se separa y el CL cae",
+      "La pérdida total de sustentación del ala cuando la velocidad cae por debajo de la de pérdida",
+      "El momento en que la velocidad cae por debajo de la velocidad mínima publicada en el manual del avión",
+      "La pérdida de empuje de los motores cuando se interrumpe el flujo de aire que entra al compresor"
     ],
-    "correcta": 3,
+    "correcta": 0,
     "respuesta": "La situación en que el ala supera su ángulo de ataque crítico, el flujo se separa y el CL cae",
     "explicacion": "Al superar el ángulo crítico, el flujo se separa del extradós, cae el CL y aumenta la resistencia. El ala no deja de producir sustentación por completo.",
     "punto": "La pérdida es un problema de ángulo de ataque.",
@@ -421,12 +421,12 @@ export const AERO_ENTREVISTA: PreguntaEntrevistaAero[] = [
     "titulo": "Flaps",
     "pregunta": "¿Qué hacen los flaps?",
     "opciones": [
-      "Aumentan la curvatura (y en algunos tipos la superficie), el CLmax y la resistencia, y reducen la velocidad de pérdida",
-      "Aumentan el ángulo de ataque crítico sin cambiar la resistencia",
-      "Reducen la resistencia para despegar más rápido",
-      "Solo sirven para frenar en tierra"
+      "Aumentan el ángulo de ataque crítico y el CLmax sin cambiar la resistencia, igual que los slats",
+      "Reducen la resistencia para despegar más rápido y acortar la carrera, por eso se usan en el despegue",
+      "Aumentan el CLmax y reducen la resistencia, por eso en el despegue siempre conviene extender la mayor posición de flaps",
+      "Aumentan la curvatura (y en algunos tipos la superficie), el CLmax y la resistencia, y reducen la velocidad de pérdida"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "respuesta": "Aumentan la curvatura (y en algunos tipos la superficie), el CLmax y la resistencia, y reducen la velocidad de pérdida",
     "explicacion": "Permiten volar más lento con una actitud de nariz más baja y un ángulo de descenso mayor. Los flaps de borde de salida reducen el ángulo de ataque crítico aunque suben el CLmax.",
     "punto": "Flaps = más CLmax y más resistencia.",
@@ -512,12 +512,12 @@ export const AERO_ENTREVISTA: PreguntaEntrevistaAero[] = [
     "titulo": "Fuerzas en ascenso",
     "pregunta": "En un ascenso estabilizado, la sustentación es:",
     "opciones": [
-      "Cero",
+      "Igual al peso, como en vuelo recto y nivelado",
+      "Mayor que el peso, que es lo que hace subir al avión",
       "Ligeramente menor que el peso",
-      "Igual al peso",
-      "Mayor que el peso"
+      "Ligeramente mayor que el peso"
     ],
-    "correcta": 1,
+    "correcta": 2,
     "respuesta": "Ligeramente menor que el peso",
     "explicacion": "Una componente del peso actúa hacia atrás a lo largo de la trayectoria y la compensa el empuje. La sustentación solo equilibra la componente del peso perpendicular a la trayectoria.",
     "punto": "El avión sube por exceso de empuje, no por exceso de sustentación.",
@@ -555,13 +555,13 @@ export const AERO_ENTREVISTA: PreguntaEntrevistaAero[] = [
     "titulo": "Velocidad de maniobra",
     "pregunta": "¿Cuál afirmación sobre la velocidad de maniobra (Va) es correcta?",
     "opciones": [
-      "Por debajo de Va el avión está protegido contra cualquier entrada de mando",
-      "Va es la velocidad de penetración de turbulencia en todo avión de transporte",
-      "Por debajo de Va, la deflexión completa de un mando en un eje no debería exceder la carga límite; las entradas alternadas o en varios ejes pueden causar falla estructural incluso por debajo de Va",
-      "Va aumenta cuando el peso disminuye"
+      "Por debajo de Va, un mando a fondo en un solo eje no debería exceder la carga límite; alternar o combinar ejes sí puede causar falla estructural",
+      "Por debajo de Va el avión está protegido contra cualquier entrada de mando, en cualquier eje, en cualquier secuencia y con cualquier recorrido del mando",
+      "Va es la velocidad de penetración de turbulencia en todo avión de transporte, y la que el AFM publica para volar en aire turbulento",
+      "Va aumenta cuando el peso disminuye, porque el avión más liviano soporta más G antes de entrar en pérdida y de llegar a la carga límite de diseño"
     ],
-    "correcta": 2,
-    "respuesta": "Por debajo de Va, la deflexión completa de un mando en un eje no debería exceder la carga límite; las entradas alternadas o en varios ejes pueden causar falla estructural incluso por debajo de Va",
+    "correcta": 0,
+    "respuesta": "Por debajo de Va, un mando a fondo en un solo eje no debería exceder la carga límite; alternar o combinar ejes sí puede causar falla estructural",
     "explicacion": "Es el contenido exigido por 14 CFR 25.1583(a)(3) en el manual de vuelo, reforzado tras el accidente de AA587. En turbulencia, en transporte, se usa VRA/MRA.",
     "punto": "Va: un mando, un eje, sin alternar.",
     "temas": [
@@ -598,12 +598,12 @@ export const AERO_ENTREVISTA: PreguntaEntrevistaAero[] = [
     "titulo": "Planeo y peso",
     "pregunta": "Si un avión pesa más, ¿planea más o menos distancia?",
     "opciones": [
-      "Menos distancia",
-      "La misma distancia a la misma velocidad",
-      "Más distancia",
-      "La misma distancia a L/Dmax, pero a mayor velocidad y mayor régimen de descenso"
+      "Menos distancia, porque el peso extra aumenta el régimen de descenso",
+      "La misma distancia a L/Dmax, pero a mayor velocidad y mayor régimen de descenso",
+      "Más distancia, porque el avión pesado lleva más energía al planear",
+      "La misma distancia y a la misma velocidad que el avión liviano"
     ],
-    "correcta": 3,
+    "correcta": 1,
     "respuesta": "La misma distancia a L/Dmax, pero a mayor velocidad y mayor régimen de descenso",
     "explicacion": "La relación de planeo depende de L/D. El peso cambia la velocidad a la que se obtiene L/Dmax, no su valor.",
     "punto": "El peso no cambia la distancia de planeo; cambia la velocidad.",
@@ -653,12 +653,12 @@ export const AERO_ENTREVISTA: PreguntaEntrevistaAero[] = [
     "titulo": "CG adelantado y atrasado",
     "pregunta": "Con el CG en el límite delantero, respecto al límite trasero:",
     "opciones": [
-      "Mayor velocidad de pérdida, mayores fuerzas de mando, más estabilidad y más consumo",
-      "Menor velocidad de pérdida, menor consumo y mandos más livianos",
-      "Menor estabilidad y mayor riesgo de golpe de cola",
-      "Ningún cambio aerodinámico, solo estructural"
+      "Menor velocidad de pérdida, menor consumo, mandos más livianos y menos estabilidad",
+      "Menor estabilidad y mayor riesgo de golpe de cola en la rotación",
+      "Mayor velocidad de pérdida y más consumo, pero mandos más livianos y menos estabilidad",
+      "Mayor velocidad de pérdida, mayores fuerzas de mando, más estabilidad y más consumo"
     ],
-    "correcta": 0,
+    "correcta": 3,
     "respuesta": "Mayor velocidad de pérdida, mayores fuerzas de mando, más estabilidad y más consumo",
     "explicacion": "El CG adelantado exige más fuerza hacia abajo en la cola: más sustentación en el ala, más ángulo de ataque y más resistencia. El atrasado reduce la estabilidad y dificulta la recuperación de pérdidas.",
     "punto": "Adelantado: estable y costoso. Atrasado: eficiente y delicado.",
@@ -696,12 +696,12 @@ export const AERO_ENTREVISTA: PreguntaEntrevistaAero[] = [
     "titulo": "High, hot, heavy",
     "pregunta": "¿Qué efecto tiene la combinación alta elevación + alta temperatura + alto peso en el despegue?",
     "opciones": [
-      "No tiene efecto si se usa la misma IAS",
+      "No tiene efecto si se usa la misma IAS: el ala vuela igual, así que la distancia de despegue y el ascenso no cambian",
+      "Reduce la IAS de rotación, porque el aire menos denso ofrece menos resistencia y el avión acelera antes en la carrera",
       "Aumenta la TAS y la GS de rotación, reduce el empuje y aumenta la distancia de despegue; empeora el ascenso",
-      "Mejora el ascenso por menor resistencia",
-      "Reduce la IAS de rotación"
+      "Mejora el ascenso por la menor resistencia del aire poco denso, aunque la carrera de despegue sea algo más larga"
     ],
-    "correcta": 1,
+    "correcta": 2,
     "respuesta": "Aumenta la TAS y la GS de rotación, reduce el empuje y aumenta la distancia de despegue; empeora el ascenso",
     "explicacion": "Menos densidad exige más TAS para la misma presión dinámica; los motores producen menos empuje; el peso aumenta la velocidad de despegue. Según el PHAK, +10 % de peso ≈ +21 % o más de distancia de despegue.",
     "punto": "High, hot, heavy: más pista, menos ascenso.",
@@ -775,12 +775,12 @@ export const AERO_ENTREVISTA: PreguntaEntrevistaAero[] = [
     "titulo": "Low-speed buffet vs Mach buffet",
     "pregunta": "¿Cuál es la diferencia entre el buffet de baja velocidad y el Mach Buffet?",
     "opciones": [
-      "El buffet de baja velocidad solo ocurre con flaps extendidos",
-      "No hay diferencia; ambos se deben al tren de aterrizaje",
+      "No hay diferencia: los dos son la misma vibración por separación del flujo y solo cambia el nombre según la fase",
       "El de baja velocidad se debe a alto ángulo de ataque cerca de la pérdida; el Mach Buffet, a la separación detrás de ondas de choque a alta velocidad",
-      "El Mach Buffet ocurre solo por debajo de FL100"
+      "El de baja velocidad solo ocurre con flaps extendidos, en la aproximación; el Mach Buffet, solo en crucero, con el ala limpia y siempre por encima de MMO",
+      "El Mach Buffet ocurre solo por debajo de FL100, donde la presión dinámica es mayor; el de baja velocidad, solo por encima de FL300, cerca del techo máximo"
     ],
-    "correcta": 2,
+    "correcta": 1,
     "respuesta": "El de baja velocidad se debe a alto ángulo de ataque cerca de la pérdida; el Mach Buffet, a la separación detrás de ondas de choque a alta velocidad",
     "explicacion": "A gran altitud ambos pueden tener relación con la compresibilidad: con alto ángulo de ataque, el flujo sobre el extradós se acelera y puede formar ondas de choque incluso a baja IAS (el PHAK lo llama buffet de Mach de baja velocidad).",
     "punto": "Uno por demasiado lento para el peso y la altitud; el otro por demasiado rápido.",
@@ -866,12 +866,12 @@ export const AERO_ENTREVISTA: PreguntaEntrevistaAero[] = [
     "titulo": "Q-Corner y altitud de cruce",
     "pregunta": "¿Cuál afirmación es correcta?",
     "opciones": [
-      "Q-Corner es el factor de carga máximo en turbulencia",
-      "Q-Corner es la altitud donde VMO y MMO son iguales",
-      "Coffin Corner y altitud de cruce son lo mismo",
-      "Q-Corner es otro nombre de Coffin Corner; la altitud donde una CAS y un Mach dados coinciden es la altitud de cruce (Crossover Altitude)"
+      "Q-Corner es otro nombre de Coffin Corner; la altitud donde una CAS y un Mach dados coinciden es la altitud de cruce (Crossover Altitude)",
+      "Q-Corner es la altitud donde VMO y MMO son iguales, y no tiene relación con Coffin Corner",
+      "Coffin Corner y altitud de cruce son lo mismo: la altitud donde una CAS y un Mach dados coinciden",
+      "Q-Corner es el factor de carga máximo que admite la estructura en turbulencia a gran altitud"
     ],
-    "correcta": 3,
+    "correcta": 0,
     "respuesta": "Q-Corner es otro nombre de Coffin Corner; la altitud donde una CAS y un Mach dados coinciden es la altitud de cruce (Crossover Altitude)",
     "explicacion": "La AC 61-107B usa \"Q-Corner or Coffin Corner\". La altitud de cruce es otro concepto: marca el paso del límite VMO al MMO.",
     "punto": "Q-Corner = Coffin Corner. Crossover = cambio de IAS a Mach.",
