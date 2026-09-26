@@ -629,9 +629,11 @@
  * Playfair Display del nombre. La geometría del isotipo vive en
  * src/components/marca/trazos.ts.
  *
- * La Playfair es para titulares y cifras grandes, no para leer: a 13 px su
- * contraste se rompe y los trazos finos desaparecen. La interfaz sigue en
- * Inter; los rótulos en versalitas espaciadas.
+ * La Playfair es para titulares, no para leer ni para cifras: a 13 px su
+ * contraste se rompe, y en las cifras del panel pesaba demasiado (Camilo,
+ * 26-sep-2026: «muy grande y recargada»). Las cifras van en Manrope (.cifra),
+ * de peso medio y con dígitos de tabla. La interfaz sigue en Inter; los
+ * rótulos en versalitas espaciadas.
  * ============================================================ */
 :root {
   --marca-navy: #0b1e3a;
@@ -641,6 +643,7 @@
      del modo oscuro. */
   --marca-tinta: var(--marca-navy);
   --font-titular: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-cifra: "Manrope", var(--font-sans);
 }
 .dark {
   --marca-tinta: oklch(0.95 0.012 250);
@@ -657,6 +660,21 @@
   letter-spacing: -0.01em;
 }
 .titular.tabular { font-variant-numeric: lining-nums tabular-nums; }
+
+/* Las cifras del panel: horas, nivel, porcentajes. */
+.cifra {
+  font-family: var(--font-cifra);
+  font-weight: 500;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.025em;
+}
+
+/* Los íconos de la portada (src/assets/iconos/panel): ya traen su placa, solo
+   se les marca el canto para que no se pierdan sobre la tarjeta blanca. */
+.icono-panel {
+  box-shadow: 0 0 0 1px rgb(11 30 58 / 7%), 0 1px 2px rgb(11 30 58 / 8%);
+}
+.dark .icono-panel { box-shadow: 0 0 0 1px rgb(255 255 255 / 8%); }
 
 /* Los íconos de la hoja de Camilo (src/assets/iconos): navy y dorado con
    volumen. La placa es el gris azulado de las tarjetas de la hoja, con su

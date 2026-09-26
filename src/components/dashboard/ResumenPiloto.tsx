@@ -1,62 +1,130 @@
 import type { ReactNode } from "react"
 import { Link } from "react-router-dom"
-import { ArrowRight, ChevronRight, Circle } from "lucide-react"
+import { ArrowRight, ArrowUpRight } from "lucide-react"
 import type { LicenseRow } from "@/components/dashboard/tipos"
 import { daysUntil } from "@/components/dashboard/plan"
 import { estadoDeDocumento, grupoDeDocumento, type EstadoDeDocumento, type GrupoDeDocumento } from "@/lib/licencias"
 import { ESTADO_VISUAL, horas, textoDeEstado } from "@/components/dashboard/portada"
-import { PlacaIcono } from "@/components/marca/Icono"
-import type { NombreIcono } from "@/components/marca/iconos"
+import { IconoPanel } from "@/components/marca/Icono"
+import type { NombreIconoPanel } from "@/components/marca/iconosPanel"
 
 /**
- * Tarjeta del panel: el ícono de la hoja en su placa, el título en Playfair y
- * el enlace a la pantalla del dato.
+ * Las piezas de la portada: el encabezado de cada sección y las tarjetas de
+ * datos del piloto.
+ *
+ * Camilo las encontró «muy grandes y recargadas» (26-sep-2026): cada tarjeta
+ * llevaba su título y su cifra en Playfair seminegrita, a 18 y a 40 px. Ahora
+ * la Playfair queda para los títulos de sección, el título de la tarjeta es
+ * un rótulo discreto y la cifra va en Manrope de peso medio (`.cifra`).
  */
-export function TarjetaPanel({
+
+/** El título de una sección de la portada, con su ícono y una acción opcional. */
+export function EncabezadoSeccion({
+  icono,
+  titulo,
+  bajada,
+  accion,
+}: {
+  icono?: NombreIconoPanel
+  titulo: string
+  bajada?: string
+  accion?: { texto: string; to: string }
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2">
+      {icono && <IconoPanel nombre={icono} className="h-11 w-11" />}
+      <div className="min-w-[min(100%,15rem)] flex-1">
+        <h2 className="titular m-0 text-[22px] font-medium leading-tight text-foreground">{titulo}</h2>
+        {bajada && <p className="m-0 mt-0.5 text-[13px] text-muted-foreground">{bajada}</p>}
+      </div>
+      {accion && (
+        <Link
+          to={accion.to}
+          className="group inline-flex shrink-0 items-center gap-1 text-[13px] font-medium text-foreground/80 transition-colors hover:text-foreground"
+        >
+          {accion.texto}
+          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+        </Link>
+      )}
+    </div>
+  )
+}
+
+/** Tarjeta de un dato del piloto: ícono, rótulo, la cifra y su detalle. */
+export function TarjetaDato({
   icono,
   titulo,
   to,
   children,
   className = "",
 }: {
-  icono: NombreIcono
+  icono?: NombreIconoPanel
   titulo: string
   to: string
   children: ReactNode
   className?: string
 }) {
   return (
-    <div className={`flex min-w-0 flex-col rounded-2xl surface p-5 ${className}`}>
-      <div className="flex items-center gap-3.5">
-        <PlacaIcono nombre={icono} className="h-12 w-12" />
-        <h2 className="titular m-0 min-w-0 flex-1 truncate text-[18px] font-semibold text-foreground">{titulo}</h2>
+    <section className={`flex min-w-0 flex-col rounded-2xl surface p-5 ${className}`}>
+      <header className="flex items-center gap-3">
+        {icono && <IconoPanel nombre={icono} className="h-11 w-11" />}
+        <h3 className="m-0 min-w-0 flex-1 truncate text-[14px] font-medium text-foreground/80">{titulo}</h3>
         <Link
           to={to}
-          aria-label={`Ver ${titulo.toLowerCase()}`}
-          className="-mr-1 grid h-8 w-8 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          aria-label={`Abrir ${titulo.toLowerCase()}`}
+          className="-mr-1.5 grid h-8 w-8 shrink-0 place-items-center rounded-full text-muted-foreground/70 transition-colors hover:bg-muted hover:text-foreground"
         >
-          <ChevronRight className="h-4 w-4" aria-hidden />
+          <ArrowUpRight className="h-4 w-4" aria-hidden />
         </Link>
-      </div>
-      <div className="mt-4 flex min-w-0 flex-1 flex-col">{children}</div>
-    </div>
+      </header>
+      <div className="mt-5 flex min-w-0 flex-1 flex-col">{children}</div>
+    </section>
   )
 }
 
-/** Barra fina de avance, del color de la tinta. */
+/** La cifra de una tarjeta, con su unidad en pequeño. */
+export function Cifra({ valor, unidad, apagada = false }: { valor: string; unidad?: string; apagada?: boolean }) {
+  return (
+    <p className={`cifra m-0 text-[30px] leading-none ${apagada ? "text-muted-foreground" : "text-foreground"}`}>
+      {valor}
+      {unidad && <span className="ml-1 text-[15px] font-normal tracking-normal text-muted-foreground">{unidad}</span>}
+    </p>
+  )
+}
+
+/** Barra fina de avance, en el azul de la marca. */
 export function Barra({ pct, etiqueta }: { pct: number; etiqueta: string }) {
   const v = Math.max(0, Math.min(100, Math.round(pct)))
   return (
     <div
-      className="h-1.5 overflow-hidden rounded-full bg-muted"
+      className="h-1 overflow-hidden rounded-full bg-muted"
       role="progressbar"
       aria-valuenow={v}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-label={etiqueta}
     >
-      <div className="h-full rounded-full bg-foreground transition-[width] duration-500" style={{ width: `${v}%` }} />
+      <div className="h-full rounded-full bg-[var(--marca-acento)] transition-[width] duration-500" style={{ width: `${v}%` }} />
     </div>
+  )
+}
+
+/** El renglón de abajo de una tarjeta: un texto a cada lado. */
+function Pie({ izquierda, derecha }: { izquierda: ReactNode; derecha?: ReactNode }) {
+  return (
+    <div className="mt-2.5 flex items-baseline justify-between gap-3 text-[12px] text-muted-foreground">
+      <span className="min-w-0 truncate">{izquierda}</span>
+      {derecha && <span className="shrink-0">{derecha}</span>}
+    </div>
+  )
+}
+
+function EnlacePie({ to, children }: { to: string; children: ReactNode }) {
+  return (
+    <Link to={to} className="group inline-flex items-center gap-1 font-medium text-foreground">
+      {children}
+      <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" aria-hidden />
+    </Link>
   )
 }
 
@@ -73,24 +141,19 @@ export function TarjetaHoras({
   meta: number | null
 }) {
   return (
-    <TarjetaPanel icono="horas" titulo="Horas totales" to="/app/logbook">
+    <TarjetaDato icono="horas" titulo="Horas totales" to="/app/logbook">
       {total ? (
         <>
-          <div className="titular tabular text-[40px] font-semibold leading-none text-foreground">{horas.format(total)}</div>
-          <div className="mt-1.5 text-[12.5px] text-muted-foreground">{pic ? `PIC ${horas.format(pic)}` : "PIC sin anotar"}</div>
-          <div className="mt-auto pt-4">
+          <Cifra valor={horas.format(total)} unidad="h" />
+          <p className="m-0 mt-2 text-[12.5px] text-muted-foreground">{pic ? `${horas.format(pic)} h como PIC` : "PIC sin anotar"}</p>
+          <div className="mt-auto pt-5">
             {meta ? (
               <>
                 <Barra pct={(total / meta) * 100} etiqueta={`Horas hacia ${horas.format(meta)}`} />
-                <div className="mt-2 flex items-baseline justify-between gap-2 text-[12px] text-muted-foreground">
-                  <span className="tabular">
-                    {Math.floor((total / meta) * 100)} % para {horas.format(meta)} h
-                  </span>
-                  <span className="tabular">Faltan {horas.format(Math.ceil(meta - total))} h</span>
-                </div>
+                <Pie izquierda={`Meta ${horas.format(meta)} h`} derecha={<span className="tabular">Faltan {horas.format(Math.ceil(meta - total))} h</span>} />
               </>
             ) : (
-              <p className="m-0 text-[12.5px] font-semibold" style={{ color: "var(--av-success-fg)" }}>
+              <p className="m-0 text-[12.5px] font-medium" style={{ color: "var(--av-success-fg)" }}>
                 Cumples las horas de todas las aerolíneas de la lista
               </p>
             )}
@@ -98,13 +161,14 @@ export function TarjetaHoras({
         </>
       ) : (
         <>
-          <div className="titular text-[28px] font-semibold leading-none text-muted-foreground">Sin anotar</div>
-          <Link to="/app/perfil" className="mt-auto inline-flex items-center gap-1 pt-4 text-[13px] font-semibold text-foreground">
-            Anótalas en tu perfil <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-          </Link>
+          <Cifra valor="Sin anotar" apagada />
+          <p className="m-0 mt-2 text-[12.5px] text-muted-foreground">Con tus horas calculamos qué te falta.</p>
+          <div className="mt-auto pt-5 text-[12px]">
+            <EnlacePie to="/app/perfil">Anotarlas en mi perfil</EnlacePie>
+          </div>
         </>
       )}
-    </TarjetaPanel>
+    </TarjetaDato>
   )
 }
 
@@ -115,40 +179,39 @@ const OBJETIVO_ICAO = 4
 export function TarjetaIcao({ nivel, medirHref }: { nivel: number | null; medirHref: string }) {
   const medido = nivel !== null && nivel > 0
   return (
-    <TarjetaPanel icono="ingles-icao" titulo="Inglés ICAO" to="/app/icao">
-      <div className="titular text-[34px] font-semibold leading-none text-foreground">
-        {medido ? `Nivel ${nivel}` : <span className="text-muted-foreground">Sin medir</span>}
-      </div>
-      {/* Los seis niveles en una regla: el actual relleno, el objetivo marcado. */}
-      <ol className="relative m-0 mt-4 flex list-none items-center justify-between p-0" aria-label="Niveles ICAO del 1 al 6">
-        <span aria-hidden className="absolute left-1.5 right-1.5 top-[7px] h-0.5 bg-muted" />
-        {medido && (
-          <span
-            aria-hidden
-            className="absolute left-1.5 top-[7px] h-0.5 bg-foreground"
-            style={{ width: `calc((100% - 12px) * ${((nivel ?? 1) - 1) / 5})` }}
-          />
-        )}
-        {[1, 2, 3, 4, 5, 6].map((n) => {
-          const alcanzado = medido && n <= (nivel ?? 0)
-          const actual = medido && n === nivel
-          return (
-            <li key={n} className="relative flex flex-col items-center gap-1.5">
-              <span
-                className={`block rounded-full border-2 ${actual ? "h-4 w-4 border-foreground bg-foreground" : alcanzado ? "h-3 w-3 border-foreground bg-foreground" : n === OBJETIVO_ICAO ? "h-3 w-3 border-foreground bg-card" : "h-3 w-3 border-muted-foreground/40 bg-card"}`}
-              />
-              <span className={`tabular text-[11px] ${actual || n === OBJETIVO_ICAO ? "font-semibold text-foreground" : "text-muted-foreground"}`}>{n}</span>
-            </li>
-          )
-        })}
-      </ol>
-      <div className="mt-auto flex items-baseline justify-between gap-2 pt-3 text-[12px]">
-        <span className="text-muted-foreground">Objetivo: Nivel {OBJETIVO_ICAO}</span>
-        <Link to={medido ? "/app/icao" : medirHref} className="inline-flex items-center gap-1 font-semibold text-foreground">
-          {medido ? "Practicar ahora" : "Medir mi nivel"} <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-        </Link>
-      </div>
-    </TarjetaPanel>
+    <TarjetaDato icono="ingles-icao" titulo="Inglés ICAO" to="/app/icao">
+      {medido ? (
+        <>
+          <Cifra valor={`Nivel ${nivel}`} />
+          <p
+            className="m-0 mt-2 text-[12.5px]"
+            style={{ color: (nivel ?? 0) >= OBJETIVO_ICAO ? "var(--av-success-fg)" : "var(--av-warn-fg)" }}
+          >
+            {(nivel ?? 0) >= OBJETIVO_ICAO ? "Cumples el mínimo de aerolínea" : `Te falta llegar a nivel ${OBJETIVO_ICAO}`}
+          </p>
+          <div className="mt-auto pt-5">
+            {/* Los seis niveles en seis tramos: los alcanzados en azul, el mínimo marcado. */}
+            <div className="flex gap-1" role="img" aria-label={`Nivel ${nivel} de 6. El mínimo de aerolínea es ${OBJETIVO_ICAO}.`}>
+              {[1, 2, 3, 4, 5, 6].map((n) => (
+                <span
+                  key={n}
+                  className={`h-1 flex-1 rounded-full ${n <= (nivel ?? 0) ? "bg-[var(--marca-acento)]" : n === OBJETIVO_ICAO ? "bg-foreground/25" : "bg-muted"}`}
+                />
+              ))}
+            </div>
+            <Pie izquierda={`Mínimo: nivel ${OBJETIVO_ICAO}`} derecha={<EnlacePie to="/app/icao">Practicar</EnlacePie>} />
+          </div>
+        </>
+      ) : (
+        <>
+          <Cifra valor="Sin medir" apagada />
+          <p className="m-0 mt-2 text-[12.5px] text-muted-foreground">Las aerolíneas piden nivel {OBJETIVO_ICAO} o más.</p>
+          <div className="mt-auto pt-5 text-[12px]">
+            <EnlacePie to={medirHref}>Medir mi nivel</EnlacePie>
+          </div>
+        </>
+      )}
+    </TarjetaDato>
   )
 }
 
@@ -157,84 +220,76 @@ export function TarjetaIcao({ nivel, medirHref }: { nivel: number | null; medirH
 const PEOR: EstadoDeDocumento[] = ["vencido", "por-vencer", "vigente", "sin-fecha"]
 
 const GRUPOS: { grupo: GrupoDeDocumento; nombre: string }[] = [
-  { grupo: "licencia", nombre: "Licencia de piloto" },
-  { grupo: "medico", nombre: "Certificado médico" },
-  { grupo: "otros", nombre: "Otros certificados" },
+  { grupo: "licencia", nombre: "Licencia" },
+  { grupo: "medico", nombre: "Médico" },
+  { grupo: "otros", nombre: "Otros" },
 ]
 
+/** El estado de cada grupo: el documento que peor está manda. */
+function estadoDeGrupos(documentos: LicenseRow[]) {
+  return GRUPOS.map(({ grupo, nombre }) => {
+    const delGrupo = documentos.filter((d) => grupoDeDocumento(d.license_type) === grupo)
+    if (delGrupo.length === 0) return { grupo, nombre, estado: null, dias: null }
+    const conDias = delGrupo.map((d) => {
+      const dias = d.expires_date ? daysUntil(d.expires_date) : null
+      return { dias, estado: estadoDeDocumento(dias) }
+    })
+    conDias.sort((a, b) => PEOR.indexOf(a.estado) - PEOR.indexOf(b.estado) || (a.dias ?? 1e9) - (b.dias ?? 1e9))
+    return { grupo, nombre, ...conDias[0] }
+  })
+}
+
 export function TarjetaDocumentos({ documentos }: { documentos: LicenseRow[] }) {
+  const grupos = estadoDeGrupos(documentos)
+  const vencidos = grupos.filter((g) => g.estado === "vencido").length
+  const porVencer = grupos.filter((g) => g.estado === "por-vencer").length
+  // «Otros» es opcional: sin licencia o sin médico la documentación está por completar.
+  const faltaLoBasico = grupos.some((g) => g.grupo !== "otros" && g.estado === null)
+  const resumen = vencidos
+    ? { valor: vencidos === 1 ? "1 vencido" : `${vencidos} vencidos`, color: ESTADO_VISUAL.vencido.color }
+    : porVencer
+      ? { valor: `${porVencer} por vencer`, color: ESTADO_VISUAL["por-vencer"].color }
+      : faltaLoBasico
+        ? { valor: "Por completar", color: undefined }
+        : { valor: "Al día", color: undefined }
   return (
-    <TarjetaPanel icono="documentacion" titulo="Documentación" to="/app/vencimientos">
-      <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
-        {GRUPOS.map(({ grupo, nombre }) => {
-          const delGrupo = documentos.filter((d) => grupoDeDocumento(d.license_type) === grupo)
-          if (delGrupo.length === 0) {
-            return (
-              <li key={grupo} className="flex items-center gap-2.5 text-[13px]">
-                <Circle className="h-4 w-4 shrink-0 text-muted-foreground/50" aria-hidden />
-                <span className="min-w-0 flex-1 truncate text-foreground">{nombre}</span>
-                <span className="shrink-0 text-muted-foreground">Sin registrar</span>
-              </li>
-            )
-          }
-          // El que peor está manda: un médico vigente y otro vencido es «vencido».
-          const conDias = delGrupo.map((d) => {
-            const dias = d.expires_date ? daysUntil(d.expires_date) : null
-            return { dias, estado: estadoDeDocumento(dias) }
-          })
-          conDias.sort((a, b) => PEOR.indexOf(a.estado) - PEOR.indexOf(b.estado) || (a.dias ?? 1e9) - (b.dias ?? 1e9))
-          const { estado, dias } = conDias[0]
-          const { icono: Icono, color } = ESTADO_VISUAL[estado]
-          return (
-            <li key={grupo} className="flex items-center gap-2.5 text-[13px]">
-              <Icono className="h-4 w-4 shrink-0" style={{ color }} aria-hidden />
-              <span className="min-w-0 flex-1 truncate text-foreground">{nombre}</span>
-              <span className="shrink-0 font-medium" style={{ color }}>
-                {textoDeEstado(estado, dias)}
-              </span>
-            </li>
-          )
-        })}
+    <TarjetaDato icono="documentacion" titulo="Documentación" to="/app/vencimientos">
+      <p className="cifra m-0 text-[30px] leading-none text-foreground" style={resumen.color ? { color: resumen.color } : undefined}>
+        {resumen.valor}
+      </p>
+      <ul className="m-0 mt-auto flex list-none flex-col gap-1.5 p-0 pt-4">
+        {grupos.map(({ grupo, nombre, estado, dias }) => (
+          <li key={grupo} className="flex items-center gap-2 text-[12.5px]">
+            <span
+              aria-hidden
+              className="h-1.5 w-1.5 shrink-0 rounded-full"
+              style={{ background: estado ? ESTADO_VISUAL[estado].color : "var(--muted-foreground)", opacity: estado ? 1 : 0.4 }}
+            />
+            <span className="min-w-0 flex-1 truncate text-foreground/85">{nombre}</span>
+            <span className="shrink-0" style={{ color: estado ? ESTADO_VISUAL[estado].color : "var(--muted-foreground)" }}>
+              {estado ? textoDeEstado(estado, dias) : "Sin registrar"}
+            </span>
+          </li>
+        ))}
       </ul>
-    </TarjetaPanel>
+    </TarjetaDato>
   )
 }
 
 // ─── Progreso general ───────────────────────────────────────────────────────
 
-/** El avance de los módulos en un anillo. No lleva ícono de la hoja: el anillo es el ícono. */
 export function TarjetaProgreso({ pct, completos, total }: { pct: number; completos: number; total: number }) {
-  const r = 34
-  const c = 2 * Math.PI * r
   const v = Math.max(0, Math.min(100, Math.round(pct)))
   return (
-    <div className="flex min-w-0 items-center gap-5 rounded-2xl surface p-5">
-      <svg viewBox="0 0 84 84" className="h-[96px] w-[96px] shrink-0" role="img" aria-label={`Progreso general: ${v} %`}>
-        <circle cx="42" cy="42" r={r} fill="none" stroke="var(--muted)" strokeWidth="6" />
-        <circle
-          cx="42"
-          cy="42"
-          r={r}
-          fill="none"
-          stroke="var(--marca-acento)"
-          strokeWidth="6"
-          strokeLinecap="round"
-          strokeDasharray={`${(c * v) / 100} ${c}`}
-          transform="rotate(-90 42 42)"
-        />
-        <text x="42" y="48.5" textAnchor="middle" className="titular" fontSize="19" fontWeight="600" fill="var(--foreground)">
-          {v} %
-        </text>
-      </svg>
-      <div className="min-w-0">
-        <h2 className="titular m-0 text-[18px] font-semibold text-foreground">Progreso general</h2>
-        <p className="m-0 mt-1.5 text-[13px] text-muted-foreground">
-          {completos} de {total} módulos completados
-        </p>
-        <Link to="/app/aerolinea" className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold text-foreground">
-          Ver todos los módulos <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-        </Link>
+    <TarjetaDato icono="progreso" titulo="Progreso general" to="/app/aerolinea">
+      <Cifra valor={String(v)} unidad="%" />
+      <p className="m-0 mt-2 text-[12.5px] text-muted-foreground">
+        {completos} de {total} módulos completados
+      </p>
+      <div className="mt-auto pt-5">
+        <Barra pct={v} etiqueta={`Progreso general: ${v} %`} />
+        <Pie izquierda="Ingreso a aerolínea" derecha={<EnlacePie to="/app/aerolinea">Ver módulos</EnlacePie>} />
       </div>
-    </div>
+    </TarjetaDato>
   )
 }

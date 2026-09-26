@@ -1,60 +1,14 @@
 import { Link } from "react-router-dom"
 import { ArrowRight, Check } from "lucide-react"
 import destinosFoto from "@/assets/photos/wingman-cockpit-dusk.webp"
-import type { ActivityDay, LicenseRow } from "@/components/dashboard/tipos"
-import { daysUntil } from "@/components/dashboard/plan"
-import { TarjetaPanel } from "@/components/dashboard/ResumenPiloto"
-import { ESTADO_VISUAL, textoDeEstado } from "@/components/dashboard/portada"
-import { estadoDeDocumento, nombreDeDocumento } from "@/lib/licencias"
-import { PlacaIcono } from "@/components/marca/Icono"
-import type { NombreIcono } from "@/components/marca/iconos"
+import type { ActivityDay } from "@/components/dashboard/tipos"
+import { Cifra, TarjetaDato } from "@/components/dashboard/ResumenPiloto"
 
-// ─── Próximos vencimientos ──────────────────────────────────────────────────
-
-export function ProximosVencimientos({ documentos }: { documentos: LicenseRow[] }) {
-  const lista = documentos
-    .map((d) => {
-      const dias = d.expires_date ? daysUntil(d.expires_date) : null
-      return { d, dias, estado: estadoDeDocumento(dias) }
-    })
-    .sort((a, b) => (a.dias ?? 1e9) - (b.dias ?? 1e9))
-    .slice(0, 4)
-  return (
-    <div className="flex min-w-0 flex-col rounded-2xl surface p-5">
-      <div className="flex items-center gap-3.5">
-        <PlacaIcono nombre="vencimientos" className="h-12 w-12" />
-        <h2 className="titular m-0 min-w-0 flex-1 text-[18px] font-semibold text-foreground">Próximos vencimientos</h2>
-        <Link to="/app/vencimientos" className="inline-flex shrink-0 items-center gap-1 text-[12.5px] font-semibold text-foreground">
-          Ver todos <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-        </Link>
-      </div>
-      {lista.length === 0 ? (
-        <div className="mt-4 text-[13px] text-muted-foreground">
-          Aún no registras documentos.{" "}
-          <Link to="/app/vencimientos" className="font-semibold text-foreground underline underline-offset-2">
-            Agrega tu licencia y tu médico
-          </Link>{" "}
-          y te avisamos antes de que venzan.
-        </div>
-      ) : (
-        <ul className="m-0 mt-4 flex list-none flex-col gap-2.5 p-0">
-          {lista.map(({ d, dias, estado }) => {
-            const { icono: Icono, color } = ESTADO_VISUAL[estado]
-            return (
-              <li key={d.id} className="flex items-center gap-2.5 text-[13px]">
-                <Icono className="h-4 w-4 shrink-0" style={{ color }} aria-hidden />
-                <span className="min-w-0 flex-1 truncate text-foreground">{nombreDeDocumento(d)}</span>
-                <span className="shrink-0 font-medium" style={{ color }}>
-                  {textoDeEstado(estado, dias)}
-                </span>
-              </li>
-            )
-          })}
-        </ul>
-      )}
-    </div>
-  )
-}
+/**
+ * La constancia: la racha de la semana, dos cifras de estudio y la tarjeta de
+ * cierre. «Próximos vencimientos» salió de aquí (26-sep-2026): repetía lo que
+ * ya dice la tarjeta de Documentación, que lleva a la misma pantalla.
+ */
 
 // ─── Racha ──────────────────────────────────────────────────────────────────
 
@@ -90,22 +44,20 @@ export function RachaDeEstudio({
   const hoy = fechaBogota(new Date())
   const semana = semanaActual()
   return (
-    <TarjetaPanel icono="materias" titulo="Tu racha de estudio" to="/app/logros">
-      <div className="titular text-[34px] font-semibold leading-none text-foreground">
-        {dias} {dias === 1 ? "día" : "días"}
-      </div>
-      <p className="m-0 mt-1.5 text-[12.5px]" style={{ color: enRiesgo ? "var(--av-warn-fg)" : "var(--muted-foreground)" }}>
+    <TarjetaDato titulo="Tu racha de estudio" to="/app/logros">
+      <Cifra valor={String(dias)} unidad={dias === 1 ? "día" : "días"} />
+      <p className="m-0 mt-2 text-[12.5px]" style={{ color: enRiesgo ? "var(--av-warn-fg)" : "var(--muted-foreground)" }}>
         {dias === 0 ? "Estudia hoy para empezarla." : enRiesgo ? "Estudia hoy para no perderla." : "Sigue así."}
       </p>
-      <ol className="m-0 mt-auto grid list-none grid-cols-7 gap-1 p-0 pt-4" aria-label="Días estudiados esta semana">
+      <ol className="m-0 mt-auto grid list-none grid-cols-7 gap-1 p-0 pt-5" aria-label="Días estudiados esta semana">
         {semana.map((f, i) => {
           const hecho = conActividad.has(f)
           const esHoy = f === hoy
           return (
             <li key={f} className="flex flex-col items-center gap-1.5">
-              <span className="text-[11px] font-medium text-muted-foreground">{DIAS[i]}</span>
+              <span className="text-[11px] text-muted-foreground">{DIAS[i]}</span>
               <span
-                className={`grid h-6 w-6 place-items-center rounded-full ${hecho ? "text-white" : esHoy ? "border-2 border-foreground" : "bg-muted"}`}
+                className={`grid h-6 w-6 place-items-center rounded-full ${hecho ? "text-white" : esHoy ? "border border-foreground/60" : "bg-muted"}`}
                 style={hecho ? { background: "var(--av-success-fg)" } : undefined}
                 aria-label={hecho ? "Estudiado" : esHoy ? "Hoy" : "Sin estudio"}
               >
@@ -115,32 +67,19 @@ export function RachaDeEstudio({
           )
         })}
       </ol>
-    </TarjetaPanel>
+    </TarjetaDato>
   )
 }
 
 // ─── Cifras ─────────────────────────────────────────────────────────────────
 
-function Cifra({
-  icono,
-  rotulo,
-  valor,
-  nota,
-  to,
-}: {
-  icono: NombreIcono
-  rotulo: string
-  valor: string
-  nota: string
-  to: string
-}) {
+function CifraEnlace({ rotulo, valor, nota, to }: { rotulo: string; valor: string; nota: string; to: string }) {
   return (
-    <Link to={to} className="group flex min-w-0 flex-1 items-center gap-3.5 rounded-2xl surface surface-lift px-4 py-3.5">
-      <PlacaIcono nombre={icono} className="h-11 w-11" />
+    <Link to={to} className="group surface surface-lift flex min-w-0 flex-1 items-center gap-4 rounded-2xl px-5 py-4">
       <span className="min-w-0 flex-1">
-        <span className="block text-[12px] text-muted-foreground">{rotulo}</span>
-        <span className="flex items-baseline gap-2">
-          <span className="titular text-[26px] font-semibold leading-tight text-foreground">{valor}</span>
+        <span className="block text-[13px] text-foreground/80">{rotulo}</span>
+        <span className="mt-1.5 flex items-baseline gap-2">
+          <span className="cifra text-[24px] leading-none text-foreground">{valor}</span>
           <span className="truncate text-[12px] text-muted-foreground">{nota}</span>
         </span>
       </span>
@@ -153,9 +92,9 @@ export function CifrasDeEstudio({ quizzes, actividad }: { quizzes: number; activ
   const mes = fechaBogota(new Date()).slice(0, 7)
   const diasDelMes = actividad.filter((a) => a.date.startsWith(mes) && a.activities_count > 0).length
   return (
-    <div className="flex min-w-0 flex-col gap-3">
-      <Cifra icono="procedimientos" rotulo="Quizzes respondidos" valor={String(quizzes)} nota="en total" to="/app/pca" />
-      <Cifra icono="requisitos" rotulo="Días de estudio" valor={String(diasDelMes)} nota="este mes" to="/app/logros" />
+    <div className="flex min-w-0 flex-col gap-4">
+      <CifraEnlace rotulo="Quizzes respondidos" valor={String(quizzes)} nota="en total" to="/app/pca" />
+      <CifraEnlace rotulo="Días de estudio" valor={String(diasDelMes)} nota="este mes" to="/app/logros" />
     </div>
   )
 }
@@ -172,7 +111,7 @@ export function TarjetaDestinos() {
         style={{ background: "linear-gradient(90deg, rgba(8,20,36,.9) 0%, rgba(8,20,36,.7) 55%, rgba(8,20,36,.35) 100%)" }}
       />
       <div className="relative flex h-full flex-col justify-center p-6">
-        <p className="titular m-0 max-w-[280px] text-[24px] font-semibold leading-snug text-white">
+        <p className="titular m-0 max-w-[280px] text-[22px] font-medium leading-snug text-white">
           Grandes destinos requieren preparación.
         </p>
         <p className="m-0 mt-2 max-w-[260px] text-[13px] leading-relaxed text-white/78">Sigue construyendo la mejor versión de tu perfil.</p>
