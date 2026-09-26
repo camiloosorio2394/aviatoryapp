@@ -50,7 +50,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "enunciado": "Según el RAC 121, ¿qué debe asegurar el piloto al mando de forma continua durante el vuelo?",
         "opciones": [
           "Que el combustible utilizable le permita aterrizar en algún aeródromo con la reserva final intacta.",
-          "Que el combustible para el alterno de destino se conserve completo hasta el inicio de la aproximación.",
+          "Que el combustible para el alterno se conserve completo hasta la aproximación.",
           "Que la contingencia no se consuma antes de haber recorrido la mitad de la ruta planificada.",
           "Que el combustible a bordo coincida con el planificado en el OFP en cada punto de notificación."
         ],
@@ -71,7 +71,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "opciones": [
           "Sobre el total en tanques, incluido el combustible no utilizable.",
           "Sobre el combustible utilizable, el que los motores pueden consumir.",
-          "Sobre el combustible de rampa, medido en litros durante la carga.",
+          "Sobre el combustible de rampa, medido en litros por el proveedor durante la carga.",
           "Sobre el utilizable más el no utilizable, que se cuenta como reserva."
         ],
         "correcta": 1,
@@ -207,7 +207,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "id": "c05-q1",
         "enunciado": "Según el RAC 121, ¿qué cubre el combustible para el trayecto?",
         "opciones": [
-          "Desde la puesta en marcha hasta el aterrizaje en destino, incluido el rodaje.",
+          "Desde la puesta en marcha hasta el aterrizaje en destino, incluido el rodaje de salida.",
           "Desde el despegue hasta el aterrizaje en destino, incluida una frustrada en ese aeródromo.",
           "Desde el despegue hasta el aterrizaje en el alterno, pasando por el destino.",
           "Desde el despegue, o el punto de nueva planificación, hasta aterrizar en destino."
@@ -280,7 +280,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "enunciado": "Tu aerolínea quiere calcular la contingencia con un método propio basado en su programa de control del consumo, en lugar del 5 % con piso de 5 minutos. Según el RAC 121, ¿quién puede autorizarlo?",
         "opciones": [
           "La Aerocivil, con una evaluación de riesgos del explotador que lo sustente.",
-          "El PIC en cada vuelo, cuando el trayecto es corto y el tiempo es bueno.",
+          "El PIC en cada vuelo, cuando el trayecto es corto y el tiempo en destino es bueno.",
           "El despachador, si tiene datos de consumo actualizados de ese avión.",
           "Nadie: el 5 % y el piso de 5 minutos son fijos para cualquier operador colombiano."
         ],
@@ -302,7 +302,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
           "Solo el crucero y el descenso desde el destino hasta el alterno, sin contar la frustrada.",
           "El vuelo al alterno más 30 minutos de espera a 1.500 ft sobre ese aeródromo.",
           "Frustrada en destino, ascenso, ruta, descenso, aproximación y aterrizaje en el alterno.",
-          "La ruta al alterno y 15 minutos de espera sobre el destino antes de desviarte."
+          "La ruta al alterno más 15 minutos de espera a 1.500 ft sobre el destino antes de desviarte."
         ],
         "correcta": 2,
         "explicacion": "Son cinco partes, desde la aproximación frustrada en el destino hasta el aterrizaje en el alterno. Los 30 minutos de espera a 1.500 ft son la reserva final, un componente aparte que debe quedar intacto al aterrizar.",
@@ -347,7 +347,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "opciones": [
           "45 minutos de vuelo a la altitud normal de crucero.",
           "30 minutos a consumo normal de crucero sobre el aeródromo alterno.",
-          "15 minutos a velocidad de espera a 1.500 ft sobre el destino.",
+          "15 minutos a velocidad de espera a 1.500 ft sobre el aeródromo de destino.",
           "30 minutos a velocidad de espera a 1.500 ft sobre el aeródromo."
         ],
         "correcta": 3,
@@ -402,16 +402,16 @@ export const CB_PRACTICA: GrupoPractica[] = [
       },
       {
         "id": "c09-q2",
-        "enunciado": "Según EASA (CAT.OP.MPA.181 y su GM1), ¿en qué se diferencian el combustible extra y el discrecional?",
+        "enunciado": "En el OFP ves «ADDITIONAL 0» y «EXTRA 400». Según el RAC 121, ¿qué diferencia a esos dos componentes?",
         "opciones": [
-          "Extra: lo exige la norma para una falla en el punto crítico; discrecional: cubre lo imprevisto.",
-          "Son el mismo componente con dos nombres, igual que en el RAC 121, y lo decide el comandante.",
-          "Extra: demoras previstas o restricciones conocidas; discrecional: a sola discreción del comandante.",
-          "Extra: lo decide el comandante antes de salir; discrecional: lo propone el despacho según cada ruta."
+          "El adicional cubre las demoras previstas en destino; el extra, los factores imprevistos en ruta.",
+          "El adicional lo exige la norma para una falla en el punto crítico o EDTO; el extra lo añade el PIC.",
+          "Son el mismo componente con dos nombres, y el OFP los separa solo por la política de la empresa.",
+          "El adicional lo decide el PIC antes de salir; el extra lo propone el despacho y es obligatorio."
         ],
-        "correcta": 2,
-        "explicacion": "EASA separa el extra, que cubre demoras previstas o restricciones operacionales conocidas antes de salir (por ejemplo, por NOTAM), del discrecional, que queda a la sola discreción del comandante. En el RAC 121 los dos forman un solo componente, «discrecional o extra», a juicio del PIC.",
-        "referencia": "EASA, CAT.OP.MPA.181 (c)(7) y (c)(8); GM1 CAT.OP.MPA.181 (j) y (k)"
+        "correcta": 1,
+        "explicacion": "El adicional solo aparece si los demás componentes no cubren la falla de motor o la despresurización en el punto más crítico, el combustible crítico para EDTO u otros requisitos; el extra (discrecional) es la cantidad que a juicio del PIC puede añadirse. El Anexo 6 los separa igual: adicional y discrecional son componentes distintos. Las demoras previstas se cubren con extra, y lo imprevisto, con la contingencia.",
+        "referencia": "RAC 121, 121.2645 (c)(6) y (c)(7); Anexo 6, Parte I, 4.3.6.3 f) y g)"
       },
       {
         "id": "c09-q3",
@@ -485,7 +485,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "opciones": [
           "Cargar el discrecional que el PIC decide por la meteorología prevista en el destino.",
           "Pasar combustible entre tanques en vuelo para corregir un desbalance lateral.",
-          "Cargar el adicional que exige la norma para una falla en el punto más crítico.",
+          "Cargar el adicional que exige la norma para una falla en el punto más crítico de la ruta.",
           "Llevar desde origen más combustible del requerido para cargar menos en destino."
         ],
         "correcta": 3,
@@ -530,13 +530,13 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "enunciado": "Vas a volar para una aerolínea colombiana. ¿Qué dice el RAC 121 sobre cada cuánto se hace un fuel check en crucero?",
         "opciones": [
           "Fija uno en cada waypoint o al menos cada 30 minutos, lo que ocurra primero en crucero.",
-          "Fija al menos uno cada 60 minutos en crucero, igual que la norma europea.",
+          "Fija al menos uno cada 60 minutos en crucero, en cualquier tipo de ruta.",
           "No fija un intervalo: lo establece el MO del operador, aprobado por la Aerocivil.",
           "Fija uno en cada punto del OFP, sin importar cuánto tiempo pase entre un punto y otro."
         ],
         "correcta": 2,
-        "explicacion": "El RAC 121 exige que el explotador tenga criterios y procedimientos aprobados para las verificaciones del combustible en vuelo, pero el intervalo lo pone el MO. Los 60 minutos son la referencia de EASA, y cada waypoint o cada 30 minutos, la recomendación de Airbus.",
-        "referencia": "RAC 121, 121.2553 (a) y Apéndice 10, A9.3.18; EASA, AMC1 CAT.OP.MPA.185(a); Airbus, Safety First, «Fuel Leak Management in Flight» (2025)"
+        "explicacion": "El RAC 121 exige que el explotador tenga criterios y procedimientos aprobados para las verificaciones del combustible en vuelo, pero el intervalo lo pone el MO; la OACI tampoco lo fija. Cada waypoint o cada 30 minutos es la recomendación de Airbus, no una regla del RAC.",
+        "referencia": "RAC 121, 121.2553 (a) y Apéndice 10, A9.3.18; Anexo 6, Parte I, 4.3.7.1; Airbus, Safety First, «Fuel Leak Management in Flight» (2025)"
       },
       {
         "id": "c12-q2",
@@ -602,13 +602,13 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "enunciado": "En un fuel check, ¿qué comparación te dice si todavía conservas la opción de ir al alterno?",
         "opciones": [
           "El FOB real contra el combustible que el OFP planificó para ese punto.",
-          "La hora real contra la hora planificada para ese mismo punto.",
+          "La hora real contra la hora planificada en el OFP para ese mismo punto.",
           "La suma FOB + FU contra el combustible al poner en marcha.",
           "La predicción al destino contra el alterno más la reserva final."
         ],
         "correcta": 3,
         "explicacion": "Si la predicción al aterrizar en destino queda por encima del alterno más la reserva final, todavía puedes desviarte con la reserva intacta; si cae por debajo, la norma pide información de demoras. Las otras comparaciones miden el desvío del plan y sirven para detectar fugas.",
-        "referencia": "RAC 121, 121.2553 (b)(1); Doc 9976, 6.6 k); EASA, AMC1 CAT.OP.MPA.185(a), (b)(2)"
+        "referencia": "RAC 121, 121.2553 (b)(1); Doc 9976, 6.6 k)"
       }
     ]
   },
@@ -729,11 +729,11 @@ export const CB_PRACTICA: GrupoPractica[] = [
           "Que hay una emergencia y que el avión necesita prioridad inmediata para aterrizar.",
           "Que sus opciones se redujeron a un aeródromo y que más demora podría llevar a una emergencia.",
           "Que el avión aterrizará con menos de la reserva final prevista incluso en el aeródromo más cercano.",
-          "Que el piloto pide información de demoras antes de decidir si se desvía al alterno."
+          "Que el piloto solo pide información de demoras antes de decidir si se desvía o no al alterno."
         ],
         "correcta": 1,
-        "explicacion": "La Nota de la norma lo dice: no es una situación de emergencia, sino una indicación de que podría producirse una si hay más demora. Tampoco da prioridad (el Doc 9976, EASA y la FAA coinciden); aterrizar bajo la reserva final en el aeródromo más cercano es el criterio de MAYDAY.",
-        "referencia": "RAC 121, 121.2553 (b)(2), Nota; Doc 4444, 15.5.4.1, Nota; Doc 9976, 6.8.5, Nota 1; EASA, GM1 CAT.OP.MPA.185 (f); AIM 5-5-15"
+        "explicacion": "La Nota de la norma lo dice: no es una situación de emergencia, sino una indicación de que podría producirse una si hay más demora. Tampoco da prioridad (el Doc 9976 y la FAA coinciden); aterrizar bajo la reserva final en el aeródromo más cercano es el criterio de MAYDAY.",
+        "referencia": "RAC 121, 121.2553 (b)(2), Nota; Doc 4444, 15.5.4.1, Nota; Doc 9976, 6.8.5, Nota 1; AIM 5-5-15"
       },
       {
         "id": "c16-q3",
@@ -785,7 +785,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "id": "c17-q3",
         "enunciado": "Después de un vuelo en el que declaraste MAYDAY COMBUSTIBLE y te apartaste de procedimientos, ¿qué plazos aplican para ti como PIC?",
         "opciones": [
-          "Aviso a la autoridad de investigación dentro de 10 días y reporte escrito a la Aerocivil dentro de 12 horas.",
+          "Aviso a la autoridad de investigación dentro de 10 días y reporte escrito a la Aerocivil dentro de las 12 horas.",
           "Reporte escrito en 10 días calendario tras volver a tu base y aviso a la autoridad de investigación en 12 h.",
           "Reporte escrito a la Aerocivil dentro de 72 horas y aviso a la autoridad de investigación dentro de 30 días.",
           "Ninguno: si nadie resultó herido, basta con anotar la emergencia en el libro de a bordo."
@@ -831,7 +831,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "id": "c18-q3",
         "enunciado": "El ATC te asigna una espera sobre el destino «por tránsito», sin más datos. Antes de aceptarla, ¿qué información le pides?",
         "opciones": [
-          "Solo el nivel, el tramo de alejamiento y el sentido de los virajes; la demora la estimas con el FMS.",
+          "Solo el nivel, el tramo de alejamiento y el sentido de los virajes de la espera.",
           "Prioridad para la aproximación, porque cualquier espera sobre el destino consume la contingencia.",
           "La hora prevista de aproximación o la demora, su causa y si otros aviones se desvían a tu alterno.",
           "Autorización para declarar combustible mínimo apenas entres en la espera, por si la demora crece."
@@ -897,7 +897,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "id": "c20-q1",
         "enunciado": "En el RAC 121 no aparece la expresión «punto de decisión». ¿Con qué figura se regula ese concepto en la norma colombiana?",
         "opciones": [
-          "Con el punto de no retorno (PNR), que el OFP calcula en cada vuelo de larga distancia.",
+          "Con el punto de no retorno (PNR), que el OFP calcula y muestra en cada vuelo de larga distancia.",
           "Con el punto crítico o de igual tiempo (ETP), que el despachador fija en cada OFP.",
           "Con el punto de nueva planificación en vuelo, y el redespacho o enmienda del despacho.",
           "Con el punto de entrada EDTO, a partir del cual se revisan los alternos en ruta."
@@ -956,7 +956,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "id": "c21-q2",
         "enunciado": "En la llegada, el ATC te deja nivelado 15 minutos a 6.000 ft antes de la aproximación. ¿Qué implica para el combustible de un reactor?",
         "opciones": [
-          "Poco: a baja altura el aire es más denso y el reactor es más eficiente que en crucero.",
+          "Poco: a baja altura el aire es más denso y el reactor resulta más eficiente que en el crucero alto.",
           "Nada que vigilar: el OFP ya incluye ese tramo nivelado dentro del combustible previsto para el trayecto.",
           "Es caro: cerca del suelo el reactor es mucho menos eficiente; pide descenso continuo si se puede.",
           "Un ahorro: al nivelar bajo antes de tiempo, el descenso se acorta y se gasta menos."
@@ -1015,7 +1015,7 @@ export const CB_PRACTICA: GrupoPractica[] = [
         "id": "c22-q3",
         "enunciado": "Según la NTSB (AAR-91/04), ¿qué le pasó al Boeing 707 del vuelo Avianca 052 después de su aproximación frustrada en Nueva York?",
         "opciones": [
-          "Se desvió a su alterno después de la frustrada y aterrizó allí con menos de la reserva final.",
+          "Se desvió a su alterno después de la frustrada y aterrizó allí con menos de la reserva final prevista.",
           "Los motores se apagaron por falta de combustible mientras maniobraba para un segundo intento.",
           "Los motores se apagaron durante la espera, antes de que empezara la primera aproximación.",
           "Hizo un segundo intento con éxito y aterrizó en Nueva York con los tanques casi vacíos."

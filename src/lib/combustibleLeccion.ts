@@ -61,7 +61,7 @@ export const CB_LECCIONES: DocScreen[] = [
           "**RAC 121** (operación de aerolíneas). Dos secciones hacen todo el trabajo: **121.2645** (cuánto combustible se planifica) y **121.2553** (cómo se gestiona en vuelo). Es la norma que aplica tu aerolínea.",
           "**RAC 91** (reglas generales para toda aeronave): 91.610 y 91.637, y la Parte 2 (91.2012 y 91.2013) para aviones grandes y turborreactores de aviación general.",
           "**OACI**: Anexo 6, Parte I, y el **Doc 9976**, Manual de planificación de vuelo y gestión del combustible (FPFM). El RAC 121 sigue su estructura y sus valores, y remite al Doc 9976 como orientación.",
-          "**Para comparar**: EASA (Reglamento (UE) 965/2012, CAT.OP.MPA.181 y 185) y FAA (14 CFR 121.639 y 121.645; AIM 5-5-15). Sirven para ver que los valores cambian de un Estado a otro. Si vas a volar para un operador extranjero, estudia su norma."
+          "**Para comparar**: FAA (14 CFR 121.639 y 121.645; AIM 5-5-15). Sirve para ver que los valores cambian de un Estado a otro. Si vas a volar para un operador extranjero, estudia su norma."
         ],
         "ordered": true
       },
@@ -645,7 +645,7 @@ export const CB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Es la suma de los siete componentes de 121.2645 (c). **La composición exacta depende de la norma de cada Estado y de la política de cada operador**: EASA, por ejemplo, separa el extra del discrecional, y la FAA calcula la reserva de otra manera (capítulos 6 y 8)."
+        "text": "Es la suma de los siete componentes de 121.2645 (c). **La composición exacta depende de la norma de cada Estado y de la política de cada operador**: la FAA, por ejemplo, no tiene una línea de contingencia en sus vuelos domésticos y calcula la reserva de otra manera (capítulos 6 y 8), y cada operador fija en su MO cómo se calcula el extra (capítulo 9)."
       },
       {
         "kind": "sub",
@@ -953,8 +953,8 @@ export const CB_LECCIONES: DocScreen[] = [
             "5 % del trayecto, mínimo 5 min de espera a 1.500 ft sobre el destino"
           ],
           [
-            "EASA, esquema básico",
-            "5 % del trayecto o 5 min de espera a 1.500 ft sobre el destino, el mayor. Con aprobación: 3 % con un alterno en ruta designado para combustible, 20 min de vuelo o un método estadístico, sin bajar de los 5 min (AMC1 y AMC6 CAT.OP.MPA.181)"
+            "OACI (Anexo 6, Parte I, 4.3.6.3 c))",
+            "La misma del RAC 121: 5 % del trayecto, mínimo 5 min de espera a 450 m (1.500 ft) sobre el destino. Las variaciones las aprueba el Estado del explotador con una evaluación de riesgos (4.3.6.6)"
           ],
           [
             "FAA, doméstico (121.639)",
@@ -1104,7 +1104,7 @@ export const CB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Otras normas lo aplican con sus propias condiciones: **EASA** pide también 15 minutos y limita el vuelo sin alterno a 6 h o menos, con dos pistas separadas y umbrales de techo y visibilidad (CAT.OP.MPA.181; AMC2 CAT.OP.MPA.182); la **FAA** internacional con reactores pide **2 horas** a consumo normal de crucero (121.645 (c))."
+        "text": "Otras normas lo aplican con sus propias condiciones: la **FAA** internacional con reactores, por ejemplo, pide **2 horas** a consumo normal de crucero (121.645 (c))."
       },
       {
         "kind": "p",
@@ -1251,7 +1251,7 @@ export const CB_LECCIONES: DocScreen[] = [
         "kind": "vinetas",
         "items": [
           "**RAC 91, Parte 1 (aviación general, IFR):** reserva final de **45 minutos a altitud normal de crucero** (91.610 (a)(2)). Otra base de cálculo.",
-          "**EASA:** 30 min en espera a 1.500 ft para turbina, como el RAC 121 (CAT.OP.MPA.181).",
+          "**OACI:** 30 min a velocidad de espera a 450 m (1.500 ft) para turbina, como el RAC 121 (Anexo 6, Parte I, 4.3.6.3 e)).",
           "**FAA doméstico:** 45 min a consumo normal de crucero (121.639); **FAA internacional con reactores:** 30 min a velocidad de espera a 1.500 ft (121.645 (b)(4))."
         ]
       },
@@ -1357,7 +1357,7 @@ export const CB_LECCIONES: DocScreen[] = [
         "items": [
           "En el RAC 121 es un solo componente: **«combustible discrecional o extra»**, la cantidad que, **a juicio del PIC**, puede añadirse (121.2645 (c)(7)).",
           "En la práctica, el OFP puede traer extra propuesto por el despachador según la política de la empresa, y el PIC decide si lo acepta o añade más. **Cómo se reparte esa decisión depende de cada operador.**",
-          "EASA los separa: el **extra** cubre demoras previstas o restricciones operacionales conocidas antes de salir (por ejemplo, las que publica un NOTAM), y el **discrecional** queda a la sola discreción del comandante (CAT.OP.MPA.181; GM1 CAT.OP.MPA.181)."
+          "La OACI tampoco los separa: el Anexo 6 define el discrecional como la cantidad **extra** de combustible que se lleva **a discreción del piloto al mando** (Anexo 6, Parte I, 4.3.6.3 g))."
         ]
       },
       {
@@ -1439,7 +1439,7 @@ export const CB_LECCIONES: DocScreen[] = [
         "items": [
           "**Adicional:** lo exige la norma para una falla de motor o una despresurización en el punto más crítico, o para EDTO.",
           "**Extra o discrecional:** se decide para lo previsible; en el RAC 121 lo decide el PIC.",
-          "EASA separa el extra (demoras previstas) del discrecional (el comandante).",
+          "La OACI lo define igual: combustible extra a discreción del piloto al mando.",
           "Meteorología, congestión, esperas, ATC, aeropuerto, pista, experiencia e incertidumbre justifican extra.",
           "La política exacta es la de tu operador."
         ]
@@ -1473,7 +1473,7 @@ export const CB_LECCIONES: DocScreen[] = [
         "items": [
           "En vuelo, el PIC tiene autoridad total sobre el avión y la tripulación (121.2215 (e)).",
           "El despacho lo firman el PIC y el despachador, **solo si ambos** creen que el vuelo es seguro (121.2705).",
-          "EASA lo dice sin rodeos: el discrecional es de la «sola discreción» del comandante y nadie debe presionarlo ni para cargarlo ni para no cargarlo (GM1 CAT.OP.MPA.181)."
+          "La OACI lo pone en el mismo lugar: el discrecional se lleva **a discreción del piloto al mando** (Anexo 6, Parte I, 4.3.6.3 g))."
         ]
       },
       {
@@ -1597,7 +1597,7 @@ export const CB_LECCIONES: DocScreen[] = [
           "**Beneficio económico:** si la diferencia de precio es grande, puede compensar el combustible extra quemado.",
           "**Penalización de peso:** el combustible transportado aumenta el peso y el consumo de todo el vuelo.",
           "**La cuenta:** Airbus define un coeficiente de transporte **K** (cuánto hay que cargar de más en origen para que llegue una cantidad en destino). En su ejemplo, con K = 1,3, cargar 1.300 kg de más deja 1.000 kg adicionales en destino. Si solo pesa el precio, el tankering conviene cuando el precio en destino dividido por el precio en origen es mayor que K (Airbus, Getting to Grips with Fuel Economy, 2004).",
-          "**Impacto ambiental:** EUROCONTROL estimó en 2019 que el tankering en Europa quemaba unas 286.000 toneladas de combustible extra al año y emitía unas 901.000 toneladas de CO₂ adicionales. Desde 2025, la Unión Europea obliga a los operadores a cargar en cada aeropuerto de la UE sujeto al reglamento al menos el **90 %** del combustible que necesitan al año para salir de él, salvo cuando lo impidan las reglas de seguridad del combustible (Reglamento (UE) 2023/2405, art. 5). Es una norma europea, no colombiana, pero muestra hacia dónde va la industria."
+          "**Impacto ambiental:** EUROCONTROL estimó en 2019 que el tankering en Europa quemaba unas 286.000 toneladas de combustible extra al año y emitía unas 901.000 toneladas de CO₂ adicionales."
         ]
       },
       {
@@ -1652,7 +1652,7 @@ export const CB_LECCIONES: DocScreen[] = [
           "Se hace por precio, disponibilidad o tiempo en tierra.",
           "Transportar combustible cuesta combustible (coeficiente K).",
           "Revisa masas máximas y performance de aterrizaje.",
-          "En la UE, desde 2025, el tankering está limitado por norma (90 % de carga anual)."
+          "Transportar combustible también cuesta en emisiones: más consumo es más CO₂."
         ]
       }
     ]
@@ -1748,14 +1748,7 @@ export const CB_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "El RAC 121 no fija un intervalo: lo fija el MO (121.2553 (a); Apéndice 10, A9.3.18). Como referencia:"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "EASA pide verificaciones a intervalos regulares, **al menos una cada 60 minutos** (AMC1 CAT.OP.MPA.185(a)).",
-          "Airbus recomienda en sus procedimientos revisar en crucero **al sobrevolar un punto de la ruta (waypoint) o al menos cada 30 minutos** (Safety First, 2025)."
-        ]
+        "text": "El RAC 121 no fija un intervalo: lo fija el MO (121.2553 (a); Apéndice 10, A9.3.18). La OACI tampoco: pide al operador políticas y procedimientos, aprobados por el Estado del explotador, para las verificaciones del combustible en vuelo (Anexo 6, Parte I, 4.3.7.1). Como referencia, Airbus recomienda en sus procedimientos revisar en crucero **al sobrevolar un punto de la ruta (waypoint) o al menos cada 30 minutos** (Safety First, 2025)."
       },
       {
         "kind": "p",
@@ -1806,7 +1799,7 @@ export const CB_LECCIONES: DocScreen[] = [
           "Vigila lo planificado, lo real, la diferencia y la tendencia, no solo el total.",
           "La cifra que decide es la predicción al aterrizar en destino y en el alterno.",
           "FOB + FU debe cuadrar con el combustible a bordo al poner en marcha; si no, piensa en fuga.",
-          "Referencias: EASA, al menos cada 60 min; Airbus, en cada punto o cada 30 min."
+          "Ni el RAC 121 ni la OACI fijan el intervalo; Airbus recomienda cada punto o cada 30 min."
         ]
       }
     ]
@@ -2236,7 +2229,7 @@ export const CB_LECCIONES: DocScreen[] = [
         "kind": "vinetas",
         "items": [
           "**No es una emergencia.** La norma lo dice textualmente: «Esta situación no es una situación de emergencia, sino una indicación de que podría producirse una situación de emergencia si hay más demora» (121.2553 (b)(2), Nota).",
-          "**No es una petición de prioridad.** La orientación de EASA dice que el piloto no debe esperar ningún trato prioritario, y la FAA, que no implica necesidad de prioridad de tránsito (GM1 CAT.OP.MPA.185; AIM 5-5-15). El Doc 9976 aclara que no otorga prioridad (Doc 9976, 6.8.5, Nota 1).",
+          "**No es una petición de prioridad.** La FAA dice que no implica necesidad de prioridad de tránsito (AIM 5-5-15). El Doc 9976 aclara que no otorga prioridad (Doc 9976, 6.8.5, Nota 1).",
           "**No es la primera alarma.** Antes está el pedido de información de demoras (121.2553 (b)(1))."
         ]
       },

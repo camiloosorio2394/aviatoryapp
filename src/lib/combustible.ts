@@ -16,7 +16,7 @@
 export const CB_TITULO = "Gestión del combustible"
 
 /** El marco que usa el módulo, en una línea. El Anexo C del documento lo lista completo. */
-export const CB_FUENTES = "RAC 121 (121.2645 y 121.2553) · RAC 91 · OACI Anexo 6, Doc 4444 y Doc 9976 · EASA y FAA para comparar"
+export const CB_FUENTES = "RAC 121 (121.2645 y 121.2553) · RAC 91 · OACI Anexo 6, Doc 4444 y Doc 9976 · FAA para comparar"
 
 /** Ruta del hub del tema. */
 export const CB_HUB = "/app/aerolinea/combustible"

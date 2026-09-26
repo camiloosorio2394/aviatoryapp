@@ -43,10 +43,17 @@ la respuesta cuenta como práctica hecha.
 ## Qué se hizo
 
 - **Contenido** auditado contra los RAC de la Aerocivil (descargados el
-  24-sep-2026) y contra RAC 121, OACI (Anexo 6, Doc 9976), EASA y FAA para
+  24-sep-2026) y contra RAC 121, OACI (Anexo 6, Doc 9976) y FAA para
   combustible. Las claves de las 210 preguntas (54 y 50 de RAC, 66 y 40 de
   combustible) las revisaron agentes independientes: cero errores de clave. Las explicaciones no nombran letras,
   porque el servidor baraja las opciones.
+- **Combustible sin EASA** (25-sep-2026): Camilo decidió que EASA no es fuente
+  del módulo, igual que en PBN, RVSM y ETOPS. Lo que se apoyaba en ella se
+  reescribió con el Anexo 6, la FAA o el RAC 121, o se quitó (la cuota europea de
+  tankering); `c09-q2` y `ev-10` se reescribieron con su mismo tema, y
+  `combustibleContenido.test.ts` falla si EASA o sus otros nombres vuelven a la
+  lección, la práctica, el hub o el banco. En el mismo cambio, las opciones del
+  banco y de la práctica dejaron de delatar la correcta por su largo.
 - **App**: `src/lib/rac.ts` y `src/lib/combustible.ts` (rutas, conteos,
   resumen), sus `*Progress.ts` sobre el progreso común, las pantallas
   (`Rac*.tsx`, `Combustible*.tsx`), las rutas en `App.tsx`, las tarjetas en
@@ -149,6 +156,9 @@ comprueba las dos cosas.
 - [ ] **Correr la migración de los temas** (arriba, «La base»). En cuanto
       esté, el resultado de la evaluación de RAC, Combustible, Aerodinámica y
       Performance dice qué unidades repasar, sin tocar la app.
+- [ ] **Volver a sembrar `combustible_evaluacion`**, que cambió el 25-sep
+      (sin EASA y con las opciones parejas): se pega
+      `supabase/seeds/combustible_evaluacion.sql` en el SQL Editor.
 
 ## La lectura de RAC: de 3 a 8 minutos por unidad
 

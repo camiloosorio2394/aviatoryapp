@@ -9,7 +9,7 @@
         "El DV responde por el OFP y el PIC solo por la ejecución del vuelo.",
         "El PIC y el DV responden juntos por el planeamiento previo y la ejecución.",
         "El director de operaciones responde por el combustible y lo delega en el DV.",
-        "El PIC solo responde por el discrecional que decide añadir al despacho."
+        "El PIC solo responde por el discrecional que decide añadir al despacho del vuelo."
       ],
       "correcta": 1,
       "explicacion": "El PIC y el DV son responsables de manera conjunta del planeamiento previo al vuelo y de su ejecución, según el MO. Por eso revisas el OFP componente por componente y no te limitas a firmar.",
@@ -74,7 +74,7 @@
       "id": "ev-05",
       "enunciado": "El destino cierra y te desvías a un aeródromo que no era ni tu destino ni tu alterno. Según el RAC 121, ¿con cuánto combustible, como mínimo, debes planear aterrizar allí?",
       "opciones": [
-        "Con el combustible para el alterno más la reserva final, igual que en el despacho.",
+        "Con el alterno más la reserva final, igual que en el despacho.",
         "Con la reserva final prevista: es el mínimo al aterrizar en cualquier aeródromo.",
         "Con 15 minutos de espera, porque ese aeródromo no estaba en el despacho.",
         "Sin mínimo fijo: en un desvío no planificado manda el criterio del PIC."
@@ -157,16 +157,16 @@
     },
     {
       "id": "ev-10",
-      "enunciado": "Vuelas para un operador europeo que aplica EASA con un esquema básico con variaciones y un sistema de control del consumo. Según AMC6 CAT.OP.MPA.181, ¿cuál es una forma válida de reducir la contingencia?",
+      "enunciado": "Vuelas para un operador de Estados Unidos en una ruta internacional con reactores (14 CFR 121.645 (b)). Además del combustible al destino, al alterno y de 30 minutos de espera a 1.500 ft, ¿qué te pide la FAA para lo imprevisto?",
       "opciones": [
-        "Un 2 % del trayecto, si el vuelo dura menos de dos horas y el destino tiene buen tiempo.",
-        "Un 3 % del trayecto con alterno en ruta para combustible, y nunca menos de 5 minutos.",
-        "Eliminarla, si el destino tiene dos pistas separadas utilizables y buen pronóstico.",
-        "Reemplazarla por el discrecional que el comandante decida cargar antes de salir."
+        "Un 5 % del trayecto, y nunca menos de 5 minutos de espera sobre el destino.",
+        "Un 10 % del tiempo total de vuelo desde el origen hasta el destino.",
+        "45 minutos más a consumo normal de crucero, después del alterno.",
+        "Dos horas a consumo normal de crucero sobre el destino."
       ],
       "correcta": 1,
-      "explicacion": "Con variaciones aprobadas, EASA admite un 3 % con un alterno en ruta para combustible (fuel ERA), 20 minutos de vuelo o un método estadístico, tomando siempre el mayor entre eso y 5 minutos de espera sobre el destino. La contingencia no se elimina ni se reemplaza por el discrecional.",
-      "referencia": "EASA, AMC6 CAT.OP.MPA.181 (b) y (c)",
+      "explicacion": "En vuelos internacionales con reactores la FAA no usa el 5 %: pide combustible para volar un 10 % del tiempo total hasta el destino, además del alterno y de 30 minutos de espera a 1.500 ft (121.645 (b)). El 5 % con piso de 5 minutos es la contingencia del RAC 121 y de la OACI; los 45 minutos son la reserva de la FAA doméstica (121.639), y las 2 horas, lo que pide la FAA para un destino sin alterno (121.645 (c)).",
+      "referencia": "FAA, 14 CFR 121.645 (b) y (c); 121.639; RAC 121, 121.2645 (c)(3)",
       "metadatos": {
         "tema": "C06",
         "capitulo": 6
@@ -194,12 +194,12 @@
       "enunciado": "Vuelo nacional a un destino con buen tiempo pronosticado, dos pistas separadas y aproximación por instrumentos. Tu primer oficial propone despachar sin alterno y llevar 15 minutos de espera, «como permite la OACI». Según el RAC 121, ¿qué respondes?",
       "opciones": [
         "No: en Colombia todo vuelo debe tener al menos un aeródromo alterno.",
-        "Sí, siempre que el vuelo planificado dure menos de 6 horas.",
+        "Sí: el RAC 121 adopta los valores del Anexo 6, incluido este.",
         "Sí, llevando 2 horas de combustible a consumo normal de crucero sobre el destino.",
         "Sí, si el despachador lo aprueba y lo registra en el despacho."
       ],
       "correcta": 0,
-      "explicacion": "El RAC 121 dice que en Colombia no se considera el aeródromo aislado y que todos los vuelos deben contar, por lo menos, con un aeródromo alterno; los apartados de vuelo sin alterno están reservados. Los 15 minutos, las 6 horas y las 2 horas vienen de la OACI, EASA o la FAA.",
+      "explicacion": "El RAC 121 dice que en Colombia no se considera el aeródromo aislado y que todos los vuelos deben contar, por lo menos, con un aeródromo alterno; los apartados de vuelo sin alterno están reservados. Los 15 minutos de espera y las 2 horas sobre el destino son valores de la OACI y de la FAA que el RAC 121 no adopta.",
       "referencia": "RAC 121, 121.001 (aeródromo aislado, Nota); 121.2645 (c)(4)(iii) y (iv)",
       "metadatos": {
         "tema": "C07",
@@ -230,7 +230,7 @@
         "Correcto, siempre que declaremos combustible mínimo antes de empezar a usarla.",
         "No: es lo mínimo con lo que debemos aterrizar, no tiempo para esperar.",
         "Correcto, pero solo después de renunciar al alterno de destino.",
-        "No: la reserva son 45 minutos, porque se mide a consumo de crucero."
+        "No: la reserva final son 45 minutos, porque se mide a consumo normal de crucero."
       ],
       "correcta": 1,
       "explicacion": "La reserva final es la cantidad mínima con la que se aterriza en cualquier aeródromo y no se planifica para consumirse. Si calculas que aterrizarás por debajo de ella aun en el aeródromo más cercano donde puedes aterrizar con seguridad, ya es una emergencia: «MAYDAY, MAYDAY, MAYDAY, COMBUSTIBLE».",
@@ -267,7 +267,7 @@
         "2 horas a consumo normal de crucero."
       ],
       "correcta": 0,
-      "explicacion": "La FAA doméstica pide 45 minutos a consumo normal de crucero después del alterno, sin una línea de contingencia aparte. Los 30 minutos de espera a 1.500 ft son la reserva del RAC 121, de EASA y de la FAA internacional con reactores, que además suma el 10 % del tiempo (121.645).",
+      "explicacion": "La FAA doméstica pide 45 minutos a consumo normal de crucero después del alterno, sin una línea de contingencia aparte. Los 30 minutos de espera a 1.500 ft son la reserva del RAC 121, de la OACI y de la FAA internacional con reactores, que además suma el 10 % del tiempo (121.645).",
       "referencia": "FAA, 14 CFR 121.639 (c); 121.645 (b) y (c)",
       "metadatos": {
         "tema": "C08",
@@ -297,7 +297,7 @@
       "opciones": [
         "Aceptas 300 kg, porque el extra lo fija la política de la empresa.",
         "Subes el extra a unos 760 kg: la cantidad la decides tú como PIC.",
-        "Dejas el extra en 300 kg y cubres el resto con la contingencia.",
+        "Dejas el extra en 300 kg y cubres el resto de la espera con la contingencia.",
         "Pides al despacho un adicional por la meteorología del destino."
       ],
       "correcta": 1,
@@ -314,7 +314,7 @@
       "opciones": [
         "Llenar tanques, porque más combustible siempre es un vuelo más seguro.",
         "Cargar siempre el mínimo legal, porque el costo es lo único que manda.",
-        "Cargar el máximo que permita la masa máxima de aterrizaje en destino.",
+        "Cargar hasta la masa máxima de aterrizaje en destino.",
         "Cargar lo que la situación justifica: el peso extra también cuesta."
       ],
       "correcta": 3,
@@ -364,7 +364,7 @@
       "enunciado": "El OFP prevé aterrizar con 3.400 kg y tu alterno más la reserva final suman 2.900 kg. Tus fuel checks, cada 40 minutos, dan −50, −130 y −210 kg frente al plan, y la suma FOB + FU cuadra. Faltan 60 minutos de vuelo. Si la tendencia sigue, ¿con cuánto aterrizas?",
       "opciones": [
         "Unos 3.190 kg: la diferencia que llevas hoy es la misma que tendrás al aterrizar.",
-        "Unos 2.880 kg: ya estás por debajo del alterno más la reserva final y debes pedir demoras.",
+        "Unos 2.880 kg: ya estás por debajo del alterno más la reserva final y debes pedir demoras al ATC.",
         "Unos 3.400 kg: sin fuga, las diferencias con el OFP no cambian la predicción.",
         "Unos 3.070 kg: sobre el alterno más la reserva final, pero con solo unos 170 kg de margen."
       ],

@@ -174,8 +174,8 @@ export function Combustible() {
 
             <p className="mt-4 max-w-[56ch] text-[16px] leading-[1.55] text-white/80">
               Planificar cuánto cargar, vigilar cómo se consume y predecir con cuánto vas a aterrizar,
-              para decidir mientras todavía hay opciones. Anclado en el RAC 121 y la OACI, con EASA y la
-              FAA para comparar y los casos que se estudian en formación de pilotos.
+              para decidir mientras todavía hay opciones. Anclado en el RAC 121 y la OACI, con la FAA para
+              comparar y los casos que se estudian en formación de pilotos.
             </p>
             <p className="mt-3 text-[12px] text-white/55">{CB_FUENTES}</p>
 
