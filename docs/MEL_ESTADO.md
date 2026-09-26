@@ -53,8 +53,8 @@ Camilo encuentre la imagen en el documento.
 - [x] **4. Práctica** (25-sep-2026), conectada. Ver «Qué se hizo (pasos 4
       y 5)». El motor está en `docs/MEL_PRACTICA.md`.
 - [x] **5. Evaluación** (25-sep-2026), con el banco de 70 en el servidor.
-      **SQL escrito y no aplicado**: ver «Lo que le queda por correr a
-      Camilo».
+      Aplicado en producción el 26-sep-2026 (ver «Lo que le queda por
+      correr a Camilo», ya hecho).
 - [ ] **6. Video de apertura** (`MEL-VID-01`), con la serie de HyperFrames.
       Antes de generar voz: `"lang": "es"` en `audio_request.json` (ver
       CLAUDE.md, «Trampa del idioma de la voz»).
@@ -263,6 +263,12 @@ Todo está en el comentario de `src/lib/melLeccion/index.ts`. Lo esencial:
 - Un «pon a prueba» de lección no copia una pregunta de evaluación.
 
 ## Lo que le queda por correr a Camilo
+
+**Hecho el 26-sep-2026 por el conector de Supabase**: `20260930000000`, las
+tres de MEL, el catálogo, el banco de 70 (ya sin sesgo) y el registro de las
+versiones de archivo. Pasan `mel_evaluacion.sql`, `mel.sql`, `panel.sql` y
+`permisos.sql`. El detalle está en `supabase/HISTORIAL_DE_MIGRACIONES.md`.
+Lo de abajo queda como referencia de cómo se hizo.
 
 **Todo lo anterior a MEL ya está aplicado y no se repite**: producción está en
 `20260929120000_modulo_pbn` (RAC, Combustible, RVSM y PBN incluidos,

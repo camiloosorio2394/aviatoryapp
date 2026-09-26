@@ -93,7 +93,7 @@ lo mismo a la vez). Quedaron dos diferencias, que arregla la migración de abajo
   escenarios (`esc-01` a `esc-10`), así que la base rechazaba esas marcas y
   ese avance quedaba solo en el navegador.
 
-**Falta correr** `supabase/migrations/20260930000000_evaluacion_entrega_el_tema_del_banco.sql`,
+**Aplicada el 26-sep-2026** (pasa `evaluacion_temas.sql`): `supabase/migrations/20260930000000_evaluacion_entrega_el_tema_del_banco.sql`,
 que además hace que la evaluación entregue el tema de cada pregunta (ver
 «Los temas a repasar», abajo). No depende de nada más. Cada paso en su propia
 ejecución del SQL Editor:
