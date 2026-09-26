@@ -174,7 +174,7 @@ export function Dashboard() {
   }, [user])
 
   // Antes del return temprano: un hook no puede quedar detrás de un if.
-  useRachaEnBarra(loading ? undefined : (streak?.current_streak ?? 0))
+  useRachaEnBarra(loading ? undefined : (streak?.current_streak ?? 0), streak?.longest_streak)
 
   if (fallo) {
     return (

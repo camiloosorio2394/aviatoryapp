@@ -8,7 +8,6 @@ import {
   PanelLeftOpen,
   ChevronRight,
   Search,
-  Flame,
   Sun,
   Moon,
   Monitor,
@@ -20,6 +19,8 @@ import { useSession } from "@/hooks/useSession"
 import { UserAvatar } from "@/components/UserAvatar"
 import { Isotipo } from "@/components/marca/Isotipo"
 import { NotificationsBell } from "@/components/NotificationsBell"
+import { PildoraDeRacha } from "@/components/racha/PildoraDeRacha"
+import type { RachaEnBarra } from "./rachaEnBarra"
 import { getThemePref, applyThemePref, isDark as themeIsDark, watchSystemTheme, type ThemePref } from "@/lib/theme"
 
 const ROUTE_LABEL: Record<string, string> = {
@@ -47,7 +48,7 @@ interface Props {
   onMenuClick: () => void
   sidebarHidden?: boolean
   onToggleSidebar?: () => void
-  streak?: number
+  racha?: RachaEnBarra
   onCmdK?: () => void
 }
 
@@ -58,7 +59,7 @@ export function AppTopbar({
   onMenuClick,
   sidebarHidden,
   onToggleSidebar,
-  streak,
+  racha,
   onCmdK,
 }: Props) {
   const { user } = useSession()
@@ -175,14 +176,9 @@ export function AppTopbar({
 
       {/* === RIGHT COLUMN === */}
       <div className="flex items-center gap-1.5 sm:gap-2 justify-end">
-        {/* Racha — comprimida a icono + número en móvil, completa desde 640px */}
-        {streak !== undefined && streak > 0 && (
-          <div className="chip chip-amber mono tabular-nums h-[30px] px-2 sm:px-3 text-[12px]">
-            <Flame className="h-3.5 w-3.5" />
-            {streak}
-            <span className="hidden sm:inline">&nbsp;{streak === 1 ? "día" : "días"}</span>
-          </div>
-        )}
+        {/* Racha: animada, comprimida a llama y número en móvil, completa
+            desde 640px. Con cero días se ve apagada, no desaparece. */}
+        {racha !== undefined && <PildoraDeRacha dias={racha.dias} masLarga={racha.masLarga} />}
 
         {/*
           Búsqueda global. Se monta solo cuando el shell entrega `onCmdK`: hoy

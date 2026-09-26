@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom"
 import { AppSidebar } from "./AppSidebar"
 import { AppTopbar } from "./AppTopbar"
 import { NotificacionesProvider } from "./NotificacionesProvider"
-import { RachaEnBarraContext } from "./rachaEnBarra"
+import { RachaEnBarraContext, type RachaEnBarra } from "./rachaEnBarra"
 import { Wingman } from "@/components/Wingman"
 import { CLAVE_BARRA_FIJADA, CLAVE_BARRA_OCULTA } from "@/lib/preferenciasEquipo"
 
@@ -22,7 +22,7 @@ import { CLAVE_BARRA_FIJADA, CLAVE_BARRA_OCULTA } from "@/lib/preferenciasEquipo
  */
 export function AppLayout() {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [streak, setStreak] = useState<number | undefined>(undefined)
+  const [racha, setRacha] = useState<RachaEnBarra | undefined>(undefined)
   // Estado del hover desktop: cuando el sidebar se expande (64 → 264),
   // empujamos el contenido principal (incluido el topbar) para que NO se
   // interponga visualmente con el rail. El topbar siempre queda a la
@@ -153,10 +153,10 @@ export function AppLayout() {
             onMenuClick={() => setMobileOpen(true)}
             sidebarHidden={sidebarHidden}
             onToggleSidebar={() => setSidebarHidden((v) => !v)}
-            streak={streak}
+            racha={racha}
           />
           <main className="flex-1 min-w-0">
-            <RachaEnBarraContext.Provider value={setStreak}>
+            <RachaEnBarraContext.Provider value={setRacha}>
               {/* Mientras llega el trozo de la página, la barra y Wingman se quedan. */}
               <Suspense fallback={<div className="min-h-[60vh]" aria-busy="true" />}>
                 <Outlet />
