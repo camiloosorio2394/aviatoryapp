@@ -73,7 +73,7 @@ const FICHA_FUERA = ["Formato de las preguntas"]
 const APARTADOS = ["¿Qué es?", "Lo que debe saber un piloto", "Aplicación operacional", "Ejemplo", "En pocas palabras"]
 
 /** Siglas que conservan su caja al pasar un título de versales a caja normal. */
-const SIGLAS = new Set(["OFP", "FMS", "ATC", "PIC", "RAC", "OACI", "EDTO", "MEL", "CDL", "PNR", "ETP", "CP", "EASA", "FAA", "FOB", "FU", "EFOB"])
+const SIGLAS = new Set(["OFP", "FMS", "ATC", "PIC", "RAC", "OACI", "EDTO", "MEL", "CDL", "PNR", "ETP", "CP", "FAA", "FOB", "FU", "EFOB"])
 
 const LETRA = { A: 0, B: 1, C: 2, D: 3 }
 

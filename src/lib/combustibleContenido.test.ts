@@ -8,6 +8,7 @@ import {
   CB_MINUTOS,
   CB_NIVELES,
 } from "@/lib/combustibleLeccion"
+import { CB_FUENTES } from "@/lib/combustible"
 import { CB_PRACTICA, CB_PRACTICA_CLAVES } from "@/lib/combustiblePractica"
 
 /**
@@ -183,5 +184,61 @@ describe("Gestión del combustible: la práctica", () => {
     // Y ningún id se cruza: el banco usa ev-nn, la práctica cNN-qN y esc-NN.
     const ids = new Set(banco.preguntas.map((p) => p.id))
     for (const c of CB_PRACTICA_CLAVES) expect(ids.has(c), c).toBe(false)
+  })
+})
+
+// Las pantallas del módulo, como texto: el hub, el lector, la práctica y la
+// evaluación. Vite las lee en la prueba; nada de esto entra al bundle.
+const PANTALLAS = import.meta.glob<string>("/src/pages/Combustible*.tsx", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+})
+
+/**
+ * EASA no es fuente del módulo (decisión de Camilo, como en PBN, RVSM y ETOPS):
+ * ni por su nombre ni por los de su norma (CAT.OP.MPA, AMC y GM, Part-CAT, Air
+ * OPS, EU-OPS, CS-…) ni por los reglamentos de la Unión Europea. Las fuentes
+ * normativas son la OACI, la FAA y la Aerocivil.
+ */
+const NORMA_EUROPEA =
+  /\bEASA\b|\bCAT\.OP\b|\bAMC\d*\b|\bGM\d+\b|\bParte?-CAT\b|\bAir OPS\b|\bEU-OPS\b|\bJAR-OPS\b|\bCS-\d|Reglamento (?:de Ejecución )?\(UE\)|Unión Europea|\bUE\b|ReFuelEU/
+
+/** Cada cita, con un poco de su contexto para encontrarla en el documento. */
+function citasEuropeas(v: unknown): string[] {
+  return textos(v).flatMap((s) => {
+    const m = NORMA_EUROPEA.exec(s)
+    if (!m) return []
+    const i = m.index
+    return [`«${m[0]}» en «…${s.slice(Math.max(0, i - 50), i + 50)}…»`]
+  })
+}
+
+describe("Gestión del combustible: sin EASA", () => {
+  it("ni la lección, ni la práctica, ni el hub, ni el banco la citan", () => {
+    // Si una pantalla cambia de nombre, que la prueba no se quede mirando nada.
+    expect(Object.keys(PANTALLAS).length).toBeGreaterThanOrEqual(4)
+    const donde: [string, unknown][] = [
+      ["lección", CB_LECCIONES],
+      ["práctica", CB_PRACTICA],
+      ["fuentes del hub", CB_FUENTES],
+      [RUTA_BANCO, banco],
+      ...Object.entries(PANTALLAS),
+    ]
+    for (const [nombre, valor] of donde) expect(citasEuropeas(valor), nombre).toEqual([])
+  })
+
+  it("la guarda reconoce los nombres que tuvo EASA en el módulo", () => {
+    for (const cita of [
+      "EASA, esquema básico",
+      "AMC1 CAT.OP.MPA.185(a)",
+      "GM1 CAT.OP.MPA.181",
+      "Reglamento (UE) 965/2012",
+      "Reglamento (UE) 2023/2405 (ReFuelEU Aviation)",
+      "Desde 2025, la Unión Europea obliga",
+      "En la UE, desde 2025",
+    ]) {
+      expect(cita).toMatch(NORMA_EUROPEA)
+    }
   })
 })

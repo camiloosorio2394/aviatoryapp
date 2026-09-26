@@ -14,8 +14,8 @@
  *     mínimo y MAYDAY.
  *   - Todas son de situación, con cifras propias que no copian las del vuelo de
  *     referencia del módulo.
- *   - Cada clave se comprobó contra el RAC 121, el RAC 91 y la OACI; donde EASA
- *     o la FAA difieren, el enunciado dice de qué norma se habla.
+ *   - Cada clave se comprobó contra el RAC 121, el RAC 91 y la OACI; donde la
+ *     FAA difiere, el enunciado dice de qué norma se habla.
  *   - Ninguna repite una pregunta de la práctica de los capítulos.
  */
 

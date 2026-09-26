@@ -41,7 +41,7 @@ Los valores de este módulo salen de la norma, no de la costumbre. En orden de i
 1. **RAC 121** (operación de aerolíneas). Dos secciones hacen todo el trabajo: **121.2645** (cuánto combustible se planifica) y **121.2553** (cómo se gestiona en vuelo). Es la norma que aplica tu aerolínea.
 2. **RAC 91** (reglas generales para toda aeronave): 91.610 y 91.637, y la Parte 2 (91.2012 y 91.2013) para aviones grandes y turborreactores de aviación general.
 3. **OACI**: Anexo 6, Parte I, y el **Doc 9976**, Manual de planificación de vuelo y gestión del combustible (FPFM). El RAC 121 sigue su estructura y sus valores, y remite al Doc 9976 como orientación.
-4. **Para comparar**: EASA (Reglamento (UE) 965/2012, CAT.OP.MPA.181 y 185) y FAA (14 CFR 121.639 y 121.645; AIM 5-5-15). Sirven para ver que los valores cambian de un Estado a otro. Si vas a volar para un operador extranjero, estudia su norma.
+4. **Para comparar**: FAA (14 CFR 121.639 y 121.645; AIM 5-5-15). Sirve para ver que los valores cambian de un Estado a otro. Si vas a volar para un operador extranjero, estudia su norma.
 
 **Regla de oro.** En tu cabina manda el **Manual de Operaciones (MO)** de tu aerolínea, aprobado por la Aerocivil (121.2553 (a); RAC 121, Apéndice 10, A9.3.18). La norma fija mínimos. El MO puede ser más conservador y decide lo que el RAC deja abierto: cada cuánto se hace un fuel check, cómo se calcula el extra, cómo se hace un redespacho. **Cuando este módulo dice «según tu operador», es porque la norma no lo fija.**
 
@@ -153,7 +153,7 @@ Dos tripulaciones despegan con el mismo combustible hacia un destino con torment
 
 **c01-q3** · Según el RAC 121, ¿qué debe asegurar el piloto al mando de forma continua durante el vuelo?
 - A) Que el combustible utilizable le permita aterrizar en algún aeródromo con la reserva final intacta.
-- B) Que el combustible para el alterno de destino se conserve completo hasta el inicio de la aproximación.
+- B) Que el combustible para el alterno se conserve completo hasta la aproximación.
 - C) Que la contingencia no se consuma antes de haber recorrido la mitad de la ruta planificada.
 - D) Que el combustible a bordo coincida con el planificado en el OFP en cada punto de notificación.
 **Correcta:** A · **Tema:** C01 · **Referencia:** RAC 121, 121.2553 (b); RAC 91, 91.637 (a)
@@ -227,7 +227,7 @@ Con el vuelo de referencia: block fuel 5.950 kg, rodaje 200 kg, combustible de d
 **c02-q1** · Según el RAC 121, ¿sobre qué cantidad de combustible se calculan los requisitos de un vuelo?
 - A) Sobre el total en tanques, incluido el combustible no utilizable.
 - B) Sobre el combustible utilizable, el que los motores pueden consumir.
-- C) Sobre el combustible de rampa, medido en litros durante la carga.
+- C) Sobre el combustible de rampa, medido en litros por el proveedor durante la carga.
 - D) Sobre el utilizable más el no utilizable, que se cuenta como reserva.
 **Correcta:** B · **Tema:** C02 · **Referencia:** RAC 121, 121.2645 (a) y (c)
 **Explicación:** La norma habla siempre de combustible utilizable: todo avión llevará una cantidad de combustible utilizable suficiente para completar el vuelo planificado. El no utilizable no lo pueden consumir los motores y no cuenta para ningún requisito.
@@ -385,7 +385,7 @@ BLOCK FUEL =
   + Discrecional o extra (discretionary / extra)
 ```
 
-Es la suma de los siete componentes de 121.2645 (c). **La composición exacta depende de la norma de cada Estado y de la política de cada operador**: EASA, por ejemplo, separa el extra del discrecional, y la FAA calcula la reserva de otra manera (capítulos 6 y 8).
+Es la suma de los siete componentes de 121.2645 (c). **La composición exacta depende de la norma de cada Estado y de la política de cada operador**: la FAA, por ejemplo, no tiene una línea de contingencia en sus vuelos domésticos y calcula la reserva de otra manera (capítulos 6 y 8), y cada operador fija en su MO cómo se calcula el extra (capítulo 9).
 
 #### Block fuel frente a combustible requerido
 
@@ -528,7 +528,7 @@ El OFP del vuelo de referencia planea FL 350 con 20 kt de viento de cara. Por tr
 ### Quiz · Capítulo 5
 
 **c05-q1** · Según el RAC 121, ¿qué cubre el combustible para el trayecto?
-- A) Desde la puesta en marcha hasta el aterrizaje en destino, incluido el rodaje.
+- A) Desde la puesta en marcha hasta el aterrizaje en destino, incluido el rodaje de salida.
 - B) Desde el despegue hasta el aterrizaje en destino, incluida una frustrada en ese aeródromo.
 - C) Desde el despegue hasta el aterrizaje en el alterno, pasando por el destino.
 - D) Desde el despegue, o el punto de nueva planificación, hasta aterrizar en destino.
@@ -581,7 +581,7 @@ La norma los nombra (121.2645 (c)(3), Nota):
 | Norma | Contingencia |
 |---|---|
 | RAC 121 (Colombia) | 5 % del trayecto, mínimo 5 min de espera a 1.500 ft sobre el destino |
-| EASA, esquema básico | 5 % del trayecto o 5 min de espera a 1.500 ft sobre el destino, el mayor. Con aprobación: 3 % con un alterno en ruta designado para combustible, 20 min de vuelo o un método estadístico, sin bajar de los 5 min (AMC1 y AMC6 CAT.OP.MPA.181) |
+| OACI (Anexo 6, Parte I, 4.3.6.3 c)) | La misma del RAC 121: 5 % del trayecto, mínimo 5 min de espera a 450 m (1.500 ft) sobre el destino. Las variaciones las aprueba el Estado del explotador con una evaluación de riesgos (4.3.6.6) |
 | FAA, doméstico (121.639) | No tiene línea de contingencia: pide 45 min a consumo normal de crucero después del alterno |
 | FAA, internacional con reactores (121.645) | 10 % del tiempo total de vuelo, además del alterno y de 30 min de espera a 1.500 ft |
 
@@ -640,7 +640,7 @@ Vuelo de referencia: trayecto 3.000 kg y contingencia de 200 kg. A mitad de ruta
 
 **c06-q3** · Tu aerolínea quiere calcular la contingencia con un método propio basado en su programa de control del consumo, en lugar del 5 % con piso de 5 minutos. Según el RAC 121, ¿quién puede autorizarlo?
 - A) La Aerocivil, con una evaluación de riesgos del explotador que lo sustente.
-- B) El PIC en cada vuelo, cuando el trayecto es corto y el tiempo es bueno.
+- B) El PIC en cada vuelo, cuando el trayecto es corto y el tiempo en destino es bueno.
 - C) El despachador, si tiene datos de consumo actualizados de ese avión.
 - D) Nadie: el 5 % y el piso de 5 minutos son fijos para cualquier operador colombiano.
 **Correcta:** A · **Tema:** C06 · **Referencia:** RAC 121, 121.2645 (e)
@@ -689,7 +689,7 @@ La OACI sí permite vuelos sin alterno de destino en condiciones estrictas, y en
 - **Sin alterno de destino**, cuando hay certeza razonable de aproximación y aterrizaje en condiciones visuales y el destino tiene pistas separadas utilizables, al menos una con aproximación por instrumentos: en lugar del alterno se lleva combustible para **15 minutos a velocidad de espera a 450 m (1.500 ft)** sobre el destino.
 - **Aeródromo aislado** (destino sin ningún alterno adecuado): en turbina, **2 horas** a consumo de crucero normal sobre el destino, incluida la reserva final, y en cada vuelo se determina un **punto de no retorno** (capítulo 20).
 
-Otras normas lo aplican con sus propias condiciones: **EASA** pide también 15 minutos y limita el vuelo sin alterno a 6 h o menos, con dos pistas separadas y umbrales de techo y visibilidad (CAT.OP.MPA.181; AMC2 CAT.OP.MPA.182); la **FAA** internacional con reactores pide **2 horas** a consumo normal de crucero (121.645 (c)).
+Otras normas lo aplican con sus propias condiciones: la **FAA** internacional con reactores, por ejemplo, pide **2 horas** a consumo normal de crucero (121.645 (c)).
 
 **En el RAC 121 esos casos no existen**: los apartados están reservados (121.2645 (c)(4)(iii) y (iv)) y la norma descarta el aeródromo aislado. Si vuelas para un operador colombiano, **siempre** hay combustible para el alterno.
 
@@ -718,7 +718,7 @@ Vuelo de referencia: alterno 1.100 kg y reserva final 1.150 kg, en total 2.250 k
 - A) Solo el crucero y el descenso desde el destino hasta el alterno, sin contar la frustrada.
 - B) El vuelo al alterno más 30 minutos de espera a 1.500 ft sobre ese aeródromo.
 - C) Frustrada en destino, ascenso, ruta, descenso, aproximación y aterrizaje en el alterno.
-- D) La ruta al alterno y 15 minutos de espera sobre el destino antes de desviarte.
+- D) La ruta al alterno más 15 minutos de espera a 1.500 ft sobre el destino antes de desviarte.
 **Correcta:** C · **Tema:** C07 · **Referencia:** RAC 121, 121.2645 (c)(4)(i)
 **Explicación:** Son cinco partes, desde la aproximación frustrada en el destino hasta el aterrizaje en el alterno. Los 30 minutos de espera a 1.500 ft son la reserva final, un componente aparte que debe quedar intacto al aterrizar.
 
@@ -783,7 +783,7 @@ Un error común es pensar en la reserva final como «30 minutos más que tengo»
 #### Cómo cambia en otras normas
 
 - **RAC 91, Parte 1 (aviación general, IFR):** reserva final de **45 minutos a altitud normal de crucero** (91.610 (a)(2)). Otra base de cálculo.
-- **EASA:** 30 min en espera a 1.500 ft para turbina, como el RAC 121 (CAT.OP.MPA.181).
+- **OACI:** 30 min a velocidad de espera a 450 m (1.500 ft) para turbina, como el RAC 121 (Anexo 6, Parte I, 4.3.6.3 e)).
 - **FAA doméstico:** 45 min a consumo normal de crucero (121.639); **FAA internacional con reactores:** 30 min a velocidad de espera a 1.500 ft (121.645 (b)(4)).
 
 [ESPACIO PARA IMAGEN]
@@ -820,7 +820,7 @@ Vuelo de referencia: reserva final prevista de 1.150 kg. Estás en espera en el 
 **c08-q1** · Vuelas un avión de turbina bajo el RAC 121. ¿Cuál es su reserva final?
 - A) 45 minutos de vuelo a la altitud normal de crucero.
 - B) 30 minutos a consumo normal de crucero sobre el aeródromo alterno.
-- C) 15 minutos a velocidad de espera a 1.500 ft sobre el destino.
+- C) 15 minutos a velocidad de espera a 1.500 ft sobre el aeródromo de destino.
 - D) 30 minutos a velocidad de espera a 1.500 ft sobre el aeródromo.
 **Correcta:** D · **Tema:** C08 · **Referencia:** RAC 121, 121.2645 (c)(5)(ii)
 **Explicación:** En turbina son 30 minutos a velocidad de espera a 450 m (1.500 ft) sobre la elevación del aeródromo, en condiciones normales. Los 45 minutos a altitud normal de crucero son la reserva IFR del RAC 91, Parte 1, y los 15 minutos de espera corresponden al adicional o al vuelo sin alterno de la OACI.
@@ -867,7 +867,7 @@ Cuando los demás componentes ya alcanzan, el adicional sale en **cero** en el O
 
 - En el RAC 121 es un solo componente: **«combustible discrecional o extra»**, la cantidad que, **a juicio del PIC**, puede añadirse (121.2645 (c)(7)).
 - En la práctica, el OFP puede traer extra propuesto por el despachador según la política de la empresa, y el PIC decide si lo acepta o añade más. **Cómo se reparte esa decisión depende de cada operador.**
-- EASA los separa: el **extra** cubre demoras previstas o restricciones operacionales conocidas antes de salir (por ejemplo, las que publica un NOTAM), y el **discrecional** queda a la sola discreción del comandante (CAT.OP.MPA.181; GM1 CAT.OP.MPA.181).
+- La OACI tampoco los separa: el Anexo 6 define el discrecional como la cantidad **extra** de combustible que se lleva **a discreción del piloto al mando** (Anexo 6, Parte I, 4.3.6.3 g)).
 
 #### Razones típicas para cargar extra
 
@@ -899,7 +899,7 @@ El TAF del destino trae un TEMPO de tormentas justo a tu hora de llegada, y la e
 
 - **Adicional:** lo exige la norma para una falla de motor o una despresurización en el punto más crítico, o para EDTO.
 - **Extra o discrecional:** se decide para lo previsible; en el RAC 121 lo decide el PIC.
-- EASA separa el extra (demoras previstas) del discrecional (el comandante).
+- La OACI lo define igual: combustible extra a discreción del piloto al mando.
 - Meteorología, congestión, esperas, ATC, aeropuerto, pista, experiencia e incertidumbre justifican extra.
 - La política exacta es la de tu operador.
 
@@ -913,13 +913,13 @@ El TAF del destino trae un TEMPO de tormentas justo a tu hora de llegada, y la e
 **Correcta:** B · **Tema:** C09 · **Referencia:** RAC 121, 121.2645 (c)(6)(i)
 **Explicación:** El adicional solo aparece si trayecto, contingencias, alterno y reserva final no permiten que, tras una falla de motor o una despresurización en el punto más crítico, el avión llegue a un alterno, espere 15 minutos a 1.500 ft y aterrice. Si los demás alcanzan, sale en cero.
 
-**c09-q2** · Según EASA (CAT.OP.MPA.181 y su GM1), ¿en qué se diferencian el combustible extra y el discrecional?
-- A) Extra: lo exige la norma para una falla en el punto crítico; discrecional: cubre lo imprevisto.
-- B) Son el mismo componente con dos nombres, igual que en el RAC 121, y lo decide el comandante.
-- C) Extra: demoras previstas o restricciones conocidas; discrecional: a sola discreción del comandante.
-- D) Extra: lo decide el comandante antes de salir; discrecional: lo propone el despacho según cada ruta.
-**Correcta:** C · **Tema:** C09 · **Referencia:** EASA, CAT.OP.MPA.181 (c)(7) y (c)(8); GM1 CAT.OP.MPA.181 (j) y (k)
-**Explicación:** EASA separa el extra, que cubre demoras previstas o restricciones operacionales conocidas antes de salir (por ejemplo, por NOTAM), del discrecional, que queda a la sola discreción del comandante. En el RAC 121 los dos forman un solo componente, «discrecional o extra», a juicio del PIC.
+**c09-q2** · En el OFP ves «ADDITIONAL 0» y «EXTRA 400». Según el RAC 121, ¿qué diferencia a esos dos componentes?
+- A) El adicional cubre las demoras previstas en destino; el extra, los factores imprevistos en ruta.
+- B) El adicional lo exige la norma para una falla en el punto crítico o EDTO; el extra lo añade el PIC.
+- C) Son el mismo componente con dos nombres, y el OFP los separa solo por la política de la empresa.
+- D) El adicional lo decide el PIC antes de salir; el extra lo propone el despacho y es obligatorio.
+**Correcta:** B · **Tema:** C09 · **Referencia:** RAC 121, 121.2645 (c)(6) y (c)(7); Anexo 6, Parte I, 4.3.6.3 f) y g)
+**Explicación:** El adicional solo aparece si los demás componentes no cubren la falla de motor o la despresurización en el punto más crítico, el combustible crítico para EDTO u otros requisitos; el extra (discrecional) es la cantidad que a juicio del PIC puede añadirse. El Anexo 6 los separa igual: adicional y discrecional son componentes distintos. Las demoras previstas se cubren con extra, y lo imprevisto, con la contingencia.
 
 **c09-q3** · Tu aerolínea empieza a volar una ruta sobre agua con aprobación EDTO. Además de la falla de motor o la despresurización en el punto más crítico, ¿qué otro requisito del RAC 121 puede hacer que el adicional del OFP sea mayor que cero?
 - A) Una espera publicada por NOTAM para la hora de llegada al destino.
@@ -944,7 +944,7 @@ Es el combustible que el piloto al mando decide añadir por encima del mínimo r
 
 - En vuelo, el PIC tiene autoridad total sobre el avión y la tripulación (121.2215 (e)).
 - El despacho lo firman el PIC y el despachador, **solo si ambos** creen que el vuelo es seguro (121.2705).
-- EASA lo dice sin rodeos: el discrecional es de la «sola discreción» del comandante y nadie debe presionarlo ni para cargarlo ni para no cargarlo (GM1 CAT.OP.MPA.181).
+- La OACI lo pone en el mismo lugar: el discrecional se lleva **a discreción del piloto al mando** (Anexo 6, Parte I, 4.3.6.3 g)).
 
 #### Cómo se evalúa el riesgo
 
@@ -1035,7 +1035,7 @@ El tankering es cargar en origen **más combustible del que el vuelo requiere**,
 - **Beneficio económico:** si la diferencia de precio es grande, puede compensar el combustible extra quemado.
 - **Penalización de peso:** el combustible transportado aumenta el peso y el consumo de todo el vuelo.
 - **La cuenta:** Airbus define un coeficiente de transporte **K** (cuánto hay que cargar de más en origen para que llegue una cantidad en destino). En su ejemplo, con K = 1,3, cargar 1.300 kg de más deja 1.000 kg adicionales en destino. Si solo pesa el precio, el tankering conviene cuando el precio en destino dividido por el precio en origen es mayor que K (Airbus, *Getting to Grips with Fuel Economy*, 2004).
-- **Impacto ambiental:** EUROCONTROL estimó en 2019 que el tankering en Europa quemaba unas 286.000 toneladas de combustible extra al año y emitía unas 901.000 toneladas de CO₂ adicionales. Desde 2025, la Unión Europea obliga a los operadores a cargar en cada aeropuerto de la UE sujeto al reglamento al menos el **90 %** del combustible que necesitan al año para salir de él, salvo cuando lo impidan las reglas de seguridad del combustible (Reglamento (UE) 2023/2405, art. 5). Es una norma europea, no colombiana, pero muestra hacia dónde va la industria.
+- **Impacto ambiental:** EUROCONTROL estimó en 2019 que el tankering en Europa quemaba unas 286.000 toneladas de combustible extra al año y emitía unas 901.000 toneladas de CO₂ adicionales.
 
 #### Consideraciones operacionales
 
@@ -1068,14 +1068,14 @@ El precio en destino es 1,5 veces el de origen y el coeficiente K del tramo es 1
 - Se hace por precio, disponibilidad o tiempo en tierra.
 - Transportar combustible cuesta combustible (coeficiente K).
 - Revisa masas máximas y performance de aterrizaje.
-- En la UE, desde 2025, el tankering está limitado por norma (90 % de carga anual).
+- Transportar combustible también cuesta en emisiones: más consumo es más CO₂.
 
 ### Quiz · Capítulo 11
 
 **c11-q1** · ¿Qué es el fuel tankering?
 - A) Cargar el discrecional que el PIC decide por la meteorología prevista en el destino.
 - B) Pasar combustible entre tanques en vuelo para corregir un desbalance lateral.
-- C) Cargar el adicional que exige la norma para una falla en el punto más crítico.
+- C) Cargar el adicional que exige la norma para una falla en el punto más crítico de la ruta.
 - D) Llevar desde origen más combustible del requerido para cargar menos en destino.
 **Correcta:** D · **Tema:** C11 · **Referencia:** EUROCONTROL, Think Paper #1: Fuel Tankering (2019); Airbus, Getting to Grips with Fuel Economy (2004), 4.5
 **Explicación:** Es transportar combustible de más para reducir o evitar la carga en destino, normalmente por precio, disponibilidad o tiempo en tierra. Es una decisión económica o logística, no un margen de seguridad como el discrecional.
@@ -1134,9 +1134,7 @@ El FOB te dice cuánto hay, pero no te dice:
 
 #### Cada cuánto
 
-El RAC 121 no fija un intervalo: lo fija el MO (121.2553 (a); Apéndice 10, A9.3.18). Como referencia:
-- EASA pide verificaciones a intervalos regulares, **al menos una cada 60 minutos** (AMC1 CAT.OP.MPA.185(a)).
-- Airbus recomienda en sus procedimientos revisar en crucero **al sobrevolar un punto de la ruta (waypoint) o al menos cada 30 minutos** (*Safety First*, 2025).
+El RAC 121 no fija un intervalo: lo fija el MO (121.2553 (a); Apéndice 10, A9.3.18). La OACI tampoco: pide al operador políticas y procedimientos, aprobados por el Estado del explotador, para las verificaciones del combustible en vuelo (Anexo 6, Parte I, 4.3.7.1). Como referencia, Airbus recomienda en sus procedimientos revisar en crucero **al sobrevolar un punto de la ruta (waypoint) o al menos cada 30 minutos** (*Safety First*, 2025).
 
 El Doc 9976 de la OACI describe lo que suele incluir la verificación: comparar el consumo real con el planificado y el combustible usado y remanente con el plan, conciliar el FMS con el flujo de combustible y los indicadores, investigar las diferencias y calcular el combustible al aterrizar frente al del alterno más la reserva final (Doc 9976, 6.6).
 
@@ -1168,17 +1166,17 @@ Si la suma hubiera dado 5.700 kg, faltarían 250 kg que ningún motor quemó. Es
 - Vigila lo planificado, lo real, la diferencia y la tendencia, no solo el total.
 - La cifra que decide es la predicción al aterrizar en destino y en el alterno.
 - FOB + FU debe cuadrar con el combustible a bordo al poner en marcha; si no, piensa en fuga.
-- Referencias: EASA, al menos cada 60 min; Airbus, en cada punto o cada 30 min.
+- Ni el RAC 121 ni la OACI fijan el intervalo; Airbus recomienda cada punto o cada 30 min.
 
 ### Quiz · Capítulo 12
 
 **c12-q1** · Vas a volar para una aerolínea colombiana. ¿Qué dice el RAC 121 sobre cada cuánto se hace un fuel check en crucero?
 - A) Fija uno en cada waypoint o al menos cada 30 minutos, lo que ocurra primero en crucero.
-- B) Fija al menos uno cada 60 minutos en crucero, igual que la norma europea.
+- B) Fija al menos uno cada 60 minutos en crucero, en cualquier tipo de ruta.
 - C) No fija un intervalo: lo establece el MO del operador, aprobado por la Aerocivil.
 - D) Fija uno en cada punto del OFP, sin importar cuánto tiempo pase entre un punto y otro.
-**Correcta:** C · **Tema:** C12 · **Referencia:** RAC 121, 121.2553 (a) y Apéndice 10, A9.3.18; EASA, AMC1 CAT.OP.MPA.185(a); Airbus, Safety First, «Fuel Leak Management in Flight» (2025)
-**Explicación:** El RAC 121 exige que el explotador tenga criterios y procedimientos aprobados para las verificaciones del combustible en vuelo, pero el intervalo lo pone el MO. Los 60 minutos son la referencia de EASA, y cada waypoint o cada 30 minutos, la recomendación de Airbus.
+**Correcta:** C · **Tema:** C12 · **Referencia:** RAC 121, 121.2553 (a) y Apéndice 10, A9.3.18; Anexo 6, Parte I, 4.3.7.1; Airbus, Safety First, «Fuel Leak Management in Flight» (2025)
+**Explicación:** El RAC 121 exige que el explotador tenga criterios y procedimientos aprobados para las verificaciones del combustible en vuelo, pero el intervalo lo pone el MO; la OACI tampoco lo fija. Cada waypoint o cada 30 minutos es la recomendación de Airbus, no una regla del RAC.
 
 **c12-q2** · Eres PM. Al poner en marcha había 7.800 kg a bordo. En el punto de control el OFP prevé 5.400 kg; el FOB marca 5.260 kg y el FU acumulado desde la puesta en marcha es 2.540 kg. ¿Qué concluyes?
 - A) Hay una fuga de unos 140 kg: aplicas el procedimiento de fuga del QRH.
@@ -1280,10 +1278,10 @@ Vuelo de referencia con 2.750 kg previstos al aterrizar en destino (alterno más
 
 **c13-q3** · En un fuel check, ¿qué comparación te dice si todavía conservas la opción de ir al alterno?
 - A) El FOB real contra el combustible que el OFP planificó para ese punto.
-- B) La hora real contra la hora planificada para ese mismo punto.
+- B) La hora real contra la hora planificada en el OFP para ese mismo punto.
 - C) La suma FOB + FU contra el combustible al poner en marcha.
 - D) La predicción al destino contra el alterno más la reserva final.
-**Correcta:** D · **Tema:** C13 · **Referencia:** RAC 121, 121.2553 (b)(1); Doc 9976, 6.6 k); EASA, AMC1 CAT.OP.MPA.185(a), (b)(2)
+**Correcta:** D · **Tema:** C13 · **Referencia:** RAC 121, 121.2553 (b)(1); Doc 9976, 6.6 k)
 **Explicación:** Si la predicción al aterrizar en destino queda por encima del alterno más la reserva final, todavía puedes desviarte con la reserva intacta; si cae por debajo, la norma pide información de demoras. Las otras comparaciones miden el desvío del plan y sirven para detectar fugas.
 
 ---
@@ -1469,7 +1467,7 @@ La declaración le informa al ATC que tus opciones se redujeron a un solo aeród
 #### Qué NO significa
 
 - **No es una emergencia.** La norma lo dice textualmente: «Esta situación no es una situación de emergencia, sino una indicación de que podría producirse una situación de emergencia si hay más demora» (121.2553 (b)(2), Nota).
-- **No es una petición de prioridad.** La orientación de EASA dice que el piloto no debe esperar ningún trato prioritario, y la FAA, que no implica necesidad de prioridad de tránsito (GM1 CAT.OP.MPA.185; AIM 5-5-15). El Doc 9976 aclara que no otorga prioridad (Doc 9976, 6.8.5, Nota 1).
+- **No es una petición de prioridad.** La FAA dice que no implica necesidad de prioridad de tránsito (AIM 5-5-15). El Doc 9976 aclara que no otorga prioridad (Doc 9976, 6.8.5, Nota 1).
 - **No es la primera alarma.** Antes está el pedido de información de demoras (121.2553 (b)(1)).
 
 #### La escalera de la norma
@@ -1541,9 +1539,9 @@ Estás en espera en el destino y el alterno ya no es alcanzable con la reserva f
 - A) Que hay una emergencia y que el avión necesita prioridad inmediata para aterrizar.
 - B) Que sus opciones se redujeron a un aeródromo y que más demora podría llevar a una emergencia.
 - C) Que el avión aterrizará con menos de la reserva final prevista incluso en el aeródromo más cercano.
-- D) Que el piloto pide información de demoras antes de decidir si se desvía al alterno.
-**Correcta:** B · **Tema:** C16 · **Referencia:** RAC 121, 121.2553 (b)(2), Nota; Doc 4444, 15.5.4.1, Nota; Doc 9976, 6.8.5, Nota 1; EASA, GM1 CAT.OP.MPA.185 (f); AIM 5-5-15
-**Explicación:** La Nota de la norma lo dice: no es una situación de emergencia, sino una indicación de que podría producirse una si hay más demora. Tampoco da prioridad (el Doc 9976, EASA y la FAA coinciden); aterrizar bajo la reserva final en el aeródromo más cercano es el criterio de MAYDAY.
+- D) Que el piloto solo pide información de demoras antes de decidir si se desvía o no al alterno.
+**Correcta:** B · **Tema:** C16 · **Referencia:** RAC 121, 121.2553 (b)(2), Nota; Doc 4444, 15.5.4.1, Nota; Doc 9976, 6.8.5, Nota 1; AIM 5-5-15
+**Explicación:** La Nota de la norma lo dice: no es una situación de emergencia, sino una indicación de que podría producirse una si hay más demora. Tampoco da prioridad (el Doc 9976 y la FAA coinciden); aterrizar bajo la reserva final en el aeródromo más cercano es el criterio de MAYDAY.
 
 **c16-q3** · Declaras «COMBUSTIBLE MÍNIMO». Según el Doc 4444, ¿cuál es la respuesta normalizada del controlador?
 - A) «RECIBIDO, PRIORIDAD CONCEDIDA, NÚMERO UNO PARA LA APROXIMACIÓN».
@@ -1648,7 +1646,7 @@ Después das los datos que el controlador necesita (Doc 4444, 15.1.1.2): identif
 **Explicación:** La emergencia se declara con las palabras exactas del RAC 121, y la autonomía se da en tiempo porque el controlador no convierte kilos a minutos. «Estamos cortos de combustible» no activa nada, y «combustible mínimo» no es una emergencia.
 
 **c17-q3** · Después de un vuelo en el que declaraste MAYDAY COMBUSTIBLE y te apartaste de procedimientos, ¿qué plazos aplican para ti como PIC?
-- A) Aviso a la autoridad de investigación dentro de 10 días y reporte escrito a la Aerocivil dentro de 12 horas.
+- A) Aviso a la autoridad de investigación dentro de 10 días y reporte escrito a la Aerocivil dentro de las 12 horas.
 - B) Reporte escrito en 10 días calendario tras volver a tu base y aviso a la autoridad de investigación en 12 h.
 - C) Reporte escrito a la Aerocivil dentro de 72 horas y aviso a la autoridad de investigación dentro de 30 días.
 - D) Ninguno: si nadie resultó herido, basta con anotar la emergencia en el libro de a bordo.
@@ -1745,7 +1743,7 @@ Enseñar a calcular el tiempo disponible en espera antes de aceptarla.
 **Explicación:** (3.850 − 1.600 − 1.200) ÷ 50 = 1.050 ÷ 50, unos 21 minutos. Con esa cifra fijas, antes de entrar, a qué hora sales hacia el alterno si no hay aproximación; 53 minutos sale de restar solo la reserva final.
 
 **c18-q3** · El ATC te asigna una espera sobre el destino «por tránsito», sin más datos. Antes de aceptarla, ¿qué información le pides?
-- A) Solo el nivel, el tramo de alejamiento y el sentido de los virajes; la demora la estimas con el FMS.
+- A) Solo el nivel, el tramo de alejamiento y el sentido de los virajes de la espera.
 - B) Prioridad para la aproximación, porque cualquier espera sobre el destino consume la contingencia.
 - C) La hora prevista de aproximación o la demora, su causa y si otros aviones se desvían a tu alterno.
 - D) Autorización para declarar combustible mínimo apenas entres en la espera, por si la demora crece.
@@ -1924,7 +1922,7 @@ Un vuelo largo se despacha con punto de decisión a 2 horas del destino final, c
 ### Quiz · Capítulo 20
 
 **c20-q1** · En el RAC 121 no aparece la expresión «punto de decisión». ¿Con qué figura se regula ese concepto en la norma colombiana?
-- A) Con el punto de no retorno (PNR), que el OFP calcula en cada vuelo de larga distancia.
+- A) Con el punto de no retorno (PNR), que el OFP calcula y muestra en cada vuelo de larga distancia.
 - B) Con el punto crítico o de igual tiempo (ETP), que el despachador fija en cada OFP.
 - C) Con el punto de nueva planificación en vuelo, y el redespacho o enmienda del despacho.
 - D) Con el punto de entrada EDTO, a partir del cual se revisan los alternos en ruta.
@@ -2004,7 +2002,7 @@ En un mismo vuelo: 15 minutos a un nivel más bajo por tránsito, 10 minutos de 
 **Explicación:** El Doc 9976 lista como causas de over-burn un ZFW mayor que el planificado, un rodaje más largo, rutas más largas, un nivel o una velocidad de crucero menos favorables y vientos peores que los pronosticados. Las otras tres opciones hacen lo contrario: reducen el consumo (under-burn).
 
 **c21-q2** · En la llegada, el ATC te deja nivelado 15 minutos a 6.000 ft antes de la aproximación. ¿Qué implica para el combustible de un reactor?
-- A) Poco: a baja altura el aire es más denso y el reactor es más eficiente que en crucero.
+- A) Poco: a baja altura el aire es más denso y el reactor resulta más eficiente que en el crucero alto.
 - B) Nada que vigilar: el OFP ya incluye ese tramo nivelado dentro del combustible previsto para el trayecto.
 - C) Es caro: cerca del suelo el reactor es mucho menos eficiente; pide descenso continuo si se puede.
 - D) Un ahorro: al nivelar bajo antes de tiempo, el descenso se acorta y se gasta menos.
@@ -2086,7 +2084,7 @@ En 1990, la tripulación del vuelo Avianca 052 hizo una aproximación frustrada 
 **Explicación:** Antes de aproximar, la tripulación debe saber con cuánto combustible quedará si hace un sobrepaso, si eso alcanza para otro intento o solo para el alterno, y cuál es la decisión. El Doc 9976 añade que a veces la mejor decisión de desvío se toma antes de quemar el combustible de aproximación.
 
 **c22-q3** · Según la NTSB (AAR-91/04), ¿qué le pasó al Boeing 707 del vuelo Avianca 052 después de su aproximación frustrada en Nueva York?
-- A) Se desvió a su alterno después de la frustrada y aterrizó allí con menos de la reserva final.
+- A) Se desvió a su alterno después de la frustrada y aterrizó allí con menos de la reserva final prevista.
 - B) Los motores se apagaron por falta de combustible mientras maniobraba para un segundo intento.
 - C) Los motores se apagaron durante la espera, antes de que empezara la primera aproximación.
 - D) Hizo un segundo intento con éxito y aterrizó en Nueva York con los tanques casi vacíos.
@@ -2242,7 +2240,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 - A) El DV responde por el OFP y el PIC solo por la ejecución del vuelo.
 - B) El PIC y el DV responden juntos por el planeamiento previo y la ejecución.
 - C) El director de operaciones responde por el combustible y lo delega en el DV.
-- D) El PIC solo responde por el discrecional que decide añadir al despacho.
+- D) El PIC solo responde por el discrecional que decide añadir al despacho del vuelo.
 **Correcta:** B · **Tema:** C01 · **Referencia:** RAC 121, 121.2215 (c)
 **Explicación:** El PIC y el DV son responsables de manera conjunta del planeamiento previo al vuelo y de su ejecución, según el MO. Por eso revisas el OFP componente por componente y no te limitas a firmar.
 
@@ -2271,7 +2269,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 **Explicación:** Antes del alterno solo están tus márgenes: 350 + 130 = 480 kg, y 480 ÷ 48 = 10 minutos. Con 7 o 3 contarías solo uno de los dos márgenes, y con 39 ya estarías gastando el alterno.
 
 **ev-05** · El destino cierra y te desvías a un aeródromo que no era ni tu destino ni tu alterno. Según el RAC 121, ¿con cuánto combustible, como mínimo, debes planear aterrizar allí?
-- A) Con el combustible para el alterno más la reserva final, igual que en el despacho.
+- A) Con el alterno más la reserva final, igual que en el despacho.
 - B) Con la reserva final prevista: es el mínimo al aterrizar en cualquier aeródromo.
 - C) Con 15 minutos de espera, porque ese aeródromo no estaba en el despacho.
 - D) Sin mínimo fijo: en un desvío no planificado manda el criterio del PIC.
@@ -2310,13 +2308,13 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 **Correcta:** C · **Tema:** C05 · **Referencia:** Airbus, Getting to Grips with Fuel Economy (2004), 3 y 5.3.5
 **Explicación:** Un CI alto le da más peso al costo del tiempo: el FMS vuela más rápido y gasta más combustible. Como el trayecto del OFP se calculó con otro CI, la predicción al destino baja y tienes que revisarla.
 
-**ev-10** · Vuelas para un operador europeo que aplica EASA con un esquema básico con variaciones y un sistema de control del consumo. Según AMC6 CAT.OP.MPA.181, ¿cuál es una forma válida de reducir la contingencia?
-- A) Un 2 % del trayecto, si el vuelo dura menos de dos horas y el destino tiene buen tiempo.
-- B) Un 3 % del trayecto con alterno en ruta para combustible, y nunca menos de 5 minutos.
-- C) Eliminarla, si el destino tiene dos pistas separadas utilizables y buen pronóstico.
-- D) Reemplazarla por el discrecional que el comandante decida cargar antes de salir.
-**Correcta:** B · **Tema:** C06 · **Referencia:** EASA, AMC6 CAT.OP.MPA.181 (b) y (c)
-**Explicación:** Con variaciones aprobadas, EASA admite un 3 % con un alterno en ruta para combustible (fuel ERA), 20 minutos de vuelo o un método estadístico, tomando siempre el mayor entre eso y 5 minutos de espera sobre el destino. La contingencia no se elimina ni se reemplaza por el discrecional.
+**ev-10** · Vuelas para un operador de Estados Unidos en una ruta internacional con reactores (14 CFR 121.645 (b)). Además del combustible al destino, al alterno y de 30 minutos de espera a 1.500 ft, ¿qué te pide la FAA para lo imprevisto?
+- A) Un 5 % del trayecto, y nunca menos de 5 minutos de espera sobre el destino.
+- B) Un 10 % del tiempo total de vuelo desde el origen hasta el destino.
+- C) 45 minutos más a consumo normal de crucero, después del alterno.
+- D) Dos horas a consumo normal de crucero sobre el destino.
+**Correcta:** B · **Tema:** C06 · **Referencia:** FAA, 14 CFR 121.645 (b) y (c); 121.639; RAC 121, 121.2645 (c)(3)
+**Explicación:** En vuelos internacionales con reactores la FAA no usa el 5 %: pide combustible para volar un 10 % del tiempo total hasta el destino, además del alterno y de 30 minutos de espera a 1.500 ft (121.645 (b)). El 5 % con piso de 5 minutos es la contingencia del RAC 121 y de la OACI; los 45 minutos son la reserva de la FAA doméstica (121.639), y las 2 horas, lo que pide la FAA para un destino sin alterno (121.645 (c)).
 
 **ev-11** · Llegas a un punto de nueva planificación en vuelo. Desde allí, el combustible requerido hasta el destino es 6.400 kg, y 5 minutos de espera a 1.500 ft sobre el destino cuestan 230 kg. Según el RAC 121, ¿qué contingencia debes tener para continuar?
 - A) 230 kg
@@ -2328,11 +2326,11 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 
 **ev-12** · Vuelo nacional a un destino con buen tiempo pronosticado, dos pistas separadas y aproximación por instrumentos. Tu primer oficial propone despachar sin alterno y llevar 15 minutos de espera, «como permite la OACI». Según el RAC 121, ¿qué respondes?
 - A) No: en Colombia todo vuelo debe tener al menos un aeródromo alterno.
-- B) Sí, siempre que el vuelo planificado dure menos de 6 horas.
+- B) Sí: el RAC 121 adopta los valores del Anexo 6, incluido este.
 - C) Sí, llevando 2 horas de combustible a consumo normal de crucero sobre el destino.
 - D) Sí, si el despachador lo aprueba y lo registra en el despacho.
 **Correcta:** A · **Tema:** C07 · **Referencia:** RAC 121, 121.001 (aeródromo aislado, Nota); 121.2645 (c)(4)(iii) y (iv)
-**Explicación:** El RAC 121 dice que en Colombia no se considera el aeródromo aislado y que todos los vuelos deben contar, por lo menos, con un aeródromo alterno; los apartados de vuelo sin alterno están reservados. Los 15 minutos, las 6 horas y las 2 horas vienen de la OACI, EASA o la FAA.
+**Explicación:** El RAC 121 dice que en Colombia no se considera el aeródromo aislado y que todos los vuelos deben contar, por lo menos, con un aeródromo alterno; los apartados de vuelo sin alterno están reservados. Los 15 minutos de espera y las 2 horas sobre el destino son valores de la OACI y de la FAA que el RAC 121 no adopta.
 
 **ev-13** · A mitad de ruta, el TAF de tu alterno se enmienda con niebla bajo mínimos a tu hora prevista. Tu predicción al destino queda 350 kg por encima del alterno más la reserva final. Con el despachador eligen otro alterno al alcance del avión, que pide 250 kg más que el original. ¿Qué es correcto?
 - A) Mantener el alterno original, porque el despacho no se puede cambiar en vuelo.
@@ -2346,7 +2344,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 - A) Correcto, siempre que declaremos combustible mínimo antes de empezar a usarla.
 - B) No: es lo mínimo con lo que debemos aterrizar, no tiempo para esperar.
 - C) Correcto, pero solo después de renunciar al alterno de destino.
-- D) No: la reserva son 45 minutos, porque se mide a consumo de crucero.
+- D) No: la reserva final son 45 minutos, porque se mide a consumo normal de crucero.
 **Correcta:** B · **Tema:** C08 · **Referencia:** RAC 121, 121.2645 (c)(5)(ii); 121.2553 (b)(3) y Nota 1
 **Explicación:** La reserva final es la cantidad mínima con la que se aterriza en cualquier aeródromo y no se planifica para consumirse. Si calculas que aterrizarás por debajo de ella aun en el aeródromo más cercano donde puedes aterrizar con seguridad, ya es una emergencia: «MAYDAY, MAYDAY, MAYDAY, COMBUSTIBLE».
 
@@ -2364,7 +2362,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 - C) 10 % del tiempo de vuelo más 30 minutos de espera.
 - D) 2 horas a consumo normal de crucero.
 **Correcta:** A · **Tema:** C08 · **Referencia:** FAA, 14 CFR 121.639 (c); 121.645 (b) y (c)
-**Explicación:** La FAA doméstica pide 45 minutos a consumo normal de crucero después del alterno, sin una línea de contingencia aparte. Los 30 minutos de espera a 1.500 ft son la reserva del RAC 121, de EASA y de la FAA internacional con reactores, que además suma el 10 % del tiempo (121.645).
+**Explicación:** La FAA doméstica pide 45 minutos a consumo normal de crucero después del alterno, sin una línea de contingencia aparte. Los 30 minutos de espera a 1.500 ft son la reserva del RAC 121, de la OACI y de la FAA internacional con reactores, que además suma el 10 % del tiempo (121.645).
 
 **ev-17** · Ruta larga sobre selva. Ante una despresurización en el punto más crítico necesitarías 4.100 kg para descender, llegar al alterno en ruta, esperar 15 minutos a 1.500 ft y aterrizar. Con trayecto, contingencia, alterno y reserva final llegarías a ese punto con 3.750 kg. Según el RAC 121, ¿cuánto adicional lleva el OFP?
 - A) Nada, porque esa falla es muy poco probable.
@@ -2377,7 +2375,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 **ev-18** · El TAF de destino trae TEMPO de tormentas a tu hora de llegada y la empresa sabe que hay esperas de hasta 18 minutos. El despacho propone 300 kg de extra y la espera cuesta 42 kg/min. Eres el PIC. ¿Qué haces según el RAC 121?
 - A) Aceptas 300 kg, porque el extra lo fija la política de la empresa.
 - B) Subes el extra a unos 760 kg: la cantidad la decides tú como PIC.
-- C) Dejas el extra en 300 kg y cubres el resto con la contingencia.
+- C) Dejas el extra en 300 kg y cubres el resto de la espera con la contingencia.
 - D) Pides al despacho un adicional por la meteorología del destino.
 **Correcta:** B · **Tema:** C09 · **Referencia:** RAC 121, 121.2645 (b)(2)(iv), (c)(3), Nota, (c)(6) y (c)(7)
 **Explicación:** Una espera previsible no se carga a la contingencia: va en el plan o como extra, y aquí el despacho la trata como extra. En el RAC 121 esa cantidad es la que a juicio del PIC puede añadirse: 18 × 42 ≈ 760 kg. El adicional solo cubre la falla en el punto crítico, EDTO u otros requisitos.
@@ -2385,7 +2383,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 **ev-19** · Preparas un vuelo con buen tiempo en destino y alterno, sin NOTAM relevantes ni congestión conocida. Tu compañero propone llenar tanques «por si acaso». ¿Qué criterio aplicas para el discrecional?
 - A) Llenar tanques, porque más combustible siempre es un vuelo más seguro.
 - B) Cargar siempre el mínimo legal, porque el costo es lo único que manda.
-- C) Cargar el máximo que permita la masa máxima de aterrizaje en destino.
+- C) Cargar hasta la masa máxima de aterrizaje en destino.
 - D) Cargar lo que la situación justifica: el peso extra también cuesta.
 **Correcta:** D · **Tema:** C10 · **Referencia:** RAC 121, 121.2645 (c)(7); Boeing (Anderson), Fuel Conservation Operational Procedures, 2006
 **Explicación:** El discrecional se decide con meteorología, NOTAM, tránsito, experiencia y demoras posibles, y aquí nada justifica llenar tanques. El peso extra aumenta el consumo y el costo: lo correcto es lo que la situación justifica y lo que puedes explicar.
@@ -2408,7 +2406,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 
 **ev-22** · El OFP prevé aterrizar con 3.400 kg y tu alterno más la reserva final suman 2.900 kg. Tus fuel checks, cada 40 minutos, dan −50, −130 y −210 kg frente al plan, y la suma FOB + FU cuadra. Faltan 60 minutos de vuelo. Si la tendencia sigue, ¿con cuánto aterrizas?
 - A) Unos 3.190 kg: la diferencia que llevas hoy es la misma que tendrás al aterrizar.
-- B) Unos 2.880 kg: ya estás por debajo del alterno más la reserva final y debes pedir demoras.
+- B) Unos 2.880 kg: ya estás por debajo del alterno más la reserva final y debes pedir demoras al ATC.
 - C) Unos 3.400 kg: sin fuga, las diferencias con el OFP no cambian la predicción.
 - D) Unos 3.070 kg: sobre el alterno más la reserva final, pero con solo unos 170 kg de margen.
 **Correcta:** D · **Tema:** C13 · **Referencia:** Módulo C13, «Cómo se detecta una tendencia»; RAC 121, 121.2553 (b)(1); Doc 9976, 6.6 k)
@@ -2612,7 +2610,6 @@ Solo casos con informe oficial publicado. Se resume lo que el informe establece;
 - Doc 4444, PANS-ATM: 16.ª edición en inglés y 15.ª en español; 10.2.5, 12.3.1.3, 15.1.1.2 y 15.5.4.
 - Doc 9976, Manual de planificación de vuelo y gestión del combustible (FPFM), 1.ª edición (2015): 4.10, 6.4, 6.6 a 6.10 y glosario.
 
-**EASA**: Reglamento (UE) 965/2012, modificado por el Reglamento de Ejecución (UE) 2021/1296 (aplicable desde el 30 de octubre de 2022): CAT.OP.MPA.180, 181, 182 y 185, con sus AMC y GM (ED Decision 2022/005/R).
 
 **FAA**: 14 CFR 121.631, 121.639, 121.641, 121.645, 121.647, 91.151 y 91.167; AIM 5-5-15; Pilot/Controller Glossary; InFO 08004 (2008).
 
@@ -2622,7 +2619,6 @@ Solo casos con informe oficial publicado. Se resume lo que el informe establece;
 - Boeing, AERO Q4 2007, «Fuel Conservation Strategies: Cruise Flight».
 - Boeing Flight Operations Engineering (Anderson), taller OACI de combustible y emisiones, 2006.
 - EUROCONTROL, *Think Paper #1: Fuel Tankering* (junio de 2019).
-- Reglamento (UE) 2023/2405 (ReFuelEU Aviation), artículo 5.
 
 **Informes de investigación**: NTSB AAR-79-07; Junta de Investigación del vuelo Air Canada 143 (1985); NTSB AAR-91/04; GPIAA 22/ACCID/GPIAA/2001; CIAIAC IN-010/2010; Aerocivil COL-16-37-GIA.
 
@@ -2630,15 +2626,16 @@ Solo casos con informe oficial publicado. Se resume lo que el informe establece;
 
 # ANEXO D · NOTAS DE VERIFICACIÓN (no van a la app)
 
+- **Fuentes normativas.** Solo OACI, FAA y Aerocivil (decisión de Camilo, 25 de septiembre de 2026); las normas europeas no se usan como fuente. Lo que el módulo tomaba de ellas se reescribió con el Anexo 6, la FAA o el RAC, o se quitó; `src/lib/combustibleContenido.test.ts` falla si vuelven a la lección, la práctica, el hub o el banco.
 - **Textos OACI.** Se leyeron copias alojadas por terceros; en la app se parafrasea. La 11.ª edición en español del Anexo 6 dice «sobre la elevación del aeródromo de destino» en la reserva final y en el adicional; el inglés dice solo «above aerodrome elevation». El módulo usa el RAC 121, que dice «sobre la elevación del aeródromo».
 - **Fraseología en español.** Tomada del Doc 4444 en español (15.ª edición, Enmiendas 4 a 6) y del Anexo 6 en español. Confirmar contra la edición vigente antes de grabar audio.
 - **Definición del RAC 91.** La definición de «Declaración de MAYDAY Combustible» en 91.001 (opciones reducidas a un lugar; parte de la reserva final podría consumirse), que repite la Nota 1 de 91.637 (c), describe lo que informa la declaración, no el criterio para hacerla (aterrizaje calculado bajo la reserva final en el aeródromo más cercano, 91.637 (c) y Anexo 6). El módulo usa 121.2553 (b)(3).
 - **91.2013 (d)** omite «menos del» en la regla de combustible mínimo; su Nota y 91.637 (b) lo traen. Probable error de redacción del original.
 - **91.2012 (c)(3)** (Parte 2 del RAC 91) fija la contingencia en «no inferior al 5 %» sin el piso de 5 minutos; el RAC 121 sí trae el piso. El módulo enseña el RAC 121.
 - **RAC 1.** Sus definiciones de combustible (básico, contingencia del 10 %, sostenimiento, mínimo) son de 2004 y usan la terminología antigua; para aerolínea prevalecen las del RAC 121 (RAC 1, 1.2). No se usan en el módulo. El Apéndice 10, B6.3 del RAC 121 repite esos términos antiguos en la lista de contenido del MO.
-- **Intervalo del fuel check.** El RAC 121 no lo fija; se dan como referencia EASA (60 min) y Airbus (cada punto o 30 min).
+- **Intervalo del fuel check.** Ni el RAC 121 ni el Anexo 6 (4.3.7.1) lo fijan: lo deja a los procedimientos aprobados del operador. Se da como referencia la recomendación de Airbus (cada punto o 30 min).
 - **Cifras de fabricantes.** La de Airbus para el A320 (unos 82 kg cada 1.000 NM por tonelada extra) sale de una tabla de 2004; varía por versión de avión y de motor.
-- **No usado por no verificado:** la regla de «3 a 4 % del extra por hora», un estudio propio de EASA sobre tankering, el texto vigente de la FAA 8900.1 sobre redespacho, el Doc 9432 y la definición OACI de punto crítico (no existe en el Anexo 6).
+- **No usado por no verificado:** la regla de «3 a 4 % del extra por hora», el texto vigente de la FAA 8900.1 sobre redespacho, el Doc 9432 y la definición OACI de punto crítico (no existe en el Anexo 6).
 - **«Committed to land»** no tiene definición propia en el Anexo 6; su sentido sale de la Nota de 4.3.7.2.2, del Doc 4444 y del Doc 9976. «Desviarse o comprometerse» (capítulo 19) depende de la aprobación de la autoridad y del MO; el RAC 121 no lo describe.
 - **Fórmulas del PNR y del CP.** Son las de la formación teórica (ATPL); la del CP es la igualdad de tiempos. Contrastar con el texto de la escuela o de la aerolínea que use Aviatory.
 - **Tablas 6-3 y 6-4 del Doc 9976**: son «EXAMPLE ONLY»; no se usaron.
