@@ -126,26 +126,26 @@ Que el piloto entienda de un vistazo que RVSM no acerca los aviones por acercarl
 
 **r01-q1** · En una entrevista te preguntan qué significa RVSM y por qué existe. ¿Cuál respuesta es la correcta y completa?
 - A) Reduced Vertical Separation Mode: un modo del piloto automático que mantiene el nivel con más precisión.
-- B) Reduced Vertical Separation Minimum: separación vertical de 1.000 ft entre aeronaves aprobadas, en espacio aéreo designado.
-- C) Reduced Vertical Separation Minimum: la autorización que da el ATC para volar entre dos aeronaves con menos margen.
+- B) Reduced Vertical Separation Minimum: la autorización que da el ATC para volar entre dos aeronaves con menos margen.
+- C) Reduced Vertical Separation Minimum: separación vertical de 1.000 ft entre aeronaves aprobadas, en espacio aéreo designado.
 - D) Reduced Visual Separation Minimum: la separación que se aplica cuando hay contacto visual con el tráfico adyacente.
-**Correcta:** B · **Tema:** R01 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
+**Correcta:** C · **Tema:** R01 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
 **Explicación:** RVSM es *Reduced Vertical Separation Minimum* y designa un espacio aéreo, no un modo del avión ni una autorización puntual del ATC. La FAA lo define como espacio aéreo de calificación especial, normalmente entre FL 290 y FL 410, donde se aplican 1.000 ft de separación vertical.
 
 **r01-q2** · Tu compañero dice que, como el avión es moderno y llega sin problema a FL 370, puede operar RVSM. ¿Qué le falta a ese razonamiento?
-- A) Nada: si el avión alcanza el nivel con margen de performance, cumple los requisitos.
-- B) Solo falta que el ATC lo autorice en el momento de pedir el nivel.
-- C) Que RVSM exige equipo, aprobación, procedimientos y entrenamiento, no solo capacidad de subir.
-- D) Que primero hay que comprobar que el TCAS esté operativo, que es lo que sustituye la separación.
-**Correcta:** C · **Tema:** R01 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15; Apéndice B, numeral B.3.3
+- A) Que RVSM exige equipo, aprobación, procedimientos y entrenamiento, no solo llegar al nivel.
+- B) Nada: si el avión alcanza el nivel con margen de performance y de empuje, cumple los requisitos de RVSM.
+- C) Solo falta que el ATC lo autorice en el momento de pedir el nivel, porque la aprobación RVSM es de cada vuelo.
+- D) Que primero hay que comprobar que el TCAS esté operativo, que es lo que sustituye la separación en esos niveles.
+**Correcta:** A · **Tema:** R01 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15; Apéndice B, numeral B.3.3
 **Explicación:** Alcanzar el nivel es performance, no autorización. RVSM se sostiene sobre precisión altimétrica, mantenimiento del nivel, equipamiento, aprobación, procedimientos, entrenamiento y monitorización. El TCAS no sustituye ninguno de esos requisitos.
 
 **r01-q3** · ¿Qué gana el sistema al pasar de 2.000 a 1.000 ft de separación vertical en la misma franja de niveles?
-- A) Prácticamente el doble de niveles utilizables, y con ello más capacidad y perfiles más eficientes.
-- B) Menos consumo, porque la separación reducida obliga a volar a velocidades menores.
-- C) Que el ATC deja de necesitar separación horizontal entre aeronaves en esos niveles.
+- A) Menos consumo, porque la separación reducida obliga a volar a velocidades menores.
+- B) Prácticamente el doble de niveles utilizables, y con ello más capacidad y perfiles más eficientes.
+- C) Que el ATC deja de necesitar separación horizontal entre aeronaves en esos niveles, porque la vertical ya basta.
 - D) Que desaparece la necesidad de vigilar la altitud, porque el sistema la garantiza.
-**Correcta:** A · **Tema:** R01 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
+**Correcta:** B · **Tema:** R01 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
 **Explicación:** La ganancia es de capacidad: en la misma franja caben casi el doble de niveles, lo que da más flexibilidad al ATC y deja a cada avión más cerca de su nivel óptimo. La separación horizontal y la vigilancia de la altitud siguen existiendo igual.
 
 ---
@@ -208,27 +208,27 @@ Fijar los dos límites verticales y, al mismo tiempo, dejar claro que dentro de 
 ### Quiz · Capítulo 2
 
 **r02-q1** · ¿Entre qué niveles se aplica normalmente RVSM, tanto en la definición de la FAA como en el RAC colombiano?
-- A) Entre FL 250 y FL 450, inclusive.
-- B) Entre FL 290 y FL 410, inclusive.
+- A) Entre FL 290 y FL 410, inclusive.
+- B) Entre FL 250 y FL 450.
 - C) Desde FL 290 hacia arriba, sin límite superior definido.
-- D) Entre FL 200 y FL 290, que es donde se concentra el tráfico de aerolínea.
-**Correcta:** B · **Tema:** R02 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15; RAC 211, numeral 211.530
+- D) Entre FL 280 y FL 400.
+**Correcta:** A · **Tema:** R02 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15; RAC 211, numeral 211.530
 **Explicación:** Las dos fuentes coinciden: de FL 290 a FL 410, ambos inclusive. Por encima de FL 410 y por debajo de FL 290 rigen otros mínimos de separación vertical.
 
 **r02-q2** · Vas a operar por primera vez en un área RVSM de otra región. ¿Qué debes verificar además del rango de niveles?
-- A) Nada: RVSM está normalizado y funciona igual en todo el mundo.
+- A) Nada: RVSM está normalizado por la OACI y funciona igual en todo el mundo, con la misma fraseología y los mismos niveles.
 - B) Solo la meteorología en ruta, porque el resto lo resuelve el despacho.
-- C) Lo que publique esa región: AIP, procedimientos suplementarios y NOTAM, incluidos los requisitos de transpondedor.
-- D) Únicamente que el avión alcance los niveles previstos con el peso del día.
-**Correcta:** C · **Tema:** R02 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3, Nota
+- C) Únicamente que el avión alcance los niveles previstos con el peso del día y con la temperatura que se prevé en crucero.
+- D) Lo que publique esa región: AIP, procedimientos suplementarios y NOTAM, incluidos los requisitos de transpondedor.
+**Correcta:** D · **Tema:** R02 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3, Nota
 **Explicación:** El rango vertical es común, pero cada Estado publica sus condiciones. La propia FAA advierte que el operador o el piloto deben averiguar qué requisito de transpondedor y de TCAS aplica en cada área RVSM donde se pretenda operar.
 
 **r02-q3** · Según el RAC 91, ¿qué ocurre con el vuelo VFR en el espacio RVSM colombiano?
-- A) Se permite hasta FL 350 si la visibilidad supera los 8 km.
-- B) Se permite con autorización del ATC en cualquier nivel RVSM.
-- C) Se permite solo de día y con plan de vuelo presentado.
-- D) Nunca se permite sobre FL 290 en espacio de separación vertical reducida.
-**Correcta:** D · **Tema:** R02 · **Referencia:** RAC 91, numerales 91.305 y 91.310
+- A) Se permite hasta FL 350 si la visibilidad en vuelo supera los 8 km y el piloto se mantiene lejos de las nubes.
+- B) Se permite con autorización del ATC en cualquier nivel RVSM, siempre que el avión tenga transpondedor.
+- C) Nunca se permite sobre FL 290 en espacio de separación vertical reducida.
+- D) Se permite solo de día, con plan de vuelo presentado y en contacto permanente con el ATC.
+**Correcta:** C · **Tema:** R02 · **Referencia:** RAC 91, numerales 91.305 y 91.310
 **Explicación:** Sin autorización no hay VFR sobre FL 200, y sobre FL 290 en espacio RVSM no se permite en ningún caso. El espacio RVSM es de operación IFR.
 
 ---
@@ -277,26 +277,26 @@ Cuando el despacho propone FL 330 en vez de FL 310 y eso vale trescientos kilos 
 
 **r03-q1** · ¿Cuál es el objetivo principal de RVSM?
 - A) Reducir el consumo de combustible de cada vuelo en un porcentaje fijo.
-- B) Permitir que el ATC deje de aplicar separación horizontal en crucero.
-- C) Aumentar la capacidad del espacio aéreo disponiendo de más niveles utilizables.
-- D) Facilitar que los aviones vuelen con el piloto automático desacoplado.
-**Correcta:** C · **Tema:** R03 · **Referencia:** OACI Doc 9574; FAA AC 91-85B, Apéndice A, definición 15
+- B) Aumentar la capacidad disponiendo de más niveles utilizables.
+- C) Permitir que el ATC deje de aplicar separación horizontal entre aeronaves en crucero.
+- D) Facilitar que los aviones vuelen con el piloto automático desacoplado en crucero.
+**Correcta:** B · **Tema:** R03 · **Referencia:** OACI Doc 9574; FAA AC 91-85B, Apéndice A, definición 15
 **Explicación:** El objetivo es la capacidad: casi el doble de niveles en la misma franja. El ahorro de combustible es una consecuencia de poder volar más cerca del nivel óptimo, y la separación horizontal sigue aplicándose igual.
 
 **r03-q2** · ¿Qué exige a cambio la reducción de 2.000 a 1.000 ft?
-- A) Velocidades de crucero menores, para dar más tiempo de reacción.
-- B) Precisión altimétrica, mantenimiento del nivel y fiabilidad del equipo.
-- C) Vigilancia radar permanente en todo el espacio RVSM.
-- D) Que todas las aeronaves lleven TCAS II con resoluciones coordinadas.
-**Correcta:** B · **Tema:** R03 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.3.3 y B.3.4
+- A) Velocidades de crucero menores, para dar más tiempo de reacción a las tripulaciones.
+- B) Vigilancia radar permanente en todo el espacio RVSM.
+- C) Precisión altimétrica, mantenimiento del nivel y fiabilidad del equipo.
+- D) Que todas las aeronaves lleven TCAS II con resoluciones coordinadas entre sí.
+**Correcta:** C · **Tema:** R03 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.3.3 y B.3.4
 **Explicación:** Al reducir el margen a la mitad, el error vertical admisible se reduce en la misma proporción. Por eso se exigen dos fuentes altimétricas independientes, mantenimiento automático del nivel y alerta de altitud operativa.
 
 **r03-q3** · En el briefing, el despacho propone FL 350 en vez de FL 330 y estima menos consumo. ¿Cómo se relaciona eso con RVSM?
 - A) No se relaciona: el consumo depende solo del peso y del viento.
 - B) RVSM obliga a volar en el nivel más alto disponible para ahorrar.
-- C) RVSM hace que ese nivel exista y esté disponible en esa dirección de vuelo.
-- D) RVSM reduce el consumo directamente al disminuir la separación.
-**Correcta:** C · **Tema:** R03 · **Referencia:** OACI Doc 9574
+- C) RVSM reduce el consumo directamente al disminuir la separación.
+- D) RVSM hace que ese nivel exista y esté disponible en esa dirección de vuelo.
+**Correcta:** D · **Tema:** R03 · **Referencia:** OACI Doc 9574
 **Explicación:** RVSM no ahorra combustible por sí mismo: lo que hace es que haya el doble de niveles, y con ello más probabilidad de que el nivel eficiente esté libre. El ahorro viene de volar donde conviene.
 
 ---
@@ -355,27 +355,27 @@ Dejar grabado que RVSM no es una propiedad del avión, sino la intersección de 
 ### Quiz · Capítulo 4
 
 **r04-q1** · ¿De qué depende que un vuelo pueda operar en espacio RVSM?
-- A) Solo de que la aeronave tenga la aprobación de aeronavegabilidad correspondiente.
-- B) De la aeronave, de la autorización del operador y del entrenamiento de la tripulación.
-- C) De que el ATC confirme la separación disponible antes de la entrada.
-- D) De que el avión alcance los niveles previstos con el peso y la temperatura del día.
-**Correcta:** B · **Tema:** R04 · **Referencia:** FAA AC 91-85B, numeral 1.1; RAC 119, numeral 119.270(a)
+- A) Solo de que la aeronave tenga la aprobación de aeronavegabilidad RVSM correspondiente y vigente.
+- B) De que el ATC confirme la separación disponible antes de la entrada.
+- C) De que el avión alcance los niveles previstos con el peso y la temperatura del día, con margen de empuje.
+- D) De la aeronave, de la autorización del operador y del entrenamiento de la tripulación.
+**Correcta:** D · **Tema:** R04 · **Referencia:** FAA AC 91-85B, numeral 1.1; RAC 119, numeral 119.270(a)
 **Explicación:** Las tres condiciones deben darse a la vez. La aprobación del avión no basta, y la del operador tampoco salva a un avión con un sistema requerido inoperativo.
 
 **r04-q2** · En Colombia, ¿dónde aparece la autorización RVSM del explotador?
-- A) En el certificado de aeronavegabilidad de cada aeronave.
-- B) En el plan de vuelo, casilla 10.
+- A) En el certificado de aeronavegabilidad de cada aeronave de la flota.
+- B) En el plan de vuelo, casilla 10, que es donde se declara la letra W.
 - C) En las especificaciones de operación que expide la Aerocivil.
-- D) En la licencia de cada piloto, como una habilitación.
+- D) En la licencia de cada piloto, como una habilitación adicional al tipo.
 **Correcta:** C · **Tema:** R04 · **Referencia:** RAC 119, numeral 119.270(a)
 **Explicación:** Las OpSpecs recogen las aprobaciones específicas del explotador, y RVSM es una de ellas, junto a mercancías peligrosas, baja visibilidad, EDTO o PBN AR. El plan de vuelo declara la capacidad, pero no la otorga.
 
 **r04-q3** · La aeronave está aprobada y el operador autorizado, pero un sistema requerido para RVSM está inoperativo. ¿Qué ocurre?
 - A) Nada: la aprobación del operador cubre esa situación.
-- B) Se mantiene la capacidad si el ATC lo autoriza expresamente.
-- C) La capacidad RVSM puede perderse; hay que consultar la MEL y los requisitos aplicables.
+- B) La capacidad RVSM puede perderse; hay que consultar la MEL y los requisitos aplicables.
+- C) Se mantiene la capacidad si el ATC lo autoriza expresamente.
 - D) Se mantiene la capacidad mientras el otro sistema equivalente siga operativo.
-**Correcta:** C · **Tema:** R04 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3
+**Correcta:** B · **Tema:** R04 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3
 **Explicación:** Las aprobaciones no compensan un equipo requerido inoperativo. Hay que ir a la MEL del avión y a los requisitos aplicables antes de decidir si la aeronave sigue siendo RVSM capable.
 
 ---
@@ -443,27 +443,27 @@ Que el piloto pueda enumerar de memoria los cuatro sistemas y decir en una líne
 ### Quiz · Capítulo 5
 
 **r05-q1** · Según la FAA, ¿qué equipo debe estar operando normalmente al entrar en espacio RVSM?
-- A) Dos sistemas primarios de altitud, un control automático de altitud y una alerta de altitud.
-- B) Un sistema primario de altitud, un TCAS II y dos transpondedores.
-- C) Tres sistemas independientes de altitud y dos pilotos automáticos.
-- D) Un piloto automático, un altímetro de reserva y el radar meteorológico.
-**Correcta:** A · **Tema:** R05 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3
+- A) Un sistema primario de altitud, un TCAS II con versión 7.0 y dos transpondedores con reporte de altitud.
+- B) Tres sistemas independientes de altitud, dos pilotos automáticos y un comparador de altímetros.
+- C) Un piloto automático, un altímetro de reserva calibrado y el radar meteorológico operativo.
+- D) Dos primarios de altitud, un control automático de altitud y una alerta de altitud.
+**Correcta:** D · **Tema:** R05 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3
 **Explicación:** La AC lo enumera así: dos sistemas primarios de medición de altitud, un sistema automático de control de altitud y un dispositivo de alerta de altitud. El requisito de transpondedor y TCAS depende del área RVSM.
 
 **r05-q2** · ¿Por qué la alerta de altitud es parte del equipo requerido y no un extra?
-- A) Porque sustituye al control automático de altitud cuando este se desacopla.
-- B) Porque avisa cuando la altitud mostrada se aparta de la seleccionada, antes de que sea una desviación.
-- C) Porque transmite la desviación al ATC de forma automática.
-- D) Porque calcula el error del sistema altimétrico en tiempo real.
-**Correcta:** B · **Tema:** R05 · **Referencia:** FAA AC 91-85B, Apéndice A, numeral A.4.1.3
+- A) Porque sustituye al control automático de altitud cuando este se desacopla en crucero.
+- B) Porque transmite la desviación al ATC de forma automática.
+- C) Porque avisa cuando la altitud mostrada se aparta de la seleccionada.
+- D) Porque calcula el error del sistema altimétrico en vuelo.
+**Correcta:** C · **Tema:** R05 · **Referencia:** FAA AC 91-85B, Apéndice A, numeral A.4.1.3
 **Explicación:** Es la red de seguridad contra el level bust: señala una alerta cuando la altitud mostrada se aparta de la seleccionada más del valor nominal, ±300 ft en aviones anteriores a abril de 1997 y ±200 ft en los posteriores. No transmite nada ni sustituye al piloto automático.
 
 **r05-q3** · Un compañero incluye el TCAS en la lista de equipo requerido para RVSM. ¿Qué le respondes?
-- A) Que tiene razón: sin TCAS no hay RVSM en ninguna región.
-- B) Que el TCAS solo se exige en espacio oceánico.
-- C) Que el requisito de transpondedor y TCAS depende del área RVSM y hay que verificarlo.
+- A) Que el requisito de transpondedor y TCAS depende del área RVSM y hay que verificarlo.
+- B) Que tiene razón: sin TCAS no hay RVSM en ninguna región.
+- C) Que el TCAS solo se exige en espacio oceánico o remoto.
 - D) Que el TCAS sustituye a la alerta de altitud si esta falla.
-**Correcta:** C · **Tema:** R05 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3, Nota
+**Correcta:** A · **Tema:** R05 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3, Nota
 **Explicación:** La AC deja la puerta abierta a propósito: el operador o el piloto deben averiguar el requisito de transpondedor y de TCAS en cada área RVSM donde vayan a operar. El TCAS no sustituye ningún requisito RVSM.
 
 ---
@@ -544,27 +544,27 @@ Que el piloto vea que en RVSM no hay «el altímetro»: hay tres indicaciones y 
 ### Quiz · Capítulo 6
 
 **r06-q1** · ¿Por qué RVSM exige dos sistemas de medición de altitud independientes?
-- A) Para que el piloto elija el que prefiera durante el crucero.
-- B) Para que un error aparezca como discrepancia y pueda detectarse.
-- C) Para poder transmitir dos altitudes distintas al ATC y que él decida.
-- D) Para repartir la carga de trabajo entre el comandante y el primer oficial.
-**Correcta:** B · **Tema:** R06 · **Referencia:** FAA AC 91-85B, Apéndice A, numeral A.4.1.1; Apéndice B, numeral B.3.4
+- A) Para que el piloto elija el que prefiera en crucero.
+- B) Para transmitir dos altitudes distintas al ATC.
+- C) Para repartir la carga entre comandante y primer oficial.
+- D) Para que un error aparezca como discrepancia y pueda detectarse.
+**Correcta:** D · **Tema:** R06 · **Referencia:** FAA AC 91-85B, Apéndice A, numeral A.4.1.1; Apéndice B, numeral B.3.4
 **Explicación:** Con una sola fuente un error es invisible. Con dos, se manifiesta como diferencia entre ellas, y una diferencia sí se puede ver, medir y contrastar con el altímetro de reserva.
 
 **r06-q2** · En crucero RVSM queda operativa una sola primaria y no puedes confirmar su precisión. ¿Qué corresponde?
-- A) Continuar normalmente, porque una primaria operativa cumple el requisito.
-- B) Cambiar al altímetro de reserva como fuente principal y seguir.
+- A) Continuar normalmente, porque una primaria operativa cumple el requisito de RVSM.
+- B) Cambiar al altímetro de reserva como fuente principal y seguir en el nivel.
 - C) Actuar como si hubieran fallado todas las primarias.
 - D) Desacoplar el piloto automático y volar manual vigilando la altitud.
 **Correcta:** C · **Tema:** R06 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «One Primary Altimeter Remains Operational»
 **Explicación:** La tabla de contingencias lo dice expresamente: si no se puede confirmar la precisión de la primaria que queda, se siguen las acciones previstas para la falla de todas las primarias, es decir, *unable RVSM due equipment*.
 
 **r06-q3** · Vas a entrar en espacio oceánico y el avión tiene comparadores automáticos de altímetros. ¿Debes anotar los chequeos altimétricos?
-- A) No: el comparador registra las fallas automáticamente.
-- B) Sí: en espacio oceánico o remoto la tripulación debe anotarlos para una eventual contingencia.
-- C) Solo si el comparador señala una falla durante el cruce.
+- A) Sí: en espacio oceánico o remoto la tripulación debe anotarlos para una eventual contingencia.
+- B) No: el comparador registra las fallas automáticamente.
+- C) Solo si el comparador señala una falla durante el cruce, porque entonces hace falta saber cuál de las dos primarias creer.
 - D) Solo si el operador lo exige en su manual de operaciones.
-**Correcta:** B · **Tema:** R06 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 8, Nota
+**Correcta:** A · **Tema:** R06 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 8, Nota
 **Explicación:** La AC lo advierte de forma explícita: aunque el avión tenga comparadores, en espacio oceánico y remoto la tripulación debe ir registrando los chequeos, porque el comparador no deja fácilmente a mano la diferencia entre las primarias, que es justo lo que hace falta en una contingencia.
 
 ---
@@ -646,26 +646,26 @@ Que el piloto asocie cada chequeo con su momento y su cifra, y no mezcle los nú
 
 **r07-q1** · En crucero RVSM, ¿dentro de qué diferencia deben coincidir los dos altímetros primarios, según la FAA?
 - A) 75 ft.
-- B) 200 ft, o menos si lo especifica el manual del avión.
-- C) 300 ft, que es el umbral de desviación reportable.
-- D) 65 ft, que es la tolerancia del control automático de altitud.
-**Correcta:** B · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 7
+- B) 300 ft, el umbral de desviación reportable.
+- C) 65 ft, que es la tolerancia del control automático de altitud en crucero.
+- D) 200 ft, o menos si lo especifica el manual del avión.
+**Correcta:** D · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 7
 **Explicación:** En nivel de crucero las dos primarias deben coincidir dentro de 200 ft (60 m), o un valor menor si el manual del avión lo especifica. Los 75 ft son el chequeo contra la elevación conocida antes del despegue, y los 65 ft, una tolerancia de diseño del control automático.
 
 **r07-q2** · Antes del despegue, con QNH puesto, el altímetro muestra la elevación del aeródromo con 90 ft de diferencia. ¿Qué indica eso?
-- A) Está dentro de lo aceptable: el límite son 200 ft.
-- B) Excede el tope de 75 ft que fija la FAA para ese chequeo.
-- C) Es irrelevante en tierra: el chequeo solo cuenta en crucero.
-- D) Obliga a declarar *unable RVSM* antes de solicitar la salida.
-**Correcta:** B · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2, apartado 3
+- A) Está dentro de lo aceptable: el límite en tierra, igual que en crucero, son 200 ft.
+- B) Es irrelevante en tierra: el chequeo altimétrico que cuenta es el de crucero.
+- C) Excede el tope de 75 ft que fija la FAA para ese chequeo.
+- D) Obliga a declarar *unable RVSM* antes de solicitar la autorización de salida.
+**Correcta:** C · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2, apartado 3
 **Explicación:** La diferencia entre la elevación conocida y la mostrada no debe exceder 75 ft. Excederlo es un hallazgo que hay que resolver antes de salir; no se traslada al aire para verlo después. *Unable RVSM* es una comunicación posterior a la entrada en el espacio, no un trámite de salida.
 
 **r07-q3** · Vas a cruzar espacio oceánico. ¿Qué exige la FAA respecto al chequeo altimétrico?
-- A) Repetirlo cada 30 minutos y comunicarlo al control oceánico.
-- B) Nada distinto: el barrido normal de instrumentos basta en todos los espacios.
-- C) Hacerlo y registrarlo cerca del punto donde empieza la navegación oceánica.
+- A) Hacerlo y registrarlo cerca del punto donde empieza la navegación oceánica.
+- B) Repetirlo cada 30 minutos y comunicar las lecturas al control oceánico en cada reporte de posición.
+- C) Nada distinto: el barrido normal de instrumentos basta en todos los espacios aéreos, también en el oceánico.
 - D) Hacerlo solo si el comparador automático señala una diferencia.
-**Correcta:** C · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 8, letra c
+**Correcta:** A · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 8, letra c
 **Explicación:** En espacio oceánico y remoto el chequeo se hace y se registra en las proximidades del punto donde empieza la navegación oceánica, por ejemplo al salir a la costa, anotando las lecturas de las primarias y de la de reserva para tenerlas disponibles en una contingencia.
 
 ---
@@ -742,27 +742,27 @@ Relacionar tres cosas que el piloto mira por separado (nivel autorizado, altitud
 ### Quiz · Capítulo 8
 
 **r08-q1** · En crucero RVSM, ¿qué exige la FAA respecto del sistema automático de control de altitud?
-- A) Que esté instalado y disponible, aunque se vuele manual.
-- B) Que esté operativo y acoplado, salvo circunstancias como retrimar o turbulencia.
-- C) Que se desacople cada hora para comprobar el trimado.
-- D) Que se use solo por encima de FL 350.
-**Correcta:** B · **Tema:** R08 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 5
+- A) Que esté instalado y disponible para acoplarlo, aunque en crucero se vuele manual.
+- B) Que se desacople cada hora para comprobar el trimado y volver a acoplarlo.
+- C) Que se use solo por encima de FL 350, donde el avión es más sensible a la altitud.
+- D) Que esté operativo y acoplado, salvo para retrimar o por turbulencia.
+**Correcta:** D · **Tema:** R08 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 5
 **Explicación:** Debe estar operativo y acoplado durante el crucero nivelado, y la AC admite el desacople por circunstancias como la necesidad de retrimar o la turbulencia. En cualquier caso, la adherencia a la altitud se hace por referencia a uno de los dos altímetros primarios.
 
 **r08-q2** · Durante una transición autorizada entre niveles, ¿cuál es el sobrepaso máximo que admite la FAA?
 - A) 65 ft.
-- B) 150 ft.
-- C) 200 ft.
-- D) 300 ft.
-**Correcta:** B · **Tema:** R08 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 4
+- B) 100 ft.
+- C) 150 ft.
+- D) 200 ft.
+**Correcta:** C · **Tema:** R08 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 4
 **Explicación:** El avión no debe sobrepasar ni quedarse corto del nivel autorizado en más de 150 ft (45 m), y se recomienda nivelar con la función de captura de altitud del sistema automático. Los 65 ft son la tolerancia de diseño en crucero estable, no el límite de la nivelación.
 
 **r08-q3** · Falla el sistema automático de control de altitud en crucero RVSM. Tu compañero propone continuar volando manual. ¿Qué respondes?
-- A) Que es válido si se mantiene el nivel dentro de 200 ft.
-- B) Que es válido mientras la turbulencia sea ligera.
-- C) Que no: su falla es *unable RVSM due equipment* y hay que avisar al ATC.
-- D) Que es válido si el otro piloto vigila la altitud de forma continua.
-**Correcta:** C · **Tema:** R08 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «Unable RVSM Due Equipment»
+- A) Que no: su falla es *unable RVSM due equipment* y hay que avisar al ATC.
+- B) Que es válido si se mantiene el nivel dentro de 200 ft.
+- C) Que es válido mientras la turbulencia sea ligera.
+- D) Que es válido si el otro piloto vigila la altitud de forma continua y se anota en el libro técnico.
+**Correcta:** A · **Tema:** R08 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «Unable RVSM Due Equipment»
 **Explicación:** La tabla de contingencias agrupa la falla del sistema automático de control de altitud, la de la alerta de altitud y la de todos los altímetros primarios bajo la misma acción: comunicar *unable RVSM due equipment* y solicitar salir del espacio RVSM salvo que la situación operacional indique otra cosa. La habilidad manual no sustituye el requisito.
 
 ---
@@ -816,25 +816,25 @@ Tratarla como un lujo: «es solo una campana». En RVSM es equipo requerido, y s
 **r09-q1** · ¿Cuándo señala una alerta el sistema de alerta de altitud?
 - A) Cuando el ATC detecta una desviación y la transmite al avión.
 - B) Cuando la altitud mostrada se aparta de la seleccionada más de un valor nominal.
-- C) Cuando la diferencia entre los dos altímetros primarios excede 200 ft.
+- C) Cuando la diferencia entre los dos altímetros primarios excede los 200 ft que fija la norma para el crucero.
 - D) Cuando el piloto automático se desacopla en crucero.
 **Correcta:** B · **Tema:** R09 · **Referencia:** FAA AC 91-85B, Apéndice A, numeral A.4.1.3
 **Explicación:** El sistema compara la altitud mostrada con la seleccionada y alerta cuando la desviación supera el valor nominal: ±300 ft en tipos anteriores a abril de 1997 y ±200 ft en los posteriores. La comparación entre primarias es otra cosa, y la detecta el comparador o el propio piloto.
 
 **r09-q2** · ¿Por qué se dice que la alerta de altitud es la última defensa y no la primera?
-- A) Porque solo funciona por encima de FL 290.
-- B) Porque depende del transpondedor para operar.
+- A) Porque solo funciona por encima de FL 290, cuando el avión ya está dentro del espacio.
+- B) Porque depende del transpondedor para operar y se pierde con él cuando este falla.
 - C) Porque cuando suena ya se consumió buena parte del margen de 1.000 ft.
-- D) Porque el ATC la recibe antes que la tripulación.
+- D) Porque el ATC recibe la alerta en su pantalla antes que la tripulación en la cabina.
 **Correcta:** C · **Tema:** R09 · **Referencia:** FAA AC 91-85B, Apéndice A, numeral A.4.1.3
 **Explicación:** Con umbrales de 200 o 300 ft y una separación de 1.000 ft, para cuando la alerta canta ya se ha gastado entre una quinta y una tercera parte del margen. Las defensas anteriores son la colación, la verificación cruzada del nivel seleccionado y la vigilancia de la altitud.
 
 **r09-q3** · La alerta de altitud queda inoperativa en crucero RVSM. ¿Qué corresponde?
-- A) Continuar, porque es un sistema de aviso y no de control.
-- B) Continuar si el piloto automático funciona correctamente.
-- C) Comunicar *unable RVSM due equipment* y solicitar salir del espacio RVSM.
-- D) Reducir la velocidad y aumentar la frecuencia de los chequeos altimétricos.
-**Correcta:** C · **Tema:** R09 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «Unable RVSM Due Equipment»
+- A) Comunicar *unable RVSM due equipment* y solicitar salir del espacio RVSM.
+- B) Continuar, porque es un sistema de aviso y no de control.
+- C) Continuar si el piloto automático funciona correctamente y los altímetros coinciden.
+- D) Reducir la velocidad y aumentar la frecuencia de los chequeos altimétricos hasta el destino.
+**Correcta:** A · **Tema:** R09 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «Unable RVSM Due Equipment»
 **Explicación:** La FAA la agrupa con la falla del control automático de altitud y la de todos los primarios: las tres se comunican como *unable RVSM due equipment* y se solicita salir del espacio, salvo que la situación operacional indique otra cosa.
 
 ---
@@ -894,26 +894,26 @@ Meter la falla de transpondedor en el mismo saco que la del piloto automático. 
 ### Quiz · Capítulo 10
 
 **r10-q1** · ¿Qué regla operacional establece la FAA sobre la fuente del reporte de altitud?
-- A) Que debe alimentarse siempre del altímetro de reserva.
-- B) Que debe alimentarse del sistema altimétrico que se está usando para controlar la aeronave.
+- A) Que debe alimentarse del sistema altimétrico que se está usando para controlar la aeronave.
+- B) Que debe alimentarse siempre del altímetro de reserva.
 - C) Que debe alternarse entre las dos primarias cada hora.
-- D) Que debe alimentarse del sistema del primer oficial, para independizarlo del piloto que vuela.
-**Correcta:** B · **Tema:** R10 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 9
+- D) Que debe alimentarse del sistema del primer oficial, para independizarlo.
+**Correcta:** A · **Tema:** R10 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 9
 **Explicación:** Lo que el avión sigue y lo que transmite deben venir de la misma fuente. Si no, el avión vuela un nivel y enseña otro, y el ATC separa con lo que ve.
 
 **r10-q2** · Falla el transpondedor en crucero RVSM. ¿Qué corresponde según la tabla de contingencias de la FAA?
 - A) Comunicar *unable RVSM due equipment* y salir del espacio RVSM.
 - B) Contactar al ATC y solicitar autorización para continuar en el nivel autorizado.
 - C) Declarar emergencia y descender por debajo de FL 290.
-- D) Continuar sin comunicar nada mientras el nivel se mantenga estable.
+- D) Continuar sin comunicar nada mientras el nivel se mantenga estable, porque el ATC sigue viendo la posición en el radar.
 **Correcta:** B · **Tema:** R10 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «Transponder Failure»
 **Explicación:** La falla de transpondedor se coordina: se solicita autorización para seguir en el nivel autorizado y se cumple la autorización revisada si la hay. No entra en el grupo de *unable RVSM due equipment*, que son los altímetros primarios, el control automático de altitud y la alerta de altitud.
 
 **r10-q3** · ¿Contra qué se define la desviación de altitud asignada (AAD)?
-- A) Contra la altitud que muestra el altímetro del comandante.
-- B) Contra la altitud media de los dos altímetros primarios.
+- A) Contra el altímetro del comandante.
+- B) Contra la altitud media de los dos altímetros primarios, que es la mejor estimación.
 - C) Contra la altitud que transmite el transpondedor en modo C.
-- D) Contra la altitud que el FMS predice para el punto siguiente.
+- D) Contra la altitud que el FMS predice para el siguiente punto de la ruta.
 **Correcta:** C · **Tema:** R10 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 7
 **Explicación:** La AAD es la diferencia entre la altitud transmitida por el modo de reporte de altitud del radar secundario y la altitud o nivel asignado. Por eso importa tanto que la fuente del reporte sea la que gobierna el avión.
 
@@ -999,27 +999,27 @@ Mostrar en un solo golpe de vista que «despachable» y «RVSM capable» se leen
 ### Quiz · Capítulo 11
 
 **r11-q1** · El avión tiene un ítem de MEL abierto y está despachado. ¿Qué se puede concluir sobre su capacidad RVSM?
-- A) Que la conserva: si estuviera afectada, el avión no habría sido despachado.
-- B) Que la ha perdido: cualquier ítem abierto retira la capacidad.
-- C) Nada: hay que leer la entrada de MEL y sus observaciones.
+- A) Que la conserva: si no, no habría salido despachado.
+- B) Nada todavía: hay que leer la entrada de MEL completa, con sus observaciones.
+- C) Que la ha perdido: todo ítem abierto la retira.
 - D) Que la conserva si el ítem no es de altimetría.
-**Correcta:** C · **Tema:** R11 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3
+**Correcta:** B · **Tema:** R11 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3
 **Explicación:** Despachable y RVSM capable son dos cosas distintas que se leen en columnas distintas de la misma entrada. Ni la presencia de un ítem retira automáticamente la capacidad ni el hecho de estar despachado la garantiza.
 
 **r11-q2** · En la entrada de MEL, ¿qué indica la marca (O)?
-- A) Que el ítem es opcional y puede ignorarse.
-- B) Que hay un procedimiento operacional que le corresponde cumplir a la tripulación.
+- A) Que hay un procedimiento operacional que le corresponde cumplir a la tripulación.
+- B) Que el ítem es opcional y puede ignorarse.
 - C) Que el ítem solo aplica en operación oceánica.
-- D) Que el despacho queda a criterio del comandante.
-**Correcta:** B · **Tema:** R11 · **Referencia:** Práctica estándar de listas de equipo mínimo; conectar con el módulo MEL de Aviatory
+- D) Que el despacho queda a criterio del comandante, que decide si acepta el avión con el ítem abierto.
+**Correcta:** A · **Tema:** R11 · **Referencia:** Práctica estándar de listas de equipo mínimo; conectar con el módulo MEL de Aviatory
 **Explicación:** La (O) señala un procedimiento operacional asociado al ítem, y ese lo ejecuta la tripulación. La (M) señala uno de mantenimiento. Ignorar la (O) es una de las formas más comunes de operar fuera de las condiciones de la MEL.
 
 **r11-q3** · Hay dos ítems de MEL abiertos, cada uno aceptable por separado. ¿Cómo se evalúa el efecto sobre RVSM?
-- A) Se suman: si ninguno retira la capacidad por separado, juntos tampoco.
-- B) Se toma el más restrictivo de los dos y se ignora el otro.
-- C) Se revisa la interacción: la MEL puede prohibir la combinación o cambiar el efecto.
-- D) Se consulta al ATC antes del despegue.
-**Correcta:** C · **Tema:** R11 · **Referencia:** Práctica estándar de listas de equipo mínimo; conectar con el módulo MEL de Aviatory
+- A) Se suman: si ninguno retira la capacidad por separado, juntos tampoco la retiran, y el avión sigue siendo RVSM.
+- B) Se toma el más restrictivo de los dos y se ignora el otro, porque la MEL no combina ítems entre sí.
+- C) Se consulta al ATC antes del despegue.
+- D) Se revisa la interacción: la MEL puede prohibir la combinación o cambiar el efecto.
+**Correcta:** D · **Tema:** R11 · **Referencia:** Práctica estándar de listas de equipo mínimo; conectar con el módulo MEL de Aviatory
 **Explicación:** Las restricciones de la MEL no son aditivas. La lista puede prohibir expresamente una combinación que admite por separado, y el efecto conjunto sobre la capacidad RVSM puede no coincidir con el de ninguno de los dos ítems aislados.
 
 ---
@@ -1069,27 +1069,27 @@ Los seis puntos de arriba. Y una comprobación de coherencia que se olvida: **qu
 ### Quiz · Capítulo 12
 
 **r12-q1** · Durante la preparación del vuelo, ¿qué debe comprobar la tripulación respecto a RVSM?
-- A) Solo que el avión figure como RVSM capable en la documentación.
-- B) Estado del avión, MEL y CDL, ruta, plan de vuelo, meteorología y NOTAM.
-- C) Únicamente los NOTAM del aeródromo de salida y de destino.
-- D) Nada: la capacidad RVSM la verifica el despacho antes de entregar el plan.
-**Correcta:** B · **Tema:** R12 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2
+- A) Solo que el avión figure como RVSM capable.
+- B) Únicamente los NOTAM de salida y de destino.
+- C) Nada: la capacidad RVSM la verifica el despacho.
+- D) Estado del avión, MEL y CDL, ruta, plan de vuelo, meteorología y NOTAM.
+**Correcta:** D · **Tema:** R12 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2
 **Explicación:** La comprobación es más amplia que el estado del avión: incluye lo diferido, la ruta que cruza espacio RVSM, la coherencia del plan de vuelo, la meteorología en ruta (turbulencia y onda de montaña) y los NOTAM.
 
 **r12-q2** · El avión perdió capacidad RVSM por un ítem de MEL. ¿Qué pasa con el plan de vuelo?
-- A) No cambia: el plan declara la capacidad de diseño de la aeronave.
-- B) No debe declarar una capacidad que el avión no tiene hoy.
-- C) Se mantiene y se avisa al ATC en el primer contacto.
-- D) Lo corrige el ATC automáticamente al recibir el plan.
-**Correcta:** B · **Tema:** R12 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.4
+- A) No cambia: el plan declara la capacidad de diseño de la aeronave, no la del día.
+- B) Se mantiene como está y se avisa al ATC de la limitación en el primer contacto.
+- C) No debe declarar una capacidad que el avión no tiene hoy.
+- D) Lo corrige el ATC automáticamente al recibir el plan y cruzarlo con la MEL.
+**Correcta:** C · **Tema:** R12 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.4
 **Explicación:** La FAA es explícita: el operador o el despachador no deben declarar el código de equipo RVSM en el plan de vuelo cuando la aeronave u operador no están en condiciones RVSM. Y el piloto de una aeronave no RVSM debe informar al controlador de esa condición.
 
 **r12-q3** · ¿Por qué la meteorología en ruta es parte de la planificación RVSM?
-- A) Porque la temperatura cambia el rango de niveles RVSM disponibles.
-- B) Porque turbulencia y onda de montaña pueden comprometer el mantenimiento del nivel.
+- A) Porque turbulencia y onda de montaña pueden comprometer el mantenimiento del nivel.
+- B) Porque la temperatura en altura cambia el rango de niveles RVSM que el ATC puede asignar ese día.
 - C) Porque el espacio RVSM se suspende con meteorología adversa.
-- D) Porque el altímetro pierde precisión con humedad alta.
-**Correcta:** B · **Tema:** R12 · **Referencia:** FAA AC 91-85B, Apéndice D
+- D) Porque el altímetro pierde precisión con humedad alta y hay que corregir la lectura en crucero.
+**Correcta:** A · **Tema:** R12 · **Referencia:** FAA AC 91-85B, Apéndice D
 **Explicación:** La turbulencia severa y la actividad de onda de montaña pueden producir desviaciones de altitud que impiden mantener el nivel autorizado, y por eso tienen tratamiento propio en la tabla de contingencias. El rango de niveles no depende de la temperatura ni el espacio se suspende por meteorología.
 
 ---
@@ -1158,25 +1158,25 @@ Que el piloto reconozca a simple vista dónde vive RVSM dentro del plan de vuelo
 **r13-q1** · ¿Cómo se declara la capacidad RVSM en el plan de vuelo OACI?
 - A) Con la letra R en la casilla 18.
 - B) Con la letra W en la casilla 10, de equipo.
-- C) Con la sigla RVSM en la casilla 15, de ruta.
-- D) No se declara: la conoce el ATC por la matrícula.
+- C) Con la sigla RVSM en la casilla 15.
+- D) No se declara: la conoce el ATC.
 **Correcta:** B · **Tema:** R13 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.1, apartado 2
 **Explicación:** La casilla 10 (Equipo) se anota con la letra W para operar en espacio RVSM. El proveedor de servicios ATS usa esos códigos de plan de vuelo para determinar cuándo asignar separación de 1.000 ft.
 
 **r13-q2** · La aeronave no cumple los requisitos RVSM. ¿Qué debe ocurrir con el plan de vuelo?
 - A) Se declara la W igualmente y se avisa por radio al entrar.
-- B) No se declara el código de equipo RVSM y se siguen los procedimientos de aeronave no RVSM.
-- C) Se declara la W y se añade una observación en la casilla 18.
-- D) Se presenta el plan como VFR para evitar el espacio RVSM.
-**Correcta:** B · **Tema:** R13 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.1, Nota
+- B) Se declara la W y se añade una observación en la casilla 18 explicando qué ítem de MEL está abierto.
+- C) Se presenta el plan como VFR para evitar el espacio RVSM y se sube a FL 290 una vez en contacto con el ATC.
+- D) No se declara el código de equipo RVSM y se siguen los procedimientos de aeronave no RVSM.
+**Correcta:** D · **Tema:** R13 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.1, Nota
 **Explicación:** Si la tripulación o la aeronave no cumplen los requisitos, el operador o el despachador no declaran el código de equipo RVSM y se aplican los procedimientos de estado no RVSM, incluida la fraseología correspondiente con el ATC.
 
 **r13-q3** · Tu compañero dice que poner la W en el plan «habilita» al vuelo para RVSM. ¿Qué le respondes?
-- A) Que tiene razón: la W es la autorización operativa del vuelo.
-- B) Que solo habilita si el ATC la confirma en el primer contacto.
-- C) Que la W declara una capacidad que ya debe existir; no la otorga.
+- A) Que la W declara una capacidad que ya debe existir; no la otorga.
+- B) Que tiene razón: la W es la autorización operativa del vuelo.
+- C) Que solo habilita si el ATC la confirma en el primer contacto por radio, con la fraseología «Affirm RVSM».
 - D) Que la W habilita únicamente por encima de FL 310.
-**Correcta:** C · **Tema:** R13 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.1
+**Correcta:** A · **Tema:** R13 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.1
 **Explicación:** La capacidad nace del avión aprobado, del operador autorizado y de la tripulación entrenada. La letra W comunica esa capacidad al sistema; escribirla en un avión que no la tiene no lo hace capaz, y sí hace que el ATC le aplique separación de 1.000 ft.
 
 ---
@@ -1250,25 +1250,25 @@ Convertir un punto del preflight que suele pasar desapercibido en algo concreto 
 **r14-q1** · En la inspección exterior de un vuelo RVSM, ¿a qué debe prestar atención particular la tripulación?
 - A) Al estado de los neumáticos y de los frenos.
 - B) A las tomas estáticas y al revestimiento del fuselaje cercano a ellas.
-- C) A las antenas del transpondedor en el vientre del avión.
-- D) A las luces exteriores, que se usan para alertar a otros aviones.
+- C) A las antenas del transpondedor en el vientre.
+- D) A las luces exteriores, que alertan a otros aviones.
 **Correcta:** B · **Tema:** R14 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2, apartado 2
 **Explicación:** La AC pide atención particular al estado de las tomas estáticas, al revestimiento del fuselaje cerca de cada toma y a cualquier componente que afecte la precisión del sistema altimétrico. Es el único punto del preflight donde el piloto ve algo que incide directamente en la precisión de la altitud.
 
 **r14-q2** · ¿Quién puede realizar la comprobación de las tomas estáticas en el preflight?
-- A) Solo el comandante, y no es delegable.
+- A) Solo el comandante, porque firma la aceptación del avión y esa responsabilidad no se puede delegar.
 - B) Solo personal de mantenimiento certificado.
-- C) El piloto, u otra persona calificada y autorizada, como un ingeniero de vuelo o mantenimiento.
-- D) Nadie: se comprueba en el mantenimiento programado, no en el preflight.
-**Correcta:** C · **Tema:** R14 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2, apartado 2
+- C) Nadie en el preflight: las tomas estáticas se comprueban en el mantenimiento programado del avión.
+- D) El piloto, u otra persona calificada y autorizada, como un ingeniero de vuelo o mantenimiento.
+**Correcta:** D · **Tema:** R14 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2, apartado 2
 **Explicación:** La AC admite expresamente que la realice una persona calificada y autorizada distinta del piloto, por ejemplo un ingeniero de vuelo o personal de mantenimiento. Lo que no admite es que no se haga.
 
 **r14-q3** · En el preflight encuentras que un equipo requerido para RVSM muestra indicación de mal funcionamiento. ¿Qué corresponde?
-- A) Anotarlo y verificarlo de nuevo en crucero.
-- B) Resolverlo antes del vuelo: el equipo requerido debe estar operativo.
+- A) Resolverlo antes del vuelo: el equipo requerido debe estar operativo.
+- B) Anotarlo y verificarlo de nuevo en crucero.
 - C) Continuar y declarar *unable RVSM* al entrar en el espacio.
-- D) Continuar si el sistema redundante funciona correctamente.
-**Correcta:** B · **Tema:** R14 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2, apartado 4
+- D) Continuar si el sistema redundante funciona correctamente, y anotarlo en el libro técnico al llegar.
+**Correcta:** A · **Tema:** R14 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2, apartado 4
 **Explicación:** El equipo requerido para vuelo en espacio RVSM debe estar operativo y las indicaciones de mal funcionamiento deben resolverse. El camino es la MEL y mantenimiento, en tierra. *Unable RVSM* es una comunicación para lo que ocurre después de haber entrado al espacio.
 
 ---
@@ -1345,27 +1345,27 @@ Fijar que la capacidad se confirma ANTES de cruzar la puerta, y que lo que ocurr
 ### Quiz · Capítulo 15
 
 **r15-q1** · Durante el ascenso, antes de FL 290, falla un equipo requerido para RVSM. ¿Qué corresponde?
-- A) Entrar y comunicar *unable RVSM due equipment* en el primer contacto.
+- A) Entrar y comunicar *unable RVSM due equipment*.
 - B) Solicitar una nueva autorización para evitar el vuelo en espacio RVSM.
 - C) Entrar y aumentar la frecuencia de los chequeos altimétricos.
-- D) Continuar el ascenso hasta FL 410 para salir del espacio por arriba.
+- D) Continuar el ascenso hasta por encima de FL 410 para salir del espacio RVSM por arriba.
 **Correcta:** B · **Tema:** R15 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3
 **Explicación:** Si el equipo requerido falla antes de entrar, el piloto debe solicitar una nueva autorización para evitar el vuelo en ese espacio. *Unable RVSM due equipment* es la comunicación para las fallas que ocurren después de haber entrado.
 
 **r15-q2** · ¿Qué equipo debe estar operando normalmente al entrar en espacio RVSM?
 - A) Dos primarios de altitud, un control automático de altitud y una alerta de altitud.
-- B) Dos primarios de altitud, dos transpondedores y un TCAS II.
+- B) Dos primarios de altitud, dos transpondedores con reporte de altitud y un TCAS II versión 7.0.
 - C) Un primario, un altímetro de reserva y el control automático.
-- D) Los cuatro sistemas RVSM más el radar meteorológico.
+- D) Los cuatro sistemas RVSM, incluido el transpondedor, más el radar meteorológico operativo.
 **Correcta:** A · **Tema:** R15 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3
 **Explicación:** La AC enumera exactamente esos tres. El requisito de transpondedor operativo y de TCAS hay que averiguarlo por separado para cada área RVSM donde se pretenda operar.
 
 **r15-q3** · ¿Qué diferencia hay entre una falla antes de entrar y una falla ya dentro del espacio RVSM?
-- A) Ninguna: en ambos casos se comunica *unable RVSM due equipment*.
-- B) Antes se evita entrar; dentro se comunica al ATC y se coordina la salida.
-- C) Antes se comunica al ATC; dentro se resuelve con el QRH sin comunicar.
-- D) Antes se declara emergencia; dentro basta con vigilar la altitud.
-**Correcta:** B · **Tema:** R15 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.3.3 y B.3.6
+- A) Ninguna: en ambos casos se dice *unable RVSM*.
+- B) Antes se avisa al ATC; dentro se aplica el QRH.
+- C) Antes se declara emergencia; dentro se vigila.
+- D) Antes se evita entrar; dentro se comunica al ATC y se coordina la salida.
+**Correcta:** D · **Tema:** R15 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.3.3 y B.3.6
 **Explicación:** Antes de la entrada, la norma pide solicitar una autorización que evite el espacio. Ya dentro, la tripulación debe solicitar una nueva autorización tan pronto la situación lo permita y, si no hay autorización disponible o la urgencia lo exige, notificar al ATC su acción y el procedimiento de contingencia aplicado.
 
 ---
@@ -1437,27 +1437,27 @@ De forma continua: nivel autorizado contra altitud real, estado del automático,
 ### Quiz · Capítulo 16
 
 **r16-q1** · En crucero RVSM, ¿bajo qué condición puede la aeronave apartarse del nivel autorizado?
-- A) Cuando el piloto lo considere conveniente para el confort de los pasajeros.
-- B) Cuando el TCAS muestre tráfico en el nivel adyacente.
-- C) Solo con autorización positiva del ATC, salvo contingencia o emergencia.
-- D) Cuando la turbulencia sea ligera y no afecte la separación.
-**Correcta:** C · **Tema:** R16 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
+- A) Cuando el piloto lo considere conveniente para el confort de los pasajeros, avisando después al ATC.
+- B) Solo con autorización positiva del ATC, salvo contingencia o emergencia.
+- C) Cuando el TCAS muestre tráfico en el nivel adyacente.
+- D) Cuando la turbulencia sea ligera y la desviación no llegue a afectar la separación con otros tráficos.
+**Correcta:** B · **Tema:** R16 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
 **Explicación:** Salvo en situaciones de contingencia o emergencia, la aeronave no debe apartarse intencionalmente del nivel autorizado sin autorización positiva del ATC. Una resolución del TCAS es precisamente uno de esos casos excepcionales, y tiene su propio capítulo.
 
 **r16-q2** · El ATC te informa de una desviación de altitud asignada de 350 ft. ¿Qué debes hacer?
-- A) Anotarlo y corregir en el siguiente cambio de nivel.
-- B) Regresar al nivel autorizado tan rápido como sea posible.
-- C) Declarar *unable RVSM due equipment* y salir del espacio.
-- D) Solicitar un nivel 1.000 ft por encima para recuperar margen.
-**Correcta:** B · **Tema:** R16 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 10
+- A) Regresar al nivel autorizado tan rápido como sea posible.
+- B) Anotarlo y corregir en el próximo cambio de nivel.
+- C) Declarar *unable RVSM due equipment*.
+- D) Pedir un nivel 1.000 ft más arriba.
+**Correcta:** A · **Tema:** R16 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 10
 **Explicación:** Si el ATC notifica una AAD igual o superior a 300 ft, el piloto debe tomar acción para volver al nivel autorizado lo más rápido posible. Después vendrá comprobar indicaciones e identificar la causa, pero lo primero es recuperar el nivel.
 
 **r16-q3** · Con el piloto automático acoplado en crucero RVSM, ¿cómo se sigue la altitud?
-- A) Basta con el automático: por eso es requisito.
-- B) Por referencia a uno de los dos altímetros primarios.
-- C) Por el altímetro de reserva, que es independiente.
-- D) Por la predicción de altitud del FMS.
-**Correcta:** B · **Tema:** R16 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 5
+- A) Basta con el automático acoplado: por eso es requisito y por eso se exige en crucero.
+- B) Por el altímetro de reserva, que es independiente de las dos primarias.
+- C) Por la predicción de altitud del FMS para el tramo siguiente.
+- D) Por referencia a uno de los dos altímetros primarios.
+**Correcta:** D · **Tema:** R16 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 5
 **Explicación:** La AC lo dice en la misma frase en que exige el automático acoplado: en cualquier caso, la adherencia a la altitud de crucero debe hacerse por referencia a uno de los dos altímetros primarios. El automático mantiene; el piloto vigila.
 
 ---
@@ -1531,26 +1531,26 @@ Que el piloto pueda dibujar de memoria la diferencia entre AAD, TVE y ASE, que e
 
 **r17-q1** · ¿Qué es exactamente la desviación de altitud asignada (AAD)?
 - A) La diferencia entre los dos altímetros primarios.
-- B) La diferencia entre la altitud transmitida por el transpondedor y la asignada.
-- C) La diferencia entre la altitud real y la que muestra el altímetro.
-- D) La diferencia entre el nivel autorizado y el nivel óptimo de crucero.
-**Correcta:** B · **Tema:** R17 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 7
+- B) La diferencia entre la altitud real y la que muestra el altímetro.
+- C) La diferencia entre el nivel autorizado y el nivel óptimo de crucero para el peso del momento.
+- D) La diferencia entre la altitud transmitida por el transpondedor y la asignada.
+**Correcta:** D · **Tema:** R17 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 7
 **Explicación:** La AAD compara lo que el transpondedor transmite en modo C con la altitud o nivel asignado. Es la magnitud que el ATC observa. La diferencia entre altitud real y mostrada es el ASE, y el error vertical total contra el nivel asignado es el TVE.
 
 **r17-q2** · ¿A partir de qué valores se reportan e investigan los errores de mantenimiento de altitud, según la FAA?
-- A) TVE o AAD de ±150 ft y ASE de ±100 ft.
-- B) TVE o AAD de ±300 ft y ASE de ±245 ft.
-- C) TVE, AAD y ASE, todos de ±200 ft.
-- D) Solo el TVE, a partir de ±500 ft.
-**Correcta:** B · **Tema:** R17 · **Referencia:** FAA AC 91-85B, numeral 5.10.1
+- A) Solo el TVE, a partir de ±500 ft.
+- B) TVE o AAD de ±150 ft y ASE de ±100 ft, con reporte en 24 horas.
+- C) TVE o AAD de ±300 ft y ASE de ±245 ft.
+- D) TVE, AAD y ASE, todos a partir de ±200 ft.
+**Correcta:** C · **Tema:** R17 · **Referencia:** FAA AC 91-85B, numeral 5.10.1
 **Explicación:** Los errores que deben reportarse e investigarse son TVE igual o mayor que ±300 ft, ASE igual o mayor que ±245 ft y AAD igual o mayor que ±300 ft. El operador reporta el evento dentro de las 72 horas con un análisis inicial de causas.
 
 **r17-q3** · ¿Cuál de estas magnitudes no puede detectarse desde la cabina en tiempo real?
-- A) La AAD, porque solo la ve el ATC.
-- B) El TVE, porque exige medición externa.
-- C) El ASE, porque está en la medición misma de la altitud.
-- D) Ninguna: las tres se leen en el PFD.
-**Correcta:** C · **Tema:** R17 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 4; numeral 4.3.1
+- A) La AAD, porque solo la ve el ATC en su pantalla.
+- B) El ASE, porque está en la medición misma.
+- C) El TVE, porque exige una medición externa al avión.
+- D) La diferencia entre primarias, que solo ve el comparador.
+**Correcta:** B · **Tema:** R17 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 4; numeral 4.3.1
 **Explicación:** El ASE es la diferencia entre la altitud de presión mostrada a la tripulación con 1013,25 hPa y la altitud de presión real. Como el error está en la propia medición, no aparece en la indicación: el instrumento muestra con confianza un valor equivocado. Por eso el sistema se apoya en la comparación entre fuentes y en la monitorización externa.
 
 ---
@@ -1616,10 +1616,10 @@ Mostrar que una desviación vertical no es un error abstracto: se come el margen
 
 **r18-q1** · ¿Por qué se vigilan las desviaciones verticales grandes en espacio RVSM?
 - A) Para sancionar a las tripulaciones que las cometen.
-- B) Porque la seguridad del sistema se comprueba de forma continua con lo que ocurre de verdad.
-- C) Porque el ATC necesita justificar los cambios de nivel que emite.
-- D) Porque sirven para recalcular el rango de niveles RVSM de cada región.
-**Correcta:** B · **Tema:** R18 · **Referencia:** OACI Doc 9574; RAC 211, numeral 211.530
+- B) Porque el ATC necesita justificar los cambios de nivel que emite.
+- C) Porque la seguridad del sistema se comprueba de forma continua con lo que ocurre de verdad.
+- D) Porque sirven para recalcular el rango de niveles RVSM de cada región, que puede empezar por encima o por debajo de FL 290.
+**Correcta:** C · **Tema:** R18 · **Referencia:** OACI Doc 9574; RAC 211, numeral 211.530
 **Explicación:** RVSM se sostiene sobre un objetivo de seguridad que no se comprueba una sola vez: se vigila contando y analizando las desviaciones reales. Por eso existen agencias regionales de monitorización, como CARSAMMA en Sudamérica y el Caribe.
 
 **r18-q2** · ¿Cuál de estas no es una causa típica de desviación vertical grande?
@@ -1633,7 +1633,7 @@ Mostrar que una desviación vertical no es un error abstracto: se come el margen
 **r18-q3** · ¿Qué agencia de monitorización nombra el RAC colombiano al tratar RVSM?
 - A) EUROCONTROL.
 - B) CARSAMMA.
-- C) La NTSB.
+- C) La NTSB de Estados Unidos.
 - D) La propia Aerocivil, sin agencia regional.
 **Correcta:** B · **Tema:** R18 · **Referencia:** RAC 211, numeral 211.530
 **Explicación:** El RAC 211 establece la separación de 1.000 ft entre FL 290 y FL 410 con monitoreo de la agencia regional CARSAMMA, que cubre Sudamérica y el Caribe.
@@ -1693,27 +1693,27 @@ Decir en una entrevista que un level bust es «lo mismo que una desviación de a
 ### Quiz · Capítulo 19
 
 **r19-q1** · ¿Cuál es la diferencia esencial entre una desviación de altitud y un level bust?
-- A) El tamaño: un level bust supera siempre los 300 ft.
-- B) La causa: el level bust nace de un error en la cadena de la autorización.
+- A) La causa: el level bust nace de un error en la cadena de la autorización.
+- B) El tamaño: un level bust supera siempre los 300 ft.
 - C) El espacio: el level bust solo ocurre dentro de RVSM.
-- D) Quién lo detecta: el level bust lo detecta siempre el ATC.
-**Correcta:** B · **Tema:** R19 · **Referencia:** FAA AC 91-85B, numeral 5.10.2
+- D) Quién lo detecta: el level bust lo detecta siempre el ATC, y la desviación de altitud la tripulación.
+**Correcta:** A · **Tema:** R19 · **Referencia:** FAA AC 91-85B, numeral 5.10.2
 **Explicación:** La FAA agrupa los errores de mantenimiento de altitud en fallas de equipo y errores operacionales. El level bust pertenece a los segundos: la desviación se origina en oír, colacionar, seleccionar o verificar mal el nivel, no en la magnitud del apartamiento.
 
 **r19-q2** · ¿Cuál de estas defensas actúa antes de que el avión se mueva?
-- A) La alerta de altitud.
-- B) La llamada del ATC informando la desviación.
-- C) La verificación cruzada del nivel seleccionado contra el autorizado.
-- D) La resolución del TCAS.
-**Correcta:** C · **Tema:** R19 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
+- A) La alerta de altitud, que avisa cuando la altitud mostrada se aparta de la seleccionada.
+- B) La verificación cruzada del nivel seleccionado contra el autorizado.
+- C) La llamada del ATC informando la desviación de altitud asignada al piloto.
+- D) La resolución del TCAS, que ordena la maniobra vertical antes del conflicto.
+**Correcta:** B · **Tema:** R19 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
 **Explicación:** Verificar que lo seleccionado coincide con lo autorizado ocurre antes de que el avión inicie nada. La alerta de altitud, la llamada del ATC y la resolución del TCAS actúan cuando la desviación ya existe.
 
 **r19-q3** · ¿En qué momento del vuelo es mayor el riesgo de level bust?
 - A) En el crucero estable, por la monotonía.
-- B) En los cambios de nivel, sobre todo con frecuencia cargada o durante otra tarea.
-- C) En el ascenso inicial, antes de la altitud de transición.
+- B) En el ascenso inicial, antes de la altitud de transición.
+- C) En los cambios de nivel, sobre todo con frecuencia cargada o durante otra tarea.
 - D) En la aproximación final, por la carga de trabajo.
-**Correcta:** B · **Tema:** R19 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 4
+**Correcta:** C · **Tema:** R19 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 4
 **Explicación:** El cambio de nivel es donde se concentra la cadena completa: oír, colacionar, seleccionar, verificar, ejecutar y vigilar la captura. Por eso la norma pone un límite explícito al sobrepaso (150 ft) y recomienda nivelar con la función de captura del sistema automático.
 
 ---
@@ -1771,27 +1771,27 @@ Mostrar que evitar un level bust es una secuencia con responsables, no una cuest
 ### Quiz · Capítulo 20
 
 **r20-q1** · ¿Cuál es la diferencia entre colacionar y verificar?
-- A) Ninguna: colacionar ya incluye la verificación.
-- B) Colacionar es repetir al ATC; verificar es comprobar el panel contra la autorización.
-- C) Colacionar lo hace el PF y verificar el PM, pero es el mismo acto.
+- A) Colacionar es repetir al ATC; verificar es comprobar el panel contra la autorización.
+- B) Ninguna: colacionar ya incluye la verificación.
+- C) Colacionar lo hace el PF y verificar el PM, pero en el fondo es el mismo acto repetido por los dos pilotos.
 - D) Verificar solo aplica en cambios de nivel dentro de RVSM.
-**Correcta:** B · **Tema:** R20 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
+**Correcta:** A · **Tema:** R20 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
 **Explicación:** Son dos actos separados que pueden fallar por separado: se puede colacionar correctamente y seleccionar mal, o seleccionar bien y colacionar mal. La norma exige que las autorizaciones se entiendan por completo y se cumplan, y eso requiere las dos cosas.
 
 **r20-q2** · ¿Cuál es el eslabón que con más frecuencia se omite en la cadena?
 - A) La colación de la autorización.
 - B) La ejecución del cambio de nivel.
-- C) La verificación cruzada del nivel seleccionado.
-- D) La vigilancia del nivel una vez establecido.
-**Correcta:** C · **Tema:** R20 · **Referencia:** FAA AC 91-85B, numeral 5.10.2
+- C) La vigilancia del nivel establecido.
+- D) La verificación cruzada del nivel seleccionado.
+**Correcta:** D · **Tema:** R20 · **Referencia:** FAA AC 91-85B, numeral 5.10.2
 **Explicación:** Es el único eslabón que no produce ningún efecto visible cuando se hace bien, y por eso es el primero que se sacrifica con carga de trabajo. Los errores operacionales de mantenimiento de altitud se concentran justamente ahí.
 
 **r20-q3** · Durante un cambio de nivel, el PM detecta que el panel no coincide con la autorización. ¿Qué corresponde?
-- A) Esperar a que el avión nivele y corregir entonces.
-- B) Decirlo de inmediato y corregir antes de continuar.
-- C) Colacionar de nuevo al ATC para confirmar.
-- D) Anotarlo para el reporte de postvuelo.
-**Correcta:** B · **Tema:** R20 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
+- A) Esperar a que el avión nivele y corregir entonces, para no interrumpir la maniobra.
+- B) Colacionar de nuevo al ATC.
+- C) Decirlo de inmediato y corregir antes de continuar.
+- D) Anotarlo para el reporte de postvuelo y comentarlo en el briefing de llegada.
+**Correcta:** C · **Tema:** R20 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
 **Explicación:** La discrepancia se corrige antes de que el avión siga moviéndose hacia un nivel equivocado. Si además hay duda sobre lo autorizado, se confirma con el ATC, pero lo primero es detener la ejecución de algo que no coincide con la autorización.
 
 ---
@@ -1847,27 +1847,27 @@ Dar conciencia visual e inmediata de que una desviación que parece pequeña res
 ### Quiz · Capítulo 21
 
 **r21-q1** · Una aeronave en FL 350 se desvía 300 ft hacia arriba y otra en FL 360 mantiene su nivel. ¿Qué margen vertical queda?
-- A) 1.000 ft: la separación asignada no cambia.
-- B) 700 ft.
-- C) 400 ft.
-- D) 300 ft.
-**Correcta:** B · **Tema:** R21 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
+- A) 700 ft.
+- B) 400 ft.
+- C) 300 ft.
+- D) 1.000 ft: la separación asignada no cambia.
+**Correcta:** A · **Tema:** R21 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
 **Explicación:** Con una sola aeronave desviada 300 ft, el margen real baja de 1.000 a 700 ft: se consume el 30 %. Los 400 ft corresponderían al caso en que ambas se desvían 300 ft una hacia la otra.
 
 **r21-q2** · ¿Por qué 300 ft es una cifra importante en RVSM?
-- A) Porque es el límite de discrepancia entre los altímetros primarios.
-- B) Porque es el sobrepaso máximo admitido al nivelar.
-- C) Porque es cuando el ATC llama y cuando el evento se reporta e investiga.
-- D) Porque es la tolerancia del sistema automático de control de altitud.
-**Correcta:** C · **Tema:** R21 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 10; numeral 5.10.1
+- A) Porque es el límite entre los altímetros primarios.
+- B) Porque es cuando el ATC llama y cuando el evento se reporta e investiga.
+- C) Porque es el sobrepaso máximo admitido al nivelar.
+- D) Porque es la tolerancia del control automático.
+**Correcta:** B · **Tema:** R21 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 10; numeral 5.10.1
 **Explicación:** Si el ATC notifica una AAD igual o superior a 300 ft, el piloto debe volver al nivel autorizado lo antes posible, y ese mismo valor es el umbral de reporte e investigación para TVE y AAD. Los 200 ft son la discrepancia entre primarias, los 150 ft el sobrepaso al nivelar y los 65 ft la tolerancia de diseño del automático.
 
 **r21-q3** · Tu compañero dice que 300 ft sobre FL 350 «es menos del 1 %, no es nada». ¿Qué le respondes?
 - A) Que tiene razón si el avión está estable.
-- B) Que la referencia correcta no es la altitud, sino el margen de separación.
-- C) Que solo importa si hay tráfico en el nivel adyacente.
+- B) Que solo importa si hay tráfico en el nivel adyacente, porque sin tráfico no hay margen que perder.
+- C) Que la referencia correcta no es la altitud, sino el margen de separación.
 - D) Que la cifra relevante es el 1 % del nivel de vuelo.
-**Correcta:** B · **Tema:** R21 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
+**Correcta:** C · **Tema:** R21 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
 **Explicación:** Respecto a la altitud, 300 ft es despreciable. Respecto a los 1.000 ft que lo separan del tráfico de arriba, es el 30 % del margen. En RVSM la referencia siempre es la separación, no la altitud.
 
 ---
@@ -1948,26 +1948,26 @@ Que el piloto vea que la onda de montaña puede mover el avión verticalmente si
 
 **r22-q1** · ¿A partir de qué magnitud de desviación inducida por turbulencia severa u onda de montaña corresponde declarar *unable RVSM*?
 - A) Aproximadamente 100 ft o más.
-- B) Aproximadamente 200 ft o más.
-- C) Aproximadamente 300 ft o más.
-- D) Cualquier desviación, sin umbral.
-**Correcta:** B · **Tema:** R22 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
+- B) Aproximadamente 150 ft o más.
+- C) Aproximadamente 200 ft o más.
+- D) Cualquier desviación sostenida, sin umbral.
+**Correcta:** C · **Tema:** R22 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
 **Explicación:** La tabla de contingencias fija el disparador en desviaciones de aproximadamente 200 ft o más inducidas por turbulencia severa o actividad de onda de montaña. A partir de ahí se contacta al ATC con «Unable RVSM due [causa]».
 
 **r22-q2** · Además de declarar *unable RVSM due turbulence*, ¿qué debe solicitar el piloto si el controlador no lo ofrece?
 - A) Prioridad de aterrizaje en el destino.
 - B) Un vector libre de tráfico en los niveles adyacentes.
-- C) Autorización para descender por debajo de FL 290 sin coordinación.
-- D) Cambio de código de transpondedor.
+- C) Descender bajo FL 290 sin coordinar.
+- D) Un cambio de código de transpondedor.
 **Correcta:** B · **Tema:** R22 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
 **Explicación:** Si el controlador no lo emite, el piloto solicita vector para quedar libre de tráfico en los niveles adyacentes. Además puede pedir cambio de nivel o desvío, y debe reportar la localización y magnitud del fenómeno.
 
 **r22-q3** · Encuentras onda de montaña, pero las desviaciones no llegan a 200 ft. ¿Qué corresponde?
-- A) Nada: por debajo del umbral no hay acción.
-- B) Declarar *unable RVSM* igualmente, por precaución.
-- C) Contactar al ATC, reportar que se experimenta onda de montaña y su localización y magnitud.
-- D) Descender de inmediato fuera del espacio RVSM.
-**Correcta:** C · **Tema:** R22 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «MWA Encounters – General»
+- A) Nada: por debajo del umbral de 200 ft no hay acción.
+- B) Declarar *unable RVSM due mountain wave* igualmente, por precaución, y pedir vector libre de tráfico en los niveles adyacentes.
+- C) Descender de inmediato fuera del espacio RVSM.
+- D) Contactar al ATC, reportar que se experimenta onda de montaña y su localización y magnitud.
+**Correcta:** D · **Tema:** R22 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «MWA Encounters – General»
 **Explicación:** La AC advierte que los encuentros con onda de montaña no necesariamente producen desviaciones del orden de 200 ft, y prevé una acción propia para los menos significativos: contactar al ATC, reportar el fenómeno con su localización y magnitud, y solicitar cambio de nivel o desvío si se desea.
 
 ---
@@ -2020,26 +2020,26 @@ Aguantar la estela sin comunicar, porque «la separación es la reglamentaria».
 ### Quiz · Capítulo 23
 
 **r23-q1** · Encuentras estela turbulenta en crucero RVSM. Según la FAA, ¿qué puede solicitar el piloto?
-- A) Solo un cambio de nivel.
-- B) Vector, cambio de nivel o, si la aeronave es capaz, un desplazamiento lateral.
-- C) Autorización para desconectar el piloto automático hasta salir de la estela.
-- D) Prioridad de ruta directa al destino.
-**Correcta:** B · **Tema:** R23 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «Wake Turbulence Encounters»
+- A) Solo un cambio de nivel, porque la estela desciende y basta con subir por encima del avión que la genera.
+- B) Autorización para desconectar el piloto automático hasta salir de la estela y volar a mano.
+- C) Prioridad de ruta directa al destino para alejarse del tráfico pesado que genera la estela.
+- D) Vector, cambio de nivel o, si la aeronave es capaz, un desplazamiento lateral.
+**Correcta:** D · **Tema:** R23 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «Wake Turbulence Encounters»
 **Explicación:** La tabla prevé las tres opciones: vector, cambio de nivel o desplazamiento lateral cuando la aeronave tiene esa capacidad. La respuesta del controlador puede incluir 2.000 ft de separación vertical o separación horizontal apropiada.
 
 **r23-q2** · ¿Qué separación vertical puede proporcionar el controlador ante un encuentro con estela en RVSM?
-- A) Los mismos 1.000 ft, reforzados con vigilancia.
-- B) 500 ft, suficientes para salir del eje de la estela.
+- A) Los mismos 1.000 ft, con vigilancia.
+- B) 500 ft, para salir del eje de la estela.
 - C) 2.000 ft, o la separación horizontal apropiada.
-- D) 3.000 ft, que es el mínimo fuera de RVSM.
+- D) 3.000 ft, el mínimo fuera de RVSM.
 **Correcta:** C · **Tema:** R23 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
 **Explicación:** El controlador proporciona 2.000 ft de separación vertical o la separación horizontal apropiada, y saca a la aeronave del espacio RVSM salvo que la situación operacional indique otra cosa. Es el mismo criterio que se aplica ante *unable RVSM due equipment*.
 
 **r23-q3** · ¿Por qué la estela merece tratamiento propio dentro de RVSM?
 - A) Porque la estela es más intensa por encima de FL 290.
 - B) Porque con 1.000 ft de separación el tráfico pesado queda más cerca que antes.
-- C) Porque el TCAS no detecta estela.
-- D) Porque el piloto automático no puede compensarla.
+- C) Porque el TCAS no detecta la estela, y en RVSM es el único aviso de tráfico cercano.
+- D) Porque el piloto automático no puede compensarla y hay que desacoplarlo en cuanto se entra en ella.
 **Correcta:** B · **Tema:** R23 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2; Apéndice D
 **Explicación:** Al reducir la separación vertical a la mitad, un avión pesado en el nivel adyacente queda a 1.000 ft en vez de 2.000. La separación sigue siendo reglamentaria, pero el encuentro con estela se vuelve más probable, y por eso la norma prevé acciones específicas.
 
@@ -2110,24 +2110,24 @@ Qué falló exactamente, qué dice el QRH, si la aeronave conserva o no la capac
 - A) Transpondedor, TCAS y altímetro de reserva.
 - B) Todos los altímetros primarios, el control automático de altitud y la alerta de altitud.
 - C) Piloto automático, FMS y radar meteorológico.
-- D) Una primaria, el transpondedor y el sistema de alerta.
+- D) Una primaria, el transpondedor y la alerta de altitud.
 **Correcta:** B · **Tema:** R24 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
 **Explicación:** Esas tres comparten la misma acción: comunicar *unable RVSM due equipment* y solicitar salir del espacio RVSM salvo que la situación operacional indique otra cosa. El transpondedor y el caso de una sola primaria operativa tienen tratamientos distintos.
 
 **r24-q2** · Pierdes la capacidad RVSM en crucero. ¿Debes declarar emergencia?
-- A) Sí: la pérdida de capacidad RVSM es siempre una emergencia.
-- B) No necesariamente: es una incapacidad de cumplir requisitos, que se comunica y se coordina.
-- C) Sí, si ocurre por encima de FL 350.
-- D) Solo si el ATC no responde a la primera llamada.
-**Correcta:** B · **Tema:** R24 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6
+- A) Sí: la pérdida de capacidad RVSM es siempre una emergencia, porque el ATC pierde la separación de 1.000 ft con el tráfico.
+- B) Sí, si ocurre por encima de FL 350.
+- C) No necesariamente: es una incapacidad de cumplir requisitos, que se comunica y se coordina.
+- D) Solo si el ATC no responde a la primera llamada, porque entonces la pérdida de RVSM pasa a ser emergencia.
+**Correcta:** C · **Tema:** R24 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6
 **Explicación:** La pérdida de capacidad RVSM se comunica y se coordina: se solicita nueva autorización tan pronto la situación lo permita. Puede haber una emergencia detrás según qué haya fallado, pero perder RVSM no la constituye por sí misma.
 
 **r24-q3** · Queda una sola primaria operativa y puedes confirmar su precisión contra la de reserva. ¿Qué corresponde?
-- A) Comunicar *unable RVSM due equipment* de inmediato.
-- B) Contrastar con la de reserva y notificar al ATC la operación con una sola primaria.
-- C) No comunicar nada mientras la indicación sea estable.
-- D) Declarar emergencia y solicitar descenso inmediato.
-**Correcta:** B · **Tema:** R24 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «One Primary Altimeter Remains Operational»
+- A) Comunicar *unable RVSM due equipment* de inmediato y solicitar salir del espacio RVSM.
+- B) No comunicar nada mientras la indicación sea estable y coincida con el altímetro de reserva.
+- C) Declarar emergencia y solicitar descenso inmediato a un nivel por debajo de FL 290.
+- D) Contrastar con la de reserva y avisar al ATC que opera con una sola primaria.
+**Correcta:** D · **Tema:** R24 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «One Primary Altimeter Remains Operational»
 **Explicación:** El procedimiento es contrastar con el altímetro de reserva y notificar al ATC que se opera con una sola primaria; el controlador lo acusa. Solo si no se puede confirmar la precisión de esa primaria se siguen las acciones previstas para la falla de todas.
 
 ---
@@ -2207,27 +2207,27 @@ Dar una estructura mental completa y memorizable que no sustituye al QRH ni al S
 ### Quiz · Capítulo 25
 
 **r25-q1** · ¿Cuál es la primera acción cuando no se puede mantener el nivel o hay duda sobre la capacidad de mantenerlo?
-- A) Declarar *unable RVSM* de inmediato.
-- B) Notificar al ATC y mantener el nivel en la medida de lo posible mientras se evalúa.
-- C) Descender por debajo de FL 290 sin esperar autorización.
-- D) Desconectar el piloto automático para volar manual.
+- A) Declarar *unable RVSM* de inmediato, antes de evaluar qué sistema ha fallado.
+- B) Avisar al ATC y mantener el nivel en lo posible mientras se evalúa.
+- C) Descender por debajo de FL 290 sin esperar autorización para recuperar la separación.
+- D) Desconectar el piloto automático para volar manual y sentir mejor el avión.
 **Correcta:** B · **Tema:** R25 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «Initial Pilot Actions»
 **Explicación:** Las acciones iniciales son notificar al ATC y solicitar asistencia, mantener el nivel autorizado en lo posible mientras se evalúa la situación, vigilar tráfico en conflicto visualmente y con el TCAS, y alertar a las aeronaves cercanas encendiendo las luces exteriores dentro de las limitaciones del avión.
 
 **r25-q2** · Has aplicado el QRH y la aeronave ya no conserva capacidad RVSM. ¿Cuándo informas al ATC?
-- A) Al llegar al destino, en el reporte de postvuelo.
-- B) Tan pronto como la situación lo permita, solicitando nueva autorización.
-- C) Solo si el ATC pregunta por el estado RVSM.
-- D) Al salir del espacio RVSM por descenso normal.
-**Correcta:** B · **Tema:** R25 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6
+- A) Tan pronto como la situación lo permita, solicitando nueva autorización.
+- B) Al llegar al destino, en el reporte de postvuelo.
+- C) Solo si el ATC pregunta por el estado RVSM, porque la falla ya aparece en su pantalla con el transpondedor.
+- D) Al salir del espacio RVSM por descenso normal, cuando ya no hace falta la separación de 1.000 ft.
+**Correcta:** A · **Tema:** R25 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6
 **Explicación:** La tripulación debe solicitar una nueva autorización al controlador tan pronto como la situación lo permita. Si no hay autorización disponible o la urgencia lo exige, notifica su acción y el procedimiento de contingencia aplicado. Hasta que no se comunica, el ATC sigue separando 1.000 ft.
 
 **r25-q3** · Se resolvió la condición que motivó el procedimiento de contingencia. ¿Qué corresponde?
-- A) Nada: el ATC lo deduce al ver que el avión mantiene el nivel.
-- B) Notificar al ATC que el procedimiento de contingencia ya no es necesario.
-- C) Esperar a que el ATC pregunte si se puede reanudar RVSM.
-- D) Anotarlo en el libro técnico al aterrizar.
-**Correcta:** B · **Tema:** R25 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6
+- A) Nada: el ATC lo deduce al ver el nivel estable.
+- B) Esperar a que el ATC pregunte si puede reanudar.
+- C) Anotarlo en el libro técnico al aterrizar.
+- D) Notificar al ATC que el procedimiento de contingencia ya no es necesario.
+**Correcta:** D · **Tema:** R25 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6
 **Explicación:** La AC lo pone como responsabilidad expresa de la tripulación: notificar al ATC cuando la aplicación de los procedimientos de contingencia ya no sea necesaria. Para eso existe también la fraseología «Ready to resume RVSM».
 
 ---
@@ -2306,27 +2306,27 @@ Decir *unable RVSM* una vez y darlo por comunicado. La nota de la FAA es explíc
 ### Quiz · Capítulo 26
 
 **r26-q1** · ¿Cuál es la respuesta normalizada del piloto cuando el ATC transmite «Confirm RVSM approved»?
-- A) «RVSM operational».
-- B) «Affirm RVSM».
-- C) «RVSM capable».
-- D) «Roger RVSM».
-**Correcta:** B · **Tema:** R26 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-1
+- A) «Roger RVSM».
+- B) «RVSM operational».
+- C) «Affirm RVSM».
+- D) «Wilco RVSM».
+**Correcta:** C · **Tema:** R26 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-1
 **Explicación:** La fraseología normalizada es «Affirm RVSM» para indicar que el vuelo está aprobado. Las otras tres no son fraseología establecida y en una entrevista técnica se notan.
 
 **r26-q2** · Una aeronave no aprobada para RVSM, ¿en cuántas situaciones debe reportar su condición?
-- A) Una sola vez, en el primer contacto tras el despegue.
-- B) En cuatro: llamada inicial en cualquier frecuencia, solicitudes de nivel, colaciones de nivel y colaciones de ascenso o descenso a través del espacio RVSM.
-- C) Solo cuando el ATC se lo pregunte expresamente.
+- A) Una sola vez, en el primer contacto tras el despegue, porque a partir de ahí el ATC transfiere la condición no RVSM de un sector al siguiente.
+- B) En cuatro: llamada inicial en cada frecuencia, solicitudes de nivel, colaciones de nivel y colaciones de paso a través del espacio.
+- C) Solo cuando el ATC se lo pregunte con «Confirm RVSM approved», porque la condición ya figura en el plan de vuelo sin la letra W en la casilla 10.
 - D) Solo al entrar y al salir del espacio RVSM.
 **Correcta:** B · **Tema:** R26 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-1
 **Explicación:** La tabla las enumera: llamada inicial en cualquier frecuencia dentro del espacio RVSM, todas las solicitudes de cambio a niveles RVSM, todas las colaciones de autorizaciones de nivel en RVSM, y las colaciones de autorizaciones que impliquen ascenso o descenso a través de FL 290–410.
 
 **r26-q3** · Declaraste «Unable RVSM due equipment» y te transfieren a otra frecuencia. ¿Debes repetirlo?
-- A) No: el controlador anterior lo coordina con el siguiente.
-- B) Solo si el nuevo controlador pregunta por tu estado RVSM.
-- C) Sí: la frase se usa también en el contacto inicial de todas las frecuencias hasta que el problema cese o salgas del espacio.
-- D) Solo si cambias de nivel durante la transferencia.
-**Correcta:** C · **Tema:** R26 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-1, Nota
+- A) No: el controlador anterior lo coordina con el siguiente en la transferencia, junto con el nivel.
+- B) Solo si el nuevo controlador te pregunta expresamente por tu estado con «Confirm RVSM approved».
+- C) Solo si cambias de nivel durante la transferencia o si te asignan un nivel RVSM distinto al actual.
+- D) Sí: se repite en el contacto inicial de cada frecuencia hasta que cese o salgas del espacio.
+**Correcta:** D · **Tema:** R26 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-1, Nota
 **Explicación:** La nota de la tabla lo dice expresamente: la frase se usa para transmitir tanto la indicación inicial de la falla como en el contacto inicial en todas las frecuencias del espacio RVSM, hasta que el problema deje de existir o la aeronave haya salido del espacio.
 
 ---
@@ -2384,27 +2384,27 @@ Para una aerolínea, volar no RVSM es excepcional y suele significar niveles por
 ### Quiz · Capítulo 27
 
 **r27-q1** · ¿Qué comunica exactamente la frase *unable RVSM*?
-- A) Que la aeronave está en emergencia y requiere prioridad.
-- B) Que la aeronave no puede cumplir los requisitos RVSM aplicables.
-- C) Que la aeronave solicita abandonar el espacio aéreo controlado.
-- D) Que la aeronave ha sufrido una desviación de altitud superior a 300 ft.
-**Correcta:** B · **Tema:** R27 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-1 y Tabla B-2
+- A) Que la aeronave está en emergencia y requiere prioridad sobre el resto del tráfico del sector.
+- B) Que la aeronave pide salir del espacio controlado.
+- C) Que la aeronave no puede cumplir los requisitos RVSM aplicables.
+- D) Que la aeronave ha sufrido una desviación de altitud superior a 300 ft y la está corrigiendo.
+**Correcta:** C · **Tema:** R27 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-1 y Tabla B-2
 **Explicación:** Comunica incapacidad de cumplir los requisitos RVSM, por equipo o por meteorología. No es una declaración de emergencia, aunque pueda haber una detrás según lo que haya fallado.
 
 **r27-q2** · Tras un *unable RVSM due equipment*, ¿qué hará el controlador?
-- A) Siempre sacará a la aeronave del espacio RVSM de inmediato.
+- A) Depende de las circunstancias: 2.000 ft, separación horizontal, otro nivel o sacarla del espacio.
 - B) Siempre asignará 2.000 ft de separación vertical.
-- C) Depende de las circunstancias: 2.000 ft, separación horizontal, otro nivel o sacarla del espacio.
+- C) Siempre sacará a la aeronave del espacio RVSM de inmediato, porque no puede separarla de otra forma del tráfico.
 - D) Declarará emergencia en su nombre y coordinará prioridad.
-**Correcta:** C · **Tema:** R27 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
+**Correcta:** A · **Tema:** R27 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
 **Explicación:** La tabla prevé que el controlador proporcione 2.000 ft de separación vertical o la separación horizontal apropiada y saque a la aeronave del espacio RVSM «salvo que la situación operacional indique otra cosa». No hay una respuesta única: depende del tráfico y de la situación.
 
 **r27-q3** · El avión no está aprobado para RVSM pero alcanza FL 350 sin problema. ¿Puedes pedir ese nivel?
-- A) Sí: si el avión llega, el nivel es utilizable.
-- B) Sí, informando al ATC en la colación.
-- C) No, salvo que los procedimientos aplicables de acomodación lo permitan.
-- D) Sí, si el TCAS está operativo.
-**Correcta:** C · **Tema:** R27 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.4 y B.4.2
+- A) Sí: si el avión llega al nivel con margen, el nivel es utilizable.
+- B) No, salvo que lo permitan los procedimientos de acomodación.
+- C) Sí, informando al ATC de tu condición no RVSM en la colación.
+- D) Sí, si el TCAS está operativo y el transpondedor reporta altitud.
+**Correcta:** B · **Tema:** R27 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.4 y B.4.2
 **Explicación:** Los operadores deben estar autorizados y las aeronaves ser conformes para volar en espacio RVSM designado, con excepciones limitadas. Existen procedimientos de acomodación y categorías específicas que pueden acomodarse sujetas a autorización, pero la capacidad de alcanzar el nivel no es uno de los criterios.
 
 ---
@@ -2473,26 +2473,26 @@ Separar visualmente las dos funciones y dejar grabado que la resolución del TCA
 
 **r28-q1** · Recibes una resolución del TCAS que contradice tu autorización de nivel en espacio RVSM. ¿Qué haces?
 - A) Mantienes el nivel autorizado y consultas al ATC.
-- B) Ejecutas la maniobra de la resolución conforme a los procedimientos ACAS aplicables.
-- C) Solicitas al ATC que confirme la separación antes de maniobrar.
-- D) Desconectas el TCAS para evitar una desviación de nivel.
-**Correcta:** B · **Tema:** R28 · **Referencia:** Procedimientos ACAS aplicables; FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
+- B) Pides al ATC que confirme la separación antes de maniobrar.
+- C) Desconectas el TCAS para no desviarte del nivel.
+- D) Ejecutas la maniobra de la resolución conforme a los procedimientos ACAS aplicables.
+**Correcta:** D · **Tema:** R28 · **Referencia:** Procedimientos ACAS aplicables; FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
 **Explicación:** La resolución manda sobre la autorización. Volar el nivel autorizado es la regla, y la norma solo la levanta en contingencia, en emergencia y cuando el sistema anticolisión pide maniobrar: ahí se maniobra primero y se le cuenta al ATC después.
 
 **r28-q2** · ¿Por qué en espacio RVSM se reciben más avisos de tráfico que fuera de él?
 - A) Porque el TCAS aumenta su sensibilidad por encima de FL 290.
 - B) Porque el tráfico de los niveles adyacentes está a 1.000 ft en vez de 2.000.
 - C) Porque el ATC transfiere los contactos al TCAS de cada aeronave.
-- D) Porque en RVSM hay menos separación horizontal.
+- D) Porque en RVSM la separación horizontal también se reduce a la mitad, y los tráficos se cruzan más cerca.
 **Correcta:** B · **Tema:** R28 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
 **Explicación:** Al reducirse la separación vertical a la mitad, el tráfico de los niveles contiguos entra con más frecuencia en los umbrales de aviso. Es un efecto esperado de la geometría, no un indicio de problema.
 
 **r28-q3** · ¿Qué relación tiene el TCAS con los requisitos de equipo RVSM?
-- A) Los sustituye: con TCAS operativo se puede entrar aunque falte otro sistema.
-- B) Es el quinto sistema requerido en todas las regiones.
-- C) Es independiente: su exigencia viene de la normativa aplicable y del área, y no sustituye ningún requisito RVSM.
+- A) Es independiente: lo exigen la normativa aplicable y el área, y no sustituye ningún requisito RVSM.
+- B) Es un requisito más del equipo RVSM, igual en todas las regiones, junto a los altímetros, el automático y la alerta.
+- C) Los sustituye: con TCAS operativo se puede entrar aunque falte otro sistema, porque la resolución protege del conflicto.
 - D) Solo se exige en espacio oceánico.
-**Correcta:** C · **Tema:** R28 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.3.1 apartado 5 y B.3.3 Nota
+**Correcta:** A · **Tema:** R28 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.3.1 apartado 5 y B.3.3 Nota
 **Explicación:** Los requisitos de dotación de TCAS vienen de la normativa de operaciones de cada tipo de explotador, y el requisito de transpondedor y TCAS en cada área RVSM hay que averiguarlo. El TCAS no sustituye ningún requisito RVSM: cumple otra función.
 
 ---
@@ -2569,19 +2569,19 @@ Salir del avión sin anotar una discrepancia porque «se resolvió sola». Si hu
 **Explicación:** El ASE compara lo mostrado a la tripulación con la referencia estándar puesta y la altitud de presión real de la corriente libre. La diferencia entre lo transmitido y lo asignado es la AAD, y la desviación máxima al nivelar son los 150 ft.
 
 **r29-q2** · ¿Por qué el ASE no puede detectarse mirando el altímetro?
-- A) Porque el altímetro solo muestra altitud indicada, no de presión.
-- B) Porque el error está en la propia medición: el instrumento muestra con normalidad un valor corrido.
-- C) Porque el ASE solo existe por encima de FL 410.
-- D) Porque requiere que el transpondedor esté inoperativo.
-**Correcta:** B · **Tema:** R29 · **Referencia:** FAA AC 91-85B, numeral 4.3.1
+- A) Porque el altímetro solo muestra altitud indicada corregida por QNH, y el ASE se define sobre la altitud de presión estándar.
+- B) Porque el ASE solo existe por encima de FL 410.
+- C) Porque el error está en la medición: el instrumento muestra con normalidad un valor corrido.
+- D) Porque requiere que el transpondedor esté inoperativo para aparecer en la cinta de altitud del PFD.
+**Correcta:** C · **Tema:** R29 · **Referencia:** FAA AC 91-85B, numeral 4.3.1
 **Explicación:** El ASE no se ve en la indicación mostrada: el sistema presenta un valor que parece normal y está desplazado. Por eso el control se hace comparando fuentes independientes a bordo y monitorizando la performance de las flotas desde fuera.
 
 **r29-q3** · Hubo una discrepancia altimétrica en crucero. ¿Qué debe quedar en el libro de mantenimiento?
-- A) Una nota breve indicando que se observó una discrepancia.
-- B) Nada, si la discrepancia desapareció antes de aterrizar.
-- C) Detalle suficiente: lecturas de primario y reserva, ajustes, qué automático gobernaba y qué transpondedor daba la altitud.
-- D) Solo el nivel de vuelo y la hora del suceso.
-**Correcta:** C · **Tema:** R29 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.7
+- A) Lecturas de primario y reserva, ajustes, y qué automático y qué transpondedor estaban en uso.
+- B) Una nota breve indicando que se observó una discrepancia, para que mantenimiento programe una revisión.
+- C) Nada, si la discrepancia desapareció antes de aterrizar, porque el sistema ya volvió a estar dentro de límites.
+- D) Solo el nivel de vuelo y la hora del suceso, que es lo que mantenimiento necesita para descargar los datos.
+**Correcta:** A · **Tema:** R29 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.7
 **Explicación:** La AC pide detalle suficiente para que mantenimiento pueda diagnosticar y reparar, y enumera qué anotar: lecturas de primario y reserva, ajuste del selector de altitud, subescala, qué piloto automático gobernaba y las diferencias con el alterno, diferencias con tomas estáticas alternas, uso del selector de computador de datos aéreos y qué transpondedor daba la altitud.
 
 ---
@@ -2659,26 +2659,26 @@ Mostrar que una falla técnica en crucero termina siendo una decisión de combus
 
 **r30-q1** · Pierdes RVSM en FL 370 y el ATC te asigna FL 280. ¿Cuál es la consecuencia operacional inmediata que debes evaluar?
 - A) Ninguna mientras el avión mantenga el nuevo nivel.
-- B) El aumento de consumo y el efecto sobre la predicción de combustible al destino.
-- C) La necesidad de declarar emergencia por cambio de nivel.
-- D) La pérdida de la aprobación RVSM del operador.
-**Correcta:** B · **Tema:** R30 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6; conectar con el módulo Gestión del combustible
+- B) La necesidad de declarar emergencia por el cambio de nivel impuesto.
+- C) El aumento de consumo y el efecto sobre la predicción de combustible al destino.
+- D) La pérdida inmediata de la aprobación RVSM del operador, que la autoridad retira tras cualquier falla en vuelo.
+**Correcta:** C · **Tema:** R30 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6; conectar con el módulo Gestión del combustible
 **Explicación:** Volar más bajo empeora el consumo específico, y eso cambia la predicción al destino. La evaluación siguiente es si se conserva el combustible para el alterno más la reserva final; si no, hay que replanificar con el despacho.
 
 **r30-q2** · ¿Con qué módulo de Aviatory conecta directamente la pérdida de capacidad RVSM en crucero?
-- A) Con Mercancías peligrosas.
+- A) Con Meteorología, por la turbulencia.
 - B) Con Gestión del combustible.
 - C) Con Comunicaciones ATC únicamente.
-- D) Con Meteorología.
+- D) Con Mercancías peligrosas.
 **Correcta:** B · **Tema:** R30 · **Referencia:** Módulo Gestión del combustible, capítulos de predicción y decisión
 **Explicación:** La consecuencia práctica de bajar de nivel es un consumo mayor y una predicción al destino peor, que es exactamente el razonamiento del módulo de combustible: comprobar si se conserva el alterno más la reserva final y decidir mientras todavía hay opciones.
 
 **r30-q3** · Tras coordinar el nuevo nivel con el ATC, ¿el asunto queda cerrado?
-- A) Sí: con el nivel asignado, la contingencia terminó.
-- B) No: queda revisar consumo, predicción al destino y posibles alternativas.
+- A) No: queda revisar consumo, predicción al destino y posibles alternativas.
+- B) Sí: con el nivel asignado, la contingencia terminó.
 - C) Sí, siempre que se haya anotado en el libro técnico.
-- D) No: hay que declarar emergencia para asegurar prioridad.
-**Correcta:** B · **Tema:** R30 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6
+- D) No: hay que declarar emergencia para tener prioridad.
+**Correcta:** A · **Tema:** R30 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6
 **Explicación:** La asignación de nivel resuelve la separación, no el vuelo. A partir de ahí hay que revisar el consumo al nuevo nivel, actualizar la predicción al destino y evaluar si hace falta replanificar. Y al aterrizar, dejar la anotación con detalle.
 
 ---
@@ -2737,25 +2737,25 @@ Responder una pregunta sobre Colombia con la referencia de la FAA. Los números 
 **r31-q1** · ¿Qué numeral del RAC establece la separación RVSM en Colombia y qué agencia de monitorización nombra?
 - A) RAC 91, numeral 91.310, y la OACI.
 - B) RAC 211, numeral 211.530, y CARSAMMA.
-- C) RAC 119, numeral 119.270, y la Aerocivil.
-- D) RAC 121, numeral 121.2553, y CARSAMMA.
+- C) RAC 119, numeral 119.270, y la propia Aerocivil.
+- D) RAC 91, numeral 91.305, y la agencia CARSAMMA.
 **Correcta:** B · **Tema:** R31 · **Referencia:** RAC 211, numeral 211.530
 **Explicación:** El RAC 211 establece la separación de 1.000 ft entre FL 290 y FL 410 inclusive con monitoreo de la agencia regional CARSAMMA. El RAC 91 trata el VFR y el RAC 119 las especificaciones de operación.
 
 **r31-q2** · Según el RAC 119, ¿qué relación tiene RVSM con las especificaciones de operación?
-- A) Ninguna: las OpSpecs no tratan capacidades de navegación ni de separación.
-- B) RVSM figura entre las aprobaciones específicas del explotador en sus OpSpecs.
-- C) Las OpSpecs solo recogen RVSM para operaciones internacionales.
+- A) RVSM figura entre las aprobaciones específicas del explotador en sus OpSpecs.
+- B) Ninguna: las OpSpecs no tratan capacidades de navegación ni de separación vertical, que se aprueban por aeronave.
+- C) Las OpSpecs solo recogen RVSM para vuelos internacionales.
 - D) RVSM se aprueba por aeronave, no por explotador.
-**Correcta:** B · **Tema:** R31 · **Referencia:** RAC 119, numerales 119.270(a) y 119.020(d)
+**Correcta:** A · **Tema:** R31 · **Referencia:** RAC 119, numerales 119.270(a) y 119.020(d)
 **Explicación:** Las OpSpecs recogen aprobaciones específicas como mercancías peligrosas, baja visibilidad, RVSM, EDTO, PBN AR y EFB. Y la empresa no puede volar en un área que sus OpSpecs no autoricen.
 
 **r31-q3** · Te preguntan por los procedimientos particulares de las FIR Bogotá y Barranquilla en RVSM. ¿Cuál es la respuesta correcta?
-- A) Son idénticos a los de la FAA, porque RVSM está normalizado.
-- B) No existen procedimientos particulares: se aplica solo el RAC 211.
-- C) Se consultan en el AIP Colombia vigente y en las circulares de la Aerocivil.
-- D) Los publica CARSAMMA en su informe anual de monitorización.
-**Correcta:** C · **Tema:** R31 · **Referencia:** AIP Colombia vigente; circulares de la Aerocivil
+- A) Son idénticos a los de la FAA, porque RVSM está normalizado y la AC 91-85B rige en toda la región.
+- B) No existen procedimientos particulares: se aplica solo el RAC 211 y su numeral 211.530.
+- C) Los publica CARSAMMA en su informe anual de monitorización de la región CAR/SAM.
+- D) Se consultan en el AIP Colombia vigente y en las circulares de la Aerocivil.
+**Correcta:** D · **Tema:** R31 · **Referencia:** AIP Colombia vigente; circulares de la Aerocivil
 **Explicación:** El rango vertical y la separación son comunes, pero lo particular de cada FIR, los niveles por dirección de vuelo y los requisitos detallados de aprobación se publican en el AIP del Estado y en las circulares vigentes de la autoridad. Se consultan; no se deducen.
 
 ---
@@ -2883,27 +2883,27 @@ Integrar todo el módulo en una sola operación realista, de modo que el piloto 
 ### Quiz · Capítulo 32
 
 **r32-q1** · En todos los escenarios de contingencia RVSM, ¿cuál es el orden correcto?
-- A) Comunicar, controlar, identificar, consultar.
-- B) Controlar, identificar, consultar, concluir, comunicar, coordinar.
-- C) Consultar el QRH, comunicar y después controlar la aeronave.
-- D) Identificar, comunicar y esperar instrucciones del ATC.
-**Correcta:** B · **Tema:** R32 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2 y numeral B.3.6
+- A) Comunicar, controlar, identificar, consultar, y después coordinar con el despacho.
+- B) Consultar el QRH, comunicar al ATC y después controlar la aeronave y el nivel.
+- C) Identificar la falla, comunicar al ATC y esperar sus instrucciones antes de actuar.
+- D) Controlar, identificar, consultar, concluir, comunicar, coordinar.
+**Correcta:** D · **Tema:** R32 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2 y numeral B.3.6
 **Explicación:** Aviar, navegar, comunicar. Las acciones iniciales son mantener el nivel en lo posible mientras se evalúa y vigilar tráfico; luego se identifica la falla, se consulta el QRH, se concluye si se conserva la capacidad y se comunica y coordina con el ATC.
 
 **r32-q2** · ¿Cuál de estas situaciones **no** se comunica como *unable RVSM due equipment*?
-- A) Falla de todos los altímetros primarios.
-- B) Falla del sistema automático de control de altitud.
-- C) Falla del transpondedor.
+- A) Falla del transpondedor que reporta la altitud.
+- B) Falla de todos los altímetros primarios.
+- C) Falla del control automático de altitud.
 - D) Falla de la alerta de altitud.
-**Correcta:** C · **Tema:** R32 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
+**Correcta:** A · **Tema:** R32 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
 **Explicación:** La falla de transpondedor tiene tratamiento propio: se solicita al ATC autorización para continuar en el nivel autorizado y se cumple la autorización revisada si la hay. Las otras tres comparten la acción *unable RVSM due equipment*.
 
 **r32-q3** · Tras resolver la separación con el ATC en un nivel inferior, ¿qué queda pendiente?
 - A) Nada operacionalmente relevante.
-- B) Revisar consumo y predicción al destino, y anotar la falla con detalle al aterrizar.
-- C) Declarar emergencia para asegurar prioridad en destino.
-- D) Solicitar de nuevo el nivel original cada treinta minutos.
-**Correcta:** B · **Tema:** R32 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.3.6 y B.3.7
+- B) Declarar emergencia para asegurar prioridad en destino.
+- C) Revisar consumo y predicción al destino, y anotar la falla con detalle al aterrizar.
+- D) Solicitar de nuevo el nivel original cada treinta minutos, por si el ATC puede volver a separar 1.000 ft.
+**Correcta:** C · **Tema:** R32 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.3.6 y B.3.7
 **Explicación:** El nivel resuelve la separación, no el vuelo. Queda recalcular el consumo y la predicción al destino frente a alterno más reserva final, replanificar con el despacho si hace falta, y dejar en el libro de mantenimiento la anotación con el detalle que la norma enumera.
 
 ---
@@ -2993,201 +2993,201 @@ Veinticuatro puntos. Lo demás se consulta.
 Banco de 40 preguntas. Cada intento toma 20 al azar. Ninguna repite una pregunta de los quiz de capítulo.
 
 **ev-01** · Preparas un vuelo Bogotá–Lima con crucero en FL 350. El avión trae un ítem de MEL en un sistema de altimetría y el plan de vuelo llegó con la letra W en la casilla 10. ¿Qué haces?
-- A) Sales: el despacho ya validó el plan y la W corresponde al tipo de aeronave.
-- B) Lees la entrada de MEL completa y, si retira la capacidad, resuelves la contradicción antes de salir.
-- C) Sales y declaras *negative RVSM* en el primer contacto dentro del espacio.
-- D) Sales y pides nivel por debajo de FL 290 sin cambiar el plan.
+- A) Sales: el despacho ya validó el plan y la W corresponde al tipo de aeronave, que está certificado RVSM.
+- B) Lees la entrada completa y, si retira la capacidad, resuelves la contradicción en tierra.
+- C) Sales y declaras *negative RVSM* en el primer contacto dentro del espacio, para que el ATC te separe 2.000 ft.
+- D) Sales y pides nivel por debajo de FL 290 sin cambiar el plan, porque así no entras al espacio RVSM.
 **Correcta:** B · **Tema:** R11 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.3.1 Nota y B.4
 **Explicación:** El código de equipo RVSM no debe declararse cuando la aeronave no cumple los requisitos. Si la entrada de MEL retira la capacidad, el plan miente y eso se corrige en tierra, no comunicándolo por radio después.
 
 **ev-02** · En crucero FL 330 observas que las dos primarias difieren 240 ft entre sí. El manual del avión no especifica un límite menor. ¿Qué corresponde?
-- A) Continuar y aumentar la frecuencia del barrido de instrumentos.
-- B) Seleccionar la primaria que coincida con el altímetro de reserva y seguir.
-- C) Reportar el sistema altimétrico como defectuoso y notificarlo al ATC.
-- D) Solicitar descenso por debajo de FL 290 sin comunicar el motivo.
-**Correcta:** C · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 7
+- A) Reportar el sistema altimétrico como defectuoso y notificarlo al ATC.
+- B) Seguir con la primaria que coincida con la de reserva.
+- C) Continuar y aumentar el barrido de instrumentos.
+- D) Pedir descenso bajo FL 290 sin decir el motivo.
+**Correcta:** A · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 7
 **Explicación:** En crucero las primarias deben coincidir dentro de 200 ft. Si no se cumple, la norma exige reportar el sistema altimétrico como defectuoso y notificarlo al ATC; el contraste con la de reserva sirve para identificar la sospechosa, no para continuar como si nada.
 
 **ev-03** · Durante el ascenso, a FL 270, se pierde la alerta de altitud. ¿Qué corresponde?
-- A) Continuar hasta FL 350 y declarar *unable RVSM due equipment* al entrar.
-- B) Solicitar una nueva autorización para evitar el vuelo en espacio RVSM.
-- C) Nivelar en FL 280 sin comunicar nada.
-- D) Continuar: la alerta solo se exige por encima de FL 310.
-**Correcta:** B · **Tema:** R15 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3
+- A) Seguir hasta FL 350 y declarar *unable RVSM* al entrar.
+- B) Nivelar en FL 280 sin comunicar nada.
+- C) Solicitar una nueva autorización para evitar el vuelo en espacio RVSM.
+- D) Continuar: la alerta solo se exige sobre FL 310.
+**Correcta:** C · **Tema:** R15 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.3
 **Explicación:** Si el equipo requerido falla antes de entrar, el piloto solicita nueva autorización para evitar el espacio RVSM. *Unable RVSM due equipment* es la comunicación para lo que ocurre después de haber entrado.
 
 **ev-04** · El ATC transmite «Confirm RVSM approved» y tu aeronave sí lo está. ¿Qué respondes?
-- A) «Roger, RVSM».
-- B) «Affirm RVSM».
-- C) «RVSM capable and approved».
-- D) «Wilco RVSM».
-**Correcta:** B · **Tema:** R26 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-1
+- A) «Roger, RVSM approved».
+- B) «RVSM capable and approved».
+- C) «Confirmed RVSM».
+- D) «Affirm RVSM».
+**Correcta:** D · **Tema:** R26 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-1
 **Explicación:** La fraseología normalizada para indicar que el vuelo está aprobado es «Affirm RVSM». Las otras formulaciones no son fraseología establecida.
 
 **ev-05** · Vuelas una aeronave no aprobada para RVSM y solicitas ascender de FL 270 a FL 310. ¿Qué debes incluir?
-- A) Nada especial: el ATC ya conoce tu estado por el plan de vuelo.
+- A) Nada especial: el ATC ya conoce tu estado por el plan de vuelo, que no lleva la W.
 - B) La mención de tu condición no RVSM en la solicitud de cambio de nivel.
-- C) Una declaración de urgencia, porque el nivel está dentro de RVSM.
-- D) El código de transpondedor asignado para operaciones no RVSM.
+- C) Una declaración de urgencia, porque el nivel es RVSM.
+- D) El código de transpondedor para aeronaves no RVSM.
 **Correcta:** B · **Tema:** R26 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-1
 **Explicación:** El piloto de una aeronave no RVSM reporta su condición en cuatro situaciones, y una de ellas es en todas las solicitudes de cambio de nivel a niveles dentro del espacio RVSM.
 
 **ev-06** · Nivelas en FL 350 y el avión se pasa 180 ft antes de estabilizarse. ¿Qué indica eso?
-- A) Está dentro de lo normal: el límite es 200 ft.
-- B) Excede el sobrepaso máximo de 150 ft que fija la norma.
-- C) Es irrelevante si el automático recupera el nivel.
-- D) Obliga a declarar *unable RVSM due equipment*.
-**Correcta:** B · **Tema:** R08 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 4
+- A) Está dentro de lo normal: el límite en las nivelaciones es de 200 ft, igual que entre primarias.
+- B) Es irrelevante si el automático recupera el nivel.
+- C) Excede el sobrepaso máximo de 150 ft que fija la norma.
+- D) Obliga a declarar *unable RVSM due equipment* y a salir del espacio RVSM.
+**Correcta:** C · **Tema:** R08 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 4
 **Explicación:** En transiciones autorizadas entre niveles no se debe sobrepasar ni quedarse corto más de 150 ft. Los 200 ft son el límite de discrepancia entre primarias en crucero, que es otra cosa.
 
 **ev-07** · ¿Cuál de estas magnitudes mide la diferencia entre la altitud de presión que el avión vuela de verdad y la asignada?
 - A) ASE.
 - B) AAD.
-- C) TVE.
-- D) SSE.
-**Correcta:** C · **Tema:** R17 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 19
+- C) SSE.
+- D) TVE.
+**Correcta:** D · **Tema:** R17 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 19
 **Explicación:** El error vertical total (TVE) es la diferencia geométrica vertical entre la altitud de presión que la aeronave vuela realmente y su altitud de presión asignada. El ASE compara lo mostrado con lo real, y la AAD compara lo transmitido con lo asignado.
 
 **ev-08** · Operas en espacio con vigilancia radar. ¿Cuándo se hace el primer chequeo altimétrico con el altímetro de reserva?
-- A) Antes del despegue.
-- B) Al cruzar la altitud de transición.
-- C) Después de nivelar.
-- D) Al entrar en el espacio RVSM, con independencia del nivel.
-**Correcta:** C · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 8, letra b
+- A) Después de nivelar.
+- B) Antes de despegar.
+- C) En la transición.
+- D) Al cruzar FL 290.
+**Correcta:** A · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 8, letra b
 **Explicación:** En espacio con vigilancia, sea radar o ADS-B, el chequeo altimétrico inicial se realiza después de nivelar. En espacio oceánico y remoto se hace y se registra cerca del punto donde empieza la navegación oceánica.
 
 **ev-09** · El ATC te informa una desviación de altitud asignada de 320 ft. ¿Qué haces primero?
-- A) Contrastas las tres indicaciones de altitud antes de mover nada.
-- B) Regresas al nivel autorizado tan rápido como sea posible.
+- A) Regresas al nivel autorizado tan rápido como sea posible.
+- B) Contrastas las tres indicaciones de altitud antes de mover nada, para saber cuál creer.
 - C) Declaras *unable RVSM due equipment*.
-- D) Solicitas cambio de nivel para evitar tráfico adyacente.
-**Correcta:** B · **Tema:** R16 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 10
+- D) Solicitas cambio de nivel para alejarte del tráfico de los niveles adyacentes.
+**Correcta:** A · **Tema:** R16 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 10
 **Explicación:** Con una AAD notificada de 300 ft o más, la norma pide volver al nivel autorizado lo más rápido posible. Contrastar indicaciones e identificar la causa viene después: primero se recupera el margen.
 
 **ev-10** · ¿Qué diferencia hay entre un level bust y una large height deviation?
-- A) El level bust ocurre en ascenso y la large height deviation en descenso.
-- B) El level bust nace de un error en la cadena de la autorización; la large height deviation es una desviación grande que el sistema de vigilancia registra.
-- C) Son sinónimos, y se usan indistintamente según la región.
-- D) El level bust es de más de 300 ft y la large height deviation de más de 500 ft.
-**Correcta:** B · **Tema:** R19 · **Referencia:** FAA AC 91-85B, numeral 5.10.2; RAC 211, numeral 211.530
+- A) El level bust ocurre en el ascenso y la large height deviation en el descenso, cuando el avión acelera.
+- B) Son sinónimos, y cada región usa uno u otro según su documentación.
+- C) El level bust es de más de 300 ft y la large height deviation, de más de 500 ft.
+- D) El level bust nace de un error en la cadena de la autorización; la large height deviation es una desviación grande que registra la vigilancia.
+**Correcta:** D · **Tema:** R19 · **Referencia:** FAA AC 91-85B, numeral 5.10.2; RAC 211, numeral 211.530
 **Explicación:** Se distinguen por origen y por uso. El level bust remite a la causa: oír, colacionar, seleccionar o verificar mal el nivel. La large height deviation remite al sistema de monitorización que la registra y estudia.
 
 **ev-11** · En la vuelta al avión antes de un vuelo RVSM, ¿qué se revisa con atención particular?
-- A) El desgaste de los neumáticos y el estado de los frenos.
-- B) Las tomas estáticas y el revestimiento del fuselaje cercano a ellas.
-- C) El estado de las antenas de comunicaciones VHF.
+- A) Las tomas estáticas y el revestimiento del fuselaje cercano a ellas.
+- B) El desgaste de los neumáticos y los frenos.
+- C) Las antenas de comunicaciones VHF.
 - D) La presión de los acumuladores hidráulicos.
-**Correcta:** B · **Tema:** R14 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2, apartado 2
+**Correcta:** A · **Tema:** R14 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2, apartado 2
 **Explicación:** La norma pide atención particular al estado de las tomas estáticas, al revestimiento cercano a cada una y a cualquier componente que afecte la precisión del sistema altimétrico. Es el punto del preflight donde el piloto ve algo que incide directamente en la altitud.
 
 **ev-12** · Tu aeronave pierde todos los altímetros primarios en FL 390. ¿Qué hará el controlador según la norma?
-- A) Autorizar el mismo nivel con vigilancia reforzada.
-- B) Proporcionar 2.000 ft de separación vertical o separación horizontal apropiada.
-- C) Declarar emergencia en tu nombre.
-- D) Asignar un código de transpondedor específico de contingencia.
-**Correcta:** B · **Tema:** R24 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
+- A) Autorizar el mismo nivel con vigilancia radar reforzada y avisar al tráfico adyacente.
+- B) Declarar emergencia en tu nombre y darte prioridad hasta el destino.
+- C) Dar 2.000 ft de separación vertical o la horizontal apropiada.
+- D) Asignar un código de transpondedor específico de contingencia RVSM.
+**Correcta:** C · **Tema:** R24 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
 **Explicación:** Ante *unable RVSM due equipment*, el controlador proporciona 2.000 ft de separación vertical o la separación horizontal apropiada, y saca a la aeronave del espacio RVSM salvo que la situación operacional indique otra cosa.
 
 **ev-13** · ¿Qué significa que RVSM sea «espacio aéreo de calificación especial»?
-- A) Que solo pueden operar aeronaves de transporte comercial.
-- B) Que se accede por cumplir requisitos de equipo, aprobación y entrenamiento, no por altura.
-- C) Que exige autorización individual del ATC para cada vuelo.
+- A) Que solo pueden operar allí aeronaves de transporte comercial con dos pilotos y certificado de tipo posterior a 1997.
+- B) Que exige autorización individual del ATC para cada vuelo, que se pide al presentar el plan de vuelo con la W.
+- C) Que se accede por cumplir requisitos de equipo, aprobación y entrenamiento, no por altura.
 - D) Que está reservado a operaciones internacionales.
-**Correcta:** B · **Tema:** R01 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
+**Correcta:** C · **Tema:** R01 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
 **Explicación:** La calificación especial se refiere a que el acceso depende de cumplir requisitos: aeronave aprobada, operador autorizado y tripulación entrenada. Alcanzar el nivel no es uno de ellos.
 
 **ev-14** · Con el piloto automático acoplado y turbulencia moderada, decides desacoplarlo para retrimar. ¿Es admisible en RVSM?
 - A) No: el automático debe permanecer acoplado sin excepción.
-- B) Sí: la norma admite el desacople por retrimado o turbulencia, siguiendo la altitud por un primario.
-- C) Sí, pero solo por debajo de FL 350.
-- D) No, salvo que se declare *unable RVSM due turbulence* antes.
-**Correcta:** B · **Tema:** R08 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 5
+- B) Sí, pero solo por debajo de FL 350.
+- C) No, salvo que antes se declare *unable RVSM due turbulence* y el ATC autorice expresamente el vuelo manual en el nivel.
+- D) Sí: la norma admite el desacople por retrimado o turbulencia, siguiendo la altitud por un primario.
+**Correcta:** D · **Tema:** R08 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 5
 **Explicación:** El sistema debe estar operativo y acoplado en crucero nivelado, y la norma admite el desacople por circunstancias como retrimar o turbulencia. En cualquier caso la adherencia a la altitud se hace por referencia a uno de los dos primarios.
 
 **ev-15** · Vuelas a FL 310 y aparece tráfico pesado 1.000 ft por encima y ligeramente adelante. Encuentras estela. ¿Qué puedes solicitar?
-- A) Únicamente descenso inmediato.
+- A) Únicamente un descenso inmediato de 1.000 ft.
 - B) Vector, cambio de nivel o, si el avión es capaz, un desplazamiento lateral.
-- C) Autorización para desconectar el TCAS.
-- D) Prioridad de ruta directa.
+- C) Autorización para desconectar el TCAS mientras dure.
+- D) Prioridad de ruta directa al destino.
 **Correcta:** B · **Tema:** R23 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «Wake Turbulence Encounters»
 **Explicación:** La norma prevé esas tres opciones. El controlador, por su parte, puede proporcionar 2.000 ft de separación vertical o separación horizontal apropiada y sacar a la aeronave del espacio RVSM.
 
 **ev-16** · Al aterrizar, anotas en el libro de mantenimiento una discrepancia altimétrica. ¿Qué debe incluir la anotación?
 - A) La hora del suceso y el nivel de vuelo.
 - B) Lecturas de primario y reserva, ajustes de selector y subescala, y qué automático y qué transpondedor estaban en uso.
-- C) Solo la descripción cualitativa del síntoma.
+- C) Solo la descripción cualitativa del síntoma, tal como lo vio la tripulación, para que mantenimiento reproduzca la falla en tierra.
 - D) El nombre del controlador que reportó la desviación.
 **Correcta:** B · **Tema:** R29 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.7
 **Explicación:** La norma enumera lo que hay que anotar cuando corresponda: lecturas de primario y reserva, ajuste del selector de altitud, subescala, qué piloto automático gobernaba y las diferencias con el alterno, diferencias con tomas estáticas alternas, uso del selector de computador de datos aéreos y qué transpondedor daba la altitud al ATC.
 
 **ev-17** · ¿Qué ocurre si el sistema altimétrico que gobierna el avión no es el que alimenta el reporte de altitud?
-- A) Nada: son funciones independientes por diseño.
-- B) El avión puede volar un nivel y transmitir otro si las fuentes discrepan.
-- C) El transpondedor deja de emitir hasta que se corrija.
-- D) La alerta de altitud se inhibe automáticamente.
-**Correcta:** B · **Tema:** R10 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 9
+- A) Nada: son funciones independientes por diseño y cada una tiene su propia alimentación.
+- B) El transpondedor deja de emitir la altitud hasta que se corrija la selección de la fuente.
+- C) El avión puede volar un nivel y transmitir otro si las fuentes discrepan.
+- D) La alerta de altitud se inhibe automáticamente para no dar avisos falsos en crucero.
+**Correcta:** C · **Tema:** R10 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 9
 **Explicación:** Por eso la norma pide que normalmente el sistema que se usa para controlar la aeronave sea el que alimenta el transpondedor. Si no coinciden y las fuentes discrepan, el ATC separa con una altitud que el avión no está volando.
 
 **ev-18** · Turbulencia severa en FL 370 con desviaciones de unos 250 ft. Además de declarar *unable RVSM due turbulence*, ¿qué debes reportar al ATC?
-- A) El combustible remanente y las personas a bordo.
-- B) La localización y la magnitud de la turbulencia.
-- C) El código de transpondedor y la hora estimada de llegada.
-- D) El nivel óptimo de crucero para tu peso actual.
-**Correcta:** B · **Tema:** R22 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
+- A) El combustible y las personas a bordo.
+- B) El nivel óptimo para tu peso actual.
+- C) La localización y la magnitud de la turbulencia.
+- D) El código de transpondedor y la hora estimada de llegada al siguiente punto de notificación.
+**Correcta:** C · **Tema:** R22 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2
 **Explicación:** Entre las acciones del piloto está reportar la localización y magnitud de la turbulencia o de la onda de montaña al ATC, que a su vez lo difunde como información meteorológica a otras aeronaves.
 
 **ev-19** · ¿Cuál es el plazo para que el operador reporte a la autoridad un error de mantenimiento de altitud que supere los umbrales establecidos?
-- A) 24 horas.
-- B) 48 horas.
-- C) 72 horas.
-- D) 7 días.
-**Correcta:** C · **Tema:** R17 · **Referencia:** FAA AC 91-85B, numeral 5.10.1
+- A) 72 horas.
+- B) 24 horas desde el aterrizaje.
+- C) 7 días.
+- D) 48 horas.
+**Correcta:** A · **Tema:** R17 · **Referencia:** FAA AC 91-85B, numeral 5.10.1
 **Explicación:** El operador debe reportar el evento dentro de las 72 horas, con un análisis inicial de los factores causales y las medidas para prevenir que se repita. La autoridad determina si hacen falta reportes de seguimiento.
 
 **ev-20** · Un avión llega a FL 390 sin dificultad pero no está aprobado para RVSM. ¿Puede operar ahí?
-- A) Sí, si el ATC lo autoriza en el momento.
+- A) No, salvo mediante los procedimientos de acomodación aplicables.
 - B) Sí, si el TCAS está operativo.
-- C) No, salvo mediante los procedimientos de acomodación aplicables.
-- D) Sí, informando su condición en el primer contacto.
-**Correcta:** C · **Tema:** R27 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.4 y B.4.2
+- C) Sí, si el ATC lo autoriza en el momento.
+- D) Sí, informando su condición no RVSM en el primer contacto y en cada colación de nivel.
+**Correcta:** A · **Tema:** R27 · **Referencia:** FAA AC 91-85B, Apéndice B, numerales B.4 y B.4.2
 **Explicación:** Los operadores deben estar autorizados y las aeronaves ser conformes, con excepciones limitadas. Existen procedimientos de acomodación para categorías específicas, sujetos a autorización; la capacidad de alcanzar el nivel no habilita nada.
 
 **ev-21** · ¿Por qué el ASE no aparece en ningún indicador de la cabina?
 - A) Porque solo se manifiesta por encima de FL 410.
 - B) Porque el error está en la propia medición de la altitud.
-- C) Porque el sistema lo corrige automáticamente en tiempo real.
-- D) Porque se calcula únicamente en tierra tras el vuelo.
+- C) Porque el sistema lo corrige automáticamente en tiempo real y lo deja en cero.
+- D) Porque solo aparece en la página de mantenimiento del computador de datos aéreos, no en el PFD.
 **Correcta:** B · **Tema:** R29 · **Referencia:** FAA AC 91-85B, numeral 4.3.1; Apéndice A, definición 4
 **Explicación:** El ASE es la diferencia entre la altitud de presión mostrada con la referencia estándar y la real. Como el error está en la medición, el instrumento presenta un valor de aspecto normal que está corrido, y no hay indicación que lo delate.
 
 **ev-22** · Estás en FL 350 y recibes una resolución del TCAS que exige ascender, contra tu autorización. ¿Qué haces?
-- A) Mantienes el nivel y solicitas confirmación al ATC.
-- B) Ejecutas la maniobra de la resolución.
+- A) Ejecutas la maniobra de la resolución.
+- B) Mantienes el nivel y solicitas confirmación al ATC.
 - C) Desconectas el TCAS y mantienes el nivel autorizado.
-- D) Desciendes, porque el tráfico está por encima.
-**Correcta:** B · **Tema:** R28 · **Referencia:** Procedimientos ACAS aplicables; FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
+- D) Desciendes, porque el tráfico está por encima de ti.
+**Correcta:** A · **Tema:** R28 · **Referencia:** Procedimientos ACAS aplicables; FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 3
 **Explicación:** Una autorización del ATC no tiene prioridad sobre una resolución que exija maniobra. Es la excepción expresa a la regla de no apartarse del nivel autorizado sin autorización positiva, reservada a contingencia o emergencia.
 
 **ev-23** · ¿Qué debe hacer la tripulación cuando el procedimiento de contingencia RVSM deja de ser necesario?
 - A) Nada: el ATC lo deduce al observar el nivel estable.
-- B) Notificarlo al ATC.
-- C) Esperar a la siguiente transferencia de frecuencia.
-- D) Anotarlo únicamente en el libro técnico.
-**Correcta:** B · **Tema:** R25 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6
+- B) Esperar al ATC.
+- C) Notificarlo al ATC.
+- D) Anotarlo únicamente en el libro técnico al aterrizar.
+**Correcta:** C · **Tema:** R25 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6
 **Explicación:** Es responsabilidad expresa de la tripulación notificar al ATC cuando la aplicación de los procedimientos de contingencia ya no es necesaria. La fraseología prevista para ello es «Ready to resume RVSM».
 
 **ev-24** · Antes del despegue, con QNH puesto, el altímetro del comandante marca la elevación del aeródromo con 40 ft de diferencia y el del primer oficial con 55 ft. ¿Qué concluyes?
 - A) Ambos están fuera de límite y hay que reportarlo.
 - B) Ambos están dentro del tope de 75 ft frente a la elevación conocida.
-- C) La diferencia entre ellos, 15 ft, excede el límite de crucero.
-- D) Solo el del primer oficial requiere verificación adicional.
+- C) La diferencia entre ellos, 15 ft, excede el límite que la norma fija entre primarias en tierra.
+- D) Solo el del primer oficial requiere verificación adicional, porque se acerca al tope de 50 ft.
 **Correcta:** B · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.2, apartado 3
 **Explicación:** El tope frente a la elevación conocida es de 75 ft y ambos lo cumplen. Además, las dos primarias deben coincidir entre sí dentro del límite del manual del avión; los 200 ft son el límite en crucero, no en tierra.
 
 **ev-25** · ¿Qué caracteriza a la onda de montaña desde el punto de vista del piloto en RVSM?
-- A) Que siempre produce desviaciones superiores a 300 ft.
+- A) Que siempre produce desviaciones de más de 300 ft.
 - B) Que puede producir variaciones verticales importantes aunque el avión esté sano.
-- C) Que inhibe el funcionamiento del sistema de alerta de altitud.
+- C) Que inhibe el sistema de alerta de altitud.
 - D) Que solo aparece por debajo de FL 290.
 **Correcta:** B · **Tema:** R22 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2 y Apéndice D
 **Explicación:** La onda puede desplazar verticalmente al avión sin que nada haya fallado a bordo, y eso compromete el mantenimiento del nivel. La propia norma aclara que no necesariamente produce desviaciones del orden de 200 ft.
@@ -3195,121 +3195,121 @@ Banco de 40 preguntas. Cada intento toma 20 al azar. Ninguna repite una pregunta
 **ev-26** · Se pierde una de las dos primarias y puedes confirmar la precisión de la que queda contra la de reserva. ¿Qué comunicas?
 - A) *Unable RVSM due equipment*.
 - B) La operación con una sola primaria, notificándola al ATC.
-- C) Nada, mientras la indicación restante sea estable.
+- C) Nada, mientras la indicación sea estable.
 - D) *Negative RVSM* en todas las frecuencias.
 **Correcta:** B · **Tema:** R24 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2, «One Primary Altimeter Remains Operational»
 **Explicación:** Se contrasta con la de reserva y se notifica al ATC la operación con una sola primaria; el controlador lo acusa. *Unable RVSM due equipment* corresponde solo si no se puede confirmar la precisión de la primaria restante.
 
 **ev-27** · ¿Qué tres condiciones deben darse simultáneamente para operar RVSM?
-- A) Aeronave aprobada, plan de vuelo con la W y autorización del ATC.
-- B) Aeronave aprobada, operador autorizado y tripulación entrenada.
-- C) TCAS operativo, transpondedor operativo y dos altímetros.
-- D) Aprobación de aeronavegabilidad, licencia del piloto y nivel disponible.
-**Correcta:** B · **Tema:** R04 · **Referencia:** FAA AC 91-85B, numeral 1.1; RAC 119, numeral 119.270(a)
+- A) Aeronave aprobada, plan de vuelo con la W en la casilla 10 y autorización del ATC para el nivel.
+- B) TCAS, transpondedor y dos altímetros.
+- C) Aprobación de aeronavegabilidad, licencia del piloto con la habilitación de tipo y nivel disponible.
+- D) Aeronave aprobada, operador autorizado y tripulación entrenada.
+**Correcta:** D · **Tema:** R04 · **Referencia:** FAA AC 91-85B, numeral 1.1; RAC 119, numeral 119.270(a)
 **Explicación:** Las tres tienen que darse a la vez. La letra W declara la capacidad, no la otorga, y la autorización del ATC asigna el nivel, no habilita la operación RVSM.
 
 **ev-28** · Según el RAC colombiano, ¿qué ocurre con el VFR sobre FL 290 en espacio de separación vertical reducida?
-- A) Se permite con autorización del ATC.
+- A) No se permite en ningún caso, ni con autorización.
 - B) Se permite solo de día.
-- C) No se permite en ningún caso.
+- C) Se permite con autorización del ATC.
 - D) Se permite si la visibilidad supera los 10 km.
-**Correcta:** C · **Tema:** R31 · **Referencia:** RAC 91, numerales 91.305 y 91.310
+**Correcta:** A · **Tema:** R31 · **Referencia:** RAC 91, numerales 91.305 y 91.310
 **Explicación:** Sin autorización no hay VFR sobre FL 200, y sobre FL 290 en espacio RVSM no se permite en ningún caso. El espacio RVSM colombiano es de operación IFR.
 
 **ev-29** · Te transfieren a una nueva frecuencia mientras operas con *unable RVSM due equipment*. ¿Qué haces en el contacto inicial?
 - A) No mencionas nada: ya lo comunicaste en la frecuencia anterior.
 - B) Repites *unable RVSM due equipment*.
-- C) Solicitas confirmación de que el controlador anterior coordinó tu situación.
-- D) Declaras *negative RVSM*.
+- C) Pides confirmar que el controlador anterior coordinó tu situación.
+- D) Declaras *negative RVSM* en lugar de repetir la frase anterior.
 **Correcta:** B · **Tema:** R26 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-1, Nota
 **Explicación:** La frase se usa tanto para la indicación inicial de la falla como en el contacto inicial en todas las frecuencias del espacio RVSM, hasta que el problema deje de existir o la aeronave salga del espacio.
 
 **ev-30** · Pierdes capacidad RVSM en FL 370 y el ATC te asigna FL 270 para el resto del vuelo. ¿Qué cálculo se vuelve prioritario?
 - A) El nivel óptimo para el peso actual.
-- B) La predicción de combustible al destino frente a alterno más reserva final.
-- C) El tiempo estimado de llegada revisado.
-- D) La velocidad de crucero de máximo alcance.
-**Correcta:** B · **Tema:** R30 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6; módulo Gestión del combustible
+- B) El tiempo estimado de llegada revisado, para avisar al despacho y a la tripulación de cabina del retraso.
+- C) La velocidad de crucero de máximo alcance.
+- D) La predicción de combustible al destino frente a alterno más reserva final.
+**Correcta:** D · **Tema:** R30 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.6; módulo Gestión del combustible
 **Explicación:** Un nivel inferior consume más por hora, así que la predicción al destino empeora. La comprobación que manda es si se conserva el combustible para el alterno más la reserva final; si no, se replanifica con el despacho.
 
 **ev-31** · ¿Cuál es el valor nominal de la alerta de altitud en un avión cuyo certificado de tipo se solicitó después del 9 de abril de 1997?
-- A) ±100 ft.
-- B) ±200 ft.
-- C) ±300 ft.
-- D) ±500 ft.
-**Correcta:** B · **Tema:** R05 · **Referencia:** FAA AC 91-85B, Apéndice A, numeral A.4.1.3, apartado 2
+- A) ±50 ft.
+- B) ±65 ft.
+- C) ±200 ft.
+- D) ±300 ft.
+**Correcta:** C · **Tema:** R05 · **Referencia:** FAA AC 91-85B, Apéndice A, numeral A.4.1.3, apartado 2
 **Explicación:** En aviones cuya solicitud de certificado de tipo o cambio mayor es posterior al 9 de abril de 1997, el valor nominal no debe superar ±200 ft, con una tolerancia de equipo que no exceda ±50 ft. En los anteriores, el valor es ±300 ft.
 
 **ev-32** · Dos aeronaves en niveles RVSM adyacentes se desvían 300 ft cada una, una hacia la otra. ¿Qué margen vertical queda?
-- A) 1.000 ft.
-- B) 700 ft.
-- C) 400 ft.
-- D) 300 ft.
-**Correcta:** C · **Tema:** R21 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
+- A) 700 ft.
+- B) 1.000 ft.
+- C) 300 ft.
+- D) 400 ft.
+**Correcta:** D · **Tema:** R21 · **Referencia:** FAA AC 91-85B, Apéndice A, definición 15
 **Explicación:** De los 1.000 ft nominales se consumen 300 por cada aeronave: quedan 400 ft. Es el ejemplo que explica por qué en RVSM la referencia no es el porcentaje de altitud sino la fracción del margen.
 
 **ev-33** · ¿Qué información debe llevar el plan de vuelo OACI de una aeronave RVSM?
-- A) La sigla RVSM en la casilla 18.
-- B) La letra W en la casilla 10.
-- C) La letra R en la casilla 10.
+- A) La letra W en la casilla 10.
+- B) La sigla RVSM en la casilla 18.
+- C) La letra R en la casilla 10, de equipo.
 - D) El número de aprobación del operador en la casilla 19.
-**Correcta:** B · **Tema:** R13 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.1, apartado 2
+**Correcta:** A · **Tema:** R13 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.1, apartado 2
 **Explicación:** La casilla 10, de equipo, se anota con la letra W para operar en espacio RVSM. Los proveedores de servicios de tránsito aéreo usan esos códigos para decidir cuándo aplicar separación de 1.000 ft.
 
 **ev-34** · En el ascenso, ¿en qué momento se ajusta la subescala a 1013,25 hPa en un vuelo RVSM?
 - A) Al entrar en FL 290.
-- B) Al cruzar la altitud de transición, sin demora, y se recomprueba al nivelar.
-- C) Al recibir la autorización de crucero.
-- D) Al alcanzar el primer nivel por encima de FL 100.
-**Correcta:** B · **Tema:** R16 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 2
+- B) Al recibir la autorización de crucero.
+- C) Al alcanzar el primer nivel autorizado de crucero, una vez estabilizado el avión y con el automático acoplado.
+- D) Al cruzar la altitud de transición, sin demora, y se recomprueba al nivelar.
+**Correcta:** D · **Tema:** R16 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 2
 **Explicación:** La norma pone énfasis en ajustar sin demora todos los altímetros, primarios y de reserva, al subir por la altitud de transición, y en volver a comprobar el ajuste al llegar al primer nivel autorizado.
 
 **ev-35** · ¿Cuál de estos eslabones de la cadena de la autorización se omite con más frecuencia y produce level bust?
 - A) La colación al ATC.
-- B) La verificación cruzada del nivel seleccionado.
-- C) La ejecución del cambio de nivel.
-- D) La captura automática de altitud.
-**Correcta:** B · **Tema:** R20 · **Referencia:** FAA AC 91-85B, numeral 5.10.2
+- B) La ejecución del cambio de nivel.
+- C) La captura automática de altitud.
+- D) La verificación cruzada del nivel seleccionado.
+**Correcta:** D · **Tema:** R20 · **Referencia:** FAA AC 91-85B, numeral 5.10.2
 **Explicación:** Es el único eslabón que no produce efecto visible cuando se hace bien, y por eso es el primero que desaparece bajo carga de trabajo. Los errores operacionales de mantenimiento de altitud se concentran ahí.
 
 **ev-36** · ¿Qué hace que una aeronave se denomine «no RVSM»?
 - A) Volar por debajo de FL 290 de forma habitual.
-- B) No cumplir los requisitos, incluido no tener operativo el equipo RVSM.
-- C) No llevar TCAS instalado.
-- D) Operar con un solo piloto.
-**Correcta:** B · **Tema:** R27 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.4
+- B) No llevar TCAS instalado.
+- C) No cumplir los requisitos, incluido no tener operativo el equipo RVSM.
+- D) Operar con un solo piloto, porque la verificación cruzada del nivel exige dos tripulantes en cabina.
+**Correcta:** C · **Tema:** R27 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.4
 **Explicación:** Se denomina no RVSM al operador o aeronave que no cumple los requisitos, incluida la aeronave sin equipo RVSM operativo. En ese caso no se declara el código de equipo en el plan y el piloto informa al controlador de la falta de aprobación.
 
 **ev-37** · Durante el crucero en espacio oceánico, ¿qué se hace con el chequeo altimétrico?
-- A) Se omite: no hay vigilancia radar que lo requiera.
-- B) Se hace y se registra cerca del punto donde empieza la navegación oceánica.
-- C) Se hace solo si el comparador automático señala una diferencia.
-- D) Se hace cada 30 minutos y se transmite al control oceánico.
-**Correcta:** B · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 8, letra c
+- A) Se omite: no hay vigilancia radar que lo requiera, y el comparador automático ya vigila las primarias.
+- B) Se hace solo si el comparador automático señala una diferencia entre las dos primarias.
+- C) Se hace y se registra cerca del punto donde empieza la navegación oceánica.
+- D) Se hace cada 30 minutos y se transmite al control oceánico con el reporte de posición.
+**Correcta:** C · **Tema:** R07 · **Referencia:** FAA AC 91-85B, Apéndice B, numeral B.3.4, apartado 8, letra c
 **Explicación:** En espacio oceánico y remoto se hace y se registra en las proximidades del punto donde comienza la navegación oceánica, anotando las lecturas de primarias y de reserva para tenerlas disponibles en una contingencia.
 
 **ev-38** · ¿Cuál es el propósito del programa de monitorización de la performance de mantenimiento de altitud?
-- A) Sancionar a las tripulaciones que cometen desviaciones.
-- B) Permitir a la autoridad evaluar cómo se comportan de verdad aeronaves y operadores en servicio.
-- C) Calcular el nivel óptimo de crucero de cada flota.
-- D) Certificar los altímetros antes de su instalación.
-**Correcta:** B · **Tema:** R29 · **Referencia:** FAA AC 91-85B, numeral 4.2 y referencias al programa de monitorización
+- A) Permitir a la autoridad evaluar cómo se comportan de verdad aeronaves y operadores en servicio.
+- B) Sancionar a las tripulaciones que cometen desviaciones.
+- C) Calcular el nivel óptimo de crucero de cada flota a partir de los datos altimétricos registrados en servicio.
+- D) Certificar los altímetros antes de su instalación y renovar la aprobación de aeronavegabilidad de cada avión.
+**Correcta:** A · **Tema:** R29 · **Referencia:** FAA AC 91-85B, numeral 4.2 y referencias al programa de monitorización
 **Explicación:** Es un control de calidad que permite a la autoridad evaluar la performance de mantenimiento de altitud de aeronaves y operadores en servicio. Los operadores deben participar en el programa que corresponda a su tipo de operación.
 
 **ev-39** · Un avión con dos ítems de MEL abiertos, cada uno aceptable por separado. ¿Cómo se evalúa el efecto conjunto sobre RVSM?
-- A) Sumando las restricciones de cada uno.
-- B) Tomando la más restrictiva de las dos.
-- C) Revisando si la MEL prohíbe la combinación o cambia el efecto.
-- D) Consultando al ATC antes del despegue.
-**Correcta:** C · **Tema:** R11 · **Referencia:** Práctica estándar de listas de equipo mínimo; módulo MEL de Aviatory
+- A) Sumando las restricciones de cada uno, porque las de la MEL son aditivas.
+- B) Revisando si la MEL prohíbe la combinación o cambia el efecto.
+- C) Consultando al ATC antes del despegue.
+- D) Tomando la más restrictiva de las dos y dejando la otra como informativa para la tripulación.
+**Correcta:** B · **Tema:** R11 · **Referencia:** Práctica estándar de listas de equipo mínimo; módulo MEL de Aviatory
 **Explicación:** Las restricciones no son aditivas. La lista puede prohibir expresamente una combinación que admite por separado, y el efecto conjunto sobre la capacidad RVSM puede no coincidir con el de ninguno de los dos aislados.
 
 **ev-40** · En una entrevista te preguntan qué harías si un sistema requerido falla en crucero RVSM. ¿Cuál es el orden correcto de tu respuesta?
-- A) Comunicar al ATC, identificar la falla, controlar la aeronave y consultar el QRH.
-- B) Controlar la aeronave, identificar la falla, aplicar QRH y SOP, determinar la capacidad, informar al ATC y coordinar.
-- C) Declarar emergencia, descender y comunicar al aterrizar.
-- D) Consultar la MEL en vuelo y continuar hasta el destino.
-**Correcta:** B · **Tema:** R25 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2 y numeral B.3.6
+- A) Declarar emergencia, descender y comunicar al aterrizar.
+- B) Consultar la MEL en vuelo y continuar hasta el destino.
+- C) Comunicar al ATC, identificar la falla, controlar la aeronave, consultar el QRH y después determinar si se conserva la capacidad.
+- D) Controlar la aeronave, identificar la falla, aplicar QRH y SOP, determinar la capacidad, informar al ATC y coordinar.
+**Correcta:** D · **Tema:** R25 · **Referencia:** FAA AC 91-85B, Apéndice B, Tabla B-2 y numeral B.3.6
 **Explicación:** Aviar, navegar, comunicar. Se mantiene el nivel en lo posible mientras se evalúa, se vigila el tráfico, se identifica la falla, se aplican QRH y SOP, se concluye si se conserva la capacidad, se informa al ATC tan pronto la situación lo permita y se coordina la nueva autorización.
 
 ---
