@@ -2230,7 +2230,8 @@
 }
 
 /* Los niveles: apagada, pequeña, definida, dorada, intensa y la de 30+. */
-.racha-pildora[data-nivel="0"] {
+.racha-pildora[data-nivel="0"],
+.logros-racha[data-nivel="0"] {
   --racha-base: oklch(0.72 0 0);
   --racha-punta: oklch(0.84 0 0);
   --racha-nucleo: oklch(0.94 0 0);
@@ -2239,24 +2240,28 @@
   background: var(--muted);
   border-color: var(--border);
 }
-.racha-pildora[data-nivel="1"] {
+.racha-pildora[data-nivel="1"],
+.logros-racha[data-nivel="1"] {
   --racha-escala: 0.86;
 }
-.racha-pildora[data-nivel="3"] {
+.racha-pildora[data-nivel="3"],
+.logros-racha[data-nivel="3"] {
   --racha-base: oklch(0.72 0.18 60);
   --racha-punta: oklch(0.88 0.16 92);
   --racha-nucleo: oklch(0.97 0.06 95);
   --racha-escala: 1.06;
   --racha-halo: 0 0 12px -2px oklch(0.85 0.17 85 / 45%);
 }
-.racha-pildora[data-nivel="4"] {
+.racha-pildora[data-nivel="4"],
+.logros-racha[data-nivel="4"] {
   --racha-base: oklch(0.62 0.22 35);
   --racha-punta: oklch(0.84 0.17 78);
   --racha-nucleo: oklch(0.95 0.1 90);
   --racha-escala: 1.12;
   --racha-halo: 0 0 16px -2px oklch(0.75 0.2 50 / 50%);
 }
-.racha-pildora[data-nivel="5"] {
+.racha-pildora[data-nivel="5"],
+.logros-racha[data-nivel="5"] {
   --racha-base: oklch(0.58 0.23 28);
   --racha-punta: oklch(0.85 0.18 80);
   --racha-nucleo: oklch(0.97 0.09 95);
@@ -2290,7 +2295,8 @@
     racha-crece 480ms cubic-bezier(0.34, 1.4, 0.64, 1) 340ms both,
     racha-respira 2.5s ease-in-out 900ms infinite;
 }
-.racha-pildora[data-nivel="0"] .racha-cuerpo {
+.racha-pildora[data-nivel="0"] .racha-cuerpo,
+.logros-racha[data-nivel="0"] .racha-cuerpo {
   animation: racha-crece 480ms cubic-bezier(0.34, 1.4, 0.64, 1) 340ms both;
 }
 .racha-chispa {
@@ -2317,12 +2323,16 @@
   animation-duration: 7.5s;
   animation-delay: 5s;
 }
-.racha-pildora[data-nivel="0"] .racha-brasa {
+.racha-pildora[data-nivel="0"] .racha-brasa,
+.logros-racha[data-nivel="0"] .racha-brasa {
   display: none;
 }
 .racha-pildora[data-nivel="4"] .racha-brasa-2,
 .racha-pildora[data-nivel="5"] .racha-brasa-2,
-.racha-pildora[data-nivel="5"] .racha-brasa-3 {
+.racha-pildora[data-nivel="5"] .racha-brasa-3,
+.logros-racha[data-nivel="4"] .racha-brasa-2,
+.logros-racha[data-nivel="5"] .racha-brasa-2,
+.logros-racha[data-nivel="5"] .racha-brasa-3 {
   display: block;
 }
 .racha-cifra {
@@ -2434,5 +2444,193 @@
   .racha-chispa,
   .racha-brasa {
     display: none;
+  }
+}
+
+/* === Logros: la sala de trofeos ===
+   La página de logros se ve como la sala de trofeos de una consola: la
+   tarjeta del piloto con su nivel y su XP, la racha con su llama, las
+   misiones que tiene más cerca y la vitrina. Las insignias son las de
+   siempre (components/logros/InsigniaLogro.tsx): aquí solo se les pone
+   escenario. Cifras en Archivo, la del titular del lector; rótulos en mono
+   espaciado, como en el resto de la app. Sin rebotes: la misma curva de
+   siempre. */
+.logros-display {
+  font-family: "Archivo Variable", "Archivo", var(--font-sans);
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.02em;
+}
+.logros-rotulo {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+}
+
+/* La tarjeta del piloto: el navy de la marca, con la luz del acento arriba a
+   la izquierda, un reflejo champán abajo y una rejilla de pista muy tenue. */
+.logros-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(110% 90% at 0% 0%, rgb(58 110 165 / 50%), transparent 55%),
+    radial-gradient(40% 70% at 74% 48%, rgb(207 174 95 / 13%), transparent 70%),
+    linear-gradient(160deg, #10284a 0%, #0b1e3a 55%, #07152a 100%);
+  box-shadow: 0 30px 60px -32px rgb(11 30 58 / 60%), inset 0 1px 0 rgb(255 255 255 / 8%);
+}
+.logros-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 5%) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(80% 90% at 75% 35%, #000, transparent 75%);
+}
+.dark .logros-hero {
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 9%);
+}
+
+/* La vitrina: cada grupo ocupa lo que piden sus trofeos y los grupos
+   cortos se ponen uno al lado del otro, con trofeos del mismo ancho. */
+.logros-grupos {
+  --trofeo: 150px;
+}
+@container (min-width: 48rem) {
+  .logros-grupos {
+    --trofeo: 200px;
+  }
+}
+
+/* Barras y anillo: se llenan al montar. */
+.logros-llenado {
+  transition:
+    width 900ms var(--ease-av),
+    stroke-dashoffset 1100ms var(--ease-av);
+}
+
+/* El metal llega por variables (estiloDeMetal). En oscuro el texto pasa al
+   brillo, que es el que se lee sobre la tarjeta oscura. */
+[data-metal] {
+  --metal-texto: var(--metal-tinta);
+}
+.dark [data-metal] {
+  --metal-texto: var(--metal-brillo);
+}
+.logros-pastilla {
+  color: var(--metal-texto);
+  background: color-mix(in oklab, var(--metal-cuerpo) 16%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--metal-cuerpo) 38%, transparent);
+}
+
+/* El trofeo en la vitrina: pedestal con el halo de su metal y, al pasar por
+   encima, se levanta y gira un poco, como una carta que se toma. */
+.logros-trofeo {
+  transition:
+    transform 300ms var(--ease-av),
+    box-shadow 300ms var(--ease-av);
+}
+.logros-trofeo[data-ganado="true"] {
+  border-color: color-mix(in oklab, var(--metal-cuerpo) 45%, var(--border));
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--metal-brillo) 26%, transparent), transparent 60%),
+    var(--card);
+}
+.dark .logros-trofeo[data-ganado="true"] {
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--metal-cuerpo) 14%, transparent), transparent 60%),
+    var(--card);
+}
+.logros-trofeo:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 4%),
+    0 16px 32px -18px rgb(0 0 0 / 22%);
+}
+.logros-pedestal {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.logros-pedestal::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--metal-brillo) 75%, transparent), transparent);
+  opacity: 0;
+  transition:
+    opacity 400ms var(--ease-av),
+    transform 400ms var(--ease-av);
+}
+[data-ganado="true"] .logros-pedestal::before {
+  opacity: 0.9;
+}
+.dark [data-ganado="true"] .logros-pedestal::before {
+  opacity: 0.35;
+}
+.logros-trofeo:hover .logros-pedestal::before {
+  transform: scale(1.12);
+}
+.logros-insignia {
+  position: relative;
+  transition:
+    transform 400ms var(--ease-av),
+    filter 400ms var(--ease-av);
+}
+.logros-trofeo[data-ganado="true"]:hover .logros-insignia {
+  transform: translateY(-2px) scale(1.06) rotate(-4deg);
+  filter: drop-shadow(0 10px 12px color-mix(in oklab, var(--metal-sombra) 40%, transparent));
+}
+
+/* La llama grande de la tarjeta de racha. Sus colores y su tamaño los da el
+   nivel, con las mismas reglas que la píldora de la barra (arriba). */
+.logros-racha {
+  --racha-base: oklch(0.68 0.2 45);
+  --racha-punta: oklch(0.86 0.17 85);
+  --racha-nucleo: oklch(0.96 0.08 95);
+  --racha-escala: 1;
+  --racha-halo: 0 0 0 0 transparent;
+  background: radial-gradient(circle at 50% 75%, oklch(0.94 0.07 80), oklch(0.985 0.015 80) 70%);
+  border: 1px solid oklch(0.82 0.16 78 / 35%);
+  box-shadow: var(--racha-halo);
+}
+.dark .logros-racha {
+  background: radial-gradient(circle at 50% 75%, oklch(0.36 0.07 60), oklch(0.26 0.04 260) 70%);
+  border-color: oklch(1 0 0 / 10%);
+}
+.logros-racha .racha-llama {
+  width: 44px;
+  height: 52px;
+  overflow: visible;
+  transform: scale(var(--racha-escala));
+  transform-origin: 50% 90%;
+}
+/* Los días de la semana: encendido el que tuvo estudio. */
+.logros-dia[data-activo="true"] {
+  color: oklch(0.45 0.15 55);
+  background: linear-gradient(180deg, oklch(0.9 0.12 85), oklch(0.8 0.16 65));
+  box-shadow: inset 0 -2px 0 oklch(0.7 0.17 55 / 45%);
+}
+.dark .logros-dia[data-activo="true"] {
+  color: oklch(0.25 0.06 55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logros-llenado,
+  .logros-trofeo,
+  .logros-insignia,
+  .logros-pedestal::before {
+    transition: none;
+  }
+  .logros-trofeo:hover,
+  .logros-trofeo[data-ganado="true"]:hover .logros-insignia,
+  .logros-trofeo:hover .logros-pedestal::before {
+    transform: none;
   }
 }

@@ -1,6 +1,13 @@
 import { createElement, useId } from "react"
 import { Lock } from "lucide-react"
-import { cifraDeLogro, glifoDeLogro, tipoDeLogro, type NivelDeLogro, type TipoDeLogro } from "@/lib/logros"
+import {
+  METAL_DE_NIVEL as METAL,
+  cifraDeLogro,
+  glifoDeLogro,
+  tipoDeLogro,
+  type NivelDeLogro,
+  type TipoDeLogro,
+} from "@/lib/logros"
 
 /**
  * La insignia de un logro, dibujada: marco de metal según el nivel, forma según
@@ -11,14 +18,6 @@ import { cifraDeLogro, glifoDeLogro, tipoDeLogro, type NivelDeLogro, type TipoDe
  * Lienzo de 100 × 100. El centro es la misma forma escalada al 84 %, así el
  * filo de metal tiene el mismo grosor en las cinco formas.
  */
-
-/** Tres paradas por metal: sombra, cuerpo y brillo. Croma bajo a propósito (ver lib/logros.ts). */
-const METAL: Record<NivelDeLogro, [string, string, string]> = {
-  bronze: ["#7A4E33", "#B98459", "#E6C19C"],
-  silver: ["#6F7A89", "#B6BFCB", "#EDF0F4"],
-  gold: ["#8C6A2B", "#CFAE5F", "#F2E2B1"],
-  platinum: ["#56708F", "#A9BFD8", "#E8F0F9"],
-}
 
 const FORMA: Record<Exclude<TipoDeLogro, "dominio">, string> = {
   // Medallón.
