@@ -31,7 +31,7 @@ function Lienzo({ etiqueta, children }: { etiqueta: string; children: React.Reac
         height={H}
         viewBox={`0 0 ${W} ${H}`}
         xmlns="http://www.w3.org/2000/svg"
-        style={{ background: PAPEL, fontFamily: "Inter, Helvetica, Arial, sans-serif" }}
+        style={{ background: PAPEL, fontFamily: "'Inter Variable', Inter, Helvetica, Arial, sans-serif" }}
       >
         {children}
       </svg>

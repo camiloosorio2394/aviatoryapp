@@ -111,7 +111,7 @@ export function InsigniaLogro({
             x="50"
             y="75"
             textAnchor="middle"
-            fontFamily="'Playfair Display', Georgia, serif"
+            fontFamily="'Playfair Display Variable', 'Playfair Display', Georgia, serif"
             fontWeight="700"
             fontSize="15"
             fill={conseguido ? cuerpo : "#9AA3AF"}

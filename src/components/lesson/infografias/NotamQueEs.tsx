@@ -146,7 +146,7 @@ export function NotamQueEs() {
             position: "absolute",
             left: 45,
             top: 34,
-            fontFamily: "'Archivo', Inter, sans-serif",
+            fontFamily: "'Archivo Variable', 'Archivo', 'Inter Variable', Inter, sans-serif",
             whiteSpace: "nowrap",
             fontSize: 69,
             fontWeight: 800,

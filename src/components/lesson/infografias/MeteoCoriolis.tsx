@@ -54,7 +54,7 @@ const SECUNDARIO = "#4A5460"
 const LINEA = "#C9C3B7"
 const ACENTO = "#1A4A52"
 
-const MONO = '"JetBrains Mono", ui-monospace, "SF Mono", monospace'
+const MONO = '"JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "SF Mono", monospace'
 
 const IZQ = 56
 const DER = W - IZQ
@@ -232,7 +232,7 @@ export function MeteoCoriolis() {
         height={H}
         viewBox={`0 0 ${W} ${H}`}
         xmlns="http://www.w3.org/2000/svg"
-        style={{ background: PAPEL, fontFamily: "Inter, Helvetica, Arial, sans-serif" }}
+        style={{ background: PAPEL, fontFamily: "'Inter Variable', Inter, Helvetica, Arial, sans-serif" }}
       >
         {/* ── Hemisferio norte ───────────────────────────────────────────── */}
         <Rotulo x={IZQ} y={72}>
