@@ -57,10 +57,10 @@ describe("la tabla de materias del PCA", () => {
     expect(el.textContent).toContain("Motores")
   })
 
-  it("las nueve materias con foto son materias del banco", () => {
+  it("las once materias con foto son materias del banco", () => {
     // Que cada archivo exista en disco lo comprueba scripts/pca/fotos-materias.test.ts,
     // porque el tsconfig de src no trae los tipos de Node.
-    expect(MATERIAS_CON_FOTO).toHaveLength(9)
+    expect(MATERIAS_CON_FOTO).toHaveLength(11)
     for (const slug of MATERIAS_CON_FOTO) {
       expect(SUBJECT_META[slug], `${slug} no está en SUBJECT_META`).toBeDefined()
     }

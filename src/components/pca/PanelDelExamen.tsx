@@ -17,15 +17,30 @@ import { CalendarClock, Check, X } from "lucide-react"
  */
 const fecha = new Intl.DateTimeFormat("es-CO", { day: "numeric", month: "short", year: "numeric" })
 
+export interface CifraDelPanel {
+  rotulo: string
+  /** `null` = no hay dato todavía: va un guion, nunca un cero. */
+  valor: string | null
+  /** Por debajo de un mínimo: la cifra va en ámbar, que aquí sí es aviso. */
+  aviso?: boolean
+}
+
 export function PanelDelExamen({
   dias,
   fechaExamen,
   onGuardar,
+  cifras,
 }: {
   /** Días que faltan; negativo si ya pasó; null si no hay fecha. */
   dias: number | null
   fechaExamen: string | null
   onGuardar: (fecha: string) => Promise<boolean>
+  /**
+   * Las cifras del piloto en filas pequeñas bajo la fecha: cobertura, dominio,
+   * simulacros y racha. Ocupaban una sección entera («Tus números») debajo del
+   * hero; Camilo pidió tenerlas aquí, reducidas, que es donde ya mira la fecha.
+   */
+  cifras?: CifraDelPanel[]
 }) {
   const [editando, setEditando] = useState(false)
   const [valor, setValor] = useState("")
@@ -47,6 +62,7 @@ export function PanelDelExamen({
   // La fecha llega como "AAAA-MM-DD": sin hora, new Date() la leería como
   // medianoche UTC, que en Colombia es el día anterior.
   const fechaLegible = fechaExamen ? fecha.format(new Date(fechaExamen + "T00:00:00")) : null
+  const mostrarFecha = fechaLegible !== null && dias !== null && dias >= 0
 
   return (
     <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] @4xl:self-center">
@@ -120,12 +136,28 @@ export function PanelDelExamen({
         )}
       </div>
 
-      {fechaLegible && dias !== null && dias >= 0 && !editando && (
+      {!editando && (mostrarFecha || (cifras && cifras.length > 0)) && (
         <dl className="m-0 border-t border-white/10 px-4 py-3 text-[12px] leading-[1.5]">
-          <div className="flex items-baseline justify-between gap-3">
-            <dt className="text-white/72">Fecha</dt>
-            <dd className="m-0 font-semibold text-white/85">{fechaLegible}</dd>
-          </div>
+          {mostrarFecha && (
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="text-white/72">Fecha</dt>
+              <dd className="m-0 font-semibold text-white/85">{fechaLegible}</dd>
+            </div>
+          )}
+          {cifras?.map((c, i) => (
+            <div
+              key={c.rotulo}
+              className={`flex items-baseline justify-between gap-3${i > 0 || mostrarFecha ? " mt-1" : ""}`}
+            >
+              <dt className="text-white/72">{c.rotulo}</dt>
+              <dd
+                className="tabular m-0 font-semibold"
+                style={{ color: c.aviso ? "var(--av-amber-400)" : "rgb(255 255 255 / 0.9)" }}
+              >
+                {c.valor ?? "—"}
+              </dd>
+            </div>
+          ))}
         </dl>
       )}
     </div>
