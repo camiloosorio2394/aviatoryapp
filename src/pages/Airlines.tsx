@@ -13,6 +13,7 @@ import { useSession } from "@/hooks/useSession"
 import { MisPostulaciones } from "@/components/postulaciones/MisPostulaciones"
 import { PageHeader } from "@/components/ui/page-header"
 import { KpiRing } from "@/components/ui/kpi-ring"
+import { LogoAerolinea } from "@/components/LogoAerolinea"
 import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
 
 interface MatchCheck {
@@ -269,8 +270,6 @@ function AirlineCard({
   missing: number
   ready: boolean
 }) {
-  const brand = airline.brand_color ?? TILE_COLOR.blue
-  const code = airline.code ?? airline.name.slice(0, 2).toUpperCase()
   const ringColor = matchPct > 60 ? "blue" : matchPct > 40 ? "amber" : "red"
 
   return (
@@ -278,11 +277,8 @@ function AirlineCard({
     <div className="relative overflow-hidden rounded-2xl surface p-5">
       <div className="relative">
         <div className="flex justify-between items-start gap-3">
-          <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center font-semibold text-[17px] tracking-[-0.02em] text-white"
-            style={{ background: brand }}
-          >
-            {code}
+          <div className="flex h-16 items-center">
+            <LogoAerolinea aerolinea={airline} className="h-7" />
           </div>
           {ready ? (
             <KpiRing value={matchPct} max={100} size={64} trailing="%" color={ringColor} />
