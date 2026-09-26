@@ -59,11 +59,11 @@ const CODIGO: DocScreen[] = [
         kind: "check",
         question: "En despacho aparece un SPECI posterior al METAR de tu destino. ¿Qué haces?",
         options: [
-          "Supongo que el tiempo empeoró y cancelo sin leerlo",
           "Comparo su hora y sus grupos con el METAR anterior y reevalúo la operación",
-          "Ignoro el SPECI porque solo el informe de rutina sirve para planear",
+          "Supongo que el tiempo empeoró y cancelo, porque un SPECI siempre anuncia un deterioro",
+          "Reviso solo el METAR de rutina, porque el SPECI no sirve para planear la operación",
         ],
-        answer: 1,
+        answer: 0,
         explain:
           "Un SPECI refleja una observación especial de acuerdo con criterios del servicio meteorológico. Puede señalar cambios relevantes, no necesariamente un empeoramiento. Lee la hora y los grupos que cambiaron, y revisa sus consecuencias para mínimos, pista y ruta.",
       },
@@ -152,8 +152,8 @@ const CODIGO: DocScreen[] = [
       {
         kind: "check",
         question: "En `METAR SKBO 261300Z 09006KT 9999 SCT023 BKN080 14/09 Q1027 NOSIG`, ¿a qué hora local de Colombia se tomó la observación?",
-        options: ["A las 13:00", "A las 08:00", "A las 18:00"],
-        answer: 1,
+        options: ["A las 13:00", "A las 18:00", "A las 08:00"],
+        answer: 2,
         explain:
           "`261300Z` sitúa la observación el día 26 a las 13:00 UTC. Colombia usa UTC menos cinco horas, por lo que corresponde a las 08:00 locales. La `Z` indica la referencia horaria universal del informe.",
       },
@@ -252,11 +252,11 @@ const CODIGO: DocScreen[] = [
         question:
           "En este ejercicio el eje de la pista 09 es 090° verdaderos. El METAR dice `27015G28KT`. ¿Cómo interpretas el viento?",
         options: [
-          "Viento de cara de 15 nudos; las ráfagas ayudan a frenar",
           "Viento de cola: media de 15 nudos y ráfaga reportada de 28; verifico límites y procedimiento",
-          "Viento cruzado puro de 28 nudos por la derecha",
+          "Viento de cara de 15 nudos; verifico que las ráfagas no superen el límite",
+          "Viento cruzado puro de 28 nudos, que entra por la derecha de la pista",
         ],
-        answer: 1,
+        answer: 0,
         explain:
           "El viento viene **desde** 270° y, bajo la referencia verdadera fijada en el ejercicio, la pista 09 apunta a 090°: es viento de cola. El informe aporta media de 15 nudos y ráfaga de 28; comprueba cómo se aplican al límite de cola y al cálculo de aterrizaje según el manual y el operador.",
       },
@@ -348,11 +348,11 @@ const CODIGO: DocScreen[] = [
         question:
           "Ejemplo didáctico: el METAR indica visibilidad predominante `0800` y `R28L/1200`. La aproximación a la 28L tiene un mínimo expresado en RVR. ¿Qué comparas primero con ese mínimo?",
         options: [
-          "Los 800 m de visibilidad predominante; el RVR no sirve para la pista",
-          "Los 1.200 m de RVR de la 28L; además verifico condiciones y requisitos de la operación",
+          "Los 800 m de visibilidad predominante, y verifico el RVR solo como dato informativo de la pista",
           "El promedio de ambos valores: 1.000 m",
+          "Los 1.200 m de RVR de la 28L; además verifico condiciones y requisitos de la operación",
         ],
-        answer: 1,
+        answer: 2,
         explain:
           "Para un mínimo publicado en RVR de la 28L, compara el valor vigente de esa pista y los demás puntos exigidos por el procedimiento. `0800` describe la visibilidad predominante del aeródromo y no se promedia con el RVR. Ninguno de los dos números, aislado, autoriza continuar hasta el aterrizaje.",
       },
@@ -498,11 +498,11 @@ const CODIGO: DocScreen[] = [
         kind: "check",
         question: "¿Qué significa `VCTS` y por qué no es lo mismo que `TS`?",
         options: [
-          "Tormenta muy fuerte: la V es de violenta",
           "Tormenta en la vecindad del aeródromo, no sobre la estación",
-          "Tormenta con visibilidad reducida",
+          "Tormenta con visibilidad reducida en la pista",
+          "Tormenta muy fuerte: la V es de violenta y exige más separación",
         ],
-        answer: 1,
+        answer: 0,
         explain:
           "`VC` significa **en la vecindad** (vicinity): la tormenta se observó cerca del aeródromo, no sobre el punto de observación en ese momento. No fija su trayectoria ni asegura que las pistas estén libres de ráfagas; consulta radar, avisos y reportes recientes antes de decidir.",
       },
@@ -641,7 +641,7 @@ const CODIGO: DocScreen[] = [
         options: [
           "800 ft, la capa más baja",
           "2500 ft, la primera capa BKN u OVC",
-          "9000 ft, la capa cubierta",
+          "9000 ft, la capa que cubre todo el cielo",
         ],
         answer: 1,
         explain:
@@ -784,11 +784,11 @@ const CODIGO: DocScreen[] = [
         question:
           "Amanece con `06/06` y viento en calma. ¿Qué puedes concluir del grupo temperatura–rocío?",
         options: [
-          "La temperatura y el rocío no sirven para evaluar cambios de visibilidad",
-          "Hay aire próximo a saturación; debo comprobar visibilidad, nubes y tendencia antes de inferir niebla",
-          "La niebla y el cierre de la pista son inevitables en la próxima hora",
+          "La temperatura y el rocío no sirven para evaluar cambios de visibilidad; eso lo dice solo el grupo de visibilidad",
+          "La niebla y el cierre de la pista son inevitables en la próxima hora, porque el aire ya está saturado",
+          "Hay aire próximo a saturación; compruebo visibilidad, nubes y tendencia antes de inferir niebla",
         ],
-        answer: 1,
+        answer: 2,
         explain:
           "`06/06` indica temperatura y punto de rocío iguales a la precisión reportada: aire cercano a saturación. Puede favorecer niebla bajo condiciones adecuadas, pero no garantiza su formación, ubicación ni momento. Revisa visibilidad, cobertura, TAF y reportes recientes.",
       },
@@ -898,7 +898,7 @@ const CODIGO: DocScreen[] = [
         options: [
           "Ninguna: ambas garantizan 3000 m durante toda la hora",
           "`BECMG` establece la nueva condición; `TEMPO` describe episodios temporales durante la ventana",
-          "`BECMG` expresa una probabilidad de 40 % y `TEMPO` de 60 %",
+          "`BECMG` expresa una probabilidad del 40 % y `TEMPO` una del 60 %, así que `TEMPO` pesa más para el alterno",
         ],
         answer: 1,
         explain:
@@ -1003,11 +1003,11 @@ const CODIGO: DocScreen[] = [
         question:
           "En este METAR didáctico ficticio, `VRB03KT 9999 FEW018 BKN030TCU 26/23 Q1010 NOSIG`, ¿qué grupo exige revisar convección por separado?",
         options: [
-          "`NOSIG`: asegura que la convección ya terminó",
           "`BKN030TCU`: la capa contiene cúmulos en torre y requiere evaluar posición y evolución",
-          "`VRB03KT`: garantiza que no hay componente cruzada",
+          "`NOSIG`: asegura que la convección ya terminó",
+          "`VRB03KT`: el viento variable y flojo garantiza que no habrá componente cruzada ni cizalladura en la pista",
         ],
-        answer: 1,
+        answer: 0,
         explain:
           "`BKN030TCU` reporta una capa fragmentada con cúmulos en torre a 3000 ft sobre el aeródromo. Esa convección merece revisar ubicación y evolución; no implica que se vuelva cumulonimbo ni que todas las amenazas estén sobre la pista. `NOSIG` no elimina una condición ya observada.",
       },
@@ -1136,11 +1136,11 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
         question:
           "En el briefing tienes un TAF del destino emitido hace tres horas y llega un `TAF AMD`. ¿Qué haces con el primero?",
         options: [
-          "Los comparo y me quedo con el que sea más favorable",
           "El AMD sustituye al anterior: el viejo deja de valer",
-          "El AMD solo aplica si cambia el periodo de validez",
+          "Me quedo con el más favorable de los dos",
+          "El AMD solo aplica si cambia el periodo de validez; si no, sigue valiendo el primero",
         ],
-        answer: 1,
+        answer: 0,
         explain:
           "La enmienda sustituye al TAF previo durante el resto de su periodo de validez. Identifica qué cambió y actualiza la planificación del destino, alterno y combustible según tu operación; no elijas la versión más favorable.",
       },
@@ -1258,11 +1258,11 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
         question:
           "Un TAF dice `... 25010KT 9999 SCT030 BECMG 1215/1217 3000 BR`. A las 1218Z, ¿qué viento esperas?",
         options: [
-          "No se sabe: el BECMG anuló las condiciones anteriores",
+          "No se sabe: el BECMG anuló todas las condiciones anteriores, igual que un FM",
+          "Calma, porque el viento no se menciona",
           "25010KT, porque el BECMG solo cambió visibilidad y tiempo presente",
-          "Calma, porque no se menciona",
         ],
-        answer: 1,
+        answer: 2,
         explain:
           "Al terminar la ventana `BECMG`, solo se modifican los grupos incluidos: 3000 m de visibilidad y neblina (`BR`). El viento y las nubes previstos se mantienen del tramo anterior. Un `FM`, en cambio, abriría una nueva descripción completa.",
       },
@@ -1394,11 +1394,11 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
         question:
           "Después del `FM160300 09006KT 1200 BR OVC006`, ¿qué pasa con el techo de 1.000 pies que traía el TEMPO anterior?",
         options: [
-          "Sigue vigente hasta que otro grupo lo cambie",
           "Deja de aplicar: el FM sustituye por completo lo anterior",
-          "Se promedia con el nuevo OVC006",
+          "Sigue vigente hasta que otro grupo lo cambie",
+          "Se combina con el nuevo OVC006 y queda el más bajo",
         ],
-        answer: 1,
+        answer: 0,
         explain:
           "A las 03:00 UTC del día 16, `FM160300` abre un tramo nuevo con viento, visibilidad, tiempo y nubes completos. El `TEMPO` anterior ya terminó a las 02:00, y su techo de 1000 ft no se arrastra al nuevo tramo. Luego evalúa los grupos posteriores, como `PROB30`.",
       },
@@ -1497,11 +1497,11 @@ TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020
         question:
           "Un `TEMPO` con visibilidad inferior a los mínimos aplicables solapa tu llegada. ¿Cómo lo consideras para planificar el alterno?",
         options: [
-          "Lo ignoro porque el tramo predominante tiene mejor visibilidad",
           "Evalúo su ventana y aplico el criterio de alternos aprobado para mi operación",
-          "Cancelo el vuelo automáticamente, sin revisar mínimos ni alternativas",
+          "Lo ignoro, porque el tramo predominante tiene mejor visibilidad",
+          "Cancelo el vuelo de inmediato, sin revisar mínimos ni alternativas",
         ],
-        answer: 1,
+        answer: 0,
         explain:
           "El `TEMPO` describe fluctuaciones esperadas en esa ventana y puede coincidir con tu hora de uso. No lo ignores ni inventes una regla universal: compara los valores con tus mínimos y aplica la política de alternos, tiempo de uso y combustible aprobada para el operador.",
       },

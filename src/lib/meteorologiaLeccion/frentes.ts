@@ -57,9 +57,9 @@ export const PARTE_FRENTES: DocScreen[] = [
         question:
           "Una masa polar continental se desplaza sobre una superficie mucho más cálida. ¿Cuál es la interpretación más prudente?",
         options: [
-          "Siempre habrá estratos y niebla por su origen polar",
-          "El calentamiento desde abajo puede aumentar la mezcla y la convección; compruebo humedad y condiciones observadas antes de esperar chubascos o buena visibilidad",
-          "La masa conservará exactamente sus propiedades de origen durante todo el trayecto",
+          "Siempre habrá estratos y niebla por su origen polar, aunque la superficie esté caliente",
+          "El calentamiento desde abajo puede aumentar la mezcla y la convección; compruebo humedad y observaciones antes de esperar chubascos",
+          "La masa conservará exactamente sus propiedades de origen durante todo el trayecto sobre la superficie cálida",
         ],
         answer: 1,
         explain:
@@ -353,11 +353,11 @@ export const PARTE_FRENTES: DocScreen[] = [
         question:
           "El análisis sitúa un frente frío lejos de tu ruta. ¿Puedes concluir que también están lejos las tormentas?",
         options: [
-          "Sí: toda tormenta coincide exactamente con la línea frontal de la carta",
+          "Sí: toda tormenta asociada coincide exactamente con la línea frontal que muestra la carta de análisis",
+          "Sí, si lo confirma el pronóstico vigente del destino con buena visibilidad y techos altos a la hora de llegada",
           "No: puede haber convección prefrontal; verifico radar, avisos y tendencia para mi ruta y hora",
-          "Sí, si el pronóstico del destino muestra buena visibilidad",
         ],
-        answer: 1,
+        answer: 2,
         explain:
           "La convección puede desarrollarse delante del frente frío. La línea frontal no es el borde de todos sus peligros y no existe una distancia fija que garantice seguridad. Comprueba información vigente para toda la ruta.",
       },
@@ -616,11 +616,11 @@ export const PARTE_FRENTES: DocScreen[] = [
         question:
           "El radar muestra una línea de tormentas sobre la ruta prevista y un hueco estrecho entre ecos intensos. ¿Qué haces antes de aceptar ese paso?",
         options: [
-          "Cruzo por el hueco: donde el radar no muestra lluvia tampoco hay turbulencia",
-          "Evalúo separación, tendencia, atenuación del radar y ruta alternativa con tripulación y control; si no hay corredor seguro, no lo cruzo",
-          "Espero a que anochezca, porque la convección deja de ser peligrosa al perder calentamiento solar",
+          "Cruzo por el hueco, porque donde el radar no muestra lluvia tampoco hay turbulencia",
+          "Espero a que anochezca, porque la convección deja de ser peligrosa al perder el calentamiento solar",
+          "Evalúo separación, tendencia, atenuación del radar y ruta alternativa con tripulación y control; si no hay corredor seguro, no cruzo",
         ],
-        answer: 1,
+        answer: 2,
         explain:
           "Un hueco visual o en la presentación del radar no garantiza separación de turbulencia, granizo ni nuevas células. Verifica la evolución y los límites del radar, coordina una alternativa viable y conserva combustible y alternos. Si no hay paso seguro, cambia la ruta o demora la operación.",
       },
