@@ -35,6 +35,7 @@ esa forma.
 | `resumenes.sql` | `bitacora_resumen` e `icao_progreso()` cuentan más de 1000 filas y solo las del piloto. |
 | `horas_de_carrera.sql` | Las horas previas más la bitácora, la verificación y lo que el piloto no puede cambiar solo. |
 | `vault.sql` | El banco de la bóveda va cifrado: la tanda viaja sin respuestas, el tamaño y la posición los acota el servidor, una tanda ajena no se responde y el tope por hora frena. |
+| `convocatorias.sql` | Los pilotos con sesión leen las convocatorias y nadie las escribe desde el cliente; `anon` no ve nada; las revisiones están cerradas; `private.convocatoria_manual` abre y cierra conservando los requisitos y solo corre desde el editor SQL; la llave del Vault solo la valida `service_role` y la tarea `aviatory_convocatorias` la manda. Con `20261001030000` y `20261001040000` aplicadas. |
 | `wingman.sql` | El cupo del tutor se cuenta por conversación y por mes, no por mensaje; lo fallido no se cobra y el historial es de cada quien. |
 
 ## Cómo se corren

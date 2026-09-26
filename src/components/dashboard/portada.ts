@@ -1,11 +1,11 @@
 /**
  * Lo que comparten las tarjetas de la portada del panel y no es un
- * componente: formatos, textos de estado y la convocatoria de cada aerolínea.
+ * componente: formatos y textos de estado. La convocatoria de cada aerolínea
+ * ya no se escribe aquí: sale de la tabla `convocatorias` (src/lib/convocatorias.ts).
  */
 import type { ComponentType, CSSProperties } from "react"
 import { AlertTriangle, CheckCircle2, XCircle } from "lucide-react"
 import type { EstadoDeDocumento } from "@/lib/licencias"
-import type { Airline } from "@/services/aerolineas"
 
 /** Horas con separador de miles, a la colombiana. */
 export const horas = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 })
@@ -28,22 +28,3 @@ export function textoDeEstado(estado: EstadoDeDocumento, dias: number | null): s
   return "Vigente"
 }
 
-/** Si la aerolínea tiene la convocatoria abierta o todavía no. */
-export type EstadoConvocatoria = "abierta" | "pendiente"
-
-/**
- * Las aerolíneas con convocatoria abierta, por código. Vacío a propósito: por
- * ahora todas salen «Pendiente por abrir». Cuando el dato viva en la base y se
- * actualice solo, esto se reemplaza por lo que venga de ahí; es el único sitio
- * que cambia.
- */
-const CONVOCATORIAS_ABIERTAS = new Set<string>()
-
-export function estadoDeConvocatoria(aerolinea: Pick<Airline, "code">): EstadoConvocatoria {
-  return aerolinea.code && CONVOCATORIAS_ABIERTAS.has(aerolinea.code) ? "abierta" : "pendiente"
-}
-
-export const TEXTO_CONVOCATORIA: Record<EstadoConvocatoria, string> = {
-  abierta: "Convocatoria abierta",
-  pendiente: "Pendiente por abrir",
-}

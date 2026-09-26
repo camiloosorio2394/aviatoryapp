@@ -178,6 +178,25 @@ correcta y la explicación. Todo va por `src/services/icaoQuiz.ts`.
   de producción; lo que no calzaba y cómo se alineó está en
   `supabase/HISTORIAL_DE_MIGRACIONES.md`.
 
+## Convocatorias de las aerolíneas
+
+El aviso «Convocatoria abierta» y el botón «Ver requisitos» (portada y Elegibilidad) leen la tabla
+`convocatorias`. La llena la función de borde `supabase/functions/revisar-convocatorias`, que pg_cron
+llama cada 6 horas con la llave del Vault (`x-llave`); no pide JWT y se frena sola si la llaman
+antes de 50 minutos. Cada corrida queda en `convocatorias_revisiones` con lo que leyó y lo que falló.
+
+- **Los lectores** (`lectores.ts`, sin red ni Deno) se prueban con las muestras de
+  `scripts/convocatorias/fixtures`. Si un portal cambia: se baja la muestra nueva, se ajusta el
+  lector y `npx vitest run scripts/convocatorias` dice si lo de antes sigue.
+- **Nunca se borra una fila**: lo que desaparece se marca `abierta = false`, y la última convocatoria
+  de cada aerolínea sigue sirviendo por sus requisitos. Un portal caído no cierra nada.
+- **LATAM se marca a mano** (su robots.txt prohíbe leer la lista): `private.convocatoria_manual()`
+  desde el editor SQL; el ejemplo está en la migración `20261001030000`.
+- **Los requisitos van tal como los publicó la aerolínea**, con su enlace. No se resumen ni se
+  traducen (Copa publica en inglés y la app lo dice).
+- Publicar la función: el conector de Supabase (`deploy_edge_function`) con los dos archivos y
+  `verify_jwt: false`.
+
 ## Cabeceras de seguridad (vercel.json)
 
 La app sale con una **Content-Security-Policy estricta**: scripts solo del propio dominio (y el

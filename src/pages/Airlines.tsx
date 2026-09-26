@@ -14,6 +14,10 @@ import { MisPostulaciones } from "@/components/postulaciones/MisPostulaciones"
 import { PageHeader } from "@/components/ui/page-header"
 import { KpiRing } from "@/components/ui/kpi-ring"
 import { LogoAerolinea } from "@/components/LogoAerolinea"
+import { AvisoConvocatoria, BotonRequisitos } from "@/components/convocatorias/Convocatoria"
+import { traerConvocatorias, type Convocatoria } from "@/services/convocatorias"
+import { resumenDeConvocatorias } from "@/lib/convocatorias"
+import { reportarError } from "@/lib/errores"
 import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
 
 interface MatchCheck {
@@ -34,10 +38,17 @@ export function Airlines() {
   const [airlines, setAirlines] = useState<Airline[]>([])
   const [pilot, setPilot] = useState<PilotProfile>(PERFIL_VACIO)
   const [loading, setLoading] = useState(true)
+  const [convocatorias, setConvocatorias] = useState<Convocatoria[]>([])
 
   useEffect(() => {
     let cancelled = false
     async function load() {
+      // Aparte: si fallan, cada aerolínea sale «Pendiente por abrir» y la pantalla sigue.
+      traerConvocatorias()
+        .then((lista) => {
+          if (!cancelled) setConvocatorias(lista)
+        })
+        .catch((err) => reportarError("elegibilidad: convocatorias", err))
       try {
         const { aerolineas, piloto } = await traerAerolineasYPiloto(user?.id)
         if (cancelled) return
@@ -133,6 +144,7 @@ export function Airlines() {
                   matchPct={m.matchPct}
                   missing={m.missing}
                   ready={profileReady}
+                  convocatorias={convocatorias}
                 />
               ))}
             </div>
@@ -263,13 +275,16 @@ function AirlineCard({
   matchPct,
   missing,
   ready,
+  convocatorias,
 }: {
   airline: Airline
   checks: MatchCheck[]
   matchPct: number
   missing: number
   ready: boolean
+  convocatorias: Convocatoria[]
 }) {
+  const resumen = resumenDeConvocatorias(airline.id, convocatorias)
   const ringColor = matchPct > 60 ? "blue" : matchPct > 40 ? "amber" : "red"
 
   return (
@@ -297,8 +312,9 @@ function AirlineCard({
           <MapPin className="h-2.5 w-2.5" /> {airline.country}
           {airline.code ? ` · ${airline.code}` : ""}
         </div>
-        <div className="mt-2">
-          <span className="chip">Perfil pronto</span>
+        <div className="mt-2.5 flex flex-wrap items-center justify-between gap-2">
+          <AvisoConvocatoria resumen={resumen} />
+          <BotonRequisitos aerolinea={airline} resumen={resumen} />
         </div>
 
         <div className="div-dotted my-4" />

@@ -1,15 +1,8 @@
 import { describe, expect, it } from "vitest"
-import { TEXTO_CONVOCATORIA, estadoDeConvocatoria, textoDeEstado } from "@/components/dashboard/portada"
+import { textoDeEstado } from "@/components/dashboard/portada"
 import { estadoDeDocumento, grupoDeDocumento, nombreDeDocumento } from "@/lib/licencias"
 
 describe("portada del panel", () => {
-  it("ninguna aerolínea sale con convocatoria abierta todavía", () => {
-    for (const code of ["AVA", "LAN", "CMP", "GCO", "JES", "NSE", null]) {
-      expect(estadoDeConvocatoria({ code })).toBe("pendiente")
-    }
-    expect(TEXTO_CONVOCATORIA.pendiente).toBe("Pendiente por abrir")
-  })
-
   it("el estado de un documento sale de los días que le quedan", () => {
     expect(estadoDeDocumento(null)).toBe("sin-fecha")
     expect(estadoDeDocumento(-1)).toBe("vencido")

@@ -406,3 +406,9 @@ s3_secret_key = "env(S3_SECRET_KEY)"
 # declarative_schema_path = "./database"
 # JSON string passed through to pg-delta SQL formatting.
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":80,\"commaStyle\":\"trailing\"}"
+
+# revisar-convocatorias la llama pg_cron, que no tiene sesión: no pide JWT y
+# exige su propia llave del Vault en el encabezado x-llave (migración
+# 20261001040000; ver supabase/functions/revisar-convocatorias/index.ts).
+[functions.revisar-convocatorias]
+verify_jwt = false

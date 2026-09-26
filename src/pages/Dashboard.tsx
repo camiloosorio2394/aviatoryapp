@@ -11,6 +11,8 @@ import { useRachaEnBarra } from "@/components/layout/rachaEnBarra"
 import { EstadoError } from "@/components/EstadoError"
 import { revisarVencimientos, traerInicioPanel, traerTarjetasPanel } from "@/services/panel"
 import { traerAerolineasYPiloto, type Airline } from "@/services/aerolineas"
+import { traerConvocatorias, type Convocatoria } from "@/services/convocatorias"
+import { resumenDeConvocatorias } from "@/lib/convocatorias"
 import type { PostulacionAbierta } from "@/services/panel"
 import type { PlanDeEstudio } from "@/services/planDeEstudio"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
@@ -97,6 +99,7 @@ export function Dashboard() {
   const [licenses, setLicenses] = useState<LicenseRow[]>([])
   const [preparacionPca, setPreparacionPca] = useState<PcaReadiness | null>(null)
   const [aerolineas, setAerolineas] = useState<Airline[]>([])
+  const [convocatorias, setConvocatorias] = useState<Convocatoria[]>([])
 
   useEffect(() => {
     if (!user) return
@@ -145,6 +148,12 @@ export function Dashboard() {
           if (!cancelled) setAerolineas(lista)
         })
         .catch((err) => reportarError("dashboard: aerolíneas", err))
+      // Las convocatorias también: sin ellas, cada aerolínea sale «Pendiente por abrir».
+      traerConvocatorias()
+        .then((lista) => {
+          if (!cancelled) setConvocatorias(lista)
+        })
+        .catch((err) => reportarError("dashboard: convocatorias", err))
       try {
         const tarjetas = await traerTarjetasPanel()
         revisarVencimientos()
@@ -236,14 +245,16 @@ export function Dashboard() {
       .sort((a, b) => a - b)
       .find((h) => h > (totalHoras ?? 0)) ?? null
 
-  /** Las aerolíneas en su orden, con la que el piloto eligió como objetivo primero. */
+  /**
+   * Las aerolíneas en su orden: primero las que tienen convocatoria abierta,
+   * después la que el piloto eligió como objetivo, y el resto como vienen.
+   */
   const objetivoAerolinea = pilot?.target_airline?.toLowerCase() ?? null
-  const aerolineasEnOrden = objetivoAerolinea
-    ? [...aerolineas].sort(
-        (a, b) =>
-          Number(b.name.toLowerCase().startsWith(objetivoAerolinea)) - Number(a.name.toLowerCase().startsWith(objetivoAerolinea)),
-      )
-    : aerolineas
+  const esObjetivo = (a: Airline) => (objetivoAerolinea ? a.name.toLowerCase().startsWith(objetivoAerolinea) : false)
+  const tieneAbierta = (a: Airline) => resumenDeConvocatorias(a.id, convocatorias).abiertas.length > 0
+  const aerolineasEnOrden = [...aerolineas].sort(
+    (a, b) => Number(tieneAbierta(b)) - Number(tieneAbierta(a)) || Number(esObjetivo(b)) - Number(esObjetivo(a)),
+  )
 
   /** El avance de cada módulo de Ingreso a aerolínea, en el orden de la lista. */
   const avances = MODULOS_AEROLINEA.map((m, i) => {
@@ -385,7 +396,12 @@ export function Dashboard() {
       </section>
 
       <div className="mt-10">
-        <PerfilFrenteAerolineas aerolineas={aerolineasEnOrden} horasPiloto={totalHoras} cargando={deferredLoading} />
+        <PerfilFrenteAerolineas
+          aerolineas={aerolineasEnOrden}
+          horasPiloto={totalHoras}
+          convocatorias={convocatorias}
+          cargando={deferredLoading}
+        />
       </div>
 
       <section className="mt-10 flex flex-col gap-4">
