@@ -214,4 +214,11 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    // Vite mete en el CSS como data: todo archivo de menos de 4 KB, y algunos
+    // alfabetos de las fuentes pesan menos que eso. La CSP dice font-src 'self'
+    // y el navegador bloquea las fuentes en data: (cada página dejaba errores
+    // en la consola). Las fuentes salen siempre como archivo.
+    assetsInlineLimit: (archivo) => (archivo.endsWith('.woff2') ? false : undefined),
+  },
 })
