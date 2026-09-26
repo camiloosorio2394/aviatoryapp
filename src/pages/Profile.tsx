@@ -26,6 +26,7 @@ import { validarHorasDeVuelo } from "@/lib/validacionPiloto"
 import { Field } from "@/components/perfil/Field"
 import { IcaoStatusField } from "@/components/perfil/IcaoStatusField"
 import { PermisoDictado } from "@/components/perfil/PermisoDictado"
+import { EliminarCuenta } from "@/components/perfil/EliminarCuenta"
 import { PilotCv } from "@/components/perfil/PilotCv"
 import { PilotIdCard } from "@/components/perfil/PilotIdCard"
 import { SkillsRadar } from "@/components/perfil/SkillsRadar"
@@ -554,6 +555,8 @@ export function Profile() {
         {user && <SeccionPlanDeEstudio userId={user.id} />}
 
         <PermisoDictado />
+
+        {user && <EliminarCuenta userId={user.id} />}
       </div>
     </>
   )

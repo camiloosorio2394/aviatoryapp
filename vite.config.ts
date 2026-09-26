@@ -79,6 +79,16 @@ export default defineConfig({
           'og-card.jpg',
           'og-default.png',
           'android-chrome-*.png',
+          // Las fuentes traen un archivo por alfabeto y el navegador baja solo el
+          // que usa la página (unicode-range). La app está en español: los demás
+          // alfabetos no se precargan y, si alguno hiciera falta, se bajaría solo.
+          '**/*-cyrillic-*.woff2',
+          '**/*-cyrillic-ext-*.woff2',
+          '**/*-greek-*.woff2',
+          '**/*-greek-ext-*.woff2',
+          '**/*-vietnamese-*.woff2',
+          '**/*-math-*.woff2',
+          '**/*-symbols-*.woff2',
         ],
         // Don't pre-cache API responses or auth-required pages
         navigateFallback: '/index.html',
@@ -189,16 +199,6 @@ export default defineConfig({
               cacheName: 'comunicaciones-audio-v1',
               expiration: { maxEntries: 300, maxAgeSeconds: 60 * 60 * 24 * 180 },
               cacheableResponse: { statuses: [200], headers: { 'Content-Type': 'audio/mpeg' } },
-            },
-          },
-          {
-            // Fonts: cache-first (rarely change)
-            urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*$/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'fonts-cache',
-              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
-              cacheableResponse: { statuses: [0, 200] },
             },
           },
         ],

@@ -63,7 +63,7 @@
        que en Windows y Android no resuelve: el público real de la app (pilotos
        LATAM, casi todos fuera del ecosistema Apple) veía Segoe UI o Roboto y no
        la tipografía con la que se diseñaba. */
-    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif;
+    --font-sans: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif;
     --font-heading: var(--font-sans);
 
     /* Escala tipográfica. Siete pasos, y nada fuera de aquí. Antes había una
@@ -584,7 +584,7 @@
   --panel-warn: oklch(0.85 0.15 78);
 
   /* Mono font */
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "SF Mono", monospace;
 
   /* Motion */
   /* La curva de la casa: un ease-out fuerte. Arranca rápido, que es lo que
@@ -642,8 +642,8 @@
   /* El color del isotipo y del nombre: navy sobre papel, claro sobre el navy
      del modo oscuro. */
   --marca-tinta: var(--marca-navy);
-  --font-titular: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-cifra: "Manrope", var(--font-sans);
+  --font-titular: "Playfair Display Variable", "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-cifra: "Manrope Variable", "Manrope", var(--font-sans);
 }
 .dark {
   --marca-tinta: oklch(0.95 0.012 250);
@@ -853,7 +853,7 @@
   /* El diseño usa Archivo para titulares, y la app ya la carga (700/800).
      Roboto y Roboto Mono se sustituyen por Inter y JetBrains Mono, que ya
      están cargadas y son intercambiables a estos tamaños. */
-  --mod-display: "Archivo", var(--font-sans);
+  --mod-display: "Archivo Variable", "Archivo", var(--font-sans);
 
   background: var(--mod-ground);
   color: var(--mod-text);
@@ -881,7 +881,7 @@
    alcance a la pantalla, en vez de tocar la familia global: fuera de este hub
    los titulares siguen siendo los de siempre. */
 .notam-hub .nh-display {
-  font-family: "Archivo", var(--font-sans);
+  font-family: "Archivo Variable", "Archivo", var(--font-sans);
 }
 
 /* === Sesión de psicotécnicas ===============================================
@@ -967,7 +967,7 @@
   --ln-caution-ink: #78440A;
   --ln-critical: #A81E1E;
   --ln-critical-bg: #FBEDEC;
-  --ln-display: "Archivo", var(--font-sans);
+  --ln-display: "Archivo Variable", "Archivo", var(--font-sans);
 
   /* Re-anclas para las piezas compartidas */
   --background: var(--ln-paper);
@@ -1221,7 +1221,7 @@
    letrero, y va en la misma display que los títulos del módulo.
    Archivo está cargada en 700 y 800, que es lo que piden estos tamaños. */
 .rotulo {
-  font-family: "Archivo", var(--font-sans);
+  font-family: "Archivo Variable", "Archivo", var(--font-sans);
   font-feature-settings: "ss01";
 }
 
@@ -1391,7 +1391,7 @@
    los titulares, la mono técnica en el aviso, navy y azul Aviatory, y el resto
    en grises neutros. Nada decorativo. */
 .notam-practica .np-display {
-  font-family: "Archivo", var(--font-sans);
+  font-family: "Archivo Variable", "Archivo", var(--font-sans);
   letter-spacing: -0.02em;
 }
 
@@ -1405,7 +1405,7 @@
    de los titulares del módulo, y en caja normal: el mono en versalitas se leía
    frío aquí. */
 .notam-practica .np-rotulo {
-  font-family: "Archivo", var(--font-sans);
+  font-family: "Archivo Variable", "Archivo", var(--font-sans);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: -0.01em;

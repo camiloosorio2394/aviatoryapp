@@ -1336,7 +1336,7 @@ function interrogante(x: number, y: number, ancho: number, alto: number): string
     `<text x="${x + ancho / 2}" y="${y + alto / 2}" fill="currentColor"` +
     ` text-anchor="middle" dominant-baseline="central"` +
     ` font-size="${Math.round(Math.min(ancho, alto) * 0.5)}" font-weight="700"` +
-    ` font-family="Archivo, system-ui, sans-serif">?</text>`
+    ` font-family="'Archivo Variable', Archivo, system-ui, sans-serif">?</text>`
   )
 }
 

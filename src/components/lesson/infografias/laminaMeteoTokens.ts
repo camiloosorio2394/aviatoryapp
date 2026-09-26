@@ -14,7 +14,7 @@ export const ACENTO = "#1A4A52"
 export const ACENTO_CLARO = "#2E7C89"
 export const RESALTADO = "#E4EFF1"
 
-export const MONO = '"JetBrains Mono", ui-monospace, "SF Mono", monospace'
+export const MONO = '"JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "SF Mono", monospace'
 
 /**
  * Direcciones, en radianes. El eje Y del SVG va hacia abajo, así que ABAJO es

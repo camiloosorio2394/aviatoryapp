@@ -451,3 +451,32 @@ La función de borde `revisar-convocatorias` se publicó con el conector (`verif
 como dice `supabase/config.toml`). Pruebas contra la base ya migrada: `convocatorias.sql` y
 `permisos.sql`, las dos en `PRUEBA_DESHECHA` con la lista completa. Antes de aplicarla, la
 migración se ensayó entera dentro de una transacción que se deshizo.
+
+## 26 de septiembre: la auditoría de prelanzamiento
+
+`20261002000000_autorizaciones_y_eliminacion_de_cuenta` (**pendiente de correr**).
+Hace tres cosas:
+
+- La autorización de tratamiento, con constancia de versión y fecha.
+- El consentimiento aparte para el certificado médico, que un disparador exige.
+- `eliminar_mi_cuenta`, con la política para que el piloto borre sus
+  archivos de bitácora y las dos llaves foráneas que impedían borrar a un
+  revisor.
+
+No republica ninguna de las seis funciones compartidas. Prueba:
+`supabase/tests/autorizaciones_y_eliminacion.sql`. Cuando se corra, se
+renombra con la versión registrada y sube la marca.
+
+`20261002010000_topes_y_restricciones` (**pendiente de correr**, después de la
+anterior). Cambia varias cosas:
+
+- El tope de inserciones cuenta en `private.registro_de_inserciones`, que el
+  piloto no puede borrar. Antes, borrar lo publicado devolvía el cupo.
+- Suma topes diarios a postulaciones, vuelos, licencias, respuestas habladas,
+  simulacros ICAO y verificaciones de horas.
+- Agrega restricciones `NOT VALID` de tamaño (textos y jsonb) y de forma
+  (emoji, evidencia en la carpeta propia, foto propia).
+- Pone un cupo de archivos por piloto en `avatars` y `bitacoras`.
+
+Prueba: `supabase/tests/topes_y_restricciones.sql`.
+

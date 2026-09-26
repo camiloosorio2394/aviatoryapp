@@ -45,7 +45,7 @@ export function LogoHorizontal({
         x={128}
         y={93}
         fill="currentColor"
-        fontFamily="'Playfair Display', Georgia, 'Times New Roman', serif"
+        fontFamily="'Playfair Display Variable', 'Playfair Display', Georgia, 'Times New Roman', serif"
         fontWeight={700}
         fontSize={90}
         textLength={ANCHO_NOMBRE}

@@ -11,6 +11,7 @@
  */
 
 import { supabase } from "@/integrations/supabase/client"
+import { MENSAJE_TOPE_DIARIO, esTopeDePublicaciones } from "@/lib/topes"
 import { reportarError } from "@/lib/errores"
 
 export type EstadoPostulacion = "postulada" | "en_proceso" | "contratado" | "no_quedo" | "retirada"
@@ -118,6 +119,7 @@ export async function registrarPostulacion(userId: string, datos: PostulacionNue
     postulada_en: datos.postuladaEn,
   })
   if (error) {
+    if (esTopeDePublicaciones(error)) throw new Error(MENSAJE_TOPE_DIARIO)
     reportarError("postulaciones: registrar", error)
     throw new Error("No pudimos guardar la postulación. Inténtalo de nuevo.")
   }

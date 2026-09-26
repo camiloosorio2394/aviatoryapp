@@ -12,7 +12,7 @@ export function Privacy() {
       />
       <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16 sm:py-24">
         <header className="mb-12">
-          <p className="text-[15px] text-muted-foreground">Última actualización: 18 de mayo de 2026</p>
+          <p className="text-[15px] text-muted-foreground">Última actualización: 26 de septiembre de 2026</p>
           <h1 className="mt-2 text-[32px] sm:text-[32px] font-semibold tracking-[-0.035em]">
             Política de privacidad
           </h1>
@@ -46,12 +46,23 @@ export function Privacy() {
                 totales y PIC, licencias, nivel ICAO, aerolínea objetivo.
               </li>
               <li>
+                <strong>Bitácora y documentos:</strong> tus vuelos (fecha, matrícula,
+                aeronave, ruta y tiempos), las fotos o PDF con que respaldas tus horas,
+                y tus licencias con sus vencimientos. Los archivos quedan en un
+                almacenamiento privado al que solo accedes tú.
+              </li>
+              <li>
+                <strong>Certificado médico (opcional):</strong> su clase y su
+                vencimiento, para avisarte antes de que venza. Es un dato relativo a
+                tu salud: registrarlo es voluntario y solo lo ves tú.
+              </li>
+              <li>
                 <strong>Actividad:</strong> quizzes realizados, respuestas, racha,
                 logros desbloqueados, mensajes en comunidad, reacciones.
               </li>
               <li>
-                <strong>Suscripción:</strong> plan vigente, fechas, ID de transacción
-                (cuando habilitemos pagos).
+                <strong>Suscripción:</strong> el plan de tu cuenta. Hoy todas son
+                gratuitas y no procesamos pagos.
               </li>
               <li>
                 <strong>Técnico:</strong> IP, navegador, OS (en logs estándar de
@@ -60,8 +71,9 @@ export function Privacy() {
             </ul>
             <p>
               <strong>No recolectamos:</strong> ubicación GPS precisa, contactos,
-              calendario, micrófono ni cámara. Tampoco hacemos tracking cross-site
-              con cookies de terceros.
+              calendario ni cámara. El micrófono solo se usa si activas el dictado
+              (punto 4.1), y el audio nunca llega a Aviatory. Tampoco hacemos
+              tracking cross-site con cookies de terceros.
             </p>
           </Section>
 
@@ -88,11 +100,13 @@ export function Privacy() {
             <ul className="list-disc pl-6 space-y-1.5 text-muted-foreground">
               <li>
                 <strong>Supabase</strong> (Postgres + Storage + Auth): provider de
-                infraestructura con compliance SOC 2. Region: São Paulo, Brasil.
+                infraestructura con compliance SOC 2. Región: Estados Unidos (AWS,
+                us-west-1).
               </li>
               <li>
-                <strong>Vercel</strong>: hosting del frontend (sin persistencia
-                de data personal).
+                <strong>Vercel</strong>: hosting del frontend y conteo de visitas con
+                Vercel Web Analytics, que no usa cookies ni te identifica (página,
+                navegador, tipo de dispositivo y país).
               </li>
               <li>
                 <strong>Anthropic</strong>: cuando usas Wingman (tutor IA), tu
@@ -104,6 +118,10 @@ export function Privacy() {
                 hablando en el módulo de inglés ICAO. Ver el punto 4.1.
               </li>
             </ul>
+            <p>
+              Estos proveedores están en Estados Unidos: para prestarte el servicio,
+              tus datos se transfieren allá.
+            </p>
             <p>
               Nadie del equipo Aviatory accede manualmente a tu data salvo cuando
               tú nos escribes pidiendo ayuda específica. No leemos tus mensajes
@@ -169,12 +187,13 @@ export function Privacy() {
                 el perfil.
               </li>
               <li>
-                <strong>Eliminar</strong> tu cuenta y toda tu data asociada
-                escribiéndonos a{" "}
+                <strong>Eliminar</strong> tu cuenta y tu data asociada desde tu
+                perfil (Perfil → Eliminar mi cuenta). Se borran tu perfil, tu
+                bitácora, tu progreso y tus archivos. Si no puedes hacerlo, escríbenos a{" "}
                 <a href="mailto:hola@aviatory.app" className="text-blue-600 dark:text-blue-400 hover:underline">
                   hola@aviatory.app
                 </a>{" "}
-                con asunto "Eliminar mi cuenta". Cumplimos en menos de 30 días.
+                y lo hacemos en menos de 30 días.
               </li>
               <li>
                 <strong>Exportar</strong> tu data en formato JSON. Solicítalo al
@@ -201,11 +220,13 @@ export function Privacy() {
 
           <Section title="8. Cookies y tracking">
             <p>
-              Solo usamos cookies <strong>esenciales</strong> para mantener tu sesión
-              iniciada (Supabase Auth). No usamos cookies de tracking de terceros
-              (Google Analytics, Meta Pixel, etc.) por ahora. Si en el futuro
-              agregamos analítica, te avisaremos y será privacy-friendly (PostHog
-              EU o Plausible).
+              Aviatory <strong>no usa cookies</strong>. Tu sesión, tus preferencias
+              y tu avance sin conexión se guardan en el almacenamiento local de tu
+              navegador. Para contar visitas usamos Vercel Web Analytics, que no usa
+              cookies ni te identifica. No usamos Google Analytics, Meta Pixel ni
+              publicidad. Si algún día activamos analítica de producto (PostHog),
+              solo funcionará si la aceptas en el aviso que verás, y podrás cambiar
+              tu elección desde el pie de página.
             </p>
           </Section>
 

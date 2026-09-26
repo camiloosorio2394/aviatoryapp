@@ -28,6 +28,7 @@ import { PasswordRules } from "@/components/auth/PasswordRules"
 import { Seo } from "@/components/Seo"
 import { track, Events } from "@/lib/analytics"
 import { entrarConPasskey, soportaPasskeys } from "@/services/passkeys"
+import { VERSION_TERMINOS } from "@/services/cuenta"
 
 type Mode = "signin" | "signup"
 
@@ -93,6 +94,9 @@ export function Login() {
   const [submitting, setSubmitting] = useState(false)
   const [passkeyCargando, setPasskeyCargando] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  // La autorización de tratamiento es previa y expresa (Ley 1581): una casilla
+  // que el piloto marca, no un texto que se da por aceptado al pulsar.
+  const [acepta, setAcepta] = useState(false)
   /**
    * Lo único que se guarda del usuario es la respuesta del servidor, con el
    * nombre al que contesta. Todo lo demás (vacío, formato inválido, «estoy
@@ -158,11 +162,12 @@ export function Login() {
     if (isSignup) {
       if (usernameStatus.state !== "available") return false
       if (!passwordChecks.length || !passwordChecks.digit || !passwordChecks.match) return false
+      if (!acepta) return false
     } else {
       if (!password) return false
     }
     return true
-  }, [email, isSignup, usernameStatus.state, passwordChecks, password])
+  }, [email, isSignup, usernameStatus.state, passwordChecks, password, acepta])
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -179,7 +184,13 @@ export function Login() {
           throw new Error("Ese usuario ya fue tomado mientras escribías. Prueba otro.")
         }
 
-        const { haySesion } = await registrarPiloto({ email, password, username, referralCode })
+        const { haySesion } = await registrarPiloto({
+          email,
+          password,
+          username,
+          referralCode,
+          autorizacion: VERSION_TERMINOS,
+        })
         track(Events.SIGNUP_COMPLETED, { method: "email" })
         if (haySesion) {
           navigate("/onboarding", { replace: true })
@@ -216,6 +227,12 @@ export function Login() {
 
   async function handleGoogle() {
     setError(null)
+    // Registrarse con Google también pide la casilla. La constancia de quien
+    // entra con Google se guarda al primer ingreso (AutorizacionPendiente).
+    if (isSignup && !acepta) {
+      setError("Para crear tu cuenta, marca la casilla de los Términos y la Política de privacidad.")
+      return
+    }
     track(isSignup ? Events.SIGNUP_STARTED : Events.LOGIN_COMPLETED, { method: "google" })
     const { error } = await entrarConGoogle(`${window.location.origin}/app`)
     if (error) setError(error.message)
@@ -226,7 +243,7 @@ export function Login() {
       <Seo
         path={isSignup ? "/login?mode=signup" : "/login"}
         title={isSignup ? "Crear cuenta" : "Iniciar sesión"}
-        description="Súmate a Aviatory: 7 días gratis, sin tarjeta."
+        description="Súmate a Aviatory: gratis durante el lanzamiento, sin tarjeta."
         noindex
       />
       {/* LEFT — brand panel */}
@@ -303,7 +320,7 @@ export function Login() {
             </h1>
             <p className="mt-2 text-muted-foreground">
               {isSignup
-                ? "7 días gratis. Sin tarjeta. Cancelás cuando quieras."
+                ? "Gratis durante el lanzamiento. Sin tarjeta. Sin permanencia."
                 : "Bienvenido de vuelta. Ingresa para seguir."}
             </p>
 
@@ -313,7 +330,7 @@ export function Login() {
                   🎁 Te invitó un piloto
                 </div>
                 <p className="text-muted-foreground mt-0.5 text-[12px]">
-                  Código <span className="tabular font-mono font-semibold text-foreground">{referralCode}</span> aplicado · recibes 14 días de prueba en lugar de 7
+                  Código <span className="tabular font-mono font-semibold text-foreground">{referralCode}</span> aplicado · tu registro queda a nombre de quien te invitó
                 </p>
               </div>
             )}
@@ -484,6 +501,24 @@ export function Login() {
                 </div>
               )}
 
+              {isSignup && (
+                <label className="flex items-start gap-2.5 text-[13px] leading-relaxed text-muted-foreground">
+                  <input
+                    type="checkbox"
+                    checked={acepta}
+                    onChange={(e) => setAcepta(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--av-blue-500)]"
+                    required
+                  />
+                  <span>
+                    Acepto los{" "}
+                    <Link to="/terminos" className="underline hover:text-foreground">Términos</Link> y
+                    autorizo el tratamiento de mis datos según la{" "}
+                    <Link to="/privacidad" className="underline hover:text-foreground">Política de privacidad</Link>.
+                  </span>
+                </label>
+              )}
+
               <Button
                 type="submit"
                 size="lg"
@@ -503,13 +538,6 @@ export function Login() {
                 )}
               </Button>
 
-              {isSignup && (
-                <p className="text-[12px] text-muted-foreground text-center leading-relaxed">
-                  Al crear tu cuenta aceptas los{" "}
-                  <Link to="/terminos" className="underline hover:text-foreground">Términos</Link> y la{" "}
-                  <Link to="/privacidad" className="underline hover:text-foreground">Política de privacidad</Link>.
-                </p>
-              )}
             </form>
 
             <p className="mt-8 text-[15px] text-center text-muted-foreground">

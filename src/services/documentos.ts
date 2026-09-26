@@ -7,6 +7,7 @@
  */
 
 import { supabase } from "@/integrations/supabase/client"
+import { MENSAJE_TOPE_DIARIO, esTopeDePublicaciones } from "@/lib/topes"
 
 export type LicenseType =
   | "medical_class_1"
@@ -81,5 +82,11 @@ export async function guardarLicencia(datos: LicenciaNueva): Promise<void> {
     expires_date: datos.expiresDate,
     notes: datos.notes,
   })
-  if (error) throw error
+  if (error) {
+    if (esTopeDePublicaciones(error)) throw new Error(MENSAJE_TOPE_DIARIO)
+    if (error.message?.includes("falta_autorizacion_medica")) {
+      throw new Error("Para guardar el certificado médico, marca la autorización del dato de salud.")
+    }
+    throw error
+  }
 }

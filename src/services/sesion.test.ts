@@ -23,11 +23,38 @@ import {
   entrarConClave,
   entrarConGoogle,
   enviarCorreoDeRecuperacion,
+  mensajeDeAcceso,
   registrarPiloto,
 } from "./sesion"
 
 beforeEach(() => {
   vi.clearAllMocks()
+  vi.spyOn(console, "warn").mockImplementation(() => {})
+})
+
+/** Un error como los de Supabase Auth: con código, o solo con el texto. */
+const errorDeAuth = (message: string, code?: string) => Object.assign(new Error(message), code ? { code } : {})
+
+describe("los errores de acceso, en español", () => {
+  it("correo sin confirmar y clave mala dicen lo mismo: no delatan si la cuenta existe", () => {
+    const mala = mensajeDeAcceso(errorDeAuth("Invalid login credentials", "invalid_credentials"))
+    expect(mensajeDeAcceso(errorDeAuth("Email not confirmed", "email_not_confirmed"))).toBe(mala)
+    expect(mala).toMatch(/no coinciden/)
+  })
+
+  it("reconoce por código y, si no viene, por el texto", () => {
+    expect(mensajeDeAcceso({ code: "over_email_send_rate_limit", message: "x" })).toMatch(/Espera unos minutos/)
+    expect(mensajeDeAcceso(errorDeAuth("email rate limit exceeded"))).toMatch(/Espera unos minutos/)
+    expect(mensajeDeAcceso(errorDeAuth("Failed to fetch"))).toMatch(/conexión/)
+  })
+
+  it("lo desconocido sale general, y el original queda en la consola", () => {
+    expect(mensajeDeAcceso(errorDeAuth("Database error saving new user", "unexpected_failure"))).toBe(
+      "No pudimos completar la operación. Prueba de nuevo en un momento.",
+    )
+    expect(console.warn).toHaveBeenCalled()
+    expect(mensajeDeAcceso(null)).toMatch(/No pudimos completar/)
+  })
 })
 
 describe("comprobar si el usuario está libre", () => {
@@ -92,11 +119,12 @@ describe("registrar", () => {
     })
   })
 
-  it("lanza para que el formulario muestre el mensaje del servidor", async () => {
-    signUp.mockResolvedValue({ data: { session: null }, error: new Error("User already registered") })
-    await expect(registrarPiloto({ email: "a@b.co", password: "clave1234", username: "capi" })).rejects.toThrow(
-      "User already registered",
-    )
+  it("lanza en español para que el formulario lo muestre, con el original en cause", async () => {
+    const original = new Error("User already registered")
+    signUp.mockResolvedValue({ data: { session: null }, error: original })
+    const promesa = registrarPiloto({ email: "a@b.co", password: "clave1234", username: "capi" })
+    await expect(promesa).rejects.toThrow("No pudimos crear la cuenta con ese correo")
+    await expect(promesa).rejects.toHaveProperty("cause", original)
   })
 })
 
@@ -109,13 +137,15 @@ describe("entrar", () => {
 
   it("lanza con credenciales malas, que es lo que se le muestra al piloto", async () => {
     signInWithPassword.mockResolvedValue({ error: new Error("Invalid login credentials") })
-    await expect(entrarConClave("a@b.co", "mala")).rejects.toThrow("Invalid login credentials")
+    await expect(entrarConClave("a@b.co", "mala")).rejects.toThrow("El correo o la contraseña no coinciden")
   })
 
   it("con Google devuelve el error en vez de lanzarlo: va a la franja de error", async () => {
     signInWithOAuth.mockResolvedValue({ error: { message: "proveedor caído" } })
 
-    expect(await entrarConGoogle("https://aviatory.app/app")).toEqual({ error: { message: "proveedor caído" } })
+    expect(await entrarConGoogle("https://aviatory.app/app")).toEqual({
+      error: { message: "No pudimos completar la operación. Prueba de nuevo en un momento." },
+    })
     expect(signInWithOAuth).toHaveBeenCalledWith({
       provider: "google",
       options: { redirectTo: "https://aviatory.app/app" },
@@ -134,8 +164,8 @@ describe("recuperar la contraseña", () => {
   })
 
   it("lanza si no se pudo mandar", async () => {
-    resetPasswordForEmail.mockResolvedValue({ error: new Error("rate limit") })
-    await expect(enviarCorreoDeRecuperacion("a@b.co", "x")).rejects.toThrow("rate limit")
+    resetPasswordForEmail.mockResolvedValue({ error: new Error("email rate limit exceeded") })
+    await expect(enviarCorreoDeRecuperacion("a@b.co", "x")).rejects.toThrow("Espera unos minutos")
   })
 
   it("cambia la clave de la sesión abierta por el enlace", async () => {
@@ -145,8 +175,8 @@ describe("recuperar la contraseña", () => {
   })
 
   it("lanza si el enlace ya venció", async () => {
-    updateUser.mockResolvedValue({ error: new Error("Auth session missing") })
-    await expect(cambiarClave("claveNueva1")).rejects.toThrow("Auth session missing")
+    updateUser.mockResolvedValue({ error: new Error("Auth session missing!") })
+    await expect(cambiarClave("claveNueva1")).rejects.toThrow("El enlace ya venció")
   })
 
   it("cerrar sesión no lanza: devuelve el mensaje y quien llama decide", async () => {

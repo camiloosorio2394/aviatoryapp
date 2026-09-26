@@ -71,9 +71,9 @@ export function Hero() {
               deja sonando para siempre. */}
 
           <div className="mt-7 flex items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 flex-wrap text-[13px] text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> 7 días gratis</span>
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Gratis durante el lanzamiento</span>
             <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Sin tarjeta</span>
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Cancelas cuando quieras</span>
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Sin permanencia</span>
           </div>
         </div>
 
@@ -92,7 +92,7 @@ export function Hero() {
                   Simulacro TEA · Part 2
                 </span>
                 <span className="flex items-center gap-3">
-                  <span className="inline-flex items-center gap-1.5 text-[12px] font-bold" style={{ color: "var(--av-red-400)" }}>
+                  <span className="inline-flex items-center gap-1.5 text-[12px] font-bold text-destructive">
                     <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--av-red-400)" }} /> REC
                   </span>
                   <span className="inline-flex items-center gap-1 tabular-nums text-[12.5px] text-muted-foreground">

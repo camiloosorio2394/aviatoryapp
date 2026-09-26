@@ -11,6 +11,7 @@
  */
 
 import { supabase } from "@/integrations/supabase/client"
+import { MENSAJE_TOPE_DIARIO, esTopeDePublicaciones } from "@/lib/topes"
 import { reportarError } from "@/lib/errores"
 
 export type EstadoVerificacion = "pendiente" | "verificada" | "rechazada" | "retirada"
@@ -103,6 +104,7 @@ export async function pedirVerificacion(
   if (error) {
     // El índice único deja una sola pendiente por piloto.
     if (error.code === "23505") throw new Error("Ya tienes una solicitud en revisión.")
+    if (esTopeDePublicaciones(error)) throw new Error(MENSAJE_TOPE_DIARIO)
     reportarError("verificacion de horas: pedir revision", error)
     throw new Error("No pudimos registrar la solicitud. Inténtalo de nuevo.")
   }

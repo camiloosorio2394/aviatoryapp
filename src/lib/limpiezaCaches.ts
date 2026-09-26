@@ -30,7 +30,9 @@
 import { CACHE_API_SUPABASE } from "@/lib/cachesPwa"
 
 /** Cachés retirados. Al jubilar uno nuevo, se añade aquí y no se quita nunca. */
-const CACHES_JUBILADOS = ["modulo-images", "notam-images", "infografia-images", "supabase-cache"]
+// fonts-cache guardaba Google Fonts; desde el 26-sep-2026 las fuentes van en
+// el propio dominio y entran con la precarga.
+const CACHES_JUBILADOS = ["modulo-images", "notam-images", "infografia-images", "supabase-cache", "fonts-cache"]
 
 /** Sin CacheStorage (navegador viejo, o contexto no seguro) no hay cachés que tocar. */
 function hayCacheStorage(): boolean {

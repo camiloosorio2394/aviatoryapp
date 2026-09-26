@@ -201,11 +201,15 @@ antes de 50 minutos. Cada corrida queda en `convocatorias_revisiones` con lo que
 
 La app sale con una **Content-Security-Policy estricta**: scripts solo del propio dominio (y el
 script del tema de `index.html`, autorizado por hash), conexiones solo a Supabase, fuentes
-de Google Fonts, sin iframes. Si algo nuevo carga de otro dominio (un video embebido, una
+del propio dominio, sin iframes. Si algo nuevo carga de otro dominio (un video embebido, una
 librería por CDN, otra API), **hay que agregar ese dominio a la directiva que toque en
 `vercel.json`**; si no, el navegador lo bloquea en producción aunque en `npm run dev` funcione.
 Si se cambia el script en línea de `index.html`, cambia su hash: `src/cabecerasHttp.test.ts`
 falla y dice cuál poner.
+
+Las fuentes salen de `@fontsource-variable/*` (importadas en `main.tsx`) y se sirven desde el
+propio dominio: Google Fonts bloqueaba el primer pintado y le pasaba a Google la IP del piloto.
+No volver a enlazarlas desde `index.html` ni con `@import`: la CSP ya no las deja cargar.
 
 ## Cómo se enseña aquí
 

@@ -9,6 +9,7 @@
  */
 
 import { supabase } from "@/integrations/supabase/client"
+import { MENSAJE_TOPE_DIARIO, esTopeDePublicaciones } from "@/lib/topes"
 
 export interface ResumenBitacora {
   vuelos: number
@@ -195,5 +196,8 @@ export async function guardarVuelo(vuelo: VueloNuevo): Promise<void> {
     landings_night: vuelo.landingsNight,
     remarks: vuelo.remarks,
   })
-  if (error) throw error
+  if (error) {
+    if (esTopeDePublicaciones(error)) throw new Error(MENSAJE_TOPE_DIARIO)
+    throw error
+  }
 }
