@@ -243,13 +243,14 @@ begin
   x_log := x_log || ' vencimientos_sin_abrir_la_app';
 
   -- ── 6. La meta de horas, solo tras volar y una vez por aerolínea ──────────
+  -- Desde 20261001050000 la meta sale de una convocatoria abierta, no de una
+  -- tabla nuestra (y desde 20261001060000, de sus horas ya leídas). Se abre una
+  -- de prueba con un mínimo que ninguna real tiene cerca, para que las de
+  -- verdad no se crucen con la prueba.
   delete from public.notifications where user_id = x_a;
-  select a.name, (a.requirements->>'min_hours_total')::numeric
-    into x_aerolinea, x_minimo
-    from public.airlines a
-    where a.requirements ? 'min_hours_total'
-    order by (a.requirements->>'min_hours_total')::numeric
-    limit 1;
+  perform private.convocatoria_manual('CMP', 'Primer oficial (prueba)', 'https://ejemplo.com/prueba-meta', true,
+    array['Haber acumulado 9.990 horas de vuelo o más'], null, 'primer_oficial', 'prueba-meta', p_horas => 9990);
+  select a.name, 9990 into x_aerolinea, x_minimo from public.airlines a where a.code = 'CMP';
 
   -- total_hours ya no se escribe a mano: desde las horas de carrera sale de
   -- horas_previas_total más la bitácora, y un update directo no pega (lo

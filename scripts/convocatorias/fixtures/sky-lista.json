@@ -1,0 +1,29 @@
+{
+  "name": "Sky Airline",
+  "jobapplications": [
+    {
+      "id": "f0a1e82c-3f0e-4082-80ec-aa190cef946f",
+      "job_application": "Analista Growth Senior",
+      "location_city": "Perú",
+      "location_country": "CL",
+      "creation_date": "2026-07-17",
+      "department": "Genoma Basal"
+    },
+    {
+      "id": "c0078e8b-0ab3-487e-a142-5a52219bd55a",
+      "job_application": "Supervisor Operaciones Terrestres",
+      "location_city": "Perú",
+      "location_country": "PE",
+      "creation_date": "2026-07-31",
+      "department": "Genoma Basal"
+    },
+    {
+      "id": "d4ecca55-92f0-4266-b392-5da0b55117e5",
+      "job_application": "Controlador Crew",
+      "location_city": "Chile",
+      "location_country": "CL",
+      "creation_date": "2026-09-01",
+      "department": "Genoma Basal"
+    }
+  ]
+}

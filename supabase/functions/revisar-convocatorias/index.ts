@@ -14,25 +14,31 @@
 //     `convocatorias_revisiones`;
 //   - si una fuente se leyó bien, lo que tenía abierto y ya no aparece se marca
 //     cerrado. Nunca se borra una fila: la última convocatoria de cada
-//     aerolínea, con sus requisitos, sirve aunque ya haya cerrado.
+//     aerolínea, con sus requisitos, sirve aunque ya haya cerrado;
+//   - las horas y el nivel de inglés se leen de los requisitos aquí, una vez, y
+//     quedan en sus columnas: la app y el aviso de la meta de horas los usan
+//     tal cual (migración 20261001060000).
 //
 // Usa SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY, que Supabase pone solo en
 // toda función. No necesita secretos propios.
 
 import { createClient } from "jsr:@supabase/supabase-js@2"
-import { FUENTES, type Vacante } from "./lectores.ts"
+import { FUENTES, requisitosClave, type Vacante } from "./lectores.ts"
 
 const AGENTE = "AviatoryConvocatorias/1.0 (+https://aviatoryapp-mu.vercel.app)"
 const MINUTOS_ENTRE_REVISIONES = 50
 const PAUSA_ENTRE_DESCARGAS_MS = 1200
 const TIEMPO_POR_DESCARGA_MS = 25_000
 
-// SATENA sirve su certificado sin el intermedio: un navegador lo completa solo,
-// pero el fetch de la función no, y la descarga fallaba con «UnknownIssuer».
-// Para ese host se confía además en el intermedio que falta, Starfield Secure
-// Certificate Authority - G2, bajado del repositorio de Starfield
-// (certificates.starfieldtech.com/repository/sfig2.crt). SHA-256
-// 93:A0:78:98:D8:9B:2C:CA:…:D3:91:CC:72; vence el 3 de mayo de 2031.
+// SATENA y BoA sirven su certificado sin el intermedio: un navegador lo completa
+// solo, pero el fetch de la función no, y la descarga fallaba con «UnknownIssuer».
+// Para esos dos hosts se confía además en el intermedio que les falta:
+//   SATENA  Starfield Secure Certificate Authority - G2, bajado del repositorio
+//           de Starfield (certificates.starfieldtech.com/repository/sfig2.crt).
+//           SHA-256 93:A0:78:98:D8:9B:2C:CA:…:D3:91:CC:72; vence el 3 de mayo de 2031.
+//   BoA     GlobalSign RSA OV SSL CA 2018, el que nombra su certificado
+//           (secure.globalsign.com/cacert/gsrsaovsslca2018.crt). SHA-256
+//           B6:76:FF:A3:17:9E:88:12:…:28:93:76:4A; vence el 21 de noviembre de 2028.
 const STARFIELD_G2 = `-----BEGIN CERTIFICATE-----
 MIIFADCCA+igAwIBAgIBBzANBgkqhkiG9w0BAQsFADCBjzELMAkGA1UEBhMCVVMx
 EDAOBgNVBAgTB0FyaXpvbmExEzARBgNVBAcTClNjb3R0c2RhbGUxJTAjBgNVBAoT
@@ -62,12 +68,38 @@ eT2pkb9UGBOJmVQRDVXFJgt5T1ocbvlj2xSApAer+rKluYjdkf5lO6Sjeb6JTeHQ
 sPTIFwwKlhR8Cbds4cLYVdQYoKpBaXAko7nv6VrcPuuUSvC33l8Odvr7+2kDRUBQ
 7nIMpBKGgc0T0U7EPMpODdIm8QC3tKai4W56gf0wrHofx1l7
 -----END CERTIFICATE-----`
-const HOSTS_SIN_INTERMEDIO = new Set(["apps.satena.com.co"])
+const GLOBALSIGN_OV_2018 = `-----BEGIN CERTIFICATE-----
+MIIETjCCAzagAwIBAgINAe5fIh38YjvUMzqFVzANBgkqhkiG9w0BAQsFADBMMSAw
+HgYDVQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSMzETMBEGA1UEChMKR2xvYmFs
+U2lnbjETMBEGA1UEAxMKR2xvYmFsU2lnbjAeFw0xODExMjEwMDAwMDBaFw0yODEx
+MjEwMDAwMDBaMFAxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52
+LXNhMSYwJAYDVQQDEx1HbG9iYWxTaWduIFJTQSBPViBTU0wgQ0EgMjAxODCCASIw
+DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKdaydUMGCEAI9WXD+uu3Vxoa2uP
+UGATeoHLl+6OimGUSyZ59gSnKvuk2la77qCk8HuKf1UfR5NhDW5xUTolJAgvjOH3
+idaSz6+zpz8w7bXfIa7+9UQX/dhj2S/TgVprX9NHsKzyqzskeU8fxy7quRU6fBhM
+abO1IFkJXinDY+YuRluqlJBJDrnw9UqhCS98NE3QvADFBlV5Bs6i0BDxSEPouVq1
+lVW9MdIbPYa+oewNEtssmSStR8JvA+Z6cLVwzM0nLKWMjsIYPJLJLnNvBhBWk0Cq
+o8VS++XFBdZpaFwGue5RieGKDkFNm5KQConpFmvv73W+eka440eKHRwup08CAwEA
+AaOCASkwggElMA4GA1UdDwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0G
+A1UdDgQWBBT473/yzXhnqN5vjySNiPGHAwKz6zAfBgNVHSMEGDAWgBSP8Et/qC5F
+JK5NUPpjmove4t0bvDA+BggrBgEFBQcBAQQyMDAwLgYIKwYBBQUHMAGGImh0dHA6
+Ly9vY3NwMi5nbG9iYWxzaWduLmNvbS9yb290cjMwNgYDVR0fBC8wLTAroCmgJ4Yl
+aHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9yb290LXIzLmNybDBHBgNVHSAEQDA+
+MDwGBFUdIAAwNDAyBggrBgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5j
+b20vcmVwb3NpdG9yeS8wDQYJKoZIhvcNAQELBQADggEBAJmQyC1fQorUC2bbmANz
+EdSIhlIoU4r7rd/9c446ZwTbw1MUcBQJfMPg+NccmBqixD7b6QDjynCy8SIwIVbb
+0615XoFYC20UgDX1b10d65pHBf9ZjQCxQNqQmJYaumxtf4z1s4DfjGRzNpZ5eWl0
+6r/4ngGPoJVpjemEuunl1Ig423g7mNA2eymw0lIYkN5SQwCuaifIFJ6GlazhgDEw
+fpolu4usBCOmmQDo8dIm7A9+O4orkjgTHY+GzYZSR+Y0fFukAj6KYXwidlNalFMz
+hriSqHKvoflShx8xpfywgVcvzfTO3PYkz6fiNJBonf6q8amaEsybwMbDqKWwIX7e
+SPY=
+-----END CERTIFICATE-----`
+const HOSTS_SIN_INTERMEDIO = new Set(["apps.satena.com.co", "www.boa.gob.bo"])
 let clienteConIntermedio: Deno.HttpClient | undefined
 try {
-  clienteConIntermedio = Deno.createHttpClient({ caCerts: [STARFIELD_G2] })
+  clienteConIntermedio = Deno.createHttpClient({ caCerts: [STARFIELD_G2, GLOBALSIGN_OV_2018] })
 } catch {
-  // Sin createHttpClient, SATENA falla como antes y queda anotado en el resultado.
+  // Sin createHttpClient, SATENA y BoA fallan como antes y queda anotado en el resultado.
 }
 
 const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, {
@@ -104,25 +136,32 @@ async function guardar(airlineId: number, vacantes: Vacante[]) {
   const previa = new Map((antes ?? []).map((f) => [f.clave_externa, f]))
 
   if (vacantes.length > 0) {
-    const filas = vacantes.map((v) => ({
-      airline_id: airlineId,
-      clave_externa: v.clave,
-      cargo: v.cargo,
-      titulo: v.titulo,
-      pais: v.pais,
-      ciudad: v.ciudad,
-      url: v.url,
-      publicada_en: v.publicadaEn,
-      cierra_en: v.cierraEn,
-      requisitos: v.requisitos,
-      idioma: v.idioma,
-      abierta: v.abierta,
-      tipo: v.tipo,
-      fuente: "automatica",
-      vista_por_ultima_vez: ahora,
-      // La fecha de cierre es la primera vez que se vio cerrada, no la última.
-      cerrada_en: v.abierta ? null : (previa.get(v.clave)?.cerrada_en ?? ahora),
-    }))
+    const filas = vacantes.map((v) => {
+      const n = requisitosClave(v.requisitos)
+      return {
+        airline_id: airlineId,
+        clave_externa: v.clave,
+        cargo: v.cargo,
+        titulo: v.titulo,
+        pais: v.pais,
+        ciudad: v.ciudad,
+        url: v.url,
+        publicada_en: v.publicadaEn,
+        cierra_en: v.cierraEn,
+        requisitos: v.requisitos,
+        idioma: v.idioma,
+        abierta: v.abierta,
+        tipo: v.tipo,
+        fuente: "automatica",
+        vista_por_ultima_vez: ahora,
+        horas_minimas: n.horas,
+        horas_nacionales: n.horasNacionales,
+        horas_extranjeros: n.horasExtranjeros,
+        nivel_icao: n.icao,
+        // La fecha de cierre es la primera vez que se vio cerrada, no la última.
+        cerrada_en: v.abierta ? null : (previa.get(v.clave)?.cerrada_en ?? ahora),
+      }
+    })
     const { error } = await db.from("convocatorias").upsert(filas, { onConflict: "airline_id,clave_externa" })
     if (error) throw error
   }

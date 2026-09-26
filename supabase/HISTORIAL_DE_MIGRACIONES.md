@@ -164,9 +164,9 @@ seis funciones compartidas con los siete módulos del catálogo.
 
 ### La regla del orden, que es la que muerde
 
-<!-- ULTIMA_APLICADA: 20261001040000 -->
+<!-- ULTIMA_APLICADA: 20261001060000 -->
 
-**Toda migración nueva lleva una versión posterior a `20261001040000`.**
+**Toda migración nueva lleva una versión posterior a `20261001060000`.**
 
 No es burocracia. Seis funciones se republican enteras en cada migración de
 módulo —`private.secciones_leidas`, `private.practicas_hechas`,
@@ -184,7 +184,7 @@ arriba. Al aplicar una tanda, se actualiza esa marca.
 
 ### La excepción: lo que ya se aplicó por debajo de la marca
 
-<!-- APLICADAS_BAJO_LA_MARCA: 20260925152412 20260925152815 20261001030000 -->
+<!-- APLICADAS_BAJO_LA_MARCA: 20260925152412 20260925152815 20261001030000 20261001050000 -->
 
 El peligro de arriba es de las migraciones **pendientes**: la base las correría
 después de las que ya tiene. Una que ya está aplicada no se vuelve a correr
@@ -445,7 +445,7 @@ lista completa de lo verificado.
 | `convocatorias_de_pilotos` | El archivo `20261001030000`: `convocatorias` y `convocatorias_revisiones` (con RLS), `private.convocatoria_manual`, la página de pilotos de LATAM con sus requisitos y la tarea `aviatory_convocatorias` de pg_cron. Activa `pg_net`. |
 | `convocatorias_con_llave` | El archivo `20261001040000`: la llave `convocatorias_llave` nace en el Vault, `convocatorias_llave_valida()` solo para `service_role`, y la tarea la manda en `x-llave`. |
 | `registrar_version_de_archivo_convocatorias`, `_con_llave` | Las dos filas con la versión de archivo. |
-| `primera_revision_de_convocatorias` | Llama la función una vez, como lo hará pg_cron, para llenar la tabla. |
+| `primera_revision_de_convocatorias`, `segunda_revision_de_convocatorias` | Llaman la función a mano, como lo hace pg_cron: la primera llenó la tabla; la segunda comprobó el certificado de SATENA. |
 
 La función de borde `revisar-convocatorias` se publicó con el conector (`verify_jwt = false`,
 como dice `supabase/config.toml`). Pruebas contra la base ya migrada: `convocatorias.sql` y
@@ -501,3 +501,31 @@ mensaje que dice cuál). El foro al estilo de Reddit:
 Probada con PGlite (Postgres 18) sobre un esqueleto de la base: aplica dos
 veces seguidas sin error y `supabase/tests/foro.sql` termina en
 PRUEBA_DESHECHA. Falta correrla contra la base real.
+
+## 26 de septiembre, tarde: las horas las pone la convocatoria
+
+| Filas del conector | Qué hizo |
+| --- | --- |
+| `meta_de_horas_por_convocatoria` | El archivo `20261001050000`: `private.horas_de_convocatoria()` lee las horas de los requisitos con las reglas de `src/lib/convocatorias.ts`, y `private.avisar_meta_de_horas_cerca()` deja de usar `airlines.requirements` y mide contra las convocatorias de ingreso abiertas. |
+| `registrar_version_de_archivo_meta_de_horas` | La fila con la versión de archivo. |
+
+Pruebas contra la base ya migrada: `constancia.sql` (la meta de horas con una convocatoria de
+prueba) y `convocatorias.sql`, las dos en `PRUEBA_DESHECHA`. Antes se ensayó la función de
+horas con los requisitos reales de LATAM, Copa, JetSMART y Wingo, y se deshizo.
+
+## 26 de septiembre, noche: los números en columnas y ocho aerolíneas más
+
+Leer las horas del texto dos veces (en la app y en la base) duró una tarde: el renglón de Arajet
+«1,500 total hours (1,000 hours for Dominican candidates)» pedía una regla nueva y había que
+escribirla en los dos lados. Desde `20261001060000` se leen una sola vez, en la función de borde,
+y quedan en columnas.
+
+| Filas del conector | Qué hizo |
+| --- | --- |
+| `convocatorias_numeros_y_aerolineas` | El archivo `20261001060000`: `horas_minimas`, `horas_nacionales`, `horas_extranjeros` y `nivel_icao` en `convocatorias`; `private.horas_de_convocatoria()` se quita y queda `private.horas_que_aplican()`, que solo elige entre números; `private.convocatoria_manual()` recibe los números (firma nueva, la vieja se quita); la página de LATAM queda con 150 h y nivel 4; y entran Clic, Arajet, Sky, BoA, Volaris, Viva, Aeroméxico y Aerolíneas Argentinas, sin mínimos nuestros. |
+| `registrar_version_de_archivo_numeros_y_aerolineas` | La fila con la versión de archivo. |
+| `ensayo_disparar_revision_v5` | Llama la función a mano, como pg_cron, con los once lectores publicados. Lleva «ensayo» en el nombre pero no se deshizo: fue una corrida de verdad, la que llenó los números y trajo las vacantes de Arajet. |
+
+Pruebas contra la base ya migrada: `convocatorias.sql`, `constancia.sql` y `permisos.sql`, las
+tres en `PRUEBA_DESHECHA`. Las dos primeras se corrieron por el conector (`ensayo_prueba_*`); como
+terminan en excepción, no dejaron fila en el historial.

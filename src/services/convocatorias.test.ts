@@ -16,6 +16,10 @@ const fila = {
   idioma: "en",
   abierta: true,
   cerrada_en: null,
+  horas_minimas: null,
+  horas_nacionales: 250,
+  horas_extranjeros: 1000,
+  nivel_icao: 5,
 }
 
 describe("leerConvocatorias", () => {
@@ -36,6 +40,10 @@ describe("leerConvocatorias", () => {
         idioma: "en",
         abierta: true,
         cerradaEn: null,
+        horasMinimas: null,
+        horasNacionales: 250,
+        horasExtranjeros: 1000,
+        nivelIcao: 5,
       },
     ])
   })
