@@ -66,10 +66,11 @@ Reglas al agregar fotos nuevas:
 
 ## Miniaturas de las materias del PCA
 
-Las nueve de `src/assets/pca/materias/` no son de Unsplash: las generó Camilo
+Las once de `src/assets/pca/materias/` no son de Unsplash: las generó Camilo
 con IA el 25 de septiembre de 2026, a 124 × 84 y con las esquinas ya
 redondeadas, para la tabla de materias y la tarjeta «Sigue estudiando» del
-Examen PCA. Se convirtieron a WebP con pérdida (calidad 82, alfa 90) y pesan
+Examen PCA (Performance y Weight & Balance llegaron el 26 a 512 × 512 y se
+recortaron al centro a la misma medida). Se convirtieron a WebP con pérdida (calidad 82, alfa 90) y pesan
 entre 1,5 y 4,2 KB cada una. El mapa materia → archivo está en
 `src/lib/subjectFotos.ts`; una materia sin miniatura cae al símbolo de
 `subjectSymbols.ts`.
@@ -81,7 +82,9 @@ entre 1,5 y 4,2 KB cada una. El mapa materia → archivo está en
 | `instrumentos.webp` | Instrumentos de Vuelo |
 | `meteorologia.webp` | Meteorología |
 | `navegacion.webp` | Navegación |
+| `performance.webp` | Performance |
 | `procedimientos.webp` | Procedimientos y Aeródromos |
 | `reglamentacion.webp` | Reglamentación |
 | `servicios_meteo.webp` | Servicios Meteorológicos |
 | `sistemas.webp` | Sistemas de Aeronaves |
+| `weight-balance.webp` | Weight & Balance |
