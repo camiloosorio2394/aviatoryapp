@@ -88,3 +88,17 @@ entre 1,5 y 4,2 KB cada una. El mapa materia → archivo está en
 | `servicios_meteo.webp` | Servicios Meteorológicos |
 | `sistemas.webp` | Sistemas de Aeronaves |
 | `weight-balance.webp` | Weight & Balance |
+
+## Las cuatro partes del Inglés ICAO
+
+Las cuatro de `src/assets/photos/icao-*.webp` tampoco son de Unsplash: las generó
+Camilo con IA el 26 de septiembre de 2026, a 1200 × 540 (la proporción de la
+tarjeta), para «Las cuatro partes» del módulo. Van como módulo importado, igual
+que el resto de fotos de tarjeta.
+
+| Archivo | Tarjeta |
+|---|---|
+| `icao-vocabulario.webp` | Base · Vocabulario (manual, carta y lista de chequeo) |
+| `icao-entrevista.webp` | TEA · Parte 1 · Entrevista (diadema en cabina) |
+| `icao-comprension.webp` | TEA · Parte 2 · Comprensión interactiva (radio COM con forma de onda) |
+| `icao-descripcion-imagenes.webp` | TEA · Parte 3 · Descripción de imágenes (señalero en plataforma) |

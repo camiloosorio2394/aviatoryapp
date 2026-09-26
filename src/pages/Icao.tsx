@@ -1,10 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import {
-  BookOpen,
-  Mic,
-  Headphones,
-  Image as ImageIcon,
   ArrowRight,
   Clock,
   Check,
@@ -33,6 +29,11 @@ import {
 import { PART3_TASK_STEPS, PICTURE_PAIRS } from "@/lib/icaoPictures"
 import { FilaDeAcceso } from "@/components/dashboard/AccesosDirectos"
 import heroPhoto from "@/assets/photos/icao-night-cockpit.webp"
+// Las cuatro partes, cada una con su foto (docs/PHOTO_CREDITS.md).
+import fotoVocabulario from "@/assets/photos/icao-vocabulario.webp"
+import fotoEntrevista from "@/assets/photos/icao-entrevista.webp"
+import fotoComprension from "@/assets/photos/icao-comprension.webp"
+import fotoDescripcion from "@/assets/photos/icao-descripcion-imagenes.webp"
 
 /**
  * Módulo Inglés ICAO, estructurado según el examen TEA (Test of English for
@@ -92,7 +93,7 @@ export function Icao() {
     const lista: Seccion[] = [
       {
         to: "/app/icao/vocabulario",
-        icon: BookOpen,
+        photo: fotoVocabulario,
         part: "Base",
         title: "Vocabulario",
         // Las cifras salen de la base: si el glosario crece, la promesa de la
@@ -109,7 +110,7 @@ export function Icao() {
       },
       {
         to: "/app/icao/interview",
-        icon: Mic,
+        photo: fotoEntrevista,
         part: "TEA · Parte 1",
         title: "Entrevista",
         meta: `${TEA_PART1_TOTAL} preguntas · ${TEA_PART1_SETS.length} sets · respuestas modelo`,
@@ -120,7 +121,7 @@ export function Icao() {
       },
       {
         to: "/app/icao/comprension",
-        icon: Headphones,
+        photo: fotoComprension,
         part: "TEA · Parte 2",
         title: "Comprensión interactiva",
         meta: `${SHORT_AUDIO_TOTAL} clips cortos · ${LONG_AUDIOS.length} largos · ${INTERACTIVE_ITEMS.length} interactivos`,
@@ -134,7 +135,7 @@ export function Icao() {
       },
       {
         to: "/app/icao/picture-description",
-        icon: ImageIcon,
+        photo: fotoDescripcion,
         part: "TEA · Parte 3",
         title: "Descripción de imágenes",
         meta: `${PICTURE_PAIRS.length} pares de imágenes · ${PART3_TASK_STEPS.length} pasos por par`,
@@ -392,7 +393,8 @@ function PanelDeNivel({
 // ────────────────────────────────────────────────────────────────────────────
 interface Seccion {
   to: string
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
+  /** La foto que abre la tarjeta, a todo el ancho. */
+  photo: string
   part: string
   title: string
   /** Cuánto contenido hay dentro, con cifras reales. */
@@ -405,8 +407,10 @@ interface Seccion {
 
 /**
  * Tarjeta neutra: el color de cada parte era decoración, y como texto no
- * llegaba al contraste. Lo que la distingue es su icono y su nombre. «Completa»
- * sí va en verde, como el «Listo» de los módulos: ahí el verde dice algo.
+ * llegaba al contraste. Lo que la distingue es su foto y su nombre: la foto va
+ * arriba, a todo el ancho, como la portada de una tarjeta de módulo, y
+ * sustituyó al recuadro de icono de 44 px. «Completa» sí va en verde, como el
+ * «Listo» de los módulos: ahí el verde dice algo.
  *
  * El enlace principal cubre la tarjeta entera con un ::after; el secundario (el
  * quiz del vocabulario) va por encima con z-10. Un enlace dentro de otro no es
@@ -414,7 +418,7 @@ interface Seccion {
  */
 function TarjetaParte({
   to,
-  icon: Icon,
+  photo,
   part,
   title,
   meta,
@@ -427,70 +431,80 @@ function TarjetaParte({
 }: Seccion & { enCurso: boolean; cargando: boolean }) {
   const completa = resumen.pct !== null && resumen.pct >= 100
   return (
-    <div className="group relative flex h-full flex-col rounded-2xl surface surface-lift p-5">
-      <div className="flex items-start justify-between gap-3">
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-muted text-foreground transition-colors group-hover:bg-foreground group-hover:text-background">
-          <Icon className="h-5 w-5" strokeWidth={2} />
-        </span>
-        {completa ? (
-          <span className="chip chip-green">Completa</span>
-        ) : enCurso ? (
-          <span className="rounded-full border border-border px-2 py-0.5 text-[11px] font-semibold text-foreground">
-            En curso
-          </span>
-        ) : null}
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl surface surface-lift">
+      {/* La foto, decorativa: el nombre de la parte va debajo. La proporción es
+          la del recorte, para que ninguna de las cuatro salga cortada distinto. */}
+      <div className="relative aspect-[11/5] overflow-hidden">
+        <img
+          src={photo}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
       </div>
 
-      <span className="nh-display mt-4 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-        {part}
-      </span>
-      <h3 className="m-0 mt-1 text-[17px] font-semibold tracking-[-0.02em] text-foreground">
-        <Link to={to} className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">
-          {title}
-        </Link>
-      </h3>
-      <div className="mt-1 text-[12px] font-medium text-muted-foreground">{meta}</div>
-      <p className="m-0 mt-2 text-[13px] leading-relaxed text-muted-foreground">{description}</p>
-
-      {/* El pie: el estado y, si hay avance, su barra. Una barra vacía diría
-          «vas perdiendo» cuando lo que pasa es que todavía no empezaste. */}
-      <div className="mt-auto pt-4">
-        <div className="border-t border-border pt-3">
-          {cargando ? (
-            <span className="block h-4 w-32 animate-pulse rounded bg-muted" aria-hidden />
-          ) : (
-            <>
-              {resumen.pct !== null && resumen.pct > 0 && (
-                <div
-                  className="mb-2 h-1.5 overflow-hidden rounded-r-[3px] bg-muted"
-                  role="progressbar"
-                  aria-label={`Avance de ${title}`}
-                  aria-valuenow={resumen.pct}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                >
-                  <div
-                    className="h-full rounded-r-[3px] transition-[width]"
-                    style={{ width: `${resumen.pct}%`, background: "var(--foreground)" }}
-                  />
-                </div>
-              )}
-              <p className="m-0 text-[12px] leading-snug text-muted-foreground">{resumen.estado}</p>
-            </>
-          )}
-        </div>
-        <div className="mt-3 flex items-center justify-between gap-3">
-          <span className="inline-flex items-center gap-1 text-[13px] font-semibold text-foreground">
-            {cta} <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-start justify-between gap-3">
+          <span className="nh-display text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+            {part}
           </span>
-          {secondary && (
-            <Link
-              to={secondary.to}
-              className="relative z-10 inline-flex items-center gap-1 rounded-full border border-border px-2.5 py-1 text-[12px] font-semibold text-foreground transition-colors hover:bg-muted"
-            >
-              <secondary.icon className="h-3.5 w-3.5" aria-hidden /> {secondary.label}
-            </Link>
-          )}
+          {completa ? (
+            <span className="chip chip-green">Completa</span>
+          ) : enCurso ? (
+            <span className="rounded-full border border-border px-2 py-0.5 text-[11px] font-semibold text-foreground">
+              En curso
+            </span>
+          ) : null}
+        </div>
+        <h3 className="m-0 mt-1 text-[17px] font-semibold tracking-[-0.02em] text-foreground">
+          <Link to={to} className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">
+            {title}
+          </Link>
+        </h3>
+        <div className="mt-1 text-[12px] font-medium text-muted-foreground">{meta}</div>
+        <p className="m-0 mt-2 text-[13px] leading-relaxed text-muted-foreground">{description}</p>
+
+        {/* El pie: el estado y, si hay avance, su barra. Una barra vacía diría
+            «vas perdiendo» cuando lo que pasa es que todavía no empezaste. */}
+        <div className="mt-auto pt-4">
+          <div className="border-t border-border pt-3">
+            {cargando ? (
+              <span className="block h-4 w-32 animate-pulse rounded bg-muted" aria-hidden />
+            ) : (
+              <>
+                {resumen.pct !== null && resumen.pct > 0 && (
+                  <div
+                    className="mb-2 h-1.5 overflow-hidden rounded-r-[3px] bg-muted"
+                    role="progressbar"
+                    aria-label={`Avance de ${title}`}
+                    aria-valuenow={resumen.pct}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  >
+                    <div
+                      className="h-full rounded-r-[3px] transition-[width]"
+                      style={{ width: `${resumen.pct}%`, background: "var(--foreground)" }}
+                    />
+                  </div>
+                )}
+                <p className="m-0 text-[12px] leading-snug text-muted-foreground">{resumen.estado}</p>
+              </>
+            )}
+          </div>
+          <div className="mt-3 flex items-center justify-between gap-3">
+            <span className="inline-flex items-center gap-1 text-[13px] font-semibold text-foreground">
+              {cta} <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+            </span>
+            {secondary && (
+              <Link
+                to={secondary.to}
+                className="relative z-10 inline-flex items-center gap-1 rounded-full border border-border px-2.5 py-1 text-[12px] font-semibold text-foreground transition-colors hover:bg-muted"
+              >
+                <secondary.icon className="h-3.5 w-3.5" aria-hidden /> {secondary.label}
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>
