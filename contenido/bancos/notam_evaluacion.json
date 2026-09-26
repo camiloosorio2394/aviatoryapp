@@ -1267,7 +1267,7 @@
       "enunciado": "Un NOTAM informa una actividad UAS desde GND hasta 1200 ft. ¿Qué debe comparar el piloto?",
       "opciones": [
         "Solamente el operador del UAS.",
-        "Solo si aterriza en esa zona.",
+        "Solo el aeródromo de destino.",
         "Área, horario, niveles y ruta prevista.",
         "Solo el límite superior del área."
       ],
@@ -1344,7 +1344,7 @@
         "¿Qué oficina NOTAM lo publicó y en qué serie?",
         "¿Cuál es el código de la línea Q?",
         "¿Qué significa esta información para mi operación?",
-        "¿Cuándo vence la casilla C)?"
+        "¿Cuándo vence según la casilla C)?"
       ],
       "correcta": 2,
       "explicacion": "El objetivo final de la interpretación es relacionar la información del NOTAM con la operación concreta.",
