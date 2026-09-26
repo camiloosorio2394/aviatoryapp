@@ -36,7 +36,9 @@ export function SubjectTable({ rows, enCurso }: { rows: SubjectRowData[]; enCurs
   return (
     <div className="overflow-hidden rounded-2xl surface">
       <div className="nh-display hidden grid-cols-[1fr_96px_212px_36px] gap-4 border-b border-border px-5 py-3 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground @2xl:grid">
-        <span>Materia</span>
+        {/* La primera columna no lleva rótulo: el de la sección, justo encima,
+            ya dice «Materias», y «Materias» sobre «Materia» se leía repetido. */}
+        <span />
         <span className="text-right">Preguntas</span>
         <span>Tu avance</span>
         <span />

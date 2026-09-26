@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom"
-import { ArrowRight, Library as LibraryIcon, Radar, RefreshCw, ShieldCheck, TriangleAlert } from "lucide-react"
+import { ArrowRight, Library as LibraryIcon, RefreshCw, ShieldCheck, TriangleAlert } from "lucide-react"
 import pcaFlightdeck from "@/assets/photos/pca-flightdeck.webp"
 import { appButtonClass } from "@/lib/buttonStyles"
-import { PanelDelExamen } from "@/components/pca/PanelDelExamen"
+import { PanelDelExamen, type CifraDelPanel } from "@/components/pca/PanelDelExamen"
 import { SubjectTable } from "@/components/pca/SubjectTable"
-import { Indicadores, type Indicador } from "@/components/dashboard/Indicadores"
 import { FilaDeAcceso } from "@/components/dashboard/AccesosDirectos"
 import { Nota } from "@/components/dashboard/Nota"
 import { useVaultSubjects } from "@/hooks/useVaultQuiz"
@@ -20,13 +19,14 @@ import { subjectSymbol } from "@/lib/subjectSymbols"
  * la cuenta atrás en un chip suelto, tres tarjetas con botones grandes para lo
  * que eran tres enlaces, y verde en las etiquetas «Oficial» y «Comunidad», que
  * no son aciertos de nada. Ahora usa las mismas piezas: el hero con su panel de
- * cristal, los indicadores del panel, las filas de acceso y los rótulos de
- * grupo en Archivo.
+ * cristal, las filas de acceso y los rótulos de grupo en Archivo.
  *
- * El orden responde a las preguntas con las que se entra: cuándo es el examen y
- * qué hago hoy (el hero), cuánto llevo (los números), por dónde sigo
- * (continúa), qué materia toca (la tabla) y qué hay que saber del banco (al
- * pie, porque informa una vez y arriba sería ruido permanente).
+ * El orden responde a las preguntas con las que se entra: cuándo es el examen,
+ * cuánto llevo y qué hago hoy (el hero, con las cifras en pequeño bajo la
+ * fecha), por dónde sigo (continúa), qué materia toca (la tabla) y qué hay que
+ * saber del banco (al pie, porque informa una vez y arriba sería ruido
+ * permanente). Las cifras tuvieron su sección propia («Tus números») y Camilo
+ * la quitó: ocupaba una franja entera para cuatro datos que caben en el panel.
  */
 
 /** Rótulo de grupo: el mismo del panel y de la portada de Ingreso a aerolínea. */
@@ -60,44 +60,24 @@ export function Pca() {
     .sort((a, b) => b.count - a.count)
 
   /**
-   * Sin simulacros no hay cifra que dar: va un guion con lo que hace falta para
-   * tenerla, nunca un cero, que el primer día se lee como un suspenso. El
-   * dominio avisa en ámbar solo bajo el aprobado, y la nota dice por qué: un
-   * color de alerta sin su motivo no sirve de nada.
+   * Las cuatro cifras, en las filas pequeñas del panel del hero. Sin simulacros
+   * no hay cifra que dar: va un guion, nunca un cero, que el primer día se lee
+   * como un suspenso. El dominio avisa en ámbar solo bajo el aprobado, y como
+   * en una fila no cabe la nota, el motivo va en el propio rótulo: un color de
+   * alerta sin su motivo no sirve de nada.
    */
   const bajoElAprobado = stats?.mastery_pct != null && stats.mastery_pct < PCA_APROBADO
-  const indicadores: Indicador[] = [
+  const cifras: CifraDelPanel[] = [
+    { rotulo: "Cobertura del banco", valor: hasActivity ? `${coverage} %` : null },
     {
-      rotulo: "Cobertura del banco",
-      valor: hasActivity ? String(coverage) : null,
-      unidad: "%",
-      nota:
-        hasActivity && stats
-          ? `${miles.format(stats.answered)} de ${miles.format(stats.bank_total)} preguntas`
-          : `${miles.format(bankTotal)} preguntas en el banco`,
-    },
-    {
-      rotulo: "Dominio",
-      valor: stats?.mastery_pct != null ? String(stats.mastery_pct) : null,
-      unidad: "%",
-      nota:
-        stats?.mastery_pct == null
-          ? "Aparece con tu primer simulacro"
-          : bajoElAprobado
-            ? `Bajo el ${PCA_APROBADO} % para aprobar`
-            : "Aciertos sobre las que viste",
+      rotulo: bajoElAprobado ? `Dominio (mínimo ${PCA_APROBADO} %)` : "Dominio",
+      valor: stats?.mastery_pct != null ? `${stats.mastery_pct} %` : null,
       aviso: bajoElAprobado,
     },
-    {
-      rotulo: "Simulacros",
-      valor: hasActivity && stats ? String(stats.sessions) : null,
-      nota: stats?.avg_minutes ? `${stats.avg_minutes} min de media` : "Ninguno aún",
-    },
+    { rotulo: "Simulacros", valor: hasActivity && stats ? String(stats.sessions) : null },
     {
       rotulo: "Racha",
-      valor: stats?.streak_days ? String(stats.streak_days) : null,
-      unidad: stats?.streak_days === 1 ? "día" : "días",
-      nota: stats?.streak_days ? "Días seguidos" : "Sin racha activa",
+      valor: stats?.streak_days ? `${stats.streak_days} ${stats.streak_days === 1 ? "día" : "días"}` : null,
     },
   ]
 
@@ -199,20 +179,8 @@ export function Pca() {
               dias={stats?.days_to_exam ?? null}
               fechaExamen={stats?.target_date ?? null}
               onGuardar={(d) => setExamDate(d)}
+              cifras={cifras}
             />
-          )}
-        </div>
-      </section>
-
-      <section className="mt-8" aria-labelledby="pca-numeros">
-        <h2 id="pca-numeros" className={ROTULO}>
-          Tus números
-        </h2>
-        <div className="mt-3">
-          {statsLoading ? (
-            <div className="h-[210px] rounded-2xl bg-muted animate-pulse @3xl:h-[114px]" aria-hidden />
-          ) : (
-            <Indicadores items={indicadores} />
           )}
         </div>
       </section>
@@ -240,24 +208,16 @@ export function Pca() {
 
           {/* El banco oficial se mudó a la Biblioteca. El enlace lleva a la
               CATEGORÍA del PCA y no al documento suelto: el día que haya más
-              material del examen, ya está el sitio donde ponerlo. */}
-          <div className="flex flex-col gap-3">
-            <div className="flex-1">
-              <FilaDeAcceso
-                to="/app/biblioteca#pca"
-                titulo="Bibliografía del PCA"
-                detalle="El banco oficial de la Aerocivil completo, para consultar y verificar"
-                icon={LibraryIcon}
-              />
-            </div>
-            <div className="flex-1">
-              <FilaDeAcceso
-                to="/app/examenes"
-                titulo="Qué cayó en el examen"
-                detalle="Lo que reportan los pilotos que ya lo presentaron"
-                icon={Radar}
-              />
-            </div>
+              material del examen, ya está el sitio donde ponerlo. Aquí iba
+              también «Qué cayó en el examen»; Camilo lo sacó de esta parte
+              porque no ayuda a decidir qué estudiar hoy. */}
+          <div className="flex flex-col">
+            <FilaDeAcceso
+              to="/app/biblioteca#pca"
+              titulo="Bibliografía del PCA"
+              detalle="El banco oficial de la Aerocivil completo, para consultar y verificar"
+              icon={LibraryIcon}
+            />
           </div>
         </div>
       </section>

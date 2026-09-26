@@ -3,17 +3,21 @@ import factoresHumanos from "@/assets/pca/materias/factores_humanos.webp"
 import instrumentos from "@/assets/pca/materias/instrumentos.webp"
 import meteorologia from "@/assets/pca/materias/meteorologia.webp"
 import navegacion from "@/assets/pca/materias/navegacion.webp"
+import performance from "@/assets/pca/materias/performance.webp"
 import procedimientos from "@/assets/pca/materias/procedimientos.webp"
 import reglamentacion from "@/assets/pca/materias/reglamentacion.webp"
 import serviciosMeteo from "@/assets/pca/materias/servicios_meteo.webp"
 import sistemas from "@/assets/pca/materias/sistemas.webp"
+import weightBalance from "@/assets/pca/materias/weight-balance.webp"
 
 /**
  * Miniatura por materia del banco PCA.
  *
  * Son fotografías de 124 × 84 con las esquinas ya redondeadas, hechas por
  * Camilo el 25 de septiembre de 2026 para la tabla de materias y la tarjeta
- * «Sigue estudiando». Sustituyen al símbolo de carta de `subjectSymbols`, que
+ * «Sigue estudiando»: las once materias abiertas del banco. Performance y
+ * Weight & Balance llegaron después, a 512 × 512, y se recortaron al centro a
+ * la misma medida. Sustituyen al símbolo de carta de `subjectSymbols`, que
  * sigue siendo el respaldo: una materia que entre al banco sin foto se pinta
  * con su símbolo, no con un hueco.
  *
@@ -29,10 +33,12 @@ const MAP: Record<string, string> = {
   instrumentos,
   meteorologia,
   navegacion,
+  performance,
   procedimientos,
   reglamentacion,
   servicios_meteo: serviciosMeteo,
   sistemas,
+  "weight-balance": weightBalance,
 }
 
 /** La miniatura de la materia, o `undefined` si todavía no la tiene. */
