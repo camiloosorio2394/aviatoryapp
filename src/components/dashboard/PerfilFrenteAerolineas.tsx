@@ -1,30 +1,11 @@
-import type { CSSProperties } from "react"
 import { Link } from "react-router-dom"
 import { ArrowRight, Clock3 } from "lucide-react"
 import type { Airline } from "@/services/aerolineas"
+import { LogoAerolinea } from "@/components/LogoAerolinea"
 import { Barra, EncabezadoSeccion } from "@/components/dashboard/ResumenPiloto"
 import { TEXTO_CONVOCATORIA, estadoDeConvocatoria, horas } from "@/components/dashboard/portada"
 
 // ─── Tu perfil frente a aerolíneas ──────────────────────────────────────────
-
-/**
- * Los logos oficiales se ponen en public/aerolineas/<código>.svg y se listan
- * aquí. Mientras no estén, va el nombre en el color de la marca.
- */
-const LOGOS: Partial<Record<string, string>> = {}
-
-export function LogoAerolinea({ aerolinea }: { aerolinea: Airline }) {
-  const logo = aerolinea.code ? LOGOS[aerolinea.code] : undefined
-  if (logo) return <img src={logo} alt={aerolinea.name} className="h-6 w-auto max-w-[140px] object-contain" />
-  return (
-    <span
-      className="nh-display block truncate text-[17px] font-bold tracking-[-0.01em] text-[var(--color-aerolinea)] dark:text-[color-mix(in_oklab,var(--color-aerolinea)_45%,white)]"
-      style={{ "--color-aerolinea": aerolinea.brand_color ?? "var(--foreground)" } as CSSProperties}
-    >
-      {aerolinea.name.replace(/ Colombia$/, "")}
-    </span>
-  )
-}
 
 function TarjetaAerolinea({ aerolinea, horasPiloto }: { aerolinea: Airline; horasPiloto: number | null }) {
   const requeridas = aerolinea.requirements.min_hours_total ?? null
