@@ -10,6 +10,7 @@ import { Nota } from "@/components/dashboard/Nota"
 import { useVaultSubjects } from "@/hooks/useVaultQuiz"
 import { usePcaStats } from "@/hooks/usePcaStats"
 import { getSubjectMeta, PCA_APROBADO } from "@/lib/vaultSubjects"
+import { subjectFoto } from "@/lib/subjectFotos"
 import { subjectSymbol } from "@/lib/subjectSymbols"
 
 /**
@@ -224,7 +225,11 @@ export function Pca() {
           {statsLoading || subjectsLoading ? (
             <div className="h-[196px] rounded-2xl bg-muted animate-pulse" aria-hidden />
           ) : siguiente ? (
-            <TarjetaSiguiente {...siguiente} icon={subjectSymbol(siguiente.slug)} />
+            <TarjetaSiguiente
+              {...siguiente}
+              foto={subjectFoto(siguiente.slug)}
+              icon={subjectSymbol(siguiente.slug)}
+            />
           ) : (
             <div className="flex flex-col justify-center rounded-2xl border border-dashed border-border p-5">
               <p className="m-0 text-[13.5px] text-muted-foreground">
@@ -333,6 +338,7 @@ export function Pca() {
 function TarjetaSiguiente({
   rotulo,
   slug,
+  foto,
   icon: Simbolo,
   detalle,
   pct,
@@ -341,6 +347,8 @@ function TarjetaSiguiente({
 }: {
   rotulo: string
   slug: string
+  /** La misma miniatura que lleva la materia en la tabla; sin ella, el símbolo. */
+  foto?: string
   icon: React.ComponentType<{ className?: string }>
   detalle: string
   /** `null` = todavía no se ha empezado: no hay barra que dibujar. */
@@ -354,9 +362,20 @@ function TarjetaSiguiente({
         {rotulo}
       </span>
       <div className="mt-3 flex items-center gap-3">
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-muted text-foreground">
-          <Simbolo className="h-5 w-5" />
-        </span>
+        {foto ? (
+          <img
+            src={foto}
+            alt=""
+            width={124}
+            height={84}
+            decoding="async"
+            className="h-[44px] w-[65px] shrink-0 rounded-lg object-cover"
+          />
+        ) : (
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-muted text-foreground">
+            <Simbolo className="h-5 w-5" />
+          </span>
+        )}
         <div className="min-w-0">
           <div className="truncate text-[18px] font-semibold tracking-[-0.02em] text-foreground">
             {getSubjectMeta(slug).name}
