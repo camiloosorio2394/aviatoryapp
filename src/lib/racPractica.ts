@@ -37,7 +37,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "enunciado": "Según el RAC 2, ¿con qué periodicidad deben hacer repaso, entrenamiento y chequeo de proeficiencia los PTL y los pilotos y copilotos PCA?",
         "opciones": [
           "Una vez cada 12 meses calendario, en el mes de su cumpleaños",
-          "Dos veces cada 12 meses calendario, con intervalos de 3 a 9 meses",
+          "Dos veces cada 12 meses, con intervalos de 3 a 9 meses",
           "Una vez cada 24 meses calendario, con un repaso de tierra anual",
           "Dos veces cada 12 meses calendario, con intervalos de 5 a 7 meses"
         ],
@@ -110,7 +110,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "opciones": [
           "3 horas de instrumentos y 3 aproximaciones en los últimos 90 días",
           "6 aproximaciones en los últimos 90 días, sin un mínimo de horas",
-          "12 horas de instrumentos y 12 aproximaciones en los últimos 12 meses",
+          "12 horas y 12 aproximaciones en los últimos 12 meses",
           "6 horas en 6 meses, 3 en la categoría, con al menos 6 aproximaciones"
         ],
         "correcta": 3,
@@ -156,7 +156,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "opciones": [
           "Sí: se informa toda disminución de aptitud de más de 20 días",
           "No: solo se informa cuando hubo hospitalización",
-          "No: solo se informa si la incapacidad médica supera los 45 días",
+          "No: solo si la incapacidad médica supera los 45 días",
           "Solo si tu certificado médico vence durante la incapacidad"
         ],
         "correcta": 0,
@@ -176,7 +176,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "opciones": [
           "8 horas desde la última bebida, sin importar la cantidad",
           "12 horas desde la última bebida, sin importar la cantidad",
-          "24 horas si tomaste más de dos copas, y 12 horas si fueron menos",
+          "24 horas si tomaste más de dos copas; 12 si fueron menos",
           "No fija horas: debes dar negativo y no estar bajo su efecto"
         ],
         "correcta": 3,
@@ -189,7 +189,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "opciones": [
           "Alcohol, opioides, cannabinoides, cocaína, anfetaminas y cafeína",
           "Alcohol, opioides, cannabinoides, cocaína, anfetaminas y benzodiacepinas",
-          "Alcohol, cannabinoides, cocaína, tabaco, anfetaminas, opioides y cafeína",
+          "Alcohol, cannabinoides, cocaína, tabaco, anfetaminas, opioides y la cafeína",
           "Solo alcohol y cannabinoides; lo demás queda a criterio de la empresa"
         ],
         "correcta": 1,
@@ -247,7 +247,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "enunciado": "Vuelas IFR en IMC, en espacio aéreo con radar, y pierdes las comunicaciones. Pones 7600. Según el RAC 91, ¿durante cuánto tiempo mantienes el último nivel y velocidad asignados antes de ajustarlos al plan de vuelo?",
         "opciones": [
           "7 minutos, desde lo último entre alcanzar el nivel, poner 7600 o no notificar",
-          "20 minutos, desde que dejaste de notificar un punto de notificación obligatoria",
+          "20 minutos, desde que dejaste de notificar un punto obligatorio",
           "3 minutos, contados desde que pusiste el código 7600 en el transpondedor",
           "30 minutos, contados desde la última hora prevista de aproximación recibida"
         ],
@@ -259,7 +259,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "id": "u05-q4",
         "enunciado": "En una aproximación por instrumentos, todavía antes del tramo de aproximación final y a 2.000 ft sobre la elevación del aeródromo, te informan un RVR de control inferior al mínimo. Según el RAC 91, ¿qué aplica?",
         "opciones": [
-          "Puedes seguir hasta la DA/H, porque ya estás establecido en la aproximación",
+          "Puedes seguir hasta la DA/H: ya estás establecido en la aproximación",
           "No puedes continuar por debajo de 500 ft sobre la elevación del aeródromo",
           "Solo puedes seguir si el techo reportado está por encima de 1.000 ft",
           "No puedes continuar por debajo de 1.000 ft sobre la elevación del aeródromo"
@@ -292,12 +292,12 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "id": "u06-q2",
         "enunciado": "La torre te transmite por voz varias instrucciones y datos. Según el RAC 211, ¿cuál de estos elementos debes colacionar obligatoriamente?",
         "opciones": [
-          "El viento en la superficie",
-          "La información de tránsito",
           "El reglaje de altímetro",
+          "La información de tránsito",
+          "El viento en la superficie",
           "La temperatura del aeródromo"
         ],
-        "correcta": 2,
+        "correcta": 0,
         "explicacion": "Se colacionan siempre las autorizaciones de ruta, las de entrar, aterrizar, despegar, esperar, cruzar o regresar en una pista, y la pista en uso, el reglaje de altímetro, los códigos SSR, las instrucciones de nivel, rumbo y velocidad y los niveles de transición. Lo demás se colaciona o se acusa recibo de forma que quede claro que se entendió.",
         "referencia": "RAC 211, 211.555 (d)(1)(iii)"
       },
@@ -325,7 +325,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "id": "u07-q1",
         "enunciado": "De día, sobrevuelas a unos supervivientes que hicieron una señal en tierra y la entendiste. Según el RAC 212, ¿cómo se lo indicas desde el aire?",
         "opciones": [
-          "Describiendo un círculo sobre ellos",
+          "Volando en círculo sobre ellos",
           "Cabeceando el morro varias veces",
           "Con dos destellos de los faros de aterrizaje",
           "Alabeando las alas de la aeronave"
@@ -384,7 +384,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "id": "u08-q2",
         "enunciado": "En el despacho te entregan un SIGMET por cenizas volcánicas que afecta tu ruta. Según el RAC 203, ¿cuál es el período máximo de validez de ese tipo de SIGMET?",
         "opciones": [
-          "4 horas, igual que cualquier otro SIGMET",
+          "4 horas, como cualquier SIGMET",
           "2 horas, igual que un pronóstico de tendencia",
           "12 horas, contadas desde que se emite",
           "6 horas, por ser de cenizas volcánicas"
@@ -418,7 +418,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "enunciado": "Una empresa quiere hacer vuelos regulares de pasajeros con un turborreactor de 12 asientos y 5.600 kg de peso máximo de despegue. Según el RAC 119, ¿bajo qué reglamento debe operar?",
         "opciones": [
           "RAC 135, porque tiene 19 asientos o menos",
-          "RAC 135, porque no supera los 5.700 kg de peso",
+          "RAC 135, porque no supera 5.700 kg",
           "RAC 121, porque es un turborreactor regular",
           "RAC 91, porque es un avión pequeño"
         ],
@@ -602,7 +602,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "enunciado": "Según el RAC 160, ¿en qué condiciones puede un explotador comercial transportar armas y municiones?",
         "opciones": [
           "Solo en bodega, descargadas, con legalidad verificada y en un lugar inaccesible durante el vuelo.",
-          "En la cabina de pasajeros, siempre que las porte personal armado autorizado por la empresa aérea.",
+          "En la cabina de pasajeros, siempre que las porte personal armado autorizado por la propia empresa aérea.",
           "En la cabina de mando, bajo la custodia directa del piloto al mando.",
           "En el equipaje de mano, si el pasajero presenta su permiso de porte vigente."
         ],
@@ -637,7 +637,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
           "Instrucción, comunicación, gestión del cambio y mejora continua.",
           "Política y objetivos, gestión de riesgos, aseguramiento y promoción de la seguridad.",
           "Prevención, investigación, sanción y divulgación de los sucesos.",
-          "Identificación de peligros, notificación obligatoria, auditoría y análisis de datos de vuelo."
+          "Identificación de peligros, notificación, auditoría y análisis de datos."
         ],
         "correcta": 1,
         "explicacion": "El SMS tiene 4 componentes y 12 elementos. Instrucción, comunicación, gestión del cambio y mejora continua son elementos dentro de los componentes de aseguramiento y promoción, no componentes.",
@@ -655,9 +655,9 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "enunciado": "Según el RAC 114, ¿cuál es el único objetivo de investigar un accidente o incidente de aviación?",
         "opciones": [
           "Prevenir futuros accidentes e incidentes.",
-          "Determinar la culpa y la responsabilidad de los involucrados.",
+          "Determinar la culpa de los involucrados.",
           "Fijar la sanción que corresponde al explotador o a la tripulación.",
-          "Establecer el monto de las indemnizaciones del seguro."
+          "Fijar las indemnizaciones del seguro."
         ],
         "correcta": 0,
         "explicacion": "El único objetivo es la prevención; la investigación no busca determinar culpa ni responsabilidad. Si el investigador detecta una posible infracción, la traslada a la dependencia sancionadora, que actúa por separado (RAC 13, 13.1020).",
@@ -702,7 +702,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "opciones": [
           "Haberla cometido para ocultar otra falta anterior.",
           "Presentarte voluntariamente ante la autoridad e informar la falta.",
-          "Haber aprovechado una situación de calamidad o infortunio para cometerla.",
+          "Haber aprovechado una calamidad o infortunio para cometerla.",
           "Haber actuado en coparticipación con otro tripulante."
         ],
         "correcta": 1,
@@ -759,7 +759,7 @@ export const RAC_PRACTICA: GrupoPractica[] = [
         "id": "u17-q2",
         "enunciado": "Según las definiciones del RAC 1, ¿cuál es la diferencia entre la altitud de decisión (DA) y la altura de decisión (DH)?",
         "opciones": [
-          "La DA se usa en aproximaciones que no son de precisión y la DH en las de precisión.",
+          "La DA se usa en aproximaciones de no precisión y la DH en las de precisión.",
           "La DA va referida al nivel medio del mar; la DH, a la zona de toma de contacto.",
           "La DA se expresa en metros y la DH en pies, pero indican el mismo punto.",
           "La DA va referida a la elevación del aeródromo y la DH al nivel medio del mar."

@@ -8,7 +8,7 @@
       "opciones": [
         "Debe estar operativo si toca la aeronavegabilidad o las reglas de operación",
         "Puede estar inoperativo con plazo de categoría D mientras no afecte el vuelo",
-        "Se busca en la MMEL del tipo y, si allí aparece, se aplica ese alivio",
+        "Se busca en la MMEL del tipo y, si allí aparece, se aplica ese mismo alivio con su categoría",
         "Se difiere por el programa NEF, que cubre lo que la MEL no trae"
       ],
       "correcta": 0,
@@ -35,7 +35,7 @@
       "enunciado": "En crucero falla un sistema que en tierra habría tenido alivio MEL. El primer oficial propone «diferirlo por MEL» para seguir tranquilos. ¿Qué dice la FAA?",
       "opciones": [
         "Se continúa al destino y allí el alivio queda aplicado automáticamente, sin más trámite",
-        "Sí: se difiere en vuelo si la tripulación lo anota en el libro y aplica el (O)",
+        "Sí: se difiere en vuelo si la tripulación lo anota en el libro técnico y aplica el (O)",
         "Sí, pero solo si el ítem es de categoría C o D y no tiene (M) pendiente",
         "No: tras el despegue mandan el AFM y las listas; se resuelve antes de volver a salir"
       ],
@@ -79,7 +79,7 @@
         "En los dos sistemas, la OACI junto con los Estados de diseño",
         "FAA: el fabricante solo, sin participación de la FAA. RAC: la UAEAC, para cada tipo de avión",
         "FAA: la FAA (FOEB) con el fabricante; RAC/OACI: el fabricante, aprobada por el Estado de diseño",
-        "En los dos sistemas la elabora cada operador para su flota, y la aprueba la autoridad de su Estado"
+        "En los dos sistemas la elabora cada operador para su flota y la aprueba su autoridad"
       ],
       "correcta": 2,
       "explicacion": "FAA: «All MMELs are developed and revised by the FOEB» y las aprueba el gerente del AED (8900.1, 4-681); PL-34 dice que la desarrolla la FAA «with participation by the Original Equipment Manufacturer». RAC 121.001 (igual que el Anexo 6): la establece «el organismo responsable del diseño del tipo de aeronave con aprobación del Estado de diseño». La MEL, en cambio, la elabora el operador en los dos sistemas.",
@@ -162,7 +162,7 @@
       "opciones": [
         "Lleva (M): breaker del RIPS asegurado y 15 min antes de salir",
         "Pasa a categoría C, porque el RIPS le da respaldo al CVR",
-        "No tiene alivio: con RIPS instalado el CVR debe funcionar",
+        "No tiene alivio: con el RIPS instalado, el CVR tiene que funcionar siempre",
         "Nada: las dos filas son categoría A, con 3 flight-days y sin (M)"
       ],
       "correcta": 0,
@@ -191,7 +191,7 @@
         "Un vuelo desde que se difiere: se repara antes del siguiente",
         "Por ser de categoría A, se repara antes de ese mismo vuelo del día",
         "Queda un día de vuelo completo, sin contar el día de hoy",
-        "Quedan 3 días calendario, como en todo ítem de categoría A"
+        "Quedan 3 días calendario completos, como en todo ítem de categoría A"
       ],
       "correcta": 0,
       "explicacion": "Categoría A no significa «reparar ya»: el plazo es el que está en Remarks (PL-25 Rev 24, Repair Category A). Cuando el intervalo va en vuelos, tramos, ciclos u horas, «the repair interval begins at the point when the item is deferred»; el day of discovery solo se excluye cuando el plazo va en días calendario o flight-days.",
@@ -202,7 +202,7 @@
       "id": "mel-ev-015",
       "enunciado": "En una entrevista en Colombia te preguntan: «¿cuántos días tiene un ítem de categoría C?». ¿Cuál es la respuesta completa?",
       "opciones": [
-        "240 horas exactas, contadas desde la hora y el minuto en que la falla se anotó en el libro técnico",
+        "240 horas exactas, desde la hora y el minuto en que se anotó en el libro técnico",
         "10 días de vuelo, contando como primero el día en que se anotó",
         "FAA: 10 días calendario sin el de descubrimiento; Colombia: lo que fije la MEL aprobada",
         "10 días calendario, porque el RAC 121.2615 fija las categorías A a D igual que la FAA"
@@ -258,7 +258,7 @@
       "id": "mel-ev-019",
       "enunciado": "En la MMEL un ítem trae «-» en Number Installed y en Number Required for Dispatch. ¿Qué debe traer la MEL de tu operador?",
       "opciones": [
-        "Un cero en requeridos, porque el guion equivale a ninguno",
+        "Un cero en requeridos, porque el guion equivale a ninguno para despachar",
         "El número real, o un medio aprobado de control de configuración",
         "El mismo guion, que indica que el ítem es opcional para despachar",
         "Nada: el guion obliga a consultar al fabricante en cada vuelo"
@@ -273,7 +273,7 @@
       "enunciado": "MMEL FAA A318-A321, ítem 33-40-06 1) Beacon Lights: «C | 2 | 0 | (O) May be inoperative provided: a) Strobe lights operate normally, and b) Alternate procedures are established and used.» ¿Qué dice ese «0» requerido?",
       "opciones": [
         "Que el operador decide en cada vuelo cuántas lleva operativas",
-        "Que las luces beacon no se necesitan para despachar en ninguna condición",
+        "Que las luces beacon no se necesitan para despachar, en ninguna condición de vuelo",
         "Pueden faltar las dos si los strobes funcionan y hay procedimientos alternos",
         "Que pueden faltar de día, pero de noche se requieren las dos luces beacon operativas"
       ],
@@ -288,7 +288,7 @@
       "opciones": [
         "Contra el Anexo 6 de la OACI, porque el RAC no fija equipos mínimos",
         "Contra ninguna: la frase autoriza que falten todos los instalados",
-        "Solo contra el 14 CFR, porque la MMEL es un documento de la FAA",
+        "Solo contra el 14 CFR, porque la MMEL es un documento emitido por la FAA",
         "Contra el RAC: «14 CFR» incluye la norma del Estado donde se opera"
       ],
       "correcta": 3,
@@ -428,7 +428,7 @@
       "opciones": [
         "No: sigue siendo obligatorio determinar que el avión está en condición segura",
         "No: además la autoridad debe aprobar el diferido para ese vuelo",
-        "Sí: cumplir todas las condiciones de la MEL ya garantiza el nivel aceptable de seguridad",
+        "Sí: cumplir todas las condiciones de la MEL ya garantiza la seguridad",
         "Sí, salvo que el ítem sea de categoría A o B"
       ],
       "correcta": 0,
@@ -455,7 +455,7 @@
       "enunciado": "Para efectos de la MEL en la FAA, ¿en qué momento se considera que el avión despegó?",
       "opciones": [
         "Cuando el piloto empieza a aplicar potencia para despegar",
-        "Cuando se cierra la puerta y comienza el pushback",
+        "Cuando se cierra la última puerta y comienza el pushback del avión",
         "Cuando el avión se mueve por sus propios medios hacia la pista",
         "Cuando el tren principal deja de tocar la pista"
       ],
@@ -538,7 +538,7 @@
       "id": "mel-ev-039",
       "enunciado": "Un ítem de categoría B vence hoy y el repuesto llega mañana. El operador tiene OpSpec D095. Según la FAA, ¿qué puede hacer?",
       "opciones": [
-        "Pasarlo a categoría C en su MEL para ganar 10 días más de plazo",
+        "Pasarlo a categoría C en su MEL para ganar 10 días más de plazo de reparación",
         "Pedir que el comandante acepte el ítem vencido",
         "Extenderlo las veces que haga falta, de 3 en 3 días, avisando a la FAA",
         "Aprobar una sola extensión de hasta 3 días y avisar a la FAA en 24 h"
@@ -583,7 +583,7 @@
         "Como una regla que solo aplica a los vuelos EDTO",
         "Como un límite fijo de tres ítems MEL abiertos por avión",
         "Como prohibición: sin ese análisis de interrelación, el vuelo no se inicia",
-        "Como recomendación para el despachador, sin efecto sobre la decisión de iniciar el vuelo"
+        "Como recomendación al despachador, sin efecto en la decisión del vuelo"
       ],
       "correcta": 2,
       "explicacion": "RAC 91 Apéndice 2 (f): «Los explotadores deben asegurarse de que no se inicie ningún vuelo cuando varios elementos del MEL no funcionen, sin haber determinado que la interrelación que existe entre los sistemas o componentes inoperativos no dará lugar a una degradación inaceptable del nivel de seguridad operacional o a un aumento indebido en la carga de trabajo de la tripulación de vuelo». La FAA lo dice como algo a considerar (PL-34; 8900.1, 4-692); ninguna fuente fija un número máximo de ítems.",
@@ -653,7 +653,7 @@
         "Se cierra y se vuelve a diferir como B el mismo día",
         "Sigue con su categoría y proviso originales hasta repararlo",
         "Queda sin alivio hasta que el operador revise su MEL con el cambio",
-        "Vence de inmediato con la publicación de la revisión"
+        "Vence de inmediato, el mismo día en que se publica la revisión"
       ],
       "correcta": 1,
       "explicacion": "AC 120-125 (9.2.2.4): si una revisión de la MMEL trae una categoría o un proviso más restrictivo, «the operator does not have to close and reinitiate an existing open MEL item»; «Existing MEL items may remain open in accordance with the original repair category and proviso under which the item was initially deferred until such time as the item is repaired». En Colombia, el trato de los diferidos abiertos lo define el operador.",
@@ -708,7 +708,7 @@
       "opciones": [
         "Tiene razón, salvo que el ítem lleve (M)",
         "No: la categoría es el plazo; un ítem C puede limitar altitud o combustible",
-        "Tiene razón: los ítems que limitan el vuelo siempre se clasifican en categoría A o B",
+        "Tiene razón: lo que limita el vuelo siempre va en categoría A o B",
         "Los ítems C solo afectan la cabina de pasajeros"
       ],
       "correcta": 1,
@@ -722,7 +722,7 @@
       "opciones": [
         "Hay que volar por debajo de FL 250 durante todo el crucero",
         "Solo cambia si el vuelo es ETOPS de más de 120 minutos",
-        "Nada: un generador no tiene efecto sobre el combustible",
+        "Nada: un generador inoperativo no tiene efecto sobre el combustible",
         "Hay que contar el consumo de la APU durante todo el vuelo"
       ],
       "correcta": 3,
@@ -764,7 +764,7 @@
       "opciones": [
         "No: pide solo día VMC y prohíbe over-the-top pronosticado",
         "Sí, si el vuelo se hace con el autopiloto conectado",
-        "Sí: es de día y hay VMC en el aeropuerto de salida y en el destino",
+        "Sí: es de día y hay VMC en la salida y en el destino",
         "Sí, porque el horizonte de reserva no es requerido"
       ],
       "correcta": 0,
@@ -961,7 +961,7 @@
         "Sí, si se rotula con el mismo placard del sistema",
         "Sí, si la tripulación la vigila en el prevuelo",
         "No, salvo que la MMEL dé ese alivio de forma específica",
-        "Sí: todo componente del sistema diferido queda cubierto"
+        "Sí: todo componente del sistema diferido queda cubierto, avisos incluidos"
       ],
       "correcta": 2,
       "explicacion": "PL-25 Rev 24, Inoperative Components of an Inoperative System: esos componentes son los que no tienen otra función que apoyar el sistema, pero «Warning/caution systems associated with the inoperative system must be operative unless relief is specifically authorized per the MMEL».",
