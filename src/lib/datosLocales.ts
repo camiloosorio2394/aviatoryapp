@@ -20,8 +20,12 @@ import { PREFERENCIAS_DEL_EQUIPO } from "@/lib/preferenciasEquipo"
 
 export const CLAVE_DUENO = "aviatory.datosLocales.dueno"
 
-/** Todo lo que la app guarda en el navegador empieza por uno de estos. */
-const PREFIJOS_DE_LA_APP = ["aviatory.", "av_"] as const
+/**
+ * Todo lo que la app guarda en el navegador empieza por uno de estos. Los dos
+ * últimos los usan las misiones de Aeropuertos y el «ya viste el video» de los
+ * módulos: sin ellos, lo de un piloto sobrevivía al cambio de cuenta.
+ */
+const PREFIJOS_DE_LA_APP = ["aviatory.", "av_", "aviatory-", "av:"] as const
 
 const QUE_SE_CONSERVA: ReadonlySet<string> = new Set([...PREFERENCIAS_DEL_EQUIPO, CLAVE_DUENO])
 

@@ -47,7 +47,7 @@ export function Referrals() {
   const shareText = `Estoy usando Aviatory para preparar mis exámenes Aerocivil y avanzar a aerolínea. Si te registras con mi código, los dos ganamos 7 días extra de prueba 🛫`
 
   function shareWhatsApp() {
-    window.open(`https://wa.me/?text=${encodeURIComponent(shareText + " " + link)}`, "_blank")
+    window.open(`https://wa.me/?text=${encodeURIComponent(shareText + " " + link)}`, "_blank", "noopener,noreferrer")
   }
   function shareEmail() {
     window.location.href = `mailto:?subject=${encodeURIComponent("Aviatory: para tu carrera de piloto")}&body=${encodeURIComponent(

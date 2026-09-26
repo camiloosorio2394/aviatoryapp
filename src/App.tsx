@@ -3,6 +3,7 @@ import type { ComponentType } from "react"
 import { Navigate, Outlet, Route, Routes, useParams } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
 import { ReloadPrompt } from "@/components/ReloadPrompt"
+import { AvisoAnalitica } from "@/components/AvisoAnalitica"
 import { RequireAuth } from "@/components/auth/RequireAuth"
 import { ErrorBoundary } from "@/components/ErrorBoundary"
 import { useSession } from "@/hooks/useSession"
@@ -163,7 +164,8 @@ function App() {
   const { user } = useSession()
   useEffect(() => {
     if (user) {
-      identifyUser(user.id, { email: user.email ?? undefined })
+      // Solo el id: el correo no tiene por qué salir a un tercero.
+      identifyUser(user.id)
     } else {
       resetIdentity()
     }
@@ -366,6 +368,7 @@ function App() {
       </ErrorBoundary>
       <Toaster />
       <ReloadPrompt />
+      <AvisoAnalitica />
     </>
   )
 }

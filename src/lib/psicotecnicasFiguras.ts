@@ -1044,7 +1044,9 @@ function dibujarCelda(
         // La raya del medio, encima de los rellenos para que no se la coman.
         partes.push(`<line x1="${mx}" y1="${arr}" x2="${mx}" y2="${abj}"${borde}/>`)
 
-        if (el.letra !== "ninguna") {
+        // La figura llega del servidor y este SVG entra con innerHTML: solo se
+        // pintan las letras que existen, nunca el texto que venga.
+        if (el.letra === "A" || el.letra === "C" || el.letra === "D") {
           partes.push(
             `<text x="${((mx + der - rl) / 2).toFixed(1)}" y="${(y + alto * 0.27).toFixed(1)}"` +
               ` font-family="Georgia, 'Times New Roman', serif" font-size="${(alto * 0.34).toFixed(1)}"` +
