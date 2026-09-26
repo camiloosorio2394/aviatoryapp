@@ -2,6 +2,7 @@ import type { ComponentType } from "react"
 import { Link } from "react-router-dom"
 import { ArrowRight, Check } from "lucide-react"
 import { getSubjectMeta } from "@/lib/vaultSubjects"
+import { subjectFoto } from "@/lib/subjectFotos"
 import { subjectSymbol } from "@/lib/subjectSymbols"
 
 export interface SubjectRowData {
@@ -25,6 +26,11 @@ export interface SubjectRowData {
  * acertado, y el verde en esta app significa acierto.
  *
  * La cabecera desaparece en móvil, donde cada fila se lee como bloque.
+ *
+ * Cada materia abre con su miniatura (124 × 84, la de `subjectFotos`), que es
+ * lo que hace reconocible la fila antes de leer el nombre. Donde todavía no
+ * hay foto queda el símbolo de carta de siempre, en su cuadrado de 32 px:
+ * nunca un hueco.
  */
 export function SubjectTable({ rows, enCurso }: { rows: SubjectRowData[]; enCurso?: string | null }) {
   return (
@@ -41,6 +47,7 @@ export function SubjectTable({ rows, enCurso }: { rows: SubjectRowData[]; enCurs
           <SubjectRow
             key={r.slug}
             data={r}
+            foto={subjectFoto(r.slug)}
             icon={subjectSymbol(r.slug)}
             enCurso={r.slug === enCurso}
             last={i === rows.length - 1}
@@ -53,11 +60,14 @@ export function SubjectTable({ rows, enCurso }: { rows: SubjectRowData[]; enCurs
 
 function SubjectRow({
   data,
+  foto,
   icon: Simbolo,
   enCurso,
   last,
 }: {
   data: SubjectRowData
+  /** La miniatura de la materia; sin ella se pinta el símbolo. */
+  foto?: string
   icon: ComponentType<{ className?: string }>
   enCurso: boolean
   last: boolean
@@ -73,10 +83,24 @@ function SubjectRow({
         to={`/app/pca/quiz/${data.slug}?module=pca&count=${quizCount}`}
         className="group grid grid-cols-[1fr_36px] items-center gap-x-4 gap-y-2 px-5 py-3.5 transition-colors hover:bg-muted/60 @2xl:grid-cols-[1fr_96px_212px_36px]"
       >
-        <div className="flex min-w-0 items-center gap-3">
-          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-muted text-muted-foreground transition-colors group-hover:bg-foreground group-hover:text-background">
-            <Simbolo className="h-4 w-4" />
-          </span>
+        <div className="flex min-w-0 items-center gap-3 @2xl:gap-4">
+          {foto ? (
+            /* Decorativa: el nombre va al lado. En móvil se encoge a 92 px para
+               dejarle sitio al texto; la proporción es siempre la de la foto. */
+            <img
+              src={foto}
+              alt=""
+              width={124}
+              height={84}
+              loading="lazy"
+              decoding="async"
+              className="h-[62px] w-[92px] shrink-0 rounded-[10px] object-cover @2xl:h-[84px] @2xl:w-[124px]"
+            />
+          ) : (
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-muted text-muted-foreground transition-colors group-hover:bg-foreground group-hover:text-background">
+              <Simbolo className="h-4 w-4" />
+            </span>
+          )}
           <span className="truncate text-[14.5px] font-semibold tracking-[-0.01em] text-foreground">
             {meta.name}
           </span>
