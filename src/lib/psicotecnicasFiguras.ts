@@ -24,6 +24,8 @@
  * levanta esta misma descripción para enfrentarla al recorte original.
  */
 
+import { LIENZO as LIENZO_MARCA, isotipoSvg } from "@/components/marca/trazos"
+
 // ────────────────────────────────────────────────────────────────────────────
 // Vocabulario
 //
@@ -421,25 +423,18 @@ function pintura(relleno: Relleno): string {
  * el wordmark compite con el enunciado. Y va en `--muted-foreground` al 35 %:
  * tiene que decir de quién es la figura sin disputarle el trazo.
  *
- * La geometría es la de `src/assets/logos/aviatory-isotype-mono.svg`, en su
- * lienzo original de 512, escalada aquí. Si allá se ajusta, ajustar acá.
+ * La geometría sale de `src/components/marca/trazos.ts`, la misma del
+ * isotipo de la barra y del favicon: si la marca cambia, cambia aquí sola.
  */
 function marca(anchoLienzo: number): string {
-  const escala = MARCA_ALTO / 512
+  const escala = MARCA_ALTO / LIENZO_MARCA
   const x = anchoLienzo - MARCA_ALTO - MARCA_MARGEN
   const y = MARCA_MARGEN
-  return [
-    `<g transform="translate(${x} ${y}) scale(${escala.toFixed(5)})"`,
-    ` fill="var(--muted-foreground, currentColor)" opacity="0.35" aria-hidden="true">`,
-    `<mask id="av-corte"><rect width="512" height="512" fill="#fff"/>`,
-    `<polygon points="0,382 512,216 512,260 0,446" fill="#000"/></mask>`,
-    `<g mask="url(#av-corte)"><path fill-rule="evenodd" clip-rule="evenodd"`,
-    ` d="M243 52 L317 52 L452 470 L372 470 L280 168 L188 470 L108 470 Z"/></g>`,
-    `<polygon points="38,356 126,322 502,196 502,206 150,360 96,392"/>`,
-    `<polygon points="96,392 150,360 138,414 102,428"/>`,
-    `<polygon points="148,408 502,224 176,432"/>`,
-    `</g>`,
-  ].join("")
+  return (
+    `<g transform="translate(${x} ${y}) scale(${escala.toFixed(5)})" opacity="0.35" aria-hidden="true">` +
+    isotipoSvg("var(--muted-foreground, currentColor)", "av-psico") +
+    `</g>`
+  )
 }
 
 /**

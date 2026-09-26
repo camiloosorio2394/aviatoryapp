@@ -9,7 +9,7 @@ import { CLAVE_BARRA_FIJADA, CLAVE_BARRA_OCULTA } from "@/lib/preferenciasEquipo
 
 /**
  * App shell:
- * - Desktop: sidebar 64px (icon rail) → expands to 240px on hover.
+ * - Desktop: sidebar 64px (icon rail) → expands to 264px on hover.
  *   Hide it entirely with the topbar toggle (persisted).
  * - Mobile: sidebar slides in as drawer.
  * - Wingman floats bottom-right on every authenticated page.
@@ -23,7 +23,7 @@ import { CLAVE_BARRA_FIJADA, CLAVE_BARRA_OCULTA } from "@/lib/preferenciasEquipo
 export function AppLayout() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [streak, setStreak] = useState<number | undefined>(undefined)
-  // Estado del hover desktop: cuando el sidebar se expande (64 → 240),
+  // Estado del hover desktop: cuando el sidebar se expande (64 → 264),
   // empujamos el contenido principal (incluido el topbar) para que NO se
   // interponga visualmente con el rail. El topbar siempre queda a la
   // derecha del sidebar, jamás encima.
@@ -79,12 +79,12 @@ export function AppLayout() {
   // Padding-left del contenido principal:
   //   - sidebar oculto        → 0
   //   - sidebar colapsado     → 64px (lg:pl-16)
-  //   - sidebar expandido hover → 240px (lg:pl-60)
+  //   - sidebar expandido hover → 264px (lg:pl-[264px])
   // Las tres clases aparecen como literal strings para que Tailwind las compile.
   const contentPaddingClass = sidebarHidden
     ? "lg:pl-0"
     : sidebarPinned || sidebarHovered
-      ? "lg:pl-60"
+      ? "lg:pl-[264px]"
       : "lg:pl-16"
 
   return (
@@ -123,7 +123,7 @@ export function AppLayout() {
           aria-hidden
         />
         <div
-          className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 shadow-2xl transition-transform duration-200 ${
+          className={`lg:hidden fixed inset-y-0 left-0 z-50 w-[272px] max-w-[86vw] shadow-2xl transition-transform duration-200 ${
             mobileOpen ? "translate-x-0" : "-translate-x-full"
           }`}
           aria-hidden={!mobileOpen}

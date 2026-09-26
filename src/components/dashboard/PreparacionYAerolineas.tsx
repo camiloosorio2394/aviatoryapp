@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom"
 import fotoDeRespaldo from "@/assets/photos/aerolinea-piloto.webp"
-import { ArrowRight, BookOpen, Clock3, Plane } from "lucide-react"
+import { ArrowRight, Clock3 } from "lucide-react"
 import type { Airline } from "@/services/aerolineas"
 import { Barra, TarjetaPanel } from "@/components/dashboard/ResumenPiloto"
 import { TEXTO_CONVOCATORIA, estadoDeConvocatoria, horas } from "@/components/dashboard/portada"
+import { PlacaIcono } from "@/components/marca/Icono"
 
 // ─── Continúa tu preparación ────────────────────────────────────────────────
 
@@ -21,7 +22,7 @@ export interface ModuloParaSeguir {
 export function ContinuaPreparacion({ modulo }: { modulo: ModuloParaSeguir }) {
   const cta = modulo.pct >= 100 ? "Repasar" : modulo.pct > 0 ? "Continuar" : "Empezar"
   return (
-    <TarjetaPanel icon={BookOpen} titulo="Continúa tu preparación" to="/app/aerolinea">
+    <TarjetaPanel icono="preparacion" titulo="Continúa tu preparación" to="/app/aerolinea">
       <div className="flex min-w-0 flex-col gap-5 @2xl:flex-row @2xl:items-center">
         <div
           className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-xl @2xl:w-[220px]"
@@ -34,7 +35,7 @@ export function ContinuaPreparacion({ modulo }: { modulo: ModuloParaSeguir }) {
           <p className="m-0 text-[12.5px] text-muted-foreground">
             Ingreso a aerolínea · Módulo {modulo.numero} de {modulo.total}
           </p>
-          <h3 className="nh-display m-0 mt-1.5 text-[21px] font-bold leading-tight tracking-[-0.02em] text-foreground">{modulo.titulo}</h3>
+          <h3 className="titular m-0 mt-1.5 text-[26px] font-semibold leading-tight text-foreground">{modulo.titulo}</h3>
           <div className="mt-4 flex items-center gap-3">
             <div className="min-w-0 flex-1">
               <Barra pct={modulo.pct} etiqueta={`Avance en ${modulo.titulo}`} />
@@ -137,11 +138,9 @@ export function PerfilFrenteAerolineas({
   return (
     <div className="flex min-w-0 flex-col rounded-2xl surface p-5">
       <div className="flex items-start gap-3.5">
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-muted text-foreground">
-          <Plane className="h-5 w-5" aria-hidden />
-        </span>
+        <PlacaIcono nombre="perfil-aerolineas" className="h-12 w-12" />
         <div className="min-w-0 flex-1">
-          <h2 className="m-0 mt-0.5 text-[15px] font-semibold tracking-[-0.01em] text-foreground">Tu perfil frente a aerolíneas</h2>
+          <h2 className="titular m-0 text-[18px] font-semibold text-foreground">Tu perfil frente a aerolíneas</h2>
           <p className="m-0 mt-0.5 text-[12.5px] text-muted-foreground">
             {horasPiloto
               ? `Con tus ${horas.format(horasPiloto)} horas actuales, revisa en qué aerolíneas cumples requisitos.`

@@ -504,8 +504,7 @@ export function AirlinePrep() {
           titulo: "Performance",
           meta: `${PERF_LECTURA_TOTAL} temas · ${PERF_LECTURA_MINUTOS} min de lectura`,
           descripcion: "V₁, campo equilibrado, segundo segmento y peso máximo del día.",
-          fotoHueco:
-            "PERF-TEM-01 · 2:1 · 1200×600 · Avión de transporte iniciando la carrera de despegue, visto desde el costado de la pista",
+          foto: "/modulos/performance/tema-performance.webp",
           cta: ctaDeTema(performance.overall),
           avance: performance.overall,
           completo: performance.overall >= 100,
@@ -646,7 +645,7 @@ export function AirlinePrep() {
           titulo: "Minimum Equipment List",
           meta: `${MEL_LECTURA_TOTAL} lecciones · ${MEL_NIVELES.length} niveles`,
           descripcion: "Leer una entrada, cumplir el (M) y el (O) y decidir si el avión sale.",
-          fotoHueco: "MEL-TEM-01 · 2:1 · 1200×600 · Etiqueta INOP sobre un mando de cabina, con la MEL abierta al lado",
+          foto: "/modulos/mel/tema-mel.webp",
           cta: ctaDeTema(mel.overall),
           avance: mel.overall,
           completo: mel.overall >= 100,

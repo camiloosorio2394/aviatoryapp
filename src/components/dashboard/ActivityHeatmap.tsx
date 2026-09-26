@@ -63,13 +63,13 @@ export function ActivityHeatmap({
     <div className="flex h-full flex-col rounded-2xl surface p-5">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
-          <h3 className="m-0 text-[15px] font-semibold tracking-[-0.01em] text-foreground">Actividad</h3>
+          <h3 className="titular m-0 text-[18px] font-semibold text-foreground">Actividad</h3>
           <p className="m-0 mt-0.5 text-[12.5px] text-muted-foreground">
             {total > 0 ? "Últimas 12 semanas" : "Esta semana"}
           </p>
         </div>
         <div className="shrink-0 text-right">
-          <div className="nh-display text-[26px] font-bold leading-none tracking-[-0.03em] text-foreground">
+          <div className="titular tabular text-[30px] font-semibold leading-none text-foreground">
             {total > 0 ? total : "—"}
           </div>
           <div className="mt-1 text-[12px] text-muted-foreground">actividades</div>

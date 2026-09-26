@@ -19,26 +19,18 @@ import type {
   Profile,
   Streak,
   Subscription,
-  Achievement,
   ActivityDay,
-  Peer,
-  SubjectMastery,
   NotamResumen,
   LicenseRow,
 } from "@/components/dashboard/tipos"
-import { daysUntil, FIRST_ACTION, STAGE_LABEL, trialDaysLeft } from "@/components/dashboard/plan"
+import { daysUntil, FIRST_ACTION, trialDaysLeft } from "@/components/dashboard/plan"
 import { CARA_DE_MODULO } from "@/components/aerolinea/carasDeModulo"
 import { CompromisosDeHoy } from "@/components/dashboard/CompromisosDeHoy"
 import { PortadaHero, type ProximoObjetivo } from "@/components/dashboard/PortadaHero"
 import { TarjetaDocumentos, TarjetaHoras, TarjetaIcao, TarjetaProgreso } from "@/components/dashboard/ResumenPiloto"
 import { horas } from "@/components/dashboard/portada"
 import { ContinuaPreparacion, PerfilFrenteAerolineas, type ModuloParaSeguir } from "@/components/dashboard/PreparacionYAerolineas"
-import { AccesosRapidos } from "@/components/dashboard/AccesosRapidos"
 import { CifrasDeEstudio, ProximosVencimientos, RachaDeEstudio, TarjetaDestinos } from "@/components/dashboard/FilaInferior"
-import { DominioPca } from "@/components/dashboard/DominioPca"
-import { ActivityHeatmap } from "@/components/dashboard/ActivityHeatmap"
-import { AchievementsCard } from "@/components/dashboard/AchievementsCard"
-import { CohortCard } from "@/components/dashboard/CohortCard"
 import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton"
 
 /**
@@ -57,14 +49,13 @@ import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton"
  * avanzó.
  *
  * El orden es el de las preguntas con las que entra un piloto: cómo voy y qué
- * hago hoy (el hero), qué me puede dejar en tierra (el vencimiento), mis
- * números, por dónde sigo (módulos y cursos), a dónde voy (accesos) y cómo lo
- * estoy haciendo (preparación).
+ * hago hoy (el hero), mis números, por dónde sigo y frente a qué aerolíneas,
+ * qué se me vence y cómo va mi constancia.
+ *
+ * Los accesos rápidos, «Tu preparación» y la cohorte salieron (pedido de
+ * Camilo, 25-sep-2026): los accesos repetían la barra lateral, y los logros con
+ * la actividad pasaron a su propia página, /app/logros.
  */
-
-/** Rótulo de grupo: el mismo de la portada de Ingreso a aerolínea. */
-const ROTULO =
-  "nh-display m-0 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground"
 
 /** Hoy en Bogotá, que es con lo que la base cierra el día de estudio. */
 function hoyEnBogota(): string {
@@ -92,11 +83,7 @@ export function Dashboard() {
   const [streak, setStreak] = useState<Streak | null>(null)
   const [subscription, setSubscription] = useState<Subscription | null>(null)
   const [recentAttempts, setRecentAttempts] = useState<number>(0)
-  const [achievements, setAchievements] = useState<Achievement[]>([])
-  const [allAchievements, setAllAchievements] = useState<Achievement[]>([])
   const [heatmap, setHeatmap] = useState<ActivityDay[]>([])
-  const [peers, setPeers] = useState<Peer[]>([])
-  const [mastery, setMastery] = useState<SubjectMastery[]>([])
   const [modulos, setModulos] = useState<Record<string, NotamResumen | null>>({})
   const [plan, setPlan] = useState<PlanDeEstudio | null>(null)
   const [postulaciones, setPostulaciones] = useState<PostulacionAbierta[]>([])
@@ -155,11 +142,7 @@ export function Dashboard() {
         revisarVencimientos()
         if (cancelled) return
 
-        setAllAchievements(tarjetas.logros)
-        setAchievements(tarjetas.desbloqueados)
         setHeatmap(tarjetas.actividad)
-        setPeers(tarjetas.companeros)
-        setMastery(tarjetas.dominio)
         // NOTAM contado en la base contra el catálogo; null si no ha empezado,
         // y la card lo dice con un guion en vez de un 0%.
         setModulos(tarjetas.modulos)
@@ -211,8 +194,6 @@ export function Dashboard() {
 
   if (loading) return <DashboardSkeleton />
 
-  const stage = pilot?.stage ?? null
-  const stageLabel = stage ? STAGE_LABEL[stage] : "—"
   const icaoLevel = pilot?.icao_english_level ?? null
   /** Sin nivel medido no inventamos un 0: el indicador muestra un guion. */
   const icaoMeasured = icaoLevel !== null && icaoLevel > 0
@@ -231,7 +212,6 @@ export function Dashboard() {
   ].filter((a): a is { texto: string; aviso: boolean } => a !== null)
 
   const streakDays = streak?.current_streak ?? 0
-  const longestStreak = streak?.longest_streak ?? 0
   // La fecha llega como "AAAA-MM-DD": sin hora, new Date() la parsea como
   // medianoche UTC, que en Colombia es el día ANTERIOR a las 7 de la noche.
   // Con eso, una racha hecha hoy salía "en riesgo" toda la tarde.
@@ -332,9 +312,6 @@ export function Dashboard() {
         <PerfilFrenteAerolineas aerolineas={aerolineasEnOrden} horasPiloto={totalHoras} cargando={deferredLoading} />
       </div>
 
-      <div className="mt-4">
-        <AccesosRapidos />
-      </div>
 
       <div className="mt-4 grid grid-cols-1 gap-4 @3xl:grid-cols-2 @6xl:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,1.15fr)]">
         {deferredLoading ? esqueleto("min-h-[190px]") : <ProximosVencimientos documentos={licenses} />}
@@ -342,27 +319,6 @@ export function Dashboard() {
         {deferredLoading ? esqueleto("min-h-[190px]") : <CifrasDeEstudio quizzes={recentAttempts} actividad={heatmap} />}
         <TarjetaDestinos />
       </div>
-
-      <section className="mt-10" aria-labelledby="panel-preparacion">
-        <h2 id="panel-preparacion" className={ROTULO}>
-          Tu preparación
-        </h2>
-        <div className="mt-3 grid grid-cols-1 gap-4 @3xl:grid-cols-2 @5xl:grid-cols-3">
-          <DominioPca dominio={mastery} cargando={deferredLoading} />
-          <ActivityHeatmap
-            data={heatmap}
-            loading={deferredLoading}
-            streakAtRisk={streakAtRisk}
-            longestStreak={longestStreak}
-            streakDays={streakDays}
-            username={profile?.username ?? null}
-          />
-          <CohortCard peers={peers} stageLabel={stageLabel} loading={deferredLoading} />
-          <div className="@5xl:col-span-3">
-            <AchievementsCard unlocked={achievements} all={allAchievements} loading={deferredLoading} />
-          </div>
-        </div>
-      </section>
     </div>
   )
 }

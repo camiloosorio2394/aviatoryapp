@@ -58,12 +58,12 @@ export function PortadaHero({
       />
       <div className="relative grid gap-6 px-6 py-7 sm:px-10 sm:py-9 @4xl:grid-cols-[minmax(0,1fr)_minmax(0,400px)] @4xl:items-end">
         <div className="min-w-0">
-          <h1 className="nh-display m-0 text-[30px] font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-[38px] @5xl:text-[44px]">
+          <h1 className="titular m-0 text-[34px] font-semibold leading-[1.05] text-white sm:text-[44px] @5xl:text-[54px]">
             {greetingTime()}, {nombre}.
           </h1>
           <p className="m-0 mt-3 text-[16px] font-medium text-white/88 sm:text-[17px]">Disciplina hoy, cabina mañana.</p>
           <span aria-hidden className="mt-5 block h-px w-14 bg-white/45" />
-          <p className="m-0 mt-4 text-[14.5px] italic text-white/75">“A higher standard, a safer sky.”</p>
+          <p className="titular m-0 mt-4 text-[17px] italic text-white/80">“A higher standard, a safer sky.”</p>
         </div>
 
         <div className="flex min-w-0 flex-col gap-3 @4xl:items-end">
@@ -86,10 +86,10 @@ export function PortadaHero({
             className="group flex w-full items-center justify-between gap-4 rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.58)] p-4 backdrop-blur-[6px] transition-colors hover:bg-[rgba(6,17,31,0.7)] sm:p-5"
           >
             <span className="min-w-0">
-              <span className="nh-display block text-[10.5px] font-semibold uppercase tracking-[0.16em] text-white/70">
+              <span className="versalitas block text-[10px] text-white/70">
                 Tu próximo objetivo
               </span>
-              <span className="mt-1.5 block text-[17px] font-semibold leading-snug text-white">{objetivo.titulo}</span>
+              <span className="titular mt-1.5 block text-[21px] font-semibold leading-snug text-white">{objetivo.titulo}</span>
               <span className="mt-1 block text-[13px] text-white/75">{objetivo.detalle}</span>
             </span>
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/12 text-white transition-transform group-hover:translate-x-0.5">

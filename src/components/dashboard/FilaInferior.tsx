@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom"
-import { ArrowRight, BarChart3, CalendarDays, CalendarCheck2, Check, Flame } from "lucide-react"
+import { ArrowRight, Check } from "lucide-react"
 import destinosFoto from "@/assets/photos/wingman-cockpit-dusk.webp"
 import type { ActivityDay, LicenseRow } from "@/components/dashboard/tipos"
 import { daysUntil } from "@/components/dashboard/plan"
 import { TarjetaPanel } from "@/components/dashboard/ResumenPiloto"
 import { ESTADO_VISUAL, textoDeEstado } from "@/components/dashboard/portada"
 import { estadoDeDocumento, nombreDeDocumento } from "@/lib/licencias"
+import { PlacaIcono } from "@/components/marca/Icono"
+import type { NombreIcono } from "@/components/marca/iconos"
 
 // ─── Próximos vencimientos ──────────────────────────────────────────────────
 
@@ -19,9 +21,9 @@ export function ProximosVencimientos({ documentos }: { documentos: LicenseRow[] 
     .slice(0, 4)
   return (
     <div className="flex min-w-0 flex-col rounded-2xl surface p-5">
-      <div className="flex items-center gap-3">
-        <CalendarDays className="h-5 w-5 shrink-0 text-foreground" aria-hidden />
-        <h2 className="m-0 min-w-0 flex-1 text-[15px] font-semibold tracking-[-0.01em] text-foreground">Próximos vencimientos</h2>
+      <div className="flex items-center gap-3.5">
+        <PlacaIcono nombre="vencimientos" className="h-12 w-12" />
+        <h2 className="titular m-0 min-w-0 flex-1 text-[18px] font-semibold text-foreground">Próximos vencimientos</h2>
         <Link to="/app/vencimientos" className="inline-flex shrink-0 items-center gap-1 text-[12.5px] font-semibold text-foreground">
           Ver todos <ArrowRight className="h-3.5 w-3.5" aria-hidden />
         </Link>
@@ -88,8 +90,8 @@ export function RachaDeEstudio({
   const hoy = fechaBogota(new Date())
   const semana = semanaActual()
   return (
-    <TarjetaPanel icon={Flame} titulo="Tu racha de estudio" to="/app/perfil">
-      <div className="nh-display text-[30px] font-bold leading-none tracking-[-0.02em] text-foreground">
+    <TarjetaPanel icono="materias" titulo="Tu racha de estudio" to="/app/logros">
+      <div className="titular text-[34px] font-semibold leading-none text-foreground">
         {dias} {dias === 1 ? "día" : "días"}
       </div>
       <p className="m-0 mt-1.5 text-[12.5px]" style={{ color: enRiesgo ? "var(--av-warn-fg)" : "var(--muted-foreground)" }}>
@@ -120,13 +122,13 @@ export function RachaDeEstudio({
 // ─── Cifras ─────────────────────────────────────────────────────────────────
 
 function Cifra({
-  icon: Icon,
+  icono,
   rotulo,
   valor,
   nota,
   to,
 }: {
-  icon: typeof BarChart3
+  icono: NombreIcono
   rotulo: string
   valor: string
   nota: string
@@ -134,13 +136,11 @@ function Cifra({
 }) {
   return (
     <Link to={to} className="group flex min-w-0 flex-1 items-center gap-3.5 rounded-2xl surface surface-lift px-4 py-3.5">
-      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-muted text-foreground">
-        <Icon className="h-[18px] w-[18px]" aria-hidden />
-      </span>
+      <PlacaIcono nombre={icono} className="h-11 w-11" />
       <span className="min-w-0 flex-1">
         <span className="block text-[12px] text-muted-foreground">{rotulo}</span>
         <span className="flex items-baseline gap-2">
-          <span className="nh-display text-[22px] font-bold leading-tight text-foreground">{valor}</span>
+          <span className="titular text-[26px] font-semibold leading-tight text-foreground">{valor}</span>
           <span className="truncate text-[12px] text-muted-foreground">{nota}</span>
         </span>
       </span>
@@ -154,8 +154,8 @@ export function CifrasDeEstudio({ quizzes, actividad }: { quizzes: number; activ
   const diasDelMes = actividad.filter((a) => a.date.startsWith(mes) && a.activities_count > 0).length
   return (
     <div className="flex min-w-0 flex-col gap-3">
-      <Cifra icon={BarChart3} rotulo="Quizzes respondidos" valor={String(quizzes)} nota="en total" to="/app/pca" />
-      <Cifra icon={CalendarCheck2} rotulo="Días de estudio" valor={String(diasDelMes)} nota="este mes" to="/app/perfil" />
+      <Cifra icono="procedimientos" rotulo="Quizzes respondidos" valor={String(quizzes)} nota="en total" to="/app/pca" />
+      <Cifra icono="requisitos" rotulo="Días de estudio" valor={String(diasDelMes)} nota="este mes" to="/app/logros" />
     </div>
   )
 }
@@ -172,7 +172,7 @@ export function TarjetaDestinos() {
         style={{ background: "linear-gradient(90deg, rgba(8,20,36,.9) 0%, rgba(8,20,36,.7) 55%, rgba(8,20,36,.35) 100%)" }}
       />
       <div className="relative flex h-full flex-col justify-center p-6">
-        <p className="nh-display m-0 max-w-[260px] text-[20px] font-bold leading-snug tracking-[-0.02em] text-white">
+        <p className="titular m-0 max-w-[280px] text-[24px] font-semibold leading-snug text-white">
           Grandes destinos requieren preparación.
         </p>
         <p className="m-0 mt-2 max-w-[260px] text-[13px] leading-relaxed text-white/78">Sigue construyendo la mejor versión de tu perfil.</p>

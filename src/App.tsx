@@ -49,6 +49,7 @@ const CommunityChannel = page(() => import("@/pages/CommunityChannel"), "Communi
 const Logbook = page(() => import("@/pages/Logbook"), "Logbook")
 const Expiries = page(() => import("@/pages/Expiries"), "Expiries")
 const Referrals = page(() => import("@/pages/Referrals"), "Referrals")
+const Logros = page(() => import("@/pages/Logros"), "Logros")
 const ExamTracker = page(() => import("@/pages/ExamTracker"), "ExamTracker")
 const ExamTrackerSubject = page(() => import("@/pages/ExamTrackerSubject"), "ExamTrackerSubject")
 const Icao = page(() => import("@/pages/Icao"), "Icao")
@@ -328,6 +329,7 @@ function App() {
               <Route path="/app/comunidad" element={<Community />} />
               <Route path="/app/comunidad/:slug" element={<CommunityChannel />} />
               <Route path="/app/perfil" element={<Profile />} />
+              <Route path="/app/logros" element={<Logros />} />
             </Route>
 
             {/* Rutas viejas. Redirigen sin pedir sesión: la pantalla de destino la pide. */}

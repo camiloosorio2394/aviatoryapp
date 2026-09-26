@@ -98,7 +98,8 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
   performance: {
     icon: Gauge,
     color: "var(--av-pf-700)",
-    fotoHueco: "PERF-TEMA · Portada de tema · 3:2 · 1200×800 · Avión de transporte iniciando la carrera de despegue, visto desde el costado de la pista",
+    // La de Camilo (25-sep-2026): el avión rotando al atardecer, visto desde atrás.
+    foto: "/modulos/performance/tema-performance.webp",
     descripcion: "V₁, campo equilibrado, segundo segmento y peso máximo del día.",
   },
   comunicaciones: {
@@ -142,7 +143,8 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     // El mismo icono que su tarjeta en Ingreso a aerolínea.
     icon: ListChecks,
     color: "var(--av-mel-700)",
-    fotoHueco: "MEL-TEM-01 · 2:1 · 1200×600 · Etiqueta INOP sobre un mando de cabina, con la MEL abierta al lado",
+    // La de Camilo (25-sep-2026): la MEL abierta en su carpeta, con los auriculares al lado.
+    foto: "/modulos/mel/tema-mel.webp",
     descripcion: "Leer una entrada, cumplir el (M) y el (O) y decidir si el avión sale.",
   },
 }

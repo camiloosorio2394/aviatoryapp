@@ -550,25 +550,27 @@
      apoyada en él, como las tarjetas de cada pantalla. Los grupos llevan el
      rótulo en Archivo de los hubs, y el único navy es la tarjeta de Pro, el
      del velo de los heros. */
-  --rail: var(--lienzo);
-  --rail-border: oklch(0.9 0.005 260);
+  /* Con la marca nueva (25-sep-2026) el rail es papel blanco sobre el lienzo,
+     el texto va en el navy de la marca y lo activo en la niebla azul con la
+     franja de acento en el borde. */
+  --rail: var(--card);
+  --rail-border: oklch(0.92 0.006 255);
   /* 0.36 y no 0.42: el menú se lee de pasada y a 13,5 px el gris claro se
      quedaba lavado junto al texto de las tarjetas. */
-  --rail-text: oklch(0.36 0.012 260);
-  --rail-text-active: oklch(0.2 0.01 260);
-  --rail-hover: oklch(0.2 0.01 260 / 5%);
+  --rail-text: oklch(0.32 0.03 258);
+  --rail-text-active: var(--marca-navy);
+  --rail-hover: oklch(0.45 0.06 255 / 6%);
   /* Encabezado de grupo del menú. Va por debajo de --rail-text a propósito:
      ordena sin competir con los items, que son lo que se clickea. */
-  --rail-section-label: oklch(0.48 0.012 260);
-  /* Activo: la tarjeta blanca, con la sombra y el filo de las tarjetas, y el
-     icono en el azul de la app. Ni el bloque azul con texto blanco de antes,
-     que gritaba, ni solo un tinte, que en el lienzo casi no se veía. */
-  --rail-active-bg: var(--card);
-  --rail-active-shadow: 0 1px 2px rgb(11 27 48 / 8%), 0 0 0 1px oklch(0.9 0.005 260);
-  --rail-active-text: oklch(0.2 0.01 260);
-  --rail-active-mark: var(--av-blue-500);
-  /* La tarjeta de Pro: el navy del velo de los heros. */
-  --rail-promo: oklch(0.21 0.035 254);
+  --rail-section-label: oklch(0.5 0.02 258);
+  /* Activo: un tinte del azul de acento, no una tarjeta; la franja del borde
+     dice cuál es sin necesitar más contraste en el fondo. */
+  --rail-active-bg: color-mix(in oklab, var(--marca-acento) 13%, var(--card));
+  --rail-active-shadow: none;
+  --rail-active-text: var(--marca-navy);
+  --rail-active-mark: var(--marca-acento);
+  /* La tarjeta de Pro: el navy de la marca. */
+  --rail-promo: var(--marca-navy);
 
   /* Panel de instrumentos (la fila de indicadores del dashboard).
      Navy en los dos temas a propósito: fondo oscuro con cifra luminosa es la
@@ -609,17 +611,75 @@
   --rail-text-active: oklch(0.98 0 0);
   --rail-hover: oklch(1 0 0 / 6%);
   --rail-section-label: oklch(0.72 0.03 250);
-  /* En oscuro no hay tarjeta blanca: el activo es una placa de luz con su filo. */
+  /* En oscuro el activo es una placa de luz; la franja, el acento aclarado. */
   --rail-active-bg: oklch(1 0 0 / 9%);
-  --rail-active-shadow: inset 0 0 0 1px oklch(1 0 0 / 8%);
+  --rail-active-shadow: none;
   --rail-active-text: oklch(0.98 0 0);
-  --rail-active-mark: oklch(0.76 0.11 252);
-  --rail-promo: oklch(0.27 0.04 254);
+  --rail-active-mark: oklch(0.72 0.1 252);
+  --rail-promo: oklch(0.16 0.04 255);
 
   /* Pares brillantes de los tokens de texto semántico */
   --av-success-fg: var(--av-green-400);
   --av-warn-fg: var(--av-amber-400);
   --av-danger-fg: var(--av-red-400);
+}
+
+/* ============================================================
+ * La marca: el navy, el azul de acento y la niebla de la hoja de marca, y la
+ * Playfair Display del nombre. La geometría del isotipo vive en
+ * src/components/marca/trazos.ts.
+ *
+ * La Playfair es para titulares y cifras grandes, no para leer: a 13 px su
+ * contraste se rompe y los trazos finos desaparecen. La interfaz sigue en
+ * Inter; los rótulos en versalitas espaciadas.
+ * ============================================================ */
+:root {
+  --marca-navy: #0b1e3a;
+  --marca-acento: #3a6ea5;
+  --marca-niebla: #d9e1ea;
+  /* El color del isotipo y del nombre: navy sobre papel, claro sobre el navy
+     del modo oscuro. */
+  --marca-tinta: var(--marca-navy);
+  --font-titular: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+.dark {
+  --marca-tinta: oklch(0.95 0.012 250);
+}
+
+/* En @layer components para que una utilidad (tracking-*, font-*) pueda
+   ajustarlas en un sitio concreto: sin capa ganarían siempre. */
+@layer components {
+.titular {
+  font-family: var(--font-titular);
+  font-optical-sizing: auto;
+  /* Cifras alineadas: las de estilo antiguo bailan en «1.250 h». */
+  font-variant-numeric: lining-nums proportional-nums;
+  letter-spacing: -0.01em;
+}
+.titular.tabular { font-variant-numeric: lining-nums tabular-nums; }
+
+/* Los íconos de la hoja de Camilo (src/assets/iconos): navy y dorado con
+   volumen. La placa es el gris azulado de las tarjetas de la hoja, con su
+   sombra suave; en oscuro sigue clara, porque el navy sobre navy se pierde. */
+.placa-icono {
+  background: #eff2f6;
+  box-shadow: inset 0 0 0 1px rgb(11 30 58 / 4%), 0 1px 2px rgb(11 30 58 / 6%);
+}
+.dark .placa-icono { background: oklch(0.93 0.01 250); }
+.dark .icono-marca {
+  background: oklch(0.93 0.01 250);
+  border-radius: 8px;
+  padding: 2px;
+}
+.dark .placa-icono .icono-marca { background: none; padding: 0; }
+
+/* El rótulo de la marca: versalitas finas y muy espaciadas, como el lema. */
+.versalitas {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 600;
+}
 }
 
 /* === Alias de compatibilidad: .card ===
