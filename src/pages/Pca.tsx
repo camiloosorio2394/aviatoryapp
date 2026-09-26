@@ -1,16 +1,13 @@
 import { Link } from "react-router-dom"
-import { ArrowRight, Library as LibraryIcon, RefreshCw, ShieldCheck, TriangleAlert } from "lucide-react"
+import { ArrowRight, BookOpenCheck, RefreshCw, ShieldCheck, TriangleAlert } from "lucide-react"
 import pcaFlightdeck from "@/assets/photos/pca-flightdeck.webp"
 import { appButtonClass } from "@/lib/buttonStyles"
 import { PanelDelExamen, type CifraDelPanel } from "@/components/pca/PanelDelExamen"
 import { SubjectTable } from "@/components/pca/SubjectTable"
-import { FilaDeAcceso } from "@/components/dashboard/AccesosDirectos"
 import { Nota } from "@/components/dashboard/Nota"
 import { useVaultSubjects } from "@/hooks/useVaultQuiz"
 import { usePcaStats } from "@/hooks/usePcaStats"
-import { getSubjectMeta, PCA_APROBADO } from "@/lib/vaultSubjects"
-import { subjectFoto } from "@/lib/subjectFotos"
-import { subjectSymbol } from "@/lib/subjectSymbols"
+import { PCA_APROBADO } from "@/lib/vaultSubjects"
 
 /**
  * Módulo Examen PCA, con el vocabulario del panel y de Ingreso a aerolínea.
@@ -22,11 +19,15 @@ import { subjectSymbol } from "@/lib/subjectSymbols"
  * cristal, las filas de acceso y los rótulos de grupo en Archivo.
  *
  * El orden responde a las preguntas con las que se entra: cuándo es el examen,
- * cuánto llevo y qué hago hoy (el hero, con las cifras en pequeño bajo la
- * fecha), por dónde sigo (continúa), qué materia toca (la tabla) y qué hay que
- * saber del banco (al pie, porque informa una vez y arriba sería ruido
- * permanente). Las cifras tuvieron su sección propia («Tus números») y Camilo
- * la quitó: ocupaba una franja entera para cuatro datos que caben en el panel.
+ * cuánto llevo y qué hago hoy (el hero, con el simulacro y el banco oficial en
+ * sus dos cuadrados y las cifras en pequeño bajo la fecha), qué materia toca
+ * (la tabla) y qué hay que saber del banco (al pie, porque informa una vez y
+ * arriba sería ruido permanente).
+ *
+ * Lo que hubo y Camilo quitó: una sección «Tus números» (cuatro datos que caben
+ * en el panel) y una sección «Sigue estudiando» con la materia a medias y la
+ * bibliografía; la materia a medias ya se ve en la tabla, con su «En curso», y
+ * el banco subió al hero.
  */
 
 /** Rótulo de grupo: el mismo del panel y de la portada de Ingreso a aerolínea. */
@@ -45,11 +46,10 @@ export function Pca() {
   const coverage =
     stats && stats.bank_total > 0 ? Math.round((stats.answered / stats.bank_total) * 100) : 0
 
+  // La materia que dejó a medias: la tabla la marca «En curso».
   const resume = stats?.resume_slug
     ? stats.by_subject.find((s) => s.slug === stats.resume_slug)
     : undefined
-  const resumePct =
-    resume && resume.total > 0 ? Math.round((resume.answered / resume.total) * 100) : 0
 
   const rows = [...subjects]
     .map((s) => ({
@@ -80,30 +80,6 @@ export function Pca() {
       valor: stats?.streak_days ? `${stats.streak_days} ${stats.streak_days === 1 ? "día" : "días"}` : null,
     },
   ]
-
-  /**
-   * Por dónde seguir: la materia que dejó a medias. Sin historial la tarjeta no
-   * promete continuidad: propone la materia más grande del banco.
-   */
-  const siguiente = resume
-    ? {
-        rotulo: "Donde quedaste",
-        slug: resume.slug,
-        detalle: `${resume.answered} de ${resume.total} preguntas vistas`,
-        pct: resumePct,
-        to: `/app/pca/quiz/${resume.slug}?module=pca&count=${Math.min(10, resume.total)}`,
-        cta: "Retomar",
-      }
-    : rows[0]
-      ? {
-          rotulo: "Por dónde empezar",
-          slug: rows[0].slug,
-          detalle: `La materia más grande del banco: ${rows[0].count} preguntas`,
-          pct: null,
-          to: `/app/pca/quiz/${rows[0].slug}?module=pca&count=${Math.min(10, rows[0].count)}`,
-          cta: "Empezar",
-        }
-      : null
 
   return (
     <div className="notam-hub @container px-5 sm:px-8 py-6 sm:py-8 pb-16 max-w-[1600px] mx-auto">
@@ -142,30 +118,58 @@ export function Pca() {
             <h1 className="nh-display mt-3 text-[32px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[38px] @5xl:text-[44px]">
               Examen PCA
             </h1>
-            <p className="mt-3 mb-0 max-w-[52ch] text-[15px] leading-[1.55] text-white/80">
-              Entrena con las preguntas del examen oficial de Piloto Comercial de Avión.
+            <p className="mt-3 mb-0 max-w-[64ch] text-[15px] leading-[1.55] text-white/80">
+              Prepárate con las preguntas del examen oficial de Piloto Comercial de Avión de la Aeronáutica Civil de
+              Colombia. Organizamos el banco de preguntas por materias para que estudies de forma enfocada, identifiques
+              tus áreas de mejora y aproveches cada sesión de preparación para llegar mejor preparado al examen.
             </p>
 
-            {/* La única entrada al simulacro en toda la pantalla. */}
-            <div className="mt-6 flex max-w-[560px] flex-col gap-4 rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.55)] p-4 backdrop-blur-[6px] @lg:flex-row @lg:items-center @lg:justify-between">
-              <div className="min-w-0">
-                <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
-                  Simulacro
+            {/* Dos cuadrados de cristal, uno al lado del otro: la única entrada al
+                simulacro en toda la pantalla, y el banco oficial completo en la
+                Biblioteca. El botón blanco es solo el del simulacro; el del banco
+                va en contorno, para que la jerarquía no cambie. */}
+            <div className="mt-6 grid max-w-[760px] gap-4 @2xl:grid-cols-2">
+              <div className="flex flex-col gap-4 rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.55)] p-4 backdrop-blur-[6px]">
+                <div className="min-w-0">
+                  <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
+                    Simulacro
+                  </div>
+                  <div className="mt-1.5 text-[15px] font-semibold leading-snug text-white">
+                    {examCount} preguntas de todas las materias
+                  </div>
+                  <div className="mt-0.5 text-[12.5px] text-white/78">
+                    Mezcladas, con la explicación de cada respuesta
+                  </div>
                 </div>
-                <div className="mt-1.5 text-[15px] font-semibold leading-snug text-white">
-                  {examCount} preguntas de todas las materias
-                </div>
-                <div className="mt-0.5 text-[12.5px] text-white/78">
-                  Mezcladas, con la explicación de cada respuesta
-                </div>
+                <Link
+                  to={`/app/pca/quiz/examen?module=pca&count=${examCount}`}
+                  className="mt-auto inline-flex h-10 shrink-0 items-center justify-center gap-2 self-start rounded-full bg-white px-5 text-[13.5px] font-semibold text-[#0B1B30] transition-colors hover:bg-white/90"
+                >
+                  Comenzar simulacro
+                  <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                </Link>
               </div>
-              <Link
-                to={`/app/pca/quiz/examen?module=pca&count=${examCount}`}
-                className="inline-flex h-10 shrink-0 items-center justify-center gap-2 self-start rounded-full bg-white px-5 text-[13.5px] font-semibold text-[#0B1B30] transition-colors hover:bg-white/90 @lg:self-auto"
-              >
-                Comenzar simulacro
-                <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-              </Link>
+
+              <div className="flex flex-col gap-4 rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.55)] p-4 backdrop-blur-[6px]">
+                <div className="min-w-0">
+                  <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
+                    Banco oficial PCA
+                  </div>
+                  <div className="mt-1.5 text-[15px] font-semibold leading-snug text-white">
+                    El documento completo de la Aerocivil
+                  </div>
+                  <div className="mt-0.5 text-[12.5px] text-white/78">
+                    En la Biblioteca, para consultar y verificar cada pregunta
+                  </div>
+                </div>
+                <Link
+                  to="/app/biblioteca/banco-preguntas-pca"
+                  className="mt-auto inline-flex h-10 shrink-0 items-center justify-center gap-2 self-start rounded-full border border-white/25 bg-white/10 px-5 text-[13.5px] font-semibold text-white transition-colors hover:bg-white/20"
+                >
+                  <BookOpenCheck className="h-3.5 w-3.5" aria-hidden />
+                  Abrir el banco
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -182,43 +186,6 @@ export function Pca() {
               cifras={cifras}
             />
           )}
-        </div>
-      </section>
-
-      <section className="mt-8" aria-labelledby="pca-continua">
-        <h2 id="pca-continua" className={ROTULO}>
-          Sigue estudiando
-        </h2>
-        <div className="mt-3 grid grid-cols-1 gap-4 @4xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
-          {statsLoading || subjectsLoading ? (
-            <div className="h-[196px] rounded-2xl bg-muted animate-pulse" aria-hidden />
-          ) : siguiente ? (
-            <TarjetaSiguiente
-              {...siguiente}
-              foto={subjectFoto(siguiente.slug)}
-              icon={subjectSymbol(siguiente.slug)}
-            />
-          ) : (
-            <div className="flex flex-col justify-center rounded-2xl border border-dashed border-border p-5">
-              <p className="m-0 text-[13.5px] text-muted-foreground">
-                Cuando se abran las materias, aquí verás por dónde seguir.
-              </p>
-            </div>
-          )}
-
-          {/* El banco oficial se mudó a la Biblioteca. El enlace lleva a la
-              CATEGORÍA del PCA y no al documento suelto: el día que haya más
-              material del examen, ya está el sitio donde ponerlo. Aquí iba
-              también «Qué cayó en el examen»; Camilo lo sacó de esta parte
-              porque no ayuda a decidir qué estudiar hoy. */}
-          <div className="flex flex-col">
-            <FilaDeAcceso
-              to="/app/biblioteca#pca"
-              titulo="Bibliografía del PCA"
-              detalle="El banco oficial de la Aerocivil completo, para consultar y verificar"
-              icon={LibraryIcon}
-            />
-          </div>
         </div>
       </section>
 
@@ -286,88 +253,6 @@ export function Pca() {
           />
         </div>
       </section>
-    </div>
-  )
-}
-
-/**
- * Por dónde seguir: la materia, cuánto llevas de ella y un botón. Es la segunda
- * acción de la pantalla después del simulacro, así que su botón es el único
- * relleno fuera del hero.
- */
-function TarjetaSiguiente({
-  rotulo,
-  slug,
-  foto,
-  icon: Simbolo,
-  detalle,
-  pct,
-  to,
-  cta,
-}: {
-  rotulo: string
-  slug: string
-  /** La misma miniatura que lleva la materia en la tabla; sin ella, el símbolo. */
-  foto?: string
-  icon: React.ComponentType<{ className?: string }>
-  detalle: string
-  /** `null` = todavía no se ha empezado: no hay barra que dibujar. */
-  pct: number | null
-  to: string
-  cta: string
-}) {
-  return (
-    <div className="flex h-full flex-col rounded-2xl surface p-5">
-      <span className="nh-display text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-        {rotulo}
-      </span>
-      <div className="mt-3 flex items-center gap-3">
-        {foto ? (
-          <img
-            src={foto}
-            alt=""
-            width={124}
-            height={84}
-            decoding="async"
-            className="h-[44px] w-[65px] shrink-0 rounded-lg object-cover"
-          />
-        ) : (
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-muted text-foreground">
-            <Simbolo className="h-5 w-5" />
-          </span>
-        )}
-        <div className="min-w-0">
-          <div className="truncate text-[18px] font-semibold tracking-[-0.02em] text-foreground">
-            {getSubjectMeta(slug).name}
-          </div>
-          <div className="mt-0.5 text-[12.5px] text-muted-foreground">{detalle}</div>
-        </div>
-      </div>
-      <div className="mt-auto flex items-center gap-4 pt-5">
-        {pct !== null ? (
-          <div className="flex min-w-0 flex-1 items-center gap-3">
-            <div
-              className="h-1.5 min-w-0 flex-1 overflow-hidden rounded-r-[3px] bg-muted"
-              role="progressbar"
-              aria-label={`Avance en ${getSubjectMeta(slug).name}`}
-              aria-valuenow={pct}
-              aria-valuemin={0}
-              aria-valuemax={100}
-            >
-              <div className="h-full rounded-r-[3px]" style={{ width: `${pct}%`, background: "var(--foreground)" }} />
-            </div>
-            <span className="tabular shrink-0 text-[12.5px] font-semibold text-muted-foreground">{pct} %</span>
-          </div>
-        ) : (
-          <span className="flex-1" />
-        )}
-        <Link
-          to={to}
-          className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full bg-foreground px-5 text-[13.5px] font-semibold text-background transition-opacity hover:opacity-90"
-        >
-          {cta} <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-        </Link>
-      </div>
     </div>
   )
 }
