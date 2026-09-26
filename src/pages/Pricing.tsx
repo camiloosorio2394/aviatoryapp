@@ -25,8 +25,8 @@ const tiers = [
     description: "Todo lo que necesitas para llegar a aerolínea.",
     monthly: { price: "$39.000", suffix: "COP / mes", note: "Equivale a $9.99 USD" },
     annual: { price: "$390.000", suffix: "COP / año", note: "2 meses gratis vs mensual" },
-    cta: "Empezar 7 días gratis",
-    href: "/login?mode=signup&plan=pro",
+    cta: "Próximamente · empieza gratis",
+    href: "/login?mode=signup",
     highlight: true,
   },
   {
@@ -34,20 +34,20 @@ const tiers = [
     description: "Pro + Wingman IA ilimitado + mock interview con voz.",
     monthly: { price: "$79.000", suffix: "COP / mes", note: "Equivale a $19.99 USD" },
     annual: { price: "$790.000", suffix: "COP / año", note: "2 meses gratis vs mensual" },
-    cta: "Probar Pro+ gratis",
-    href: "/login?mode=signup&plan=pro_plus",
+    cta: "Próximamente · empieza gratis",
+    href: "/login?mode=signup",
     highlight: false,
     badge: "Más AI",
   },
   {
     name: "Founder",
     description: "Acceso Pro+ de por vida + comunidad fundadora.",
-    monthly: { price: "$599.000", suffix: "COP · pago único", note: "Solo 100 cupos · ~$149 USD" },
-    annual: { price: "$599.000", suffix: "COP · pago único", note: "Solo 100 cupos · ~$149 USD" },
-    cta: "Reservar mi cupo",
-    href: "/login?mode=signup&plan=founder",
+    monthly: { price: "$599.000", suffix: "COP · pago único", note: "Serán solo 100 cupos · ~$149 USD" },
+    annual: { price: "$599.000", suffix: "COP · pago único", note: "Serán solo 100 cupos · ~$149 USD" },
+    cta: "Próximamente · empieza gratis",
+    href: "/login?mode=signup",
     highlight: false,
-    badge: "Solo 100 cupos",
+    badge: "Próximamente",
   },
 ]
 
@@ -140,7 +140,7 @@ export function Pricing() {
       <Seo
         path="/pricing"
         title="Planes y precios"
-        description="Empieza gratis 7 días. Pro desde $39.000 COP/mes con tutor IA, banco de preguntas Aerocivil ilimitado y comunidad. Sin tarjeta para empezar."
+        description="Aviatory es gratis durante el lanzamiento. Los planes Pro, Pro+ y Founder llegan pronto, desde $39.000 COP/mes. Sin tarjeta para empezar."
       />
       <section className="pt-16 pb-12 sm:pt-24 sm:pb-16">
         <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
@@ -152,6 +152,13 @@ export function Pricing() {
           </h1>
           <p className="mt-6 text-[17px] text-muted-foreground text-balance">
             Empieza gratis. Si te ayuda a llegar a la cabina, pagas. Si no, no.
+          </p>
+          {/* Hasta que exista la pasarela de pago, la página no vende: muestra los
+              planes que vienen y deja claro que hoy todo es gratis (auditoría del
+              26-sep-2026, Ley 1480: información veraz). */}
+          <p className="mt-4 text-[15px] font-medium text-foreground text-balance">
+            Hoy todo Aviatory es gratis durante el lanzamiento. Los planes pagos llegan pronto, y te
+            avisaremos antes de cobrar cualquier cosa.
           </p>
 
           <div className="mt-10 inline-flex">

@@ -12,7 +12,7 @@ export function Terms() {
       />
       <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16 sm:py-24">
         <header className="mb-12">
-          <p className="text-[15px] text-muted-foreground">Última actualización: 18 de mayo de 2026</p>
+          <p className="text-[15px] text-muted-foreground">Última actualización: 26 de septiembre de 2026</p>
           <h1 className="mt-2 text-[32px] sm:text-[32px] font-semibold tracking-[-0.035em]">
             Términos y condiciones
           </h1>
@@ -55,6 +55,11 @@ export function Terms() {
               suplantar identidad, distribuir preguntas oficiales de exámenes, o
               utilizar la plataforma con fines fraudulentos.
             </p>
+            <p>
+              Puedes eliminar tu cuenta cuando quieras desde tu perfil (Perfil →
+              Eliminar mi cuenta). Se borran tu perfil, tu bitácora, tu progreso y
+              tus archivos, según la Política de privacidad.
+            </p>
           </Section>
 
           <Section title="3. Contenido de la plataforma">
@@ -79,26 +84,19 @@ export function Terms() {
 
           <Section title="4. Suscripciones y pagos">
             <p>
-              Aviatory ofrece un plan gratuito y planes pagos (Pro mensual, Pro
-              anual, Founder Lifetime). Los precios se muestran en la página de{" "}
+              Hoy Aviatory es <strong>gratuita</strong> durante el lanzamiento:
+              no pedimos tarjeta ni cobramos nada. Algunas funciones tienen cupos,
+              como las conversaciones con Wingman, y la app te los muestra.
+            </p>
+            <p>
+              Los planes pagos que verás en la página de{" "}
               <Link to="/pricing" className="text-blue-600 dark:text-blue-400 hover:underline">
                 planes
               </Link>{" "}
-              y pueden actualizarse con 30 días de aviso previo.
-            </p>
-            <p>
-              Las suscripciones Pro renuevan automáticamente al final de cada
-              período. Puedes cancelar en cualquier momento desde tu perfil; el
-              acceso se mantiene hasta el final del período pagado, sin cargos
-              adicionales.
-            </p>
-            <p>
-              No hacemos reembolsos por períodos parciales ya transcurridos. Para
-              disputas o problemas con el pago, contáctanos en{" "}
-              <a href="mailto:hola@aviatory.app" className="text-blue-600 dark:text-blue-400 hover:underline">
-                hola@aviatory.app
-              </a>{" "}
-              dentro de los primeros 14 días.
+              todavía no están disponibles. Antes de cobrar cualquier cosa
+              publicaremos el precio, qué incluye cada plan, la forma de pago, la
+              renovación y cómo cancelarla, el derecho de retracto y la reversión
+              del pago, según la Ley 1480 de 2011, y actualizaremos estos términos.
             </p>
           </Section>
 

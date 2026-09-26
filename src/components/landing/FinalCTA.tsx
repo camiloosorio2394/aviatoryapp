@@ -45,7 +45,7 @@ export function FinalCTA() {
                   className="rounded-xl text-[15px] px-7 h-12 bg-white text-blue-700 hover:bg-white/90 border-0 font-semibold"
                 >
                   <Link to="/login?mode=signup">
-                    Comenzar mi prueba gratis
+                    Crear mi cuenta gratis
                     <ArrowRight className="ml-1 h-4 w-4" />
                   </Link>
                 </Button>
@@ -64,9 +64,9 @@ export function FinalCTA() {
                   Sin tarjeta
                 </span>
                 <span className="text-blue-200/40">·</span>
-                <span>7 días gratis</span>
+                <span>Gratis durante el lanzamiento</span>
                 <span className="text-blue-200/40">·</span>
-                <span>Cancelas cuando quieras</span>
+                <span>Sin permanencia</span>
               </p>
             </div>
           </div>

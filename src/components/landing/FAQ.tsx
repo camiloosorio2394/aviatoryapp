@@ -20,16 +20,16 @@ const faqs = [
     a: "No. Aviatory te prepara para que cumplas los requisitos, presentes los exámenes, mejores tu inglés y armes tu hoja de vida. La aerolínea decide. Pero ningún piloto sin estos pasos llega, y la mayoría se traba justo aquí.",
   },
   {
-    q: "¿Qué pasa después de los 7 días gratis?",
-    a: "Si no haces upgrade, tu cuenta queda como Free (perfil, dashboard y 30 preguntas/mes). No te cobramos en automático sin avisarte, no necesitas tarjeta para empezar.",
+    q: "¿Cuánto cuesta hoy?",
+    a: "Nada. Durante el lanzamiento todo Aviatory es gratis y no necesitas tarjeta. Cuando lleguen los planes pagos, te avisaremos antes, con precios y condiciones, y nada se cobra sin que lo elijas.",
   },
   {
-    q: "¿Puedo cancelar cuando quiera?",
-    a: "Sí, en un clic desde tu perfil. Mantienes acceso hasta el final del período que pagaste, sin cobros sorpresa.",
+    q: "¿Puedo borrar mi cuenta?",
+    a: "Sí, cuando quieras, desde tu perfil. Se borran tu perfil, tu bitácora, tu progreso y tus archivos.",
   },
   {
-    q: "¿Aceptan tarjetas latinoamericanas?",
-    a: "Sí. Wompi acepta tarjetas de crédito y débito de bancos colombianos, PSE y Nequi. Pronto sumamos Mercado Pago y Stripe para el resto de Latinoamérica.",
+    q: "¿Cómo voy a pagar cuando haya planes?",
+    a: "Estamos preparando los pagos con medios colombianos y del resto de Latinoamérica. Cuando estén listos, los anunciaremos con precios, condiciones y derecho de retracto antes de cobrar nada.",
   },
   {
     q: "¿Hay app móvil?",
@@ -37,7 +37,7 @@ const faqs = [
   },
   {
     q: "¿Mis datos están seguros?",
-    a: "Sí. Tu data se almacena cifrada en Supabase (proveedor con cumplimiento SOC 2). Nunca compartimos tu información personal con aerolíneas ni terceros. Puedes exportar o eliminar tu cuenta en cualquier momento.",
+    a: "Sí. Tu data se almacena cifrada en Supabase (proveedor con cumplimiento SOC 2). Nunca compartimos tu información personal con aerolíneas ni terceros. Puedes borrar tu cuenta desde tu perfil y pedirnos una copia de tus datos cuando quieras.",
   },
 ]
 

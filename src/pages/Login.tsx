@@ -226,7 +226,7 @@ export function Login() {
       <Seo
         path={isSignup ? "/login?mode=signup" : "/login"}
         title={isSignup ? "Crear cuenta" : "Iniciar sesión"}
-        description="Súmate a Aviatory: 7 días gratis, sin tarjeta."
+        description="Súmate a Aviatory: gratis durante el lanzamiento, sin tarjeta."
         noindex
       />
       {/* LEFT — brand panel */}
@@ -303,7 +303,7 @@ export function Login() {
             </h1>
             <p className="mt-2 text-muted-foreground">
               {isSignup
-                ? "7 días gratis. Sin tarjeta. Cancelás cuando quieras."
+                ? "Gratis durante el lanzamiento. Sin tarjeta. Sin permanencia."
                 : "Bienvenido de vuelta. Ingresa para seguir."}
             </p>
 
@@ -313,7 +313,7 @@ export function Login() {
                   🎁 Te invitó un piloto
                 </div>
                 <p className="text-muted-foreground mt-0.5 text-[12px]">
-                  Código <span className="tabular font-mono font-semibold text-foreground">{referralCode}</span> aplicado · recibes 14 días de prueba en lugar de 7
+                  Código <span className="tabular font-mono font-semibold text-foreground">{referralCode}</span> aplicado · tu registro queda a nombre de quien te invitó
                 </p>
               </div>
             )}

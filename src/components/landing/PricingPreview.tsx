@@ -34,14 +34,14 @@ const plans = [
       "Alertas de vencimientos",
       "Soporte por WhatsApp",
     ],
-    cta: "Comenzar 7 días gratis",
-    href: "/login?mode=signup&plan=pro",
+    cta: "Próximamente · empieza gratis",
+    href: "/login?mode=signup",
     highlight: true,
   },
   {
     name: "Founder",
     price: "$599.000",
-    period: "pago único · solo 100 cupos",
+    period: "pago único · serán 100 cupos",
     description: "Acceso de por vida + comunidad fundadora.",
     features: [
       "Todo lo de Pro, para siempre",
@@ -50,10 +50,10 @@ const plans = [
       "Voto en el roadmap de features",
       "Badge Founder en tu perfil",
     ],
-    cta: "Reservar mi cupo",
-    href: "/login?mode=signup&plan=founder",
+    cta: "Próximamente · empieza gratis",
+    href: "/login?mode=signup",
     highlight: false,
-    badge: "Solo 100 cupos",
+    badge: "Próximamente",
   },
 ]
 
@@ -74,7 +74,8 @@ export function PricingPreview() {
           </Reveal>
           <Reveal delay={140}>
             <p className="mt-3 text-[16px] text-muted-foreground leading-relaxed">
-              Empiezas gratis. Pagas solo si te ayuda a llegar a tu meta.
+              Hoy todo es gratis durante el lanzamiento. Cuando lleguen los planes pagos, pagas solo
+              si te ayuda a llegar a tu meta.
             </p>
           </Reveal>
         </div>

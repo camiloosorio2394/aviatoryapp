@@ -44,7 +44,7 @@ export function Referrals() {
     }
   }
 
-  const shareText = `Estoy usando Aviatory para preparar mis exámenes Aerocivil y avanzar a aerolínea. Si te registras con mi código, los dos ganamos 7 días extra de prueba 🛫`
+  const shareText = `Estoy usando Aviatory para preparar mis exámenes Aerocivil y avanzar a aerolínea. Regístrate con mi código: hoy es gratis 🛫`
 
   function shareWhatsApp() {
     window.open(`https://wa.me/?text=${encodeURIComponent(shareText + " " + link)}`, "_blank", "noopener,noreferrer")
@@ -59,9 +59,9 @@ export function Referrals() {
     <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
-          eyebrow="REFERIDOS · GANA MESES GRATIS"
-          title="Comparte Aviatory, ganen los dos"
-          subtitle="Por cada piloto que se registre con tu código, los dos reciben +7 días extra. Cuando upgradee a Pro, sumas 1 mes gratis."
+          eyebrow="REFERIDOS"
+          title="Comparte Aviatory con otros pilotos"
+          subtitle="Invita a otros pilotos con tu código. Hoy todo Aviatory es gratis; cuando lleguen los planes pagos, los referidos sumarán beneficios que anunciaremos antes."
         />
 
         {/* Hero referral code */}
@@ -151,8 +151,8 @@ export function Referrals() {
         {/* How it works */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <Step n="1" title="Comparte tu código" body="WhatsApp, story, grupos. Donde tengas piloto-amigos." />
-          <Step n="2" title="Tu amigo se registra" body="Con tu código recibe 14 días de prueba (7 + 7 extra) sin tarjeta." />
-          <Step n="3" title="Ambos ganan" body="Cuando upgradee a Pro, te llega 1 mes gratis." />
+          <Step n="2" title="Tu amigo se registra" body="Entra gratis con tu código, sin tarjeta." />
+          <Step n="3" title="Queda registrado" body="Tu referido queda a tu nombre para los beneficios que lleguen con los planes pagos." />
         </div>
 
         <div className="rounded-2xl surface p-5">
