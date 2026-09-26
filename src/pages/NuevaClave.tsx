@@ -46,7 +46,9 @@ function errorDelEnlace(): string | null {
   if (codigo === "otp_expired" || /expired/i.test(descripcion ?? "")) {
     return "El enlace ya caducó. Pide uno nuevo y ábrelo en cuanto llegue."
   }
-  return descripcion?.replace(/\+/g, " ") ?? "El enlace no es válido. Pide uno nuevo."
+  // La descripción viene en la URL y cualquiera puede escribirla: mostrarla
+  // tal cual dejaría poner un texto a elección en esta página.
+  return "El enlace no es válido. Pide uno nuevo."
 }
 
 export function NuevaClave() {

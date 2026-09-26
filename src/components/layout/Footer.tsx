@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { LogoHorizontal } from "@/components/Logo"
+import { analiticaDisponible, olvidarConsentimiento } from "@/lib/analytics"
 
 const cols = [
   {
@@ -61,6 +62,16 @@ export function Footer() {
           <p className="text-[12px] text-muted-foreground">
             © {new Date().getFullYear()} Aviatory. Todos los derechos reservados.
           </p>
+          {/* Solo si hay analítica que consentir: vuelve a mostrar el aviso. */}
+          {analiticaDisponible() && (
+            <button
+              type="button"
+              onClick={olvidarConsentimiento}
+              className="text-[12px] text-muted-foreground underline hover:text-foreground"
+            >
+              Preferencias de analítica
+            </button>
+          )}
           <p className="text-[12px] text-muted-foreground">
             Hecho en Colombia para pilotos LATAM
           </p>

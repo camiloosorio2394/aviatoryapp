@@ -1,7 +1,7 @@
 // @vitest-environment-options { "url": "https://aviatory.test/app" }
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
-const posthog = vi.hoisted(() => ({ init: vi.fn(), identify: vi.fn(), capture: vi.fn(), reset: vi.fn() }))
+const posthog = vi.hoisted(() => ({ init: vi.fn(), identify: vi.fn(), capture: vi.fn(), reset: vi.fn(), opt_out_capturing: vi.fn() }))
 const cargas = vi.hoisted(() => ({ total: 0, fallar: false }))
 
 // La fábrica corre en el primer import de posthog-js del archivo: la primera prueba
@@ -25,6 +25,7 @@ async function modulo() {
 const esperar = () => new Promise((r) => setTimeout(r, 50))
 
 beforeEach(() => {
+  localStorage.clear()
   Object.values(posthog).forEach((f) => f.mockReset())
   cargas.total = 0
   cargas.fallar = false
@@ -49,6 +50,7 @@ describe("analytics", () => {
 
   it("con clave aplica lo registrado antes de cargar, en orden y con la URL de ese momento", async () => {
     vi.stubEnv("VITE_POSTHOG_KEY", "phc_prueba")
+    localStorage.setItem("aviatory.consentimiento.analitica", "si")
     expect(window.location.hostname).toBe("aviatory.test")
     const a = await modulo()
     a.initAnalytics()
@@ -68,6 +70,7 @@ describe("analytics", () => {
 
   it("inicializar dos veces no carga dos veces", async () => {
     vi.stubEnv("VITE_POSTHOG_KEY", "phc_prueba")
+    localStorage.setItem("aviatory.consentimiento.analitica", "si")
     const a = await modulo()
     a.initAnalytics()
     a.initAnalytics()
@@ -78,6 +81,7 @@ describe("analytics", () => {
 
   it("si PostHog no carga, la app sigue y las llamadas no rompen", async () => {
     vi.stubEnv("VITE_POSTHOG_KEY", "phc_prueba")
+    localStorage.setItem("aviatory.consentimiento.analitica", "si")
     cargas.fallar = true
     const aviso = vi.spyOn(console, "warn").mockImplementation(() => {})
     const a = await modulo()
@@ -87,5 +91,52 @@ describe("analytics", () => {
     await esperar()
 
     expect(posthog.capture).not.toHaveBeenCalled()
+  })
+
+  it("con clave pero sin el sí del piloto no descarga nada", async () => {
+    vi.stubEnv("VITE_POSTHOG_KEY", "phc_prueba")
+    const a = await modulo()
+    a.initAnalytics()
+    a.trackPageView("/app")
+    await esperar()
+    expect(cargas.total).toBe(0)
+    expect(a.analiticaDisponible()).toBe(true)
+    expect(a.leerConsentimiento()).toBeNull()
+  })
+
+  it("rechazar no carga; aceptar carga, sin grabar la sesión y limpiando las URL", async () => {
+    vi.stubEnv("VITE_POSTHOG_KEY", "phc_prueba")
+    const a = await modulo()
+    a.rechazarAnalitica()
+    a.initAnalytics()
+    await esperar()
+    expect(posthog.init).not.toHaveBeenCalled()
+    expect(a.leerConsentimiento()).toBe("no")
+
+    a.aceptarAnalitica()
+    await vi.waitFor(() => expect(posthog.init).toHaveBeenCalled())
+    const config = posthog.init.mock.calls[0][1]
+    expect(config.disable_session_recording).toBe(true)
+    expect(config.mask_all_text).toBe(true)
+    expect(config.before_send).toBe(a.limpiarEvento)
+  })
+
+  it("la URL sale sin la query ni el # donde llegan los tokens de Supabase", async () => {
+    vi.stubEnv("VITE_POSTHOG_KEY", "phc_prueba")
+    localStorage.setItem("aviatory.consentimiento.analitica", "si")
+    window.history.pushState({}, "", "/nueva-clave?code=abc#access_token=secreto&refresh_token=otro")
+    const a = await modulo()
+    a.initAnalytics()
+    a.trackPageView("/nueva-clave")
+    await vi.waitFor(() => expect(posthog.capture).toHaveBeenCalled())
+    expect(posthog.capture).toHaveBeenCalledWith("$pageview", { $current_url: "https://aviatory.test/nueva-clave", path: "/nueva-clave" })
+
+    const evento = a.limpiarEvento({
+      uuid: "u",
+      event: "$autocapture",
+      properties: { $current_url: "https://aviatory.test/app#access_token=secreto", $referrer: "https://x.test/?t=1" },
+      $set_once: { $initial_current_url: "https://aviatory.test/app?code=abc" },
+    } as never)
+    expect(JSON.stringify(evento)).not.toMatch(/secreto|code=|t=1/)
   })
 })

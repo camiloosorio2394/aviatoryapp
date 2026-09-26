@@ -36,6 +36,14 @@ describe("datos locales por piloto", () => {
     expect(localStorage.getItem("ph_otra_libreria")).toBe("x")
   })
 
+  it("también borra las claves con guion y con dos puntos, que son del piloto", () => {
+    localStorage.setItem("aviatory-aeropuertos-misiones-v1", "[1]")
+    localStorage.setItem("av:visto:intro:notam", "1")
+    borrarDatosDelPiloto()
+    expect(localStorage.getItem("aviatory-aeropuertos-misiones-v1")).toBeNull()
+    expect(localStorage.getItem("av:visto:intro:notam")).toBeNull()
+  })
+
   it("lo avanzado sin cuenta lo reclama el primero que entra, sin borrarlo", () => {
     sembrarEquipoCompartido()
     expect(reclamarDatosLocales("piloto-a")).toBe(false)
