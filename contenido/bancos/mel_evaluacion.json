@@ -1,0 +1,986 @@
+{
+  "banco": "mel_evaluacion",
+  "descripcion": "Evaluación de Minimum Equipment List (MEL): 70 preguntas de opción múltiple sobre los cinco niveles, con más peso en leer e interpretar entradas, del defecto al despacho e impacto operacional. Respuestas verificadas en FAA MMEL PL-25 Rev 24 y PL-34 Rev 5, 14 CFR 121.628, FAA Order 8900.1 Vol 4 Cap 4, AC 120-125, MMEL FAA A318-A321 Rev 32 y B-737 Rev 63a, RAC 121 Enm. 10 y RAC 91 Enm. 12. Los intervalos A a D son del sistema FAA; en Colombia rige la MEL aprobada del operador. Ninguna pregunta repite un ejercicio de nivel ni de la práctica.",
+  "preguntas": [
+    {
+      "id": "mel-ev-001",
+      "enunciado": "Revisando el libro técnico, el primer oficial comenta: «ese equipo ni aparece en la MEL, así que no debe ser importante». Según el preámbulo de la FAA, ¿qué pasa con un equipo que no aparece en la MEL?",
+      "opciones": [
+        "Debe estar operativo si toca la aeronavegabilidad o las reglas de operación",
+        "Puede estar inoperativo con plazo de categoría D mientras no afecte el vuelo",
+        "Se busca en la MMEL del tipo y, si allí aparece, se aplica ese alivio",
+        "Se difiere por el programa NEF, que cubre lo que la MEL no trae"
+      ],
+      "correcta": 0,
+      "explicacion": "El preámbulo (PL-34 Rev 5, p. 3) es directo: «all equipment related to the airworthiness of the aircraft and the operating regulations of the operator not listed on the MEL must be operative». La 8900.1 (4-685B1)c)) agrega que un ítem de la MMEL que el operador no listó «is not subject to MEL relief and must be operative at takeoff». El NEF no sirve de cajón: excluye lo que exige una regla y lo que ya está en la MEL o la CDL (PL-25, NEF).",
+      "referencia": "FAA MMEL PL-34 Rev 5, preámbulo p. 3; FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-685B1)c); PL-25 Rev 24, NEF",
+      "metadatos": { "nivel": 1, "capitulo": 1 }
+    },
+    {
+      "id": "mel-ev-002",
+      "enunciado": "Un ítem de la MEL aprobada permitiría despachar con un equipo inoperativo, pero una directiva de aeronavegabilidad (AD) exige que ese equipo esté operativo. ¿Qué manda?",
+      "opciones": [
+        "La MEL, porque es un cambio aprobado al diseño de tipo",
+        "La AD, salvo que la propia AD permita el alivio",
+        "La que tenga la fecha de aprobación más reciente",
+        "La MEL, si el operador avisa a la autoridad en 24 horas"
+      ],
+      "correcta": 1,
+      "explicacion": "La MEL no puede incluir instrumentos o equipos que una AD exige en condición operativa, «unless the airworthiness directive provides otherwise» (14 CFR 121.628(b)(2)); el RAC 121.2615(d)(2) dice lo mismo. Y el preámbulo: «The MEL must not deviate from Aircraft Flight Manual (AFM) Limitations, emergency procedures, or Airworthiness Directives (AD)» (PL-34 Rev 5, p. 3).",
+      "referencia": "14 CFR 121.628(b)(2); RAC 121 Enm. 10, 121.2615(d)(2); FAA MMEL PL-34 Rev 5, p. 3",
+      "metadatos": { "nivel": 1, "capitulo": 1 }
+    },
+    {
+      "id": "mel-ev-003",
+      "enunciado": "En crucero falla un sistema que en tierra habría tenido alivio MEL. El primer oficial propone «diferirlo por MEL» para seguir tranquilos. ¿Qué dice la FAA?",
+      "opciones": [
+        "Se continúa al destino y allí el alivio queda aplicado automáticamente, sin más trámite",
+        "Sí: se difiere en vuelo si la tripulación lo anota en el libro y aplica el (O)",
+        "Sí, pero solo si el ítem es de categoría C o D y no tiene (M) pendiente",
+        "No: tras el despegue mandan el AFM y las listas; se resuelve antes de volver a salir"
+      ],
+      "correcta": 3,
+      "explicacion": "La 8900.1 (4-690A) aplica la MEL a un ítem nuevo «up until the point an aircraft has taken off». Después (4-690C): «MEL relief does not apply for item failures occurring after takeoff», la tripulación usa el manual de vuelo y las listas aprobadas, y la falla «must be addressed prior to the next time the aircraft departs».",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-690A y 4-690C",
+      "metadatos": { "nivel": 1, "capitulo": 1 }
+    },
+    {
+      "id": "mel-ev-004",
+      "enunciado": "La APU está inoperativa. Despacho no encuentra el ítem en la MEL de la aerolínea, pero sí en la MMEL FAA del tipo, con alivio de categoría C. ¿Se puede despachar con base en la MMEL?",
+      "opciones": [
+        "Sí, pero con la categoría siguiente más restrictiva, la B",
+        "Sí, porque la MEL nunca puede ser menos permisiva que la MMEL",
+        "No: sin el ítem en la MEL del operador no hay alivio",
+        "Sí, si el comandante lo acepta y lo anota en el libro técnico"
+      ],
+      "correcta": 2,
+      "explicacion": "Se despacha con la MEL aprobada, no con la MMEL: «La MMEL no puede ser utilizada como una MEL para realizar despachos» (SRVSOP MIA Enm. 13, PIV-VI-C7 3.5). Y «If an operator does not list a particular MMEL item in its MEL, that item is not subject to MEL relief and must be operative at takeoff» (8900.1, 4-685B1)c)). Y la MEL puede ser más restrictiva que la MMEL, nunca menos (4-682).",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-685B1)c) y 4-682; SRVSOP MIA Enm. 13, PIV-VI-C7 3.5",
+      "metadatos": { "nivel": 1, "capitulo": 2 }
+    },
+    {
+      "id": "mel-ev-005",
+      "enunciado": "Un operador quiere, en su MEL, pasar un ítem que la MMEL trae en categoría C a categoría B, y otro que la MMEL trae en B a categoría C. ¿Qué es aceptable?",
+      "opciones": [
+        "Solo el segundo, si hay un programa de reparación",
+        "Ninguno: la categoría de la MMEL se copia tal cual",
+        "Los dos, si la autoridad aprueba la MEL completa",
+        "Solo el primer cambio"
+      ],
+      "correcta": 3,
+      "explicacion": "La 8900.1 (4-685B2)) permite intervalos más restrictivos («an operator could make an MMEL category C item an MEL category B item») y prohíbe lo contrario: «Operators may never use a repair category that is less restrictive than the MMEL». Es la regla general de 4-682: la MEL puede ser más restrictiva que la MMEL, pero nunca menos.",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-682 y 4-685B2)",
+      "metadatos": { "nivel": 1, "capitulo": 2 }
+    },
+    {
+      "id": "mel-ev-006",
+      "enunciado": "En una entrevista te preguntan quién elabora la MMEL. ¿Qué respuesta distingue bien la FAA del RAC y la OACI?",
+      "opciones": [
+        "En los dos sistemas, la OACI junto con los Estados de diseño",
+        "FAA: el fabricante solo, sin participación de la FAA. RAC: la UAEAC, para cada tipo de avión",
+        "FAA: la FAA (FOEB) con el fabricante; RAC/OACI: el fabricante, aprobada por el Estado de diseño",
+        "En los dos sistemas la elabora cada operador para su flota, y la aprueba la autoridad de su Estado"
+      ],
+      "correcta": 2,
+      "explicacion": "FAA: «All MMELs are developed and revised by the FOEB» y las aprueba el gerente del AED (8900.1, 4-681); PL-34 dice que la desarrolla la FAA «with participation by the Original Equipment Manufacturer». RAC 121.001 (igual que el Anexo 6): la establece «el organismo responsable del diseño del tipo de aeronave con aprobación del Estado de diseño». La MEL, en cambio, la elabora el operador en los dos sistemas.",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-681; FAA MMEL PL-34 Rev 5, p. 3; RAC 121 Enm. 10, 121.001",
+      "metadatos": { "nivel": 1, "capitulo": 2 }
+    },
+    {
+      "id": "mel-ev-007",
+      "enunciado": "En el recorrido exterior notas que falta una pieza externa secundaria del avión. ¿A qué documento se va y qué te importa en la cabina?",
+      "opciones": [
+        "A la CDL: placard en cabina y penalizaciones en el despacho",
+        "Al programa NEF, porque una pieza externa no afecta sistemas",
+        "A ninguno: una pieza externa faltante siempre deja el avión en tierra",
+        "A la MEL, en el capítulo ATA de la zona donde estaba la pieza"
+      ],
+      "correcta": 0,
+      "explicacion": "La CDL es «a list of externally exposed airplane parts that may be missing for flight while the airplane remains airworthy» (8900.1 Vol 4 Cap 4 Secc 1, 4-623B; RAC 121.001 la define igual). Cada ítem CDL va en un placard en la cabina de vuelo, a la vista de la tripulación, y las penalizaciones de combustible y performance van en la documentación de vuelo; en Parte 121 se emite un despacho nuevo o enmendado (4-625B.1)e) y f)). Qué piezas trae la CDL de cada modelo se confirma en la CDL aprobada.",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 1 (CHG 745), 4-623B y 4-625B.1)e)-f); RAC 121 Enm. 10, 121.001",
+      "metadatos": { "nivel": 1, "capitulo": 3 }
+    },
+    {
+      "id": "mel-ev-008",
+      "enunciado": "Un tripulante de cabina reporta un elemento dañado en la cabina. ¿Qué característica lo saca del programa NEF?",
+      "opciones": [
+        "Que el daño esté a la vista de los pasajeros",
+        "Que lo exija una regla de certificación o de operación",
+        "Que esté instalado en un galley o en un baño",
+        "Que pertenezca a un capítulo ATA distinto del 25"
+      ],
+      "correcta": 1,
+      "explicacion": "PL-25 Rev 24: el NEF son ítems que «would not be required by the applicable certification or operational rules», y «NEF does not include items that are functionally required to meet the certification rule or for compliance with any operational rule». Estar en un galley o un baño no lo excluye (8900.1 Vol 4 Cap 4 Secc 4, 4-705A.2)), y aunque el programa figura en el ATA 25, puede cubrir ítems de otros capítulos (4-705B.1)).",
+      "referencia": "FAA MMEL PL-25 Rev 24, NEF; FAA Order 8900.1 Vol 4 Cap 4 Secc 4 (CHG 777), 4-705A.2) y 4-705B.1)",
+      "metadatos": { "nivel": 1, "capitulo": 3 }
+    },
+    {
+      "id": "mel-ev-009",
+      "enunciado": "Junto a una fila de la MEL ves una barra vertical «|» en la última columna. ¿Qué te dice?",
+      "opciones": [
+        "Que el ítem tiene un procedimiento (M) pendiente",
+        "Que la fila está aprobada de forma provisional",
+        "Que esa fila cambió en la revisión actual de esa página",
+        "Que el ítem no aplica a todos los aviones de la flota"
+      ],
+      "correcta": 2,
+      "explicacion": "PL-25 Rev 24, Vertical Bar: «A vertical bar indicates a change, addition, or deletion of content in the adjacent row of text for the current revision of that page only.» Lo que distingue ítems instalados solo en algunos aviones de la MMEL es el triple asterisco, no la barra.",
+      "referencia": "FAA MMEL PL-25 Rev 24, Vertical Bar (Change Bar)",
+      "metadatos": { "nivel": 2, "capitulo": 4 }
+    },
+    {
+      "id": "mel-ev-010",
+      "enunciado": "Detector de humo de un baño inoperativo, diferido por la MMEL FAA A318-A321, ítem 26-17-01 (C): provisos a) recipiente de desechos vacío, b) puerta cerrada con seguro y rotulada, c) baño usado solo por tripulantes; y una NOTE. Un tripulante de cabina pregunta si la tripulación puede entrar. ¿Qué responde la entrada?",
+      "opciones": [
+        "Solo mantenimiento puede abrirlo, y únicamente en tierra",
+        "No: el baño queda cerrado para todos hasta la reparación",
+        "Sí, pero solo si el recipiente de desechos va lleno y sellado",
+        "Sí: solo tripulantes pueden usarlo e inspeccionarlo"
+      ],
+      "correcta": 3,
+      "explicacion": "El proviso c) dice «Lavatory is used only by crewmembers» y la NOTE aclara: «These provisos are not intended to prohibit lavatory use or inspections by crewmembers». El recipiente tiene que ir vacío («Lavatory waste receptacle is empty»), no lleno. La entrada lleva (M)(O): mantenimiento deja el baño en condición y la tripulación aplica el procedimiento.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 26-17-01 Lavatory Smoke Detection System",
+      "metadatos": { "nivel": 2, "capitulo": 11 }
+    },
+    {
+      "id": "mel-ev-011",
+      "enunciado": "El tech log dice «CVR INOP». ¿En qué capítulo ATA de la MEL buscas el ítem?",
+      "opciones": [
+        "34, Navigation",
+        "23, Communications",
+        "31, Indicating/Recording Systems",
+        "22, Autoflight"
+      ],
+      "correcta": 1,
+      "explicacion": "En las dos MMEL de referencia el grabador de voz está en el capítulo 23: A318-A321 ítem 23-71-01 Cockpit Voice Recorder System (CVR), y B-737 ítem 23-10 (página 23-14). El que está en el 31, Indicating/Recording Systems, es el FDR (A318-A321 31-30-02; B-737 31-02). Buscar por intuición en el capítulo equivocado es la forma más común de no encontrar un ítem que sí existe.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítems 23-71-01 y 31-30-02; MMEL FAA B-737 Rev 63a, ítems 23-10 y 31-02",
+      "metadatos": { "nivel": 2, "capitulo": 5 }
+    },
+    {
+      "id": "mel-ev-012",
+      "enunciado": "Un B737-800 con RIPS (Recorder Independent Power Supply) tiene el CVR inoperativo. Según la MMEL FAA B-737 Rev 63a, ítem 23-10, ¿qué cambia frente a un avión sin RIPS?",
+      "opciones": [
+        "Lleva (M): breaker del RIPS asegurado y 15 min antes de salir",
+        "Pasa a categoría C, porque el RIPS le da respaldo al CVR",
+        "No tiene alivio: con RIPS instalado el CVR debe funcionar",
+        "Nada: las dos filas son categoría A, con 3 flight-days y sin (M)"
+      ],
+      "correcta": 0,
+      "explicacion": "La fila 10-01 (sin RIPS) es «A | 1 | 0 | May be inoperative provided: a) Flight Data Recorder (FDR) operates normally, and b) Repairs are made within 3 flight-days». La 10-02 (con RIPS) agrega (M): «b) RIPS circuit breaker is pulled and collared, c) A 15 minute interval after pulling of the c/b is achieved before departure». La configuración decide qué fila aplica, y con ella cambian los procedimientos.",
+      "referencia": "MMEL FAA B-737 Rev 63a, página 23-14, ítems 23-10-01 y 23-10-02",
+      "metadatos": { "nivel": 2, "capitulo": 6 }
+    },
+    {
+      "id": "mel-ev-013",
+      "enunciado": "Falla solo el modo HDG del autopiloto. La MEL de tu operador lista «Autopilot Systems», pero no desglosa los modos. ¿Qué se difiere?",
+      "opciones": [
+        "El modo HDG como NEF, porque no es esencial para el vuelo",
+        "El sistema de autopiloto completo, con las condiciones de su entrada",
+        "Nada: un modo no es un ítem y no necesita diferido",
+        "Solo el modo HDG, tomando la fila de la MMEL del tipo"
+      ],
+      "correcta": 1,
+      "explicacion": "Es el ejemplo de la 8900.1 (4-685B1)d)2.a.): el operador puede listar los modos (HDG, VOR/LOC, ALT) como ítems separados; si no lo hizo y un modo falla, «the operator could not defer the modes individually. Instead, the operator would have to defer the autopilot system». La MMEL no sirve para despachar, y un ítem funcional del avión no es NEF.",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-685B1)d)2.a.",
+      "metadatos": { "nivel": 2, "capitulo": 6 }
+    },
+    {
+      "id": "mel-ev-014",
+      "enunciado": "MMEL FAA A318-A321, ítem 52-30-05 Cargo Door Drift Pin: «A | 4 | 0 | May be inoperative provided repairs are made within 1 flight.» El ítem se difiere antes del primer vuelo del día. ¿Qué significa?",
+      "opciones": [
+        "Un vuelo desde que se difiere: se repara antes del siguiente",
+        "Por ser de categoría A, se repara antes de ese mismo vuelo del día",
+        "Queda un día de vuelo completo, sin contar el día de hoy",
+        "Quedan 3 días calendario, como en todo ítem de categoría A"
+      ],
+      "correcta": 0,
+      "explicacion": "Categoría A no significa «reparar ya»: el plazo es el que está en Remarks (PL-25 Rev 24, Repair Category A). Cuando el intervalo va en vuelos, tramos, ciclos u horas, «the repair interval begins at the point when the item is deferred»; el day of discovery solo se excluye cuando el plazo va en días calendario o flight-days.",
+      "referencia": "FAA MMEL PL-25 Rev 24, Repair Category A; MMEL FAA A318-A321 Rev 32, ítem 52-30-05",
+      "metadatos": { "nivel": 2, "capitulo": 7 }
+    },
+    {
+      "id": "mel-ev-015",
+      "enunciado": "En una entrevista en Colombia te preguntan: «¿cuántos días tiene un ítem de categoría C?». ¿Cuál es la respuesta completa?",
+      "opciones": [
+        "240 horas exactas, contadas desde la hora y el minuto en que la falla se anotó en el libro técnico",
+        "10 días de vuelo, contando como primero el día en que se anotó",
+        "FAA: 10 días calendario sin el de descubrimiento; Colombia: lo que fije la MEL aprobada",
+        "10 días calendario, porque el RAC 121.2615 fija las categorías A a D igual que la FAA"
+      ],
+      "correcta": 2,
+      "explicacion": "Las categorías A a D y sus plazos son del sistema FAA: C es «within 10 consecutive calendar-days (240 hours) excluding the day of discovery» (PL-25 Rev 24). El RAC 121 y el RAC 91 no definen categorías ni plazos; en Colombia aplican los que establezca la MEL del operador aprobada por la UAEAC. El MIA del SRVSOP remite las definiciones a la PL-25.",
+      "referencia": "FAA MMEL PL-25 Rev 24, Repair Category C; RAC 121 Enm. 10, 121.2615; SRVSOP MIA Enm. 13, PIV-VI-C7 4.D",
+      "metadatos": { "nivel": 2, "capitulo": 7 }
+    },
+    {
+      "id": "mel-ev-016",
+      "enunciado": "Un ítem de categoría B se anota en el libro técnico a las 23:50 del 30 de abril. El operador cuenta en hora local. Con el sistema FAA, ¿cuándo vence?",
+      "opciones": [
+        "A las 2350 del 3 de mayo",
+        "A las 2359 del 2 de mayo",
+        "A las 0000 del 3 de mayo",
+        "A las 2359 del 3 de mayo"
+      ],
+      "correcta": 3,
+      "explicacion": "El 30 de abril es el day of discovery y no cuenta, aunque la falla se haya anotado a diez minutos de la medianoche. Los 3 días calendario consecutivos son el 1, el 2 y el 3 de mayo, y el plazo termina a las 2359 del 3 (PL-25 Rev 24, Repair Category B y Day of Discovery). Las «72 hours» son tres días completos, no un cronómetro que arranca a la hora del registro.",
+      "referencia": "FAA MMEL PL-25 Rev 24, Day of Discovery y Repair Category B; 8900.1 Vol 4 Cap 4 Secc 3, 4-685B2)b)",
+      "metadatos": { "nivel": 2, "capitulo": 8 }
+    },
+    {
+      "id": "mel-ev-017",
+      "enunciado": "Un ítem de categoría D se anota el 1 de marzo. Con el sistema FAA, ¿cuándo termina el plazo?",
+      "opciones": [
+        "A las 2359 del 29 de junio",
+        "A las 2359 del 30 de junio",
+        "A las 2359 del 1 de julio",
+        "A las 2359 del 28 de junio"
+      ],
+      "correcta": 0,
+      "explicacion": "Categoría D: «within 120 consecutive calendar-days (2,880 hours) excluding the day of discovery» (PL-25 Rev 24). El 1 de marzo no cuenta; el día 1 es el 2 de marzo y el día 120 es el 29 de junio (30 días de marzo, 30 de abril, 31 de mayo y 29 de junio). Contar el 1 de marzo como día 1 da el 28; «cuatro meses» no es la regla.",
+      "referencia": "FAA MMEL PL-25 Rev 24, Repair Category D y Day of Discovery",
+      "metadatos": { "nivel": 2, "capitulo": 8 }
+    },
+    {
+      "id": "mel-ev-018",
+      "enunciado": "El CVR se difiere el lunes por una entrada «A | 1 | 0 | … Repairs are made within 3 flight-days» (MMEL FAA A318-A321, 23-71-01). El avión vuela el martes, pasa el miércoles en tierra sin vuelos y vuela el jueves y el viernes. ¿Cuándo vence?",
+      "opciones": [
+        "Al terminar el jueves",
+        "Al terminar el miércoles",
+        "Al terminar el sábado",
+        "Al terminar el viernes"
+      ],
+      "correcta": 3,
+      "explicacion": "El lunes es el day of discovery y se excluye (PL-25, Repair Category A: en flight-days «the day of discovery is excluded»). Un flight-day es un período de 24 horas, de medianoche a medianoche en UTC u hora local según el operador, «during which at least one flight is initiated for the affected aircraft» (PL-25, Flight-Day). El miércoles no cuenta porque no vuela: martes, jueves y viernes son los tres. Además, el alivio exige que el FDR funcione normalmente.",
+      "referencia": "FAA MMEL PL-25 Rev 24, Flight-Day y Repair Category A; MMEL FAA A318-A321 Rev 32, ítem 23-71-01",
+      "metadatos": { "nivel": 2, "capitulo": 8 }
+    },
+    {
+      "id": "mel-ev-019",
+      "enunciado": "En la MMEL un ítem trae «-» en Number Installed y en Number Required for Dispatch. ¿Qué debe traer la MEL de tu operador?",
+      "opciones": [
+        "Un cero en requeridos, porque el guion equivale a ninguno",
+        "El número real, o un medio aprobado de control de configuración",
+        "El mismo guion, que indica que el ítem es opcional para despachar",
+        "Nada: el guion obliga a consultar al fabricante en cada vuelo"
+      ],
+      "correcta": 1,
+      "explicacion": "PL-25 Rev 24, Dash: «Indicates a variable number (quantity) of items may be installed or required for dispatch». La 8900.1 (4-685B4)b)) dice que, cuando la MMEL pone guion en los requeridos, «the MEL would reflect the actual number required for dispatch», y el MIO del SRVSOP (4.1.36 a)) pide el número actual de ítems instalados o un medio alterno de control de configuración aprobado. El guion dice que la cantidad varía, no que el equipo sobre.",
+      "referencia": "FAA MMEL PL-25 Rev 24, Dash (-); 8900.1 Vol 4 Cap 4 Secc 3, 4-685B4)b); SRVSOP MIO Parte II Vol II Cap 16, 4.1.36 a)",
+      "metadatos": { "nivel": 2, "capitulo": 9 }
+    },
+    {
+      "id": "mel-ev-020",
+      "enunciado": "MMEL FAA A318-A321, ítem 33-40-06 1) Beacon Lights: «C | 2 | 0 | (O) May be inoperative provided: a) Strobe lights operate normally, and b) Alternate procedures are established and used.» ¿Qué dice ese «0» requerido?",
+      "opciones": [
+        "Que el operador decide en cada vuelo cuántas lleva operativas",
+        "Que las luces beacon no se necesitan para despachar en ninguna condición",
+        "Pueden faltar las dos si los strobes funcionan y hay procedimientos alternos",
+        "Que pueden faltar de día, pero de noche se requieren las dos luces beacon operativas"
+      ],
+      "correcta": 2,
+      "explicacion": "Number Required for Dispatch es el mínimo para operar «providing the conditions specified in the Remarks or Exceptions column are met» (PL-25 Rev 24). Aquí el cero depende de dos provisos: strobes normales y procedimientos alternos del (O). La entrada no hace distinción entre día y noche.",
+      "referencia": "FAA MMEL PL-25 Rev 24, System Page - Number Required for Dispatch; MMEL FAA A318-A321 Rev 32, ítem 33-40-06 1)",
+      "metadatos": { "nivel": 2, "capitulo": 10 }
+    },
+    {
+      "id": "mel-ev-021",
+      "enunciado": "Una entrada de la MMEL dice «Any in excess of those required by 14 CFR may be inoperative». Operas en Colombia. ¿Contra qué norma cuentas los que se requieren?",
+      "opciones": [
+        "Contra el Anexo 6 de la OACI, porque el RAC no fija equipos mínimos",
+        "Contra ninguna: la frase autoriza que falten todos los instalados",
+        "Solo contra el 14 CFR, porque la MMEL es un documento de la FAA",
+        "Contra el RAC: «14 CFR» incluye la norma del Estado donde se opera"
+      ],
+      "correcta": 3,
+      "explicacion": "PL-25 Rev 24, Required by 14 CFR: «The number of items required by applicable 14 CFR operating rules must be operative» y «\"14 CFR\" also implies the regulations within the State the aircraft is operated». Además, en la MEL los Remarks no pueden quedar generales: el operador los concreta según las reglas bajo las que opera (8900.1, 4-686B).",
+      "referencia": "FAA MMEL PL-25 Rev 24, Required by 14 CFR; FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-686B",
+      "metadatos": { "nivel": 2, "capitulo": 10 }
+    },
+    {
+      "id": "mel-ev-022",
+      "enunciado": "Tu vuelo exige dos sistemas de comunicación de largo alcance (LRCS) y un HF está inoperativo. Según la MMEL FAA A318-A321, ítem 23-11-01 1), fila «C | - | 1 | (O)», ¿qué condición tiene que cumplirse?",
+      "opciones": [
+        "Que el HF que queda se pruebe antes de cada vuelo del día",
+        "Que el vuelo sea diurno y haya cobertura VHF de las dependencias ATS en toda la ruta",
+        "Que el SATVOICE funcione y sirva como LRCS en la ruta, entre otras",
+        "Que la ruta no incluya vuelo extendido sobre agua"
+      ],
+      "correcta": 2,
+      "explicacion": "La fila dice: «(O) May be inoperative while conducting operations that require two LRCS provided: a) Aircraft SATVOICE system operates normally, b) SATVOICE services are available as an LRCS over the intended route of flight, c) The ICAO Flight Plan is updated (as required) to notify ATC of the communications equipment status of the aircraft, and d) Alternate procedures are established and used.» El segundo sistema de largo alcance lo pone el SATVOICE, no el VHF.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 23-11-01 1) High Frequency (HF) Communication System, LRCS",
+      "metadatos": { "nivel": 2, "capitulo": 11 }
+    },
+    {
+      "id": "mel-ev-023",
+      "enunciado": "Letreros de salida inoperativos. La fila general de la MMEL FAA A318-A321, ítem 33-50-01 Exit Signs, es «C | - | 0 | (O) May be inoperative or missing provided: a) No passengers are carried, …». Tienes un vuelo con pasajeros. ¿Te sirve esa fila?",
+      "opciones": [
+        "Sí, de día; de noche no aplica",
+        "No: exige que no se lleven pasajeros",
+        "Sí: con requeridos 0 se puede salir sin letreros",
+        "Sí, si la tripulación de cabina hace un briefing extra"
+      ],
+      "correcta": 1,
+      "explicacion": "El cero va atado al proviso a) «No passengers are carried», más b) un máximo de 19 personas autorizadas por el 14 CFR en operación sin pasajeros y c) procedimientos alternos. Para un vuelo con pasajeros solo quedan los sub-ítems, que permiten hasta tres bombillos o LED no adyacentes inoperativos por letrero. La autorización está en Remarks, no en el número.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 33-50-01 Exit Signs y sub-ítems 1) y 2)",
+      "metadatos": { "nivel": 2, "capitulo": 11 }
+    },
+    {
+      "id": "mel-ev-024",
+      "enunciado": "Un proviso dice «b) Hydraulic system X operates normally». Otro, en otra entrada, dice «Pump Y is verified operative prior to each flight». Según PL-25, ¿cuál es la diferencia?",
+      "opciones": [
+        "El primero no exige comprobarlo; el segundo exige comprobarlo antes de cada vuelo",
+        "El segundo solo se comprueba el día en que se difiere el ítem",
+        "Ninguna: los dos exigen una prueba funcional antes de cada vuelo",
+        "El primero lo prueba mantenimiento; el segundo, la tripulación"
+      ],
+      "correcta": 0,
+      "explicacion": "PL-25 Rev 24, Operative: cuando un ítem debe estar operativo, «it is not required to verify the item's operational status. It should be considered operative unless reported or known to be malfunctioning». Verified Operative: «it is required to check and confirm the item is operative at the interval(s) specified»; solo si no hay intervalo se verifica una vez, al diferir el ítem original.",
+      "referencia": "FAA MMEL PL-25 Rev 24, Operative y Verified Operative",
+      "metadatos": { "nivel": 2, "capitulo": 11 }
+    },
+    {
+      "id": "mel-ev-025",
+      "enunciado": "Una luz de aterrizaje quedó trabada extendida. MMEL FAA A318-A321, ítem 33-40-02 2): «C | 2 | 0 | (O) May be inoperative in the extended position provided a 1% fuel penalty is applied for each extended light.» ¿Qué pide ese (O)?",
+      "opciones": [
+        "Que el vuelo se haga solo de día, sin luces de aterrizaje",
+        "Planificar con 1 % de penalización de combustible por cada luz extendida",
+        "Que mantenimiento la retraiga a mano antes de cada vuelo",
+        "Nada: una luz extendida se considera operativa"
+      ],
+      "correcta": 1,
+      "explicacion": "(O) es un procedimiento de operaciones que se cumple «in planning for or operating with the listed item inoperative» (PL-25 Rev 24). Aquí toca la planificación: la penalización de combustible entra en el plan. Si la luz queda retraída, aplica la otra fila: «May be inoperative in the retracted position provided that the associated light is considered inoperative».",
+      "referencia": "FAA MMEL PL-25 Rev 24, (O); MMEL FAA A318-A321 Rev 32, ítem 33-40-02 2) Extension/Retraction Systems",
+      "metadatos": { "nivel": 2, "capitulo": 12 }
+    },
+    {
+      "id": "mel-ev-026",
+      "enunciado": "Una entrada dice «(O) May be inoperative provided alternate procedures are established and used». ¿Quién escribe esos procedimientos alternos?",
+      "opciones": [
+        "La tripulación, a criterio, en cada vuelo",
+        "La autoridad, en una circular para cada ítem",
+        "El fabricante, en el mismo renglón de la MMEL",
+        "El operador, en su MEL"
+      ],
+      "correcta": 3,
+      "explicacion": "La MMEL solo pone el símbolo y la condición. La MMEL B-737 lo dice en «Guidelines for (M) and (O) Procedures» (p. XIII): estos procedimientos «must be established by the operator and may be based on the aircraft manufacturer's recommended procedures», y en el B737 se basan en el Dispatch Deviations Guide. En Colombia, el RAC 91 Apéndice 2 (i) pide preparar un procedimiento de operación apropiado para la tripulación.",
+      "referencia": "MMEL FAA B-737 Rev 63a, p. XIII; FAA MMEL PL-25 Rev 24, (O); RAC 91 Enm. 12, Apéndice 2 (i)",
+      "metadatos": { "nivel": 2, "capitulo": 12 }
+    },
+    {
+      "id": "mel-ev-027",
+      "enunciado": "Vas a volar el tercer tramo con un perno de rueda faltante, diferido por la MMEL FAA A318-A321, ítem 32-41-01 (A, reparación en 5 flight-legs). El (M) inicial está firmado. ¿Qué más debe haber antes de este despegue?",
+      "opciones": [
+        "La inspección de esa rueda después del último aterrizaje",
+        "Una nueva firma del (M) inicial en cada escala",
+        "Una prueba de frenos hecha por la tripulación en rodaje",
+        "Nada más: el resto se revisa cuando venza el plazo"
+      ],
+      "correcta": 0,
+      "explicacion": "Los provisos piden, además del (M) inicial (rueda revisada, freno revisado), «c) After each landing, wheel is inspected for additional broken or missing tie bolts, and d) Repairs are made within 5 flight-legs». Un (M) puede repetirse: el piloto verifica en el registro que la inspección de cada escala esté hecha.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 32-41-01 Wheel Tie Bolts; FAA MMEL PL-25 Rev 24, (M)",
+      "metadatos": { "nivel": 2, "capitulo": 13 }
+    },
+    {
+      "id": "mel-ev-028",
+      "enunciado": "Válvula de sangrado (PRV) del motor 2 diferida por la MMEL FAA A318-A321, ítem 36-11-02: «C | 2 | 1 | (M)(O) Except for ETOPS beyond 120 minutes, one may be inoperative secured closed provided associated bleed air supply system is considered inoperative.» El (M) está firmado. ¿Qué te falta?",
+      "opciones": [
+        "Abrir la válvula en rodaje para comprobar que responde antes del despegue",
+        "Nada: con el (M) firmado el alivio ya está completo",
+        "Aplicar también la entrada del sangrado de ese lado y el (O)",
+        "Solo confirmar que el vuelo no sea nocturno"
+      ],
+      "correcta": 2,
+      "explicacion": "(M)(O) son los dos: el (M) deja la válvula asegurada cerrada y el (O) se cumple en la planificación u operación (PL-25). Además, el proviso deja el sistema de sangrado de ese lado «considered inoperative»: se trata como inoperativo y hay que cumplir su propia entrada, con placard y sus Remarks (PL-25, Considered Inoperative).",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 36-11-02 Bleed Valves (PRV); FAA MMEL PL-25 Rev 24, (M), (O) y Considered Inoperative",
+      "metadatos": { "nivel": 2, "capitulo": 14 }
+    },
+    {
+      "id": "mel-ev-029",
+      "enunciado": "En Colombia, ¿qué leyenda debe llevar un equipo que quedó inoperativo según la MEL aprobada?",
+      "opciones": [
+        "La que indique el fabricante en la MMEL",
+        "«NO OPERATIVO»",
+        "«DIFERIDO MEL» con el número del ítem",
+        "«INOP», o el texto que fije el operador"
+      ],
+      "correcta": 1,
+      "explicacion": "RAC 91.1105(a)(9): cuando la lista de discrepancias de acuerdo con el MEL aprobado incluya instrumentos o equipos inoperativos, «se coloque en ellos la leyenda \"NO OPERATIVO\"». En la FAA es distinto: PL-25 exige el placard, pero el texto y la ubicación los decide el operador, salvo que un proviso diga otra cosa.",
+      "referencia": "RAC 91 Enm. 12, 91.1105(a)(9); FAA MMEL PL-25 Rev 24, Placarding",
+      "metadatos": { "nivel": 2, "capitulo": 15 }
+    },
+    {
+      "id": "mel-ev-030",
+      "enunciado": "Una entrada dice que, con el ítem inoperativo, otro sistema «is not used». ¿Qué pide PL-25?",
+      "opciones": [
+        "Retirarlo del avión antes del siguiente vuelo y registrarlo",
+        "Usarlo solo si la tripulación lo considera necesario en vuelo",
+        "No activarlo en operación normal y ponerle un placard adicional junto a su control",
+        "Diferirlo con su propia categoría y su propio número de control"
+      ],
+      "correcta": 2,
+      "explicacion": "PL-25 Rev 24, Is Not Used: los tripulantes «must not activate, actuate, or otherwise use the referenced item under normal operations», y «an additional placard must be affixed as close as practical to the control or indicator for the item that is not to be used».",
+      "referencia": "FAA MMEL PL-25 Rev 24, Is Not Used",
+      "metadatos": { "nivel": 2, "capitulo": 15 }
+    },
+    {
+      "id": "mel-ev-031",
+      "enunciado": "El ítem está en la MEL, el (M) está firmado, el placard puesto y todas las condiciones escritas se cumplen. ¿Termina ahí la evaluación?",
+      "opciones": [
+        "No: sigue siendo obligatorio determinar que el avión está en condición segura",
+        "No: además la autoridad debe aprobar el diferido para ese vuelo",
+        "Sí: cumplir todas las condiciones de la MEL ya garantiza el nivel aceptable de seguridad",
+        "Sí, salvo que el ítem sea de categoría A o B"
+      ],
+      "correcta": 0,
+      "explicacion": "PL-34 Rev 5 (p. 4): «MEL conditions and limitations do not relieve the operator from determining that the aircraft is in a condition for safe operation with items of equipment inoperative». La 8900.1 (4-687) lo repite y agrega: «This applies to all MEL items regardless of whether an (M) procedure applies to the item».",
+      "referencia": "FAA MMEL PL-34 Rev 5, p. 4; FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-687",
+      "metadatos": { "nivel": 3, "capitulo": 16 }
+    },
+    {
+      "id": "mel-ev-032",
+      "enunciado": "En rodaje aparece una falla que tiene alivio MEL, pero su procedimiento exige la inspección de un técnico. Despacho dice que el (O) es sencillo y puedes hacerlo en cabina. ¿Qué pasa?",
+      "opciones": [
+        "Se despega: después del pushback la MEL ya no aplica",
+        "Se despega y la inspección se hace en el aeropuerto de destino",
+        "La tripulación hace la inspección si tiene la lista a bordo",
+        "El despegue queda prohibido hasta completar la inspección"
+      ],
+      "correcta": 3,
+      "explicacion": "La 8900.1 (4-690B1)) y la AC 120-125 (6.1.3) coinciden: «If the MEL procedures for that item require a mechanic's inspection, takeoff would be prohibited until the required inspection is completed». La MEL aplica hasta el despegue (4-690A), así que en rodaje sigue aplicando, con todos sus requisitos.",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-690A y 4-690B1); AC 120-125, 6.1.3",
+      "metadatos": { "nivel": 3, "capitulo": 17 }
+    },
+    {
+      "id": "mel-ev-033",
+      "enunciado": "Para efectos de la MEL en la FAA, ¿en qué momento se considera que el avión despegó?",
+      "opciones": [
+        "Cuando el piloto empieza a aplicar potencia para despegar",
+        "Cuando se cierra la puerta y comienza el pushback",
+        "Cuando el avión se mueve por sus propios medios hacia la pista",
+        "Cuando el tren principal deja de tocar la pista"
+      ],
+      "correcta": 0,
+      "explicacion": "PL-25 Rev 24, Takeoff, y 8900.1 (4-690A): «For the purposes of MEL relief, this translates to the point at which the pilot physically begins to apply power to initiate the takeoff from the runway or takeoff surface». La idea de «se mueve por sus propios medios» sale del MIO del SRVSOP de 2013, que no coincide con la FAA vigente.",
+      "referencia": "FAA MMEL PL-25 Rev 24, Takeoff; FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-690A",
+      "metadatos": { "nivel": 3, "capitulo": 17 }
+    },
+    {
+      "id": "mel-ev-034",
+      "enunciado": "El despacho ya está emitido. Antes de salir de la plataforma se difiere un ítem cuya entrada limita el nivel de vuelo. ¿Qué pide la FAA?",
+      "opciones": [
+        "Nada más: basta con la anotación en el libro técnico",
+        "Emitir un despacho nuevo solo si cambia el destino",
+        "Pedirle al ATC en vuelo el nivel que permita la MEL",
+        "Enmendar el despacho y actualizar el plan de vuelo con esa limitación"
+      ],
+      "correcta": 3,
+      "explicacion": "La 8900.1 (4-691D) exige procedimientos para enmendar el despacho cuando se aplica un ítem MEL después de emitido, y «to update the flight plan whenever operational limitations are imposed by an MEL». El plan operacional «must account for any operational limitations», empezando por «Altitude restrictions» (4-691C).",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-691C y 4-691D",
+      "metadatos": { "nivel": 3, "capitulo": 17 }
+    },
+    {
+      "id": "mel-ev-035",
+      "enunciado": "Un equipo inoperativo no puede ir en la MEL porque lo exige la certificación de tipo, y hay que llevar el avión a la base de mantenimiento. ¿Qué vía contemplan las normas?",
+      "opciones": [
+        "Un diferido de categoría A por un solo vuelo",
+        "Un permiso especial de vuelo",
+        "La CDL, si el equipo está por fuera del avión",
+        "La extensión única de la OpSpec D095"
+      ],
+      "correcta": 1,
+      "explicacion": "14 CFR 121.628(c): pese a (b)(1) y (b)(3), un avión con instrumentos o equipos inoperativos puede operar con un permiso especial de vuelo (§§ 21.197 y 21.199). El RAC 121.2615(d)(4) dice lo mismo, según las secciones 21.870 y 21.875 del RAC 21. La CDL es para partes externas faltantes, no para equipo inoperativo, y la extensión D095 solo alarga plazos de ítems que sí tienen alivio.",
+      "referencia": "14 CFR 121.628(c); RAC 121 Enm. 10, 121.2615(d)(4)",
+      "metadatos": { "nivel": 3, "capitulo": 17 }
+    },
+    {
+      "id": "mel-ev-036",
+      "enunciado": "¿Qué norma dice textualmente que la MEL existe para que el piloto al mando determine si puede iniciar el vuelo?",
+      "opciones": [
+        "14 CFR 121.628(a)",
+        "14 CFR 91.213(c)",
+        "RAC 121.2615(a)",
+        "PL-25 Rev 24, Definitions"
+      ],
+      "correcta": 2,
+      "explicacion": "RAC 121.2615(a): el explotador incluye en el manual de operaciones una MEL aprobada por la UAEAC «para que el piloto al mando pueda determinar si puede iniciar el vuelo o continuarlo a partir de cualquier parada intermedia». El Anexo 6 (6.1.3) usa la misma fórmula. La 121.628 de la FAA no nombra al piloto al mando: habla de acceso de la tripulación y de registros «available to the pilot»; su responsabilidad viene de 91.7, 121.563 y 121.533.",
+      "referencia": "RAC 121 Enm. 10, 121.2615(a); Anexo 6 Parte I, 6.1.3 (lista EFOD SRVSOP); 14 CFR 121.628",
+      "metadatos": { "nivel": 3, "capitulo": 18 }
+    },
+    {
+      "id": "mel-ev-037",
+      "enunciado": "El módulo de oxígeno de un baño está inoperativo y se difiere (MMEL FAA A318-A321, ítem 35-21-02: «(M) May be inoperative provided lavatory is placarded…»). Además de la tripulación de vuelo, ¿a quién debe llegar esa información antes de salir?",
+      "opciones": [
+        "Solo a mantenimiento, que es quien pone el placard",
+        "A la tripulación de cabina, por ejemplo en el briefing previo",
+        "A nadie más: no afecta la operación de la cabina de vuelo",
+        "A los pasajeros, por anuncio, antes de empezar el embarque"
+      ],
+      "correcta": 1,
+      "explicacion": "La 8900.1 (4-691B) pide que la información MEL llegue al piloto al mando y al despachador antes de salir de la plataforma, y que la que afecta equipos u operaciones de cabina se comunique a la tripulación de cabina «through appropriate means, such as preflight crew briefings». Aquí el baño queda rotulado para que no se ocupe.",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-691B; MMEL FAA A318-A321 Rev 32, ítem 35-21-02",
+      "metadatos": { "nivel": 3, "capitulo": 18 }
+    },
+    {
+      "id": "mel-ev-038",
+      "enunciado": "Recibes el avión de otra tripulación. ¿Qué exige el RAC 121.2317 antes de iniciar el vuelo?",
+      "opciones": [
+        "Asegurarte de la condición de cada irregularidad del vuelo anterior",
+        "Repetir antes de salir la prueba de todos los sistemas diferidos",
+        "Revisar solo las irregularidades nuevas que todavía no están diferidas",
+        "Firmar la liberación de mantenimiento de cada ítem diferido abierto"
+      ],
+      "correcta": 0,
+      "explicacion": "RAC 121.2317(b): «Antes de iniciar cada vuelo el piloto al mando se asegurará de la condición de cada irregularidad ingresada al final del vuelo anterior». Es el mismo texto de 14 CFR 121.563. Un diferido ya firmado también se revisa: la regla no distingue entre nuevas y viejas. La liberación la firma mantenimiento.",
+      "referencia": "RAC 121 Enm. 10, 121.2317(b); 14 CFR 121.563",
+      "metadatos": { "nivel": 3, "capitulo": 19 }
+    },
+    {
+      "id": "mel-ev-039",
+      "enunciado": "Un ítem de categoría B vence hoy y el repuesto llega mañana. El operador tiene OpSpec D095. Según la FAA, ¿qué puede hacer?",
+      "opciones": [
+        "Pasarlo a categoría C en su MEL para ganar 10 días más de plazo",
+        "Pedir que el comandante acepte el ítem vencido",
+        "Extenderlo las veces que haga falta, de 3 en 3 días, avisando a la FAA",
+        "Aprobar una sola extensión de hasta 3 días y avisar a la FAA en 24 h"
+      ],
+      "correcta": 3,
+      "explicacion": "Con OpSpec D095 el operador puede aprobar «a single, one-time extension» para ítems B y C (8900.1, 4-689; PL-25, Continuing Authorization - Single Extension). Un ítem B de 3 días «may only be extended up to an additional 3 consecutive calendar days» (4-689B), y el operador avisa a la oficina de la FAA dentro de las 24 horas (4-689C). En Colombia, si hay extensión y cómo, lo dice el programa MEL aprobado del operador.",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-689, 4-689B y 4-689C; FAA MMEL PL-25 Rev 24",
+      "metadatos": { "nivel": 3, "capitulo": 20 }
+    },
+    {
+      "id": "mel-ev-040",
+      "enunciado": "El CVR de un avión, diferido en categoría A con 3 flight-days, no se ha podido reparar y vence hoy. ¿Qué permite la FAA?",
+      "opciones": [
+        "Una extensión única de 3 flight-days, con aviso a la FAA en 24 horas",
+        "Que el comandante lo extienda por un vuelo, anotándolo en el libro",
+        "El operador no lo extiende; en casos muy raros se pide a la FAA",
+        "Pasarlo a categoría D mientras el FDR siga funcionando normalmente"
+      ],
+      "correcta": 2,
+      "explicacion": "La extensión única «is not authorized for Repair Category A and D items» (PL-25 Rev 24). La 8900.1 (4-689F): «An operator may not extend a repair category A item»; solo «In extremely rare situations» (por ejemplo, un avión en tierra por ceniza volcánica) se puede pedir una extensión a AFS-200.",
+      "referencia": "FAA MMEL PL-25 Rev 24, Continuing Authorization - Single Extension; FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-689F",
+      "metadatos": { "nivel": 3, "capitulo": 20 }
+    },
+    {
+      "id": "mel-ev-041",
+      "enunciado": "El CVR está diferido desde ayer por la MMEL FAA A318-A321, ítem 23-71-01. Hoy falla el FDR y mantenimiento propone diferirlo por 31-30-02 (fila A, requeridos 0). ¿Se puede salir?",
+      "opciones": [
+        "Sí, pero solo hasta el siguiente aeropuerto designado",
+        "No: cada alivio exige que el otro registrador funcione normalmente",
+        "Sí, si el vuelo es diurno y en condiciones VMC",
+        "Sí: los dos ítems son categoría A y los dos tienen requeridos 0 en la MMEL"
+      ],
+      "correcta": 1,
+      "explicacion": "El CVR (23-71-01) tiene alivio «provided: a) Flight Data Recorder (FDR) operates normally», y la fila A del FDR (31-30-02) pide «a) Cockpit voice Recorder (CVR) operates normally». Con los dos inoperativos, ninguno cumple su proviso. Es la interrelación que piden considerar PL-34 («the interrelationships between those items») y la 8900.1 (4-692).",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítems 23-71-01 y 31-30-02; FAA MMEL PL-34 Rev 5, p. 4; 8900.1 Vol 4 Cap 4 Secc 3, 4-692",
+      "metadatos": { "nivel": 3, "capitulo": 21 }
+    },
+    {
+      "id": "mel-ev-042",
+      "enunciado": "¿Cómo formula el RAC 91, Apéndice 2 (f), el caso de varios ítems MEL inoperativos a la vez?",
+      "opciones": [
+        "Como una regla que solo aplica a los vuelos EDTO",
+        "Como un límite fijo de tres ítems MEL abiertos por avión",
+        "Como prohibición: sin ese análisis de interrelación, el vuelo no se inicia",
+        "Como recomendación para el despachador, sin efecto sobre la decisión de iniciar el vuelo"
+      ],
+      "correcta": 2,
+      "explicacion": "RAC 91 Apéndice 2 (f): «Los explotadores deben asegurarse de que no se inicie ningún vuelo cuando varios elementos del MEL no funcionen, sin haber determinado que la interrelación que existe entre los sistemas o componentes inoperativos no dará lugar a una degradación inaceptable del nivel de seguridad operacional o a un aumento indebido en la carga de trabajo de la tripulación de vuelo». La FAA lo dice como algo a considerar (PL-34; 8900.1, 4-692); ninguna fuente fija un número máximo de ítems.",
+      "referencia": "RAC 91 Enm. 12, Apéndice 2 (f); SRVSOP MIA Enm. 13, PIV-VI-C7 3.14; FAA MMEL PL-34 Rev 5, p. 4",
+      "metadatos": { "nivel": 3, "capitulo": 21 }
+    },
+    {
+      "id": "mel-ev-043",
+      "enunciado": "Todas las condiciones de la MEL se cumplen, pero el comandante concluye que, con el tiempo previsto en el destino y la carga de trabajo, el vuelo no es apropiado hoy. Según el RAC, ¿qué papel tiene?",
+      "opciones": [
+        "Debe salir: si la MEL se cumple, la decisión final es del despachador",
+        "Puede negarse solo si el ítem es de categoría A o B",
+        "Debe pedir autorización a la UAEAC antes de negarse",
+        "Puede no aceptarlo: la MEL es para que él decida si inicia el vuelo"
+      ],
+      "correcta": 3,
+      "explicacion": "RAC 121.2615(a): la MEL está en el manual «para que el piloto al mando pueda determinar si puede iniciar el vuelo». RAC 91.545(a): no se inicia ningún vuelo hasta que el piloto al mando haya comprobado que la aeronave reúne las condiciones. Y la MEL no reemplaza el juicio (PL-34; 8900.1, 4-687). La decisión va dentro de las políticas del operador, que dice cómo se tramita con despacho y mantenimiento.",
+      "referencia": "RAC 121 Enm. 10, 121.2615(a); RAC 91 Enm. 12, 91.545(a); FAA MMEL PL-34 Rev 5, p. 4",
+      "metadatos": { "nivel": 3, "capitulo": 33 }
+    },
+    {
+      "id": "mel-ev-044",
+      "enunciado": "La MMEL FAA B-737, ítem 31-02 Flight Data Recorder System, se divide en 02-01 y 02-02. ¿Qué define cuál aplica a una aerolínea?",
+      "opciones": [
+        "El tipo de operador (Air Carrier o no)",
+        "Si el FDR está combinado con el CVR",
+        "La categoría que elija mantenimiento",
+        "El modelo del avión: -700 frente a -800"
+      ],
+      "correcta": 0,
+      "explicacion": "La MMEL B-737 titula 02-01 «For Air Carrier or Holder of a Commercial Operator Certificate» y 02-02 «For an Operator other than a Holder of an Air Carrier or Commercial Operator Certificate». La de aerolínea (02-01B) pide CVR normal, condiciones de aeropuerto designado y reparación en 3 flight-days; la otra (02-02B) solo remite al 14 CFR. El sub-ítem que corresponde es el que manda.",
+      "referencia": "MMEL FAA B-737 Rev 63a, páginas 31-1 y 31-2, ítems 31-02-01 y 31-02-02",
+      "metadatos": { "nivel": 3, "capitulo": 34 }
+    },
+    {
+      "id": "mel-ev-045",
+      "enunciado": "El EFB falla antes del vuelo y despacho ofrece leerte por radio la entrada de la MEL que necesitas. Según la FAA, ¿eso cumple el acceso directo a la MEL?",
+      "opciones": [
+        "Sí, porque la OpSpec A061 autoriza la lectura por radio",
+        "Sí, si el despachador te lee la entrada completa",
+        "No: teléfono, radio o data link no cuentan como acceso directo",
+        "Sí, pero solo después de iniciado el pushback"
+      ],
+      "correcta": 2,
+      "explicacion": "La 8900.1 (4-693): la tripulación debe tener acceso directo a la MEL «in its entirety» hasta el despegue, impresa o por otro medio aprobado; «Other methods of providing access may not include telephone, radio, or data link, which are indirect in nature». La A061 es la autorización para mostrar la MEL en un EFB, no para leerla por radio. 14 CFR 121.628(a)(2) pide ese acceso directo.",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-693; 14 CFR 121.628(a)(2)",
+      "metadatos": { "nivel": 3, "capitulo": 35 }
+    },
+    {
+      "id": "mel-ev-046",
+      "enunciado": "La portada de la MMEL dice «Revision 63a». ¿Qué indica la letra?",
+      "opciones": [
+        "Una revisión interina, no obligatoria, posterior a la 63",
+        "Una revisión obligatoria que reemplaza por completo la 63",
+        "Una revisión solo para aviones con modificaciones",
+        "Una versión del fabricante todavía sin aprobación de la FAA"
+      ],
+      "correcta": 0,
+      "explicacion": "AC 120-125 (9.2.1.2): «A nonmandatory/interim MMEL revision is identified by the current standard revision number plus a lowercase letter». La revisión obligatoria (estándar) es el número siguiente: después de 6a o 6b viene la 7 (9.2.2.2). La MMEL B-737 Rev 63a está aprobada por la FAA (portada DRS, firma digital del 2026.05.27).",
+      "referencia": "AC 120-125 (11/1/23), 9.2.1.2 y 9.2.2.2; MMEL FAA B-737 Rev 63a, portada",
+      "metadatos": { "nivel": 3, "capitulo": 36 }
+    },
+    {
+      "id": "mel-ev-047",
+      "enunciado": "Tienes un ítem abierto, diferido en categoría C. Sale una revisión de la MMEL que lo vuelve categoría B. Bajo la FAA, ¿qué pasa con tu diferido?",
+      "opciones": [
+        "Se cierra y se vuelve a diferir como B el mismo día",
+        "Sigue con su categoría y proviso originales hasta repararlo",
+        "Queda sin alivio hasta que el operador revise su MEL con el cambio",
+        "Vence de inmediato con la publicación de la revisión"
+      ],
+      "correcta": 1,
+      "explicacion": "AC 120-125 (9.2.2.4): si una revisión de la MMEL trae una categoría o un proviso más restrictivo, «the operator does not have to close and reinitiate an existing open MEL item»; «Existing MEL items may remain open in accordance with the original repair category and proviso under which the item was initially deferred until such time as the item is repaired». En Colombia, el trato de los diferidos abiertos lo define el operador.",
+      "referencia": "AC 120-125 (11/1/23), 9.2.2.4",
+      "metadatos": { "nivel": 3, "capitulo": 36 }
+    },
+    {
+      "id": "mel-ev-048",
+      "enunciado": "Sale una revisión de la MMEL con un ítem más restrictivo. ¿En qué plazo debe un explotador colombiano incorporarlo a su MEL y presentarlo a la UAEAC?",
+      "opciones": [
+        "En la siguiente revisión anual programada de su MEL",
+        "30 días desde que la UAEAC se lo solicite por escrito",
+        "90 días desde la fecha de la revisión, como pide la AC 120-125",
+        "10 días calendario desde la notificación o la publicación"
+      ],
+      "correcta": 3,
+      "explicacion": "RAC 121.2615, Nota 2: incorporar los ítems más restrictivos «dentro de los diez (10) días calendario contados desde la notificación, publicación de la revisión del MMEL o, si es el caso, la fecha establecida en el MMEL (en todos los casos, aplica la fecha más restrictiva)». Los 90 días son la pauta general de la FAA para incorporar cambios de la MMEL (AC 120-125, 9.2.2.3), no la regla colombiana para lo restrictivo.",
+      "referencia": "RAC 121 Enm. 10, 121.2615 Nota 2; AC 120-125, 9.2.2.3",
+      "metadatos": { "nivel": 3, "capitulo": 36 }
+    },
+    {
+      "id": "mel-ev-049",
+      "enunciado": "Tacómetro de una rueda inoperativo, diferido por la MMEL FAA A318-A321, ítem 32-42-05 (C). Hoy: viento cruzado de 12 kt en la salida con pista seca, y 8 kt previstos en el destino. ¿Se cumple esa parte del proviso?",
+      "opciones": [
+        "No: en la salida la componente cruzada debe ser menor de 10 kt",
+        "Sí, porque la pista de salida está seca y no mojada",
+        "Sí: el límite es 15 kt en la salida y 10 kt en la llegada",
+        "Sí, siempre que se apliquen las penalizaciones del AFM"
+      ],
+      "correcta": 0,
+      "explicacion": "Entre los provisos de 32-42-05 están «d) Crosswind component is below 10 kt at departure airport and below 15 kt at arrival airport», «e) Takeoff runway state is no more than wet» y «f) AFM Performance penalties are applied». Se cumplen todos o no hay alivio: la pista seca y las penalizaciones no compensan el viento. Un METAR nuevo o un cambio de pista puede sacarte del alivio antes del despegue.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 32-42-05 Tachometer",
+      "metadatos": { "nivel": 4, "capitulo": 22 }
+    },
+    {
+      "id": "mel-ev-050",
+      "enunciado": "Una entrada dice «AFM performance penalties are applied». ¿De dónde sale la cifra de la penalización?",
+      "opciones": [
+        "De la propia MEL, en la columna Remarks or Exceptions",
+        "De una regla fija de 10 % más de pista requerida",
+        "Del AFM y las herramientas de performance del operador",
+        "Del criterio de la tripulación en el briefing de salida"
+      ],
+      "correcta": 2,
+      "explicacion": "La MMEL dice que hay penalización, no cuánto. Frases como «AFM performance penalties are applied» (A318-A321 27-64-01, 32-42-01) o «Appropriate performance adjustments are applied» (B-737 78-01-03) remiten al AFM. La 8900.1 (4-691C) pide que el plan operacional refleje «Performance capabilities» y «Weight restrictions» impuestas por la MEL.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítems 27-64-01 y 32-42-01; MMEL FAA B-737 Rev 63a, ítem 78-01-03; 8900.1 Vol 4 Cap 4 Secc 3, 4-691C",
+      "metadatos": { "nivel": 4, "capitulo": 22 }
+    },
+    {
+      "id": "mel-ev-051",
+      "enunciado": "Un colega dice: «ese ítem es categoría C, así que no afecta el vuelo». ¿Qué le respondes con la 8900.1?",
+      "opciones": [
+        "Tiene razón, salvo que el ítem lleve (M)",
+        "No: la categoría es el plazo; un ítem C puede limitar altitud o combustible",
+        "Tiene razón: los ítems que limitan el vuelo siempre se clasifican en categoría A o B",
+        "Los ítems C solo afectan la cabina de pasajeros"
+      ],
+      "correcta": 1,
+      "explicacion": "La 8900.1 (4-685B2)c)) describe la categoría C como un ítem que no afecta de forma significativa la capacidad operacional, pero agrega: «These items may impose limitations to a flight, such as altitude restrictions, a minimum or maximum operating temperature, or fuel penalties». La letra habla del plazo de reparación, no del impacto.",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-685B2)c)",
+      "metadatos": { "nivel": 4, "capitulo": 23 }
+    },
+    {
+      "id": "mel-ev-052",
+      "enunciado": "Un B737-800 sale con el generador del motor 1 diferido por la MMEL FAA B-737, ítem 24-01-02: «B | 2 | 1 | (M)(O) Except for ETOPS, may be inoperative provided: APU generator operates normally and is used throughout flight.» ¿Qué cambia en la planificación de combustible?",
+      "opciones": [
+        "Hay que volar por debajo de FL 250 durante todo el crucero",
+        "Solo cambia si el vuelo es ETOPS de más de 120 minutos",
+        "Nada: un generador no tiene efecto sobre el combustible",
+        "Hay que contar el consumo de la APU durante todo el vuelo"
+      ],
+      "correcta": 3,
+      "explicacion": "El proviso exige que el generador de la APU funcione «and is used throughout flight»: la APU va encendida todo el vuelo y consume combustible. La 8900.1 (4-691C) pone «Fuel penalties and limitations» y «Auxiliary power limitations» entre lo que el plan de vuelo debe considerar. Y la fila excluye todo ETOPS («Except for ETOPS»).",
+      "referencia": "MMEL FAA B-737 Rev 63a, página 24-1, ítem 24-01-02; FAA Order 8900.1 Vol 4 Cap 4 Secc 3, 4-691C",
+      "metadatos": { "nivel": 4, "capitulo": 23 }
+    },
+    {
+      "id": "mel-ev-053",
+      "enunciado": "Calentador del pitot del capitán diferido por la MMEL FAA A318-A321, ítem 30-31-02 (B, 3 instalados, 2 requeridos). Vuelo no ETOPS. El TAF de salida trae techo bajo con lluvia; no hay pronóstico de engelamiento en la ruta. ¿Se puede usar el alivio?",
+      "opciones": [
+        "Sí: sin hielo pronosticado la condición se cumple",
+        "No: esa fila también prohíbe operar en humedad visible",
+        "Sí, porque quedan 2 de 3, que es lo que se requiere",
+        "Sí, si se verifica el calentador del F/O en el prevuelo"
+      ],
+      "correcta": 1,
+      "explicacion": "La fila del capitán pide «a) ADR, heaters, and failure warnings associated with F/O and STBY probes […] are verified to operate normally, and b) Airplane is not operated in visible moisture or in known or forecast icing conditions». Techo bajo con lluvia es humedad visible: el proviso b) no se cumple aunque no haya hielo pronosticado. El número requerido vale solo si se cumplen los Remarks.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 30-31-02 Pitot Heaters; FAA MMEL PL-25 Rev 24, Number Required for Dispatch",
+      "metadatos": { "nivel": 4, "capitulo": 24 }
+    },
+    {
+      "id": "mel-ev-054",
+      "enunciado": "B737 con el radar diferido por la MMEL FAA B-737, ítem 34-15-01B (C). Vuelo diurno en VMC, sin tormentas ni condiciones peligrosas esperadas, así que la norma no exige el radar. ¿Qué más pide esa fila?",
+      "opciones": [
+        "Que un segundo radar meteorológico funcione normal",
+        "Que el vuelo no pase de 120 minutos de desviación",
+        "Nada más: sin exigencia de la norma, el alivio es completo",
+        "Procedimientos alternos y windshear reactivo normal"
+      ],
+      "correcta": 3,
+      "explicacion": "La 15-01B dice: «(O) May be inoperative provided: a) Weather radar is not required by 14 CFR, b) Alternate procedures are established and used, and c) Windshear Warning and Guidance System (Reactive) operates normally». La que pide un segundo radar es la 15-01C (categoría D). En Colombia, el RAC 121.860 exige radar que funcione de noche o en IMC en áreas con tormentas esperadas.",
+      "referencia": "MMEL FAA B-737 Rev 63a, página 34-7, ítems 34-15-01B y 34-15-01C; RAC 121 Enm. 10, 121.860",
+      "metadatos": { "nivel": 4, "capitulo": 24 }
+    },
+    {
+      "id": "mel-ev-055",
+      "enunciado": "Horizonte de reserva inoperativo, diferido por la MMEL FAA A318-A321, ítem 34-22-01 (B, 1 instalado, 0 requeridos). Sales de día en VMC, pero el pronóstico te obliga a cruzar por encima de una capa de nubes. ¿Se puede usar el alivio?",
+      "opciones": [
+        "No: pide solo día VMC y prohíbe over-the-top pronosticado",
+        "Sí, si el vuelo se hace con el autopiloto conectado",
+        "Sí: es de día y hay VMC en el aeropuerto de salida y en el destino",
+        "Sí, porque el horizonte de reserva no es requerido"
+      ],
+      "correcta": 0,
+      "explicacion": "La entrada dice: «May be inoperative provided: a) Operations are conducted in Day VMC only, and b) Operations are not conducted into known or forecast over-the-top conditions». Volar por encima de una capa pronosticada incumple el b). El cero requerido no autoriza nada si los provisos no se cumplen.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 34-22-01 Standby Horizon (Attitude)",
+      "metadatos": { "nivel": 4, "capitulo": 24 }
+    },
+    {
+      "id": "mel-ev-056",
+      "enunciado": "GPWS diferido en un A320 equipado con la Mod. 155269/MP P12511 (MMEL FAA A318-A321, ítem 34-48-01: «A | 1 | 0 | (O) … Repairs are made within 2 flight-days»). ¿Qué otra función pierdes según la NOTE?",
+      "opciones": [
+        "El TCAS, que comparte el computador",
+        "El radioaltímetro 1 y sus avisos",
+        "La función ROW/ROP",
+        "Ninguna: la NOTE solo es informativa"
+      ],
+      "correcta": 2,
+      "explicacion": "La entrada trae: «NOTE: For aircraft equipped with Mod. 155269/MP P12511, ROW/ROP function is considered inoperative». Una NOTE no es proviso (PL-25), pero sí te dice qué más queda inoperativo. «Considered inoperative» se trata como inoperativo para despacho y vuelo, con su placard y sus Remarks (PL-25, Considered Inoperative).",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 34-48-01 Ground Proximity Warning System; FAA MMEL PL-25 Rev 24, NOTE y Considered Inoperative",
+      "metadatos": { "nivel": 4, "capitulo": 25 }
+    },
+    {
+      "id": "mel-ev-057",
+      "enunciado": "¿Cuál de estas capacidades NO está en la lista del RAC 121.995(d)(1) para operar en espacio RVSM?",
+      "opciones": [
+        "Indicar a la tripulación el nivel de vuelo en que vuela",
+        "Alertar a la tripulación si se desvía del nivel seleccionado",
+        "Mantener de forma automática el nivel de vuelo elegido",
+        "Mostrar el tránsito cercano en la pantalla de navegación"
+      ],
+      "correcta": 3,
+      "explicacion": "RAC 121.995(d)(1): el avión debe tener equipo que pueda «(i) Indicar a la tripulación de vuelo el nivel de vuelo en que está volando; (ii) Mantener automáticamente el nivel de vuelo seleccionado; (iii) Dar alerta a la tripulación de vuelo en caso de desviación con respecto al nivel de vuelo seleccionado […]; y (iv) Indicar automáticamente la altitud de presión». Por eso un diferido de altimetría, autopiloto, alerta de altitud o transpondedor puede sacar el vuelo de RVSM.",
+      "referencia": "RAC 121 Enm. 10, 121.995(d)(1)",
+      "metadatos": { "nivel": 4, "capitulo": 26 }
+    },
+    {
+      "id": "mel-ev-058",
+      "enunciado": "Transpondedor diferido por la MMEL FAA A318-A321, ítem 34-52-01, fila «B | - | 0». ¿Qué hay que obtener antes del vuelo?",
+      "opciones": [
+        "La firma del jefe de pilotos en el despacho",
+        "Aprobación de las dependencias ATC con jurisdicción sobre la ruta",
+        "Nada: basta con volar fuera del espacio RVSM",
+        "Un permiso especial de vuelo de la autoridad"
+      ],
+      "correcta": 1,
+      "explicacion": "La fila dice: «May be inoperative provided: a) Operations do not require its use, and b) Prior to flight, approval is obtained from ATC facilities having jurisdiction over the planned route of flight». Es una condición previa al vuelo, no algo que se arregla en el aire.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 34-52-01 ATC Transponders and Automatic Altitude Reporting Systems",
+      "metadatos": { "nivel": 4, "capitulo": 26 }
+    },
+    {
+      "id": "mel-ev-059",
+      "enunciado": "En el prevuelo notas que la base de datos de navegación del FMS está vencida (out of date). ¿Qué dice la MMEL?",
+      "opciones": [
+        "Categoría A: se repara dentro de 10 flight-days",
+        "Tiene alivio si se actualiza el plan de vuelo OACI",
+        "Que no tiene alivio MMEL",
+        "Tiene alivio solo si ningún procedimiento es RNP"
+      ],
+      "correcta": 2,
+      "explicacion": "Las dos MMEL lo dicen igual: «An out-of-currency or out-of-date navigation database is not authorized MMEL relief per 14 CFR» (A318-A321 34-61-01, NOTE; B-737 34-36-02-05). El alivio de categoría A con 10 flight-days es para la base de datos inoperativa, con sus condiciones (entre ellas, actualizar el plan de vuelo OACI), no para una vencida.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 34-61-01 Navigation Databases; MMEL FAA B-737 Rev 63a, ítem 34-36-02-05",
+      "metadatos": { "nivel": 4, "capitulo": 27 }
+    },
+    {
+      "id": "mel-ev-060",
+      "enunciado": "Los dos lazos de detección de fuego de la APU están inoperativos (MMEL FAA A318-A321, ítem 26-13-01 1)) y el vuelo es doméstico, no ETOPS. ¿Qué exige la fila «C | 2 | 0»?",
+      "opciones": [
+        "Que la APU no se use",
+        "Repararla dentro de 4 vuelos contados desde el diferimiento",
+        "Vigilar la APU desde la cabina durante la operación en tierra",
+        "Una prueba de fuego antes de cada arranque de la APU"
+      ],
+      "correcta": 0,
+      "explicacion": "Con los dos lazos inoperativos la fila C dice: «Except for ETOPS, may be inoperative provided APU is not used». La prueba de fuego antes de cada arranque y la vigilancia desde cabina son las condiciones de las filas «C | 2 | 1», cuando falla un solo lazo. Los 4 vuelos son de la fila A, pensada para ETOPS. Y sin APU se pierde también lo que dependía de ella (energía, aire, respaldo).",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 26-13-01 1) APU Fire Detection System, Loops",
+      "metadatos": { "nivel": 4, "capitulo": 29 }
+    },
+    {
+      "id": "mel-ev-061",
+      "enunciado": "Un B737 tiene el generador de la APU inoperativo. La MMEL FAA B-737, ítem 24-02, dice: «C | 1 | 0 | Except for ETOPS, may be inoperative.» ¿Sirve esa fila para un vuelo ETOPS?",
+      "opciones": [
+        "Sí, si el vuelo es diurno y los dos generadores de motor funcionan",
+        "Sí, porque requeridos 0 vale para cualquier vuelo",
+        "No: «Except for ETOPS» deja fuera todo vuelo ETOPS",
+        "Sí, siempre que el vuelo no pase de 120 minutos"
+      ],
+      "correcta": 2,
+      "explicacion": "«Except for ETOPS, may be inoperative» da alivio para los demás vuelos y ninguno para ETOPS. Cuando la MMEL quiere dar un alivio limitado para ETOPS lo escribe aparte (por ejemplo, otra fila con otra categoría). La 8900.1 (4-686A.2)) usa justo este tipo de proviso como ejemplo: un ítem que puede estar inoperativo «provided the aircraft is not operated in Extended Operations (ETOPS)».",
+      "referencia": "MMEL FAA B-737 Rev 63a, página 24-2, ítem 24-02 APU Generator System; FAA Order 8900.1 Vol 4 Cap 4 Secc 3, 4-686A.2)",
+      "metadatos": { "nivel": 4, "capitulo": 28 }
+    },
+    {
+      "id": "mel-ev-062",
+      "enunciado": "En Colombia, sin aprobación específica EDTO, ¿hasta qué tiempo de desviación puede operar un bimotor de turbina desde un punto de la ruta hasta un alterno en ruta?",
+      "opciones": [
+        "180 minutos, a velocidad de crucero con los dos motores",
+        "120 minutos, el mismo tiempo que aparece en muchas entradas de la MMEL",
+        "60 minutos, calculados a velocidad de crucero con los dos motores operativos",
+        "60 minutos, a velocidad de crucero con un motor inoperativo"
+      ],
+      "correcta": 3,
+      "explicacion": "RAC 121.2581(b)(1): salvo aprobación específica EDTO, ningún avión de dos motores de turbina opera en una ruta con un tiempo de desviación que exceda «(i) Sesenta (60) minutos para aviones con dos motores a turbina», calculado en ISA, aire en calma y a la velocidad de crucero con un motor inoperativo. Los 180 minutos son para aviones de tres o más motores (ii), calculados con todos los motores operativos.",
+      "referencia": "RAC 121 Enm. 10, 121.2581(b)(1)",
+      "metadatos": { "nivel": 4, "capitulo": 28 }
+    },
+    {
+      "id": "mel-ev-063",
+      "enunciado": "La compuerta de admisión de aire de la APU quedó cerrada (MMEL FAA A318-A321, ítem 49-10-02, fila «C | 1 | 0»). ¿Qué implica para el vuelo?",
+      "opciones": [
+        "Que la APU se usa solo en vuelo y nunca en tierra",
+        "Que la APU se trata como inoperativa, con su propia entrada",
+        "Que solo afecta el arranque en tierra, sin más condiciones para el vuelo",
+        "Que se usa la APU y se repara dentro de 10 flight-days"
+      ],
+      "correcta": 1,
+      "explicacion": "La fila C dice: «May be inoperative closed or partially closed provided APU is considered inoperative». Entonces aplica la entrada de la APU (49-10-01): (O), «Except for ETOPS» en la fila C y el resto de sus condiciones. La fila A, con 10 flight-days, es para la compuerta asegurada abierta y con la APU en uso.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítems 49-10-02 APU Air Intake Flap y 49-10-01; FAA MMEL PL-25 Rev 24, Considered Inoperative",
+      "metadatos": { "nivel": 4, "capitulo": 29 }
+    },
+    {
+      "id": "mel-ev-064",
+      "enunciado": "Bomba de combustible de la APU inoperativa, diferida por la MMEL FAA A318-A321, ítem 49-30-01, fila «C | 1 | 0 | Except for ETOPS…». ¿Qué otro sistema tiene que estar bien?",
+      "opciones": [
+        "Los dos generadores de los motores",
+        "El generador de la APU",
+        "La bomba del tanque derecho",
+        "Ninguno: la NOTE explica cómo arrancar"
+      ],
+      "correcta": 0,
+      "explicacion": "La fila C dice: «Except for ETOPS, may be inoperative provided both engine driven generators are operative». La NOTE («APU may be started using A.C. boost pump feeding left fuel manifold») informa cómo arrancar la APU, pero no reemplaza el proviso. Si además hay un generador de motor diferido, este alivio no se cumple.",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 49-30-01 APU Fuel Pump; FAA MMEL PL-25 Rev 24, NOTE",
+      "metadatos": { "nivel": 4, "capitulo": 29 }
+    },
+    {
+      "id": "mel-ev-065",
+      "enunciado": "En la entrevista te preguntan: «un avión con un ítem MEL abierto, ¿es aeronavegable?». ¿Qué respondes?",
+      "opciones": [
+        "Sí, dentro de las condiciones de su MEL aprobada",
+        "Solo cuando la autoridad aprueba ese diferido en particular",
+        "No: vuela con una exención temporal de aeronavegabilidad",
+        "Solo si el ítem es de categoría C o D"
+      ],
+      "correcta": 0,
+      "explicacion": "La MEL aprobada «constitutes an approved change to the type design without requiring recertification» (14 CFR 121.628(a)(2)); el RAC 121.2615(c) dice lo mismo. La MMEL es la lista de ítems que pueden estar inoperativos «while maintaining the airworthiness of the aircraft» (8900.1, 4-681). Las condiciones de la entrada son las que mantienen el nivel aceptable de seguridad.",
+      "referencia": "14 CFR 121.628(a)(2); RAC 121 Enm. 10, 121.2615(c); FAA Order 8900.1 Vol 4 Cap 4 Secc 3, 4-681",
+      "metadatos": { "nivel": 5, "capitulo": 37 }
+    },
+    {
+      "id": "mel-ev-066",
+      "enunciado": "Un ítem de categoría D tiene 120 días. Mantenimiento ya tiene el repuesto, pero alguien propone dejarlo para el día 110 «porque todavía está en plazo». ¿Qué dice el preámbulo?",
+      "opciones": [
+        "Que los ítems D no tienen un plazo obligatorio",
+        "Que es correcto, mientras no se pase del día 120",
+        "Que se puede, si el ítem pasa al programa NEF",
+        "Repararlo en la primera oportunidad"
+      ],
+      "correcta": 3,
+      "explicacion": "PL-34 Rev 5 (p. 4): «It is important that repairs be accomplished at the earliest opportunity to ensure the highest level of safety», y los operadores deben tener «a controlled and sound repair program». El RAC 91 Apéndice 2 (e): con la MEL no se tiene la intención de permitir la operación con equipo inoperativo durante un período indefinido. El plazo es un máximo, no una meta.",
+      "referencia": "FAA MMEL PL-34 Rev 5, p. 4; RAC 91 Enm. 12, Apéndice 2 (e)",
+      "metadatos": { "nivel": 5, "capitulo": 37 }
+    },
+    {
+      "id": "mel-ev-067",
+      "enunciado": "Las luces beacon están diferidas por la MMEL FAA A318-A321, ítem 33-40-06 1) («provided: a) Strobe lights operate normally…»). En el prevuelo, uno de los strobes no enciende. ¿Qué concluyes?",
+      "opciones": [
+        "Se sale, porque los strobes tienen requeridos 0",
+        "No hay alivio: cada fila exige que la otra luz funcione",
+        "Se sale: cada ítem tiene su propio alivio de categoría C",
+        "Se sale de día; de noche hace falta repararlos"
+      ],
+      "correcta": 1,
+      "explicacion": "La fila de las beacon exige «a) Strobe lights operate normally», y la de los strobes (33-40-06 2), «C | 3 | 0») exige «a) Beacon Lights operate normally». Con los dos afectados, ninguna condición se cumple. Es el error de entrevista «dos MEL siempre pueden coexistir»: los provisos se cruzan (PL-34, p. 4; 8900.1, 4-692).",
+      "referencia": "MMEL FAA A318-A321 Rev 32, ítem 33-40-06 1) y 2); FAA MMEL PL-34 Rev 5, p. 4; 8900.1 Vol 4 Cap 4 Secc 3, 4-692",
+      "metadatos": { "nivel": 5, "capitulo": 37 }
+    },
+    {
+      "id": "mel-ev-068",
+      "enunciado": "El entrevistador pregunta: «¿qué haces con un ítem que la MEL declara considered inoperative, si en la práctica funciona?»",
+      "opciones": [
+        "Lo uso mientras funcione, pero lo dejo anotado en el libro",
+        "Lo pruebo antes de cada vuelo y según eso decido si lo uso",
+        "Lo trato como inoperativo y cumplo su propia entrada",
+        "Lo ignoro: el plazo que cuenta es solo el del ítem original"
+      ],
+      "correcta": 2,
+      "explicacion": "PL-25 Rev 24, Considered Inoperative: el ítem «must be treated for dispatch, taxi with intent for flight, and flight purposes as though it were inoperative. The item must not be used or operated until the original deferred item is repaired». Hay que anotarlo en el despacho cuando aplique, ponerle placard, cumplir sus Remarks con sus (M) y (O), considerar sus notas y observar su categoría.",
+      "referencia": "FAA MMEL PL-25 Rev 24, Considered Inoperative",
+      "metadatos": { "nivel": 5, "capitulo": 37 }
+    },
+    {
+      "id": "mel-ev-069",
+      "enunciado": "Un sistema está diferido y ahora falla también la luz de aviso que monitorea ese sistema. ¿Queda cubierta por el mismo diferido?",
+      "opciones": [
+        "Sí, si se rotula con el mismo placard del sistema",
+        "Sí, si la tripulación la vigila en el prevuelo",
+        "No, salvo que la MMEL dé ese alivio de forma específica",
+        "Sí: todo componente del sistema diferido queda cubierto"
+      ],
+      "correcta": 2,
+      "explicacion": "PL-25 Rev 24, Inoperative Components of an Inoperative System: esos componentes son los que no tienen otra función que apoyar el sistema, pero «Warning/caution systems associated with the inoperative system must be operative unless relief is specifically authorized per the MMEL».",
+      "referencia": "FAA MMEL PL-25 Rev 24, Inoperative Components of an Inoperative System",
+      "metadatos": { "nivel": 5, "capitulo": 38 }
+    },
+    {
+      "id": "mel-ev-070",
+      "enunciado": "En la entrevista: «en Parte 121, ¿quién responde por que el avión salga aeronavegable cuando lleva ítems MEL?». ¿Qué respondes con la FAA?",
+      "opciones": [
+        "El operador, el piloto al mando y el despachador",
+        "Solo mantenimiento, que firma la liberación",
+        "Solo el despachador, que emite el despacho",
+        "Solo el comandante, por la 14 CFR 121.628"
+      ],
+      "correcta": 0,
+      "explicacion": "8900.1 (4-691A) y AC 120-125 (6.2.1): «the operator, pilot in command (PIC), aircraft dispatcher (part 121 domestic and flag), or person authorized to exercise operational control by the operator (part 121 supplemental) are all responsible for ensuring the aircraft is dispatched/released and operated in an airworthy condition». La 121.628 no nombra al piloto al mando; su parte viene de 91.7, 121.563 y 121.533.",
+      "referencia": "FAA Order 8900.1 Vol 4 Cap 4 Secc 3 (CHG 933), 4-691A; AC 120-125, 6.2.1; 14 CFR 121.533(b)",
+      "metadatos": { "nivel": 5, "capitulo": 38 }
+    }
+  ]
+}

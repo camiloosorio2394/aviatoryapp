@@ -15,12 +15,22 @@
  *   > …                                aparte destacado: callout
  *   ### ¿De qué trata? · Lo que debe saber un piloto · Datos importantes · En pocas palabras
  *   #### …                             apartado dentro de la unidad
+ *   #### Detalle · …                   detalle plegado (detalleTecnico) hasta el
+ *                                      siguiente #### o ###: la norma completa
+ *                                      no desaparece, pero no compite con lo
+ *                                      que el piloto tiene que saber
  *   ### Quiz · Uxx · RAC nn            preguntas de la unidad: van a la práctica
  *
  * El quiz de cada unidad no entra en la lección: la regla de Camilo es que en
  * la lectura no se pregunta nada. La ficha del módulo no se convierte, salvo
  * «Antes de empezar: ¿RAC 2 o RAC 61?», que abre la lección 1. Los anexos
  * tampoco: son para quien mantiene el módulo, no para el alumno.
+ *
+ * La lectura de cada unidad va de 3 a 8 minutos: lo pidió el encargo del
+ * módulo. Los minutos de la ficha («~N min») tienen que ser los que da el texto
+ * VISIBLE a 230 palabras por minuto; lo plegado no cuenta, porque
+ * se abre a demanda. Si una unidad se pasa, lo que sobra baja a un
+ * «#### Detalle · …»; no se borra.
  *
  * Los títulos cortos de las lecciones («RAC 91 · Reglas generales de vuelo y
  * de operación») salen de la columna «Nombre» del mapa del módulo; el
@@ -41,6 +51,20 @@ const DESTINO_BANCO = path.join(RAIZ, "contenido/bancos/rac_evaluacion.json")
 
 /** Lo que el documento promete en su ficha. Si no cuadra, el script para. */
 const ESPERADO = { unidades: 19, bloques: 5, practica: 54, banco: 50 }
+
+/**
+ * Lectura en español de un texto técnico: unas 230 palabras por minuto. Es el
+ * ritmo con el que se estimaron las fichas del documento, y está en el rango
+ * de la lectura silenciosa medida para el español.
+ */
+const PALABRAS_POR_MINUTO = 230
+const LECTURA = { min: 3, max: 8 }
+
+/**
+ * Las unidades que quedan por debajo del mínimo a propósito: son fichas, y
+ * rellenarlas sería meter lo que al piloto no le toca.
+ */
+const FICHAS_CORTAS = new Map([["U18", "RAC 210: al piloto solo le tocan las frecuencias de emergencia y el ELT"]])
 
 /** Los únicos `###` que puede traer una unidad antes de su quiz. */
 const APARTADOS = new Set(["¿De qué trata?", "Lo que debe saber un piloto", "Datos importantes", "En pocas palabras"])
@@ -228,6 +252,18 @@ function bloquesDe(cuerpo, donde) {
       continue
     }
 
+    // Detalle plegado: todo lo que sigue hasta el próximo apartado.
+    const detalle = l.match(/^#### Detalle · (.+)$/)
+    if (detalle) {
+      let j = i + 1
+      while (j < cuerpo.length && !/^#{3,4} /.test(cuerpo[j])) j++
+      const dentro = bloquesDe(cuerpo.slice(i + 1, j), donde)
+      if (!dentro.length) throw new Error(`${donde}: «${l}» sin contenido`)
+      bloques.push({ kind: "detalleTecnico", etiqueta: detalle[1].trim(), bloques: dentro })
+      i = j
+      continue
+    }
+
     const sub = l.match(/^#### (.+)$/)
     if (sub) {
       bloques.push({ kind: "sub", text: sub[1].trim() })
@@ -292,6 +328,16 @@ function textos(v) {
   if (Array.isArray(v)) return v.flatMap(textos)
   if (v && typeof v === "object") return Object.values(v).flatMap(textos)
   return []
+}
+
+/** Las palabras que se leen sin abrir nada: lo plegado no cuenta. */
+function palabrasVisibles(bloques) {
+  const visibles = bloques.filter((b) => b.kind !== "detalleTecnico")
+  return textos(visibles)
+    .join(" ")
+    .replace(/\*\*|==|`/g, " ")
+    .split(/\s+/)
+    .filter((w) => /[\p{L}\p{N}]/u.test(w)).length
 }
 
 // ─── Preguntas ──────────────────────────────────────────────────────────────
@@ -515,6 +561,20 @@ lecciones.forEach((l, k) => {
   comprobar(l.n === k + 1, `la lección en la posición ${k + 1} dice ser la ${l.n}`)
   comprobar(l.blocks.length > 2, `la lección ${l.n} tiene ${l.blocks.length} bloques`)
   comprobar(Boolean(l.title), `la lección ${l.n} no tiene título`)
+  // La lectura: los minutos de la ficha son los del texto visible, y van de 3 a 8.
+  const palabras = palabrasVisibles(l.blocks)
+  const calculados = Math.max(1, Math.round(palabras / PALABRAS_POR_MINUTO))
+  comprobar(
+    l.minutes === calculados,
+    `la lección ${l.n} dice ~${l.minutes} min y su texto visible da ~${calculados} (${palabras} palabras a ${PALABRAS_POR_MINUTO}/min)`,
+  )
+  const tema = `U${String(l.n).padStart(2, "0")}`
+  if (!FICHAS_CORTAS.has(tema)) {
+    comprobar(
+      calculados >= LECTURA.min && calculados <= LECTURA.max,
+      `la lección ${l.n} (${l.title}) se lee en ~${calculados} min, fuera de ${LECTURA.min} a ${LECTURA.max}: ${palabras} palabras visibles; lo que sobre, a un «#### Detalle · …»`,
+    )
+  }
   // La regla de Camilo: en la lectura no se pregunta nada.
   comprobar(!l.blocks.some((b) => b.kind === "ponAPrueba"), `la lección ${l.n} trae un «pon a prueba»`)
   for (const b of l.blocks) {

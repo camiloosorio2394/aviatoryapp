@@ -91,6 +91,24 @@ const CONTENIDO = [
     permitido: ['src/pages/CombustiblePractice.tsx'],
     message: 'Trae la práctica completa de Gestión del combustible. Su total está en CB_PRACTICA_TOTAL (@/lib/combustible).',
   },
+  {
+    name: '@/lib/melLeccion',
+    permitido: ['src/pages/MelLeccion.tsx'],
+    message: 'Trae las 40 lecciones de MEL. Niveles y conteos están en @/lib/mel.',
+  },
+  {
+    // Los ejercicios pasan por melPracticaGrupos, que los ordena y deriva las
+    // claves; la página importa ese y no este.
+    name: '@/lib/melPracticaDatos',
+    permitido: ['src/lib/melPracticaGrupos.ts'],
+    message:
+      'Trae los 68 ejercicios de la práctica de MEL. La página los recibe de @/lib/melPracticaGrupos; el total está en @/lib/melConteo.',
+  },
+  {
+    name: '@/lib/melPracticaGrupos',
+    permitido: ['src/pages/MelPractice.tsx'],
+    message: 'Trae la práctica completa de MEL. Su total está en MEL_PRACTICA_CONTEO (@/lib/melConteo).',
+  },
 ]
 
 const CLIENTE_SUPABASE = {

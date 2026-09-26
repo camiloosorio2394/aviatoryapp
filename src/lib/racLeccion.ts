@@ -48,7 +48,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 1,
     "title": "RAC 2 · Personal aeronáutico",
     "kicker": "Tu licencia y tu aptitud",
-    "minutes": 13,
+    "minutes": 8,
     "blocks": [
       {
         "kind": "titulo",
@@ -93,14 +93,25 @@ export const RAC_LECCIONES: DocScreen[] = [
         "text": "Reglas que aplican a toda licencia (Capítulo I)"
       },
       {
-        "kind": "list",
+        "kind": "vinetas",
         "items": [
           "Nadie actúa como personal aeronáutico sin una **licencia válida** expedida o convalidada por la Aerocivil y que corresponda a la función (2.1.2).",
           "La licencia tiene **vigencia indefinida** mientras mantengas los requisitos y no esté suspendida o cancelada; si exige certificado médico, vale lo que vale ese certificado (2.1.4). No ejerces atribuciones si no mantienes la competencia y la experiencia reciente (2.1.4.1).",
           "Solo ejerces las atribuciones de tu licencia, cumples los entrenamientos periódicos y **debes portarla** mientras trabajas (2.1.10).",
-          "La **licencia provisional** dura máximo **180 días**; la puede expedir el inspector o el examinador designado (ED) al terminar el chequeo final, si tu médico está vigente (2.1.13.2).",
-          "La Aerocivil puede **suspender, cancelar o limitar** una licencia cuando dejas de reunir los requisitos o como sanción; y suspenderla provisionalmente en caso de infracción en flagrancia o riesgo inminente (2.1.16.1). Con sanciones pendientes no te renuevan ni te otorgan licencias (2.1.16.3). Las sanciones se imponen con el régimen sancionatorio; este tema se complementa con el RAC 13.",
-          "Si trabajas para una empresa con programa de entrenamiento aprobado, tus habilitaciones se rigen por ese programa (2.1.16.7)."
+          "La Aerocivil puede **suspender, cancelar o limitar** una licencia cuando dejas de reunir los requisitos o como sanción; y suspenderla provisionalmente en caso de infracción en flagrancia o riesgo inminente (2.1.16.1). Con sanciones pendientes no te renuevan ni te otorgan licencias (2.1.16.3). Las sanciones se imponen con el régimen sancionatorio; este tema se complementa con el RAC 13."
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "Licencia provisional y programas de entrenamiento aprobados",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "La **licencia provisional** dura máximo **180 días**; la puede expedir el inspector o el examinador designado (ED) al terminar el chequeo final, si tu médico está vigente (2.1.13.2).",
+              "Si trabajas para una empresa con programa de entrenamiento aprobado, tus habilitaciones se rigen por ese programa (2.1.16.7)."
+            ]
+          }
         ]
       },
       {
@@ -108,14 +119,25 @@ export const RAC_LECCIONES: DocScreen[] = [
         "text": "Aptitud psicofísica"
       },
       {
-        "kind": "list",
+        "kind": "vinetas",
         "items": [
           "Sin **certificado médico vigente** no ejerces las atribuciones (2.1.5.5). La validez puede ampliarse a discreción de medicina aeronáutica hasta **45 días** (2.1.5.4).",
-          "Clase exigida: alumno piloto y piloto privado, **Clase 2** (2.2.2.3, 2.2.3.6); piloto comercial y de transporte de línea, **Clase 1** (2.2.5.6, 2.2.7.8). Para la habilitación de instrumentos del piloto privado, la vista y el oído deben cumplir los de Clase 1 (2.2.3.7.2.6).",
           "Dejas de volar apenas sepas de una **disminución de tu aptitud** que pueda afectar la seguridad (2.1.5.20.1). Debes informar a medicina aeronáutica cualquier disminución de **más de 20 días**, que exija medicamentos recetados de forma continua o que haya requerido hospitalización (2.1.5.20.4).",
-          "**Sustancias psicoactivas**: no ejerces bajo sus efectos, te abstienes de todo abuso, y el uso problemático te retira de funciones críticas hasta rehabilitación y nueva valoración (2.1.5.21.1 a 2.1.5.21.3).",
-          "Una declaración falsa ante el médico examinador se reporta a medicina aeronáutica (2.1.5.10.1).",
           "Los periodos de validez del médico se rigen hoy por el **RAC 67** (67.025); el RAC 2 conserva una tabla anterior, con valores distintos (2.1.5.19). Este tema se complementa con el RAC 67."
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "Aptitud psicofísica: clase exigida, sustancias y declaraciones",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Clase exigida: alumno piloto y piloto privado, **Clase 2** (2.2.2.3, 2.2.3.6); piloto comercial y de transporte de línea, **Clase 1** (2.2.5.6, 2.2.7.8). Para la habilitación de instrumentos del piloto privado, la vista y el oído deben cumplir los de Clase 1 (2.2.3.7.2.6).",
+              "**Sustancias psicoactivas**: no ejerces bajo sus efectos, te abstienes de todo abuso, y el uso problemático te retira de funciones críticas hasta rehabilitación y nueva valoración (2.1.5.21.1 a 2.1.5.21.3).",
+              "Una declaración falsa ante el médico examinador se reporta a medicina aeronáutica (2.1.5.10.1)."
+            ]
+          }
         ]
       },
       {
@@ -131,23 +153,27 @@ export const RAC_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "sub",
-        "text": "Exámenes"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "Los teóricos valen **1 año** y los prácticos **6 meses** para expedir la licencia (2.1.3.1.1). Nota mínima **70 %**, con reintentos a los 7, 15 y 30 días (2.1.3.1.4(e) y (f)).",
-          "Un chequeo práctico fallado se repite cuando lo fije el inspector o ED, en máximo **6 meses**. Fraude: se anula y esperas **6 meses** (2.1.3.1.4(g) y (h)). Los chequeos para expedir una licencia o habilitación se presentan ante inspector de la Aerocivil o ED (2.1.16.2)."
+        "kind": "detalleTecnico",
+        "etiqueta": "Exámenes para la licencia (2.1.3)",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Los teóricos valen **1 año** y los prácticos **6 meses** para expedir la licencia (2.1.3.1.1). Nota mínima **70 %**, con reintentos a los 7, 15 y 30 días (2.1.3.1.4(e) y (f)).",
+              "Un chequeo práctico fallado se repite cuando lo fije el inspector o ED, en máximo **6 meses**. Fraude: se anula y esperas **6 meses** (2.1.3.1.4(g) y (h)). Los chequeos para expedir una licencia o habilitación se presentan ante inspector de la Aerocivil o ED (2.1.16.2)."
+            ]
+          }
         ]
       },
       {
-        "kind": "sub",
-        "text": "Bitácora de vuelo"
-      },
-      {
-        "kind": "p",
-        "text": "Cada piloto, copiloto e ingeniero de vuelo lleva su **bitácora personal**: fechas, aeronave y matrícula, trayectos, simulador, tiempo como alumno, copiloto y piloto autónomo (día, noche, instrumentos), totales y firmas. Mantenerla al día y veraz es tu responsabilidad, y se presenta a la Aerocivil cada vez que acreditas experiencia, con certificaciones del explotador (2.1.14). Las certificaciones de experiencia que emite la empresa deben estar respaldadas en sus archivos (2.2.1.1.7(c))."
+        "kind": "detalleTecnico",
+        "etiqueta": "Bitácora de vuelo (2.1.14)",
+        "bloques": [
+          {
+            "kind": "p",
+            "text": "Cada piloto, copiloto e ingeniero de vuelo lleva su **bitácora personal**: fechas, aeronave y matrícula, trayectos, simulador, tiempo como alumno, copiloto y piloto autónomo (día, noche, instrumentos), totales y firmas. Mantenerla al día y veraz es tu responsabilidad, y se presenta a la Aerocivil cada vez que acreditas experiencia, con certificaciones del explotador (2.1.14). Las certificaciones de experiencia que emite la empresa deben estar respaldadas en sus archivos (2.2.1.1.7(c))."
+          }
+        ]
       },
       {
         "kind": "sub",
@@ -163,12 +189,14 @@ export const RAC_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "sub",
-        "text": "Alumno piloto y piloto privado"
-      },
-      {
-        "kind": "p",
-        "text": "Son la base de la carrera, no las licencias con las que entras a una aerolínea. El alumno piloto necesita 17 años, matrícula en un centro de instrucción y médico Clase 2 (2.2.2.3, 2.2.2.4). El piloto privado avión (PPA) necesita mínimo **50 horas** de vuelo más 10 h de simulador (2.2.3.3) y vuela como PIC o copiloto **sin remuneración** (2.2.3.9)."
+        "kind": "detalleTecnico",
+        "etiqueta": "Alumno piloto y piloto privado",
+        "bloques": [
+          {
+            "kind": "p",
+            "text": "Son la base de la carrera, no las licencias con las que entras a una aerolínea. El alumno piloto necesita 17 años, matrícula en un centro de instrucción y médico Clase 2 (2.2.2.3, 2.2.2.4). El piloto privado avión (PPA) necesita mínimo **50 horas** de vuelo más 10 h de simulador (2.2.3.3) y vuela como PIC o copiloto **sin remuneración** (2.2.3.9)."
+          }
+        ]
       },
       {
         "kind": "sub",
@@ -177,54 +205,64 @@ export const RAC_LECCIONES: DocScreen[] = [
       {
         "kind": "vinetas",
         "items": [
-          "**Experiencia**: mínimo **200 horas** (2.2.5.3):"
-        ]
-      },
-      {
-        "kind": "table",
-        "head": [
-          "Fase",
-          "Horas"
-        ],
-        "rows": [
-          [
-            "Presolo",
-            "15"
-          ],
-          [
-            "Doble comando en maniobras",
-            "30"
-          ],
-          [
-            "Solo en maniobras (incluye 30 min del primer solo)",
-            "35"
-          ],
-          [
-            "Instrumentos en avión (5 nocturnas locales con 5 despegues y aterrizajes; máx. 10 en dispositivo)",
-            "40"
-          ],
-          [
-            "Crucero doble comando (un crucero de 540 km / 300 NM y dos aterrizajes fuera de la base)",
-            "40"
-          ],
-          [
-            "Crucero solo (un crucero de 540 km / 300 NM con aterrizajes fuera de la base)",
-            "40"
-          ]
-        ]
-      },
-      {
-        "kind": "p",
-        "text": "Además, **30 horas** en dispositivo de instrucción o entrenador por instrumentos; hasta 10 h de las de doble comando pueden ser en planeador, si el programa lo aprueba (2.2.5.3)."
-      },
-      {
-        "kind": "vinetas",
-        "items": [
+          "**Experiencia**: mínimo **200 horas** de vuelo, más **30 horas** en dispositivo de instrucción o entrenador por instrumentos (2.2.5.3).",
           "La instrucción incluye gestión de amenazas y errores (TEM) y vuelo con potencia asimétrica para multimotores (2.2.5.2.2). El PCA y el PTL llevan la habilitación **IFR incorporada** a la licencia (2.2.1.2.2.5).",
-          "**Atribuciones** (2.2.5.9): las del privado; PIC de cualquier avión en vuelos que **no** sean de transporte aéreo comercial regular; PIC en transporte comercial **no regular** en un avión con habilitación de tipo vigente; y **copiloto** en transporte comercial regular y no regular en aviones que requieren copiloto. Todo condicionado a tus habilitaciones y al médico vigente.",
-          "**Habilitaciones hasta 5.700 kg**: no hay habilitación de tipo; son por clase (monomotor, piloto multimotor, copiloto multimotor), pistón o turbohélice, con chequeo anual vigente (2.2.5.7.1). Entrenamiento mínimo: 3 h en monomotor y 6 h en multimotor; para **piloto** de multimotor, **300 horas** totales (2.2.5.7.1.1.1).",
-          "**Copiloto de más de 5.700 kg**: habilitación **por tipo**, según el programa del operador, con chequeo ante inspector o ED (2.2.5.7.1.1.2, 2.2.5.7.2.4).",
-          "**Piloto de relevo en crucero** (vuelos de **más de 6 horas** de cuña a cuña): entrenamiento en silla izquierda, mínimo 2 periodos de 2 h en simulador, chequeo y recurrente anual, anotado en la licencia (2.2.5.7.5)."
+          "**Atribuciones** (2.2.5.9): las del privado; PIC de cualquier avión en vuelos que **no** sean de transporte aéreo comercial regular; PIC en transporte comercial **no regular** en un avión con habilitación de tipo vigente; y **copiloto** en transporte comercial regular y no regular en aviones que requieren copiloto. Todo condicionado a tus habilitaciones y al médico vigente."
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "Las 200 horas del PCA por fase, y sus habilitaciones",
+        "bloques": [
+          {
+            "kind": "p",
+            "text": "Las 200 horas se reparten así (2.2.5.3):"
+          },
+          {
+            "kind": "table",
+            "head": [
+              "Fase",
+              "Horas"
+            ],
+            "rows": [
+              [
+                "Presolo",
+                "15"
+              ],
+              [
+                "Doble comando en maniobras",
+                "30"
+              ],
+              [
+                "Solo en maniobras (incluye 30 min del primer solo)",
+                "35"
+              ],
+              [
+                "Instrumentos en avión (5 nocturnas locales con 5 despegues y aterrizajes; máx. 10 en dispositivo)",
+                "40"
+              ],
+              [
+                "Crucero doble comando (un crucero de 540 km / 300 NM y dos aterrizajes fuera de la base)",
+                "40"
+              ],
+              [
+                "Crucero solo (un crucero de 540 km / 300 NM con aterrizajes fuera de la base)",
+                "40"
+              ]
+            ]
+          },
+          {
+            "kind": "p",
+            "text": "Hasta 10 h de las de doble comando pueden ser en planeador, si el programa lo aprueba (2.2.5.3)."
+          },
+          {
+            "kind": "vinetas",
+            "items": [
+              "**Habilitaciones hasta 5.700 kg**: no hay habilitación de tipo; son por clase (monomotor, piloto multimotor, copiloto multimotor), pistón o turbohélice, con chequeo anual vigente (2.2.5.7.1). Entrenamiento mínimo: 3 h en monomotor y 6 h en multimotor; para **piloto** de multimotor, **300 horas** totales (2.2.5.7.1.1.1).",
+              "**Copiloto de más de 5.700 kg**: habilitación **por tipo**, según el programa del operador, con chequeo ante inspector o ED (2.2.5.7.1.1.2, 2.2.5.7.2.4).",
+              "**Piloto de relevo en crucero** (vuelos de **más de 6 horas** de cuña a cuña): entrenamiento en silla izquierda, mínimo 2 periodos de 2 h en simulador, chequeo y recurrente anual, anotado en la licencia (2.2.5.7.5)."
+            ]
+          }
         ]
       },
       {
@@ -235,22 +273,28 @@ export const RAC_LECCIONES: DocScreen[] = [
         "kind": "vinetas",
         "items": [
           "Es la licencia para ser **comandante** en transporte aéreo comercial regular y no regular en aviones de **más de 5.700 kg** (2.2.7). Requiere ser PCA, **21 años** y médico Clase 1 (2.2.1.11, 2.2.7.8).",
-          "**Experiencia**: **1.500 horas** totales en avión (PIC o copiloto), incluidas las de escuela. Hasta 100 horas pueden ser de dispositivo de instrucción, y de ellas no más de 25 en entrenador de vuelo (2.2.7.3). Dentro de las 1.500 (2.2.7(b), texto de 2019): 500 h como **copiloto** o 250 h como PIC; 200 h de crucero, de ellas al menos 100 como piloto o copiloto; 75 h de instrumentos, máximo 30 en simulador o dispositivo aprobado; 100 h de vuelo **nocturno** como PIC o copiloto."
+          "**Experiencia**: **1.500 horas** totales en avión (PIC o copiloto), incluidas las de escuela. Hasta 100 horas pueden ser de dispositivo de instrucción, y de ellas no más de 25 en entrenador de vuelo (2.2.7.3). Dentro de las 1.500 (2.2.7(b), texto de 2019): 500 h como **copiloto** o 250 h como PIC; 200 h de crucero, de ellas al menos 100 como piloto o copiloto; 75 h de instrumentos, máximo 30 en simulador o dispositivo aprobado; 100 h de vuelo **nocturno** como PIC o copiloto.",
+          "**Atribuciones**: las del privado y el comercial, más PIC o copiloto en transporte aéreo comercial **regular** (2.2.7.10)."
         ]
       },
       {
-        "kind": "p",
-        "text": "**Ojo:** el RAC 2 trae dos redacciones. La de 2019 (2.2.7(b)) es la de arriba; la de 2008 (2.2.7.3) pide «500 horas como piloto al mando bajo supervisión» y 100 h de crucero bajo supervisión. Si te lo preguntan, cita la de 2019 y confirma con la Aerocivil cuál aplica a tu trámite."
-      },
-      {
-        "kind": "list",
-        "items": [
-          "Pericia en multimotor con copiloto: procedimientos IFR con falla simulada de motor, anormales y emergencias, coordinación de tripulación e incapacitación, y comunicación eficaz con la tripulación, es decir, gestión de recursos de tripulación (CRM) (2.2.7.2, 2.2.7.4.1).",
-          "**Entrenamiento orientado a la línea (LOFT)**: dos trayectos representativos del operador en tiempo real, uno normal y otro con anormalidad o emergencia, con tripulación completa (2.2.7.5).",
-          "**Experiencia operacional y chequeos de ruta**: las primeras **5 horas**, con al menos **3 despegues y 3 aterrizajes**, bajo instructor; el resto con piloto chequeador; el último trayecto ante inspector o ED (2.2.7.6).",
-          "**Habilitaciones por tipo**, con entrenamiento y chequeo **en simulador** salvo que no exista para el tipo (2.2.7.7, 2.2.7.7.1).",
-          "**Atribuciones**: las del privado y el comercial, más PIC o copiloto en transporte aéreo comercial **regular** (2.2.7.10).",
-          "Piloto de relevo en crucero: igual que el PCA, pero en **silla derecha** (2.2.7.7.3)."
+        "kind": "detalleTecnico",
+        "etiqueta": "PTL: las dos redacciones, LOFT, experiencia operacional y relevo",
+        "bloques": [
+          {
+            "kind": "p",
+            "text": "**Ojo:** el RAC 2 trae dos redacciones. La de 2019 (2.2.7(b)) es la de arriba; la de 2008 (2.2.7.3) pide «500 horas como piloto al mando bajo supervisión» y 100 h de crucero bajo supervisión. Si te lo preguntan, cita la de 2019 y confirma con la Aerocivil cuál aplica a tu trámite."
+          },
+          {
+            "kind": "vinetas",
+            "items": [
+              "Pericia en multimotor con copiloto: procedimientos IFR con falla simulada de motor, anormales y emergencias, coordinación de tripulación e incapacitación, y comunicación eficaz con la tripulación, es decir, gestión de recursos de tripulación (CRM) (2.2.7.2, 2.2.7.4.1).",
+              "**Entrenamiento orientado a la línea (LOFT)**: dos trayectos representativos del operador en tiempo real, uno normal y otro con anormalidad o emergencia, con tripulación completa (2.2.7.5).",
+              "**Experiencia operacional y chequeos de ruta**: las primeras **5 horas**, con al menos **3 despegues y 3 aterrizajes**, bajo instructor; el resto con piloto chequeador; el último trayecto ante inspector o ED (2.2.7.6).",
+              "**Habilitaciones por tipo**, con entrenamiento y chequeo **en simulador** salvo que no exista para el tipo (2.2.7.7, 2.2.7.7.1).",
+              "Piloto de relevo en crucero: igual que el PCA, pero en **silla derecha** (2.2.7.7.3)."
+            ]
+          }
         ]
       },
       {
@@ -260,10 +304,21 @@ export const RAC_LECCIONES: DocScreen[] = [
       {
         "kind": "vinetas",
         "items": [
-          "Se exige tipo en aviones de **más de 5.700 kg**, en todo avión certificado para **dos pilotos** y cuando la Aerocivil lo decida (2.2.1.2.2.4).",
-          "El entrenamiento cubre procedimientos normales, anormales y de emergencia, IFR, cortante de viento a baja altura, incapacitación y coordinación de la tripulación, y **prevención y recuperación de la pérdida de control** (2.2.1.3.2(a)).",
-          "**Tipo sin experiencia operacional** en simulador nivel D o superior: escuela de tierra con examen, los periodos de simulador del fabricante, un chequeo LOFT y la prueba de pericia. La licencia queda anotada, por ejemplo «/A320 sin experiencia operacional/», y solo vuelas en línea mientras haces o después de hacer la experiencia operacional con el explotador (2.2.1.3.2(b), 2.2.5.11, 2.2.7.7.1.1).",
-          "**Curso de cooperación de tripulación múltiple (MCC)**: obligatorio antes de empezar un tipo multipiloto; **25 h** de teoría y **20 h** prácticas (15 en curso integrado PTL; pueden bajar a no menos de 10 si se combina con el tipo en el mismo simulador), terminado en **6 meses** (Apéndice D del Capítulo II)."
+          "Se exige tipo en aviones de **más de 5.700 kg**, en todo avión certificado para **dos pilotos** y cuando la Aerocivil lo decida (2.2.1.2.2.4)."
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "Habilitación de tipo: entrenamiento, tipo sin experiencia operacional y MCC",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "El entrenamiento cubre procedimientos normales, anormales y de emergencia, IFR, cortante de viento a baja altura, incapacitación y coordinación de la tripulación, y **prevención y recuperación de la pérdida de control** (2.2.1.3.2(a)).",
+              "**Tipo sin experiencia operacional** en simulador nivel D o superior: escuela de tierra con examen, los periodos de simulador del fabricante, un chequeo LOFT y la prueba de pericia. La licencia queda anotada, por ejemplo «/A320 sin experiencia operacional/», y solo vuelas en línea mientras haces o después de hacer la experiencia operacional con el explotador (2.2.1.3.2(b), 2.2.5.11, 2.2.7.7.1.1).",
+              "**Curso de cooperación de tripulación múltiple (MCC)**: obligatorio antes de empezar un tipo multipiloto; **25 h** de teoría y **20 h** prácticas (15 en curso integrado PTL; pueden bajar a no menos de 10 si se combina con el tipo en el mismo simulador), terminado en **6 meses** (Apéndice D del Capítulo II)."
+            ]
+          }
         ]
       },
       {
@@ -274,10 +329,21 @@ export const RAC_LECCIONES: DocScreen[] = [
         "kind": "vinetas",
         "items": [
           "**Definiciones** (2.2.1.1.4(a)): el **chequeador (CHK)** es el instructor designado por el explotador y autorizado por la Aerocivil (equivale al inspector del explotador de los LAR); el **mes base** es el mes en que te toca el entrenamiento o chequeo; el **periodo de elegibilidad** son 3 meses (el anterior, el mes base y el siguiente) y lo hecho en él cuenta como hecho en el mes base.",
-          "PTL, pilotos y copilotos PCA: **dos veces cada 12 meses calendario**, con intervalos de **5 a 7 meses**, repaso de tierra, entrenamiento de vuelo y **verificación de competencia** (chequeo de proeficiencia) ante inspector, ED o CHK (2.2.1.1.4(b), 2.2.5.10, 2.2.7.11).",
-          "Formato en aviones (2.2.1.1.4.1): más de 19 sillas y más de 5.700 kg, con simulador: ambos entrenamientos en **simulador**, cada uno con **2 periodos de al menos 2 horas** (entrenamiento y chequeo); 19 sillas o menos o 5.700 kg o menos, con simulador: el primero en avión, simulador o dispositivo y el segundo en simulador, también 2 periodos de 2 horas; sin simulador: el segundo en el avión, con periodos de al menos **1:30** horas.",
-          "Durante entrenamientos y chequeos **no se llevan pasajeros ni carga** y el plan de vuelo se presenta como vuelo local (2.2.1.1.4.3).",
-          "**Entrenamientos especiales** del programa del operador (2.2.1.1.6): emergencia y evacuación en tierra, cada año; amaraje (ditching), cada 2 años si vuelas sobre el mar; CRM, cada 2 años como máximo; LOFT de al menos 2 horas, una vez cada 3 repasos y no más de cada 2 años; mercancías peligrosas y operaciones con tiempo de desviación extendido (ETOPS), cada 2 años como máximo."
+          "PTL, pilotos y copilotos PCA: **dos veces cada 12 meses calendario**, con intervalos de **5 a 7 meses**, repaso de tierra, entrenamiento de vuelo y **verificación de competencia** (chequeo de proeficiencia) ante inspector, ED o CHK (2.2.1.1.4(b), 2.2.5.10, 2.2.7.11)."
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "Formato de los chequeos y entrenamientos especiales",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Formato en aviones (2.2.1.1.4.1): más de 19 sillas y más de 5.700 kg, con simulador: ambos entrenamientos en **simulador**, cada uno con **2 periodos de al menos 2 horas** (entrenamiento y chequeo); 19 sillas o menos o 5.700 kg o menos, con simulador: el primero en avión, simulador o dispositivo y el segundo en simulador, también 2 periodos de 2 horas; sin simulador: el segundo en el avión, con periodos de al menos **1:30** horas.",
+              "Durante entrenamientos y chequeos **no se llevan pasajeros ni carga** y el plan de vuelo se presenta como vuelo local (2.2.1.1.4.3).",
+              "**Entrenamientos especiales** del programa del operador (2.2.1.1.6): emergencia y evacuación en tierra, cada año; amaraje (ditching), cada 2 años si vuelas sobre el mar; CRM, cada 2 años como máximo; LOFT de al menos 2 horas, una vez cada 3 repasos y no más de cada 2 años; mercancías peligrosas y operaciones con tiempo de desviación extendido (ETOPS), cada 2 años como máximo."
+            ]
+          }
         ]
       },
       {
@@ -305,26 +371,30 @@ export const RAC_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "sub",
-        "text": "Convalidación y licencias extranjeras"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "La Aerocivil convalida licencias de Estados de la Organización de Aviación Civil Internacional (OACI) mediante una autorización en licencia provisional, sin exceder la validez de la extranjera (2.1.7).",
-          "Tres vías (2.1.7.1): personal extranjero transitorio que viene a instruir; quien se establece en Colombia (pilotos: examen teórico ante la Aerocivil y práctico ante inspector o ED); y tripulantes no residentes de empresas colombianas fuera del país (licencia provisional limitada a tipo, explotador y fecha).",
-          "Los cursos hechos en el exterior solo sirven para habilitaciones de tipo; para una licencia se exige también la licencia extranjera y su convalidación (2.1.16.5)."
+        "kind": "detalleTecnico",
+        "etiqueta": "Convalidación y licencias extranjeras (2.1.7)",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "La Aerocivil convalida licencias de Estados de la Organización de Aviación Civil Internacional (OACI) mediante una autorización en licencia provisional, sin exceder la validez de la extranjera (2.1.7).",
+              "Tres vías (2.1.7.1): personal extranjero transitorio que viene a instruir; quien se establece en Colombia (pilotos: examen teórico ante la Aerocivil y práctico ante inspector o ED); y tripulantes no residentes de empresas colombianas fuera del país (licencia provisional limitada a tipo, explotador y fecha).",
+              "Los cursos hechos en el exterior solo sirven para habilitaciones de tipo; para una licencia se exige también la licencia extranjera y su convalidación (2.1.16.5)."
+            ]
+          }
         ]
       },
       {
-        "kind": "sub",
-        "text": "Otras reglas de cabina"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "El PIC no ocupa el asiento del copiloto ni al revés, salvo chequeador, instructor del equipo o piloto de relevo en crucero (2.2.1.6).",
-          "Tu licencia de piloto te habilita como radiotelefonista, navegante y despachador de la aeronave en que estás habilitado (2.2.1.8)."
+        "kind": "detalleTecnico",
+        "etiqueta": "Otras reglas de cabina (2.2.1.6, 2.2.1.8)",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "El PIC no ocupa el asiento del copiloto ni al revés, salvo chequeador, instructor del equipo o piloto de relevo en crucero (2.2.1.6).",
+              "Tu licencia de piloto te habilita como radiotelefonista, navegante y despachador de la aeronave en que estás habilitado (2.2.1.8)."
+            ]
+          }
         ]
       },
       {
@@ -463,7 +533,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 2,
     "title": "RAC 61 · Licencias para pilotos y sus habilitaciones",
     "kicker": "Tu licencia y tu aptitud",
-    "minutes": 9,
+    "minutes": 8,
     "blocks": [
       {
         "kind": "p",
@@ -611,38 +681,44 @@ export const RAC_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "sub",
-        "text": "La bitácora"
-      },
-      {
-        "kind": "p",
-        "text": "Tu experiencia se prueba con la bitácora y las certificaciones del explotador o del centro de instrucción (61.120(a))."
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "**Tiempo de vuelo** en avión: desde que se mueve para despegar hasta que se detiene al final con motores apagados; no cuenta la APU (61.001).",
-          "**PIC**: el PPA o PCA lo anota solo cuando es el único a los mandos o el único ocupante; el PTL, todo el tiempo en que actúa como PIC (61.120(c)(2)).",
-          "**Copiloto**: todo el tiempo en aeronaves que requieran más de un piloto (61.120(c)(3)).",
-          "**Para una licencia superior**: copiloto en aeronave certificada con copiloto y piloto al mando bajo supervisión cuentan al 100 %; copiloto en aeronave de un piloto a la que la UAEAC exige copiloto, máximo 50 % (61.120(c)(6)).",
-          "Falsear la bitácora es causal de suspensión o cancelación de la licencia (61.150)."
+        "kind": "detalleTecnico",
+        "etiqueta": "La bitácora",
+        "bloques": [
+          {
+            "kind": "p",
+            "text": "Tu experiencia se prueba con la bitácora y las certificaciones del explotador o del centro de instrucción (61.120(a))."
+          },
+          {
+            "kind": "vinetas",
+            "items": [
+              "**Tiempo de vuelo** en avión: desde que se mueve para despegar hasta que se detiene al final con motores apagados; no cuenta la APU (61.001).",
+              "**PIC**: el PPA o PCA lo anota solo cuando es el único a los mandos o el único ocupante; el PTL, todo el tiempo en que actúa como PIC (61.120(c)(2)).",
+              "**Copiloto**: todo el tiempo en aeronaves que requieran más de un piloto (61.120(c)(3)).",
+              "**Para una licencia superior**: copiloto en aeronave certificada con copiloto y piloto al mando bajo supervisión cuentan al 100 %; copiloto en aeronave de un piloto a la que la UAEAC exige copiloto, máximo 50 % (61.120(c)(6)).",
+              "Falsear la bitácora es causal de suspensión o cancelación de la licencia (61.150)."
+            ]
+          }
         ]
       },
       {
-        "kind": "sub",
-        "text": "Exámenes"
+        "kind": "detalleTecnico",
+        "etiqueta": "Exámenes",
+        "bloques": [
+          {
+            "kind": "p",
+            "text": "El teórico se aprueba con **75 %** (85 % para instructor) y se repite a los 30 días (61.085). Debe estar aprobado dentro de los 12 meses anteriores a la prueba de pericia (61.095(a)). Una pericia reprobada no se repite antes de 30 días (61.115)."
+          }
+        ]
       },
       {
-        "kind": "p",
-        "text": "El teórico se aprueba con **75 %** (85 % para instructor) y se repite a los 30 días (61.085). Debe estar aprobado dentro de los 12 meses anteriores a la prueba de pericia (61.095(a)). Una pericia reprobada no se repite antes de 30 días (61.115)."
-      },
-      {
-        "kind": "sub",
-        "text": "Licencias extranjeras"
-      },
-      {
-        "kind": "p",
-        "text": "La UAEAC puede convalidar una licencia de otro Estado OACI, limitada en tiempo y atribuciones, nunca por más tiempo que la extranjera (61.025(c) y (d)). Pide bitácora con experiencia reciente, examen de diferencias con los RAC, español e inglés, y prueba de pericia (61.025(f)). El médico extranjero solo sirve para convalidaciones de hasta 3 meses (61.025(i), Nota)."
+        "kind": "detalleTecnico",
+        "etiqueta": "Licencias extranjeras",
+        "bloques": [
+          {
+            "kind": "p",
+            "text": "La UAEAC puede convalidar una licencia de otro Estado OACI, limitada en tiempo y atribuciones, nunca por más tiempo que la extranjera (61.025(c) y (d)). Pide bitácora con experiencia reciente, examen de diferencias con los RAC, español e inglés, y prueba de pericia (61.025(f)). El médico extranjero solo sirve para convalidaciones de hasta 3 meses (61.025(i), Nota)."
+          }
+        ]
       },
       {
         "kind": "sub",
@@ -788,7 +864,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 3,
     "title": "RAC 67 · Certificado médico",
     "kicker": "Tu licencia y tu aptitud",
-    "minutes": 9,
+    "minutes": 8,
     "blocks": [
       {
         "kind": "p",
@@ -911,12 +987,14 @@ export const RAC_LECCIONES: DocScreen[] = [
         "text": "Este tema se complementa con el RAC 120 (exámenes toxicológicos y sus consecuencias)."
       },
       {
-        "kind": "sub",
-        "text": "Embarazo"
-      },
-      {
-        "kind": "p",
-        "text": "La piloto embarazada es **no apta temporal**. Con embarazo de bajo riesgo y controlado puede declararse apta desde el final de la **semana 12** hasta el final de la **semana 26**. Después del parto o del fin del embarazo no vuelve a volar hasta una nueva evaluación ginecológica y la decisión de Medicina Aeronáutica (67.205(n))."
+        "kind": "detalleTecnico",
+        "etiqueta": "Embarazo",
+        "bloques": [
+          {
+            "kind": "p",
+            "text": "La piloto embarazada es **no apta temporal**. Con embarazo de bajo riesgo y controlado puede declararse apta desde el final de la **semana 12** hasta el final de la **semana 26**. Después del parto o del fin del embarazo no vuelve a volar hasta una nueva evaluación ginecológica y la decisión de Medicina Aeronáutica (67.205(n))."
+          }
+        ]
       },
       {
         "kind": "sub",
@@ -934,26 +1012,30 @@ export const RAC_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "sub",
-        "text": "Oído y exámenes periódicos (Clase 1)"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "En audiometría de tono puro, sin audífonos, ningún oído puede perder más de **30 dB en 500, 1.000 o 2.000 Hz**, ni más de **50 dB en 3.000 Hz** (67.215(b)(1)).",
-          "La audiometría se hace en el examen inicial y, si fue normal, al menos cada 2 años hasta los 40 y luego cada año (67.215(b)(1)). Si no alcanzas esos valores, aún puedes ser apto con una prueba de discriminación del lenguaje o una prueba en vuelo (67.215(b)(2) a (b)(4)).",
-          "Electrocardiograma de reposo en el primer examen, cada 2 años entre los 30 y los 40 años y cada año después de los 40 (67.205(d)(4) a (d)(6)). Radiografía de tórax en el primer reconocimiento (67.205(e)(2))."
+        "kind": "detalleTecnico",
+        "etiqueta": "Oído y exámenes periódicos (Clase 1)",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "En audiometría de tono puro, sin audífonos, ningún oído puede perder más de **30 dB en 500, 1.000 o 2.000 Hz**, ni más de **50 dB en 3.000 Hz** (67.215(b)(1)).",
+              "La audiometría se hace en el examen inicial y, si fue normal, al menos cada 2 años hasta los 40 y luego cada año (67.215(b)(1)). Si no alcanzas esos valores, aún puedes ser apto con una prueba de discriminación del lenguaje o una prueba en vuelo (67.215(b)(2) a (b)(4)).",
+              "Electrocardiograma de reposo en el primer examen, cada 2 años entre los 30 y los 40 años y cada año después de los 40 (67.205(d)(4) a (d)(6)). Radiografía de tórax en el primer reconocimiento (67.205(e)(2))."
+            ]
+          }
         ]
       },
       {
-        "kind": "sub",
-        "text": "El examen: lo que declaras"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "Presentas una **declaración jurada** con tu historia médica, medicamentos, tratamientos alternativos y exámenes anteriores, y dices si alguna vez te negaron, revocaron o suspendieron un certificado (67.075(a) y (b)). **Toda declaración falsa u omisión se informa a la Aerocivil** (67.075(c)).",
-          "Te examina un **médico examinador autorizado por la Aerocivil** (67.055(a)). Después de un incidente o accidente puede haber una certificación **extraordinaria** y una evaluación de tu aptitud psicológica (67.075(n); 67.100(a)(3)). Tu historial médico es confidencial (67.075(l))."
+        "kind": "detalleTecnico",
+        "etiqueta": "El examen: lo que declaras",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Presentas una **declaración jurada** con tu historia médica, medicamentos, tratamientos alternativos y exámenes anteriores, y dices si alguna vez te negaron, revocaron o suspendieron un certificado (67.075(a) y (b)). **Toda declaración falsa u omisión se informa a la Aerocivil** (67.075(c)).",
+              "Te examina un **médico examinador autorizado por la Aerocivil** (67.055(a)). Después de un incidente o accidente puede haber una certificación **extraordinaria** y una evaluación de tu aptitud psicológica (67.075(n); 67.100(a)(3)). Tu historial médico es confidencial (67.075(l))."
+            ]
+          }
         ]
       },
       {
@@ -1406,7 +1488,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 5,
     "title": "RAC 91 · Reglas generales de vuelo y de operación",
     "kicker": "Cómo se vuela",
-    "minutes": 11,
+    "minutes": 8,
     "blocks": [
       {
         "kind": "p",
@@ -1425,14 +1507,16 @@ export const RAC_LECCIONES: DocScreen[] = [
         "text": "Lo que debe saber un piloto"
       },
       {
-        "kind": "sub",
-        "text": "Dónde encaja"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "Los capítulos A a C (generalidades y reglas de vuelo) aplican a toda aeronave civil en Colombia; los capítulos D a M ceden ante el RAC 121, 135, 137 o 138 cuando esas normas traen su propia regla (91.005(a) y (b)).",
-          "La Parte 2 cubre turborreactores, y multimotores con **más de 19 asientos** de pasajeros o **más de 5.700 kg** de peso máximo de despegue, cuando no operan bajo RAC 121 o 135 (91.1805)."
+        "kind": "detalleTecnico",
+        "etiqueta": "Dónde encaja: capítulos y Parte 2 (91.005, 91.1805)",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Los capítulos A a C (generalidades y reglas de vuelo) aplican a toda aeronave civil en Colombia; los capítulos D a M ceden ante el RAC 121, 135, 137 o 138 cuando esas normas traen su propia regla (91.005(a) y (b)).",
+              "La Parte 2 cubre turborreactores, y multimotores con **más de 19 asientos** de pasajeros o **más de 5.700 kg** de peso máximo de despegue, cuando no operan bajo RAC 121 o 135 (91.1805)."
+            ]
+          }
         ]
       },
       {
@@ -1449,14 +1533,16 @@ export const RAC_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "sub",
-        "text": "Aptitud y sustancias psicoactivas"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "Quien cumple funciones críticas para la seguridad no las ejerce bajo sustancias psicoactivas que perjudiquen su actuación, prescritas o no (91.010). En el RAC 91 el **alcohol** cuenta como sustancia psicoactiva (91.001). Tasas y pruebas no están aquí: este tema se complementa con el RAC 120.",
-          "El PIC verifica que cada tripulante de vuelo **porte** licencia, habilitaciones y certificado médico válidos (91.1310(a)), y si tu médico lo exige, llevas **lentes de repuesto** (91.545(c)(7))."
+        "kind": "detalleTecnico",
+        "etiqueta": "Aptitud y sustancias psicoactivas (91.010, 91.1310)",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Quien cumple funciones críticas para la seguridad no las ejerce bajo sustancias psicoactivas que perjudiquen su actuación, prescritas o no (91.010). En el RAC 91 el **alcohol** cuenta como sustancia psicoactiva (91.001). Tasas y pruebas no están aquí: este tema se complementa con el RAC 120.",
+              "El PIC verifica que cada tripulante de vuelo **porte** licencia, habilitaciones y certificado médico válidos (91.1310(a)), y si tu médico lo exige, llevas **lentes de repuesto** (91.545(c)(7))."
+            ]
+          }
         ]
       },
       {
@@ -1562,100 +1648,110 @@ export const RAC_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "sub",
-        "text": "Oxígeno"
-      },
-      {
-        "kind": "p",
-        "text": "Sin presurización, entre **10.000 y 13.000 ft** de altitud de cabina se lleva oxígeno para toda la tripulación y al menos el 10 % de los pasajeros durante todo período que pase de **30 min**, y sobre **13.000 ft** para todos. Quien cumple funciones esenciales lo usa de forma continua (Apéndice 4(b)(1) y (c)(1), 91.595)."
-      },
-      {
-        "kind": "sub",
-        "text": "Equipos que te afectan"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "Con equipo inoperativo despegas solo con una lista de equipo mínimo (MEL) aprobada y cumpliendo sus condiciones (91.817(a)); sin MEL, solo ciertas aeronaves pequeñas no turbina y con el equipo desactivado y rotulado (91.817(c)).",
-          "Transpondedor modo C o S en todas las aeronaves, salvo excepciones que autorice la Aerocivil (91.845). El ADS-B Out (vigilancia dependiente automática, radiodifusión) es obligatorio desde el **1 de enero de 2025** donde haya cobertura y se opera siempre transmitiendo (91.847(a)(3) y (d)).",
-          "Todo avión lleva transmisor de localización de emergencia (ELT) (91.830)."
+        "kind": "detalleTecnico",
+        "etiqueta": "Oxígeno (Apéndice 4, 91.595)",
+        "bloques": [
+          {
+            "kind": "p",
+            "text": "Sin presurización, entre **10.000 y 13.000 ft** de altitud de cabina se lleva oxígeno para toda la tripulación y al menos el 10 % de los pasajeros durante todo período que pase de **30 min**, y sobre **13.000 ft** para todos. Quien cumple funciones esenciales lo usa de forma continua (Apéndice 4(b)(1) y (c)(1), 91.595)."
+          }
         ]
       },
       {
-        "kind": "sub",
-        "text": "Documentos a bordo"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "Entre otros: certificado de matrícula, certificado de aeronavegabilidad, licencias de cada tripulante, libro de a bordo, licencia de estación de radio, lista de pasajeros, manifiesto de carga, cartas de la ruta y desvíos, procedimientos de interceptación y aprobaciones específicas (91.1420(a)). Los siete primeros van **en original** (91.1420(b)).",
-          "El libro de a bordo va al día y en tinta; el PIC responde por su veracidad y se conserva **3 años** (91.1410(c)). Toda falla o daño va al registro técnico de vuelo (91.1425)."
+        "kind": "detalleTecnico",
+        "etiqueta": "Equipos que te afectan: MEL, transpondedor, ADS-B y ELT",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Con equipo inoperativo despegas solo con una lista de equipo mínimo (MEL) aprobada y cumpliendo sus condiciones (91.817(a)); sin MEL, solo ciertas aeronaves pequeñas no turbina y con el equipo desactivado y rotulado (91.817(c)).",
+              "Transpondedor modo C o S en todas las aeronaves, salvo excepciones que autorice la Aerocivil (91.845). El ADS-B Out (vigilancia dependiente automática, radiodifusión) es obligatorio desde el **1 de enero de 2025** donde haya cobertura y se opera siempre transmitiendo (91.847(a)(3) y (d)).",
+              "Todo avión lleva transmisor de localización de emergencia (ELT) (91.830)."
+            ]
+          }
         ]
       },
       {
-        "kind": "sub",
-        "text": "Tiempos de vuelo y experiencia reciente"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "**Aviación general**: máximo **9 h** por día y **85 h** por mes (91.696(a)).",
-          "**Aerolíneas**: el RAC 91 no fija sus límites. Este tema se complementa con el RAC 121 (121.1910 y Apéndice 18) y el RAC 135 (Apéndice 15).",
-          "Parte 2: PIC y copiloto necesitan **3 despegues y 3 aterrizajes en 90 días** en el tipo o en simulador (91.2640, 91.2645), y el explotador lleva un programa de gestión de riesgos por fatiga (FRMS) (91.1985). La recencia general de tu licencia está en el RAC 61, pero hasta el 31/08/2027 rige la del RAC 2 (nota 3 de 91.005)."
+        "kind": "detalleTecnico",
+        "etiqueta": "Documentos a bordo (91.1420)",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Entre otros: certificado de matrícula, certificado de aeronavegabilidad, licencias de cada tripulante, libro de a bordo, licencia de estación de radio, lista de pasajeros, manifiesto de carga, cartas de la ruta y desvíos, procedimientos de interceptación y aprobaciones específicas (91.1420(a)). Los siete primeros van **en original** (91.1420(b)).",
+              "El libro de a bordo va al día y en tinta; el PIC responde por su veracidad y se conserva **3 años** (91.1410(c)). Toda falla o daño va al registro técnico de vuelo (91.1425)."
+            ]
+          }
         ]
       },
       {
-        "kind": "sub",
-        "text": "Lo que tienes que reportar"
+        "kind": "detalleTecnico",
+        "etiqueta": "Tiempos de vuelo y experiencia reciente (91.696, 91.2640)",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "**Aviación general**: máximo **9 h** por día y **85 h** por mes (91.696(a)).",
+              "**Aerolíneas**: el RAC 91 no fija sus límites. Este tema se complementa con el RAC 121 (121.1910 y Apéndice 18) y el RAC 135 (Apéndice 15).",
+              "Parte 2: PIC y copiloto necesitan **3 despegues y 3 aterrizajes en 90 días** en el tipo o en simulador (91.2640, 91.2645), y el explotador lleva un programa de gestión de riesgos por fatiga (FRMS) (91.1985). La recencia general de tu licencia está en el RAC 61, pero hasta el 31/08/2027 rige la del RAC 2 (nota 3 de 91.005)."
+            ]
+          }
+        ]
       },
       {
-        "kind": "table",
-        "head": [
-          "Qué",
-          "A quién",
-          "Numeral"
-        ],
-        "rows": [
-          [
-            "Accidente con muertos, lesiones graves o daños importantes",
-            "Autoridad más próxima, por el medio más rápido",
-            "91.120(c)"
-          ],
-          [
-            "Haberte apartado de reglamentos en una emergencia",
-            "ATS; informe a la UAEAC en 10 días",
-            "91.520"
-          ],
-          [
-            "Meteorología adversa o situación imprevista que afecte a otros",
-            "ATC",
-            "91.580(a)"
-          ],
-          [
-            "Frenado peor que el notificado",
-            "ATC",
-            "91.580(b)"
-          ],
-          [
-            "Falla de navegación o comunicaciones en IFR",
-            "ATC",
-            "91.375"
-          ],
-          [
-            "RA del ACAS contrario a la autorización",
-            "ATC",
-            "Apéndice 20(e)"
-          ],
-          [
-            "Deficiencias de instalaciones y servicios",
-            "Autoridad a cargo",
-            "91.505(b)"
-          ],
-          [
-            "Fallas o daños de la aeronave",
-            "Registro técnico de vuelo",
-            "91.1425"
-          ]
+        "kind": "detalleTecnico",
+        "etiqueta": "Lo que tienes que reportar",
+        "bloques": [
+          {
+            "kind": "table",
+            "head": [
+              "Qué",
+              "A quién",
+              "Numeral"
+            ],
+            "rows": [
+              [
+                "Accidente con muertos, lesiones graves o daños importantes",
+                "Autoridad más próxima, por el medio más rápido",
+                "91.120(c)"
+              ],
+              [
+                "Haberte apartado de reglamentos en una emergencia",
+                "ATS; informe a la UAEAC en 10 días",
+                "91.520"
+              ],
+              [
+                "Meteorología adversa o situación imprevista que afecte a otros",
+                "ATC",
+                "91.580(a)"
+              ],
+              [
+                "Frenado peor que el notificado",
+                "ATC",
+                "91.580(b)"
+              ],
+              [
+                "Falla de navegación o comunicaciones en IFR",
+                "ATC",
+                "91.375"
+              ],
+              [
+                "RA del ACAS contrario a la autorización",
+                "ATC",
+                "Apéndice 20(e)"
+              ],
+              [
+                "Deficiencias de instalaciones y servicios",
+                "Autoridad a cargo",
+                "91.505(b)"
+              ],
+              [
+                "Fallas o daños de la aeronave",
+                "Registro técnico de vuelo",
+                "91.1425"
+              ]
+            ]
+          }
         ]
       },
       {
@@ -1744,31 +1840,6 @@ export const RAC_LECCIONES: DocScreen[] = [
             "91.340"
           ],
           [
-            "Niveles de crucero",
-            "000° a 179°: IFR impares, VFR impares + 500 ft. 180° a 359°: IFR pares, VFR pares + 500 ft",
-            "Apéndice 7, Tabla 7-1"
-          ],
-          [
-            "VFR nocturno",
-            "5 km bajo FL 100 y 8 km entre FL 100 y FL 175. Clase B: libre de nubes. Clases C a G: superficie a la vista, 1.500 m horizontal, libre de nubes por debajo y 1.000 ft por encima",
-            "Apéndice 19(a)(3)"
-          ],
-          [
-            "Verificación del VOR",
-            "30 días; ±4° en tierra, ±6° en vuelo",
-            "91.365"
-          ],
-          [
-            "Categoría I (CAT I)",
-            "DH 200 ft o más; visibilidad 800 m o RVR 550 m",
-            "91.540(a)(2)(i)"
-          ],
-          [
-            "Categoría II (CAT II)",
-            "DH menor de 200 ft y no menor de 100 ft; RVR 300 m",
-            "91.540(a)(2)(ii)"
-          ],
-          [
             "Prohibición de aproximación",
             "1.000 ft sobre la elevación del aeródromo",
             "91.585(b)"
@@ -1797,32 +1868,73 @@ export const RAC_LECCIONES: DocScreen[] = [
             "Alterno de despegue",
             "1 h (bimotor) / 2 h (tres o más motores)",
             "91.600(a)"
-          ],
-          [
-            "Oxígeno presurizados",
-            "Sobre 25.000 ft: 10 min para pasajeros y máscara rápida para la tripulación",
-            "Apéndice 4(b)(2), (c)(2)"
-          ],
-          [
-            "Libro de a bordo",
-            "Se conserva 3 años",
-            "91.1410(c)"
-          ],
-          [
-            "Tiempo de vuelo (aviación general)",
-            "9 h/día, 85 h/mes",
-            "91.696(a)"
-          ],
-          [
-            "Experiencia reciente (Parte 2)",
-            "3 despegues y 3 aterrizajes en 90 días",
-            "91.2640, 91.2645"
-          ],
-          [
-            "ELT automático",
-            "Aviones con primer certificado de aeronavegabilidad después del 1 jul 2008",
-            "91.830(a)(2)"
           ]
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "Más datos del RAC 91",
+        "bloques": [
+          {
+            "kind": "table",
+            "head": [
+              "Tema",
+              "Valor",
+              "Numeral"
+            ],
+            "rows": [
+              [
+                "Niveles de crucero",
+                "000° a 179°: IFR impares, VFR impares + 500 ft. 180° a 359°: IFR pares, VFR pares + 500 ft",
+                "Apéndice 7, Tabla 7-1"
+              ],
+              [
+                "VFR nocturno",
+                "5 km bajo FL 100 y 8 km entre FL 100 y FL 175. Clase B: libre de nubes. Clases C a G: superficie a la vista, 1.500 m horizontal, libre de nubes por debajo y 1.000 ft por encima",
+                "Apéndice 19(a)(3)"
+              ],
+              [
+                "Verificación del VOR",
+                "30 días; ±4° en tierra, ±6° en vuelo",
+                "91.365"
+              ],
+              [
+                "Categoría I (CAT I)",
+                "DH 200 ft o más; visibilidad 800 m o RVR 550 m",
+                "91.540(a)(2)(i)"
+              ],
+              [
+                "Categoría II (CAT II)",
+                "DH menor de 200 ft y no menor de 100 ft; RVR 300 m",
+                "91.540(a)(2)(ii)"
+              ],
+              [
+                "Oxígeno presurizados",
+                "Sobre 25.000 ft: 10 min para pasajeros y máscara rápida para la tripulación",
+                "Apéndice 4(b)(2), (c)(2)"
+              ],
+              [
+                "Libro de a bordo",
+                "Se conserva 3 años",
+                "91.1410(c)"
+              ],
+              [
+                "Tiempo de vuelo (aviación general)",
+                "9 h/día, 85 h/mes",
+                "91.696(a)"
+              ],
+              [
+                "Experiencia reciente (Parte 2)",
+                "3 despegues y 3 aterrizajes en 90 días",
+                "91.2640, 91.2645"
+              ],
+              [
+                "ELT automático",
+                "Aviones con primer certificado de aeronavegabilidad después del 1 jul 2008",
+                "91.830(a)(2)"
+              ]
+            ]
+          }
         ]
       },
       {
@@ -1846,7 +1958,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 6,
     "title": "RAC 211 · Gestión del tránsito aéreo",
     "kicker": "Cómo se vuela",
-    "minutes": 8,
+    "minutes": 7,
     "blocks": [
       {
         "kind": "p",
@@ -2666,7 +2778,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 9,
     "title": "RAC 119 · Certificación de explotadores",
     "kicker": "La aerolínea",
-    "minutes": 2,
+    "minutes": 3,
     "blocks": [
       {
         "kind": "p",
@@ -2806,7 +2918,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 10,
     "title": "RAC 121 · Operación de aerolíneas",
     "kicker": "La aerolínea",
-    "minutes": 12,
+    "minutes": 8,
     "blocks": [
       {
         "kind": "p",
@@ -2850,9 +2962,20 @@ export const RAC_LECCIONES: DocScreen[] = [
         "items": [
           "Empiezas con una inducción básica (reglamentos, manual de operaciones o MO, mercancías peligrosas, sistema de gestión de la seguridad operacional o SMS, seguridad de la aviación o AVSEC, factores humanos) y sigues con tierra y vuelo iniciales (121.1595 (a)(1); 121.1610; 121.1630). Las horas están en la tabla.",
           "El vuelo inicial se hace con tripulación completa e incluye un entrenamiento orientado a la línea de vuelo (LOFT) de al menos 2 h en simulador: un trayecto normal y otro con una anormalidad (121.1630 (a)(3)).",
-          "La instrucción en envolventes extendidas (prevención y recuperación de la pérdida de control, UPRT) va en simulador de vuelo (FFS) nivel C o D: vuelo lento, pérdida completa, salidas y llegadas manuales, actitudes anormales y aterrizaje con rebote (121.1627).",
-          "Para servir, el periódico de tierra y vuelo y la verificación de la competencia deben estar hechos en los 6 meses calendario anteriores (121.1720 (c)). Si se hacen un mes antes o después del mes requerido, cuentan como hechos a tiempo (121.1520 (e)).",
-          "Si ya volaste el mismo tipo en otra empresa, recibes la instrucción de procedimientos del nuevo explotador, más corta que la inicial (121.1720 (a))."
+          "Para servir, el periódico de tierra y vuelo y la verificación de la competencia deben estar hechos en los 6 meses calendario anteriores (121.1720 (c)). Si se hacen un mes antes o después del mes requerido, cuentan como hechos a tiempo (121.1520 (e))."
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "UPRT y cambio de empresa en el mismo tipo",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "La instrucción en envolventes extendidas (prevención y recuperación de la pérdida de control, UPRT) va en simulador de vuelo (FFS) nivel C o D: vuelo lento, pérdida completa, salidas y llegadas manuales, actitudes anormales y aterrizaje con rebote (121.1627).",
+              "Si ya volaste el mismo tipo en otra empresa, recibes la instrucción de procedimientos del nuevo explotador, más corta que la inicial (121.1720 (a))."
+            ]
+          }
         ]
       },
       {
@@ -2883,9 +3006,20 @@ export const RAC_LECCIONES: DocScreen[] = [
         "kind": "vinetas",
         "items": [
           "Si pasas de 90 días sin 3 despegues y 3 aterrizajes, el restablecimiento crece con la inactividad: con CHK hasta 180 días; periódico y verificación hasta 12 meses; repaso de 16 h, cuatro sesiones y verificación ante inspector o ED hasta 60 meses; y curso inicial más allá (121.1745 (a)).",
-          "La verificación de la competencia es semestral; dos hechas en 4 meses consecutivos no bastan por sí solas. Una maniobra fallada se repite una sola vez, y si no apruebas no vuelas (121.1760 (a)(d)).",
-          "Como PIC necesitas verificación en línea anual y calificación de ruta y aeródromo: terreno, altitudes mínimas, meteorología, servicios de tránsito aéreo (ATS), avisos a los aviadores (NOTAM), obstáculos y procedimientos (121.1755; 121.1765). Los aeródromos especiales y las rutas con navegación especial (como la navegación basada en la performance, PBN) exigen práctica en los 12 meses previos (121.1770).",
-          "Quien opera desde ambos puestos recibe instrucción extra en falla de motor al despegue y en aproximación, sobrepaso y aterrizaje con un motor inoperativo (121.1785)."
+          "La verificación de la competencia es semestral; dos hechas en 4 meses consecutivos no bastan por sí solas. Una maniobra fallada se repite una sola vez, y si no apruebas no vuelas (121.1760 (a)(d))."
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "Calificación de ruta y aeródromo, y operación desde ambos puestos",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Como PIC necesitas verificación en línea anual y calificación de ruta y aeródromo: terreno, altitudes mínimas, meteorología, servicios de tránsito aéreo (ATS), avisos a los aviadores (NOTAM), obstáculos y procedimientos (121.1755; 121.1765). Los aeródromos especiales y las rutas con navegación especial (como la navegación basada en la performance, PBN) exigen práctica en los 12 meses previos (121.1770).",
+              "Quien opera desde ambos puestos recibe instrucción extra en falla de motor al despegue y en aproximación, sobrepaso y aterrizaje con un motor inoperativo (121.1785)."
+            ]
+          }
         ]
       },
       {
@@ -2911,9 +3045,20 @@ export const RAC_LECCIONES: DocScreen[] = [
         "kind": "vinetas",
         "items": [
           "**Cabina estéril**: en rodaje, despegue, aterrizaje y todo lo que se vuele bajo 10.000 ft (salvo crucero) solo se hace lo necesario para operar: nada de llamadas de catering, anuncios promocionales, formularios, comer, conversar ni leer (121.2255 (a)-(c)).",
-          "Arnés en despegue y aterrizaje; cinturón siempre en tu puesto; en ruta solo sales por funciones, necesidad fisiológica o relevo (121.2260). El piloto que no vuela actúa como piloto monitoreando (PM) (121.2262).",
-          "La puerta de cabina se asegura desde que cierran las puertas exteriores hasta el desembarque, salvo para personas autorizadas (121.6110 (a)).",
-          "Con pasajeros o carga a bordo no se simulan anormales, emergencias ni condiciones de vuelo por instrumentos (IMC) (121.2425)."
+          "Arnés en despegue y aterrizaje; cinturón siempre en tu puesto; en ruta solo sales por funciones, necesidad fisiológica o relevo (121.2260). El piloto que no vuela actúa como piloto monitoreando (PM) (121.2262)."
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "Puerta de la cabina y simulacros con pasajeros",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "La puerta de cabina se asegura desde que cierran las puertas exteriores hasta el desembarque, salvo para personas autorizadas (121.6110 (a)).",
+              "Con pasajeros o carga a bordo no se simulan anormales, emergencias ni condiciones de vuelo por instrumentos (IMC) (121.2425)."
+            ]
+          }
         ]
       },
       {
@@ -2927,9 +3072,20 @@ export const RAC_LECCIONES: DocScreen[] = [
       {
         "kind": "vinetas",
         "items": [
-          "Máximo 5 asignaciones seguidas. Si la asignación empieza entre las 15:00 y las 03:00, el servicio máximo baja 1 h (Ap. 18, 1.1 (e)(2)(ix)(x)).",
           "Por fuerza mayor se puede terminar el vuelo excediendo el servicio hasta 2 h en internacional o 1 h en nacional; la empresa lo informa a la UAEAC en 48 h (Ap. 18, 1.1 (e)(2)(xi)).",
           "Nadie inicia servicio sin su descanso, y la empresa y el comandante responden por los límites (Ap. 18, 1.1 (e)(2)(xvi), (h)(3))."
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "Asignaciones seguidas y horario nocturno (Ap. 18, 1.1 (e)(2)(ix)(x))",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Máximo 5 asignaciones seguidas. Si la asignación empieza entre las 15:00 y las 03:00, el servicio máximo baja 1 h (Ap. 18, 1.1 (e)(2)(ix)(x))."
+            ]
+          }
         ]
       },
       {
@@ -2948,8 +3104,19 @@ export const RAC_LECCIONES: DocScreen[] = [
         "kind": "vinetas",
         "items": [
           "Ningún vuelo sale sin autorización de un DV, y el PIC y el DV firman el despacho solo si ambos creen que el vuelo es seguro (121.2510 (a); 121.2705). El despacho lleva tripulación, aeródromos, alternos, combustible mínimo requerido y la meteorología anexa (121.2825).",
-          "El PIC prepara, aprueba y firma el plan operacional de vuelo, y prepara el plan de vuelo ATS (121.2555; 121.2715 (a)).",
-          "Con equipo inoperativo solo se sale con MEL aprobada. No se despega con nieve, escarcha o hielo adherido a superficies críticas, y la verificación de contaminación se hace desde afuera en los 5 min previos al despegue (121.2615 (c); 121.2620 (d)-(f))."
+          "El PIC prepara, aprueba y firma el plan operacional de vuelo, y prepara el plan de vuelo ATS (121.2555; 121.2715 (a))."
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "Equipo inoperativo y contaminación antes del despegue",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Con equipo inoperativo solo se sale con MEL aprobada. No se despega con nieve, escarcha o hielo adherido a superficies críticas, y la verificación de contaminación se hace desde afuera en los 5 min previos al despegue (121.2615 (c); 121.2620 (d)-(f))."
+            ]
+          }
         ]
       },
       {
@@ -2966,22 +3133,26 @@ export const RAC_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "sub",
-        "text": "Documentos a bordo"
+        "kind": "detalleTecnico",
+        "etiqueta": "Documentos a bordo (121.2810)",
+        "bloques": [
+          {
+            "kind": "p",
+            "text": "Son 23, entre ellos matrícula, aeronavegabilidad, licencias y médicos de la tripulación, libro de vuelo, copia del CDO y las especificaciones de operación (OpSpecs), plan operacional, registro técnico, plan ATS, NOTAM, meteorología, peso y balance y la notificación de mercancías peligrosas (121.2810 (a)). El libro de a bordo se lleva al día, en tinta seca, y el PIC responde por su veracidad (121.2870 (b))."
+          }
+        ]
       },
       {
-        "kind": "p",
-        "text": "Son 23, entre ellos matrícula, aeronavegabilidad, licencias y médicos de la tripulación, libro de vuelo, copia del CDO y las especificaciones de operación (OpSpecs), plan operacional, registro técnico, plan ATS, NOTAM, meteorología, peso y balance y la notificación de mercancías peligrosas (121.2810 (a)). El libro de a bordo se lleva al día, en tinta seca, y el PIC responde por su veracidad (121.2870 (b))."
-      },
-      {
-        "kind": "sub",
-        "text": "Mercancías peligrosas y sustancias psicoactivas"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "Las mercancías peligrosas se estudian en la inducción y en cada periódico (121.1595 (a)(1)(v); 121.1645 (b)(3)). Si la empresa las lleva como carga, te debe entregar información escrita, exacta y legible sobre lo que va a bordo (121.5110 (a)(3)(v)). Lo demás vive en el RAC 175.",
-          "Nadie con funciones críticas para la seguridad las ejerce bajo el efecto de sustancias psicoactivas (121.025). El programa de prevención y control está en el RAC 120."
+        "kind": "detalleTecnico",
+        "etiqueta": "Mercancías peligrosas y sustancias psicoactivas",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "Las mercancías peligrosas se estudian en la inducción y en cada periódico (121.1595 (a)(1)(v); 121.1645 (b)(3)). Si la empresa las lleva como carga, te debe entregar información escrita, exacta y legible sobre lo que va a bordo (121.5110 (a)(3)(v)). Lo demás vive en el RAC 175.",
+              "Nadie con funciones críticas para la seguridad las ejerce bajo el efecto de sustancias psicoactivas (121.025). El programa de prevención y control está en el RAC 120."
+            ]
+          }
         ]
       },
       {
@@ -3006,26 +3177,6 @@ export const RAC_LECCIONES: DocScreen[] = [
             "121.1410 (c)(d)"
           ],
           [
-            "Inducción básica",
-            "40 h",
-            "121.1595 (a)(1)"
-          ],
-          [
-            "Tierra inicial (recíproco / turbohélice / reactor)",
-            "64 / 80 / 120 h",
-            "121.1610 (b)"
-          ],
-          [
-            "Vuelo inicial (mismo orden)",
-            "10 / 15 / 20 h",
-            "121.1630 (c)"
-          ],
-          [
-            "Periódico en tierra (mismo orden)",
-            "16 / 20 / 25 h",
-            "121.1645 (c)(1)"
-          ],
-          [
             "Verificación de la competencia",
             "2 al año",
             "121.1760 (a)"
@@ -3034,26 +3185,6 @@ export const RAC_LECCIONES: DocScreen[] = [
             "Verificación en línea del PIC",
             "cada 12 meses calendario",
             "121.1755 (a)"
-          ],
-          [
-            "UPRT",
-            "cada 12 meses calendario",
-            "121.1627 (d)"
-          ],
-          [
-            "LOFT periódico",
-            "1 de cada 3 repasos, máximo cada 2 años",
-            "121.1645 (d)(1)(iii)"
-          ],
-          [
-            "Gestión de recursos de la tripulación (CRM), periódico",
-            "cada 2 años",
-            "121.1535 (b)"
-          ],
-          [
-            "Ejercicios de emergencia",
-            "cada 24 meses calendario",
-            "121.1600 (c)(2)"
           ],
           [
             "Experiencia operacional",
@@ -3074,120 +3205,6 @@ export const RAC_LECCIONES: DocScreen[] = [
             "Experiencia reciente",
             "3 despegues y 3 aterrizajes en 90 días",
             "121.1745 (a)"
-          ],
-          [
-            "Relevo en crucero de largo alcance",
-            "1.500 h totales y 10 trayectos de largo alcance en el tipo; releva al PIC solo sobre FL 200",
-            "121.1750 (c); 121.1795 (d)"
-          ],
-          [
-            "Oxígeno de la tripulación",
-            "cabina sobre 10.000 ft más de 30 min, y siempre sobre 13.000 ft",
-            "121.2405"
-          ],
-          [
-            "Piloto automático",
-            "no bajo 500 ft en despegue ni en ruta (o el doble de la pérdida de altitud del AFM, si es mayor); en aproximación, no más de 50 ft bajo la DA(H) o MDA, salvo las excepciones de la norma (por ejemplo, aterrizaje automático aprobado)",
-            "121.2375"
-          ],
-          [
-            "Libro de a bordo",
-            "se conserva 3 años",
-            "121.2870 (b)"
-          ]
-        ]
-      },
-      {
-        "kind": "p",
-        "text": "**Máximas horas de vuelo por día, pilotos** (Ap. 18, 1.1 (c)(2)(iv); Grupo A / Grupo B)"
-      },
-      {
-        "kind": "table",
-        "head": [
-          "Sectores",
-          "2 pilotos",
-          "3 pilotos",
-          "4 pilotos"
-        ],
-        "rows": [
-          [
-            "6 o menos",
-            "9:00 / 9:00",
-            "14:00 / 14:00",
-            "18:00 / 18:00"
-          ],
-          [
-            "7",
-            "8:00 / 8:30",
-            "13:00 / 13:00",
-            "17:00 / 17:00"
-          ],
-          [
-            "8",
-            "no / 8:30",
-            "12:00 / 12:00",
-            "15:00 / 15:00"
-          ],
-          [
-            "9",
-            "no / 8:00",
-            "10:00 / 11:00",
-            "12:00 / 12:00"
-          ],
-          [
-            "10",
-            "no / 8:00",
-            "no / 11:00",
-            "no / 12:00"
-          ]
-        ]
-      },
-      {
-        "kind": "p",
-        "text": "Más de 10 sectores: 7:00 en Grupo B."
-      },
-      {
-        "kind": "p",
-        "text": "**Máximas horas de servicio por día, pilotos** (Ap. 18, 1.1 (d)(2); Grupo A / Grupo B)"
-      },
-      {
-        "kind": "table",
-        "head": [
-          "Sectores",
-          "2 pilotos",
-          "3 pilotos",
-          "4 pilotos"
-        ],
-        "rows": [
-          [
-            "6 o menos",
-            "12:30 / 12:30",
-            "17:00 / 17:00",
-            "20:00 / 20:00"
-          ],
-          [
-            "7",
-            "11:30 / 12:30",
-            "15:00 / 15:00",
-            "20:00 / 20:00"
-          ],
-          [
-            "8",
-            "no / 12:30",
-            "14:00 / 14:00",
-            "19:00 / 19:00"
-          ],
-          [
-            "9",
-            "no / 12:30",
-            "12:00 / 12:00",
-            "18:00 / 18:00"
-          ],
-          [
-            "10",
-            "no / 12:30",
-            "",
-            ""
           ]
         ]
       },
@@ -3236,52 +3253,222 @@ export const RAC_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "p",
-        "text": "**Reportes que hace el piloto**"
-      },
-      {
-        "kind": "table",
-        "head": [
-          "Qué",
-          "A quién y cuándo",
-          "Numeral"
-        ],
-        "rows": [
-          [
-            "Accidente con muertos, heridos graves o daños importantes",
-            "autoridad más próxima, por el medio más rápido",
-            "121.2250 (c)"
-          ],
-          [
-            "Defectos del avión",
-            "al explotador al terminar el vuelo, y en el registro técnico",
-            "121.2250 (c); 121.2317"
-          ],
-          [
-            "Uso de autoridad de emergencia",
-            "por escrito a la UAEAC, vía gerente de operaciones, dentro de los 10 días calendario tras volver a la base",
-            "121.2300 (c)(2)"
-          ],
-          [
-            "Apagado de motor en vuelo",
-            "a la estación en tierra, en cuanto se pueda",
-            "121.2320 (c)"
-          ],
-          [
-            "Turbulencia o hielo moderado o fuerte, onda orográfica fuerte, tormentas, ceniza volcánica",
-            "aeronotificación (AIREP), al observarlo",
-            "121.2315 (c)(g)"
-          ],
-          [
-            "Frenado peor que el notificado",
-            "AIREP",
-            "121.2315 (i)"
-          ],
-          [
-            "Interferencia ilícita",
-            "a la UAEAC, sin demora",
-            "121.6125"
-          ]
+        "kind": "detalleTecnico",
+        "etiqueta": "Horas de cada curso, límites por día y reportes del RAC 121",
+        "bloques": [
+          {
+            "kind": "table",
+            "head": [
+              "Tema",
+              "Valor",
+              "Numeral"
+            ],
+            "rows": [
+              [
+                "Inducción básica",
+                "40 h",
+                "121.1595 (a)(1)"
+              ],
+              [
+                "Tierra inicial (recíproco / turbohélice / reactor)",
+                "64 / 80 / 120 h",
+                "121.1610 (b)"
+              ],
+              [
+                "Vuelo inicial (mismo orden)",
+                "10 / 15 / 20 h",
+                "121.1630 (c)"
+              ],
+              [
+                "Periódico en tierra (mismo orden)",
+                "16 / 20 / 25 h",
+                "121.1645 (c)(1)"
+              ],
+              [
+                "UPRT",
+                "cada 12 meses calendario",
+                "121.1627 (d)"
+              ],
+              [
+                "LOFT periódico",
+                "1 de cada 3 repasos, máximo cada 2 años",
+                "121.1645 (d)(1)(iii)"
+              ],
+              [
+                "Gestión de recursos de la tripulación (CRM), periódico",
+                "cada 2 años",
+                "121.1535 (b)"
+              ],
+              [
+                "Ejercicios de emergencia",
+                "cada 24 meses calendario",
+                "121.1600 (c)(2)"
+              ],
+              [
+                "Relevo en crucero de largo alcance",
+                "1.500 h totales y 10 trayectos de largo alcance en el tipo; releva al PIC solo sobre FL 200",
+                "121.1750 (c); 121.1795 (d)"
+              ],
+              [
+                "Oxígeno de la tripulación",
+                "cabina sobre 10.000 ft más de 30 min, y siempre sobre 13.000 ft",
+                "121.2405"
+              ],
+              [
+                "Piloto automático",
+                "no bajo 500 ft en despegue ni en ruta (o el doble de la pérdida de altitud del AFM, si es mayor); en aproximación, no más de 50 ft bajo la DA(H) o MDA, salvo las excepciones de la norma (por ejemplo, aterrizaje automático aprobado)",
+                "121.2375"
+              ],
+              [
+                "Libro de a bordo",
+                "se conserva 3 años",
+                "121.2870 (b)"
+              ]
+            ]
+          },
+          {
+            "kind": "p",
+            "text": "**Máximas horas de vuelo por día, pilotos** (Ap. 18, 1.1 (c)(2)(iv); Grupo A / Grupo B)"
+          },
+          {
+            "kind": "table",
+            "head": [
+              "Sectores",
+              "2 pilotos",
+              "3 pilotos",
+              "4 pilotos"
+            ],
+            "rows": [
+              [
+                "6 o menos",
+                "9:00 / 9:00",
+                "14:00 / 14:00",
+                "18:00 / 18:00"
+              ],
+              [
+                "7",
+                "8:00 / 8:30",
+                "13:00 / 13:00",
+                "17:00 / 17:00"
+              ],
+              [
+                "8",
+                "no / 8:30",
+                "12:00 / 12:00",
+                "15:00 / 15:00"
+              ],
+              [
+                "9",
+                "no / 8:00",
+                "10:00 / 11:00",
+                "12:00 / 12:00"
+              ],
+              [
+                "10",
+                "no / 8:00",
+                "no / 11:00",
+                "no / 12:00"
+              ]
+            ]
+          },
+          {
+            "kind": "p",
+            "text": "Más de 10 sectores: 7:00 en Grupo B."
+          },
+          {
+            "kind": "p",
+            "text": "**Máximas horas de servicio por día, pilotos** (Ap. 18, 1.1 (d)(2); Grupo A / Grupo B)"
+          },
+          {
+            "kind": "table",
+            "head": [
+              "Sectores",
+              "2 pilotos",
+              "3 pilotos",
+              "4 pilotos"
+            ],
+            "rows": [
+              [
+                "6 o menos",
+                "12:30 / 12:30",
+                "17:00 / 17:00",
+                "20:00 / 20:00"
+              ],
+              [
+                "7",
+                "11:30 / 12:30",
+                "15:00 / 15:00",
+                "20:00 / 20:00"
+              ],
+              [
+                "8",
+                "no / 12:30",
+                "14:00 / 14:00",
+                "19:00 / 19:00"
+              ],
+              [
+                "9",
+                "no / 12:30",
+                "12:00 / 12:00",
+                "18:00 / 18:00"
+              ],
+              [
+                "10",
+                "no / 12:30",
+                "",
+                ""
+              ]
+            ]
+          },
+          {
+            "kind": "p",
+            "text": "**Reportes que hace el piloto**"
+          },
+          {
+            "kind": "table",
+            "head": [
+              "Qué",
+              "A quién y cuándo",
+              "Numeral"
+            ],
+            "rows": [
+              [
+                "Accidente con muertos, heridos graves o daños importantes",
+                "autoridad más próxima, por el medio más rápido",
+                "121.2250 (c)"
+              ],
+              [
+                "Defectos del avión",
+                "al explotador al terminar el vuelo, y en el registro técnico",
+                "121.2250 (c); 121.2317"
+              ],
+              [
+                "Uso de autoridad de emergencia",
+                "por escrito a la UAEAC, vía gerente de operaciones, dentro de los 10 días calendario tras volver a la base",
+                "121.2300 (c)(2)"
+              ],
+              [
+                "Apagado de motor en vuelo",
+                "a la estación en tierra, en cuanto se pueda",
+                "121.2320 (c)"
+              ],
+              [
+                "Turbulencia o hielo moderado o fuerte, onda orográfica fuerte, tormentas, ceniza volcánica",
+                "aeronotificación (AIREP), al observarlo",
+                "121.2315 (c)(g)"
+              ],
+              [
+                "Frenado peor que el notificado",
+                "AIREP",
+                "121.2315 (i)"
+              ],
+              [
+                "Interferencia ilícita",
+                "a la UAEAC, sin demora",
+                "121.6125"
+              ]
+            ]
+          }
         ]
       },
       {
@@ -3798,7 +3985,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 13,
     "title": "RAC 160 · Seguridad de la aviación (AVSEC)",
     "kicker": "Seguridad y consecuencias",
-    "minutes": 7,
+    "minutes": 6,
     "blocks": [
       {
         "kind": "p",
@@ -4152,7 +4339,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 15,
     "title": "RAC 114 · Investigación de accidentes e incidentes",
     "kicker": "Seguridad y consecuencias",
-    "minutes": 7,
+    "minutes": 6,
     "blocks": [
       {
         "kind": "p",
@@ -4712,7 +4899,7 @@ export const RAC_LECCIONES: DocScreen[] = [
     "n": 17,
     "title": "RAC 1 · Definiciones",
     "kicker": "Referencia",
-    "minutes": 10,
+    "minutes": 8,
     "blocks": [
       {
         "kind": "p",
@@ -4790,7 +4977,7 @@ export const RAC_LECCIONES: DocScreen[] = [
           "**Aproximación que no es de precisión**: sin guía electrónica de trayectoria de planeo. **De precisión**: con guía en azimut y en trayectoria de planeo (1.2.1, «Operación de aproximación y aterrizaje por instrumentos»).",
           "**CDFA** (aproximación final en descenso continuo): técnica para aproximaciones que no son de precisión, en descenso continuo y sin nivelar, desde el punto de referencia de aproximación final hasta unos 15 m (50 ft) sobre el umbral o hasta el inicio del enderezamiento; es congruente con la aproximación estabilizada (1.2.1).",
           "**IMC / VMC**: las VMC son visibilidad, distancia de nubes y base de nubes **iguales o mejores** que los mínimos del Reglamento del Aire; las IMC, **inferiores** a esos mínimos (1.2.1).",
-          "El RAC 1 **no define «aproximación estabilizada»**. Lo más cercano es «Aproximación satisfactoria», que es un criterio para las demostraciones de operaciones CAT II (ver Datos importantes). Los criterios de aproximación estabilizada que aplica una aerolínea van en su manual de operaciones (RAC 121, Apéndice 9, A9.3.14)."
+          "El RAC 1 **no define «aproximación estabilizada»**. Lo más cercano es «Aproximación satisfactoria», que es un criterio para las demostraciones de operaciones CAT II (en Datos importantes, en el detalle plegado). Los criterios de aproximación estabilizada que aplica una aerolínea van en su manual de operaciones (RAC 121, Apéndice 9, A9.3.14)."
         ]
       },
       {
@@ -4803,21 +4990,23 @@ export const RAC_LECCIONES: DocScreen[] = [
           "**Aeródromo de alternativa (alterno)**: aquel al que podría dirigirse una aeronave cuando es imposible o no es aconsejable ir al de aterrizaje previsto o aterrizar en él (1.2.1). **Los tipos** (de despegue, en ruta, de destino) **no están en el RAC 1**: los define el RAC 121 (121.001), que además aclara que en Colombia **no se usa el concepto de aeródromo aislado** y todo vuelo debe tener al menos un alterno.",
           "**Punto de no retorno**: último punto geográfico desde el que la aeronave puede seguir tanto al destino como a un alterno en ruta disponible (1.2.1).",
           "**EDTO** (operación con tiempo de desviación extendido): vuelo de avión con dos o más motores de turbina en el que el tiempo de desviación a un alterno en ruta supera el **umbral de tiempo** fijado por la UAEAC. Con dos motores equivale a ETOPS (1.2.1). **Combustible crítico para EDTO**: el suficiente para llegar a un alterno en ruta considerando, en el punto más crítico, la falla de sistema más limitante (1.2.1).",
-          "**Definiciones de combustible del RAC 1** (básico, contingencia, reserva, sostenimiento, mínimo): ver Datos importantes. Son de 2004; **para aerolínea mandan las del RAC 121**, que usan otros términos (combustible para contingencias, reserva final, 121.2645)."
+          "**Definiciones de combustible del RAC 1** (básico, contingencia, reserva, sostenimiento, mínimo): en Datos importantes, en el detalle plegado. Son de 2004; **para aerolínea mandan las del RAC 121**, que usan otros términos (combustible para contingencias, reserva final, 121.2645)."
         ]
       },
       {
-        "kind": "sub",
-        "text": "5. Sucesos y emergencias"
-      },
-      {
-        "kind": "vinetas",
-        "items": [
-          "**Accidente**: suceso ligado a la utilización de una aeronave tripulada, entre el embarque con intención de volar y el desembarque de todos, en el que (i) alguien sufre lesiones mortales o graves por estar en la aeronave, por contacto directo con ella (incluso partes desprendidas) o por el chorro de un reactor; o (ii) la aeronave sufre daños estructurales que afectan su resistencia, performance o características de vuelo y exigen reparación importante; o (iii) la aeronave desaparece o queda inaccesible (1.2.1). Hay excepciones (por ejemplo, daño limitado a un solo motor, hélices, puntas de ala, neumáticos, frenos, o daños por granizo o aves).",
-          "**Incidente**: suceso que no llega a accidente y que afecta o puede afectar la seguridad de las operaciones (1.2.1).",
-          "**Incidente grave**: no está en el RAC 1. Lo define el RAC 114 (114.001): incidente con **alta probabilidad de que ocurriera un accidente**.",
-          "**Emergencia**: hay motivos justificados para creer que la aeronave o sus ocupantes están amenazados por un peligro grave e inminente y necesitan auxilio inmediato (1.2.1). Las fases de los servicios de búsqueda son **incertidumbre (INCERFA)**, **alerta (ALERFA)** y **peligro (DETRESFA)** (1.2.1).",
-          "**Peligro** (hazard): condición u objeto que puede causar o contribuir a un incidente o accidente. **SMS**: enfoque sistemático para gestionar la seguridad operacional, con estructura, rendición de cuentas, políticas y procedimientos (1.2.1)."
+        "kind": "detalleTecnico",
+        "etiqueta": "5. Sucesos y emergencias",
+        "bloques": [
+          {
+            "kind": "vinetas",
+            "items": [
+              "**Accidente**: suceso ligado a la utilización de una aeronave tripulada, entre el embarque con intención de volar y el desembarque de todos, en el que (i) alguien sufre lesiones mortales o graves por estar en la aeronave, por contacto directo con ella (incluso partes desprendidas) o por el chorro de un reactor; o (ii) la aeronave sufre daños estructurales que afectan su resistencia, performance o características de vuelo y exigen reparación importante; o (iii) la aeronave desaparece o queda inaccesible (1.2.1). Hay excepciones (por ejemplo, daño limitado a un solo motor, hélices, puntas de ala, neumáticos, frenos, o daños por granizo o aves).",
+              "**Incidente**: suceso que no llega a accidente y que afecta o puede afectar la seguridad de las operaciones (1.2.1).",
+              "**Incidente grave**: no está en el RAC 1. Lo define el RAC 114 (114.001): incidente con **alta probabilidad de que ocurriera un accidente**.",
+              "**Emergencia**: hay motivos justificados para creer que la aeronave o sus ocupantes están amenazados por un peligro grave e inminente y necesitan auxilio inmediato (1.2.1). Las fases de los servicios de búsqueda son **incertidumbre (INCERFA)**, **alerta (ALERFA)** y **peligro (DETRESFA)** (1.2.1).",
+              "**Peligro** (hazard): condición u objeto que puede causar o contribuir a un incidente o accidente. **SMS**: enfoque sistemático para gestionar la seguridad operacional, con estructura, rendición de cuentas, políticas y procedimientos (1.2.1)."
+            ]
+          }
         ]
       },
       {
@@ -4890,36 +5079,6 @@ export const RAC_LECCIONES: DocScreen[] = [
             "1.2.1"
           ],
           [
-            "Aproximación satisfactoria (demostración CAT II)",
-            "de 500 ft a la DH: IAS dentro de ±5 kt de la programada; desviación máxima de ½ punto en la senda del ILS; sin fallas de sistema desde 300 ft hasta el flare",
-            "1.2.1"
-          ],
-          [
-            "Combustible de contingencia (internacional)",
-            "10 % del tiempo total en ruta de origen a destino",
-            "1.2.1"
-          ],
-          [
-            "Combustible de sostenimiento (nacional)",
-            "45 min a altura normal de crucero sobre el alterno",
-            "1.2.1"
-          ],
-          [
-            "Combustible de sostenimiento (internacional)",
-            "30 min a 1.500 ft sobre la altura del alterno",
-            "1.2.1"
-          ],
-          [
-            "Combustible mínimo",
-            "suma de básico + reserva + contingencia + sostenimiento aplicables",
-            "1.2.1"
-          ],
-          [
-            "Operación extendida sobre agua (avión)",
-            "más de 50 NM de la costa más cercana",
-            "1.2.1"
-          ],
-          [
             "Sustancias psicoactivas",
             "tabaco y cafeína excluidos",
             "1.2.1"
@@ -4929,6 +5088,52 @@ export const RAC_LECCIONES: DocScreen[] = [
             "la del RAC particular prevalece sobre la del RAC 1 en su materia",
             "1.2"
           ]
+        ]
+      },
+      {
+        "kind": "detalleTecnico",
+        "etiqueta": "Combustible del RAC 1 (2004), aproximación satisfactoria y operación sobre agua",
+        "bloques": [
+          {
+            "kind": "table",
+            "head": [
+              "Término",
+              "Dato clave",
+              "Fuente"
+            ],
+            "rows": [
+              [
+                "Aproximación satisfactoria (demostración CAT II)",
+                "de 500 ft a la DH: IAS dentro de ±5 kt de la programada; desviación máxima de ½ punto en la senda del ILS; sin fallas de sistema desde 300 ft hasta el flare",
+                "1.2.1"
+              ],
+              [
+                "Combustible de contingencia (internacional)",
+                "10 % del tiempo total en ruta de origen a destino",
+                "1.2.1"
+              ],
+              [
+                "Combustible de sostenimiento (nacional)",
+                "45 min a altura normal de crucero sobre el alterno",
+                "1.2.1"
+              ],
+              [
+                "Combustible de sostenimiento (internacional)",
+                "30 min a 1.500 ft sobre la altura del alterno",
+                "1.2.1"
+              ],
+              [
+                "Combustible mínimo",
+                "suma de básico + reserva + contingencia + sostenimiento aplicables",
+                "1.2.1"
+              ],
+              [
+                "Operación extendida sobre agua (avión)",
+                "más de 50 NM de la costa más cercana",
+                "1.2.1"
+              ]
+            ]
+          }
         ]
       },
       {

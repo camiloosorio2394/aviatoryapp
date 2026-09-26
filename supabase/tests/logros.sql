@@ -154,6 +154,25 @@ begin
   end if;
   x_log := x_log || ' combustible_con_catalogo';
 
+  -- MEL (20261001020000): igual, contra su catálogo de 40. Y la práctica no
+  -- se gana con claves que el catálogo no tiene.
+  insert into public.user_mel_progress (user_id, lesson_screens, practice_done)
+  values (x_b, (select array_agg(i::smallint) from generate_series(1, 39) i) || '{41,99}'::smallint[], '{mel-viejo}')
+  on conflict (user_id) do update
+    set lesson_screens = excluded.lesson_screens, practice_done = excluded.practice_done;
+  if exists (select 1 from public.user_achievements ua join public.achievements a on a.id = ua.achievement_id
+             where ua.user_id = x_b and a.code in ('mel_lesson', 'mel_practice')) then
+    raise exception 'FALLO mel ganó logros con 39 lecciones y claves viejas';
+  end if;
+  update public.user_mel_progress
+  set lesson_screens = (select array_agg(i::smallint) from generate_series(1, 40) i)
+  where user_id = x_b;
+  if not exists (select 1 from public.user_achievements ua join public.achievements a on a.id = ua.achievement_id
+                 where ua.user_id = x_b and a.code = 'mel_lesson') then
+    raise exception 'FALLO mel_lesson no se ganó con las 40 lecciones';
+  end if;
+  x_log := x_log || ' mel_con_catalogo';
+
   -- Cada disparador evalúa su grupo: un mensaje no revisa first_step.
   delete from public.user_achievements ua using public.achievements a
   where ua.user_id = x_a and a.id = ua.achievement_id and a.code in ('first_step', 'community_hello');

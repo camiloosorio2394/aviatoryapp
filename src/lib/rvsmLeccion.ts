@@ -5,8 +5,8 @@
  * Los 32 capítulos de RVSM, en el formato del lector de lecciones.
  *
  * El contenido es el del documento, sin tocar: este archivo lo traduce a
- * bloques. Las 20 imágenes entran como huecos rotulados, cada uno con lo que
- * hay que dibujar y para qué, así que el módulo se lee completo desde hoy.
+ * bloques. 20 de las 20 imágenes son figuras SVG de public/modulos/rvsm/,
+ * dibujadas con scripts/figuras/dibujar.mjs rvsm; no queda ningún hueco.
  *
  * Las preguntas de cada capítulo NO están aquí: viven en rvsmPractica.ts,
  * porque en la lectura no se pregunta nada.
@@ -135,12 +135,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Y el error de siglas, que se oye más de lo que parece: no es *Reduced Vertical Separation Mode*. Es *Minimum*."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-01 · Figura · 16:9 · 1600×900",
-        "descripcion": "Perfil vertical partido en dos mitades, con la misma escala de altura a la izquierda. Mitad izquierda, rotulada «ANTES · 2.000 ft»: solo cuatro niveles utilizables entre FL 290 y FL 350, marcados FL 290, FL 310, FL 330 y FL 350, con la separación de 2.000 ft acotada entre dos de ellos. Mitad derecha, rotulada «RVSM · 1.000 ft»: siete niveles entre los mismos extremos, FL 290, FL 300, FL 310, FL 320, FL 330, FL 340 y FL 350, con la separación de 1.000 ft acotada. Una silueta de avión en cada nivel para que la densidad se vea de un golpe.",
-        "pie": "Que el piloto entienda de un vistazo que RVSM no acerca los aviones por acercarlos: casi duplica los niveles utilizables en la misma franja de altura.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-01.svg",
+        "alt": "Dos perfiles verticales con la misma escala, de FL 290 a FL 350. A la izquierda, antes de RVSM, con 2.000 ft de separación: cuatro niveles, FL 290, 310, 330 y 350. A la derecha, con RVSM y 1.000 ft: siete niveles, de FL 290 a FL 350 de mil en mil. Un avión en cada nivel, en el sentido que le corresponde.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -234,12 +233,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "«FL 290 siempre es un nivel RVSM que puedo pedir.» FL 290 es el límite inferior del espacio, pero que un nivel exista no quiere decir que esté disponible para tu dirección de vuelo, tu ruta o tu autorización. Y en Colombia hay una consecuencia extra que conviene recordar: sin autorización no hay VFR sobre FL 200, y nunca sobre FL 290 en espacio RVSM (RAC 91, numerales 91.305 y 91.310)."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-02 · Figura · 16:9 · 1600×900",
-        "descripcion": "Perfil vertical de una sola columna con tres franjas de altura claramente diferenciadas por color. Franja inferior, gris: «POR DEBAJO DEL ESPACIO RVSM», con su borde superior rotulado FL 290. Franja central, destacada: «ESPACIO RVSM · separación 1.000 ft», con los bordes rotulados FL 290 abajo y FL 410 arriba. Franja superior, gris: «POR ENCIMA DEL ESPACIO RVSM», desde FL 410. A la derecha de la franja central, una nota: «Los detalles los publica cada Estado: AIP, procedimientos regionales y NOTAM».",
-        "pie": "Fijar los dos límites verticales y, al mismo tiempo, dejar claro que dentro de esos límites las condiciones las pone cada región.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-02.svg",
+        "alt": "Una columna de altura en tres franjas. Abajo, en gris, por debajo del espacio RVSM, hasta FL 290. En el centro, destacada, el espacio RVSM con separación de 1.000 ft, entre FL 290 y FL 410. Arriba, en gris, por encima del espacio RVSM, desde FL 410. Al lado, la nota: los detalles los publica cada Estado en el AIP, los procedimientos regionales y los NOTAM.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -406,12 +404,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "«Si el avión es RVSM capable, ya está.» Falta el operador y falta la tripulación. Y al revés: que el operador esté autorizado no salva a un avión con un sistema requerido inoperativo."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-03 · Figura · 16:9 · 1600×900",
-        "descripcion": "Diagrama de convergencia. Tres bloques en la parte superior, separados y del mismo tamaño: «AERONAVE · equipo y performance altimétrica aprobados», «OPERADOR · autorización en las especificaciones de operación» y «TRIPULACIÓN · entrenada en procedimientos RVSM». De cada bloque baja una flecha gruesa hacia un único bloque inferior, más ancho y destacado: «OPERACIÓN RVSM». Al lado del bloque inferior, en tipografía menor y en rojo apagado, la nota: «Si falta una, no hay RVSM».",
-        "pie": "Dejar grabado que RVSM no es una propiedad del avión, sino la intersección de tres condiciones.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-03.svg",
+        "alt": "Tres bloques iguales arriba: la aeronave, con equipo y performance altimétrica aprobados; el operador, con la autorización en sus especificaciones de operación; y la tripulación, entrenada en procedimientos RVSM. De cada uno baja una flecha a un bloque único y más ancho: operación RVSM. Al lado, la nota: si falta una, no hay RVSM.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -525,12 +522,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Contar el TCAS entre el equipo requerido para RVSM. No lo es. El requisito de transpondedor y de TCAS depende del área RVSM, y la propia FAA dice que hay que averiguarlo para cada región donde se pretenda operar."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-04 · Figura · 16:9 · 1600×900",
-        "descripcion": "Rejilla de cuatro tarjetas iguales, dispuestas en dos filas de dos, cada una con un icono sencillo arriba, el nombre del sistema en el centro y una línea de consecuencia abajo. Tarjeta 1: dos altímetros lado a lado: «DOS SISTEMAS INDEPENDIENTES DE ALTITUD»: «permiten comparar». Tarjeta 2: antena emitiendo: «TRANSPONDEDOR CON REPORTE DE ALTITUD»: «el ATC ve tu nivel». Tarjeta 3: campana: «ALERTA DE ALTITUD»: «avisa si te apartas». Tarjeta 4: mando de piloto automático: «CONTROL AUTOMÁTICO DE ALTITUD»: «mantiene el nivel». Bajo la rejilla, una banda rotulada: «Los cuatro, operativos, antes de entrar».",
-        "pie": "Que el piloto pueda enumerar de memoria los cuatro sistemas y decir en una línea para qué sirve cada uno.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-04.svg",
+        "alt": "Cuatro tarjetas en dos filas. Dos sistemas independientes de altitud, que permiten comparar. Transpondedor con reporte de altitud, para que el ATC vea el nivel. Alerta de altitud, que avisa si el avión se aparta. Control automático de altitud, que mantiene el nivel. Debajo, una banda: los cuatro, operativos, antes de entrar.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -650,12 +646,20 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "«Si los altímetros difieren un poco no importa, porque el ATC tiene radar.» El radar muestra lo que el transpondedor transmite, y el transpondedor transmite lo que dice el sistema altimétrico. Si ese sistema está equivocado, el ATC ve el mismo error, no la verdad."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-05 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Cabina genérica de reactor de transporte, vista frontal, con el PFD del comandante a la izquierda, el PFD del primer oficial a la derecha y el altímetro de reserva en el panel central. Los tres mostrando altitud en crucero. ANOTACIONES: → FLECHA 1: a la cinta de altitud del PFD izquierdo. EXPLICACIÓN: primaria del comandante. → FLECHA 2: a la cinta de altitud del PFD derecho. EXPLICACIÓN: primaria del primer oficial. Estas dos son las que deben coincidir dentro del límite en crucero. → FLECHA 3: al altímetro de reserva del panel central. EXPLICACIÓN: la tercera opinión, independiente. Es contra ella que se contrastan las primarias cada hora, y la diferencia se anota para una eventual contingencia.",
-        "pie": "Que el piloto vea que en RVSM no hay «el altímetro»: hay tres indicaciones y una relación entre ellas que hay que vigilar.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-05.svg",
+        "alt": "Cabina genérica vista de frente: el PFD del comandante a la izquierda con 35000 ft, el del primer oficial a la derecha con 35010 ft, y el altímetro de reserva en el panel central con 34960 ft. Tres números señalan las dos primarias y la de reserva.",
+        "ancho": 1600,
+        "alto": 900
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "Primaria del comandante.",
+          "Primaria del primer oficial. Estas dos son las que deben coincidir dentro del límite en crucero.",
+          "La tercera opinión, independiente. Es contra ella que se contrastan las primarias cada hora, y la diferencia se anota para una eventual contingencia."
+        ]
       },
       {
         "kind": "titulo",
@@ -807,12 +811,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Dar el número de 200 ft como si fuera universal para cualquier momento del vuelo. Los 200 ft son el límite **entre primarias, en crucero**. El chequeo contra la elevación conocida antes de despegar tiene otro número, 75 ft, y el límite entre primarias en tierra lo pone el manual del avión."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-06 · Figura · 16:9 · 1600×900",
-        "descripcion": "Línea de tiempo horizontal de un vuelo, de izquierda a derecha, con la silueta del perfil de vuelo por detrás en gris claro: rodaje, ascenso, crucero largo y descenso. Sobre la línea, cuatro marcadores numerados con su rótulo y su cifra. Marcador 1, en rodaje: «ANTES DEL DESPEGUE · elevación conocida ±75 ft · primarias entre sí: límite del AFM». Marcador 2, en el ascenso: «ALTITUD DE TRANSICIÓN · 1013,25 hPa en todos · recomprobar al nivelar». Marcador 3, al principio del crucero: «EN CRUCERO · primarias dentro de 200 ft». Marcador 4, repetido tres veces a lo largo del crucero con una flecha circular: «CADA ~1 HORA · primarias contra la de reserva · anotar».",
-        "pie": "Que el piloto asocie cada chequeo con su momento y su cifra, y no mezcle los números de un momento con los de otro.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-06.svg",
+        "alt": "Línea de tiempo de un vuelo con el perfil detrás: rodaje, ascenso, crucero largo y descenso. Cuatro marcadores: antes del despegue, elevación conocida dentro de 75 ft y primarias entre sí según el manual; en la altitud de transición, 1013,25 hPa en todos y recomprobar al nivelar; en crucero, primarias dentro de 200 ft; y cada hora, repetido, primarias contra la de reserva, anotando la diferencia.",
+        "ancho": 1600,
+        "alto": 1030
       },
       {
         "kind": "titulo",
@@ -926,12 +929,20 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "«Si falla el piloto automático sigo igual, porque puedo volar manual.» Falso en RVSM. El requisito es del sistema, no de la habilidad."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-07 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "PFD genérico en crucero, con la cinta de altitud a la derecha, la altitud seleccionada en la ventana superior, y la fila de anunciadores del modo de vuelo (FMA) en la parte alta. ANOTACIONES: → FLECHA 1: a la altitud seleccionada en la ventana superior. EXPLICACIÓN: el nivel autorizado, tal como quedó tras la colación. Es la cifra que el otro piloto verifica. → FLECHA 2: a la altitud actual en la cinta. EXPLICACIÓN: lo que el avión hace. En crucero estable y sin turbulencia, el sistema aprobado la mantiene dentro de ±65 ft. → FLECHA 3: al anunciador de modo vertical y al de piloto automático acoplado en el FMA. EXPLICACIÓN: RVSM exige que el sistema automático esté operativo y acoplado en crucero nivelado, no solo disponible.",
-        "pie": "Relacionar tres cosas que el piloto mira por separado (nivel autorizado, altitud real y estado del automático) como la única verificación que sostiene la separación de 1.000 ft.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-07.svg",
+        "alt": "PFD genérico en crucero. Arriba, la fila de anunciadores de modo con ALT como modo vertical y AP1 acoplado. Sobre la cinta de altitud, la altitud seleccionada, 35000. En la cinta, la altitud actual, 35000. Tres números señalan la altitud seleccionada, la actual y los anunciadores de modo vertical y de piloto automático.",
+        "ancho": 1600,
+        "alto": 900
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "El nivel autorizado, tal como quedó tras la colación. Es la cifra que el otro piloto verifica.",
+          "Lo que el avión hace. En crucero estable y sin turbulencia, el sistema aprobado la mantiene dentro de ±65 ft.",
+          "RVSM exige que el sistema automático esté operativo y acoplado en crucero nivelado, no solo disponible."
+        ]
       },
       {
         "kind": "titulo",
@@ -1249,12 +1260,21 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "«Si el avión es despachable por MEL, automáticamente sigue siendo RVSM.» Es exactamente la confusión que este capítulo existe para deshacer."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-08 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Entrada ficticia de una lista de equipo mínimo, con su formato habitual en columnas: número de ítem y sistema, número instalado, número requerido para el despacho, y una columna ancha de observaciones y excepciones. El ítem se refiere a un sistema relacionado con el mantenimiento automático de altitud. ANOTACIONES: → FLECHA 1: a la columna de número requerido. EXPLICACIÓN: cuántos hacen falta para despachar. Responde «¿sale el avión?», no «¿es RVSM?». → FLECHA 2: a la línea de observaciones donde aparece la restricción. EXPLICACIÓN: aquí es donde la MEL retira la capacidad RVSM, con todas las letras. Es la línea que hay que leer. → FLECHA 3: a las marcas (M) y (O) al lado del ítem. EXPLICACIÓN: (M) es un procedimiento de mantenimiento; (O) es uno operacional, y ese le toca cumplirlo a la tripulación.",
-        "pie": "Mostrar en un solo golpe de vista que «despachable» y «RVSM capable» se leen en columnas distintas de la misma entrada.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-08.svg",
+        "alt": "Recreación de una entrada de MEL ficticia para el control automático de altitud, con columnas de ítem, categoría, instalados, requeridos y observaciones. Requeridos para el despacho: cero. En las observaciones, con las marcas (M) y (O), la condición: no se opera en espacio RVSM. Tres números señalan la columna de requeridos, el renglón de la restricción y las marcas (M) y (O).",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Entrada inventada para enseñar dónde mirar; el formato cambia entre la MMEL del fabricante y la MEL de cada operador."
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "Cuántos hacen falta para despachar. Responde «¿sale el avión?», no «¿es RVSM?».",
+          "Aquí es donde la MEL retira la capacidad RVSM, con todas las letras. Es la línea que hay que leer.",
+          "(M) es un procedimiento de mantenimiento; (O) es uno operacional, y ese le toca cumplirlo a la tripulación."
+        ]
       },
       {
         "kind": "titulo",
@@ -1423,12 +1443,21 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Creer que la W «habilita» el vuelo RVSM. Declara una capacidad que ya debe existir. Ponerla no hace capaz a un avión que no lo es."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-09 · Figura · 16:9 · 1600×900 · anotada",
-        "descripcion": "Fragmento ficticio de un plan de vuelo OACI, mostrando la fila de casillas 7 a 10 con contenido de ejemplo, y la casilla 10 (Equipo) claramente legible con una cadena de letras de equipo entre las que aparece la W. ANOTACIONES: → FLECHA 1: a la letra W dentro de la casilla 10. EXPLICACIÓN: declara capacidad RVSM. Es lo que el proveedor de servicios ATS usa para decidir si te aplica separación de 1.000 ft. → FLECHA 2: al resto de la cadena de equipo de la casilla 10. EXPLICACIÓN: las demás capacidades declaradas. La W convive con ellas; no las sustituye. → FLECHA 3: a la casilla 7, identificación de la aeronave. EXPLICACIÓN: cuando la matrícula difiere de la identificación, se anota donde corresponda en la información complementaria.",
-        "pie": "Que el piloto reconozca a simple vista dónde vive RVSM dentro del plan de vuelo y entienda que esa letra es una declaración, no una autorización.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-09.svg",
+        "alt": "Recreación de un fragmento de plan de vuelo OACI con las casillas 7 a 10: identificación AVY101, reglas y tipo de vuelo IS, tipo de aeronave y estela A320/M, y en la casilla 10 la cadena de equipo SDFGHIRWY/S con la W resaltada. Tres números señalan la W, el resto de la cadena y la casilla 7.",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Plan de ejemplo, con identificación ficticia. La W de la casilla 10 es la del Doc 4444 de la OACI."
+      },
+      {
+        "kind": "list",
+        "ordered": true,
+        "items": [
+          "Declara capacidad RVSM. Es lo que el proveedor de servicios ATS usa para decidir si te aplica separación de 1.000 ft.",
+          "Las demás capacidades declaradas. La W convive con ellas; no las sustituye.",
+          "Cuando la matrícula difiere de la identificación, se anota donde corresponda en la información complementaria."
+        ]
       },
       {
         "kind": "titulo",
@@ -1558,12 +1587,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Dar la vuelta al avión sin mirar las tomas estáticas, o mirarlas sin saber que en RVSM son el punto crítico de la inspección exterior."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-10 · Figura · 16:9 · 1600×900",
-        "descripcion": "Detalle del fuselaje delantero de un reactor de transporte, vista lateral próxima, con una toma estática claramente visible y el revestimiento alrededor. Un círculo de atención marcando la toma y una zona sombreada del revestimiento en su entorno inmediato. A un lado, tres viñetas cortas de lo que se busca: «superficie limpia y sin obstrucción», «revestimiento sin abolladuras ni reparaciones que alteren el flujo», «sin cinta, sellante ni pintura sobre la toma o su entorno».",
-        "pie": "Convertir un punto del preflight que suele pasar desapercibido en algo concreto y mirable, explicando por qué en RVSM esa zona del avión importa más que en otras operaciones.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-10.svg",
+        "alt": "Esquema del fuselaje delantero de un reactor, de costado, con la toma estática marcada por un círculo y la zona del revestimiento a su alrededor sombreada. Al lado, lo que se busca: superficie limpia y sin obstrucción; revestimiento sin abolladuras ni reparaciones que alteren el flujo; y sin cinta, sellante ni pintura sobre la toma o su entorno.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -1685,12 +1713,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Entrar igual «porque ya casi estamos en nivel» y resolverlo arriba. La norma pide lo contrario: si falla antes, no se entra."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-11 · Figura · 16:9 · 1600×900",
-        "descripcion": "Perfil de ascenso de izquierda a derecha, con una aeronave subiendo hacia el crucero. Una línea horizontal de trazo grueso cruzando el perfil, rotulada «FL 290 · PUERTA DE ENTRADA RVSM». Justo antes de esa línea, un recuadro vertical con la secuencia de verificación numerada del 1 al 7, en texto corto. Al pie del recuadro, en tipografía menor y en cursiva: «Resumen educativo: seguir siempre el SOP, el FCOM y el QRH del operador». A la derecha de la línea, en el espacio RVSM, la aeronave ya nivelada.",
-        "pie": "Fijar que la capacidad se confirma ANTES de cruzar la puerta, y que lo que ocurre después ya se gestiona con otras reglas.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-11.svg",
+        "alt": "Perfil de ascenso de izquierda a derecha, con una línea gruesa en FL 290 rotulada puerta de entrada RVSM. Antes de la línea, un recuadro con la secuencia de verificación: capacidad, sistemas, altímetros, mantenimiento del nivel, reporte de altitud, meteorología y autorización, con la nota de que es un resumen educativo y que manda el SOP, el FCOM y el QRH del operador. Al otro lado de la línea, en el espacio RVSM, el avión ya nivelado.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -1940,12 +1967,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Usar «altitude deviation», «level bust» y «large height deviation» como sinónimos. Se parecen y no son lo mismo: lo aclara el capítulo 19."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-12 · Figura · 16:9 · 1600×900",
-        "descripcion": "Esquema de una sola aeronave en crucero con tres líneas horizontales de referencia, separadas verticalmente y rotuladas con claridad. Línea 1, continua y gruesa: «NIVEL ASIGNADO · FL 350». Línea 2, punteada: «ALTITUD QUE EL AVIÓN VUELA DE VERDAD». Línea 3, de trazo y punto: «ALTITUD QUE EL TRANSPONDEDOR TRANSMITE». Tres acotaciones verticales entre las líneas, cada una con su sigla y su significado en una palabra: entre 1 y 3, «AAD · lo que ve el ATC»; entre 1 y 2, «TVE · la separación real que se pierde»; entre 2 y 3, «ASE · el error de medición, invisible en cabina».",
-        "pie": "Que el piloto pueda dibujar de memoria la diferencia entre AAD, TVE y ASE, que es una de las preguntas de entrevista que más separa a los candidatos.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-12.svg",
+        "alt": "Un avión en crucero y tres líneas horizontales: el nivel asignado, FL 350, continuo; la altitud que el transpondedor transmite, de trazo y punto; y la altitud que el avión vuela de verdad, de puntos, donde está el avión. Tres cotas: AAD, entre el nivel asignado y lo que transmite el transpondedor, es lo que ve el ATC; TVE, entre el nivel asignado y la altitud real, es la separación real que se pierde; ASE, entre lo transmitido y lo real, es el error de medición, invisible en cabina.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -2043,12 +2069,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Pensar que una desviación grande sin consecuencias (sin tráfico cerca, sin llamada del ATC) es un no-evento. Se cuenta igual, y precisamente por eso el sistema puede seguir siendo seguro."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-13 · Figura · 16:9 · 1600×900",
-        "descripcion": "Dos aeronaves en crucero, vista lateral, en niveles RVSM adyacentes. La superior, estable, rotulada «FL 360 · nivel autorizado y mantenido». La inferior, rotulada «FL 350 · nivel autorizado», dibujada por encima de su línea de nivel y ascendiendo. Tres elementos acotados con claridad: una línea punteada horizontal en FL 350 rotulada «NIVEL AUTORIZADO»; la posición real del avión rotulada «NIVEL REAL»; y una acotación vertical entre ambas rotulada «DESVIACIÓN VERTICAL». A la derecha, la separación que queda entre los dos aviones, acotada y rotulada «margen real restante», visiblemente menor que los 1.000 ft nominales.",
-        "pie": "Mostrar que una desviación vertical no es un error abstracto: se come el margen que separa a dos aviones reales.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-13.svg",
+        "alt": "Dos aviones de costado en niveles RVSM adyacentes. El de arriba, en FL 360, nivel autorizado y mantenido. El de abajo tiene autorizado FL 350, marcado con una línea de puntos, pero vuela por encima de ella y ascendiendo. Una cota marca la desviación vertical entre el nivel autorizado y el real; otra, a la derecha, el margen real que queda entre los dos aviones, visiblemente menor que los 1.000 ft nominales.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -2242,12 +2267,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Creer que colacionar equivale a verificar. Colacionar es repetir al ATC; verificar es comprobar que el panel dice lo mismo que la autorización. Son dos actos distintos y se pueden hacer mal por separado."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-14 · Figura · 16:9 · 1600×900",
-        "descripcion": "Diagrama de flujo vertical, de arriba hacia abajo, con siete bloques conectados por flechas y una etiqueta de responsable a la derecha de cada uno. Bloque 1: «AUTORIZACIÓN ATC»: los dos escuchan. Bloque 2: «COLACIÓN»: PM. Bloque 3: «SELECCIÓN DE ALTITUD»: PM. Bloque 4, destacado con borde más grueso y color: «VERIFICACIÓN CRUZADA»: PF y PM, con una nota al lado: «el eslabón que más se salta». Bloque 5: «EJECUCIÓN»: PF. Bloque 6: «NIVELACIÓN · dentro de 150 ft»: PF. Bloque 7: «VIGILANCIA DEL NIVEL»: los dos.",
-        "pie": "Mostrar que evitar un level bust es una secuencia con responsables, no una cuestión de atención individual, y señalar visualmente cuál es el eslabón débil.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-14.svg",
+        "alt": "Diagrama de flujo de siete bloques con el responsable de cada uno: autorización ATC, los dos escuchan; colación, el PM; selección de altitud, el PM; verificación cruzada, PF y PM, destacada como el eslabón que más se salta; ejecución, el PF; nivelación dentro de 150 ft, el PF; y vigilancia del nivel, los dos.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -2328,12 +2352,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Razonar en porcentajes de altitud en vez de en fracciones del margen. Trescientos pies sobre FL 350 es menos del 1 % de la altitud, y suena a nada. Pero es el 30 % de lo que te separa del tráfico de arriba."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-15 · Figura · 16:9 · 1600×900",
-        "descripcion": "Dos aeronaves enfrentadas verticalmente, en vista lateral y a escala. Aeronave A en FL 350, aeronave B en FL 360, con la separación nominal acotada entre ambas: «1.000 ft». A la derecha, la misma escena repetida con la aeronave A desplazada 300 ft hacia arriba: la acotación entre las dos ahora marca «700 ft», y la porción consumida aparece sombreada en rojo apagado con la etiqueta «30 % del margen». Debajo, una tercera escena con las dos desviándose una hacia la otra 300 ft cada una y la acotación marcando «400 ft».",
-        "pie": "Dar conciencia visual e inmediata de que una desviación que parece pequeña respecto a la altitud es enorme respecto al margen.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-15.svg",
+        "alt": "Tres escenas con dos aviones en FL 350 y FL 360. En la primera, la separación nominal: 1.000 ft. En la segunda, el de abajo se desplaza 300 ft hacia arriba: quedan 700 ft y el 30 % del margen aparece sombreado en rojo. En la tercera, los dos se desvían 300 ft uno hacia el otro: quedan 400 ft, el 60 % del margen consumido.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -2458,12 +2481,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Pensar que *unable RVSM* solo se usa por falla de equipo. La propia fraseología tiene la variante meteorológica, y la tabla de contingencias la trata aparte."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-16 · Figura · 16:9 · 1600×900",
-        "descripcion": "Perfil de una cordillera vista de costado, con el viento entrando desde la izquierda representado por líneas de corriente que se ondulan al superar la cresta y siguen ondulando corriente abajo, con amplitud decreciente. Una aeronave en crucero dentro de la zona ondulada, con dos siluetas fantasma por encima y por debajo de su posición nominal unidas por una acotación vertical rotulada «desplazamiento vertical inducido». Una línea horizontal punteada marcando el nivel autorizado. Etiquetas cortas: «viento perpendicular a la cordillera», «flujo ondulatorio corriente abajo», «el nivel se mantiene con dificultad aunque el avión esté sano».",
-        "pie": "Que el piloto vea que la onda de montaña puede mover el avión verticalmente sin que nada haya fallado a bordo, y entienda por qué eso obliga a comunicar.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-16.svg",
+        "alt": "Perfil de una cordillera de costado con el viento entrando desde la izquierda. Las líneas de corriente suben al pasar la cresta y siguen ondulando corriente abajo, cada vez menos. Un avión en crucero dentro de la zona ondulada, con dos siluetas por encima y por debajo de su posición y una cota: desplazamiento vertical inducido. Una línea de puntos marca el nivel autorizado. Etiquetas: viento perpendicular a la cordillera, flujo ondulatorio corriente abajo, y el nivel se mantiene con dificultad aunque el avión esté sano.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -2792,12 +2814,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Comunicar primero y volar después. El orden es aviar, navegar, comunicar, y la propia tabla de contingencias empieza por mantener el nivel mientras se evalúa."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-17 · Figura · 16:9 · 1600×900",
-        "descripcion": "Diagrama de flujo vertical de ocho bloques conectados por flechas descendentes, con la etiqueta AVIAR abarcando los dos primeros bloques, NAVEGAR el tercero y cuarto, y COMUNICAR del quinto en adelante, marcadas con llaves laterales. Bloque 1: «FALLA DE SISTEMA RVSM». Bloque 2: «CONTROLAR LA AERONAVE · mantener el nivel en lo posible · vigilar tráfico y encender luces». Bloque 3: «IDENTIFICAR LA FALLA». Bloque 4: «QRH Y SOP». Bloque 5, en forma de rombo de decisión: «¿CONSERVA CAPACIDAD RVSM?» con dos salidas. Salida «SÍ» a un bloque: «CONTINUAR · vigilar altitud». Salida «NO» a: «INFORMAR AL ATC · unable RVSM due equipment». De ahí: «SOLICITAR O ACEPTAR NUEVA AUTORIZACIÓN». Y por último: «AVISAR CUANDO YA NO HAGA FALTA».",
-        "pie": "Dar una estructura mental completa y memorizable que no sustituye al QRH ni al SOP, pero que ordena la respuesta ante la pregunta clásica de entrevista.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-17.svg",
+        "alt": "Diagrama de flujo de ocho bloques con tres llaves a la izquierda: aviar, navegar y comunicar. Falla de sistema RVSM; controlar la aeronave, mantener el nivel en lo posible, vigilar tráfico y encender luces; identificar la falla; QRH y SOP; y la decisión, conserva capacidad RVSM. Si sí, continuar vigilando la altitud. Si no, informar al ATC con unable RVSM due equipment, solicitar o aceptar una nueva autorización y avisar cuando ya no haga falta.",
+        "ancho": 1600,
+        "alto": 1020
       },
       {
         "kind": "titulo",
@@ -3127,12 +3148,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "«El TCAS reemplaza los requisitos RVSM» o «con TCAS operativo puedo entrar aunque me falte otro sistema». Ninguna de las dos. Son sistemas con funciones distintas: RVSM garantiza la separación; el TCAS actúa cuando esa garantía falló."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-18 · Figura · 16:9 · 1600×900",
-        "descripcion": "Dos aeronaves en niveles RVSM adyacentes, vista lateral, separadas 1.000 ft y acotadas. A la derecha de la escena, un recuadro que representa la porción de un ND genérico con el símbolo del tráfico próximo y su etiqueta de altitud relativa, y debajo un PFD genérico con la banda de resolución del TCAS representada en la cinta de altitud. Dos rótulos cortos: junto a la acotación de 1.000 ft, «lo que RVSM garantiza»; junto a la banda de resolución, «lo que actúa cuando esa garantía falló». Una nota al pie, destacada: «Una RA se vuela, aunque contradiga la autorización del ATC».",
-        "pie": "Separar visualmente las dos funciones y dejar grabado que la resolución del TCAS prevalece sobre la autorización.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-18.svg",
+        "alt": "Dos aviones en niveles RVSM adyacentes, separados 1.000 ft, con el rótulo lo que RVSM garantiza. A la derecha, una porción de ND genérico con el tráfico próximo y su altitud relativa, +10, y una escala vertical genérica con la banda de resolución del TCAS, con el rótulo lo que actúa cuando esa garantía falló. Al pie, destacado: una RA se vuela, aunque contradiga la autorización del ATC.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -3363,12 +3383,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "Tratar la pérdida de RVSM como un asunto cerrado en cuanto el ATC asigna un nivel. Ahí empieza la segunda mitad del problema."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-19 · Figura · 16:9 · 1600×900",
-        "descripcion": "Cadena horizontal de cinco eslabones conectados por flechas, cada uno con un icono y un rótulo corto. Eslabón 1: falla de sistema: «PÉRDIDA DE CAPACIDAD RVSM». Eslabón 2: perfil de vuelo bajando: «SALIDA DEL ESPACIO · normalmente por debajo de FL 290». Eslabón 3: indicador de consumo: «MAYOR CONSUMO POR HORA». Eslabón 4: cifra de combustible con flecha descendente: «PREDICCIÓN AL DESTINO REVISADA». Eslabón 5, en forma de rombo: «¿CONSERVA ALTERNO + RESERVA FINAL?» con dos salidas: «SÍ · continuar vigilando» y «NO · replanificar con el despacho».",
-        "pie": "Mostrar que una falla técnica en crucero termina siendo una decisión de combustible, y enlazar este módulo con el de Gestión del combustible.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-19.svg",
+        "alt": "Cadena de izquierda a derecha: pérdida de capacidad RVSM; salida del espacio, normalmente por debajo de FL 290; mayor consumo por hora; predicción al destino revisada; y la decisión, conserva alterno más reserva final. Si sí, continuar vigilando. Si no, replanificar con el despacho.",
+        "ancho": 1600,
+        "alto": 900
       },
       {
         "kind": "titulo",
@@ -3507,12 +3526,11 @@ export const RV_LECCIONES: DocScreen[] = [
         "text": "En todos los escenarios el orden es el mismo: **controlar, identificar, consultar, concluir, comunicar, coordinar**. Lo que cambia es la conclusión."
       },
       {
-        "kind": "hueco",
-        "rotulo": "RV-20 · Figura · 16:9 · 1600×900",
-        "descripcion": "Perfil completo de un vuelo de izquierda a derecha, desde el despegue en Bogotá hasta el aterrizaje en un destino internacional, con la silueta del terreno por debajo. Sobre el perfil, once marcadores numerados en el punto donde ocurre cada uno: 1 PREFLIGHT (libro técnico, tomas estáticas, altímetros), 2 PLAN DE VUELO (letra W en la casilla 10), 3 ASCENSO, 4 ALTITUD DE TRANSICIÓN (1013,25 hPa), 5 PUERTA RVSM en FL 290 con las verificaciones de entrada, 6 NIVELADO EN FL 370, 7 CHEQUEO ALTIMÉTRICO cada hora, 8 TURBULENCIA con la llamada «unable RVSM due turbulence», 9 POSIBLE FALLA y su flujo de contingencia, 10 SALIDA DEL ESPACIO RVSM al descender por FL 290, 11 POSTVUELO con la anotación en el libro. La franja entre FL 290 y FL 410 va sombreada y rotulada «ESPACIO RVSM».",
-        "pie": "Integrar todo el módulo en una sola operación realista, de modo que el piloto vea dónde aparece cada procedimiento dentro de un vuelo completo.",
-        "alto": 260,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/rvsm/RV-20.svg",
+        "alt": "Perfil de un vuelo desde el despegue en Bogotá hasta un destino internacional, con la franja entre FL 290 y FL 410 sombreada como espacio RVSM. Once marcadores numerados: preflight, plan de vuelo, ascenso, altitud de transición, puerta RVSM en FL 290, nivelado en FL 370, chequeo altimétrico cada hora, turbulencia con la llamada unable RVSM due turbulence, posible falla y su contingencia, salida del espacio RVSM al descender por FL 290, y postvuelo con la anotación en el libro. Debajo, qué se hace en cada uno.",
+        "ancho": 1600,
+        "alto": 1240
       },
       {
         "kind": "piensaComoPiloto",
@@ -3929,25 +3947,4 @@ export const RV_PRACTICA_CLAVES = [
 ]
 
 /** Los huecos de figura que quedan por llenar, para el inventario de imágenes. */
-export const RV_FIGURAS_PENDIENTES = [
-  "RV-01",
-  "RV-02",
-  "RV-03",
-  "RV-04",
-  "RV-05",
-  "RV-06",
-  "RV-07",
-  "RV-08",
-  "RV-09",
-  "RV-10",
-  "RV-11",
-  "RV-12",
-  "RV-13",
-  "RV-14",
-  "RV-15",
-  "RV-16",
-  "RV-17",
-  "RV-18",
-  "RV-19",
-  "RV-20"
-]
+export const RV_FIGURAS_PENDIENTES: string[] = []

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { CalendarClock } from "lucide-react"
 import { toast } from "sonner"
 import { SectionTitle } from "@/components/ui/section-title"
@@ -64,6 +64,13 @@ export function SeccionPlanDeEstudio({ userId }: { userId: string }) {
   const [guardando, setGuardando] = useState(false)
   const [racha, setRacha] = useState<EstadoDeRacha | null>(null)
   const [ritmo, setRitmo] = useState<RitmoDeEstudio | null>(null)
+  const seccion = useRef<HTMLElement>(null)
+
+  // El panel enlaza aquí con #plan-de-estudio: el perfil carga arriba y la
+  // sección está al fondo, así que se baja hasta ella una vez montada.
+  useEffect(() => {
+    if (window.location.hash === "#plan-de-estudio") seccion.current?.scrollIntoView({ block: "start" })
+  }, [])
 
   useEffect(() => {
     let cancelado = false
@@ -102,7 +109,7 @@ export function SeccionPlanDeEstudio({ userId }: { userId: string }) {
   }
 
   return (
-    <section className="mt-6">
+    <section ref={seccion} id="plan-de-estudio" className="mt-6 scroll-mt-24">
       <SectionTitle
         icon={CalendarClock}
         eyebrow="Constancia"

@@ -154,6 +154,14 @@ versión del nombre de archivo, así que en `schema_migrations` hay dos filas po
 cada una: la del conector (`20260924203326` y siguientes) y la de la versión de
 archivo, insertada después para que `db push` no las vea pendientes.
 
+## Las tres de Comunicaciones ATC (verificadas el 24 de septiembre de 2026)
+
+`20260927000000_progreso_de_comunicaciones`, `20260927010000_evaluacion_de_comunicaciones`
+y `20260927020000_panel_y_logros_de_comunicaciones` están aplicadas en producción:
+se comprobó en `schema_migrations` el 24 de septiembre. Desde entonces la última
+aplicada es `20260927020000`. Entre `010000` y `020000` quedaron publicadas las
+seis funciones compartidas con los siete módulos del catálogo.
+
 ### La regla del orden, que es la que muerde
 
 <!-- ULTIMA_APLICADA: 20260929120000 -->
@@ -235,10 +243,12 @@ las dos evaluaciones sin `modulo_leccion` y el catálogo de Combustible con 66
 prácticas en vez de 76 (sin los diez escenarios). Ver
 `docs/RAC_COMBUSTIBLE_ESTADO.md`, «La base».
 
-Y la rama `claude/modulo-mel` trae tres migraciones que empiezan en
-`20260928000000`, la misma versión que la de RAC y Combustible: hay que
-renumerarlas por encima de la marca y copiar las funciones compartidas de la
-última publicada, con las ramas de RAC, Combustible y RVSM.
+Y la rama `claude/modulo-mel` traía tres migraciones que empezaban en
+`20260928000000`, la misma versión que la de RAC y Combustible. Se renumeraron a
+`20261001000000`, `20261001010000` y `20261001020000`, por encima de todo lo de
+main (incluida `20260930000000`, pendiente), y sus funciones compartidas se
+copiaron de la última que las publica, `20260929120000_modulo_pbn`, con la rama
+de MEL. Pendientes de correr: el orden está en `docs/MEL_ESTADO.md`.
 
 ## 25 de septiembre: RVSM
 

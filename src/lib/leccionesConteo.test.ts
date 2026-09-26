@@ -36,6 +36,16 @@ import {
 } from "@/lib/combustibleLeccion"
 import { CB_PRACTICA_CLAVES } from "@/lib/combustiblePractica"
 import migracionComunicaciones from "../../supabase/migrations/20260927000000_progreso_de_comunicaciones.sql?raw"
+import { MEL_LECTURA_TOTAL, MEL_NIVELES } from "@/lib/mel"
+import { MEL_CAPITULOS, MEL_LECCIONES, MEL_LECCION_TOTAL } from "@/lib/melLeccion"
+import { MEL_PRACTICA_CONTEO } from "@/lib/melConteo"
+import { MEL_PRACTICA_TOTAL } from "@/lib/melPracticaGrupos"
+import migracionMel from "../../supabase/migrations/20261001000000_progreso_de_mel.sql?raw"
+import melNivel1 from "../../docs/mel/nivel-1.md?raw"
+import melNivel2 from "../../docs/mel/nivel-2.md?raw"
+import melNivel3 from "../../docs/mel/nivel-3.md?raw"
+import melNivel4 from "../../docs/mel/nivel-4.md?raw"
+import melNivel5 from "../../docs/mel/nivel-5.md?raw"
 
 /**
  * Los hubs y la lista de temas usan conteos fijos para no cargar el contenido
@@ -79,9 +89,9 @@ describe("conteos fijos de las lecciones", () => {
     // Los ejercicios y los escenarios no tienen pantalla propia, pero el
     // progreso los cuenta: el denominador tiene que ser el de las claves.
     expect(PERF_PRACTICA_TOTAL).toBe(PERF_PRACTICA_CLAVES.length)
-    // Veinte figuras sin generar. El día que existan, este número baja y la
-    // prueba avisa de que el inventario del documento cambió.
-    expect(PERF_FIGURAS_PENDIENTES).toHaveLength(20)
+    // Las veinte figuras están dibujadas en SVG: si vuelve a aparecer un
+    // hueco, es que el inventario del documento cambió.
+    expect(PERF_FIGURAS_PENDIENTES).toHaveLength(0)
   })
 
   it("RAC: unidades, minutos, claves de práctica y el reglamento de cada unidad", () => {
@@ -105,8 +115,9 @@ describe("conteos fijos de las lecciones", () => {
     // Los escenarios viven en el capítulo que la práctica enlaza.
     const escenarios = JSON.stringify(CB_LECCIONES[CB_CAPITULO_ESCENARIOS - 1]?.blocks ?? [])
     for (const clave of CB_ESCENARIO_CLAVES) expect(escenarios).toContain(`"clave":"${clave}"`)
-    // Quince figuras sin generar. El día que existan, este número baja.
-    expect(CB_FIGURAS_PENDIENTES).toHaveLength(15)
+    // Las quince figuras están dibujadas en SVG: si vuelve a aparecer un
+    // hueco, es que el inventario del documento cambió.
+    expect(CB_FIGURAS_PENDIENTES).toHaveLength(0)
   })
 
   it("Aeropuertos: lecciones y ejercicios de práctica", () => {
@@ -140,6 +151,41 @@ describe("conteos fijos de las lecciones", () => {
     // El panel y el hub no pueden importar el guion entero, así que llevan el
     // número aparte. Si entra o sale un ejercicio, aquí se ve.
     expect(CM_PRACTICA_CONTEO).toBe(CM_PRACTICA_TOTAL)
+  })
+
+  it("MEL: el total fijo, los cinco niveles y el catálogo de la migración", () => {
+    expect(MEL_LECTURA_TOTAL).toBe(MEL_LECCION_TOTAL)
+    // Una lección por capítulo, en el orden de los archivos: 1-3, 4-15,
+    // 16-25, 26-33 y 34-40.
+    expect(MEL_NIVELES.map((n) => n.desde)).toEqual([1, 4, 16, 26, 34])
+    for (const n of MEL_NIVELES.map((x) => x.desde)) expect(MEL_LECCIONES[n - 1]?.n).toBe(n)
+    // La migración de progreso nace con el número de lecciones; desde ahí la
+    // fila la mantiene contenido/catalogo/modulos.json (scripts/catalogo).
+    expect(migracionMel).toContain(`values ('mel', ${MEL_LECCION_TOTAL}, '{}'::text[])`)
+    expect(migracionMel).toContain(`('mel_lesson', ${MEL_LECCION_TOTAL},`)
+  })
+
+  it("MEL: el conteo liviano de la práctica", () => {
+    // El panel y el hub no pueden importar los ejercicios enteros, así que
+    // llevan el número aparte. Si entra o sale un ejercicio, aquí se ve.
+    expect(MEL_PRACTICA_CONTEO).toBe(MEL_PRACTICA_TOTAL)
+  })
+
+  it("MEL: cada lección es el capítulo que toca, en el orden de docs/mel/", () => {
+    // Los niveles 3 y 5 no van en orden de capítulo (16-21 y 33-36; 30-32 y
+    // 37-40). La lección es la posición en los archivos; MEL_CAPITULOS dice de
+    // qué capítulo sale. Si alguien reordena un archivo, aquí se ve.
+    const capitulos = (md: string) => [...md.matchAll(/^## (\d+)\. /gm)].map((m) => Number(m[1]))
+    const porNivel = [melNivel1, melNivel2, melNivel3, melNivel4, melNivel5].map(capitulos)
+    expect(porNivel.flat()).toEqual([...MEL_CAPITULOS])
+    expect(MEL_CAPITULOS).toHaveLength(MEL_LECCION_TOTAL)
+    expect([...MEL_CAPITULOS].sort((a, b) => a - b)).toEqual(Array.from({ length: 40 }, (_, i) => i + 1))
+    // Y cada nivel empieza donde empieza su archivo.
+    let desde = 1
+    porNivel.forEach((caps, i) => {
+      expect(MEL_NIVELES[i]?.desde).toBe(desde)
+      desde += caps.length
+    })
   })
 
   it("Mercancías: cada nivel empieza en una lección que existe, en orden", () => {

@@ -17,8 +17,8 @@ import {
  * en la pantalla de práctica, que es la regla de la casa.
  *
  * `portadaAuto` queda en false mientras no existan las portadas de capítulo:
- * sin esto el lector pintaría treinta y dos huecos de portada encima de los
- * veinte huecos de figura que el módulo ya trae a propósito.
+ * sin esto el lector pintaría treinta y dos huecos de portada encima de las
+ * veinte figuras SVG que ya trae el módulo.
  *
  * Ruta: /app/aerolinea/rvsm/aprende?l=1
  */
