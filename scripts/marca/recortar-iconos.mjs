@@ -6,8 +6,7 @@
 // Ubica cada tarjeta por su color de fondo, le quita el fondo con un relleno que entra
 // desde el borde (así el blanco de adentro, el papel o el fuselaje, separado del fondo por
 // su contorno, se queda) y deja el objeto sobre transparente, recortado y cuadrado, en
-// WebP. Solo escribe los que usa la app (USADOS); el de «Progreso general» no sirve y el
-// progreso se dibuja como anillo.
+// WebP. Solo escribe los que usa la app (USADOS).
 //
 // Queda un halo claro alrededor de cada objeto (el brillo de la hoja original): sobre
 // fondos claros no se ve. En oscuro los íconos van sobre una placa clara (ver
@@ -19,7 +18,9 @@ const sharp = (await import("sharp")).default
 const SRC = process.argv[2]
 const OUT = process.argv[3] ?? "src/assets/iconos"
 const LADO = Number(process.argv[4] ?? 128)
-const USADOS = new Set(["horas", "ingles-icao", "documentacion", "preparacion", "perfil-aerolineas", "examen-pca", "ingreso-aerolinea", "biblioteca", "logbook", "vencimientos", "mi-ruta", "elegibilidad", "comunidad", "mi-perfil", "materias", "requisitos", "procedimientos", "navegacion"])
+// La portada usa desde el 26-sep-2026 su propia serie (scripts/marca/iconos-panel.mjs):
+// de esta hoja quedan los de la barra lateral y el de Logros.
+const USADOS = new Set(["ingles-icao", "examen-pca", "ingreso-aerolinea", "biblioteca", "logbook", "vencimientos", "mi-ruta", "elegibilidad", "comunidad", "mi-perfil", "materias", "navegacion"])
 fs.mkdirSync(OUT, { recursive: true })
 
 const { data, info } = await sharp(SRC).removeAlpha().raw().toBuffer({ resolveWithObject: true })

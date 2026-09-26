@@ -22,15 +22,19 @@ import type {
   ActivityDay,
   NotamResumen,
   LicenseRow,
+  PcaReadiness,
 } from "@/components/dashboard/tipos"
 import { daysUntil, FIRST_ACTION, trialDaysLeft } from "@/components/dashboard/plan"
-import { CARA_DE_MODULO } from "@/components/aerolinea/carasDeModulo"
+import fotoAerolinea from "@/assets/photos/aerolinea-piloto.webp"
+import fotoIcao from "@/assets/photos/icao-night-cockpit.webp"
+import fotoPca from "@/assets/photos/pca-flightdeck.webp"
 import { CompromisosDeHoy } from "@/components/dashboard/CompromisosDeHoy"
 import { PortadaHero, type ProximoObjetivo } from "@/components/dashboard/PortadaHero"
-import { TarjetaDocumentos, TarjetaHoras, TarjetaIcao, TarjetaProgreso } from "@/components/dashboard/ResumenPiloto"
+import { EncabezadoSeccion, TarjetaDocumentos, TarjetaHoras, TarjetaIcao, TarjetaProgreso } from "@/components/dashboard/ResumenPiloto"
 import { horas } from "@/components/dashboard/portada"
-import { ContinuaPreparacion, PerfilFrenteAerolineas, type ModuloParaSeguir } from "@/components/dashboard/PreparacionYAerolineas"
-import { CifrasDeEstudio, ProximosVencimientos, RachaDeEstudio, TarjetaDestinos } from "@/components/dashboard/FilaInferior"
+import { TusCursos, type CursoAbierto } from "@/components/dashboard/TusCursos"
+import { PerfilFrenteAerolineas } from "@/components/dashboard/PerfilFrenteAerolineas"
+import { CifrasDeEstudio, RachaDeEstudio, TarjetaDestinos } from "@/components/dashboard/FilaInferior"
 import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton"
 
 /**
@@ -48,13 +52,16 @@ import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton"
  * ICAO por debajo del mínimo, la racha en riesgo— y el verde, solo en lo que se
  * avanzó.
  *
- * El orden es el de las preguntas con las que entra un piloto: cómo voy y qué
- * hago hoy (el hero), mis números, por dónde sigo y frente a qué aerolíneas,
- * qué se me vence y cómo va mi constancia.
+ * El orden es el de las preguntas con las que entra un piloto: qué hago hoy
+ * (el hero), en qué curso sigo, cómo está mi perfil, frente a qué aerolíneas y
+ * cómo va mi constancia. Cada bloque va bajo su título de sección, con aire
+ * entre uno y otro.
  *
  * Los accesos rápidos, «Tu preparación» y la cohorte salieron (pedido de
  * Camilo, 25-sep-2026): los accesos repetían la barra lateral, y los logros con
- * la actividad pasaron a su propia página, /app/logros.
+ * la actividad pasaron a su propia página, /app/logros. El 26-sep entró «Tus
+ * cursos abiertos» en lugar de «Continúa tu preparación», y «Próximos
+ * vencimientos» salió porque repetía la tarjeta de Documentación.
  */
 
 /** Hoy en Bogotá, que es con lo que la base cierra el día de estudio. */
@@ -88,6 +95,7 @@ export function Dashboard() {
   const [plan, setPlan] = useState<PlanDeEstudio | null>(null)
   const [postulaciones, setPostulaciones] = useState<PostulacionAbierta[]>([])
   const [licenses, setLicenses] = useState<LicenseRow[]>([])
+  const [preparacionPca, setPreparacionPca] = useState<PcaReadiness | null>(null)
   const [aerolineas, setAerolineas] = useState<Airline[]>([])
 
   useEffect(() => {
@@ -149,6 +157,7 @@ export function Dashboard() {
         setPlan(tarjetas.plan)
         setPostulaciones(tarjetas.postulaciones)
         setLicenses(tarjetas.licencias)
+        setPreparacionPca(tarjetas.preparacion)
       } catch (err) {
         // Las cards muestran su propio estado vacío si algo falla: no se
         // interrumpe el dashboard con un toast, pero el fallo se reporta.
@@ -246,16 +255,63 @@ export function Dashboard() {
   /** El que va a medias y más avanzó; si no hay, el primero sin terminar. */
   const aMedias = avances.filter((x) => x.pct > 0 && x.pct < 100).sort((a, b) => b.pct - a.pct)[0]
   const seguir = aMedias ?? avances.find((x) => x.pct < 100) ?? avances[0]
-  const cara = CARA_DE_MODULO[seguir.m.clave]
-  const moduloParaSeguir: ModuloParaSeguir = {
-    titulo: seguir.m.titulo,
-    hub: seguir.m.hub,
-    foto: cara.foto,
-    color: cara.color,
-    pct: seguir.pct,
-    numero: seguir.numero,
-    total: avances.length,
-  }
+
+  /**
+   * Los tres cursos de Formación, con lo que cada uno sabe medir: el módulo en
+   * el que va de Ingreso a aerolínea, el nivel ICAO y el promedio de los
+   * simulacros PCA de los últimos 60 días. Los empezados primero.
+   */
+  const aerolineaCompleta = completos === avances.length
+  const empezoAerolinea = avances.some((x) => x.pct > 0)
+  const simulacrosPca = preparacionPca?.attempts_60d ?? 0
+  const empezoPca = recentAttempts > 0 || simulacrosPca > 0
+  const promedioPca = Math.round(preparacionPca?.avg_score_60d ?? 0)
+  const ORDEN_DE_ESTADO: Record<CursoAbierto["estado"], number> = { "en-curso": 0, completo: 1, "por-empezar": 2 }
+  const cursos: CursoAbierto[] = (
+    [
+      {
+        clave: "aerolinea",
+        titulo: "Ingreso a aerolínea",
+        foto: fotoAerolinea,
+        to: aerolineaCompleta ? "/app/aerolinea" : seguir.m.hub,
+        estado: aerolineaCompleta ? "completo" : empezoAerolinea ? "en-curso" : "por-empezar",
+        detalle: aerolineaCompleta
+          ? `Completaste los ${avances.length} módulos.`
+          : `${seguir.pct > 0 ? "Vas en" : "Empieza por"} ${seguir.m.titulo}, el módulo ${seguir.numero} de ${avances.length}.`,
+        avance: empezoAerolinea && !aerolineaCompleta ? { pct: seguir.pct, texto: `${Math.round(seguir.pct)} %` } : null,
+        accion: aerolineaCompleta ? "Repasar" : seguir.pct > 0 ? "Continuar" : "Empezar",
+      },
+      {
+        clave: "icao",
+        titulo: "Inglés ICAO",
+        foto: fotoIcao,
+        to: icaoMeasured ? "/app/icao" : FIRST_ACTION.href,
+        estado: icaoMeasured ? "en-curso" : "por-empezar",
+        detalle: icaoMeasured
+          ? "Vocabulario, comprensión, descripción de imágenes y entrevista."
+          : "Mide tu nivel en unos 15 minutos y arma tu práctica.",
+        avance: icaoMeasured ? { pct: ((icaoLevel ?? 0) / 6) * 100, texto: `Nivel ${icaoLevel}` } : null,
+        accion: icaoMeasured ? "Practicar" : "Medir mi nivel",
+      },
+      {
+        clave: "pca",
+        titulo: "Examen PCA",
+        foto: fotoPca,
+        to: "/app/pca",
+        estado: empezoPca ? "en-curso" : "por-empezar",
+        detalle:
+          diasAlExamen !== null && diasAlExamen >= 0
+            ? diasAlExamen === 0
+              ? "Tu examen es hoy."
+              : `Tu examen es en ${diasAlExamen} ${diasAlExamen === 1 ? "día" : "días"}.`
+            : empezoPca
+              ? `${recentAttempts} ${recentAttempts === 1 ? "quiz respondido" : "quizzes respondidos"} del banco de la Aerocivil.`
+              : "El banco de preguntas de la Aerocivil, por materia.",
+        avance: simulacrosPca > 0 ? { pct: promedioPca, texto: `Promedio ${promedioPca} %` } : null,
+        accion: empezoPca ? "Continuar" : "Empezar",
+      },
+    ] satisfies CursoAbierto[]
+  ).sort((a, b) => ORDEN_DE_ESTADO[a.estado] - ORDEN_DE_ESTADO[b.estado])
 
   /**
    * El próximo objetivo del hero, en este orden: sin inglés medido no se puede
@@ -300,25 +356,46 @@ export function Dashboard() {
         />
       </div>
 
-      <div className="mt-5 grid grid-cols-1 gap-4 @xl:grid-cols-2 @6xl:grid-cols-4">
-        <TarjetaHoras total={totalHoras} pic={pilot?.hours_pic ?? null} meta={metaHoras} />
-        <TarjetaIcao nivel={icaoMeasured ? icaoLevel : null} medirHref={FIRST_ACTION.href} />
-        {deferredLoading ? esqueleto("min-h-[172px]") : <TarjetaDocumentos documentos={licenses} />}
-        {deferredLoading ? esqueleto("min-h-[132px]") : <TarjetaProgreso pct={pctGeneral} completos={completos} total={avances.length} />}
-      </div>
+      <section className="mt-10 flex flex-col gap-4">
+        <EncabezadoSeccion
+          icono="cursos"
+          titulo="Tus cursos abiertos"
+          bajada="Elige por dónde sigues hoy."
+          accion={{ texto: "Ver plan de estudio", to: "/app/perfil#plan-de-estudio" }}
+        />
+        {deferredLoading ? (
+          <div className="grid grid-cols-1 gap-4 @2xl:grid-cols-2 @4xl:grid-cols-3">
+            {[0, 1, 2].map((i) => (
+              <div key={i}>{esqueleto("h-[290px]")}</div>
+            ))}
+          </div>
+        ) : (
+          <TusCursos cursos={cursos} />
+        )}
+      </section>
 
-      <div className="mt-4 grid grid-cols-1 gap-4 @6xl:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)]">
-        {deferredLoading ? esqueleto("min-h-[240px]") : <ContinuaPreparacion modulo={moduloParaSeguir} />}
+      <section className="mt-10 flex flex-col gap-4">
+        <EncabezadoSeccion titulo="Tu perfil de piloto" bajada="Horas, inglés y documentos: lo primero que revisa una aerolínea." />
+        <div className="grid grid-cols-1 gap-4 @xl:grid-cols-2 @5xl:grid-cols-4">
+          <TarjetaHoras total={totalHoras} pic={pilot?.hours_pic ?? null} meta={metaHoras} />
+          <TarjetaIcao nivel={icaoMeasured ? icaoLevel : null} medirHref={FIRST_ACTION.href} />
+          {deferredLoading ? esqueleto("min-h-[208px]") : <TarjetaDocumentos documentos={licenses} />}
+          {deferredLoading ? esqueleto("min-h-[208px]") : <TarjetaProgreso pct={pctGeneral} completos={completos} total={avances.length} />}
+        </div>
+      </section>
+
+      <div className="mt-10">
         <PerfilFrenteAerolineas aerolineas={aerolineasEnOrden} horasPiloto={totalHoras} cargando={deferredLoading} />
       </div>
 
-
-      <div className="mt-4 grid grid-cols-1 gap-4 @3xl:grid-cols-2 @6xl:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,1.15fr)]">
-        {deferredLoading ? esqueleto("min-h-[190px]") : <ProximosVencimientos documentos={licenses} />}
-        {deferredLoading ? esqueleto("min-h-[190px]") : <RachaDeEstudio dias={streakDays} enRiesgo={streakAtRisk} actividad={heatmap} />}
-        {deferredLoading ? esqueleto("min-h-[190px]") : <CifrasDeEstudio quizzes={recentAttempts} actividad={heatmap} />}
-        <TarjetaDestinos />
-      </div>
+      <section className="mt-10 flex flex-col gap-4">
+        <EncabezadoSeccion titulo="Tu constancia" bajada="Lo que llevas estudiado esta semana y este mes." accion={{ texto: "Ver logros", to: "/app/logros" }} />
+        <div className="grid grid-cols-1 gap-4 @3xl:grid-cols-3">
+          {deferredLoading ? esqueleto("min-h-[190px]") : <RachaDeEstudio dias={streakDays} enRiesgo={streakAtRisk} actividad={heatmap} />}
+          {deferredLoading ? esqueleto("min-h-[190px]") : <CifrasDeEstudio quizzes={recentAttempts} actividad={heatmap} />}
+          <TarjetaDestinos />
+        </div>
+      </section>
     </div>
   )
 }
