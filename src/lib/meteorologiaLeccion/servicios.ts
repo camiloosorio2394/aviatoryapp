@@ -102,10 +102,10 @@ export const PARTE_SERVICIOS: DocScreen[] = [
           "El radar de precipitación no muestra ecos cerca de tu ruta, pero un piloto reportó engelamiento moderado a tu nivel hace veinte minutos. ¿Qué concluyes?",
         options: [
           "No hay riesgo: el radar sin ecos descarta engelamiento",
+          "Compruebo la radiosonda de la mañana: si no mostró humedad a mi nivel, el reporte del piloto ya no aplica",
           "El informe es relevante; compruebo ubicación, hora, nivel, pronóstico y procedimientos de mi aeronave",
-          "La radiosonda demuestra que ya terminó el engelamiento",
         ],
-        answer: 1,
+        answer: 2,
         explain:
           "Un radar sin ecos no descarta nubes con gotas superenfriadas ni prueba condiciones seguras a tu nivel. El informe de piloto es evidencia reciente del fenómeno, pero hay que cotejar su posición y nivel con las condiciones y procedimientos de la ruta.",
       },
@@ -236,10 +236,10 @@ export const PARTE_SERVICIOS: DocScreen[] = [
           "En el ejemplo de la FAA, ¿qué datos permiten situar una condición encontrada antes de compararla con tu ruta?",
         options: [
           "Solo `UA`: indica que el tiempo sigue igual",
+          "Solo `/TA`: la temperatura exterior basta para situar el lugar del encuentro",
           "`/OV`, `/TM` y `/FL`: posición, hora y nivel del encuentro",
-          "Solo `/TA`: la temperatura determina el lugar",
         ],
-        answer: 1,
+        answer: 2,
         explain:
           "La ubicación `/OV`, la hora `/TM` y la altitud `/FL` anclan el informe en el espacio y el tiempo. El fenómeno y tipo de aeronave completan el contexto. No proyectes ese dato puntual a toda la ruta sin revisar evolución y otras fuentes.",
       },
@@ -391,9 +391,9 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         question:
           "Un SIGMET válido describe tormentas incrustadas que se desplazan hacia tu tramo de ruta. ¿Qué haces antes de entrar?",
         options: [
-          "Descartarlo porque no hay un SIGMET convectivo separado en el sistema OACI.",
+          "Descartarlo, porque en el sistema OACI no existe un SIGMET convectivo separado como el de Estados Unidos.",
           "Comparar ubicación, validez, movimiento y niveles con la ruta; preparar y coordinar una alternativa segura.",
-          "Subir automáticamente sobre la nube sin consultar performance ni autorización.",
+          "Subir automáticamente por encima de la nube, sin consultar performance ni pedir autorización.",
         ],
         answer: 1,
         explain:
@@ -541,11 +541,11 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         kind: "check",
         question: "El pronóstico actualizado aumenta el viento de frente a tu nivel y el nivel con menos viento coincide con turbulencia significativa. ¿Qué criterio aplicas?",
         options: [
-          "Elegir el nivel con menos viento sin revisar el resto, porque así siempre baja el consumo.",
-          "Mantener el plan original: el viento previsto no influye en tiempo ni combustible.",
-          "Recalcular tiempos y combustible con despacho y comparar niveles con los riesgos, performance y autorizaciones.",
+          "Recalcular tiempos y combustible con despacho y comparar niveles con riesgos, performance y autorizaciones.",
+          "Elegir el nivel con menos viento sin revisar el resto, porque así el consumo siempre baja y se recupera el horario.",
+          "Mantener el plan original, porque el viento previsto no influye en el tiempo de vuelo ni en el combustible necesario.",
         ],
-        answer: 2,
+        answer: 0,
         explain: "El viento modifica la velocidad sobre el suelo y, con ella, tiempo y combustible; pero un nivel más favorable por viento puede no ser aceptable por tiempo significativo u otras limitaciones. La decisión corresponde al plan aprobado y a la coordinación operacional.",
       },
       {
@@ -654,11 +654,11 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         kind: "check",
         question: "Ves una carta de tiempo significativo junto a un radar más reciente. ¿Qué comparación es válida?",
         options: [
-          "Si el radar no muestra ecos en la ruta, descartar automáticamente cualquier fenómeno pronosticado.",
+          "Si el radar no muestra ecos en la ruta, descartar cualquier fenómeno pronosticado.",
+          "Tratar ambas imágenes como observaciones de la misma hora, porque están en el mismo briefing.",
           "Comparar fuente, hora válida, nivel, cobertura y leyenda; después integrar avisos y observaciones.",
-          "Tratar ambas imágenes como observaciones de la misma hora porque aparecen en el mismo briefing.",
         ],
-        answer: 1,
+        answer: 2,
         explain: "Tiempo significativo es un pronóstico; radar es observación con cobertura y demora propias. La comparación solo tiene sentido si primero alineas los tiempos, la zona y el nivel, y consideras los avisos vigentes.",
       },
       {

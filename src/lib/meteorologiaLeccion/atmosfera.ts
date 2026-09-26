@@ -82,11 +82,11 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         question:
           "¿Qué componente variable del aire interviene directamente en la formación de nubes, niebla y precipitación?",
         options: [
-          "El nitrógeno, que es el 78 % del aire seco y es el que le da su densidad",
-          "El oxígeno, porque de él dependen el rendimiento del motor y la presurización",
-          "El vapor de agua, que es variable y no entra en la composición del aire seco",
+          "El vapor de agua, que varía y no forma parte del aire seco",
+          "El nitrógeno, que es el 78 % del aire seco y el que le da su densidad",
+          "El oxígeno, del que dependen el rendimiento del motor y la presurización",
         ],
-        answer: 2,
+        answer: 0,
         explain:
           "El nitrógeno y el oxígeno suman cerca del 99 % del aire seco y sus proporciones cambian poco. El vapor de agua sí varía y participa en la formación de nubes, precipitación y niebla. También hacen falta condiciones apropiadas de temperatura y movimiento del aire.",
       },
@@ -346,10 +346,10 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
           "Miras los METAR sucesivos de tu destino y el QNH va 1015, 1012, 1008 en tres horas. ¿Qué haces con eso?",
         options: [
           "Actualizar el altímetro si corresponde y asumir que la presión no aporta nada más",
-          "Descartar el cambio porque todos los valores parecen normales",
-          "Actualizar el ajuste y revisar pronósticos, avisos y condiciones observadas antes de inferir un cambio de tiempo",
+          "Actualizar el ajuste y revisar pronósticos, avisos y observaciones antes de inferir un cambio de tiempo",
+          "Descartar el cambio, porque cada valor por separado está dentro de lo normal y no justifica revisar nada más",
         ],
-        answer: 2,
+        answer: 1,
         explain:
           "El descenso sostenido es una señal para investigar el contexto meteorológico, no un pronóstico de tormenta por sí mismo. Usa el ajuste vigente y contrasta METAR, pronósticos y avisos; que cada valor parezca habitual no elimina la importancia de la tendencia.",
       },
@@ -479,9 +479,9 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         question:
           "El mismo día vuelas Bogotá y luego Santiago, y en las dos cartas hay una baja. ¿Qué cambia al cruzar el ecuador?",
         options: [
-          "Nada: el sentido de giro alrededor de la baja es igual en ambos hemisferios",
-          "El sentido de giro se invierte: antihorario alrededor de la baja en el norte, horario en el sur",
-          "El aire deja de entrar hacia la baja y pasa a salir de ella, como si fuera una alta",
+          "Nada: el sentido de giro alrededor de la baja es el mismo en los dos hemisferios, como en la carta",
+          "Se invierte el giro: antihorario alrededor de la baja en el norte, horario en el sur",
+          "El aire deja de entrar hacia la baja y pasa a salir de ella, como si se tratara de una alta",
         ],
         answer: 1,
         explain:
@@ -703,11 +703,11 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         question:
           "Aterrizas en un aeropuerto costero a las tres de la tarde con viento que entra del mar. Vuelves a las cuatro de la madrugada. ¿Qué esperas?",
         options: [
-          "El mismo viento con certeza: la brisa marina no cambia durante la noche",
-          "Calma obligatoria: al anochecer desaparece todo gradiente de temperatura",
           "Puede aparecer una brisa de tierra, pero confirmas el viento vigente y la pista asignada",
+          "El mismo viento del mar, que confirmo en el ATIS: la brisa marina no cambia de noche",
+          "Calma segura: al anochecer desaparece todo gradiente de temperatura",
         ],
-        answer: 2,
+        answer: 0,
         explain:
           "El enfriamiento nocturno de la tierra puede favorecer una brisa hacia el mar. No es seguro que se forme ni que cambie la pista en uso: comprueba las observaciones, el pronóstico, el viento predominante y la información del aeródromo.",
       },
@@ -983,9 +983,9 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         question:
           "El aeropuerto tiene sistema de alerta de cizalladura y no ha emitido ninguna advertencia. ¿Qué puedes concluir?",
         options: [
-          "Que no hay cizalladura en el campo ni en la trayectoria de salida",
+          "Que no hay cizalladura en el campo ni en la trayectoria de salida, porque el sistema la vigila",
           "Que el sistema no ha emitido una alerta; aún debes valorar tormentas, reportes y limitaciones de cobertura",
-          "Que solo puede haber cizalladura asociada a una inversión térmica",
+          "Que solo podría haber cizalladura por una inversión térmica, que el sistema no mide",
         ],
         answer: 1,
         explain:

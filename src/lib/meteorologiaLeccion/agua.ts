@@ -104,11 +104,11 @@ export const PARTE_AGUA: DocScreen[] = [
         question:
           "En una capa, el sondeo indica que la temperatura ambiental baja 3,5 °C por cada 1.000 ft. ¿Qué indica la comparación ideal con una parcela no saturada?",
         options: [
-          "La capa es absolutamente inestable en esa comparación: el ambiente se enfría más rápido que la parcela",
-          "Es estable porque 3,5 °C es mayor que el valor de la atmósfera estándar",
-          "Solo puede haber ascenso si la parcela se satura, porque 3,5 °C es menor que el gradiente seco",
+          "Es estable, porque 3,5 °C por 1.000 ft es mayor que el valor de la atmósfera estándar y frena el ascenso",
+          "Es absolutamente inestable en esa comparación: el ambiente se enfría más rápido que la parcela",
+          "Solo habrá ascenso si la parcela se satura, porque 3,5 °C por 1.000 ft es menor que el gradiente seco",
         ],
-        answer: 0,
+        answer: 1,
         explain:
           "En la comparación ideal, la parcela no saturada pierde cerca de 3 °C por 1.000 ft y el ambiente 3,5 °C: la parcela elevada queda relativamente más cálida y tiende a continuar ascendiendo. Esto describe esa capa, no garantiza tormentas ni clasifica todo el día; el perfil real puede variar con la altura.",
       },
@@ -259,11 +259,11 @@ export const PARTE_AGUA: DocScreen[] = [
         question:
           "El aire de la madrugada tiene la misma cantidad de vapor de agua que tenía por la tarde, y sin embargo ahora hay niebla. ¿Por qué?",
         options: [
-          "Porque el METAR siempre reporta 100 % de humedad al amanecer",
-          "Porque al enfriarse aumenta la presión de vapor de saturación",
+          "Porque al enfriarse aumenta la presión de vapor de saturación, y con ella la humedad relativa del aire",
           "Porque al enfriarse disminuye la presión de vapor de saturación y el aire puede saturarse",
+          "Porque el METAR registra siempre 100 % de humedad relativa al amanecer, sin importar la temperatura",
         ],
-        answer: 2,
+        answer: 1,
         explain:
           "Al bajar la temperatura disminuye la presión de vapor de saturación. Con contenido de vapor casi constante, la humedad relativa aumenta y puede llegar al 100 %. La niebla requiere además condensación en una capa próxima al suelo; no surge automáticamente de cualquier enfriamiento.",
       },
@@ -708,11 +708,11 @@ export const PARTE_AGUA: DocScreen[] = [
         question:
           "Por delante ves una torre de contorno abultado y tope redondeado, sin yunque visible. Afecta tu ruta. ¿Qué haces?",
         options: [
-          "Revisas su evolución con radar y reportes, y coordinas una desviación con margen según los procedimientos",
-          "Esperas a ver un yunque: sin él la nube no puede ser peligrosa",
-          "Mantienes rumbo y asciendes: un tope redondeado no alcanza niveles de crucero",
+          "Esperas a ver un yunque antes de desviarte: sin él la nube todavía no puede ser peligrosa",
+          "Mantienes rumbo y asciendes, porque un tope redondeado no alcanza los niveles de crucero",
+          "Revisas su evolución con radar y reportes y coordinas una desviación con margen",
         ],
-        answer: 0,
+        answer: 2,
         explain:
           "Una torre de gran desarrollo puede traer turbulencia y evolucionar rápidamente, pero una imagen fija no da su intensidad ni asegura que se convertirá en cumulonimbo. Tampoco se necesita un yunque visible para que haya peligro. Contrasta radar y reportes, y toma la decisión de desvío con el margen exigido por tu operación.",
       },
@@ -931,9 +931,9 @@ export const PARTE_AGUA: DocScreen[] = [
         question:
           "En una aproximación instrumental tridimensional, ¿qué dato meteorológico suele figurar entre los mínimos publicados, además de la DA/H?",
         options: [
-          "Solo el techo estimado a simple vista desde la aeronave",
+          "Solo el techo estimado a simple vista desde la cabina",
           "La visibilidad o el RVR, según el procedimiento y las reglas aplicables",
-          "La temperatura de la superficie, sin consultar visibilidad ni RVR",
+          "La temperatura en superficie, sin consultar visibilidad ni RVR",
         ],
         answer: 1,
         explain:
