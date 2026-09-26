@@ -1992,18 +1992,18 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 
 **ev-21** · En vuelo, los spoilers usados de forma asimétrica:
 - A) Aumentan la sustentación del ala que baja
-- B) Ayudan al alabeo, pero con más guiñada adversa que los alerones
+- B) Ayudan al alabeo sin producir guiñada adversa
 - C) Frenan el avión sin efecto en el alabeo
-- D) Ayudan al alabeo sin producir guiñada adversa
-**Correcta:** D · **Tema:** S07
+- D) Ayudan al alabeo, pero con más guiñada adversa que los alerones
+**Correcta:** B · **Tema:** S07
 **Explicación:** El spoiler del ala que debe bajar reduce su sustentación; como no aumenta la resistencia inducida del ala que sube, no genera guiñada adversa.
 
 **ev-22** · En un avión convencional, el estabilizador horizontal normalmente:
 - A) Genera sustentación hacia arriba que ayuda al ala a sostener el peso
-- B) Genera una fuerza hacia abajo que equilibra el momento de nariz abajo del ala y el CG
+- B) Genera una fuerza hacia abajo que equilibra el momento de nariz arriba del ala
 - C) No genera fuerza en vuelo nivelado; solo actúa cuando se mueve el elevador
-- D) Genera una fuerza hacia abajo que equilibra el momento de nariz arriba del ala
-**Correcta:** B · **Tema:** S07
+- D) Genera una fuerza hacia abajo que equilibra el momento de nariz abajo del ala y el CG
+**Correcta:** D · **Tema:** S07
 **Explicación:** En la configuración convencional descrita, la cola genera fuerza hacia abajo para equilibrar el momento del conjunto ala-fuselaje y mantener el equilibrio alrededor del CG.
 
 **ev-23** · Un avión estáticamente estable pero dinámicamente inestable, ante una perturbación:
@@ -2017,17 +2017,17 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 **ev-24** · Con el CG atrasado dentro de límites, respecto a uno adelantado:
 - A) Mayor velocidad de pérdida, por más carga hacia abajo en la cola
 - B) Mayor consumo, por la resistencia que añade la compensación
-- C) Menor estabilidad longitudinal y fuerzas de mando más livianas
-- D) Mayor estabilidad longitudinal y más esfuerzo para rotar
-**Correcta:** C · **Tema:** S08
+- C) Mayor estabilidad longitudinal y más esfuerzo para rotar
+- D) Menor estabilidad longitudinal y fuerzas de mando más livianas
+**Correcta:** D · **Tema:** S08
 **Explicación:** Con CG atrasado baja la carga en la cola: menos resistencia y velocidad de pérdida, pero menos estabilidad y mandos más livianos.
 
 **ev-25** · ¿En qué condición es más probable que el piloto sobrecargue la estructura sin darse cuenta?
 - A) CG en el límite delantero, porque el ala sostiene más carga
 - B) CG exactamente en el centro del rango, donde el avión es más maniobrable
-- C) Ninguna: la posición del CG no cambia las fuerzas de mando
-- D) CG en el límite trasero, por fuerzas de mando livianas
-**Correcta:** D · **Tema:** S08
+- C) CG en el límite trasero, por fuerzas de mando livianas
+- D) Ninguna: la posición del CG no cambia las fuerzas de mando
+**Correcta:** C · **Tema:** S08
 **Explicación:** Con mandos livianos es más fácil aplicar G de más (PHAK).
 
 **ev-26** · Al salir del efecto suelo en el despegue, el avión:
@@ -2039,11 +2039,11 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 **Explicación:** Al alejarse del suelo se recuperan el downwash y los vórtices: sube la resistencia inducida y el ángulo de ataque requerido.
 
 **ev-27** · En un avión de hélice que gira a la derecha (vista desde la cabina), con alta potencia y alto ángulo de ataque, el factor P produce:
-- A) Guiñada a la izquierda
+- A) Cabeceo de nariz arriba
 - B) Guiñada a la derecha
 - C) Alabeo a la izquierda
-- D) Cabeceo de nariz arriba
-**Correcta:** A · **Tema:** S09
+- D) Guiñada a la izquierda
+**Correcta:** D · **Tema:** S09
 **Explicación:** La pala descendente (lado derecho) tiene mayor ángulo de ataque y más empuje; la nariz guiña a la izquierda.
 
 **ev-28** · La mayoría de los aviones se diseñan con:
@@ -2055,11 +2055,11 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 **Explicación:** Según el PHAK, la inestabilidad espiral leve es más fácil de manejar que el Dutch Roll.
 
 **ev-29** · Cuando la velocidad supera el Mach crítico:
-- A) El avión completo pasa a vuelo supersónico y se forma la onda de choque de proa
+- A) Aparecen zonas de flujo supersónico, ondas de choque y, poco después, aumento brusco de resistencia
 - B) El ángulo de ataque crítico aumenta y el ala tolera más carga antes del buffet
 - C) La resistencia baja, porque el flujo supersónico se separa menos del extradós
-- D) Aparecen zonas de flujo supersónico, ondas de choque y, poco después, aumento brusco de resistencia
-**Correcta:** D · **Tema:** S10
+- D) El avión completo pasa a vuelo supersónico y se forma la onda de choque de proa
+**Correcta:** A · **Tema:** S10
 **Explicación:** El Mach crítico es el primer Mach 1 local. La subida brusca de resistencia ocurre en el Mach de divergencia, 5–10 % por encima.
 
 **ev-30** · La flecha del ala aumenta el Mach crítico porque:
@@ -2071,19 +2071,19 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 **Explicación:** Es la teoría de la flecha del PHAK y NASA: el ala "ve" una velocidad efectiva menor.
 
 **ev-31** · A gran altitud el límite de velocidad máxima operativa se expresa normalmente como:
-- A) MMO en Mach
+- A) VRA en KIAS
 - B) VMO en KCAS
-- C) VRA en KIAS
+- C) MMO en Mach
 - D) Va en KIAS
-**Correcta:** A · **Tema:** S10
+**Correcta:** C · **Tema:** S10
 **Explicación:** Por encima de la altitud de cruce, el Mach máximo se alcanza antes que VMO; el límite es MMO.
 
 **ev-32** · El Mach Buffet se debe a:
-- A) La onda de choque de proa al pasar Mach 1
+- A) La separación del flujo detrás de una onda de choque
 - B) La estela turbulenta de otro avión
-- C) La separación del flujo detrás de una onda de choque
+- C) La onda de choque de proa al pasar Mach 1
 - D) La vibración de los motores a empuje máximo
-**Correcta:** C · **Tema:** S10
+**Correcta:** A · **Tema:** S10
 **Explicación:** La onda de choque puede provocar separación de la capa límite y ese flujo separado hace vibrar la estructura.
 
 **ev-33** · ¿Qué efecto tiene un aumento de peso sobre los límites de buffet a gran altitud?

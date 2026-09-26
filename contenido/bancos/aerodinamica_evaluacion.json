@@ -327,11 +327,11 @@
       "enunciado": "En vuelo, los spoilers usados de forma asimétrica:",
       "opciones": [
         "Aumentan la sustentación del ala que baja",
-        "Ayudan al alabeo, pero con más guiñada adversa que los alerones",
+        "Ayudan al alabeo sin producir guiñada adversa",
         "Frenan el avión sin efecto en el alabeo",
-        "Ayudan al alabeo sin producir guiñada adversa"
+        "Ayudan al alabeo, pero con más guiñada adversa que los alerones"
       ],
-      "correcta": 3,
+      "correcta": 1,
       "explicacion": "El spoiler del ala que debe bajar reduce su sustentación; como no aumenta la resistencia inducida del ala que sube, no genera guiñada adversa.",
       "metadatos": {
         "tema": "S07",
@@ -343,11 +343,11 @@
       "enunciado": "En un avión convencional, el estabilizador horizontal normalmente:",
       "opciones": [
         "Genera sustentación hacia arriba que ayuda al ala a sostener el peso",
-        "Genera una fuerza hacia abajo que equilibra el momento de nariz abajo del ala y el CG",
+        "Genera una fuerza hacia abajo que equilibra el momento de nariz arriba del ala",
         "No genera fuerza en vuelo nivelado; solo actúa cuando se mueve el elevador",
-        "Genera una fuerza hacia abajo que equilibra el momento de nariz arriba del ala"
+        "Genera una fuerza hacia abajo que equilibra el momento de nariz abajo del ala y el CG"
       ],
-      "correcta": 1,
+      "correcta": 3,
       "explicacion": "En la configuración convencional descrita, la cola genera fuerza hacia abajo para equilibrar el momento del conjunto ala-fuselaje y mantener el equilibrio alrededor del CG.",
       "metadatos": {
         "tema": "S07",
@@ -376,10 +376,10 @@
       "opciones": [
         "Mayor velocidad de pérdida, por más carga hacia abajo en la cola",
         "Mayor consumo, por la resistencia que añade la compensación",
-        "Menor estabilidad longitudinal y fuerzas de mando más livianas",
-        "Mayor estabilidad longitudinal y más esfuerzo para rotar"
+        "Mayor estabilidad longitudinal y más esfuerzo para rotar",
+        "Menor estabilidad longitudinal y fuerzas de mando más livianas"
       ],
-      "correcta": 2,
+      "correcta": 3,
       "explicacion": "Con CG atrasado baja la carga en la cola: menos resistencia y velocidad de pérdida, pero menos estabilidad y mandos más livianos.",
       "metadatos": {
         "tema": "S08",
@@ -392,10 +392,10 @@
       "opciones": [
         "CG en el límite delantero, porque el ala sostiene más carga",
         "CG exactamente en el centro del rango, donde el avión es más maniobrable",
-        "Ninguna: la posición del CG no cambia las fuerzas de mando",
-        "CG en el límite trasero, por fuerzas de mando livianas"
+        "CG en el límite trasero, por fuerzas de mando livianas",
+        "Ninguna: la posición del CG no cambia las fuerzas de mando"
       ],
-      "correcta": 3,
+      "correcta": 2,
       "explicacion": "Con mandos livianos es más fácil aplicar G de más (PHAK).",
       "metadatos": {
         "tema": "S08",
@@ -422,12 +422,12 @@
       "id": "ev-27",
       "enunciado": "En un avión de hélice que gira a la derecha (vista desde la cabina), con alta potencia y alto ángulo de ataque, el factor P produce:",
       "opciones": [
-        "Guiñada a la izquierda",
+        "Cabeceo de nariz arriba",
         "Guiñada a la derecha",
         "Alabeo a la izquierda",
-        "Cabeceo de nariz arriba"
+        "Guiñada a la izquierda"
       ],
-      "correcta": 0,
+      "correcta": 3,
       "explicacion": "La pala descendente (lado derecho) tiene mayor ángulo de ataque y más empuje; la nariz guiña a la izquierda.",
       "metadatos": {
         "tema": "S09",
@@ -454,12 +454,12 @@
       "id": "ev-29",
       "enunciado": "Cuando la velocidad supera el Mach crítico:",
       "opciones": [
-        "El avión completo pasa a vuelo supersónico y se forma la onda de choque de proa",
+        "Aparecen zonas de flujo supersónico, ondas de choque y, poco después, aumento brusco de resistencia",
         "El ángulo de ataque crítico aumenta y el ala tolera más carga antes del buffet",
         "La resistencia baja, porque el flujo supersónico se separa menos del extradós",
-        "Aparecen zonas de flujo supersónico, ondas de choque y, poco después, aumento brusco de resistencia"
+        "El avión completo pasa a vuelo supersónico y se forma la onda de choque de proa"
       ],
-      "correcta": 3,
+      "correcta": 0,
       "explicacion": "El Mach crítico es el primer Mach 1 local. La subida brusca de resistencia ocurre en el Mach de divergencia, 5–10 % por encima.",
       "metadatos": {
         "tema": "S10",
@@ -486,12 +486,12 @@
       "id": "ev-31",
       "enunciado": "A gran altitud el límite de velocidad máxima operativa se expresa normalmente como:",
       "opciones": [
-        "MMO en Mach",
-        "VMO en KCAS",
         "VRA en KIAS",
+        "VMO en KCAS",
+        "MMO en Mach",
         "Va en KIAS"
       ],
-      "correcta": 0,
+      "correcta": 2,
       "explicacion": "Por encima de la altitud de cruce, el Mach máximo se alcanza antes que VMO; el límite es MMO.",
       "metadatos": {
         "tema": "S10",
@@ -502,12 +502,12 @@
       "id": "ev-32",
       "enunciado": "El Mach Buffet se debe a:",
       "opciones": [
-        "La onda de choque de proa al pasar Mach 1",
-        "La estela turbulenta de otro avión",
         "La separación del flujo detrás de una onda de choque",
+        "La estela turbulenta de otro avión",
+        "La onda de choque de proa al pasar Mach 1",
         "La vibración de los motores a empuje máximo"
       ],
-      "correcta": 2,
+      "correcta": 0,
       "explicacion": "La onda de choque puede provocar separación de la capa límite y ese flujo separado hace vibrar la estructura.",
       "metadatos": {
         "tema": "S10",
