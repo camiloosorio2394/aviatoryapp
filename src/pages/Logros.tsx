@@ -191,8 +191,8 @@ export function VistaLogros({
       <section className="mt-14" aria-labelledby="logros-vitrina">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="logros-rotulo m-0 text-[11px] text-muted-foreground">La colección</p>
-            <h2 id="logros-vitrina" className="logros-display m-0 mt-1.5 text-[30px] font-extrabold leading-none text-foreground">
+            <p className="rotulo-mono m-0 text-[11px] text-muted-foreground">La colección</p>
+            <h2 id="logros-vitrina" className="display-archivo m-0 mt-1.5 text-[30px] font-extrabold leading-none text-foreground">
               Vitrina
             </h2>
           </div>
@@ -208,7 +208,7 @@ export function VistaLogros({
                 }`}
               >
                 {f.nombre}
-                {!cargando && <span className="logros-display text-[11.5px] opacity-60">{conteo[f.clave]}</span>}
+                {!cargando && <span className="display-archivo text-[11.5px] opacity-60">{conteo[f.clave]}</span>}
               </button>
             ))}
           </div>
@@ -244,7 +244,7 @@ export function VistaLogros({
                     maxWidth: `calc(${n} * 260px + ${n - 1} * 12px)`,
                   }}
                 >
-                  <h3 className="logros-display m-0 text-[19px] font-bold text-foreground">{g.titulo}</h3>
+                  <h3 className="display-archivo m-0 text-[19px] font-bold text-foreground">{g.titulo}</h3>
                   {g.bajada && <p className="m-0 mt-1 text-[13px] text-muted-foreground">{g.bajada}</p>}
                   <ul
                     className="m-0 mt-4 grid list-none gap-3 p-0"
@@ -268,7 +268,7 @@ export function VistaLogros({
             {rutas.length > 0 && (
               <div className="mt-12">
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                  <h3 className="logros-display m-0 text-[19px] font-bold text-foreground">Ingreso a aerolínea</h3>
+                  <h3 className="display-archivo m-0 text-[19px] font-bold text-foreground">Ingreso a aerolínea</h3>
                   <p className="m-0 text-[13px] text-muted-foreground">
                     Leer la lección, hacer la práctica, aprobar la evaluación y, con las tres, el dominio.
                   </p>

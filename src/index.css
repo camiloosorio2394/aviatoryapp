@@ -2454,13 +2454,13 @@
    siempre (components/logros/InsigniaLogro.tsx): aquí solo se les pone
    escenario. Cifras en Archivo, la del titular del lector; rótulos en mono
    espaciado, como en el resto de la app. Sin rebotes: la misma curva de
-   siempre. */
-.logros-display {
+   siempre. .display-archivo y .rotulo-mono los usa también la Comunidad. */
+.display-archivo {
   font-family: "Archivo Variable", "Archivo", var(--font-sans);
   font-variant-numeric: lining-nums tabular-nums;
   letter-spacing: -0.02em;
 }
-.logros-rotulo {
+.rotulo-mono {
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.16em;

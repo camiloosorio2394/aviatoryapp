@@ -46,6 +46,9 @@ const RoutePage = page(() => import("@/pages/Route"), "Route")
 const Airlines = page(() => import("@/pages/Airlines"), "Airlines")
 const Profile = page(() => import("@/pages/Profile"), "Profile")
 const Community = page(() => import("@/pages/Community"), "Community")
+const Foro = page(() => import("@/pages/foro/Foro"), "Foro")
+const PublicacionForo = page(() => import("@/pages/foro/PublicacionForoPagina"), "PublicacionForoPagina")
+const PublicarForo = page(() => import("@/pages/foro/PublicarForo"), "PublicarForo")
 const CommunityChannel = page(() => import("@/pages/CommunityChannel"), "CommunityChannel")
 const Logbook = page(() => import("@/pages/Logbook"), "Logbook")
 const Expiries = page(() => import("@/pages/Expiries"), "Expiries")
@@ -328,7 +331,15 @@ function App() {
               <Route path="/app/referidos" element={<Referrals />} />
               <Route path="/app/examenes" element={<ExamTracker />} />
               <Route path="/app/examenes/:slug" element={<ExamTrackerSubject />} />
-              <Route path="/app/comunidad" element={<Community />} />
+              {/* El foro. Solo con sesión: todavía no se quiere aparecer en
+                  Google (la lectura pública espera en pendiente/comunidad-publica-seo). */}
+              <Route path="/app/comunidad" element={<Foro />} />
+              <Route path="/app/comunidad/c/:categoria" element={<Foro />} />
+              <Route path="/app/comunidad/p/:id" element={<PublicacionForo />} />
+              <Route path="/app/comunidad/p/:id/:slug" element={<PublicacionForo />} />
+              <Route path="/app/comunidad/publicar" element={<PublicarForo />} />
+              {/* Las salas de chat de antes del foro siguen, un paso más adentro. */}
+              <Route path="/app/comunidad/salas" element={<Community />} />
               <Route path="/app/comunidad/:slug" element={<CommunityChannel />} />
               <Route path="/app/perfil" element={<Profile />} />
               <Route path="/app/logros" element={<Logros />} />

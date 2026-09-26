@@ -480,3 +480,24 @@ anterior). Cambia varias cosas:
 
 Prueba: `supabase/tests/topes_y_restricciones.sql`.
 
+## 26 de septiembre: el foro de la comunidad
+
+`20261003000000_aviso_del_foro` (**pendiente de correr**): agrega el tipo de
+aviso `foro_respuesta`. Va sola porque un valor nuevo de enum no se puede usar
+en la misma transacción que lo crea.
+
+`20261003010000_foro_de_la_comunidad` (**pendiente de correr**, después de
+`20261002010000` y de la anterior; si falta alguna, se detiene con un
+mensaje que dice cuál). El foro al estilo de Reddit:
+
+- Seis categorías fijas, publicaciones, comentarios en dos niveles, votos,
+  confirmaciones de los avisos rápidos («¿sigue vigente?») y reportes.
+- Las tablas no tienen permisos para el cliente: todo va por funciones
+  `security definer`. Leer pide sesión; `anon` no ejecuta nada del foro.
+- Topes diarios con el registro que no se borra, «Hola comunidad» al primer
+  aporte y aviso al autor cuando le comentan.
+- Borrar cambia el estado; ninguna función quita filas.
+
+Probada con PGlite (Postgres 18) sobre un esqueleto de la base: aplica dos
+veces seguidas sin error y `supabase/tests/foro.sql` termina en
+PRUEBA_DESHECHA. Falta correrla contra la base real.
