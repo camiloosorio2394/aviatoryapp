@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client"
+import { esTopeDePublicaciones } from "@/lib/topes"
 import { reportarError } from "@/lib/errores"
 
 /**
@@ -77,7 +78,8 @@ export async function guardarRespuestaHablada(r: RespuestaHabladaGuardada): Prom
       confianza: r.confianza,
       motor: "webspeech",
     })
-    if (error) reportarError("ICAO hablado: guardar", error)
+    // El tope diario es lo esperado, no un fallo: no se reporta.
+    if (error && !esTopeDePublicaciones(error)) reportarError("ICAO hablado: guardar", error)
   } catch (err) {
     console.warn("icao speaking", err)
   }

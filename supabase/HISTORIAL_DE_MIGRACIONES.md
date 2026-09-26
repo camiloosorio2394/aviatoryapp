@@ -467,3 +467,16 @@ No republica ninguna de las seis funciones compartidas. Prueba:
 `supabase/tests/autorizaciones_y_eliminacion.sql`. Cuando se corra, se
 renombra con la versión registrada y sube la marca.
 
+`20261002010000_topes_y_restricciones` (**pendiente de correr**, después de la
+anterior). Cambia varias cosas:
+
+- El tope de inserciones cuenta en `private.registro_de_inserciones`, que el
+  piloto no puede borrar. Antes, borrar lo publicado devolvía el cupo.
+- Suma topes diarios a postulaciones, vuelos, licencias, respuestas habladas,
+  simulacros ICAO y verificaciones de horas.
+- Agrega restricciones `NOT VALID` de tamaño (textos y jsonb) y de forma
+  (emoji, evidencia en la carpeta propia, foto propia).
+- Pone un cupo de archivos por piloto en `avatars` y `bitacoras`.
+
+Prueba: `supabase/tests/topes_y_restricciones.sql`.
+

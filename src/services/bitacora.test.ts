@@ -207,4 +207,9 @@ describe("guardar un vuelo", () => {
     respuestas.set("insert", { error: { message: "fecha inválida" } })
     await expect(guardarVuelo(NUEVO)).rejects.toEqual({ message: "fecha inválida" })
   })
+
+  it("si llegó al tope del día, lo dice con palabras y no con el código", async () => {
+    respuestas.set("insert", { error: { message: "demasiadas_publicaciones" } })
+    await expect(guardarVuelo(NUEVO)).rejects.toThrow("Llegaste al máximo de hoy")
+  })
 })

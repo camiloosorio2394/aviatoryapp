@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client"
+import { esTopeDePublicaciones } from "@/lib/topes"
 import { reportarError } from "@/lib/errores"
 
 /** Resultado guardado de un simulacro TEA. */
@@ -43,7 +44,7 @@ export async function saveMockResult(input: {
     recorded: input.recorded,
   })
   if (error) {
-    reportarError("simulacro ICAO: guardar resultado", error)
+    if (!esTopeDePublicaciones(error)) reportarError("simulacro ICAO: guardar resultado", error)
     return { ok: false }
   }
 
