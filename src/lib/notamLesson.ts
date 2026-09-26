@@ -823,10 +823,10 @@ export const LESSON_SCREENS: DocScreen[] = [
         question: "¿Qué opción representa mejor una forma adecuada de obtener esta información?",
         options: [
           "Consultar únicamente una carta aeronáutica",
-          "Utilizar una herramienta de planificación o briefing que integre NOTAM y verificar que la información provenga de una fuente autorizada",
           "Esperar a recibir la información durante el vuelo",
+          "Utilizar una herramienta de planificación o briefing que integre NOTAM y verificar que la información provenga de una fuente autorizada",
         ],
-        answer: 1,
+        answer: 2,
         explain:
           "Las aplicaciones y sistemas de planificación pueden facilitar la consulta y organización de los NOTAM, pero debes asegurarte de trabajar con información vigente, completa y procedente de una fuente autorizada.",
       },
@@ -985,11 +985,11 @@ export const LESSON_SCREENS: DocScreen[] = [
         titulo: "Piensa como piloto",
         question: "¿Qué deberías hacer?",
         options: [
-          "Continuar la planificación sin tenerlo en cuenta porque las luces PAPI no afectan la navegación",
           "Tener en cuenta que las luces PAPI de la pista 19 están fuera de servicio y revisar cómo afecta la aproximación prevista",
+          "Continuar la planificación sin tenerlo en cuenta porque las luces PAPI no afectan la navegación",
           "Cancelar automáticamente el vuelo porque las luces PAPI están fuera de servicio",
         ],
-        answer: 1,
+        answer: 0,
         explain:
           "El NOTAM informa que las luces PAPI de la pista 19 están fuera de servicio. Como piloto, debes considerar esta condición dentro de la planificación y verificar su efecto sobre la aproximación prevista. Que una ayuda visual esté fuera de servicio no significa automáticamente que la operación no pueda realizarse: debes evaluar las condiciones y procedimientos aplicables.",
       },
@@ -1251,10 +1251,10 @@ export const LESSON_SCREENS: DocScreen[] = [
         question: "Según el NOTAM, ¿qué condición debo tener en cuenta?",
         options: [
           "La pista 17L/35R está cerrada durante todo el período entre B) y C)",
-          "La pista 17L/35R está cerrada durante el período de mi operación, porque el horario está incluido en D)",
           "El NOTAM no afecta mi operación porque fue emitido por Chile",
+          "La pista 17L/35R está cerrada durante el período de mi operación, porque el horario está incluido en D)",
         ],
-        answer: 1,
+        answer: 2,
         explain:
           "El NOTAM indica que la pista 17L/35R estará cerrada durante los períodos especificados en D). Como el horario de tu operación coincide con uno de esos períodos, debes considerar esta condición dentro de tu planificación.",
       },
@@ -2530,10 +2530,10 @@ export const LESSON_SCREENS: DocScreen[] = [
         question: "¿Qué significa este NOTAM?",
         options: [
           "La pista AC está cerrada al tránsito.",
-          "La calle de rodaje AC está cerrada.",
           "La plataforma AC está cerrada hoy.",
+          "La calle de rodaje AC está cerrada.",
         ],
-        answer: 1,
+        answer: 2,
         explain:
           "`TWY` es taxiway, calle de rodaje, y `CLSD` es cerrado. La pista sería `RWY` y la plataforma, `APRON`.",
       },
@@ -2542,11 +2542,11 @@ export const LESSON_SCREENS: DocScreen[] = [
         codigo: "E) RWY 05 CLSD DUE WIP",
         question: "¿Qué significa este NOTAM?",
         options: [
-          "La pista 05 está cerrada por trabajos en curso.",
           "La pista 05 quedó fuera de servicio por una falla.",
+          "La pista 05 está cerrada por trabajos en curso.",
           "La calle de rodaje 05 está cerrada por obras.",
         ],
-        answer: 0,
+        answer: 1,
         explain:
           "`WIP` es work in progress, trabajos en curso, y `DUE` introduce la causa. Fuera de servicio sería `U/S`, que se usa para equipos y ayudas, no para una pista cerrada por obra.",
       },
@@ -2555,11 +2555,11 @@ export const LESSON_SCREENS: DocScreen[] = [
         codigo: "E) PAPI RWY 19 U/S",
         question: "¿Qué significa este NOTAM?",
         options: [
-          "El PAPI de la pista 19 está fuera de servicio.",
           "La pista 19 está cerrada por una falla del PAPI.",
           "El ILS de la pista 19 está fuera de servicio.",
+          "El PAPI de la pista 19 está fuera de servicio.",
         ],
-        answer: 0,
+        answer: 2,
         explain:
           "`PAPI` es el indicador visual de pendiente de aproximación y `U/S` es unserviceable. Lo que falla es una ayuda visual: la pista sigue abierta.",
       },
@@ -2568,11 +2568,11 @@ export const LESSON_SCREENS: DocScreen[] = [
         codigo: "E) TWR LTD",
         question: "¿Qué significa este NOTAM?",
         options: [
-          "La torre está cerrada durante ese periodo.",
           "El servicio de torre está limitado.",
+          "La torre está cerrada durante ese periodo.",
           "La torre opera en frecuencia reducida.",
         ],
-        answer: 1,
+        answer: 0,
         explain:
           "`LTD` es limited, limitado. No dice cerrada, que sería `CLSD`, ni en qué consiste la limitación: para eso hay que mirar el resto del NOTAM.",
       },
@@ -2581,11 +2581,11 @@ export const LESSON_SCREENS: DocScreen[] = [
         codigo: "E) ILS RWY 13 U/S FM 0600 TIL 1200",
         question: "¿Qué significa este NOTAM?",
         options: [
-          "El ILS de la pista 13 opera solamente entre las 06:00 y las 12:00.",
           "El ILS de la pista 13 está fuera de servicio de 06:00 a 12:00.",
+          "El ILS de la pista 13 opera solamente entre las 06:00 y las 12:00.",
           "La pista 13 está cerrada entre las 06:00 y las 12:00.",
         ],
-        answer: 1,
+        answer: 0,
         explain:
           "`FM` es from, desde, y `TIL` es until, hasta. La franja es la de la avería, no la del servicio: `U/S` dice que en esas horas el ILS no está.",
       },
@@ -2595,10 +2595,10 @@ export const LESSON_SCREENS: DocScreen[] = [
         question: "¿Qué significa este NOTAM?",
         options: [
           "La calle de rodaje B está cerrada y las aeronaves tienen que evitarla.",
-          "Hay trabajos en la calle de rodaje B; ejerza precaución.",
           "La calle de rodaje B opera con restricción por tránsito de aeronaves.",
+          "Hay trabajos en la calle de rodaje B; ejerza precaución.",
         ],
-        answer: 1,
+        answer: 2,
         explain:
           "`WIP` son trabajos en curso y `EXER CTN` es ejercer precaución. La calle sigue abierta: si estuviera cerrada diría `CLSD`.",
       },
