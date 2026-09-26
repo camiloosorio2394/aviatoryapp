@@ -82,7 +82,7 @@ export function Logros() {
     }
   }, [user, intento])
 
-  useRachaEnBarra(estado === "listo" ? (racha?.current_streak ?? 0) : undefined)
+  useRachaEnBarra(estado === "listo" ? (racha?.current_streak ?? 0) : undefined, racha?.longest_streak)
 
   if (estado === "fallo") {
     return (
