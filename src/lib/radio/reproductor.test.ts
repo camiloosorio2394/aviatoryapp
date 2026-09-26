@@ -4,7 +4,7 @@ import { crearAleatorio, curvaDistorsion, llenarRuidoRosa, llenarSquelch, planDe
 
 const TX: Transmision = {
   id: "cm-ej-squawk-6402",
-  texto: "Aviatory four five two, squawk six four zero two.",
+  texto: "Avianca four five two, squawk six four zero two.",
   voz: "atc_latam",
   perfil: "normal",
 }

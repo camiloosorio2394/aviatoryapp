@@ -25,21 +25,11 @@ export const NIVEL_4: DocScreen[] = [
     n: 19,
     title: "SID y salida",
     kicker: "La ruta publicada, sus restricciones y lo que cambia con ATC",
-    minutes: 21,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "Una salida normalizada por instrumentos (SID, Standard Instrument Departure) es una trayectoria publicada que permite pasar del aeródromo a la fase en ruta dentro de la autorización recibida. En cabina se cruzan tres fuentes que no son intercambiables: el procedimiento vigente, la autorización del control de tránsito aéreo (ATC, air traffic control) y la capacidad real del avión. El error peligroso no suele ser olvidar que existe una SID, sino asumir qué parte sigue vigente después de un directo, un rumbo o un nuevo nivel.",
-      },
-      { kind: "sub", text: "Antes de despegar: leer lo autorizado, no lo cargado por costumbre" },
-      {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**Identificar la salida.** El piloto que atiende la radio (PM, pilot monitoring) copia designador, transición, nivel inicial y restricciones expresas. El piloto que vuela (PF, pilot flying) contrasta lo recibido con el plan de vuelo, la publicación de información aeronáutica (AIP, Aeronautical Information Publication) vigente y lo cargado en el sistema de gestión de vuelo (FMS, Flight Management System). Un procedimiento seleccionado en el FMS no equivale a autorización.",
-          "**Leer límites laterales, verticales y de velocidad.** La trayectoria publicada puede llevar restricciones que continúan siendo pertinentes incluso cuando ATC cambia otra parte. Se revisan también datos de performance y obstáculos según el manual y el SOP del operador. Si no es posible cumplir una restricción, se comunica antes de llegar a ella.",
-          "**Confirmar lo que no coincide.** Una pista o designador distinto, una transición inesperada o un nivel inicial incompatible con lo preparado no se corrige silenciosamente en el FMS. La tripulación detiene la secuencia de decisión que depende del dato y solicita aclaración a ATC.",
-        ],
+        text: "Una SID (Standard Instrument Departure) es una trayectoria publicada. En cabina se cruzan tres fuentes que no son intercambiables: el procedimiento vigente, la autorización de ATC y lo cargado en el FMS. El error peligroso es suponer qué parte de la SID sigue vigente después de un directo, un rumbo o un nuevo nivel.",
       },
       {
         kind: "figura",
@@ -49,24 +39,15 @@ export const NIVEL_4: DocScreen[] = [
         alto: 850,
         pie: "Esta matriz no es una carta ni representa una salida real. Cada nueva instrucción se compara por separado con el componente lateral, vertical y de velocidad publicado. Un directo a un punto de la SID evita los puntos intermedios, pero no borra automáticamente todas las restricciones futuras. Un vector fuera de la SID exige entender si y dónde se espera reingresar.",
       },
-      { kind: "sub", text: "Después del despegue: tres modificaciones diferentes" },
+      { kind: "sub", text: "Después del despegue: qué cambia con cada instrucción" },
       {
-        kind: "table",
-        head: ["Lo que dice ATC", "Efecto sobre la SID", "Comprobación en cabina"],
-        rows: [
-          ["CLIMB VIA SID TO (level), fraseología OACI", "Autoriza ascenso al nivel explícito siguiendo las restricciones aplicables de la SID.", "Colacionar la frase completa y el nivel; sin nivel la frase está incompleta en la formulación OACI."],
-          ["CLEARED DIRECT a un punto que pertenece a la SID", "Se omiten los puntos sobrevolados; al llegar al punto autorizado se retoma la navegación propia de la SID.", "Distinguir restricciones omitidas de las que aún quedan después del punto de reingreso."],
-          ["Vector o directo a un punto ajeno a la SID", "La aeronave sale temporalmente del procedimiento publicado.", "Confirmar trayectoria, nivel, restricciones y expectativa de reingreso; no asumir retorno automático."],
-          ["Cancelación explícita de restricciones", "Cambia solo las restricciones que ATC identifica como canceladas.", "Mantener el nivel autorizado y las demás restricciones que sigan vigentes."],
+        kind: "kv",
+        items: [
+          { k: "CLIMB VIA SID TO (level)", v: "Ascenso al nivel dicho cumpliendo las restricciones de la SID. En la forma OACI, sin nivel la frase está incompleta." },
+          { k: "Directo a un punto de la SID", v: "Se omiten los puntos intermedios; las restricciones que quedan después del punto siguen." },
+          { k: "Vector o directo fuera de la SID", v: "Se sale del procedimiento: confirmar nivel, restricciones y si se espera reingreso." },
+          { k: "Cancelación de restricciones", v: "Cambia solo las que ATC nombra." },
         ],
-      },
-      {
-        kind: "p",
-        text: "La Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization) explica que **CLIMB VIA SID** sin un nivel asignado es una frase incompleta bajo su procedimiento: debe decir CLIMB VIA SID TO (level). También advierte que Estados que no aplican exactamente ese esquema —cita expresamente a Estados Unidos— pueden usar CLIMB VIA SID sin nivel en una autorización específica. No se mezclan ambas prácticas. Para Colombia, la fuente del procedimiento vigente es la eAIP de Aerocivil y la autorización real, no un diálogo de entrenamiento.",
-      },
-      {
-        kind: "p",
-        text: "La misma guía OACI distingue un directo a un punto **de la propia SID** de un directo a un punto que **no pertenece** a ella. En el primer caso, los puntos intermedios evitados dejan de obligar, pero las restricciones futuras no desaparecen por eso. En el segundo, el avión sale del procedimiento y la tripulación necesita saber cómo continúa la ruta y si control prevé reingreso. Un cambio de nivel tampoco autoriza a ignorar límites laterales o de velocidad por intuición. El PM colaciona cada cambio, el PF revisa el modo de guiado y ambos verifican el efecto en el FMS.",
       },
       {
         kind: "figura",
@@ -75,11 +56,6 @@ export const NIVEL_4: DocScreen[] = [
         ancho: 1672,
         alto: 941,
         pie: "Historieta didáctica, no transcripción: 1) la tripulación revisa la salida antes de partir; 2) el controlador gestiona el tránsito; 3) el PM escucha una modificación tras el despegue; 4) PF y PM comprueban juntos qué parte de la autorización cambia. Las pantallas son intencionalmente ilegibles: no representan una carta, SID, ruta ni dato local inventado.",
-      },
-      { kind: "sub", text: "La primera llamada a Salida" },
-      {
-        kind: "p",
-        text: "Al transferirse de torre a Salida, el PM contacta a la dependencia indicada con el distintivo completo y la información de nivel que exijan el procedimiento y la instrucción. Es esencial que el controlador pueda comparar el nivel que la tripulación está dejando y el que cree autorizado. Si se asignó velocidad o hay una restricción significativa, la tripulación no la omite cuando deba notificarse. El orden exacto de la primera llamada y la frecuencia se toman de la publicación y de la transferencia recibida; no existe en esta lección un «Bogotá Salida» o una frecuencia de ejemplo que deba memorizarse.",
       },
       {
         kind: "escenario",
@@ -100,23 +76,80 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "Cada vez que Salida cambia la autorización",
-        texto: "El PM escucha y anota qué dimensión cambia —ruta, nivel o velocidad—, colaciona la instrucción completa y confirma cualquier ambigüedad. El PF mantiene la trayectoria segura mientras verifica el modo lateral y vertical seleccionado. Una restricción que el avión no puede cumplir se comunica a tiempo con UNABLE y una explicación breve; no se espera a sobrevolar el punto. El operador define sus procedimientos operacionales normalizados (SOP, standard operating procedures) y sus llamadas cruzadas, pero ninguna automatización exime de cotejar la autorización con lo que realmente volará el avión.",
+        texto: "El PM anota qué cambia (ruta, nivel o velocidad) y colaciona (lección 12); el PF verifica el modo lateral y vertical. Una restricción imposible se comunica con UNABLE antes de llegar a ella.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "La FAA usa CLIMB VIA SID sin nivel y la OACI no: en Colombia, confirma la SID en la eAIP de Aerocivil y la autorización recibida.",
       },
       { kind: "sub", text: "Errores que importan" },
-      error("Confundir una SID cargada en el FMS con una SID autorizada, o volar una versión antigua sin contrastarla con la publicación vigente."),
       error("Tratar un directo a un punto de la SID como cancelación automática de todas las restricciones futuras."),
       error("Suponer reingreso a la SID después de un vector o directo fuera de ella sin una instrucción clara."),
-      error("Interpretar CLIMB VIA SID sin nivel como una autorización OACI completa cuando se necesita un nivel explícito."),
-      error("Aceptar una restricción que el avión no puede cumplir y comunicar UNABLE demasiado tarde."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "La SID publicada, la autorización ATC y lo cargado en el FMS se comparan; no son la misma cosa.",
-          "CLIMB VIA SID TO (level) incluye nivel explícito en la formulación OACI; no trasladar otras variantes de Estado sin verificar.",
-          "Un directo a un punto de la SID omite los puntos intermedios, no todas las restricciones posteriores.",
-          "Un vector fuera de la SID exige confirmar cómo sigue la trayectoria y si se espera reingreso.",
-          "Si una restricción no es posible, se comunica UNABLE antes de llegar a ella.",
+          "SID publicada, autorización y FMS se comparan: no son lo mismo.",
+          "Un directo a un punto de la SID no borra las restricciones posteriores.",
+          "Fuera de la SID, se confirma cómo sigue la trayectoria.",
+          "Si una restricción no es posible, UNABLE a tiempo.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "OACI · cambios de fraseología SID/STAR",
+        bloques: [
+          {
+            kind: "p",
+            text: "Una salida normalizada por instrumentos (SID, Standard Instrument Departure) es una trayectoria publicada que permite pasar del aeródromo a la fase en ruta dentro de la autorización recibida. En cabina se cruzan tres fuentes que no son intercambiables: el procedimiento vigente, la autorización del control de tránsito aéreo (ATC, air traffic control) y la capacidad real del avión. El error peligroso no suele ser olvidar que existe una SID, sino asumir qué parte sigue vigente después de un directo, un rumbo o un nuevo nivel.",
+          },
+          { kind: "sub", text: "Antes de despegar: leer lo autorizado, no lo cargado por costumbre" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Identificar la salida.** El piloto que atiende la radio (PM, pilot monitoring) copia designador, transición, nivel inicial y restricciones expresas. El piloto que vuela (PF, pilot flying) contrasta lo recibido con el plan de vuelo, la publicación de información aeronáutica (AIP, Aeronautical Information Publication) vigente y lo cargado en el sistema de gestión de vuelo (FMS, Flight Management System). Un procedimiento seleccionado en el FMS no equivale a autorización.",
+              "**Leer límites laterales, verticales y de velocidad.** La trayectoria publicada puede llevar restricciones que continúan siendo pertinentes incluso cuando ATC cambia otra parte. Se revisan también datos de performance y obstáculos según el manual y el SOP del operador. Si no es posible cumplir una restricción, se comunica antes de llegar a ella.",
+              "**Confirmar lo que no coincide.** Una pista o designador distinto, una transición inesperada o un nivel inicial incompatible con lo preparado no se corrige silenciosamente en el FMS. La tripulación detiene la secuencia de decisión que depende del dato y solicita aclaración a ATC.",
+            ],
+          },
+          { kind: "sub", text: "Después del despegue: tres modificaciones diferentes" },
+          {
+            kind: "table",
+            head: ["Lo que dice ATC", "Efecto sobre la SID", "Comprobación en cabina"],
+            rows: [
+              ["CLIMB VIA SID TO (level), fraseología OACI", "Autoriza ascenso al nivel explícito siguiendo las restricciones aplicables de la SID.", "Colacionar la frase completa y el nivel; sin nivel la frase está incompleta en la formulación OACI."],
+              ["CLEARED DIRECT a un punto que pertenece a la SID", "Se omiten los puntos sobrevolados; al llegar al punto autorizado se retoma la navegación propia de la SID.", "Distinguir restricciones omitidas de las que aún quedan después del punto de reingreso."],
+              ["Vector o directo a un punto ajeno a la SID", "La aeronave sale temporalmente del procedimiento publicado.", "Confirmar trayectoria, nivel, restricciones y expectativa de reingreso; no asumir retorno automático."],
+              ["Cancelación explícita de restricciones", "Cambia solo las restricciones que ATC identifica como canceladas.", "Mantener el nivel autorizado y las demás restricciones que sigan vigentes."],
+            ],
+          },
+          {
+            kind: "p",
+            text: "La Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization) explica que **CLIMB VIA SID** sin un nivel asignado es una frase incompleta bajo su procedimiento: debe decir CLIMB VIA SID TO (level). También advierte que Estados que no aplican exactamente ese esquema (cita expresamente a Estados Unidos) pueden usar CLIMB VIA SID sin nivel en una autorización específica. No se mezclan ambas prácticas. Para Colombia, la fuente del procedimiento vigente es la eAIP de Aerocivil y la autorización real, no un diálogo de entrenamiento.",
+          },
+          {
+            kind: "p",
+            text: "La misma guía OACI distingue un directo a un punto **de la propia SID** de un directo a un punto que **no pertenece** a ella. En el primer caso, los puntos intermedios evitados dejan de obligar, pero las restricciones futuras no desaparecen por eso. En el segundo, el avión sale del procedimiento y la tripulación necesita saber cómo continúa la ruta y si control prevé reingreso. Un cambio de nivel tampoco autoriza a ignorar límites laterales o de velocidad por intuición. El PM colaciona cada cambio, el PF revisa el modo de guiado y ambos verifican el efecto en el FMS.",
+          },
+          { kind: "sub", text: "La primera llamada a Salida" },
+          {
+            kind: "p",
+            text: "Al transferirse de torre a Salida, el PM contacta a la dependencia indicada con el distintivo completo y la información de nivel que exijan el procedimiento y la instrucción. Es esencial que el controlador pueda comparar el nivel que la tripulación está dejando y el que cree autorizado. Si se asignó velocidad o hay una restricción significativa, la tripulación no la omite cuando deba notificarse. El orden exacto de la primera llamada y la frecuencia se toman de la publicación y de la transferencia recibida; no existe en esta lección un «Bogotá Salida» o una frecuencia de ejemplo que deba memorizarse.",
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "Cada vez que Salida cambia la autorización",
+            texto: "El PM escucha y anota qué dimensión cambia (ruta, nivel o velocidad), colaciona la instrucción completa y confirma cualquier ambigüedad. El PF mantiene la trayectoria segura mientras verifica el modo lateral y vertical seleccionado. Una restricción que el avión no puede cumplir se comunica a tiempo con UNABLE y una explicación breve; no se espera a sobrevolar el punto. El operador define sus procedimientos operacionales normalizados (SOP, standard operating procedures) y sus llamadas cruzadas, pero ninguna automatización exime de cotejar la autorización con lo que realmente volará el avión.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Confundir una SID cargada en el FMS con una SID autorizada, o volar una versión antigua sin contrastarla con la publicación vigente.",
+            "Interpretar CLIMB VIA SID sin nivel como una autorización OACI completa cuando se necesita un nivel explícito.",
+            "Aceptar una restricción que el avión no puede cumplir y comunicar UNABLE demasiado tarde.",
+          ] },
         ],
       },
       {
@@ -125,7 +158,7 @@ export const NIVEL_4: DocScreen[] = [
         cita: "OACI · Cambios SID/STAR y preguntas para tripulaciones",
         bloques: [
           { kind: "sub", text: "Documentos oficiales" },
-          { kind: "p", text: "OACI, Changes to SID & STAR Phraseologies (https://www.icao.int/airnavigation/changes-to-sid_star-phra-seologies) y Flight Crews FAQ, preguntas 2, 5–8 (https://www.icao.int/airnavigation/faq-flight-crews). Esas páginas explican el alcance de CLIMB VIA SID TO (level), directos a puntos de la SID, restricciones remanentes y reingreso. La comparación se refiere a la fraseología OACI y reconoce expresamente diferencias de Estados Unidos." },
+          { kind: "p", text: "OACI, Changes to SID & STAR Phraseologies (https://www.icao.int/airnavigation/changes-to-sid_star-phra-seologies) y Flight Crews FAQ, preguntas 2, 5 a 8 (https://www.icao.int/airnavigation/faq-flight-crews). Esas páginas explican el alcance de CLIMB VIA SID TO (level), directos a puntos de la SID, restricciones remanentes y reingreso. La comparación se refiere a la fraseología OACI y reconoce expresamente diferencias de Estados Unidos." },
           { kind: "sub", text: "Límite de aplicación" },
           { kind: "list", items: [
             "La matriz y el escenario no son una SID, una carta ni una transcripción real.",
@@ -141,16 +174,16 @@ export const NIVEL_4: DocScreen[] = [
     n: 20,
     title: "Ascenso y cambios de nivel",
     kicker: "Escuchar, colacionar, seleccionar y comprobar",
-    minutes: 20,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "Una autorización de ascenso o descenso del control de tránsito aéreo (ATC, air traffic control) no termina al repetirla por radio. Para que el avión vuele el nivel correcto, la tripulación debe identificar a quién se dirige la instrucción, entender si se habla de altitud o nivel de vuelo, colacionar el valor completo, seleccionarlo y comprobar que el modo vertical conduce al objetivo autorizado. Estas acciones se encadenan con la trayectoria lateral, las restricciones publicadas y la capacidad real del avión.",
+        text: "Una autorización de ascenso o descenso no termina al repetirla. Para volar el nivel correcto hay que saber si es altitud o nivel de vuelo, colacionar el valor completo, seleccionarlo y comprobar que el modo vertical lleva a ese objetivo.",
       },
-      { kind: "sub", text: "Dos referencias verticales, una sola intención autorizada" },
+      { kind: "sub", text: "Altitud o nivel de vuelo" },
       {
         kind: "p",
-        text: "La **altitud** se expresa respecto al nivel medio del mar con un ajuste altimétrico apropiado, normalmente QNH (código Q del ajuste de presión al nivel medio del mar). El **nivel de vuelo** es una superficie de presión referida al ajuste estándar de 1013,2 hectopascales (hPa). Por eso una autorización «FLIGHT LEVEL (number)» no se reemplaza por la misma cifra en pies. La altitud de transición, el nivel de transición y la capa entre ambos separan el uso de cada referencia; sus valores no son universales. En Colombia se comprueban en la publicación de información aeronáutica (AIP, Aeronautical Information Publication) vigente de Aerocivil y en la información del aeródromo correspondiente.",
+        text: "La **altitud** va referida al nivel del mar con QNH; el **nivel de vuelo**, a 1013,2 hPa. «FLIGHT LEVEL (number)» no se reemplaza por la misma cifra en pies. Altitud y nivel de transición no son universales: se toman de la AIP de cada aeródromo.",
       },
       {
         kind: "figura",
@@ -160,15 +193,15 @@ export const NIVEL_4: DocScreen[] = [
         alto: 900,
         pie: "Esquema conceptual, no perfil de un aeródromo. Al ascender se cambia a referencia estándar según la altitud de transición aplicable; al descender, al cruzar el nivel de transición, se usa la referencia altimétrica comunicada. La cifra y el ajuste se toman de la publicación y de la autorización reales, nunca de esta figura.",
       },
-      { kind: "sub", text: "La secuencia completa en una cabina de dos pilotos" },
+      { kind: "sub", text: "Escuchar, colacionar, seleccionar, comprobar" },
       {
         kind: "list",
         ordered: true,
         items: [
-          "**Escuchar la llamada entera.** El piloto que monitorea (PM, pilot monitoring) confirma el distintivo y copia el nuevo nivel junto con cualquier condición de tiempo, punto, régimen o restricción. Si el distintivo se parece al de otra aeronave o una sílaba queda bloqueada, no se ejecuta una interpretación probable: se pide repetición.",
-          "**Colacionar la instrucción completa.** Se distingue «FLIGHT LEVEL» de «FEET» y se incluye el nivel o la altitud, la condición y el distintivo. El controlador debe poder detectar una discrepancia; responder solamente con la cifra reduce esa oportunidad.",
-          "**Seleccionar y verificar.** El piloto que vuela (PF, pilot flying) mantiene la trayectoria y confirma el valor seleccionado en el panel de guiado, el ajuste de altímetro y el modo vertical. El PM coteja lo seleccionado con lo autorizado. El reparto exacto de tareas sigue los procedimientos operacionales normalizados (SOP, standard operating procedures) del operador.",
-          "**Monitorear la captura.** Ambos observan que el avión asciende o desciende hacia el objetivo autorizado, respeta las restricciones que siguen vigentes y captura el nivel sin sobrepasarlo. Una instrucción de cambio de nivel no elimina por sí sola una restricción lateral o de velocidad.",
+          "**Escuchar** el distintivo y el nivel con su condición; si algo quedó bloqueado, se pide repetición.",
+          "**Colacionar** diciendo FLIGHT LEVEL o FEET, la condición y el distintivo (lección 12).",
+          "**Seleccionar y verificar**: el PF selecciona; el PM coteja valor, altímetro y modo vertical.",
+          "**Monitorear la captura** sin perder las restricciones laterales y de velocidad que siguen.",
         ],
       },
       {
@@ -178,22 +211,6 @@ export const NIVEL_4: DocScreen[] = [
         ancho: 1672,
         alto: 941,
         pie: "Historieta didáctica, no transcripción: 1) el PM escucha; 2) control emite una instrucción; 3) el PM colaciona; 4) ambos pilotos comprueban la selección y el modo vertical. No se muestran niveles, distintivos, frecuencias o datos de una autorización real.",
-      },
-      { kind: "sub", text: "Cambios que modifican la decisión" },
-      {
-        kind: "table",
-        head: ["Instrucción o situación", "Lo que exige la tripulación"],
-        rows: [
-          ["CLIMB / DESCEND TO (level)", "Colacionar el nuevo objetivo y cambiar el guiado solo después de confirmar que la instrucción es para su avión."],
-          ["MAINTAIN (level)", "Mantener el nivel indicado; MAINTAIN no es una manera abreviada de ordenar un ascenso o descenso."],
-          ["REPORT LEAVING / PASSING / REACHING (level)", "Notificar exactamente el evento pedido. Una autorización a otro avión puede depender de esa información."],
-          ["EXPEDITE o régimen de ascenso/descenso", "Comprobar si el avión puede cumplirlo. Si no, decir UNABLE de inmediato, indicar la limitación y esperar una alternativa."],
-          ["Nueva autorización antes de alcanzar la anterior", "Identificar qué parte reemplaza a la instrucción previa, colacionarla y verificar de nuevo el objetivo seleccionado."],
-        ],
-      },
-      {
-        kind: "p",
-        text: "La fraseología publicada por la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency) muestra CLIMB o DESCEND seguido de TO (level), y separa MAINTAIN (level) para conservar un nivel. También contiene REPORT LEAVING, PASSING o REACHING y variantes de régimen. Son patrones normativos para el ámbito indicado por esa fuente, no un diálogo colombiano ni una autorización para copiar números arbitrarios. El valor, las restricciones y la dependencia concreta se toman de la instrucción real y de la AIP aplicable.",
       },
       {
         kind: "escenario",
@@ -214,23 +231,77 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "Después de cada modificación vertical",
-        texto: "El PM confirma distintivo, nivel y condiciones; el PF mantiene control del vuelo. Ambos cotejan autorización, selector, ajuste altimétrico y modo vertical. Si cambia la referencia durante ascenso o descenso, la tripulación aplica el punto de transición publicado y el SOP. Si una instrucción entra en conflicto con la performance, una restricción o la seguridad del terreno, se comunica de inmediato y se solicita aclaración o alternativa; no se deja que la automatización decida qué autorización prevalece.",
+        texto: "El PM confirma distintivo, nivel y condiciones; el PF vuela. Ambos cotejan autorización, selector, altímetro y modo vertical. Si la instrucción choca con la performance o el terreno, se dice de inmediato.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "Valores de transición y fraseología local: confírmalos en la eAIP de Aerocivil y el SOP del operador.",
       },
       { kind: "sub", text: "Errores que importan" },
       error("Colacionar solo un número sin decir si es altitud en pies o nivel de vuelo."),
-      error("Aceptar una autorización de otro distintivo en una frecuencia congestionada."),
       error("Decir un nuevo nivel por radio y dejar seleccionado el anterior."),
-      error("Cambiar QNH y ajuste estándar en un punto supuesto, sin comprobar la transición aplicable."),
-      error("Esperar hasta la captura para reconocer que no se puede cumplir un régimen o una condición."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Altitud y nivel de vuelo tienen referencias diferentes; la transición se toma de la publicación aplicable.",
-          "Una instrucción vertical se escucha, colaciona, selecciona, verifica y monitorea.",
-          "MAINTAIN conserva un nivel; CLIMB o DESCEND ordenan el cambio.",
-          "La imposibilidad de cumplir se comunica pronto con UNABLE y una explicación breve.",
-          "Ninguna cifra ni frecuencia de entrenamiento sustituye una autorización real.",
+          "Altitud y nivel de vuelo tienen referencias distintas.",
+          "Se escucha, colaciona, selecciona, verifica y monitorea.",
+          "MAINTAIN conserva un nivel; CLIMB o DESCEND lo cambian.",
+          "Si no se puede cumplir, UNABLE pronto y con el motivo.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "OACI Doc 4444 · EASA AMC1 SERA.14001",
+        bloques: [
+          {
+            kind: "p",
+            text: "Una autorización de ascenso o descenso del control de tránsito aéreo (ATC, air traffic control) no termina al repetirla por radio. Para que el avión vuele el nivel correcto, la tripulación debe identificar a quién se dirige la instrucción, entender si se habla de altitud o nivel de vuelo, colacionar el valor completo, seleccionarlo y comprobar que el modo vertical conduce al objetivo autorizado. Estas acciones se encadenan con la trayectoria lateral, las restricciones publicadas y la capacidad real del avión.",
+          },
+          {
+            kind: "p",
+            text: "La **altitud** se expresa respecto al nivel medio del mar con un ajuste altimétrico apropiado, normalmente QNH (código Q del ajuste de presión al nivel medio del mar). El **nivel de vuelo** es una superficie de presión referida al ajuste estándar de 1013,2 hectopascales (hPa). Por eso una autorización «FLIGHT LEVEL (number)» no se reemplaza por la misma cifra en pies. La altitud de transición, el nivel de transición y la capa entre ambos separan el uso de cada referencia; sus valores no son universales. En Colombia se comprueban en la publicación de información aeronáutica (AIP, Aeronautical Information Publication) vigente de Aerocivil y en la información del aeródromo correspondiente.",
+          },
+          { kind: "sub", text: "La secuencia completa en una cabina de dos pilotos" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Escuchar la llamada entera.** El piloto que monitorea (PM, pilot monitoring) confirma el distintivo y copia el nuevo nivel junto con cualquier condición de tiempo, punto, régimen o restricción. Si el distintivo se parece al de otra aeronave o una sílaba queda bloqueada, no se ejecuta una interpretación probable: se pide repetición.",
+              "**Colacionar la instrucción completa.** Se distingue «FLIGHT LEVEL» de «FEET» y se incluye el nivel o la altitud, la condición y el distintivo. El controlador debe poder detectar una discrepancia; responder solamente con la cifra reduce esa oportunidad.",
+              "**Seleccionar y verificar.** El piloto que vuela (PF, pilot flying) mantiene la trayectoria y confirma el valor seleccionado en el panel de guiado, el ajuste de altímetro y el modo vertical. El PM coteja lo seleccionado con lo autorizado. El reparto exacto de tareas sigue los procedimientos operacionales normalizados (SOP, standard operating procedures) del operador.",
+              "**Monitorear la captura.** Ambos observan que el avión asciende o desciende hacia el objetivo autorizado, respeta las restricciones que siguen vigentes y captura el nivel sin sobrepasarlo. Una instrucción de cambio de nivel no elimina por sí sola una restricción lateral o de velocidad.",
+            ],
+          },
+          { kind: "sub", text: "Cambios que modifican la decisión" },
+          {
+            kind: "table",
+            head: ["Instrucción o situación", "Lo que exige la tripulación"],
+            rows: [
+              ["CLIMB / DESCEND TO (level)", "Colacionar el nuevo objetivo y cambiar el guiado solo después de confirmar que la instrucción es para su avión."],
+              ["MAINTAIN (level)", "Mantener el nivel indicado; MAINTAIN no es una manera abreviada de ordenar un ascenso o descenso."],
+              ["REPORT LEAVING / PASSING / REACHING (level)", "Notificar exactamente el evento pedido. Una autorización a otro avión puede depender de esa información."],
+              ["EXPEDITE o régimen de ascenso/descenso", "Comprobar si el avión puede cumplirlo. Si no, decir UNABLE de inmediato, indicar la limitación y esperar una alternativa."],
+              ["Nueva autorización antes de alcanzar la anterior", "Identificar qué parte reemplaza a la instrucción previa, colacionarla y verificar de nuevo el objetivo seleccionado."],
+            ],
+          },
+          {
+            kind: "p",
+            text: "La fraseología publicada por la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency) muestra CLIMB o DESCEND seguido de TO (level), y separa MAINTAIN (level) para conservar un nivel. También contiene REPORT LEAVING, PASSING o REACHING y variantes de régimen. Son patrones normativos para el ámbito indicado por esa fuente, no un diálogo colombiano ni una autorización para copiar números arbitrarios. El valor, las restricciones y la dependencia concreta se toman de la instrucción real y de la AIP aplicable.",
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "Después de cada modificación vertical",
+            texto: "El PM confirma distintivo, nivel y condiciones; el PF mantiene control del vuelo. Ambos cotejan autorización, selector, ajuste altimétrico y modo vertical. Si cambia la referencia durante ascenso o descenso, la tripulación aplica el punto de transición publicado y el SOP. Si una instrucción entra en conflicto con la performance, una restricción o la seguridad del terreno, se comunica de inmediato y se solicita aclaración o alternativa; no se deja que la automatización decida qué autorización prevalece.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Aceptar una autorización de otro distintivo en una frecuencia congestionada.",
+            "Cambiar QNH y ajuste estándar en un punto supuesto, sin comprobar la transición aplicable.",
+            "Esperar hasta la captura para reconocer que no se puede cumplir un régimen o una condición.",
+          ] },
         ],
       },
       {
@@ -239,7 +310,7 @@ export const NIVEL_4: DocScreen[] = [
         cita: "OACI · Doc 4444; EASA · SERA.14001",
         bloques: [
           { kind: "sub", text: "Documentos oficiales" },
-          { kind: "p", text: "OACI, Doc 4444, PANS-ATM, edición disponible en el portal de OACI (https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/DOC%204444_PANS%20ATM_en.pdf), definiciones de altitud y nivel de vuelo y procedimientos de reglaje altimétrico. EASA, Easy Access Rules for Standardised European Rules of the Air, Appendix 1 to AMC1 SERA.14001, secciones 1.1.1–1.1.2 y 1.2.3 (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). Son referencias de fraseología y conceptos; la operación colombiana se consulta en Aerocivil/eAIP vigente." },
+          { kind: "p", text: "OACI, Doc 4444, PANS-ATM, edición disponible en el portal de OACI (https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/DOC%204444_PANS%20ATM_en.pdf), definiciones de altitud y nivel de vuelo y procedimientos de reglaje altimétrico. EASA, Easy Access Rules for Standardised European Rules of the Air, Appendix 1 to AMC1 SERA.14001, secciones 1.1.1 a 1.1.2 y 1.2.3 (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). Son referencias de fraseología y conceptos; la operación colombiana se consulta en Aerocivil/eAIP vigente." },
           { kind: "sub", text: "Límites del material" },
           { kind: "list", items: [
             "El diagrama no indica valores de transición de ningún aeropuerto.",
@@ -255,20 +326,19 @@ export const NIVEL_4: DocScreen[] = [
     n: 21,
     title: "Rumbo, directo y vectores",
     kicker: "Quién guía la trayectoria y cuándo vuelve la navegación propia",
-    minutes: 19,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "Un **vector** es una instrucción de rumbo dada por el control de tránsito aéreo (ATC, air traffic control) con ayuda de vigilancia. No equivale a un punto directo en el sistema de gestión de vuelo (FMS, Flight Management System): durante el vector la tripulación vuela el rumbo instruido y monitorea la trayectoria, mientras ATC mantiene la secuencia prevista. Un **directo** cambia la ruta lateral hacia un punto nombrado; volver a la navegación propia requiere entender exactamente dónde y cómo se reingresa a la ruta autorizada.",
+        text: "Un **vector** es un rumbo que da ATC con ayuda de vigilancia: se vuela ese rumbo y se monitorea la trayectoria. Un **directo** cambia la ruta hacia un punto nombrado. Volver a la navegación propia exige saber dónde y cómo se reingresa a la ruta autorizada.",
       },
       { kind: "sub", text: "Rumbo, derrota y ruta no son sinónimos" },
       {
         kind: "list",
         items: [
-          "Un **rumbo** indica hacia dónde apunta el avión respecto al norte magnético. La **derrota** es el recorrido sobre el terreno; el viento puede separarlas. Si la instrucción es FLY HEADING, no se sustituye por una derrota calculada por el FMS.",
-          "TURN LEFT o TURN RIGHT identifica el sentido del viraje; HEADING seguido de tres cifras identifica el rumbo de salida. El piloto que monitorea (PM, pilot monitoring) colaciona ambos elementos y el distintivo. Si el sentido es esencial y no se entiende, solicita confirmación antes de seleccionar un giro ambiguo.",
-          "RESUME OWN NAVIGATION indica el fin de la guía vectorial cuando corresponde, acompañado de posición e instrucciones apropiadas. No significa «volver a cualquier línea magenta»; la tripulación identifica la ruta o el punto al que se le devuelve.",
-          "Un directo a un punto de una salida normalizada por instrumentos (SID, Standard Instrument Departure) no tiene exactamente el mismo efecto que un directo a un punto ajeno a ella. La lección 19 explica qué restricciones permanecen y por qué el reingreso no se infiere.",
+          "El **rumbo** es hacia dónde apunta el avión; la **derrota**, su recorrido sobre el terreno. FLY HEADING no se cambia por una derrota del FMS.",
+          "TURN LEFT o TURN RIGHT da el sentido; HEADING y tres cifras, el rumbo. Se colacionan los dos.",
+          "RESUME OWN NAVIGATION termina el vector: hay que identificar a qué ruta o punto se vuelve. El directo a un punto de una SID está en la lección 19.",
         ],
       },
       {
@@ -279,17 +349,6 @@ export const NIVEL_4: DocScreen[] = [
         alto: 900,
         pie: "Esquema de estados, no carta aeronáutica ni trayectoria a escala. El rumbo vectorizado no es la ruta del FMS; el directo solo se vuela hacia el punto efectivamente autorizado. Antes de reingresar se comprueban posición, nivel, restricciones vigentes y capacidad de navegación.",
       },
-      { kind: "sub", text: "Secuencia operacional de una modificación lateral" },
-      {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**Primero, identificar la instrucción.** El PM escucha el distintivo, sentido de giro, rumbo o punto, motivo si lo transmite control, y cualquier límite de nivel o velocidad. El piloto que vuela (PF, pilot flying) mantiene control del avión mientras se resuelve una duda.",
-          "**Después, colacionar y configurar.** Si es vector, se selecciona el modo de rumbo apropiado y se comprueba que no se confunda con modo de derrota. Si es directo, se verifica el punto nombrado y el tramo resultante en el FMS antes de ejecutarlo. El reparto exacto de tareas depende de los procedimientos operacionales normalizados (SOP, standard operating procedures) del operador.",
-          "**Monitorear la trayectoria real.** Ambos comprueban que el avión inicia el viraje correcto, captura el rumbo o navega al punto autorizado y sigue respetando el nivel y la velocidad vigentes. Un cambio lateral no cancela las otras dimensiones por inferencia.",
-          "**Cerrar la guía vectorial.** Al recibir RESUME OWN NAVIGATION o una nueva ruta, se confirma dónde se encuentra el avión y a qué punto o segmento debe ir. Si la instrucción deja incierto el reingreso, se pregunta; no se permite que el FMS invente la continuidad.",
-        ],
-      },
       {
         kind: "figura",
         src: "/modulos/comunicaciones/CM-21-02.webp",
@@ -297,11 +356,6 @@ export const NIVEL_4: DocScreen[] = [
         ancho: 1672,
         alto: 941,
         pie: "Historieta didáctica, no una comunicación grabada: 1) el controlador asigna un rumbo; 2) la tripulación lo ejecuta y monitorea; 3) el PM revisa el efecto de una nueva instrucción; 4) ambos confirman la ruta autorizada antes de volver a navegación propia. Las pantallas son ilegibles y no representan una carta o ruta real.",
-      },
-      { kind: "sub", text: "Lo que respaldan la fraseología y la separación" },
-      {
-        kind: "p",
-        text: "El apéndice de fraseología de la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency) incluye FLY HEADING (tres cifras), TURN LEFT/RIGHT HEADING (tres cifras), CONTINUE PRESENT HEADING y RESUME OWN NAVIGATION con posición e instrucciones. Son ejemplos de estructura normativa de su ámbito, no una autorización colombiana ni un diálogo inventado. El documento oficial OACI Doc 4444 consultado indica que, durante vectores a un vuelo por reglas de vuelo instrumental (IFR, Instrument Flight Rules) o un directo que lo saca de una ruta de servicios de tránsito aéreo (ATS, air traffic services), el controlador debe dar autorizaciones con margen de obstáculos hasta el punto donde el piloto retome su navegación. La tripulación conserva responsabilidad de verificar el vuelo seguro y pedir aclaración si algo no cuadra; el documento consultado es una edición anterior y no sustituye la versión vigente aplicable.",
       },
       {
         kind: "escenario",
@@ -322,23 +376,71 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "Al pasar de vector a directo o a navegación propia",
-        texto: "El PM colaciona sentido de giro, rumbo o punto e identifica qué parte de la ruta cambia. El PF verifica que el modo lateral y la trayectoria observada coincidan con esa autorización. Los dos comparan el nivel y la velocidad vigentes, la separación con el terreno y el tramo que propone el FMS. Si no pueden identificar un reingreso seguro y autorizado, piden instrucciones adicionales antes de ejecutar una interpretación implícita.",
+        texto: "El PM colaciona sentido, rumbo o punto; el PF verifica que el modo lateral y la trayectoria coincidan. Los dos comparan nivel, velocidad y el tramo que propone el FMS. Si el reingreso no es claro, se pregunta.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "Fraseología EASA y Doc 4444 de edición anterior: confirma la edición vigente y la eAIP de Aerocivil.",
       },
       { kind: "sub", text: "Errores que importan" },
       error("Colacionar el valor del rumbo sin el sentido de viraje cuando este fue instruido."),
-      error("Confundir rumbo con derrota o dejar seleccionado el modo lateral equivocado."),
       error("Reanudar la ruta cargada en el FMS solo porque el vector parece haber terminado."),
-      error("Activar un directo sin revisar qué restricciones y tramo quedan por delante."),
-      error("Asumir que la responsabilidad de ATC durante vectores elimina toda verificación de seguridad en cabina."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Un vector es rumbo instruido; un directo es nueva ruta hacia un punto autorizado.",
-          "El sentido del giro, el rumbo o el punto se colacionan y se verifican en el modo lateral.",
-          "RESUME OWN NAVIGATION requiere saber qué navegación retomar y desde dónde.",
-          "Nivel, velocidad y restricciones no desaparecen al cambiar la trayectoria lateral.",
-          "Si el reingreso o el margen con el terreno no es claro, se pide aclaración.",
+          "Vector es rumbo instruido; directo es ruta nueva hacia un punto autorizado.",
+          "Sentido de giro, rumbo o punto se colacionan y se verifican en el modo lateral.",
+          "Nivel y velocidad no cambian por cambiar la trayectoria lateral.",
+          "Si el reingreso no es claro, se pide aclaración.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "EASA AMC1 SERA.14001 · OACI Doc 4444 8.6.5",
+        bloques: [
+          {
+            kind: "p",
+            text: "Un **vector** es una instrucción de rumbo dada por el control de tránsito aéreo (ATC, air traffic control) con ayuda de vigilancia. No equivale a un punto directo en el sistema de gestión de vuelo (FMS, Flight Management System): durante el vector la tripulación vuela el rumbo instruido y monitorea la trayectoria, mientras ATC mantiene la secuencia prevista. Un **directo** cambia la ruta lateral hacia un punto nombrado; volver a la navegación propia requiere entender exactamente dónde y cómo se reingresa a la ruta autorizada.",
+          },
+          {
+            kind: "list",
+            items: [
+              "Un **rumbo** indica hacia dónde apunta el avión respecto al norte magnético. La **derrota** es el recorrido sobre el terreno; el viento puede separarlas. Si la instrucción es FLY HEADING, no se sustituye por una derrota calculada por el FMS.",
+              "TURN LEFT o TURN RIGHT identifica el sentido del viraje; HEADING seguido de tres cifras identifica el rumbo de salida. El piloto que monitorea (PM, pilot monitoring) colaciona ambos elementos y el distintivo. Si el sentido es esencial y no se entiende, solicita confirmación antes de seleccionar un giro ambiguo.",
+              "RESUME OWN NAVIGATION indica el fin de la guía vectorial cuando corresponde, acompañado de posición e instrucciones apropiadas. No significa «volver a cualquier línea magenta»; la tripulación identifica la ruta o el punto al que se le devuelve.",
+              "Un directo a un punto de una salida normalizada por instrumentos (SID, Standard Instrument Departure) no tiene exactamente el mismo efecto que un directo a un punto ajeno a ella. La lección 19 explica qué restricciones permanecen y por qué el reingreso no se infiere.",
+            ],
+          },
+          { kind: "sub", text: "Secuencia operacional de una modificación lateral" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Primero, identificar la instrucción.** El PM escucha el distintivo, sentido de giro, rumbo o punto, motivo si lo transmite control, y cualquier límite de nivel o velocidad. El piloto que vuela (PF, pilot flying) mantiene control del avión mientras se resuelve una duda.",
+              "**Después, colacionar y configurar.** Si es vector, se selecciona el modo de rumbo apropiado y se comprueba que no se confunda con modo de derrota. Si es directo, se verifica el punto nombrado y el tramo resultante en el FMS antes de ejecutarlo. El reparto exacto de tareas depende de los procedimientos operacionales normalizados (SOP, standard operating procedures) del operador.",
+              "**Monitorear la trayectoria real.** Ambos comprueban que el avión inicia el viraje correcto, captura el rumbo o navega al punto autorizado y sigue respetando el nivel y la velocidad vigentes. Un cambio lateral no cancela las otras dimensiones por inferencia.",
+              "**Cerrar la guía vectorial.** Al recibir RESUME OWN NAVIGATION o una nueva ruta, se confirma dónde se encuentra el avión y a qué punto o segmento debe ir. Si la instrucción deja incierto el reingreso, se pregunta; no se permite que el FMS invente la continuidad.",
+            ],
+          },
+          { kind: "sub", text: "Lo que respaldan la fraseología y la separación" },
+          {
+            kind: "p",
+            text: "El apéndice de fraseología de la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency) incluye FLY HEADING (tres cifras), TURN LEFT/RIGHT HEADING (tres cifras), CONTINUE PRESENT HEADING y RESUME OWN NAVIGATION con posición e instrucciones. Son ejemplos de estructura normativa de su ámbito, no una autorización colombiana ni un diálogo inventado. El documento oficial OACI Doc 4444 consultado indica que, durante vectores a un vuelo por reglas de vuelo instrumental (IFR, Instrument Flight Rules) o un directo que lo saca de una ruta de servicios de tránsito aéreo (ATS, air traffic services), el controlador debe dar autorizaciones con margen de obstáculos hasta el punto donde el piloto retome su navegación. La tripulación conserva responsabilidad de verificar el vuelo seguro y pedir aclaración si algo no cuadra; el documento consultado es una edición anterior y no sustituye la versión vigente aplicable.",
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "Al pasar de vector a directo o a navegación propia",
+            texto: "El PM colaciona sentido de giro, rumbo o punto e identifica qué parte de la ruta cambia. El PF verifica que el modo lateral y la trayectoria observada coincidan con esa autorización. Los dos comparan el nivel y la velocidad vigentes, la separación con el terreno y el tramo que propone el FMS. Si no pueden identificar un reingreso seguro y autorizado, piden instrucciones adicionales antes de ejecutar una interpretación implícita.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Confundir rumbo con derrota o dejar seleccionado el modo lateral equivocado.",
+            "Activar un directo sin revisar qué restricciones y tramo quedan por delante.",
+            "Asumir que la responsabilidad de ATC durante vectores elimina toda verificación de seguridad en cabina.",
+          ] },
         ],
       },
       {
@@ -347,7 +449,7 @@ export const NIVEL_4: DocScreen[] = [
         cita: "EASA · AMC1 SERA.14001; OACI · Doc 4444",
         bloques: [
           { kind: "sub", text: "Documentos oficiales" },
-          { kind: "p", text: "EASA, Appendix 1 to AMC1 SERA.14001, sección 2.1.3–2.1.4, instrucciones vectoriales y terminación de guía (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). OACI, Doc 4444 PANS-ATM, edición anterior disponible en su portal, 8.6.5.2 y 8.6.5.5 (https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/DOC%204444_PANS%20ATM_en.pdf). Su texto aclara el margen de obstáculos bajo vector y el retorno a navegación propia; para uso operacional se comprueba la edición vigente y la AIP/eAIP de Aerocivil." },
+          { kind: "p", text: "EASA, Appendix 1 to AMC1 SERA.14001, sección 2.1.3 a 2.1.4, instrucciones vectoriales y terminación de guía (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). OACI, Doc 4444 PANS-ATM, edición anterior disponible en su portal, 8.6.5.2 y 8.6.5.5 (https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/DOC%204444_PANS%20ATM_en.pdf). Su texto aclara el margen de obstáculos bajo vector y el retorno a navegación propia; para uso operacional se comprueba la edición vigente y la AIP/eAIP de Aerocivil." },
           { kind: "sub", text: "Límites del material" },
           { kind: "list", items: [
             "La figura no representa una ruta ATS, una carta ni distancias reales.",
@@ -363,20 +465,20 @@ export const NIVEL_4: DocScreen[] = [
     n: 22,
     title: "Control de velocidad",
     kicker: "Separación, energía y límites de una instrucción",
-    minutes: 19,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "El control de tránsito aéreo (ATC, air traffic control) utiliza ajustes de velocidad para ordenar el flujo y conservar separación. Para una tripulación de aerolínea, una instrucción de velocidad no es un número aislado: altera la energía del avión, la capacidad de cumplir restricciones de descenso y el tiempo disponible para configurar la aproximación. Hay que recibirla, colacionarla, comprobar si es realizable y vigilar sus consecuencias sobre el perfil completo.",
+        text: "ATC ajusta velocidades para ordenar el flujo y separar. Para la tripulación no es un número aislado: cambia la energía del avión, la capacidad de cumplir el descenso y el tiempo para configurar. Se recibe, se colaciona (lección 12), se comprueba si es realizable y se vigila el perfil completo.",
       },
-      { kind: "sub", text: "Qué velocidad se está controlando" },
+      { kind: "sub", text: "Qué dice cada instrucción" },
       {
         kind: "list",
         items: [
-          "Una velocidad expresada en nudos durante descenso o aproximación se interpreta normalmente como **velocidad indicada** (IAS, indicated airspeed), no como velocidad sobre el terreno. El viento cambia la segunda sin que el piloto deje de cumplir la primera.",
-          "En vuelo alto se puede controlar mediante **número de Mach**, relación entre velocidad verdadera y velocidad del sonido. El cambio de Mach a IAS se produce según el perfil, el avión y la instrucción aplicable; no se convierten dos consignas por intuición.",
-          "REDUCE SPEED TO y MAINTAIN fijan un objetivo; OR GREATER y OR LESS establecen un límite, no una velocidad exacta. MINIMUM CLEAN SPEED es la mínima velocidad que puede volarse sin dispositivos hipersustentadores, aerofrenos ni tren desplegados; no es una cifra universal.",
-          "RESUME NORMAL SPEED termina un ajuste de ATC; RESUME PUBLISHED SPEED remite a las velocidades publicadas que correspondan. NO ATC SPEED RESTRICTIONS no elimina límites reglamentarios ni restricciones publicadas que sigan vigentes.",
+          "En descenso y aproximación, los nudos son **velocidad indicada** (IAS); arriba se puede controlar por **Mach**.",
+          "REDUCE SPEED TO y MAINTAIN fijan un valor; OR GREATER y OR LESS fijan un límite; UNTIL dice hasta dónde.",
+          "MINIMUM CLEAN SPEED depende del avión: no es una cifra universal.",
+          "RESUME NORMAL SPEED y NO ATC SPEED RESTRICTIONS terminan el ajuste de ATC, no los límites publicados.",
         ],
       },
       {
@@ -387,18 +489,6 @@ export const NIVEL_4: DocScreen[] = [
         alto: 900,
         pie: "Modelo de energía, no carta ni cálculo de performance: una reducción temprana puede integrarse al descenso; una reducción tardía simultánea con mucho descenso pendiente puede exigir negociar con ATC. Los límites reales dependen del avión y del procedimiento.",
       },
-      { kind: "sub", text: "Secuencia completa en una llegada" },
-      {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**Recibir y colacionar.** El piloto que monitorea (PM, pilot monitoring) identifica el distintivo, verbo, velocidad o límite y condición UNTIL si la hay. Repite los elementos relevantes y el distintivo; una respuesta breve que omite OR GREATER, OR LESS o el punto de terminación cambia el sentido de la autorización.",
-          "**Evaluar antes de prometer.** El piloto que vuela (PF, pilot flying) y el PM comparan la nueva velocidad con márgenes del avión, restricciones publicadas, nivel, distancia a la pista, viento y capacidad de desacelerar. Una reducción tardía mientras se exige un descenso pronunciado puede ser físicamente incompatible.",
-          "**Configurar y monitorear.** Se selecciona el modo de velocidad apropiado conforme a los procedimientos operacionales normalizados (SOP, standard operating procedures) del operador y se comprueba la velocidad realmente seguida. Si el avión no alcanzará la consigna a tiempo o no puede cumplirla de forma segura, la tripulación informa inmediatamente y propone lo que sí puede aceptar.",
-          "**Gestionar el relevo.** Una velocidad asignada se incluye en los reportes pertinentes y, conforme al procedimiento aplicable, en el primer contacto tras cambiar de frecuencia. La tripulación confirma que el siguiente controlador conoce la restricción y no supone que esta terminó solo porque cambió la frecuencia.",
-          "**Cerrar la restricción.** Al recibir una instrucción de liberación, se identifica si termina únicamente el ajuste ATC o si vuelven a regir velocidades publicadas. La fase final debe conservar márgenes de estabilización; si no se alcanza una aproximación estabilizada según el operador, se aplica su criterio de aproximación frustrada.",
-        ],
-      },
       {
         kind: "figura",
         src: "/modulos/comunicaciones/CM-22-02.webp",
@@ -406,17 +496,6 @@ export const NIVEL_4: DocScreen[] = [
         ancho: 1672,
         alto: 941,
         pie: "Historieta didáctica, no transcripción: 1) control pide el ajuste por secuenciación; 2) el PM colaciona; 3) ambos verifican si el avión puede desacelerar sin comprometer el descenso; 4) la tripulación vigila configuración y estabilidad al aproximarse. Las pantallas no contienen datos operacionales utilizables.",
-      },
-      { kind: "sub", text: "Fraseología que sí está documentada" },
-      {
-        kind: "p",
-        text: "El apéndice de fraseología de la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency), AMC1 SERA.14001, sección 2.1.6, documenta REPORT SPEED; MAINTAIN [velocidad] KNOTS [OR GREATER/OR LESS] [UNTIL punto]; INCREASE o REDUCE SPEED TO [velocidad] KNOTS; RESUME NORMAL SPEED; REDUCE TO MINIMUM CLEAN SPEED; RESUME PUBLISHED SPEED; y NO [ATC] SPEED RESTRICTIONS. Los corchetes aquí indican variables o elementos opcionales de una plantilla, no una transmisión real. La fraseología se comprueba frente al Estado y la publicación vigente aplicables antes de usarla operacionalmente.",
-      },
-      {
-        kind: "callout",
-        tone: "verificar",
-        title: "No trasladar cifras entre Estados",
-        text: "El Doc 4444 de la Organización de Aviación Civil Internacional (OACI; ICAO, International Civil Aviation Organization) consultado es una edición anterior: sus referencias a incrementos, velocidades mínimas o distancia al umbral orientan el estudio, pero no se presentan aquí como límites colombianos vigentes. Las restricciones publicadas, procedimientos y velocidades legales se comprueban en la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica —eAIP— oficial de Aerocivil y en las publicaciones operacionales aplicables.",
       },
       {
         kind: "escenario",
@@ -437,23 +516,72 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "Cuando velocidad y descenso compiten",
-        texto: "El PM coteja la autorización con las restricciones de la llegada y comunica pronto cualquier incapacidad. El PF supervisa trayectoria, modo de velocidad, distancia remanente y configuración. Ambos evitan resolver el conflicto con una maniobra brusca o llegar a la final sin estabilidad; solicitan una alternativa de ATC o ejecutan la opción segura prevista por su operador.",
+        texto: "El PM coteja la instrucción con las restricciones de la llegada y avisa pronto si no se puede; el PF vigila trayectoria, energía y configuración. Una velocidad asignada se menciona en el primer contacto con el siguiente sector.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "Límites de velocidad y fraseología: confírmalos en la eAIP de Aerocivil; el Doc 4444 consultado es una edición anterior.",
       },
       { kind: "sub", text: "Errores que importan" },
       error("Confundir una velocidad exacta con un límite OR GREATER u OR LESS."),
       error("Aceptar simultáneamente una reducción y un descenso que el avión no puede realizar."),
-      error("Olvidar la velocidad asignada al transferirse a otro sector."),
-      error("Suponer que NO ATC SPEED RESTRICTIONS anula límites publicados o reglamentarios."),
-      error("Priorizar una velocidad tardía por encima de la estabilización de la aproximación."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "El ajuste ATC busca separación; la tripulación responde por la capacidad y seguridad del avión.",
-          "Se colacionan valor, límite y condición de terminación, no solo un número.",
-          "Si no se puede cumplir, se avisa temprano y se propone una alternativa realizable.",
-          "La liberación de un ajuste ATC no borra automáticamente otras restricciones.",
-          "La aproximación estabilizada manda sobre intentar satisfacer tardíamente una consigna imposible.",
+          "Se colacionan valor, límite y condición, no solo un número.",
+          "Si no se puede cumplir, se avisa temprano y se propone otra cosa.",
+          "Terminar el ajuste de ATC no borra otras restricciones.",
+          "La aproximación estabilizada manda sobre una consigna tardía.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "EASA AMC1 SERA.14001 2.1.6 · OACI Doc 4444 4.6",
+        bloques: [
+          {
+            kind: "p",
+            text: "El control de tránsito aéreo (ATC, air traffic control) utiliza ajustes de velocidad para ordenar el flujo y conservar separación. Para una tripulación de aerolínea, una instrucción de velocidad no es un número aislado: altera la energía del avión, la capacidad de cumplir restricciones de descenso y el tiempo disponible para configurar la aproximación. Hay que recibirla, colacionarla, comprobar si es realizable y vigilar sus consecuencias sobre el perfil completo.",
+          },
+          {
+            kind: "list",
+            items: [
+              "Una velocidad expresada en nudos durante descenso o aproximación se interpreta normalmente como **velocidad indicada** (IAS, indicated airspeed), no como velocidad sobre el terreno. El viento cambia la segunda sin que el piloto deje de cumplir la primera.",
+              "En vuelo alto se puede controlar mediante **número de Mach**, relación entre velocidad verdadera y velocidad del sonido. El cambio de Mach a IAS se produce según el perfil, el avión y la instrucción aplicable; no se convierten dos consignas por intuición.",
+              "REDUCE SPEED TO y MAINTAIN fijan un objetivo; OR GREATER y OR LESS establecen un límite, no una velocidad exacta. MINIMUM CLEAN SPEED es la mínima velocidad que puede volarse sin dispositivos hipersustentadores, aerofrenos ni tren desplegados; no es una cifra universal.",
+              "RESUME NORMAL SPEED termina un ajuste de ATC; RESUME PUBLISHED SPEED remite a las velocidades publicadas que correspondan. NO ATC SPEED RESTRICTIONS no elimina límites reglamentarios ni restricciones publicadas que sigan vigentes.",
+            ],
+          },
+          { kind: "sub", text: "Secuencia completa en una llegada" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Recibir y colacionar.** El piloto que monitorea (PM, pilot monitoring) identifica el distintivo, verbo, velocidad o límite y condición UNTIL si la hay. Repite los elementos relevantes y el distintivo; una respuesta breve que omite OR GREATER, OR LESS o el punto de terminación cambia el sentido de la autorización.",
+              "**Evaluar antes de prometer.** El piloto que vuela (PF, pilot flying) y el PM comparan la nueva velocidad con márgenes del avión, restricciones publicadas, nivel, distancia a la pista, viento y capacidad de desacelerar. Una reducción tardía mientras se exige un descenso pronunciado puede ser físicamente incompatible.",
+              "**Configurar y monitorear.** Se selecciona el modo de velocidad apropiado conforme a los procedimientos operacionales normalizados (SOP, standard operating procedures) del operador y se comprueba la velocidad realmente seguida. Si el avión no alcanzará la consigna a tiempo o no puede cumplirla de forma segura, la tripulación informa inmediatamente y propone lo que sí puede aceptar.",
+              "**Gestionar el relevo.** Una velocidad asignada se incluye en los reportes pertinentes y, conforme al procedimiento aplicable, en el primer contacto tras cambiar de frecuencia. La tripulación confirma que el siguiente controlador conoce la restricción y no supone que esta terminó solo porque cambió la frecuencia.",
+              "**Cerrar la restricción.** Al recibir una instrucción de liberación, se identifica si termina únicamente el ajuste ATC o si vuelven a regir velocidades publicadas. La fase final debe conservar márgenes de estabilización; si no se alcanza una aproximación estabilizada según el operador, se aplica su criterio de aproximación frustrada.",
+            ],
+          },
+          { kind: "sub", text: "Fraseología que sí está documentada" },
+          {
+            kind: "p",
+            text: "El apéndice de fraseología de la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency), AMC1 SERA.14001, sección 2.1.6, documenta REPORT SPEED; MAINTAIN [velocidad] KNOTS [OR GREATER/OR LESS] [UNTIL punto]; INCREASE o REDUCE SPEED TO [velocidad] KNOTS; RESUME NORMAL SPEED; REDUCE TO MINIMUM CLEAN SPEED; RESUME PUBLISHED SPEED; y NO [ATC] SPEED RESTRICTIONS. Los corchetes aquí indican variables o elementos opcionales de una plantilla, no una transmisión real. La fraseología se comprueba frente al Estado y la publicación vigente aplicables antes de usarla operacionalmente.",
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "Cuando velocidad y descenso compiten",
+            texto: "El PM coteja la autorización con las restricciones de la llegada y comunica pronto cualquier incapacidad. El PF supervisa trayectoria, modo de velocidad, distancia remanente y configuración. Ambos evitan resolver el conflicto con una maniobra brusca o llegar a la final sin estabilidad; solicitan una alternativa de ATC o ejecutan la opción segura prevista por su operador.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Olvidar la velocidad asignada al transferirse a otro sector.",
+            "Suponer que NO ATC SPEED RESTRICTIONS anula límites publicados o reglamentarios.",
+            "Priorizar una velocidad tardía por encima de la estabilización de la aproximación.",
+          ] },
         ],
       },
       {
@@ -469,6 +597,12 @@ export const NIVEL_4: DocScreen[] = [
             "No se atribuyen cifras operacionales ni procedimientos específicos a un aeropuerto colombiano.",
             "Para la operación real prevalecen la AIP/eAIP vigente de Aerocivil, la autorización recibida y los procedimientos del operador.",
           ] },
+          {
+            kind: "callout",
+            tone: "verificar",
+            title: "No trasladar cifras entre Estados",
+            text: "El Doc 4444 de la Organización de Aviación Civil Internacional (OACI; ICAO, International Civil Aviation Organization) consultado es una edición anterior: sus referencias a incrementos, velocidades mínimas o distancia al umbral orientan el estudio, pero no se presentan aquí como límites colombianos vigentes. Las restricciones publicadas, procedimientos y velocidades legales se comprueban en la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica (eAIP) oficial de Aerocivil y en las publicaciones operacionales aplicables.",
+          },
         ],
       },
     ],
@@ -478,22 +612,24 @@ export const NIVEL_4: DocScreen[] = [
     n: 23,
     title: "Crucero",
     kicker: "Transferencia de sector, solicitudes y reportes útiles",
-    minutes: 19,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "El crucero no es silencio de radio: una aeronave cruza sectores, mantiene una autorización de ruta y nivel, recibe cambios y puede necesitar informar condiciones que afectan a otros vuelos. La disciplina consiste en saber **qué dependencia controla**, **qué autorización sigue vigente** y **qué información debe llegar al siguiente sector**. El piloto que monitorea (PM, pilot monitoring) gestiona la comunicación sin perder la conciencia de la trayectoria que supervisa el piloto que vuela (PF, pilot flying).",
+        text: "El crucero no es silencio de radio: el avión cruza sectores, recibe cambios y puede tener que informar condiciones que afectan a otros. La disciplina es saber **qué dependencia controla**, **qué autorización sigue vigente** y **qué debe saber el siguiente sector**.",
       },
       { kind: "sub", text: "Una transferencia no termina al cambiar el número" },
       {
-        kind: "list",
-        ordered: true,
+        kind: "kv",
         items: [
-          "**Preparar la frecuencia.** Se escucha la dependencia y frecuencia que dicta el control de tránsito aéreo (ATC, air traffic control), se colacionan y se verifica la selección. Una digitación errónea puede hacer perder contacto en un momento que parece rutinario.",
-          "**Distinguir la acción.** CONTACT exige llamar en la nueva frecuencia. STAND BY FOR pide permanecer a la escucha porque la dependencia iniciará el contacto. MONITOR indica escuchar la frecuencia designada sin iniciar una llamada normal. Son instrucciones distintas; no se intercambian por comodidad.",
-          "**Dar un primer contacto útil.** Tras la transferencia se transmite distintivo y nivel según el procedimiento aplicable, además de velocidad asignada y otra condición que deba conocer el sector receptor. No se supone que el controlador tenga la misma imagen de lo que se acordó antes.",
-          "**Confirmar recepción.** Si la dependencia no responde, se comprueba la frecuencia y el equipo, se reintenta de forma proporcionada y se usa la frecuencia anterior u otros medios conforme al procedimiento. El piloto no permanece indefinidamente en silencio ni improvisa una nueva ruta.",
+          { k: "CONTACT", v: "Llamar en la nueva frecuencia." },
+          { k: "STAND BY FOR", v: "Escuchar: la dependencia llamará." },
+          { k: "MONITOR", v: "Escuchar la frecuencia sin hacer llamada normal." },
         ],
+      },
+      {
+        kind: "p",
+        text: "En el primer contacto van distintivo y nivel, y la velocidad asignada u otra condición vigente. Si nadie responde, se revisa la frecuencia, se reintenta y se vuelve a la anterior. **Pedir no es recibir**: una solicitud de directo o de nivel no mueve el avión hasta que llega la autorización.",
       },
       {
         kind: "figura",
@@ -503,11 +639,6 @@ export const NIVEL_4: DocScreen[] = [
         alto: 900,
         pie: "Flujo conceptual, no sector ni frecuencia real: antes y después del relevo deben quedar claros el nivel, la ruta, la velocidad asignada y la dependencia que responde. Si falta respuesta, se aplican los procedimientos de restablecimiento de contacto.",
       },
-      { kind: "sub", text: "Solicitudes: pedir no es recibir autorización" },
-      {
-        kind: "p",
-        text: "En crucero puede solicitarse un directo, otro nivel por rendimiento o turbulencia, o una desviación meteorológica. La tripulación transmite la solicitud con el distintivo y el motivo útil para ATC, pero mantiene ruta y nivel actuales hasta recibir y colacionar una nueva autorización. Antes de activar un directo en el sistema de gestión de vuelo (FMS, Flight Management System), ambos pilotos identifican el punto autorizado, la pierna resultante y las restricciones que permanecen. Si se niega una solicitud, se mantiene la autorización anterior o se negocia una alternativa; una expectativa de respuesta favorable no mueve el avión.",
-      },
       {
         kind: "figura",
         src: "/modulos/comunicaciones/CM-23-02.webp",
@@ -515,16 +646,6 @@ export const NIVEL_4: DocScreen[] = [
         ancho: 1672,
         alto: 941,
         pie: "Historieta didáctica, no grabación: 1) un sector entrega la aeronave; 2) el PM selecciona y comprueba la frecuencia mientras el PF vuela; 3) la tripulación establece contacto con el nuevo sector; 4) informa condiciones meteorológicas relevantes. No se muestran frecuencias, rutas ni indicativos reales.",
-      },
-      { kind: "sub", text: "Cuando la meteorología merece un reporte" },
-      {
-        kind: "p",
-        text: "Una aeronotificación especial no es un comentario genérico sobre nubes. La norma europea SERA.12005 exige reportar, entre otros fenómenos, turbulencia o engelamiento moderados o severos, onda orográfica severa, determinados tipos de tormenta, tormenta intensa de polvo o arena y ceniza volcánica. Al transmitir, la tripulación identifica posición, hora, nivel y fenómeno observado de acuerdo con el formato aplicable, para que los servicios de tránsito aéreo (ATS, air traffic services) puedan redistribuir una advertencia útil. No se atribuye aquí una transmisión a un vuelo concreto que no esté documentado.",
-      },
-      { kind: "sub", text: "Plantillas documentadas, no diálogo inventado" },
-      {
-        kind: "p",
-        text: "La Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency), en AMC1 SERA.14001, registra CONTACT [dependencia] [frecuencia], STAND BY FOR [dependencia] [frecuencia], MONITOR [dependencia] [frecuencia], REQUEST CHANGE TO [frecuencia] y REMAIN THIS FREQUENCY. Los campos entre corchetes son variables didácticas: ninguna cifra o estación ha sido creada para aparentar un mensaje real. La fraseología local y el procedimiento operacional se cotejan con la publicación estatal vigente.",
       },
       {
         kind: "escenario",
@@ -545,23 +666,72 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "Crucero con cambio de sector",
-        texto: "El PM colaciona la transferencia, compara la frecuencia sintonizada y prepara un primer contacto que incluya los elementos aún vigentes. El PF sigue la ruta autorizada y comprueba nivel, velocidad y meteorología. Si aparece una solicitud de cambio, ambos revisan capacidad, combustible y efecto sobre la ruta antes de ejecutarla; si no hay respuesta, recurren al procedimiento de recuperación de comunicaciones en lugar de asumir aprobación.",
+        texto: "El PM colaciona la transferencia, comprueba la frecuencia y prepara el primer contacto con lo que sigue vigente. El PF vuela la ruta y vigila nivel, velocidad y meteorología. Turbulencia o engelamiento moderados o severos se reportan con posición, hora, nivel y fenómeno (SERA.12005).",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "Plantillas EASA y Doc 4444 de edición anterior: confirma la edición vigente y la eAIP de Aerocivil.",
       },
       { kind: "sub", text: "Errores que importan" },
       error("Tratar CONTACT, STAND BY FOR y MONITOR como si fueran equivalentes."),
       error("Omitir en el primer contacto una velocidad asignada que continúa vigente."),
-      error("Activar un directo o cambiar de nivel porque la solicitud parece razonable."),
-      error("Permanecer sin contacto tras una frecuencia mal seleccionada sin detectar el problema."),
-      error("No reportar una condición meteorológica significativa observada en ruta."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Se conoce siempre la dependencia activa, la frecuencia y la autorización vigente.",
-          "La transferencia exige selección correcta y contacto según el verbo recibido.",
-          "El primer contacto informa nivel y condiciones relevantes que siguen vigentes.",
-          "Un pedido de directo o nivel no autoriza a ejecutarlo.",
-          "Las condiciones peligrosas observadas se reportan con información útil, no con frases vagas.",
+          "Siempre claros: dependencia activa, frecuencia y autorización vigente.",
+          "CONTACT, STAND BY FOR y MONITOR piden cosas distintas.",
+          "Un pedido de directo o de nivel no autoriza a ejecutarlo.",
+          "Los fenómenos peligrosos se reportan con datos útiles.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "EASA AMC1 SERA.14001 1.1.4 · SERA.12005",
+        bloques: [
+          {
+            kind: "p",
+            text: "El crucero no es silencio de radio: una aeronave cruza sectores, mantiene una autorización de ruta y nivel, recibe cambios y puede necesitar informar condiciones que afectan a otros vuelos. La disciplina consiste en saber **qué dependencia controla**, **qué autorización sigue vigente** y **qué información debe llegar al siguiente sector**. El piloto que monitorea (PM, pilot monitoring) gestiona la comunicación sin perder la conciencia de la trayectoria que supervisa el piloto que vuela (PF, pilot flying).",
+          },
+          { kind: "sub", text: "Una transferencia no termina al cambiar el número" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Preparar la frecuencia.** Se escucha la dependencia y frecuencia que dicta el control de tránsito aéreo (ATC, air traffic control), se colacionan y se verifica la selección. Una digitación errónea puede hacer perder contacto en un momento que parece rutinario.",
+              "**Distinguir la acción.** CONTACT exige llamar en la nueva frecuencia. STAND BY FOR pide permanecer a la escucha porque la dependencia iniciará el contacto. MONITOR indica escuchar la frecuencia designada sin iniciar una llamada normal. Son instrucciones distintas; no se intercambian por comodidad.",
+              "**Dar un primer contacto útil.** Tras la transferencia se transmite distintivo y nivel según el procedimiento aplicable, además de velocidad asignada y otra condición que deba conocer el sector receptor. No se supone que el controlador tenga la misma imagen de lo que se acordó antes.",
+              "**Confirmar recepción.** Si la dependencia no responde, se comprueba la frecuencia y el equipo, se reintenta de forma proporcionada y se usa la frecuencia anterior u otros medios conforme al procedimiento. El piloto no permanece indefinidamente en silencio ni improvisa una nueva ruta.",
+            ],
+          },
+          { kind: "sub", text: "Solicitudes: pedir no es recibir autorización" },
+          {
+            kind: "p",
+            text: "En crucero puede solicitarse un directo, otro nivel por rendimiento o turbulencia, o una desviación meteorológica. La tripulación transmite la solicitud con el distintivo y el motivo útil para ATC, pero mantiene ruta y nivel actuales hasta recibir y colacionar una nueva autorización. Antes de activar un directo en el sistema de gestión de vuelo (FMS, Flight Management System), ambos pilotos identifican el punto autorizado, la pierna resultante y las restricciones que permanecen. Si se niega una solicitud, se mantiene la autorización anterior o se negocia una alternativa; una expectativa de respuesta favorable no mueve el avión.",
+          },
+          { kind: "sub", text: "Cuando la meteorología merece un reporte" },
+          {
+            kind: "p",
+            text: "Una aeronotificación especial no es un comentario genérico sobre nubes. La norma europea SERA.12005 exige reportar, entre otros fenómenos, turbulencia o engelamiento moderados o severos, onda orográfica severa, determinados tipos de tormenta, tormenta intensa de polvo o arena y ceniza volcánica. Al transmitir, la tripulación identifica posición, hora, nivel y fenómeno observado de acuerdo con el formato aplicable, para que los servicios de tránsito aéreo (ATS, air traffic services) puedan redistribuir una advertencia útil. No se atribuye aquí una transmisión a un vuelo concreto que no esté documentado.",
+          },
+          { kind: "sub", text: "Plantillas documentadas, no diálogo inventado" },
+          {
+            kind: "p",
+            text: "La Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency), en AMC1 SERA.14001, registra CONTACT [dependencia] [frecuencia], STAND BY FOR [dependencia] [frecuencia], MONITOR [dependencia] [frecuencia], REQUEST CHANGE TO [frecuencia] y REMAIN THIS FREQUENCY. Los campos entre corchetes son variables didácticas: ninguna cifra o estación ha sido creada para aparentar un mensaje real. La fraseología local y el procedimiento operacional se cotejan con la publicación estatal vigente.",
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "Crucero con cambio de sector",
+            texto: "El PM colaciona la transferencia, compara la frecuencia sintonizada y prepara un primer contacto que incluya los elementos aún vigentes. El PF sigue la ruta autorizada y comprueba nivel, velocidad y meteorología. Si aparece una solicitud de cambio, ambos revisan capacidad, combustible y efecto sobre la ruta antes de ejecutarla; si no hay respuesta, recurren al procedimiento de recuperación de comunicaciones en lugar de asumir aprobación.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Activar un directo o cambiar de nivel porque la solicitud parece razonable.",
+            "Permanecer sin contacto tras una frecuencia mal seleccionada sin detectar el problema.",
+            "No reportar una condición meteorológica significativa observada en ruta.",
+          ] },
         ],
       },
       {
@@ -570,7 +740,7 @@ export const NIVEL_4: DocScreen[] = [
         cita: "EASA · AMC1 SERA.14001 y SERA.12005; OACI · Doc 4444",
         bloques: [
           { kind: "sub", text: "Documentos oficiales" },
-          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, Appendix 1 to AMC1 SERA.14001, § 1.1.4, transferencia y cambio de frecuencia (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299); SERA.12005, observaciones especiales (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9921). OACI (ICAO, International Civil Aviation Organization), Doc 4444 PANS-ATM, edición anterior disponible en portal oficial, §§ 4.11–4.12 y Apéndice 1 (https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/DOC%204444_PANS%20ATM_en.pdf). Verificar siempre la edición actual y las reglas estatales aplicables." },
+          { kind: "p", text: "EASA, Easy Access Rules for Standardised European Rules of the Air, revisión agosto de 2025, Appendix 1 to AMC1 SERA.14001, § 1.1.4, transferencia y cambio de frecuencia (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299); SERA.12005, observaciones especiales (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9921). OACI (ICAO, International Civil Aviation Organization), Doc 4444 PANS-ATM, edición anterior disponible en portal oficial, §§ 4.11 a 4.12 y Apéndice 1 (https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/DOC%204444_PANS%20ATM_en.pdf). Verificar siempre la edición actual y las reglas estatales aplicables." },
           { kind: "sub", text: "Límites del material" },
           { kind: "list", items: [
             "La figura no representa sectores ni frecuencias operacionales.",
@@ -586,23 +756,23 @@ export const NIVEL_4: DocScreen[] = [
     n: 24,
     title: "Reportes de posición",
     kicker: "Seis elementos, estimados y responsabilidad de reportar",
-    minutes: 19,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "Un reporte de posición por voz permite a los servicios de tránsito aéreo (ATS, air traffic services) conocer el progreso real de una aeronave, especialmente donde la separación depende de información procedimental. La Organización de Aviación Civil Internacional (OACI; ICAO, International Civil Aviation Organization) define su estructura básica. La vigilancia o el enlace de datos pueden reducir algunos reportes, pero la tripulación no decide omitirlos por observar que el avión aparece en una pantalla: sigue la obligación publicada y las instrucciones recibidas.",
+        text: "El reporte de posición por voz le dice a ATC cómo progresa el vuelo, sobre todo donde la separación es procedimental. La tripulación no decide omitirlo porque el avión aparezca en una pantalla: sigue la obligación publicada y las instrucciones recibidas.",
       },
-      { kind: "sub", text: "Los seis elementos del reporte" },
+      { kind: "sub", text: "Los seis elementos (Doc 4444)" },
       {
         kind: "list",
         ordered: true,
         items: [
-          "**Identificación de la aeronave:** el distintivo con el que la dependencia la reconoce.",
-          "**Posición:** el punto significativo o las coordenadas que corresponden al procedimiento; se comprueban con navegación y plan de vuelo, no se leen de memoria.",
-          "**Hora:** el momento real sobre esa posición, expresado según la convención horaria aplicable. No se sustituye por la hora estimada que figuraba antes en el plan.",
-          "**Nivel o altitud:** el nivel mantenido; si se está en ascenso o descenso, se indican nivel de paso y nivel autorizado según el formato aplicable.",
-          "**Próxima posición y hora estimada:** se lee el punto siguiente junto con un estimado actualizado, no el punto posterior ni una hora de salida.",
-          "**Punto significativo siguiente:** el que viene después de la próxima posición. Permite entender la continuación prevista de la ruta.",
+          "Identificación: el distintivo.",
+          "Posición: el punto sobrevolado.",
+          "Hora real de paso, no la estimada.",
+          "Nivel: el mantenido; si está cambiando, el de paso y el autorizado.",
+          "Próxima posición con su estimado actualizado.",
+          "Punto significativo siguiente.",
         ],
       },
       {
@@ -613,15 +783,9 @@ export const NIVEL_4: DocScreen[] = [
         alto: 900,
         pie: "Tarjeta de memoria basada en OACI Doc 4444: identificación, posición, hora, nivel, próximo punto con estimado y punto siguiente. La omisión de ciertos elementos depende de acuerdos regionales e instrucciones; el nivel se incluye en la primera llamada tras cambio de canal.",
       },
-      { kind: "sub", text: "Lo que cambia según el servicio" },
       {
-        kind: "list",
-        items: [
-          "El Doc 4444 de OACI, edición 16 consultada, permite omitir los elementos 4 a 6 de ciertos reportes de voz cuando así lo prescribe un acuerdo regional. No es una licencia general para abreviar cualquier reporte.",
-          "El nivel o altitud se incluye en la llamada inicial después de cambiar el canal de voz, incluso si ciertas omisiones regionales permiten no repetirlo en reportes posteriores.",
-          "Si hay una velocidad asignada, se incorpora según el procedimiento de reporte aplicable; no se supone que el siguiente sector la deducirá del progreso observado.",
-          "El control de tránsito aéreo (ATC, air traffic control) puede ordenar omitir reportes o pedir el siguiente en un punto determinado. RESUME POSITION REPORTING devuelve la obligación que corresponda. Si se aproxima un límite de región de información de vuelo (FIR, Flight Information Region), se revisan además los requisitos de la dependencia siguiente.",
-        ],
+        kind: "p",
+        text: "Los elementos 4 a 6 solo se omiten si lo prescribe un acuerdo regional, y el nivel va siempre en la primera llamada tras cambiar de frecuencia. ATC puede suspender los reportes; RESUME POSITION REPORTING los reactiva.",
       },
       {
         kind: "figura",
@@ -630,23 +794,6 @@ export const NIVEL_4: DocScreen[] = [
         ancho: 1672,
         alto: 941,
         pie: "Historieta didáctica, no comunicación grabada: 1) el PM prepara la posición con su plan; 2) confirma la hora efectiva y el estimado; 3) transmite mientras el PF vuela; 4) la estación recibe y registra. El océano y los equipos son genéricos; no aparecen coordenadas, indicativos ni frecuencias operacionales.",
-      },
-      { kind: "sub", text: "Preparación y transmisión sin improvisar" },
-      {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**Antes del punto:** el piloto que monitorea (PM, pilot monitoring) identifica el punto obligatorio siguiente, su estimado y el punto posterior en el plan de vuelo operacional o sistema de gestión de vuelo (FMS, Flight Management System). Verifica la autorización y el nivel con el piloto que vuela (PF, pilot flying).",
-          "**Al sobrevolarlo:** confirma posición y hora efectiva, actualiza el siguiente estimado y ordena los seis elementos. Si el nivel está cambiando, evita anunciar como mantenido el nivel autorizado aún no alcanzado.",
-          "**Durante la llamada:** escucha que el canal esté libre y comunica de forma breve y ordenada. Si ATC devuelve una instrucción en lugar de solo acusar recibo, se colaciona la parte que corresponda; un simple acuse no modifica ruta o nivel.",
-          "**Después:** registra la hora real, confirma el próximo requisito de reporte y vigila si el estimado cambia. La magnitud que obliga a corregir un estimado o los puntos que pueden omitirse dependen del procedimiento regional y estatal aplicable; no se fija aquí un umbral inventado.",
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "verificar",
-        title: "No confundir formato universal con detalle local",
-        text: "La estructura de seis elementos viene de OACI Doc 4444; los puntos obligatorios, periodicidad alternativa, coordenadas, tolerancia del estimado y canal de reporte dependen del espacio aéreo y de publicaciones vigentes. Para Colombia, consultar exclusivamente la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica —eAIP— oficial de Aerocivil. Las imágenes no son cartas ni documentos AIP.",
       },
       {
         kind: "escenario",
@@ -667,23 +814,79 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "Ruta con reportes procedimentales",
-        texto: "El PM mantiene actualizado el registro de punto, hora real, estimado y nivel, y prepara la frase antes de transmitir. El PF verifica la trayectoria y el nivel mientras escucha la coherencia del reporte. Si cambian estimados, autorización o condiciones, ambos revisan qué debe informarse al sector y qué dato se entregará en el primer contacto con la dependencia siguiente.",
+        texto: "El PM lleva al día punto, hora real, estimado y nivel, y prepara la frase antes de transmitir. El PF verifica trayectoria y nivel mientras escucha el reporte.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "Puntos obligatorios, tolerancias y canal de reporte en Colombia: consulta la eAIP de Aerocivil.",
       },
       { kind: "sub", text: "Errores que importan" },
-      error("Leer el estimado de un punto distinto del que sigue en la ruta autorizada."),
       error("Anunciar como mantenido el nivel autorizado cuando el avión todavía asciende o desciende."),
-      error("Sustituir la hora efectiva de paso por el estimado anterior."),
       error("Omitir un reporte obligatorio porque se presume vigilancia o enlace de datos."),
-      error("No corregir un estimado significativamente cambiado conforme al procedimiento aplicable."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
           "Seis piezas: quién, dónde, cuándo, nivel, próximo con estimado y siguiente.",
           "La hora real de paso no es el estimado previo.",
-          "El nivel de paso y el autorizado se diferencian cuando el avión cambia de nivel.",
-          "Las omisiones solo aplican si norma, acuerdo o ATC lo permiten.",
-          "El reporte se prepara y verifica en cabina antes de ocupar la frecuencia.",
+          "Las omisiones solo valen si norma, acuerdo o ATC lo permiten.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "OACI Doc 4444 4.11",
+        bloques: [
+          {
+            kind: "p",
+            text: "Un reporte de posición por voz permite a los servicios de tránsito aéreo (ATS, air traffic services) conocer el progreso real de una aeronave, especialmente donde la separación depende de información procedimental. La Organización de Aviación Civil Internacional (OACI; ICAO, International Civil Aviation Organization) define su estructura básica. La vigilancia o el enlace de datos pueden reducir algunos reportes, pero la tripulación no decide omitirlos por observar que el avión aparece en una pantalla: sigue la obligación publicada y las instrucciones recibidas.",
+          },
+          { kind: "sub", text: "Los seis elementos del reporte" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Identificación de la aeronave:** el distintivo con el que la dependencia la reconoce.",
+              "**Posición:** el punto significativo o las coordenadas que corresponden al procedimiento; se comprueban con navegación y plan de vuelo, no se leen de memoria.",
+              "**Hora:** el momento real sobre esa posición, expresado según la convención horaria aplicable. No se sustituye por la hora estimada que figuraba antes en el plan.",
+              "**Nivel o altitud:** el nivel mantenido; si se está en ascenso o descenso, se indican nivel de paso y nivel autorizado según el formato aplicable.",
+              "**Próxima posición y hora estimada:** se lee el punto siguiente junto con un estimado actualizado, no el punto posterior ni una hora de salida.",
+              "**Punto significativo siguiente:** el que viene después de la próxima posición. Permite entender la continuación prevista de la ruta.",
+            ],
+          },
+          { kind: "sub", text: "Lo que cambia según el servicio" },
+          {
+            kind: "list",
+            items: [
+              "El Doc 4444 de OACI, edición 16 consultada, permite omitir los elementos 4 a 6 de ciertos reportes de voz cuando así lo prescribe un acuerdo regional. No es una licencia general para abreviar cualquier reporte.",
+              "El nivel o altitud se incluye en la llamada inicial después de cambiar el canal de voz, incluso si ciertas omisiones regionales permiten no repetirlo en reportes posteriores.",
+              "Si hay una velocidad asignada, se incorpora según el procedimiento de reporte aplicable; no se supone que el siguiente sector la deducirá del progreso observado.",
+              "El control de tránsito aéreo (ATC, air traffic control) puede ordenar omitir reportes o pedir el siguiente en un punto determinado. RESUME POSITION REPORTING devuelve la obligación que corresponda. Si se aproxima un límite de región de información de vuelo (FIR, Flight Information Region), se revisan además los requisitos de la dependencia siguiente.",
+            ],
+          },
+          { kind: "sub", text: "Preparación y transmisión sin improvisar" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Antes del punto:** el piloto que monitorea (PM, pilot monitoring) identifica el punto obligatorio siguiente, su estimado y el punto posterior en el plan de vuelo operacional o sistema de gestión de vuelo (FMS, Flight Management System). Verifica la autorización y el nivel con el piloto que vuela (PF, pilot flying).",
+              "**Al sobrevolarlo:** confirma posición y hora efectiva, actualiza el siguiente estimado y ordena los seis elementos. Si el nivel está cambiando, evita anunciar como mantenido el nivel autorizado aún no alcanzado.",
+              "**Durante la llamada:** escucha que el canal esté libre y comunica de forma breve y ordenada. Si ATC devuelve una instrucción en lugar de solo acusar recibo, se colaciona la parte que corresponda; un simple acuse no modifica ruta o nivel.",
+              "**Después:** registra la hora real, confirma el próximo requisito de reporte y vigila si el estimado cambia. La magnitud que obliga a corregir un estimado o los puntos que pueden omitirse dependen del procedimiento regional y estatal aplicable; no se fija aquí un umbral inventado.",
+            ],
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "Ruta con reportes procedimentales",
+            texto: "El PM mantiene actualizado el registro de punto, hora real, estimado y nivel, y prepara la frase antes de transmitir. El PF verifica la trayectoria y el nivel mientras escucha la coherencia del reporte. Si cambian estimados, autorización o condiciones, ambos revisan qué debe informarse al sector y qué dato se entregará en el primer contacto con la dependencia siguiente.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Leer el estimado de un punto distinto del que sigue en la ruta autorizada.",
+            "Sustituir la hora efectiva de paso por el estimado anterior.",
+            "No corregir un estimado significativamente cambiado conforme al procedimiento aplicable.",
+          ] },
         ],
       },
       {
@@ -692,13 +895,19 @@ export const NIVEL_4: DocScreen[] = [
         cita: "OACI · Doc 4444, edición 16",
         bloques: [
           { kind: "sub", text: "Documento oficial" },
-          { kind: "p", text: "OACI, Doc 4444 PANS-ATM, edición 16, enmienda 10 publicada en su portal oficial, §§ 4.11.1–4.11.2 y Apéndice 1 (https://www.icao.int/ESAF/Documents/meetings/2021/AFI%20ATM%20Coordination%20Meeting%202021/Presentations/4444_16ed_amend_10_highlighted.pdf). El documento respalda los seis elementos, las condiciones de omisión y el nivel en la llamada inicial tras cambiar canal. Verificar edición actual, acuerdos regionales y eAIP antes de uso operacional." },
+          { kind: "p", text: "OACI, Doc 4444 PANS-ATM, edición 16, enmienda 10 publicada en su portal oficial, §§ 4.11.1 a 4.11.2 y Apéndice 1 (https://www.icao.int/ESAF/Documents/meetings/2021/AFI%20ATM%20Coordination%20Meeting%202021/Presentations/4444_16ed_amend_10_highlighted.pdf). El documento respalda los seis elementos, las condiciones de omisión y el nivel en la llamada inicial tras cambiar canal. Verificar edición actual, acuerdos regionales y eAIP antes de uso operacional." },
           { kind: "sub", text: "Límites del material" },
           { kind: "list", items: [
             "La tarjeta es una ayuda de estudio, no un formato estatal de reporte.",
             "La historieta y el escenario son didácticos, no una transcripción ni un reporte archivado.",
             "No se inventan puntos, coordenadas, frecuencias o tiempos para dar apariencia de caso real.",
           ] },
+          {
+            kind: "callout",
+            tone: "verificar",
+            title: "No confundir formato universal con detalle local",
+            text: "La estructura de seis elementos viene de OACI Doc 4444; los puntos obligatorios, periodicidad alternativa, coordenadas, tolerancia del estimado y canal de reporte dependen del espacio aéreo y de publicaciones vigentes. Para Colombia, consultar exclusivamente la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica (eAIP) oficial de Aerocivil. Las imágenes no son cartas ni documentos AIP.",
+          },
         ],
       },
     ],
@@ -708,22 +917,21 @@ export const NIVEL_4: DocScreen[] = [
     n: 25,
     title: "Desvíos por meteorología",
     kicker: "Pedir temprano, precisar el cambio y manejar la respuesta",
-    minutes: 20,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "Un desvío para evitar meteorología adversa modifica la trayectoria o el nivel autorizados. La tripulación detecta la amenaza, decide qué espacio necesita y coordina con el control de tránsito aéreo (ATC, air traffic control) **antes** de acercarse demasiado al fenómeno. No basta decir que hay una nube: el controlador necesita saber qué cambio se solicita, en qué dirección, hasta dónde y con qué urgencia para comprobar el tráfico.",
+        text: "Un desvío por meteorología cambia la trayectoria o el nivel autorizados. Se coordina con ATC **antes** de acercarse al fenómeno, y no basta decir que hay una nube: el controlador necesita saber qué cambio, hacia qué lado, cuánto y con qué urgencia, para revisar el tránsito.",
       },
-      { kind: "sub", text: "Preparar una solicitud útil" },
+      { kind: "sub", text: "Una solicitud útil" },
       {
         kind: "list",
         ordered: true,
         items: [
-          "**Qué cambia:** trayectoria lateral, rumbo, directo o nivel. El piloto que vuela (PF, pilot flying) y el piloto que monitorea (PM, pilot monitoring) acuerdan la maniobra que realmente sirve, sin transformar una solicitud lateral en descenso implícito.",
-          "**Lado y magnitud:** se indica izquierda o derecha de la ruta, o el rumbo requerido, y el margen aproximado que permita describir la solicitud. No se inventa una cota universal de separación de la célula: los criterios del operador y las condiciones prevalecen.",
-          "**Motivo y tiempo:** se comunica que es por meteorología y se pide temprano. Una alerta anticipada permite a ATC organizar el tráfico; si el riesgo ya es inmediato, se dice claramente que la acción no puede esperar.",
-          "**Límite y regreso:** se especifica, si es posible, cuándo podría reanudarse la ruta o qué condición indicará que se está libre del fenómeno. La ruta original no se recupera a ciegas si la autorización de desvío o un vector posterior requieren coordinación.",
-          "**Plan alternativo:** si ATC no puede aprobar el lado solicitado, la tripulación evalúa el otro lado, un nivel distinto, espera o cambio de ruta. No acepta una alternativa que conduzca al mismo peligro.",
+          "**Qué cambia**: rumbo, directo o nivel.",
+          "**Lado y magnitud**: izquierda o derecha de la ruta, y cuánto.",
+          "**Motivo y urgencia**: meteorología; si no puede esperar, se dice.",
+          "**Regreso**: cuándo se podría volver a la ruta.",
         ],
       },
       {
@@ -734,10 +942,9 @@ export const NIVEL_4: DocScreen[] = [
         alto: 900,
         pie: "Estructura de comunicación, no carta ni procedimiento de contingencia: qué maniobra, lado y magnitud, motivo, momento y límite o regreso. La tripulación no ejecuta un cambio solicitado hasta recibir autorización, salvo que la seguridad obligue a actuar conforme al procedimiento de contingencia aplicable.",
       },
-      { kind: "sub", text: "La autorización y la incapacidad no son detalles menores" },
       {
         kind: "p",
-        text: "Una solicitud no modifica la autorización vigente. La regla SERA.8015 de la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency) distingue el cambio solicitado y autorizado de una emergencia que exige acción inmediata; en ese último caso se informa a los servicios de tránsito aéreo (ATS, air traffic services) tan pronto como sea posible. Esta norma europea ayuda a explicar la lógica, pero no se presenta como reglamentación colombiana. El procedimiento OACI específico para desviarse por meteorología sin autorización previa depende del entorno operacional y no debe improvisarse a partir de una historieta.",
+        text: "La solicitud no cambia la autorización: se mantiene ruta y nivel hasta recibir el cambio y colacionarlo. Si ATC ofrece un lado que también es peligroso, se rechaza y se propone otra opción.",
       },
       {
         kind: "figura",
@@ -746,23 +953,6 @@ export const NIVEL_4: DocScreen[] = [
         ancho: 1672,
         alto: 941,
         pie: "Historieta didáctica, no transcripción: 1) los pilotos reconocen el fenómeno con tiempo; 2) el PM solicita un cambio concreto mientras el PF vuela; 3) ATC valora el tráfico; 4) la tripulación confirma y vigila la nueva trayectoria. La imagen no prescribe una distancia mínima, rumbo ni procedimiento local.",
-      },
-      { kind: "sub", text: "Secuencia radiotelefónica completa" },
-      {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**Aviso y solicitud.** El PM transmite distintivo, fenómeno y cambio necesario con lenguaje claro y conciso cuando no hay una frase normalizada que cubra todo. Las plantillas de esta lección usan campos entre corchetes, no indicativos, frecuencias ni rutas inventados.",
-          "**Respuesta de ATC.** El controlador aprueba el cambio con límites explícitos, pide esperar o declara que no puede aprobarlo por tráfico. El PM colaciona el lado, rumbo, nivel y cualquier instrucción de reportar o reingresar; el PF compara el modo y la trayectoria seleccionados con la autorización.",
-          "**Si la alternativa no es segura.** La tripulación dice que no puede aceptarla y propone otra opción. Una respuesta negativa del controlador no convierte en seguro el sector meteorológico que se quiere evitar.",
-          "**Durante y después.** Se vigilan límites autorizados, separación y combustible; se comunica cuándo se está libre del fenómeno y se solicita o confirma el reingreso. Si se recibió una instrucción de REPORT BACK ON ROUTE, se reporta cuando efectivamente se está sobre la ruta original, no cuando apenas se está libre de nubes.",
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "verificar",
-        title: "Contingencia sin autorización: procedimiento, no atajo",
-        text: "La Organización de Aviación Civil Internacional (OACI; ICAO, International Civil Aviation Organization) incluye en el Doc 4444 un procedimiento de contingencia para meteorología cuando no puede obtenerse una autorización revisada; no es intercambiable con un desvío ATC aprobado. Una guía oficial regional de OACI consultada recalca esa distinción. Aquí no se enseñan desplazamientos, distancias, cambios de nivel o frecuencias de contingencia fuera de su contexto completo: antes de una operación real se estudian la edición vigente del Doc 4444, la publicación del Estado, el espacio aéreo y los procedimientos del operador.",
       },
       {
         kind: "escenario",
@@ -783,23 +973,74 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "Células convectivas en ruta",
-        texto: "El PF mantiene una trayectoria segura y revisa qué desvío es viable con las limitaciones del avión y del operador. El PM prepara una petición breve con lado, magnitud, motivo y necesidad temporal; escucha con precisión los límites que devuelva ATC. Ambos verifican el efecto sobre combustible, nivel, tráfico y regreso, y distinguen una aprobación normal de un procedimiento de contingencia si el tiempo de reacción se agota.",
+        texto: "El PF mantiene una trayectoria segura y evalúa qué desvío es viable; el PM prepara una petición breve y escucha con precisión los límites que devuelva ATC. Ambos revisan combustible, nivel, tránsito y regreso.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "La contingencia sin autorización está en el Doc 4444 vigente, y REPORT BACK ON ROUTE no tiene fuente OACI verificada: confirma en la eAIP de Aerocivil.",
       },
       { kind: "sub", text: "Errores que importan" },
       error("Pedir un desvío cuando ya no queda tiempo útil para coordinarlo."),
-      error("Solicitar solo «desvío» sin lado, margen ni intención de regreso."),
       error("Interpretar una solicitud enviada como autorización recibida."),
-      error("Aceptar por presión una alternativa que conduce a otra zona peligrosa."),
-      error("Informar «de regreso» antes de reingresar efectivamente a la ruta cuando ATC pidió ese reporte."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Se solicita con tiempo y precisión: qué, lado, magnitud, motivo y límite.",
-          "Se mantiene la autorización actual hasta que ATC apruebe el cambio.",
-          "Una alternativa insegura se rechaza y se propone otra.",
-          "El regreso se confirma conforme a la autorización, no por intuición.",
-          "La contingencia sin autorización es una situación distinta que exige el procedimiento vigente.",
+          "Se pide con tiempo: qué, lado, magnitud, motivo y regreso.",
+          "La autorización actual sigue hasta que ATC apruebe el cambio.",
+          "Una alternativa insegura se rechaza.",
+          "La contingencia sin autorización es otro procedimiento.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "EASA SERA.8015 · OACI Doc 4444 15.2.3",
+        bloques: [
+          {
+            kind: "p",
+            text: "Un desvío para evitar meteorología adversa modifica la trayectoria o el nivel autorizados. La tripulación detecta la amenaza, decide qué espacio necesita y coordina con el control de tránsito aéreo (ATC, air traffic control) **antes** de acercarse demasiado al fenómeno. No basta decir que hay una nube: el controlador necesita saber qué cambio se solicita, en qué dirección, hasta dónde y con qué urgencia para comprobar el tráfico.",
+          },
+          { kind: "sub", text: "Preparar una solicitud útil" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Qué cambia:** trayectoria lateral, rumbo, directo o nivel. El piloto que vuela (PF, pilot flying) y el piloto que monitorea (PM, pilot monitoring) acuerdan la maniobra que realmente sirve, sin transformar una solicitud lateral en descenso implícito.",
+              "**Lado y magnitud:** se indica izquierda o derecha de la ruta, o el rumbo requerido, y el margen aproximado que permita describir la solicitud. No se inventa una cota universal de separación de la célula: los criterios del operador y las condiciones prevalecen.",
+              "**Motivo y tiempo:** se comunica que es por meteorología y se pide temprano. Una alerta anticipada permite a ATC organizar el tráfico; si el riesgo ya es inmediato, se dice claramente que la acción no puede esperar.",
+              "**Límite y regreso:** se especifica, si es posible, cuándo podría reanudarse la ruta o qué condición indicará que se está libre del fenómeno. La ruta original no se recupera a ciegas si la autorización de desvío o un vector posterior requieren coordinación.",
+              "**Plan alternativo:** si ATC no puede aprobar el lado solicitado, la tripulación evalúa el otro lado, un nivel distinto, espera o cambio de ruta. No acepta una alternativa que conduzca al mismo peligro.",
+            ],
+          },
+          { kind: "sub", text: "La autorización y la incapacidad no son detalles menores" },
+          {
+            kind: "p",
+            text: "Una solicitud no modifica la autorización vigente. La regla SERA.8015 de la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency) distingue el cambio solicitado y autorizado de una emergencia que exige acción inmediata; en ese último caso se informa a los servicios de tránsito aéreo (ATS, air traffic services) tan pronto como sea posible. Esta norma europea ayuda a explicar la lógica, pero no se presenta como reglamentación colombiana. El procedimiento OACI específico para desviarse por meteorología sin autorización previa depende del entorno operacional y no debe improvisarse a partir de una historieta.",
+          },
+          { kind: "sub", text: "Secuencia radiotelefónica completa" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Aviso y solicitud.** El PM transmite distintivo, fenómeno y cambio necesario con lenguaje claro y conciso cuando no hay una frase normalizada que cubra todo. Las plantillas de esta lección usan campos entre corchetes, no indicativos, frecuencias ni rutas inventados.",
+              "**Respuesta de ATC.** El controlador aprueba el cambio con límites explícitos, pide esperar o declara que no puede aprobarlo por tráfico. El PM colaciona el lado, rumbo, nivel y cualquier instrucción de reportar o reingresar; el PF compara el modo y la trayectoria seleccionados con la autorización.",
+              "**Si la alternativa no es segura.** La tripulación dice que no puede aceptarla y propone otra opción. Una respuesta negativa del controlador no convierte en seguro el sector meteorológico que se quiere evitar.",
+              "**Durante y después.** Se vigilan límites autorizados, separación y combustible; se comunica cuándo se está libre del fenómeno y se solicita o confirma el reingreso. Si se recibió una instrucción de REPORT BACK ON ROUTE, se reporta cuando efectivamente se está sobre la ruta original, no cuando apenas se está libre de nubes.",
+            ],
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "Células convectivas en ruta",
+            texto: "El PF mantiene una trayectoria segura y revisa qué desvío es viable con las limitaciones del avión y del operador. El PM prepara una petición breve con lado, magnitud, motivo y necesidad temporal; escucha con precisión los límites que devuelva ATC. Ambos verifican el efecto sobre combustible, nivel, tráfico y regreso, y distinguen una aprobación normal de un procedimiento de contingencia si el tiempo de reacción se agota.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Solicitar solo «desvío» sin lado, margen ni intención de regreso.",
+            "Aceptar por presión una alternativa que conduce a otra zona peligrosa.",
+            "Informar «de regreso» antes de reingresar efectivamente a la ruta cuando ATC pidió ese reporte.",
+          ] },
         ],
       },
       {
@@ -808,13 +1049,19 @@ export const NIVEL_4: DocScreen[] = [
         cita: "OACI · Doc 4444 y guía regional; EASA · SERA.8015",
         bloques: [
           { kind: "sub", text: "Documentos oficiales" },
-          { kind: "p", text: "OACI, Doc 4444 PANS-ATM, edición oficial anterior consultada, §§ 4.5.7.4, 4.12.3 y 15.2.3 (https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/DOC%204444_PANS%20ATM_en.pdf). OACI, SAT OESB 2024-002 revisión 01, § 2 Weather Deviation Procedures, distingue contingencia sin autorización y desvío aprobado (https://www.icao.int/sites/default/files/WACAF/MeetingDocs/2025/SAT%20DOCUMENTS/SAT-OESB-2024-002_Revision-01.pdf). EASA, Easy Access Rules SERA.8015, cambios al plan de vuelo controlado (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9888). Para Colombia se consulta exclusivamente la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica —eAIP— vigente de Aerocivil; no se infieren cifras de un ejemplo extranjero." },
+          { kind: "p", text: "OACI, Doc 4444 PANS-ATM, edición oficial anterior consultada, §§ 4.5.7.4, 4.12.3 y 15.2.3 (https://applications.icao.int/tools/ATMiKIT/story_content/external_files/story_content/external_files/DOC%204444_PANS%20ATM_en.pdf). OACI, SAT OESB 2024-002 revisión 01, § 2 Weather Deviation Procedures, distingue contingencia sin autorización y desvío aprobado (https://www.icao.int/sites/default/files/WACAF/MeetingDocs/2025/SAT%20DOCUMENTS/SAT-OESB-2024-002_Revision-01.pdf). EASA, Easy Access Rules SERA.8015, cambios al plan de vuelo controlado (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-9888). Para Colombia se consulta exclusivamente la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica (eAIP) vigente de Aerocivil; no se infieren cifras de un ejemplo extranjero." },
           { kind: "sub", text: "Límites del material" },
           { kind: "list", items: [
             "La tarjeta y la historieta son didácticas; no representan una ruta, carta o frecuencia real.",
             "No se proporciona un procedimiento de contingencia incompleto ni una separación fija respecto de tormentas.",
             "El escenario no es una transcripción y no autoriza una maniobra operacional.",
           ] },
+          {
+            kind: "callout",
+            tone: "verificar",
+            title: "Contingencia sin autorización: procedimiento, no atajo",
+            text: "La Organización de Aviación Civil Internacional (OACI; ICAO, International Civil Aviation Organization) incluye en el Doc 4444 un procedimiento de contingencia para meteorología cuando no puede obtenerse una autorización revisada; no es intercambiable con un desvío ATC aprobado. Una guía oficial regional de OACI consultada recalca esa distinción. Aquí no se enseñan desplazamientos, distancias, cambios de nivel o frecuencias de contingencia fuera de su contexto completo: antes de una operación real se estudian la edición vigente del Doc 4444, la publicación del Estado, el espacio aéreo y los procedimientos del operador.",
+          },
         ],
       },
     ],
@@ -824,11 +1071,11 @@ export const NIVEL_4: DocScreen[] = [
     n: 26,
     title: "STAR y llegada",
     kicker: "Distinguir previsión, autorización y cambios durante el descenso",
-    minutes: 19,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "Una llegada normalizada por instrumentos (STAR, Standard Terminal Arrival Route) enlaza la ruta de vuelo con el entorno de aproximación mediante una trayectoria publicada. Para una tripulación de aerolínea, la tarea no consiste en memorizar un nombre: hay que saber qué ruta está autorizada, qué restricciones siguen vigentes, cuál es el nivel autorizado y qué aproximación solo se ha anunciado como probable. Las cartas y procedimientos concretos se consultan en la publicación estatal vigente; ninguna imagen de esta lección es una carta.",
+        text: "Una STAR (Standard Terminal Arrival Route) une la ruta con la aproximación por una trayectoria publicada. La tarea no es memorizar su nombre: es saber qué ruta está autorizada, qué restricciones siguen, qué nivel está autorizado y qué aproximación solo se anunció como probable.",
       },
       {
         kind: "figura",
@@ -840,28 +1087,11 @@ export const NIVEL_4: DocScreen[] = [
       },
       { kind: "sub", text: "Tres mensajes que no se deben mezclar" },
       {
-        kind: "list",
-        ordered: true,
+        kind: "kv",
         items: [
-          "**Llegada autorizada:** se comprueba el designador y la transición aplicables contra la carta vigente, la autorización y la ruta cargada en el sistema de gestión de vuelo (FMS, Flight Management System). Cargar una STAR no equivale por sí solo a estar autorizado a volarla.",
-          "**Descenso autorizado:** el nivel límite y las restricciones asociadas dependen de la frase recibida. En la fraseología documentada por la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency), DESCEND VIA STAR TO (level) incluye la ruta lateral y las restricciones de nivel y velocidad publicadas hasta el nivel autorizado. Una instrucción distinta no se interpreta por analogía: se confirma su efecto cuando exista duda.",
-          "**Aproximación prevista o autorizada:** EXPECT informa qué preparar; CLEARED (type of approach) APPROACH autoriza la aproximación indicada según sus condiciones. Ni el aviso de pista ni una STAR cargada constituyen por sí mismos la autorización de aproximación.",
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "verificar",
-        title: "La frase publicada y la jurisdicción importan",
-        text: "La distinción DESCEND VIA STAR, cancelación de restricciones y directo aparece en la fraseología EASA AMC1 SERA.14001; se cita como referencia documental europea, no como publicación colombiana. Para operar en Colombia, comprobar la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica —eAIP— oficial de Aerocivil, el procedimiento, la carta y la autorización real. Este material no fija pistas, puntos, frecuencias, niveles ni mínimos.",
-      },
-      { kind: "sub", text: "Antes de iniciar el descenso" },
-      {
-        kind: "list",
-        items: [
-          "El piloto que monitorea (PM, pilot monitoring) obtiene la información terminal disponible, identifica pista y aproximación previstas, carta vigente, transición, restricciones y comunicaciones esperadas. El piloto que vuela (PF, pilot flying) revisa el plan de descenso, combustible, meteorología y energía del avión.",
-          "Ambos comparan la STAR y su transición en la autorización con la representación en el FMS y la carta. Revisan discontinuidades, restricciones de nivel y velocidad, sentido de los virajes, distancia disponible y posibles cambios de pista. La función de descenso del avión no garantiza cumplimiento de una restricción.",
-          "La preparación del ajuste altimétrico y del nivel de transición se hace con información oficial recibida y con el procedimiento aplicable; aquí no se inventa un valor de presión ni un nivel local. La lectura y colación de altitud o nivel autorizados deben ser inequívocas.",
-          "Antes del primer contacto con la dependencia de aproximación se identifican los elementos que siguen vigentes: nivel, velocidad asignada, ruta autorizada y datos terminales recibidos. No se omite una restricción solo porque otro sector ha tomado la frecuencia.",
+          { k: "Llegada autorizada", v: "Designador y transición cotejados con carta, autorización y FMS. Cargarla no es estar autorizado." },
+          { k: "DESCEND VIA STAR TO (level)", v: "Ruta lateral y restricciones publicadas hasta el nivel dicho (fraseología EASA)." },
+          { k: "EXPECT / CLEARED (type) APPROACH", v: "EXPECT es para preparar; solo CLEARED APPROACH autoriza la aproximación." },
         ],
       },
       {
@@ -872,16 +1102,9 @@ export const NIVEL_4: DocScreen[] = [
         alto: 1152,
         pie: "Historieta didáctica, no transcripción: 1) PF y PM preparan llegada y aproximación con material vigente; 2) el PM escucha y colaciona la autorización; 3) aproximación coordina la secuencia; 4) ambos verifican ruta, restricciones y distancia restante tras un cambio. Las pantallas son genéricas y no representan una carta, radar o autorización real.",
       },
-      { kind: "sub", text: "Cuando ATC cambia algo durante la llegada" },
       {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**Escuchar y separar variables:** identificar si el control de tránsito aéreo (ATC, air traffic control) cambia ruta, nivel, velocidad, pista o aproximación. Colacionar con claridad lo que exige respuesta; un aviso EXPECT no se transforma en autorización.",
-          "**Revisar el tramo nuevo:** un directo puede saltar puntos, reducir millas de descenso y cambiar qué restricciones están delante. El PM comprueba la nueva secuencia en FMS y carta; el PF vigila la trayectoria y la energía. Se confirma con ATC cualquier incertidumbre sobre restricciones o reincorporación; no se deduce una cancelación tácita.",
-          "**Recalcular factibilidad:** si el avión queda alto, rápido o sin tiempo de preparación por un directo o cambio de pista, comunicarlo pronto. Solicitar distancia, otra instrucción o tiempo de preparación según el caso; no aceptar en silencio una autorización imposible de cumplir.",
-          "**Confirmar la aproximación:** preparar una aproximación esperada es útil, pero se espera su autorización específica antes de ejecutarla. Una instrucción de rumbo o nivel tampoco autoriza por sí sola a iniciar una aproximación.",
-        ],
+        kind: "p",
+        text: "Si ATC cambia algo, se separa qué cambió: ruta, nivel, velocidad, pista o aproximación. Un directo puede saltar puntos y quitar millas de descenso: si el avión queda alto o rápido, se dice pronto.",
       },
       {
         kind: "escenario",
@@ -902,23 +1125,75 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "Llegada con alta carga de trabajo",
-        texto: "El PM conserva una imagen verbal de la autorización —ruta, nivel, velocidad, pista prevista y elementos aún por confirmar— mientras selecciona y verifica los cambios en el FMS. El PF monitorea trayectoria y energía, y comunica si una instrucción exige más tiempo o distancia. Después de cada cambio, los dos hacen una comprobación cruzada breve con la carta y la autorización, incluida la preparación altimétrica, sin dejar que la programación sustituya el control del vuelo.",
+        texto: "El PM lleva en voz alta la autorización (ruta, nivel, velocidad, pista prevista y lo pendiente) y verifica los cambios en el FMS. El PF vigila trayectoria y energía. Tras cada cambio, comprobación cruzada breve con la carta.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "DESCEND VIA STAR es fraseología EASA: en Colombia, confirma la STAR y la frase en la eAIP de Aerocivil.",
       },
       { kind: "sub", text: "Errores que importan" },
       error("Tratar EXPECT como autorización para descender por una ruta o iniciar la aproximación."),
       error("Aceptar un directo sin revisar distancia restante y restricciones aplicables."),
-      error("Suponer que un cambio de nivel o de pista cancela automáticamente toda restricción publicada."),
-      error("Cargar una llegada diferente de la autorizada o no verificar la transición."),
-      error("Callar que la aeronave quedó alta, rápida o sin tiempo para preparar el nuevo procedimiento."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "La carta publicada, la autorización y el FMS deben coincidir.",
-          "EXPECT permite planear; CLEARED APPROACH es una autorización distinta.",
-          "DESCEND VIA STAR tiene implicaciones concretas para ruta y restricciones donde esa fraseología es aplicable.",
-          "Directos y cambios de pista exigen comprobar geometría, energía y restricciones.",
-          "Si no se puede cumplir, se comunica antes de llegar al punto crítico.",
+          "Carta, autorización y FMS deben coincidir.",
+          "EXPECT permite planear; CLEARED APPROACH autoriza.",
+          "Un directo o cambio de pista exige revisar geometría, energía y restricciones.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "EASA AMC1 SERA.14001 · OACI Doc 4444",
+        bloques: [
+          {
+            kind: "p",
+            text: "Una llegada normalizada por instrumentos (STAR, Standard Terminal Arrival Route) enlaza la ruta de vuelo con el entorno de aproximación mediante una trayectoria publicada. Para una tripulación de aerolínea, la tarea no consiste en memorizar un nombre: hay que saber qué ruta está autorizada, qué restricciones siguen vigentes, cuál es el nivel autorizado y qué aproximación solo se ha anunciado como probable. Las cartas y procedimientos concretos se consultan en la publicación estatal vigente; ninguna imagen de esta lección es una carta.",
+          },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Llegada autorizada:** se comprueba el designador y la transición aplicables contra la carta vigente, la autorización y la ruta cargada en el sistema de gestión de vuelo (FMS, Flight Management System). Cargar una STAR no equivale por sí solo a estar autorizado a volarla.",
+              "**Descenso autorizado:** el nivel límite y las restricciones asociadas dependen de la frase recibida. En la fraseología documentada por la Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency), DESCEND VIA STAR TO (level) incluye la ruta lateral y las restricciones de nivel y velocidad publicadas hasta el nivel autorizado. Una instrucción distinta no se interpreta por analogía: se confirma su efecto cuando exista duda.",
+              "**Aproximación prevista o autorizada:** EXPECT informa qué preparar; CLEARED (type of approach) APPROACH autoriza la aproximación indicada según sus condiciones. Ni el aviso de pista ni una STAR cargada constituyen por sí mismos la autorización de aproximación.",
+            ],
+          },
+          { kind: "sub", text: "Antes de iniciar el descenso" },
+          {
+            kind: "list",
+            items: [
+              "El piloto que monitorea (PM, pilot monitoring) obtiene la información terminal disponible, identifica pista y aproximación previstas, carta vigente, transición, restricciones y comunicaciones esperadas. El piloto que vuela (PF, pilot flying) revisa el plan de descenso, combustible, meteorología y energía del avión.",
+              "Ambos comparan la STAR y su transición en la autorización con la representación en el FMS y la carta. Revisan discontinuidades, restricciones de nivel y velocidad, sentido de los virajes, distancia disponible y posibles cambios de pista. La función de descenso del avión no garantiza cumplimiento de una restricción.",
+              "La preparación del ajuste altimétrico y del nivel de transición se hace con información oficial recibida y con el procedimiento aplicable; aquí no se inventa un valor de presión ni un nivel local. La lectura y colación de altitud o nivel autorizados deben ser inequívocas.",
+              "Antes del primer contacto con la dependencia de aproximación se identifican los elementos que siguen vigentes: nivel, velocidad asignada, ruta autorizada y datos terminales recibidos. No se omite una restricción solo porque otro sector ha tomado la frecuencia.",
+            ],
+          },
+          { kind: "sub", text: "Cuando ATC cambia algo durante la llegada" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Escuchar y separar variables:** identificar si el control de tránsito aéreo (ATC, air traffic control) cambia ruta, nivel, velocidad, pista o aproximación. Colacionar con claridad lo que exige respuesta; un aviso EXPECT no se transforma en autorización.",
+              "**Revisar el tramo nuevo:** un directo puede saltar puntos, reducir millas de descenso y cambiar qué restricciones están delante. El PM comprueba la nueva secuencia en FMS y carta; el PF vigila la trayectoria y la energía. Se confirma con ATC cualquier incertidumbre sobre restricciones o reincorporación; no se deduce una cancelación tácita.",
+              "**Recalcular factibilidad:** si el avión queda alto, rápido o sin tiempo de preparación por un directo o cambio de pista, comunicarlo pronto. Solicitar distancia, otra instrucción o tiempo de preparación según el caso; no aceptar en silencio una autorización imposible de cumplir.",
+              "**Confirmar la aproximación:** preparar una aproximación esperada es útil, pero se espera su autorización específica antes de ejecutarla. Una instrucción de rumbo o nivel tampoco autoriza por sí sola a iniciar una aproximación.",
+            ],
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "Llegada con alta carga de trabajo",
+            texto: "El PM conserva una imagen verbal de la autorización (ruta, nivel, velocidad, pista prevista y elementos aún por confirmar) mientras selecciona y verifica los cambios en el FMS. El PF monitorea trayectoria y energía, y comunica si una instrucción exige más tiempo o distancia. Después de cada cambio, los dos hacen una comprobación cruzada breve con la carta y la autorización, incluida la preparación altimétrica, sin dejar que la programación sustituya el control del vuelo.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Suponer que un cambio de nivel o de pista cancela automáticamente toda restricción publicada.",
+            "Cargar una llegada diferente de la autorizada o no verificar la transición.",
+            "Callar que la aeronave quedó alta, rápida o sin tiempo para preparar el nuevo procedimiento.",
+          ] },
         ],
       },
       {
@@ -937,6 +1212,12 @@ export const NIVEL_4: DocScreen[] = [
             "La historieta y el escenario son didácticos, no registro de una comunicación real.",
             "No se inventan puntos, pistas, mínimos, QNH, frecuencias o rutas para simular un ejemplo documental.",
           ] },
+          {
+            kind: "callout",
+            tone: "verificar",
+            title: "La frase publicada y la jurisdicción importan",
+            text: "La distinción DESCEND VIA STAR, cancelación de restricciones y directo aparece en la fraseología EASA AMC1 SERA.14001; se cita como referencia documental europea, no como publicación colombiana. Para operar en Colombia, comprobar la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica (eAIP) oficial de Aerocivil, el procedimiento, la carta y la autorización real. Este material no fija pistas, puntos, frecuencias, niveles ni mínimos.",
+          },
         ],
       },
     ],
@@ -946,11 +1227,11 @@ export const NIVEL_4: DocScreen[] = [
     n: 27,
     title: "Aproximación",
     kicker: "Vector, autorización, establecimiento y cambio de pista",
-    minutes: 20,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "Durante la aproximación, una tripulación puede recibir rumbos de interceptación, una aproximación prevista, una autorización para el procedimiento, un pedido de reportar establecido y después una transferencia a torre. Son actos distintos. Confundir uno con otro puede llevar a abandonar un rumbo antes de tiempo, descender sin autorización o preparar la pista equivocada. Esta lección se concentra en la comunicación y la comprobación cruzada, no sustituye la carta ni enseña a volar un procedimiento específico.",
+        text: "En la aproximación llegan rumbos de interceptación, la aproximación prevista, la autorización del procedimiento, el pedido de reportar establecido y la transferencia a torre. Son actos distintos: confundirlos lleva a dejar un rumbo antes de tiempo, descender sin autorización o preparar la pista equivocada.",
       },
       {
         kind: "figura",
@@ -960,16 +1241,15 @@ export const NIVEL_4: DocScreen[] = [
         alto: 900,
         pie: "Esquema didáctico, no carta: un rumbo o EXPECT orienta y permite preparar; CLEARED APPROACH autoriza un procedimiento; REPORT ESTABLISHED pide informar un hecho cuando ocurra. La autorización de aproximación no equivale a autorización de aterrizaje.",
       },
-      { kind: "sub", text: "Reconocer el alcance de cada transmisión" },
+      { kind: "sub", text: "El alcance de cada transmisión" },
       {
-        kind: "list",
-        ordered: true,
+        kind: "kv",
         items: [
-          "**EXPECT:** comunica el tipo de aproximación o pista que se prevé. PM y PF preparan la carta, los mínimos y la configuración, pero siguen la autorización vigente; la expectativa puede cambiar.",
-          "**VECTOR:** el rumbo asignado lleva hacia la secuencia o la interceptación. Según OACI Doc 4444, al vectorizar para interceptar una ayuda interpretada por el piloto se pide reportar establecido en el rumbo de aproximación final, y la autorización de aproximación normalmente se emite antes del reporte de establecido. El rumbo por sí solo no es esa autorización.",
-          "**CLEARED APPROACH:** identifica el procedimiento autorizado y, cuando corresponde, la pista. La tripulación colaciona y coteja tipo, designador y pista con la carta vigente y el sistema de gestión de vuelo (FMS, Flight Management System). La fraseología de EASA permite CLEARED (type of approach) APPROACH [RUNWAY (number)]; su aplicación local se verifica.",
-          "**REPORT ESTABLISHED:** pide una notificación posterior. El piloto que monitorea (PM, pilot monitoring) no anuncia establecido mientras el avión sigue en interceptación; el piloto que vuela (PF, pilot flying) confirma captura y trayectoria conforme al procedimiento y a los instrumentos.",
-          "**CONTACT TOWER y aterrizaje:** una transferencia cambia la dependencia y frecuencia de comunicación. Haber sido autorizado a la aproximación no es haber sido autorizado a aterrizar; se escucha y colaciona la autorización de aterrizaje por separado.",
+          { k: "EXPECT", v: "Anuncia qué preparar. Se sigue volando la autorización vigente." },
+          { k: "Vector", v: "Rumbo hacia la secuencia o la interceptación. No es autorización de aproximación." },
+          { k: "CLEARED (type) APPROACH", v: "Autoriza el procedimiento; se coteja tipo y pista con carta y FMS." },
+          { k: "REPORT ESTABLISHED", v: "Se reporta cuando el avión lo está, no durante la interceptación." },
+          { k: "CONTACT TOWER", v: "Cambia la frecuencia. El aterrizaje se autoriza aparte (lección 29)." },
         ],
       },
       {
@@ -980,32 +1260,9 @@ export const NIVEL_4: DocScreen[] = [
         alto: 941,
         pie: "Historieta didáctica, no transcripción: 1) el PM recibe y colaciona rumbo o autorización; 2) la controladora coordina la aproximación; 3) PF y PM confirman tipo, pista, modos y trayectoria antes de reportar establecido. Pantallas genéricas, sin carta, frecuencia o vuelo real.",
       },
-      { kind: "sub", text: "La secuencia operacional completa" },
       {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**Preparar antes del vector final:** obtener información terminal y carta vigente, confirmar capacidad del avión y de la tripulación para el procedimiento, revisar aproximación frustrada, mínimos, meteorología, energía y estabilización según los procedimientos del operador. Una pista prevista no elimina la necesidad de volver a verificar.",
-          "**Recibir y colacionar:** separar rumbo, nivel, velocidad, pista y tipo de aproximación. El control de tránsito aéreo (ATC, air traffic control) puede transmitir varios elementos juntos; el PM anota o retiene los críticos y el PF coteja lo seleccionado con lo oído. Si un elemento no se escucha o resulta inconsistente, se pide repetición o confirmación.",
-          "**Interceptar sin adelantarse:** mantener el último rumbo autorizado hasta que la instrucción o el procedimiento autorizado permitan dejarlo. Confirmar que los modos de navegación y aproximación reflejan la intención, no solo que un indicador se ilumina. La transferencia a torre se efectúa según la instrucción recibida.",
-          "**Reportar y seguir escuchando:** si se solicitó REPORT ESTABLISHED, transmitir cuando efectivamente se cumpla. Continuar vigilando instrucciones, información esencial del aeródromo y la autorización posterior de aterrizaje. Una aproximación autorizada puede terminar en aproximación frustrada si no se cumplen las condiciones de continuación.",
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "verificar",
-        title: "No usar esta lección como carta o fraseología colombiana",
-        text: "Los ejemplos aquí son conceptuales y no contienen una pista, ILS, RNP, frecuencia, altitud, QNH o mínimo inventados. Para Colombia se utiliza exclusivamente la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica —eAIP— oficial de Aerocivil y la autorización recibida. Las frases EASA se citan con su jurisdicción; no se atribuyen a una carta colombiana.",
-      },
-      { kind: "sub", text: "Si cambia el procedimiento o no se puede cumplir" },
-      {
-        kind: "list",
-        items: [
-          "Una pista o tipo de aproximación diferente cambia carta, trayectoria, equipo, energía y briefing. El PM identifica exactamente qué fue anunciado y qué fue autorizado; ambos verifican que la selección en el FMS corresponda a la instrucción real, no a la expectativa anterior.",
-          "Si la aeronave o la tripulación no reúne los requisitos del procedimiento ofrecido, o no hay tiempo para prepararlo con seguridad, se comunica UNABLE y se solicita una alternativa. No se acepta una autorización esperando resolver la incompatibilidad después.",
-          "La aproximación visual también exige una autorización específica y las condiciones aplicables. Informar que se tiene una referencia visual no sustituye la autorización; OACI Doc 4444 condiciona la autorización de aproximación visual en vectores al reporte de aeródromo o tránsito precedente a la vista.",
-          "Si ATC emite una advertencia de baja altitud, la prioridad es mantener o recuperar una trayectoria segura conforme a los procedimientos de la aeronave y responder con información útil. No se espera a completar un intercambio largo para actuar.",
-        ],
+        kind: "p",
+        text: "Si el avión o la tripulación no cumplen los requisitos del procedimiento, o no hay tiempo para prepararlo, se dice UNABLE y se pide otro. La aproximación visual también necesita su autorización.",
       },
       {
         kind: "escenario",
@@ -1026,23 +1283,79 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "De aproximación a torre",
-        texto: "El PM conserva la autorización de rumbo, nivel y velocidad mientras verifica la aproximación recibida y prepara la transferencia. El PF supervisa la trayectoria y anuncia cualquier diferencia entre el avión, el FMS y la carta. Tras reportar establecido si fue requerido, la tripulación sigue escuchando: contacto con torre, autorización de aterrizaje y cambios de último momento son eventos separados. Si la aproximación deja de estar estabilizada o segura, se aplica el procedimiento de aproximación frustrada y se comunica.",
+        texto: "El PM conserva rumbo, nivel y velocidad autorizados mientras verifica la aproximación y prepara la transferencia; el PF anuncia cualquier diferencia entre avión, FMS y carta. Si la aproximación deja de ser estable o segura, aproximación frustrada.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "Pistas, procedimientos y mínimos en Colombia: solo la eAIP de Aerocivil y la autorización recibida.",
       },
       { kind: "sub", text: "Errores que importan" },
       error("Tomar EXPECT o un rumbo de interceptación como autorización de aproximación."),
-      error("Reportar establecido antes de que la aeronave lo esté efectivamente."),
-      error("Cambiar pista o tipo en el FMS sin comprobar autorización y carta vigentes."),
-      error("Aceptar una aproximación para la que avión o tripulación no cumplen los requisitos."),
       error("Confundir autorización de aproximación con autorización de aterrizaje."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
           "EXPECT prepara; CLEARED APPROACH autoriza el procedimiento.",
-          "Un vector se colaciona y se vuela; por sí solo no autoriza la aproximación.",
-          "REPORT ESTABLISHED se cumple solo cuando el avión está establecido.",
-          "Un cambio tardío exige revisar procedimiento, capacidad y tiempo disponible.",
-          "Aproximación autorizada y aterrizaje autorizado son dos decisiones distintas.",
+          "Un vector se vuela; no autoriza la aproximación.",
+          "Establecido se reporta solo cuando se está.",
+          "Aproximación y aterrizaje son dos autorizaciones.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "OACI Doc 4444 8.9.4 y 8.9.5 · EASA AMC1 SERA.14001",
+        bloques: [
+          {
+            kind: "p",
+            text: "Durante la aproximación, una tripulación puede recibir rumbos de interceptación, una aproximación prevista, una autorización para el procedimiento, un pedido de reportar establecido y después una transferencia a torre. Son actos distintos. Confundir uno con otro puede llevar a abandonar un rumbo antes de tiempo, descender sin autorización o preparar la pista equivocada. Esta lección se concentra en la comunicación y la comprobación cruzada, no sustituye la carta ni enseña a volar un procedimiento específico.",
+          },
+          { kind: "sub", text: "Reconocer el alcance de cada transmisión" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**EXPECT:** comunica el tipo de aproximación o pista que se prevé. PM y PF preparan la carta, los mínimos y la configuración, pero siguen la autorización vigente; la expectativa puede cambiar.",
+              "**VECTOR:** el rumbo asignado lleva hacia la secuencia o la interceptación. Según OACI Doc 4444, al vectorizar para interceptar una ayuda interpretada por el piloto se pide reportar establecido en el rumbo de aproximación final, y la autorización de aproximación normalmente se emite antes del reporte de establecido. El rumbo por sí solo no es esa autorización.",
+              "**CLEARED APPROACH:** identifica el procedimiento autorizado y, cuando corresponde, la pista. La tripulación colaciona y coteja tipo, designador y pista con la carta vigente y el sistema de gestión de vuelo (FMS, Flight Management System). La fraseología de EASA permite CLEARED (type of approach) APPROACH [RUNWAY (number)]; su aplicación local se verifica.",
+              "**REPORT ESTABLISHED:** pide una notificación posterior. El piloto que monitorea (PM, pilot monitoring) no anuncia establecido mientras el avión sigue en interceptación; el piloto que vuela (PF, pilot flying) confirma captura y trayectoria conforme al procedimiento y a los instrumentos.",
+              "**CONTACT TOWER y aterrizaje:** una transferencia cambia la dependencia y frecuencia de comunicación. Haber sido autorizado a la aproximación no es haber sido autorizado a aterrizar; se escucha y colaciona la autorización de aterrizaje por separado.",
+            ],
+          },
+          { kind: "sub", text: "La secuencia operacional completa" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Preparar antes del vector final:** obtener información terminal y carta vigente, confirmar capacidad del avión y de la tripulación para el procedimiento, revisar aproximación frustrada, mínimos, meteorología, energía y estabilización según los procedimientos del operador. Una pista prevista no elimina la necesidad de volver a verificar.",
+              "**Recibir y colacionar:** separar rumbo, nivel, velocidad, pista y tipo de aproximación. El control de tránsito aéreo (ATC, air traffic control) puede transmitir varios elementos juntos; el PM anota o retiene los críticos y el PF coteja lo seleccionado con lo oído. Si un elemento no se escucha o resulta inconsistente, se pide repetición o confirmación.",
+              "**Interceptar sin adelantarse:** mantener el último rumbo autorizado hasta que la instrucción o el procedimiento autorizado permitan dejarlo. Confirmar que los modos de navegación y aproximación reflejan la intención, no solo que un indicador se ilumina. La transferencia a torre se efectúa según la instrucción recibida.",
+              "**Reportar y seguir escuchando:** si se solicitó REPORT ESTABLISHED, transmitir cuando efectivamente se cumpla. Continuar vigilando instrucciones, información esencial del aeródromo y la autorización posterior de aterrizaje. Una aproximación autorizada puede terminar en aproximación frustrada si no se cumplen las condiciones de continuación.",
+            ],
+          },
+          { kind: "sub", text: "Si cambia el procedimiento o no se puede cumplir" },
+          {
+            kind: "list",
+            items: [
+              "Una pista o tipo de aproximación diferente cambia carta, trayectoria, equipo, energía y briefing. El PM identifica exactamente qué fue anunciado y qué fue autorizado; ambos verifican que la selección en el FMS corresponda a la instrucción real, no a la expectativa anterior.",
+              "Si la aeronave o la tripulación no reúne los requisitos del procedimiento ofrecido, o no hay tiempo para prepararlo con seguridad, se comunica UNABLE y se solicita una alternativa. No se acepta una autorización esperando resolver la incompatibilidad después.",
+              "La aproximación visual también exige una autorización específica y las condiciones aplicables. Informar que se tiene una referencia visual no sustituye la autorización; OACI Doc 4444 condiciona la autorización de aproximación visual en vectores al reporte de aeródromo o tránsito precedente a la vista.",
+              "Si ATC emite una advertencia de baja altitud, la prioridad es mantener o recuperar una trayectoria segura conforme a los procedimientos de la aeronave y responder con información útil. No se espera a completar un intercambio largo para actuar.",
+            ],
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "De aproximación a torre",
+            texto: "El PM conserva la autorización de rumbo, nivel y velocidad mientras verifica la aproximación recibida y prepara la transferencia. El PF supervisa la trayectoria y anuncia cualquier diferencia entre el avión, el FMS y la carta. Tras reportar establecido si fue requerido, la tripulación sigue escuchando: contacto con torre, autorización de aterrizaje y cambios de último momento son eventos separados. Si la aproximación deja de estar estabilizada o segura, se aplica el procedimiento de aproximación frustrada y se comunica.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Reportar establecido antes de que la aeronave lo esté efectivamente.",
+            "Cambiar pista o tipo en el FMS sin comprobar autorización y carta vigentes.",
+            "Aceptar una aproximación para la que avión o tripulación no cumplen los requisitos.",
+          ] },
         ],
       },
       {
@@ -1058,6 +1371,12 @@ export const NIVEL_4: DocScreen[] = [
             "La historieta y el escenario son didácticos, no transcripciones.",
             "No se fabrican pistas, ayudas, frecuencias o autorizaciones específicas.",
           ] },
+          {
+            kind: "callout",
+            tone: "verificar",
+            title: "No usar esta lección como carta o fraseología colombiana",
+            text: "Los ejemplos aquí son conceptuales y no contienen una pista, ILS, RNP, frecuencia, altitud, QNH o mínimo inventados. Para Colombia se utiliza exclusivamente la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica (eAIP) oficial de Aerocivil y la autorización recibida. Las frases EASA se citan con su jurisdicción; no se atribuyen a una carta colombiana.",
+          },
         ],
       },
     ],
@@ -1067,11 +1386,11 @@ export const NIVEL_4: DocScreen[] = [
     n: 28,
     title: "Espera (holding)",
     kicker: "Autorización de espera, EAT y margen de combustible",
-    minutes: 19,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "Una espera mantiene a la aeronave en un espacio protegido mientras se organiza una autorización posterior. En comunicaciones, el reto es reconstruir con precisión la instrucción recibida y distinguir la hora prevista de aproximación de una autorización para salir. En operación de aerolínea se añade una decisión que no puede postergarse: cuánto tiempo permite el combustible permanecer en espera antes de solicitar otra solución. Esta lección no enseña entradas, velocidades o geometría de un circuito concreto; eso se obtiene de la carta y del procedimiento aplicables.",
+        text: "Una espera mantiene el avión en un espacio protegido mientras llega la siguiente autorización. En comunicaciones, el reto es reconstruir bien la instrucción y no confundir la hora prevista con permiso para salir. Y hay una decisión que no se aplaza: cuánto tiempo permite esperar el combustible.",
       },
       {
         kind: "figura",
@@ -1081,15 +1400,13 @@ export const NIVEL_4: DocScreen[] = [
         alto: 900,
         pie: "Tarjeta didáctica, no circuito ni carta: la tripulación distingue punto y nivel autorizados, datos de espera publicada o detallada, hora prevista de aproximación y límite de combustible. La hora prevista ayuda a planear; no autoriza por sí sola a abandonar la espera.",
       },
-      { kind: "sub", text: "Reconstruir la autorización completa" },
+      { kind: "sub", text: "Reconstruir la autorización" },
       {
         kind: "list",
-        ordered: true,
         items: [
-          "**Identificar el punto y el nivel:** el piloto que monitorea (PM, pilot monitoring) confirma referencia, ruta hasta ella y nivel autorizado; el piloto que vuela (PF, pilot flying) verifica navegación y energía antes de llegar. No se copia una espera parecida solo por reconocer el nombre de un punto.",
-          "**Distinguir publicada de detallada:** si el control de tránsito aéreo (ATC, air traffic control) indica HOLD AS PUBLISHED, ambos comparan la carta vigente con la autorización. Si se dictan instrucciones detalladas, se comprueban los elementos que correspondan, incluidos curso de acercamiento, sentido de virajes y tiempo o distancia de alejamiento. No se inventa un sentido por omisión.",
-          "**Colacionar lo crítico:** punto, nivel, sentido y otros elementos esenciales se devuelven claramente. Si la transmisión queda incompleta o no se entiende, REQUEST HOLDING INSTRUCTIONS o una confirmación específica se piden antes del punto, mientras aún hay margen para resolverlo.",
-          "**Verificar la entrada y evolución:** el sistema de gestión de vuelo (FMS, Flight Management System) es una ayuda, no una fuente de autorización. PF y PM comparan selección con carta o instrucción y monitorean la trayectoria. Los criterios de entrada y velocidad se toman del procedimiento vigente, no de una ilustración didáctica.",
+          "Punto y nivel autorizados, confirmados antes de llegar.",
+          "HOLD AS PUBLISHED: se coteja con la carta vigente. Instrucciones detalladas: curso de acercamiento, sentido de virajes y tiempo o distancia.",
+          "Si falta algo, REQUEST HOLDING INSTRUCTIONS o CONFIRM antes del punto.",
         ],
       },
       {
@@ -1103,24 +1420,7 @@ export const NIVEL_4: DocScreen[] = [
       { kind: "sub", text: "EAT no es autorización de aproximación" },
       {
         kind: "p",
-        text: "La hora prevista de aproximación (EAT, Expected Approach Time) estima cuándo ATC espera que la aeronave deje la referencia de espera para completar la aproximación. Su valor permite planear secuencia, combustible y contingencias; puede revisarse. La fraseología EASA AMC1 SERA.14001 distingue EXPECTED APPROACH TIME, REVISED EXPECTED APPROACH TIME y DELAY NOT DETERMINED. Aunque llegue la hora comunicada, la tripulación no abandona por iniciativa propia una espera normal con comunicaciones: espera la autorización o instrucción pertinente. Los procedimientos de falla de comunicaciones son un caso distinto y se estudian por separado.",
-      },
-      { kind: "sub", text: "Secuencia operativa desde el aviso de demora" },
-      {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**Antes del punto:** PM prepara la carta, identifica instrucciones y EAT o aviso de demora; PF comprueba nivel, velocidad según procedimiento aplicable y capacidad de permanecer. Si falta una pieza esencial, se solicita aclaración antes de entrar.",
-          "**En espera:** ambos monitorizan la trayectoria y actualizan hora estimada, combustible disponible y opciones de alterno. Una EAT revisada modifica el plan de tiempo; no convierte el procedimiento cargado en una autorización nueva.",
-          "**Al acercarse al límite:** se informa a ATC de forma temprana la limitación operacional y se solicita una alternativa o prioridad según la situación. Las expresiones normalizadas de combustible mínimo y emergencia se utilizan solo cuando se cumplen sus criterios, no como sinónimos de una preferencia por evitar demora.",
-          "**Salida:** cuando ATC emite autorización de aproximación, ruta o nivel nuevos, se colacionan y se comprueba qué cambia en el FMS. Si la autorización de salida no llega, no se asume que la EAT la reemplaza; si hay falla de radio se aplica el procedimiento publicado correspondiente.",
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "verificar",
-        title: "La carta y la publicación estatal son indispensables",
-        text: "EASA AMC1 SERA.14001 documenta HOLD AS PUBLISHED, instrucciones detalladas de espera y frases de EAT, pero es referencia europea. Los puntos, niveles, sentidos, velocidades, entradas, duración de alejamiento y reportes exigibles en Colombia se consultan únicamente en la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica —eAIP— oficial de Aerocivil y la autorización real. Aquí no se inventa una carta de espera.",
+        text: "La hora prevista de aproximación (EAT, Expected Approach Time) sirve para planear combustible y alternativas, y puede revisarse. Al llegar la EAT no se sale de la espera: se espera la autorización (la falla de comunicaciones es otro caso). Si el combustible no alcanza, se dice pronto; MINIMUM FUEL y MAYDAY FUEL están en la lección 37.",
       },
       {
         kind: "escenario",
@@ -1141,23 +1441,70 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "Espera en una llegada congestionada",
-        texto: "El PM conserva una nota breve de punto, nivel, circuito publicado o detallado, EAT y revisiones. El PF controla la trayectoria y recibe del PM actualizaciones de combustible y tiempo restante. Ambos acuerdan cuándo pedir una alternativa antes de perder margen; al recibir autorización de salida, comprueban ruta, nivel y aproximación con la carta y la selección del FMS. La decisión de desviar se rige por el operador y las normas aplicables, no por una cifra genérica de esta lección.",
+        texto: "El PM anota punto, nivel, tipo de espera, EAT y revisiones; el PF vuela y recibe del PM el combustible y el tiempo restante. Ambos acuerdan cuándo pedir una alternativa antes de perder margen.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "Esperas, velocidades y tiempos en Colombia: consulta la eAIP de Aerocivil; las frases citadas son EASA.",
       },
       { kind: "sub", text: "Errores que importan" },
-      error("Entrar en una espera con punto, nivel o sentido de virajes sin confirmar."),
-      error("Usar una carta distinta de la espera o transición autorizada."),
       error("Confundir la EAT con una autorización de salida o de aproximación."),
-      error("No actualizar combustible y alterno tras una demora revisada."),
       error("Avisar de la limitación de combustible solo cuando ya no queda margen útil."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "Se comprueban punto, nivel y detalles de la espera autorizada.",
-          "La espera publicada se coteja con la carta; la detallada se reconstruye con la instrucción.",
-          "EAT permite planear, no salir sin autorización.",
-          "El margen de combustible se actualiza y se comunica antes de agotarse.",
-          "La salida de la espera exige verificar la nueva autorización y el FMS.",
+          "Se confirman punto, nivel y detalles de la espera.",
+          "La EAT sirve para planear, no para salir.",
+          "El margen de combustible se comunica antes de agotarse.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "EASA AMC1 SERA.14001 1.3.3 a 1.3.4",
+        bloques: [
+          {
+            kind: "p",
+            text: "Una espera mantiene a la aeronave en un espacio protegido mientras se organiza una autorización posterior. En comunicaciones, el reto es reconstruir con precisión la instrucción recibida y distinguir la hora prevista de aproximación de una autorización para salir. En operación de aerolínea se añade una decisión que no puede postergarse: cuánto tiempo permite el combustible permanecer en espera antes de solicitar otra solución. Esta lección no enseña entradas, velocidades o geometría de un circuito concreto; eso se obtiene de la carta y del procedimiento aplicables.",
+          },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Identificar el punto y el nivel:** el piloto que monitorea (PM, pilot monitoring) confirma referencia, ruta hasta ella y nivel autorizado; el piloto que vuela (PF, pilot flying) verifica navegación y energía antes de llegar. No se copia una espera parecida solo por reconocer el nombre de un punto.",
+              "**Distinguir publicada de detallada:** si el control de tránsito aéreo (ATC, air traffic control) indica HOLD AS PUBLISHED, ambos comparan la carta vigente con la autorización. Si se dictan instrucciones detalladas, se comprueban los elementos que correspondan, incluidos curso de acercamiento, sentido de virajes y tiempo o distancia de alejamiento. No se inventa un sentido por omisión.",
+              "**Colacionar lo crítico:** punto, nivel, sentido y otros elementos esenciales se devuelven claramente. Si la transmisión queda incompleta o no se entiende, REQUEST HOLDING INSTRUCTIONS o una confirmación específica se piden antes del punto, mientras aún hay margen para resolverlo.",
+              "**Verificar la entrada y evolución:** el sistema de gestión de vuelo (FMS, Flight Management System) es una ayuda, no una fuente de autorización. PF y PM comparan selección con carta o instrucción y monitorean la trayectoria. Los criterios de entrada y velocidad se toman del procedimiento vigente, no de una ilustración didáctica.",
+            ],
+          },
+          {
+            kind: "p",
+            text: "La hora prevista de aproximación (EAT, Expected Approach Time) estima cuándo ATC espera que la aeronave deje la referencia de espera para completar la aproximación. Su valor permite planear secuencia, combustible y contingencias; puede revisarse. La fraseología EASA AMC1 SERA.14001 distingue EXPECTED APPROACH TIME, REVISED EXPECTED APPROACH TIME y DELAY NOT DETERMINED. Aunque llegue la hora comunicada, la tripulación no abandona por iniciativa propia una espera normal con comunicaciones: espera la autorización o instrucción pertinente. Los procedimientos de falla de comunicaciones son un caso distinto y se estudian por separado.",
+          },
+          { kind: "sub", text: "Secuencia operativa desde el aviso de demora" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Antes del punto:** PM prepara la carta, identifica instrucciones y EAT o aviso de demora; PF comprueba nivel, velocidad según procedimiento aplicable y capacidad de permanecer. Si falta una pieza esencial, se solicita aclaración antes de entrar.",
+              "**En espera:** ambos monitorizan la trayectoria y actualizan hora estimada, combustible disponible y opciones de alterno. Una EAT revisada modifica el plan de tiempo; no convierte el procedimiento cargado en una autorización nueva.",
+              "**Al acercarse al límite:** se informa a ATC de forma temprana la limitación operacional y se solicita una alternativa o prioridad según la situación. Las expresiones normalizadas de combustible mínimo y emergencia se utilizan solo cuando se cumplen sus criterios, no como sinónimos de una preferencia por evitar demora.",
+              "**Salida:** cuando ATC emite autorización de aproximación, ruta o nivel nuevos, se colacionan y se comprueba qué cambia en el FMS. Si la autorización de salida no llega, no se asume que la EAT la reemplaza; si hay falla de radio se aplica el procedimiento publicado correspondiente.",
+            ],
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "Espera en una llegada congestionada",
+            texto: "El PM conserva una nota breve de punto, nivel, circuito publicado o detallado, EAT y revisiones. El PF controla la trayectoria y recibe del PM actualizaciones de combustible y tiempo restante. Ambos acuerdan cuándo pedir una alternativa antes de perder margen; al recibir autorización de salida, comprueban ruta, nivel y aproximación con la carta y la selección del FMS. La decisión de desviar se rige por el operador y las normas aplicables, no por una cifra genérica de esta lección.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Entrar en una espera con punto, nivel o sentido de virajes sin confirmar.",
+            "Usar una carta distinta de la espera o transición autorizada.",
+            "No actualizar combustible y alterno tras una demora revisada.",
+          ] },
         ],
       },
       {
@@ -1166,13 +1513,19 @@ export const NIVEL_4: DocScreen[] = [
         cita: "EASA · AMC1 SERA.14001; OACI · Doc 4444",
         bloques: [
           { kind: "sub", text: "Documentos oficiales" },
-          { kind: "p", text: "Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency), Easy Access Rules for SERA, Appendix 1 to AMC1 SERA.14001, §§ 1.3.3–1.3.4, autorizaciones de espera publicada y detallada, REQUEST HOLDING INSTRUCTIONS y EAT (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). Organización de Aviación Civil Internacional (OACI; ICAO, International Civil Aviation Organization), Doc 4444 PANS-ATM, edición 16 disponible en portal oficial, definición de espera y EAT (https://www.icao.int/ESAF/Documents/meetings/2021/AFI%20ATM%20Coordination%20Meeting%202021/Presentations/4444_16ed_amend_10_highlighted.pdf). Confirmar edición y aplicación estatal vigentes." },
+          { kind: "p", text: "Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency), Easy Access Rules for SERA, Appendix 1 to AMC1 SERA.14001, §§ 1.3.3 a 1.3.4, autorizaciones de espera publicada y detallada, REQUEST HOLDING INSTRUCTIONS y EAT (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). Organización de Aviación Civil Internacional (OACI; ICAO, International Civil Aviation Organization), Doc 4444 PANS-ATM, edición 16 disponible en portal oficial, definición de espera y EAT (https://www.icao.int/ESAF/Documents/meetings/2021/AFI%20ATM%20Coordination%20Meeting%202021/Presentations/4444_16ed_amend_10_highlighted.pdf). Confirmar edición y aplicación estatal vigentes." },
           { kind: "sub", text: "Límites del material" },
           { kind: "list", items: [
             "La figura no dibuja una espera y no puede usarse como carta.",
             "La historieta y el escenario son didácticos, no transcripciones.",
             "No se prescriben velocidades, tiempos de alejamiento, combustible mínimo ni puntos locales.",
           ] },
+          {
+            kind: "callout",
+            tone: "verificar",
+            title: "La carta y la publicación estatal son indispensables",
+            text: "EASA AMC1 SERA.14001 documenta HOLD AS PUBLISHED, instrucciones detalladas de espera y frases de EAT, pero es referencia europea. Los puntos, niveles, sentidos, velocidades, entradas, duración de alejamiento y reportes exigibles en Colombia se consultan únicamente en la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica (eAIP) oficial de Aerocivil y la autorización real. Aquí no se inventa una carta de espera.",
+          },
         ],
       },
     ],
@@ -1182,11 +1535,11 @@ export const NIVEL_4: DocScreen[] = [
     n: 29,
     title: "Aterrizaje",
     kicker: "CONTINUE APPROACH no es CLEARED TO LAND",
-    minutes: 18,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "En corta final, dos expresiones pueden parecer próximas cuando la tripulación espera la pista: CONTINUE APPROACH y RUNWAY … CLEARED TO LAND. Solo la segunda contiene autorización para aterrizar. El control de tránsito aéreo (ATC, air traffic control) puede pedir continuar mientras termina una secuencia; el piloto no completa mentalmente las palabras que faltan. El piloto que monitorea (PM, pilot monitoring) comprueba distintivo y pista, y el piloto que vuela (PF, pilot flying) mantiene una trayectoria desde la que todavía puede ejecutar motor y al aire si no llega la autorización o si deja de ser seguro continuar.",
+        text: "En corta final, CONTINUE APPROACH y RUNWAY (number) CLEARED TO LAND pueden sonar parecidas a quien espera la pista. Solo la segunda autoriza a aterrizar. El piloto no completa mentalmente lo que faltó: el PM comprueba distintivo y pista, y el PF vuela de modo que todavía pueda irse al aire.",
       },
       {
         kind: "figura",
@@ -1200,10 +1553,9 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "list",
         items: [
-          "**CONTINUE APPROACH:** la fraseología EASA AMC1 SERA.14001 incluye CONTINUE APPROACH [PREPARE FOR POSSIBLE GO-AROUND]. No afirma que la pista esté autorizada para el aterrizaje. El PM mantiene en su modelo mental que la autorización está pendiente y lo comunica claramente en cabina.",
-          "**RUNWAY (number) CLEARED TO LAND:** autorización de aterrizaje para una pista identificada. La Organización de Aviación Civil Internacional (OACI; ICAO, International Civil Aviation Organization) exige colacionar las autorizaciones de aterrizaje. La pista y la autorización se repiten de manera que el controlador pueda detectar un error.",
-          "**Distintivo correcto:** en una frecuencia cargada, o con aeronaves de distintivo parecido, escuchar CLEARED TO LAND no basta: debe corresponder a la propia aeronave. Si cualquier parte es dudosa, CONFIRM o SAY AGAIN antes de asumir la autorización.",
-          "**Aproximación y aterrizaje separados:** haber sido autorizado a volar una aproximación por instrumentos no habilita automáticamente a tocar la pista. La autorización para aterrizar llega de la dependencia competente y puede emitirse más tarde.",
+          "**CONTINUE APPROACH** (EASA la trae con [PREPARE FOR POSSIBLE GO-AROUND]): seguir aproximándose; la autorización sigue pendiente y así se dice en cabina.",
+          "**RUNWAY (number) CLEARED TO LAND**: se colaciona con la pista (Doc 4444, 4.5.7.5.1), y debe ser para tu distintivo.",
+          "Estar autorizado a la aproximación no es estar autorizado a aterrizar.",
         ],
       },
       {
@@ -1214,23 +1566,9 @@ export const NIVEL_4: DocScreen[] = [
         alto: 941,
         pie: "Historieta didáctica, no transcripción: 1) el PM distingue las palabras recibidas; 2) torre coordina el uso de la pista; 3) PF y PM confirman distintivo y pista antes de anunciar en cabina que existe autorización. El aeropuerto y las pantallas son genéricos, sin frecuencia ni vuelo real.",
       },
-      { kind: "sub", text: "Secuencia en la final" },
       {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**Contacto con torre:** el PM sintoniza la frecuencia instruida, hace la llamada según el procedimiento aplicable y escucha tráfico y pista. El PF mantiene el avión estabilizado y preparado para continuar o frustrar; una transferencia de frecuencia no constituye autorización de aterrizaje.",
-          "**Instrucción de continuar:** se acusa recibo conforme al procedimiento, pero ambos pilotos mantienen explícita la falta de autorización. Se vigilan mensajes posteriores y la situación de la pista. Un aviso de viento o tráfico no cambia por sí solo el estatus de autorización.",
-          "**Autorización recibida:** se verifica distintivo, pista y expresión CLEARED TO LAND; el PM colaciona pista y autorización, y PF confirma en cabina la pista correcta. Si hay pistas paralelas o una pista cambiada, no basta reconocer la palabra land: se confronta la designación exacta con la aproximación volada.",
-          "**Autorización ausente o anulada:** se pregunta con suficiente tiempo. Si sigue ausente al punto de decisión del procedimiento normalizado de operación (SOP, Standard Operating Procedures) del explotador, o si hay instrucción GO AROUND o una condición insegura, se ejecuta motor y al aire y se comunica según la carga de trabajo. No se fija aquí una distancia universal.",
-          "**Tras el aterrizaje:** se conserva la escucha y se cumplen las instrucciones de salida de pista. El cambio a tierra se hace cuando la instrucción y la situación real lo permiten; no se abandona una frecuencia prematuramente mientras aún se ocupa la pista.",
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "verificar",
-        title: "No inventar una final local",
-        text: "Las frases citadas son de documentos oficiales EASA y OACI. Para un aeródromo colombiano se consulta exclusivamente la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica —eAIP— oficial de Aerocivil y las instrucciones reales. Esta lección no asigna pista, viento, frecuencia, punto de decisión, mínimos ni procedimiento de salida; el SOP del operador determina cuándo debe estar confirmada la autorización para continuar al aterrizaje.",
+        kind: "p",
+        text: "Si la autorización no llega, se pregunta a tiempo. Si sigue sin llegar en el punto que fija el SOP del operador, o hay una condición insegura, motor y al aire (lección 30).",
       },
       {
         kind: "escenario",
@@ -1251,23 +1589,66 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "Cabina en corta final",
-        texto: "Antes de la fase de mayor carga, PF y PM han acordado quién vigila la autorización de aterrizaje y cómo la confirman. El PM anuncia de forma inequívoca si está pendiente o recibida, colaciona pista y autorización y permanece atento a una orden de motor y al aire. El PF controla la trayectoria y mantiene la opción de frustrar. Tras tocar tierra, ambos siguen las instrucciones hasta que la pista está efectivamente libre y corresponde transferir la comunicación.",
+        texto: "PF y PM acuerdan antes quién vigila la autorización. El PM anuncia sin ambigüedad si está pendiente o recibida y la colaciona; el PF mantiene la opción de frustrar. Tras tocar tierra, se sigue en la frecuencia hasta dejar libre la pista.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "Pista, punto de decisión y frecuencias en Colombia: eAIP de Aerocivil, instrucciones reales y SOP del operador.",
       },
       { kind: "sub", text: "Errores que importan" },
       error("Oír mentalmente CLEARED TO LAND cuando torre dijo CONTINUE APPROACH."),
-      error("Colacionar una autorización de aterrizaje sin identificar la pista."),
       error("Aceptar para el propio vuelo una autorización dirigida a otro distintivo."),
-      error("Seguir al aterrizaje sin autorización porque ya existía autorización de aproximación."),
-      error("Cambiar de frecuencia antes de dejar libre la pista o antes de que la instrucción lo permita."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
           "CONTINUE APPROACH no autoriza a aterrizar.",
-          "RUNWAY … CLEARED TO LAND se verifica y se colaciona con la pista.",
-          "El distintivo debe corresponder al propio vuelo.",
-          "Sin autorización en el punto que exige el SOP, se frustra; no hay distancia única aquí.",
-          "La comunicación posterior continúa hasta salir de la pista y recibir la transferencia aplicable.",
+          "CLEARED TO LAND se verifica y se colaciona con la pista.",
+          "Sin autorización en el punto del SOP, se frustra.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "EASA AMC1 SERA.14001 1.4.15 a 1.4.16",
+        bloques: [
+          {
+            kind: "p",
+            text: "En corta final, dos expresiones pueden parecer próximas cuando la tripulación espera la pista: CONTINUE APPROACH y RUNWAY … CLEARED TO LAND. Solo la segunda contiene autorización para aterrizar. El control de tránsito aéreo (ATC, air traffic control) puede pedir continuar mientras termina una secuencia; el piloto no completa mentalmente las palabras que faltan. El piloto que monitorea (PM, pilot monitoring) comprueba distintivo y pista, y el piloto que vuela (PF, pilot flying) mantiene una trayectoria desde la que todavía puede ejecutar motor y al aire si no llega la autorización o si deja de ser seguro continuar.",
+          },
+          {
+            kind: "list",
+            items: [
+              "**CONTINUE APPROACH:** la fraseología EASA AMC1 SERA.14001 incluye CONTINUE APPROACH [PREPARE FOR POSSIBLE GO-AROUND]. No afirma que la pista esté autorizada para el aterrizaje. El PM mantiene en su modelo mental que la autorización está pendiente y lo comunica claramente en cabina.",
+              "**RUNWAY (number) CLEARED TO LAND:** autorización de aterrizaje para una pista identificada. La Organización de Aviación Civil Internacional (OACI; ICAO, International Civil Aviation Organization) exige colacionar las autorizaciones de aterrizaje. La pista y la autorización se repiten de manera que el controlador pueda detectar un error.",
+              "**Distintivo correcto:** en una frecuencia cargada, o con aeronaves de distintivo parecido, escuchar CLEARED TO LAND no basta: debe corresponder a la propia aeronave. Si cualquier parte es dudosa, CONFIRM o SAY AGAIN antes de asumir la autorización.",
+              "**Aproximación y aterrizaje separados:** haber sido autorizado a volar una aproximación por instrumentos no habilita automáticamente a tocar la pista. La autorización para aterrizar llega de la dependencia competente y puede emitirse más tarde.",
+            ],
+          },
+          { kind: "sub", text: "Secuencia en la final" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Contacto con torre:** el PM sintoniza la frecuencia instruida, hace la llamada según el procedimiento aplicable y escucha tráfico y pista. El PF mantiene el avión estabilizado y preparado para continuar o frustrar; una transferencia de frecuencia no constituye autorización de aterrizaje.",
+              "**Instrucción de continuar:** se acusa recibo conforme al procedimiento, pero ambos pilotos mantienen explícita la falta de autorización. Se vigilan mensajes posteriores y la situación de la pista. Un aviso de viento o tráfico no cambia por sí solo el estatus de autorización.",
+              "**Autorización recibida:** se verifica distintivo, pista y expresión CLEARED TO LAND; el PM colaciona pista y autorización, y PF confirma en cabina la pista correcta. Si hay pistas paralelas o una pista cambiada, no basta reconocer la palabra land: se confronta la designación exacta con la aproximación volada.",
+              "**Autorización ausente o anulada:** se pregunta con suficiente tiempo. Si sigue ausente al punto de decisión del procedimiento normalizado de operación (SOP, Standard Operating Procedures) del explotador, o si hay instrucción GO AROUND o una condición insegura, se ejecuta motor y al aire y se comunica según la carga de trabajo. No se fija aquí una distancia universal.",
+              "**Tras el aterrizaje:** se conserva la escucha y se cumplen las instrucciones de salida de pista. El cambio a tierra se hace cuando la instrucción y la situación real lo permiten; no se abandona una frecuencia prematuramente mientras aún se ocupa la pista.",
+            ],
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "Cabina en corta final",
+            texto: "Antes de la fase de mayor carga, PF y PM han acordado quién vigila la autorización de aterrizaje y cómo la confirman. El PM anuncia de forma inequívoca si está pendiente o recibida, colaciona pista y autorización y permanece atento a una orden de motor y al aire. El PF controla la trayectoria y mantiene la opción de frustrar. Tras tocar tierra, ambos siguen las instrucciones hasta que la pista está efectivamente libre y corresponde transferir la comunicación.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Colacionar una autorización de aterrizaje sin identificar la pista.",
+            "Seguir al aterrizaje sin autorización porque ya existía autorización de aproximación.",
+            "Cambiar de frecuencia antes de dejar libre la pista o antes de que la instrucción lo permita.",
+          ] },
         ],
       },
       {
@@ -1276,13 +1657,19 @@ export const NIVEL_4: DocScreen[] = [
         cita: "EASA · AMC1 SERA.14001; OACI · Doc 4444",
         bloques: [
           { kind: "sub", text: "Documentos oficiales" },
-          { kind: "p", text: "Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency), Easy Access Rules for SERA, Appendix 1 to AMC1 SERA.14001, §§ 1.4.15–1.4.16, CONTINUE APPROACH y RUNWAY (number) CLEARED TO LAND (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). OACI, Doc 4444 PANS-ATM, edición 16 disponible en portal oficial, § 4.5.7.5.1 sobre colación de autorizaciones de aterrizaje (https://www.icao.int/ESAF/Documents/meetings/2021/AFI%20ATM%20Coordination%20Meeting%202021/Presentations/4444_16ed_amend_10_highlighted.pdf). Verificar edición y aplicación estatal vigentes." },
+          { kind: "p", text: "Agencia de la Unión Europea para la Seguridad Aérea (EASA, European Union Aviation Safety Agency), Easy Access Rules for SERA, Appendix 1 to AMC1 SERA.14001, §§ 1.4.15 a 1.4.16, CONTINUE APPROACH y RUNWAY (number) CLEARED TO LAND (https://www.easa.europa.eu/en/document-library/easy-access-rules/online-publications/easy-access-rules-standardised-european?erules-id=ERULES-1963177438-10299). OACI, Doc 4444 PANS-ATM, edición 16 disponible en portal oficial, § 4.5.7.5.1 sobre colación de autorizaciones de aterrizaje (https://www.icao.int/ESAF/Documents/meetings/2021/AFI%20ATM%20Coordination%20Meeting%202021/Presentations/4444_16ed_amend_10_highlighted.pdf). Verificar edición y aplicación estatal vigentes." },
           { kind: "sub", text: "Límites del material" },
           { kind: "list", items: [
             "La figura no representa distancias o una pista operativa.",
             "La historieta y el escenario son didácticos, no una transcripción.",
             "No se fija un punto universal de motor y al aire por falta de autorización.",
           ] },
+          {
+            kind: "callout",
+            tone: "verificar",
+            title: "No inventar una final local",
+            text: "Las frases citadas son de documentos oficiales EASA y OACI. Para un aeródromo colombiano se consulta exclusivamente la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica (eAIP) oficial de Aerocivil y las instrucciones reales. Esta lección no asigna pista, viento, frecuencia, punto de decisión, mínimos ni procedimiento de salida; el SOP del operador determina cuándo debe estar confirmada la autorización para continuar al aterrizaje.",
+          },
         ],
       },
     ],
@@ -1292,11 +1679,11 @@ export const NIVEL_4: DocScreen[] = [
     n: 30,
     title: "Motor y al aire",
     kicker: "GO AROUND, trayectoria y primera comunicación",
-    minutes: 19,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "Motor y al aire interrumpe el aterrizaje o la aproximación para volver a una trayectoria segura. Puede ordenarlo el control de tránsito aéreo (ATC, air traffic control) o decidirlo la tripulación. En los primeros segundos importan el control del avión, la navegación aplicable y la coordinación interna; la comunicación por radio es breve y llega cuando la carga de trabajo lo permite. No se improvisa un rumbo o una altitud con base en una historieta: se vuela el procedimiento publicado o la instrucción válida para ese caso.",
+        text: "Motor y al aire interrumpe la aproximación o el aterrizaje para volver a una trayectoria segura. Lo ordena ATC o lo decide la tripulación. En los primeros segundos mandan el control del avión y la navegación; la radio es breve y llega cuando la carga de trabajo lo permite.",
       },
       {
         kind: "figura",
@@ -1308,11 +1695,11 @@ export const NIVEL_4: DocScreen[] = [
       },
       { kind: "sub", text: "Dos maneras de iniciar la maniobra" },
       {
-        kind: "list",
+        kind: "kv",
         items: [
-          "**Orden de ATC:** GO AROUND exige actuar sin demora. La frase GO AROUND para el controlador y GOING AROUND para el piloto figuran en EASA AMC1 SERA.14001. La respuesta no debe retrasar la acción física ni una corrección urgente de trayectoria.",
-          "**Decisión de la tripulación:** puede deberse a falta de referencias visuales requeridas, aproximación no estabilizada, ausencia de autorización de aterrizaje según el procedimiento del operador, pista insegura, cizalladura u otra condición que impida continuar con seguridad. El piloto que vuela (PF, pilot flying) anuncia la maniobra en cabina y la ejecuta; el piloto que monitorea (PM, pilot monitoring) apoya y transmite GOING AROUND cuando es oportuno.",
-          "**Razón después de estabilizar:** si ATC necesita conocerla, el PM la comunica en lenguaje claro y breve una vez atendidas las tareas inmediatas. No se consume la radio con una explicación larga mientras se configura el avión o se resuelve una trayectoria crítica.",
+          { k: "GO AROUND (ATC)", v: "Se actúa sin demora; la respuesta no retrasa la maniobra." },
+          { k: "GOING AROUND (piloto)", v: "Lo dice el PM cuando es oportuno, si la tripulación decidió frustrar (sin referencias, no estabilizada, sin autorización de aterrizaje, pista insegura, cizalladura)." },
+          { k: "Motivo", v: "Se da después, breve y en lenguaje claro, si ATC lo necesita." },
         ],
       },
       {
@@ -1323,22 +1710,9 @@ export const NIVEL_4: DocScreen[] = [
         alto: 941,
         pie: "Historieta didáctica, no registro de un suceso: 1) torre detecta una condición que impide continuar; 2) PF inicia motor y al aire y mantiene control; 3) PM informa por radio cuando la aeronave está estabilizada. La pista, la cabina y los instrumentos son genéricos.",
       },
-      { kind: "sub", text: "Secuencia PF–PM y ATC" },
       {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**Acción inmediata:** PF aplica la técnica de motor y al aire de la aeronave, controla actitud y trayectoria, y hace los llamados de cabina previstos por su procedimiento normalizado de operación (SOP, Standard Operating Procedures). PM verifica el estado de vuelo y apoya la configuración. Ninguna llamada externa sustituye estas acciones.",
-          "**Navegación posterior:** ambos identifican si rige la aproximación frustrada publicada o si ATC ha dado una instrucción distinta válida. Se confirman nivel, rumbo y cualquier limitación que requiera colación. La trayectoria no se deduce de una frase vaga ni de un ejemplo inventado.",
-          "**Primera comunicación:** si la tripulación inició la maniobra, el PM comunica GOING AROUND con su distintivo cuando la carga lo permite. Si ATC la ordenó, acusa la instrucción de forma breve. Una respuesta corta no significa que pueda omitirse la colación de un nuevo rumbo o nivel posterior.",
-          "**Nuevo sector o nueva tentativa:** al transferirse, el PM prepara un primer contacto con nivel actual, nivel autorizado, rumbo o procedimiento seguido y necesidad operativa relevante. PF mantiene el avión estabilizado; la elección de volver a intentar, esperar o desviarse se hace con combustible, meteorología, causa de la frustrada y autorizaciones reales.",
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "verificar",
-        title: "La frustrada concreta no se inventa",
-        text: "Para Colombia, la trayectoria, altitudes, restricciones y comunicaciones se verifican exclusivamente en la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica —eAIP— oficial de Aerocivil, la carta vigente y la autorización real. Esta lección no asigna una pista, una ruta frustrada, una frecuencia o un nivel de seguridad. Los criterios de aproximación estabilizada y configuración proceden además del SOP del explotador.",
+        kind: "p",
+        text: "Después se vuela la frustrada publicada o la instrucción distinta que dé ATC. Haber dicho GOING AROUND no exime de colacionar el rumbo o nivel nuevos (lección 12).",
       },
       {
         kind: "escenario",
@@ -1359,23 +1733,64 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "enLaOperacion",
         momento: "Después del ascenso inicial",
-        texto: "Una vez estabilizado el avión, PF y PM confirman juntos configuración, trayectoria, altitud o nivel y tareas pendientes. PM comunica si el motor y al aire fue iniciado por la tripulación, colaciona instrucciones nuevas y prepara el primer contacto con la dependencia siguiente. El briefing de otra aproximación o desvío se realiza con carga de trabajo controlada; la tripulación no da por hecho que una autorización anterior sigue vigente después de una instrucción nueva.",
+        texto: "Con el avión estabilizado, PF y PM confirman configuración, trayectoria y nivel. El PM colaciona las instrucciones nuevas y prepara el primer contacto con la siguiente dependencia. El nuevo intento o el desvío se decide con combustible, meteorología y la causa de la frustrada.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        text: "La frustrada de cada pista en Colombia está en la eAIP de Aerocivil y la carta vigente; no se deduce de esta lección.",
       },
       { kind: "sub", text: "Errores que importan" },
       error("Retrasar la maniobra para explicar por radio por qué se frustró."),
-      error("Suponer que ATC siempre dará rumbo y nivel antes de que haya que volar la trayectoria aplicable."),
-      error("Ignorar un rumbo o nivel nuevo al seguir ciegamente el FMS."),
       error("No colacionar la instrucción posterior porque ya se respondió GOING AROUND."),
-      error("Iniciar una segunda aproximación sin revisar causa, combustible y nueva autorización."),
       {
         kind: "summary",
         title: "En pocas palabras",
         items: [
-          "GO AROUND es instrucción ATC; GOING AROUND informa la acción del piloto.",
-          "La tripulación también puede decidir motor y al aire por seguridad.",
-          "Se prioriza volar y navegar; la radio sigue cuando es seguro.",
-          "La trayectoria concreta sale de carta e instrucciones aplicables, no de este dibujo.",
-          "Nuevos rumbos, niveles y transferencias se verifican y colacionan.",
+          "GO AROUND es instrucción de ATC; GOING AROUND informa la acción del piloto.",
+          "Primero volar y navegar; la radio, cuando sea seguro.",
+          "Rumbos, niveles y transferencias nuevas se colacionan.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Más detalle",
+        cita: "EASA AMC1 SERA.14001 1.4.18",
+        bloques: [
+          {
+            kind: "p",
+            text: "Motor y al aire interrumpe el aterrizaje o la aproximación para volver a una trayectoria segura. Puede ordenarlo el control de tránsito aéreo (ATC, air traffic control) o decidirlo la tripulación. En los primeros segundos importan el control del avión, la navegación aplicable y la coordinación interna; la comunicación por radio es breve y llega cuando la carga de trabajo lo permite. No se improvisa un rumbo o una altitud con base en una historieta: se vuela el procedimiento publicado o la instrucción válida para ese caso.",
+          },
+          {
+            kind: "list",
+            items: [
+              "**Orden de ATC:** GO AROUND exige actuar sin demora. La frase GO AROUND para el controlador y GOING AROUND para el piloto figuran en EASA AMC1 SERA.14001. La respuesta no debe retrasar la acción física ni una corrección urgente de trayectoria.",
+              "**Decisión de la tripulación:** puede deberse a falta de referencias visuales requeridas, aproximación no estabilizada, ausencia de autorización de aterrizaje según el procedimiento del operador, pista insegura, cizalladura u otra condición que impida continuar con seguridad. El piloto que vuela (PF, pilot flying) anuncia la maniobra en cabina y la ejecuta; el piloto que monitorea (PM, pilot monitoring) apoya y transmite GOING AROUND cuando es oportuno.",
+              "**Razón después de estabilizar:** si ATC necesita conocerla, el PM la comunica en lenguaje claro y breve una vez atendidas las tareas inmediatas. No se consume la radio con una explicación larga mientras se configura el avión o se resuelve una trayectoria crítica.",
+            ],
+          },
+          { kind: "sub", text: "Secuencia PF, PM y ATC" },
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "**Acción inmediata:** PF aplica la técnica de motor y al aire de la aeronave, controla actitud y trayectoria, y hace los llamados de cabina previstos por su procedimiento normalizado de operación (SOP, Standard Operating Procedures). PM verifica el estado de vuelo y apoya la configuración. Ninguna llamada externa sustituye estas acciones.",
+              "**Navegación posterior:** ambos identifican si rige la aproximación frustrada publicada o si ATC ha dado una instrucción distinta válida. Se confirman nivel, rumbo y cualquier limitación que requiera colación. La trayectoria no se deduce de una frase vaga ni de un ejemplo inventado.",
+              "**Primera comunicación:** si la tripulación inició la maniobra, el PM comunica GOING AROUND con su distintivo cuando la carga lo permite. Si ATC la ordenó, acusa la instrucción de forma breve. Una respuesta corta no significa que pueda omitirse la colación de un nuevo rumbo o nivel posterior.",
+              "**Nuevo sector o nueva tentativa:** al transferirse, el PM prepara un primer contacto con nivel actual, nivel autorizado, rumbo o procedimiento seguido y necesidad operativa relevante. PF mantiene el avión estabilizado; la elección de volver a intentar, esperar o desviarse se hace con combustible, meteorología, causa de la frustrada y autorizaciones reales.",
+            ],
+          },
+          {
+            kind: "enLaOperacion",
+            momento: "Después del ascenso inicial",
+            texto: "Una vez estabilizado el avión, PF y PM confirman juntos configuración, trayectoria, altitud o nivel y tareas pendientes. PM comunica si el motor y al aire fue iniciado por la tripulación, colaciona instrucciones nuevas y prepara el primer contacto con la dependencia siguiente. El briefing de otra aproximación o desvío se realiza con carga de trabajo controlada; la tripulación no da por hecho que una autorización anterior sigue vigente después de una instrucción nueva.",
+          },
+          { kind: "sub", text: "Otros errores frecuentes" },
+          { kind: "list", items: [
+            "Suponer que ATC siempre dará rumbo y nivel antes de que haya que volar la trayectoria aplicable.",
+            "Ignorar un rumbo o nivel nuevo al seguir ciegamente el FMS.",
+            "Iniciar una segunda aproximación sin revisar causa, combustible y nueva autorización.",
+          ] },
         ],
       },
       {
@@ -1391,6 +1806,12 @@ export const NIVEL_4: DocScreen[] = [
             "La historieta y el escenario son didácticos, no transcripciones.",
             "No se prescribe técnica específica de aeronave, pista, altitud ni criterio universal de estabilización.",
           ] },
+          {
+            kind: "callout",
+            tone: "verificar",
+            title: "La frustrada concreta no se inventa",
+            text: "Para Colombia, la trayectoria, altitudes, restricciones y comunicaciones se verifican exclusivamente en la Publicación de Información Aeronáutica (AIP, Aeronautical Information Publication) electrónica (eAIP) oficial de Aerocivil, la carta vigente y la autorización real. Esta lección no asigna una pista, una ruta frustrada, una frecuencia o un nivel de seguridad. Los criterios de aproximación estabilizada y configuración proceden además del SOP del explotador.",
+          },
         ],
       },
     ],

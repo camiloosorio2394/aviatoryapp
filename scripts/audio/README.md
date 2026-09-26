@@ -3,7 +3,7 @@
 El manifiesto es `contenido/audio/comunicaciones.json`. Cada transmisión:
 
 ```json
-{ "id": "cm-ej-squawk-6402", "texto": "Aviatory four five two, squawk six four zero two.", "voz": "atc_latam", "perfil": "limpia" }
+{ "id": "cm-ej-squawk-6402", "texto": "Avianca four five two, squawk six four zero two.", "voz": "atc_latam", "perfil": "limpia" }
 ```
 
 - `id`: minúsculas, cifras y guiones. **Es el nombre del archivo.**

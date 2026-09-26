@@ -71,7 +71,7 @@ describe("render básico de los diez ejercicios", () => {
   it.each([
     ["CopiaAutorizacion", () => <CopiaAutorizacion item={CM_COPIA[0]} reproductor={reproductorMudo()} />, "Copia la autorización"],
     ["ReadbackVoz", () => <ReadbackVoz item={CM_READBACK[0]} reproductor={reproductorMudo()} />, "Escucha y colaciona"],
-    ["EsParaMi", () => <EsParaMi item={CM_ES_PARA_MI[0]} reproductor={reproductorMudo()} />, "AVIATORY 452"],
+    ["EsParaMi", () => <EsParaMi item={CM_ES_PARA_MI[0]} reproductor={reproductorMudo()} />, "AVIANCA 452"],
     ["Hearback", () => <Hearback item={CM_HEARBACK[0]} reproductor={reproductorMudo()} />, "eres el PM"],
     ["QueRespondes", () => <QueRespondes item={CM_QUE_RESPONDES[0]} reproductor={reproductorMudo()} />, "Unable to expedite"],
     ["Desarmala", () => <Desarmala item={CM_DESARMALA[1]} reproductor={reproductorMudo()} />, "SIGUIENTE ACCIÓN"],

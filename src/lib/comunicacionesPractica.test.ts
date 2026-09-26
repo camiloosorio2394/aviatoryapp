@@ -51,7 +51,7 @@ describe("2. Readback con la voz", () => {
     const ej = CM_READBACK[1]
     const r = calificarReadback(
       ej,
-      "descending to four thousand feet QNH one zero zero fife transition level fife zero expecting ILS approach runway two four Aviatory four five two",
+      "descending to four thousand feet QNH one zero zero fife transition level fife zero expecting ILS approach runway two four Avianca four five two",
     )
     expect(r.faltan).toEqual([])
   })
@@ -61,11 +61,11 @@ describe("2. Readback con la voz", () => {
     expect(r.faltan).toEqual(["qnh", "transicion", "distintivo"])
   })
   it("un número equivocado no cuenta como presente", () => {
-    const r = calificarReadback(CM_READBACK[0], "six four zero three Aviatory four five two")
+    const r = calificarReadback(CM_READBACK[0], "six four zero three Avianca four five two")
     expect(r.faltan).toEqual(["squawk"])
   })
   it("acepta lo que devuelve el reconocedor en cifras", () => {
-    const r = calificarReadback(CM_READBACK[2], "holding point runway 27 QNH 1019 giving way Aviatory 452")
+    const r = calificarReadback(CM_READBACK[2], "holding point runway 27 QNH 1019 giving way Avianca 452")
     expect(r.faltan).toEqual([])
   })
 })
@@ -297,7 +297,7 @@ describe("guion completo", () => {
         case "esParaMi":
           expect(ej.transmisiones.some((t) => t.paraMi)).toBe(true)
           expect(ej.transmisiones.some((t) => !t.paraMi)).toBe(true)
-          for (const t of ej.transmisiones) expect(t.transmision.texto.startsWith("Aviatory four five two,")).toBe(t.paraMi)
+          for (const t of ej.transmisiones) expect(t.transmision.texto.startsWith("Avianca four five two,")).toBe(t.paraMi)
           break
         case "panel":
           expect(Object.keys(ej.objetivo).length).toBeGreaterThan(0)

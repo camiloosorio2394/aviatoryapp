@@ -25,9 +25,9 @@ describe("normalizarHablado: números dichos en palabras", () => {
   })
 
   it("una colación entera", () => {
-    expect(normalizarHablado("Flight level two four zero, Aviatory four five two")).toBe("fl 240 aviatory 452")
-    expect(normalizarHablado("FL240 AVIATORY 452")).toBe("fl 240 aviatory 452")
-    expect(normalizarHablado("Squawk six four zero two, Aviatory four five two.")).toBe("squawk 6402 aviatory 452")
+    expect(normalizarHablado("Flight level two four zero, Avianca four five two")).toBe("fl 240 avianca 452")
+    expect(normalizarHablado("FL240 AVIANCA 452")).toBe("fl 240 avianca 452")
+    expect(normalizarHablado("Squawk six four zero two, Avianca four five two.")).toBe("squawk 6402 avianca 452")
   })
 
   it("«to» y «for» son palabras salvo en medio de un número", () => {

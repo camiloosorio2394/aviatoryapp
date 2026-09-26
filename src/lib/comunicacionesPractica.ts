@@ -142,7 +142,7 @@ export function calificarReadback(ej: EjReadback, dicho: string): ResultadoReadb
 
 export interface EjEsParaMi extends EjercicioBase {
   tipo: "esParaMi"
-  /** Tu distintivo, tal como se escribe: «AVIATORY 452». */
+  /** Tu distintivo, tal como se escribe: «AVIANCA 452». */
   distintivo: string
   transmisiones: { transmision: Transmision; paraMi: boolean }[]
   explicacion: string
